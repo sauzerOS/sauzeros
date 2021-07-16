@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+# Systray patch
+patch -Np1 -i dwm-systray-6.2.diff
+
+# Autostart patch
+patch -Np1 -i dwm-autostart-20161205-bb3bd6f.diff
+
+# Amend install path to '/usr'.
+sed -i'' "s#/usr/local#/usr#" config.mk
+
+# Remove pixel gap.
+#sed -i'' "s/static const int resizehints = 1/static const int resizehints = 0/" config.def.h
+
+# Amend window resize keys
+#sed "s/XK_l/XK_x/" -i config.def.h
+#sed "s/XK_h/XK_z/" -i config.def.h
+
+# Firefox opens in first desktop
+#sed 's/"Firefox",  NULL,       NULL,       1 << 8/"Firefox",  NULL, NULL,       1 << 0/' -i config.def.h
+
+make
+make DESTDIR="$1" install

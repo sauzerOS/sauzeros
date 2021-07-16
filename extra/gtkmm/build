@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+mkdir gtkmm3-build
+cd    gtkmm3-build
+
+meson --prefix=/usr ..
+ninja
+DESTDIR=$1 ninja install

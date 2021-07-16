@@ -1,0 +1,16 @@
+files/crypttab
+files/fstab
+files/group
+files/host.conf
+files/hosts
+files/inputrc
+files/issue
+files/locale.conf
+files/mime.types
+files/nanorc
+files/os-release
+files/passwd
+files/profile
+files/resolv.conf
+files/securetty
+files/shells

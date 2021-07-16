@@ -1,0 +1,5 @@
+intltool make
+gettext make
+gtkmm
+libcanberra
+pulseaudio

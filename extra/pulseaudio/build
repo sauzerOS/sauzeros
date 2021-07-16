@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --disable-bluez5     \
+            --enable-x11         \
+            --disable-rpath
+
+make
+make DESTDIR="$1" install
+
+cp src/start-pulseaudio-x11 "$1/usr/bin/"
+
+# Remove systemwide conf
+rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"
+
+# Remove all info files.
+rm -rf "$1/usr/share/info"
+
+# Remove docs.
+rm -rf "$1/usr/share/doc"

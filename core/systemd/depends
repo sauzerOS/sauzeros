@@ -1,0 +1,10 @@
+dbus
+linux-pam
+gnu-efi
+gperf
+jinja2
+kmod
+libcap
+meson
+pkgconf
+shadow

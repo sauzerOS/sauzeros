@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+patch -Np1 -i st-scrollback-0.8.4.diff
+patch -Np1 -i st-alpha-0.8.2.diff
+
+# Install terminfo to right location.
+export TERMINFO=$1/usr/share/terminfo
+mkdir -p "$TERMINFO"
+
+make
+make PREFIX=/usr DESTDIR="$1" install

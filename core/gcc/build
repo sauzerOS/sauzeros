@@ -1,0 +1,55 @@
+#!/bin/sh -e
+
+#linux 5.13 fix
+patch -Np1 -i gcc-11.1.0-upstream_fixes-1.patch
+
+# Use lib not lib64 by default.
+sed -i '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
+sed -i 's/lib64/lib/' gcc/config/i386/linux64.h
+
+# Build must happen outside of gcc source.
+mkdir -p gcc-build
+cd gcc-build
+
+../configure \
+    --prefix=/usr \
+    --libexecdir=/usr/lib \
+    --mandir=/usr/share/man \
+    --infodir=/usr/share/info \
+    --disable-multilib \
+    --disable-werror \
+    --enable-__cxa_atexit \
+    --enable-default-pie \
+    --enable-default-ssp \
+    --enable-shared \
+    --enable-threads \
+    --enable-tls \
+    --enable-languages=c,c++ \
+    --enable-checking=release \
+    --enable-initfini-array \
+    --without-included-gettext \
+    --with-system-zlib \
+    --build=x86_64-pc-linux-gnu \
+    --disable-bootstrap
+
+make
+make DESTDIR="$1" install
+
+# Save 35MB.
+find "$1" -name libgtkpeer.a  -exec rm -f {} +
+find "$1" -name libgjsmalsa.a -exec rm -f {} +
+find "$1" -name libgij.a      -exec rm -f {} +
+
+# Some legacy programs will expect cc
+ln -s gcc "$1/usr/bin/cc"
+
+# POSIX compliance.
+install -Dm755 ../c99 "$1/usr/bin/c99"
+
+# Symlink for LTO.
+{
+    mkdir -p "$1/usr/lib/bfd-plugins"
+
+    ln -s "/usr/lib/gcc/x86_64-pc-linux-gnu/$2/liblto_plugin.so" \
+          "$1/usr/lib/bfd-plugins/liblto_plugin.so"
+}

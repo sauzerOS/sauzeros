@@ -1,0 +1,13 @@
+alsa-lib
+check make
+dbus
+gdbm
+gettext make
+glib
+libcap
+libtool make
+libsndfile
+libSM
+libxcb
+libXtst
+xml-parser make

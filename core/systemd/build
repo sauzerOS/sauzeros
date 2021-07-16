@@ -1,0 +1,43 @@
+#!/bin/sh -e
+
+sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
+
+#reduce shutdown timeout to 30s
+sed -i 's/TimeoutSec=5min/TimeoutSec=30s/g' src/sysv-generator/sysv-generator.c
+
+mkdir -p build
+cd       build
+
+LANG=en_US.UTF-8 \
+meson --prefix=/usr                \
+      --sysconfdir=/etc            \
+      --localstatedir=/var         \
+      -Dblkid=true                 \
+      -Dbuildtype=release          \
+      -Ddefault-dnssec=no          \
+      -Ddefault-dns-over-tls=yes   \
+      -Dfirstboot=false            \
+      -Dinstall-tests=false        \
+      -Dldconfig=false             \
+      -Dsysusers=false             \
+      -Db_lto=false                \
+      -Dhomed=false                \
+      -Duserdb=false               \
+      -Ddns-servers="1.1.1.1 8.8.8.8" \
+      -Dgnu-efi=true               \
+      -Dmode=release               \
+      -Dman=false		   \
+      -Doomd=false		   \
+      -Dpamconfdir=/etc/pam.d      \
+      ..
+
+LANG=en_US.UTF-8 ninja
+LANG=en_US.UTF-8 DESTDIR="$1" ninja install
+
+install -v -m755 -d "$1/etc/pam.d"
+install -v -m644 ../system-session "$1/etc/pam.d/system-session"
+install -v -m644 ../systemd-user "$1/etc/pam.d/systemd-user"
+
+install -v -m755 -d "$1/etc/systemd/network"
+install -v -m644 ../20-wired.network "$1/etc/systemd/network/20-wired.network"
+install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.network"

@@ -1,0 +1,8 @@
+at-spi2-atk
+cups
+nss
+alsa-lib
+libXcomposite
+libxkbcommon
+pango
+gtk+3

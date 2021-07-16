@@ -1,0 +1,4 @@
+https://dl.suckless.org/dwm/dwm-6.2.tar.gz
+https://dwm.suckless.org/patches/systray/dwm-systray-6.2.diff
+https://dwm.suckless.org/patches/autostart/dwm-autostart-20161205-bb3bd6f.diff
+files/config.def.h

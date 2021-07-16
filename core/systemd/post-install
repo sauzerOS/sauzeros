@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+#switch to systemd file from linux-pam
+kiss a systemd /etc/pam.d/system-session
+
+systemd-machine-id-setup
+systemctl preset-all
