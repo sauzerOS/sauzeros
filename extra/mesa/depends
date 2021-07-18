@@ -3,6 +3,9 @@ expat
 flex  make
 libdrm
 libelf
+libXfixes
+libxshmfence
+libXxf86vm
 linux-headers make
 llvm
 m4 make

@@ -6,6 +6,7 @@ gdk-pixbuf
 glib
 libepoxy
 libxkbcommon
+libXi
 meson   make
 pango
 pkgconf make
