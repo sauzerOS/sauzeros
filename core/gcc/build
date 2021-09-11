@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-#linux 5.13 fix
-patch -Np1 -i gcc-11.1.0-upstream_fixes-1.patch
-
 # Use lib not lib64 by default.
 sed -i '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
 sed -i 's/lib64/lib/' gcc/config/i386/linux64.h

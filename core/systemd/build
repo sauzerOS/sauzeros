@@ -5,6 +5,8 @@ sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
 #reduce shutdown timeout to 30s
 sed -i 's/TimeoutSec=5min/TimeoutSec=30s/g' src/sysv-generator/sysv-generator.c
 
+patch -Np1 -i systemd-249-upstream_fixes-1.patch
+
 mkdir -p build
 cd       build
 

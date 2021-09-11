@@ -1,0 +1,17 @@
+#!/bin/sh -ef
+#
+# Intentional, globbing disabled.
+# shellcheck disable=2086
+
+make 
+
+mkdir -p \
+    "$DESTDIR/usr/bin" \
+    "$DESTDIR/usr/share/man/man1"
+
+cp  -f pigz   "$DESTDIR/usr/bin"
+ln -sf pigz   "$DESTDIR/usr/bin/gzip"
+ln -sf pigz   "$DESTDIR/usr/bin/gunzip"
+ln -sf pigz   "$DESTDIR/usr/bin/zcat"
+cp  -f pigz.1 "$DESTDIR/usr/share/man/man1"
+ln -sf pigz.1 "$DESTDIR/usr/share/man/man1/gzip.1"

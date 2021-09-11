@@ -1,4 +1,5 @@
 https://github.com/systemd/systemd/archive/v249/systemd-249.tar.gz
+https://www.linuxfromscratch.org/patches/lfs/development/systemd-249-upstream_fixes-1.patch
 files/system-session
 files/systemd-user
 files/20-wired.network
