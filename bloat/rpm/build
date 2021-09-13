@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+	    --enable-python \
+            --without-lua \
+	    --enable-bdb=off
+
+make
+make DESTDIR=$1 install

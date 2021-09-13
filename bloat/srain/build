@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr -Ddoc_builders=[] ..
+ninja
+DESTDIR=$1 ninja install

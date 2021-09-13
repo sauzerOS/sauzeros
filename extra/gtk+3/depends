@@ -2,6 +2,7 @@ atk
 cairo
 fontconfig
 freetype-harfbuzz
+fribidi
 gdk-pixbuf
 glib
 libepoxy
