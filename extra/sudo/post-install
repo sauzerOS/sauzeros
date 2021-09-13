@@ -17,3 +17,5 @@ Defaults timestamp_timeout=10
 # alone with no input for too long.
 Defaults passwd_timeout=0
 EOF
+
+chmod u+s /usr/bin/sudo

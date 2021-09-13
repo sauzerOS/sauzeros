@@ -8,4 +8,5 @@ NOTE: Mesa + amdgpu requires CHECKPOINT_RESTORE be enabled
 
       CONFIG_CHECKPOINT_RESTORE=y
 
+      ** rebuild libglvnd and libva if required **
 EOF

@@ -45,6 +45,9 @@ meson \
     --localstatedir=/var \
     --buildtype=release \
     -Dplatforms=auto \
+    -Dgallium-drivers=auto \
+    -Ddri-drivers=auto \
+    -Dvalgrind=disabled \
     -Dglvnd="${glvnd_enabled:-false}" \
     . output
 

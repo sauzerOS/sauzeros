@@ -1,0 +1,12 @@
+alsa-lib
+ffmpeg
+freetype-harfbuzz
+libass
+linux-headers make
+libXScrnSaver
+mesa
+pkgconf make
+python  make
+wayland
+wayland-protocols make
+xrandr
