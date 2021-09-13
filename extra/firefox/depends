@@ -19,6 +19,8 @@ libpng
 libvpx
 libXt
 libXcursor
+libXdamage
+libXcomposite
 llvm          make
 m4            make
 mesa
