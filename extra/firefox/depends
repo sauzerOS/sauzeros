@@ -28,6 +28,7 @@ pango
 perl          make
 pixman
 pkgconf       make
+pulseaudio
 python        make
 rust          make
 wayland
