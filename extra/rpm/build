@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+	    --enable-python \
+            --without-lua \
+	    --enable-bdb=off
+
+cd python
+python setup.py install --root="$1/" --optimize=1
+cd ..
+
+make
+make DESTDIR=$1 install
