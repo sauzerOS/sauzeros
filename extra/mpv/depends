@@ -4,6 +4,7 @@ freetype-harfbuzz
 libass
 linux-headers make
 libXScrnSaver
+luajit
 mesa
 pkgconf make
 python  make

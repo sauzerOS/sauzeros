@@ -1,0 +1,7 @@
+cairo
+libnl
+xcb-util-cursor
+xcb-util-image
+xcb-util-xrm
+xcb-util-wm
+

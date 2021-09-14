@@ -35,4 +35,5 @@ libxshmfence
 mesa
 pango
 pixman
+shared-mime-info
 xfconf

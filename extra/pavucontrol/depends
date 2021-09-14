@@ -1,5 +1,6 @@
 intltool make
 gettext make
 gtkmm
+json-glib
 libcanberra
 pulseaudio

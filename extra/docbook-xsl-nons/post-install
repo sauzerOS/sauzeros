@@ -1,9 +1,13 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [[ -f "/etc/xml/catalog" ]] ; then
 
 sed -i '/rewrite/d' /etc/xml/catalog
+
+else
+sudo mkdir -pv /etc/xml/
 fi
+
 
 xmlcatalog --noout --create /etc/xml/catalog
 
