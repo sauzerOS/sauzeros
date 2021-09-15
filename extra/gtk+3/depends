@@ -1,4 +1,5 @@
 atk
+at-spi2-atk
 cairo
 fontconfig
 freetype-harfbuzz

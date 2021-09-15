@@ -1,16 +1,5 @@
 #!/bin/sh -e
 
-# Remove configure check for atk-bridge and fribidi.
-sed -e 's/\(ATK_PACKAGES="atk\) atk-bridge-2.0"/\1"/' \
-    configure > _
-mv -f _ configure
-chmod +x configure
-
-# Remove atk-bridge code.
-sed '/<atk-bridge.h>/d;/atk_bridge_adaptor_init/d' \
-    gtk/a11y/gtkaccessibility.c > _
-mv -f _ gtk/a11y/gtkaccessibility.c
-
 # Don't build GTK examples/demos/testsuite.
 sed 's/demos tests testsuite examples//;s/docs \(m4macros\)/\1/' Makefile.in > _
 mv -f _ Makefile.in
