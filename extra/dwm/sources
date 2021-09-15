@@ -1,2 +1,2 @@
-files/dwm-git.tar.xz
+git+https://github.com/fanboimsft/dwm
 files/dwm.desktop
