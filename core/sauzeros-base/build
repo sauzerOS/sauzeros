@@ -58,7 +58,7 @@ for f in crypttab ; do
 done
 
 for f in init-repos.sh ; do
-    install -m 644 "$f" "$1/repo"
+    install -m 755 "$f" "$1/usr/bin"
 done
 
 ln -s /proc/self/mounts "$1/etc/mtab"
