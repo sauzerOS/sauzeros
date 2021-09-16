@@ -3,6 +3,8 @@ expat
 flex  make
 libdrm
 libelf
+libva
+libvdpau
 libXfixes
 libxshmfence
 libXxf86vm

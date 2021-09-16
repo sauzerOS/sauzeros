@@ -46,6 +46,10 @@ meson \
     --buildtype=release \
     -Dplatforms=auto \
     -Dgallium-drivers=auto \
+    -Dgallium-xa=enabled \
+    -Dgallium-va=enabled \
+    -Dgallium-vdpau=enabled \
+    -Dgallium-nine=true \
     -Ddri-drivers=auto \
     -Dvalgrind=disabled \
     -Dglvnd="${glvnd_enabled:-false}" \
