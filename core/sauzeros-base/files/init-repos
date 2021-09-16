@@ -1,0 +1,5 @@
+#!/bin/sh
+
+git clone https://github.com/sauzeros/repo /repo/sauzeros
+git clone https://github.com/kisslinux/repo /repo/kiss
+git clone https://github.com/kiss-community/community /repo/community

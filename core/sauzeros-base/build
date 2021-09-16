@@ -57,7 +57,7 @@ for f in crypttab ; do
     install -m 600 "$f" "$1/etc"
 done
 
-for f in init-repos.sh ; do
+for f in init-repos ; do
     install -m 755 "$f" "$1/usr/bin"
 done
 

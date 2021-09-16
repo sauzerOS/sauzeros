@@ -14,4 +14,4 @@ files/profile
 files/resolv.conf
 files/securetty
 files/shells
-files/init-repos.sh
+files/init-repos
