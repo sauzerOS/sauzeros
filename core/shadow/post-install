@@ -36,3 +36,5 @@ done
 
 grpconv
 pwconv
+
+echo "you should chmod u+s /usr/bin/su "
