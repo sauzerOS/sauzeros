@@ -1,4 +1,5 @@
 curl
+dash
 diffutils
 findutils
 gawk

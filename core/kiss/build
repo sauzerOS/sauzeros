@@ -29,3 +29,6 @@ install -D flags.sh "$1/etc/profile.d/flags.sh"
 install -D kiss-hook "$1/etc/kiss-hook"
 install -D kiss-cacheman "$1/usr/bin/kiss-cacheman"
 install -D kiss-rmdeps "$1/usr/bin/kiss-rmdeps"
+
+#fix incompabilty with /bin/sh as bash
+sed -i "1 s/sh/dash/" "$1/usr/bin/kiss"
