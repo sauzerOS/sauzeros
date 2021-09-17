@@ -14,6 +14,7 @@ meson --prefix=/usr                \
       --localstatedir=/var         \
       -Dblkid=true                 \
       -Dbuildtype=release          \
+      -Ddefault-mdns=no		   \
       -Ddefault-dnssec=no          \
       -Ddefault-dns-over-tls=yes   \
       -Dfirstboot=false            \
