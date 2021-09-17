@@ -24,14 +24,6 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
 export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
-# Setup a red prompt for root and a green one for users.
-#NORMAL="\[\e[0m\]"
-#RED="\[\e[1;31m\]"
-#GREEN="\[\e[1;32m\]"
-#if [[ $EUID == 0 ]] ; then
-#  PS1="$RED\u [ $NORMAL\w$RED ]# $NORMAL"
-#else
-#  PS1="$GREEN\u [ $NORMAL\w$GREEN ]\$ $NORMAL"
-#fi
-#
-#unset script RED GREEN NORMAL
+if [ -n "$BASH_VERSION" ]
+then source /etc/bashrc
+fi
