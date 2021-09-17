@@ -14,9 +14,8 @@ meson --prefix=/usr                \
       --localstatedir=/var         \
       -Dblkid=true                 \
       -Dbuildtype=release          \
-      -Ddefault-mdns=no		   \
       -Ddefault-dnssec=no          \
-      -Ddefault-dns-over-tls=no    \
+      -Ddefault-dns-over-tls=yes   \
       -Dfirstboot=false            \
       -Dinstall-tests=false        \
       -Dldconfig=false             \
@@ -42,3 +41,5 @@ install -v -m644 ../systemd-user "$1/etc/pam.d/systemd-user"
 install -v -m755 -d "$1/etc/systemd/network"
 install -v -m644 ../20-wired.network "$1/etc/systemd/network/20-wired.network"
 install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.network"
+install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
+install -v -m644 ../dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"

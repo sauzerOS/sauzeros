@@ -3,3 +3,4 @@ files/system-session
 files/systemd-user
 files/20-wired.network
 files/25-wireless.network
+files/dns_servers.conf
