@@ -10,4 +10,4 @@ libsndfile
 libSM
 libxcb
 libXtst
-xml-parser make
+perl-xml-parser make
