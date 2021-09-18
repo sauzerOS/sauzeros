@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+mkdir -p libtiff-build
+cd       libtiff-build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
+ninja
+ninja install
