@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 cd squashfs-tools
-patch -Np2 -i ../0001-squashfs-tools-fix-build-failure-against-gcc-10.patch
 
 make \
     GZIP_SUPPORT=1 \
