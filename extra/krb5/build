@@ -7,6 +7,8 @@ sed -i -e '/eq 0/{N;s/12 //}'    plugins/kdb/db2/libdb2/test/run.test
 sed -i '/t_iprop.py/d'           tests/Makefile.in
 
 ./configure --prefix=/usr            \
+            --bindir=/usr/bin        \
+            --sbindir=/usr/bin       \
             --sysconfdir=/etc        \
             --localstatedir=/var/lib \
             --runstatedir=/run       \

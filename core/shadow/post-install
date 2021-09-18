@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 sed -i 's/yes/no/' /etc/default/useradd
 
@@ -37,4 +37,4 @@ done
 grpconv
 pwconv
 
-echo "you should chmod u+s /usr/bin/su "
+chmod -v 4755 /usr/bin/su

@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-sed -i 's:sysconfig/i18n:profile.d/i18n.sh:g' data/lxdm.in &&
-sed -i 's:/etc/xprofile:/etc/profile:g' data/Xsession &&
+sed -i 's:sysconfig/i18n:profile.d/i18n.sh:g' data/lxdm.in
+sed -i 's:/etc/xprofile:/etc/profile:g' data/Xsession
 sed -e 's/^bg/#&/'        \
     -e '/reset=1/ s/# //' \
     -e 's/logou$/logout/' \
@@ -10,6 +10,8 @@ sed -e 's/^bg/#&/'        \
 
 ./configure --prefix=/usr     \
             --sysconfdir=/etc \
+	    --bindir=/usr/bin \
+            --sbindir=/usr/bin \
             --with-pam        \
             --enable-gtk3 \
             --with-systemdsystemunitdir=/lib/systemd/system

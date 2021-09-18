@@ -5,6 +5,7 @@
 #autoreconf -vi
 
 ./configure --prefix=/usr \
+--bindir=/usr/bin \
 --sbindir=/usr/bin \
 --without-xmlsecurity \
 --without-dnet \
@@ -14,6 +15,9 @@
 make
 make DESTDIR="$1" install
 
+# Fix broken --sbindir.
+rm -rf "$1/sbin"
+
 # install systemd files
-  install -D -m0644 vmtoolsd.service "$1"/usr/lib/systemd/system/vmtoolsd.service
-  install -D -m0644 vmware-vmblock-fuse.service "$1"/usr/lib/systemd/system/vmware-vmblock-fuse.service
+install -D -m0644 vmtoolsd.service "$1"/usr/lib/systemd/system/vmtoolsd.service
+install -D -m0644 vmware-vmblock-fuse.service "$1"/usr/lib/systemd/system/vmware-vmblock-fuse.service

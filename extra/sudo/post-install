@@ -18,4 +18,4 @@ Defaults timestamp_timeout=10
 Defaults passwd_timeout=0
 EOF
 
-chmod u+s /usr/bin/sudo
+chmod -v 4755 /usr/bin/sudo

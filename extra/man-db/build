@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
 ./configure --prefix=/usr                        \
+	    --bindir=/usr/bin			 \
+            --sbindir=/usr/bin	                 \
             --sysconfdir=/etc                    \
             --disable-setuid                     \
             --enable-cache-owner=bin             \
@@ -10,9 +12,3 @@
 
 make
 make DESTDIR="$1" install
-
-# Remove all info files.
-rm -rf "$1/usr/share/info"
-
-# Remove docs.
-rm -rf "$1/usr/share/doc"
