@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+install -d -m0755 "$1/lib/firmware"
+
+cp iwlwifi* "$1/lib/firmware"
+cp -r rtl*     "$1/lib/firmware"
+cp -r RTL*  "$1/lib/firmware"
+cp -r ath*     "$1/lib/firmware"
+cp -r {amdgpu,radeon,i915,intel,nvidia}  "$1/lib/firmware"
+
