@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make
+
+install -D -m755 pamixer "$1"/usr/bin/pamixer
