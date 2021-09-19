@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#remove boost and keep only boost-libs
+KISS_PROMPT=0 kiss r boost
+#set all alternatives to boost-libs
+kiss-ma boost-libs
