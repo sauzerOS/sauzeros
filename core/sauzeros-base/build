@@ -48,7 +48,7 @@ done
 ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
-for f in fstab group host.conf hosts issue inputrc locale.conf os-release \
+for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
          nanorc passwd profile resolv.conf securetty shells mime.types; do
     install -m 644 "$f" "$1/etc"
 done
