@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -d -m0755 "$1/lib/firmware"
 
