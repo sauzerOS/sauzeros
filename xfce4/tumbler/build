@@ -9,3 +9,6 @@
 
 make
 make DESTDIR="$1" install
+
+# Disable file size check for ffmpegthumbnailer
+sed '73s/.*/MaxFileSize=0/' -i "$1/etc/xdg/tumbler/tumbler.rc"
