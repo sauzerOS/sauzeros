@@ -24,6 +24,10 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
 export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
+# Source bashrc in bash
 if [ -n "$BASH_VERSION" ]
 then source /etc/bashrc
 fi
+
+# Set default terminal
+export TERMINAL="st"
