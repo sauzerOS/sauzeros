@@ -19,4 +19,3 @@ ln -s "$1/usr/lib/libboost_numpy39.so"  "$1/usr/lib/libboost_numpy3.so"
 rm -f "$1/usr/lib/libboost*.a"
 rm -rf "$1/usr/lib/cmake"
 rm -rf "$1/usr/include/boost"
-
