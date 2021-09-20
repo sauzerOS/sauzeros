@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --enable-libargon2 \
+    --disable-ssh-token \
+    --disable-static
+
+make
+make DESTDIR="$1" install
