@@ -17,6 +17,7 @@
     --enable-curses \
     --disable-user \
     --disable-linux-user \
+    --enable-virglrenderer \
     --enable-system
 
 make

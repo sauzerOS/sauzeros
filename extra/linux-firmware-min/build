@@ -8,3 +8,6 @@ cp -r RTL*  "$1/lib/firmware"
 cp -r ath*     "$1/lib/firmware"
 cp -r {amdgpu,radeon,i915,intel,nvidia}  "$1/lib/firmware"
 
+ln -s rtl8723bu_nic.bin "$1/lib/firmware/rtlwifi/rtl8723bs_nic.bin"
+ln -s rtl8723bu_ap_wowlan.bin "$1/lib/firmware/rtlwifi/rtl8723bs_ap_wowlan.bin"
+ln -s rtl8723bu_wowlan.bin "$1/lib/firmware/rtlwifi/rtl8723bs_wowlan.bin"

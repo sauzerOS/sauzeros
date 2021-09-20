@@ -7,3 +7,4 @@ pkgconf make
 python
 samurai make
 sdl2
+virglrenderer make
