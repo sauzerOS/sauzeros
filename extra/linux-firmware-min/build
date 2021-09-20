@@ -11,3 +11,13 @@ cp -r {amdgpu,radeon,i915,intel,nvidia}  "$1/lib/firmware"
 ln -s rtl8723bu_nic.bin "$1/lib/firmware/rtlwifi/rtl8723bs_nic.bin"
 ln -s rtl8723bu_ap_wowlan.bin "$1/lib/firmware/rtlwifi/rtl8723bs_ap_wowlan.bin"
 ln -s rtl8723bu_wowlan.bin "$1/lib/firmware/rtlwifi/rtl8723bs_wowlan.bin"
+
+#sof-bin
+
+cp -a sof*v1.8      "$1/lib/firmware/intel/"
+ln -s sof-v1.8      "$1/lib/firmware/intel/sof"
+ln -s sof-tplg-v1.8 "$1/lib/firmware/intel/sof-tplg"
+
+install -d -m755 "$1/usr/bin"
+cp -a tools-v1.8/*  "$1/usr/bin"
+
