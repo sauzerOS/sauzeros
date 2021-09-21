@@ -2,8 +2,12 @@
 
 sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
 
-#reduce shutdown timeout to 30s
+#reduce max shutdown timeout to 30s
 sed -i 's/TimeoutSec=5min/TimeoutSec=30s/g' src/sysv-generator/sysv-generator.c
+#reduce default timeout to 10s
+sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/" -i ./src/core/system.conf.in
+sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/" -i ./src/core/system.conf.in
+sed -i "s/#DefaultTimeoutAbortSec=/DefaultTimeoutAbortSec=10s/" -i ./src/core/system.conf.in
 
 mkdir -p build
 cd       build
