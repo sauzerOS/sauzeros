@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+mkdir -pv $1/opt/dotnet
+cp -a * $1/opt/dotnet
+
+install -Dm755 dotnet.sh $1/etc/profile.d/dotnet.sh
