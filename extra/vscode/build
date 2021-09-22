@@ -3,3 +3,8 @@
 mkdir -pv $1/opt
 tar xvf stable -C $1/opt/
 install -Dm755 code.sh $1/etc/profile.d/code.sh
+install  -dDm755 "$1/usr/lib"
+
+#include compatible libssl
+xz -d libssl.so.1.1.xz
+install libssl.so.1.1 -m755 "$1/usr/lib"
