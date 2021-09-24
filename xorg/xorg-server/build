@@ -1,6 +1,13 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr
+patch -Np1 -i rootless_modesetting.patch
+patch -Np1 -i fix-crash.patch
 
-make DESTDIR="$1" install
+./configure --prefix=/usr \
+    --enable-glamor \
+    --enable-suid-wrapper \
+    --enable-systemd-logind \
+    --enable-udev
+
+make
+make install
