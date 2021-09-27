@@ -1,7 +1,13 @@
 #!/bin/sh -e
+# ***build as root***
+
+
 
 ./configure \
-    --prefix=/usr
+    --prefix=/usr \
+    --with-fuse=internal \
+    --disable-static
 
 make
 make DESTDIR="$1" install
+
