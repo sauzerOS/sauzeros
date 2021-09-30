@@ -6,6 +6,7 @@ linux-headers make
 libXScrnSaver
 luajit
 mesa
+mujs
 pkgconf make
 python  make
 wayland
