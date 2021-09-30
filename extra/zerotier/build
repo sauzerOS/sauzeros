@@ -1,9 +1,6 @@
 #!/bin/sh -e
 
-# Install service file in bin.
-sed -i 's/sbin/bin/' make-linux.mk debian/zerotier-one.service
-
 make
 make DESTDIR="$1" install
 
-install -Dm644 debian/zerotier-one.service "$1/usr/lib/systemd/system/zerotier-one.service"
+install -Dm644 zerotier-one.service "$1/usr/lib/systemd/system/zerotier-one.service"
