@@ -17,7 +17,7 @@ cp -v $directory/version .
 
 cat << 'EOF' > ./build
 #!/bin/sh -e
-
+:> nostrip
 cp -a * "$1/"
 EOF
 
