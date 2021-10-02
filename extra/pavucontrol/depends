@@ -1,3 +1,4 @@
+libcairomm1
 intltool make
 gettext make
 gtkmm
