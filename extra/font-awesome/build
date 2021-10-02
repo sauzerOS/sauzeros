@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+install -d "$1/usr/share/fonts/OTF"
+install -m644 ./otfs/*.otf "$1/usr/share/fonts/OTF"
