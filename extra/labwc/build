@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+mkdir build
+meson --prefix=/usr build
+
+cd build
+
+ninja
+ninja install
