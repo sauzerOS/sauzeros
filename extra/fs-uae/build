@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+CXXFLAGS="$CXXFLAGS -std=gnu++14 -fpermissive"
+
+
+./configure --prefix=/usr
+
+make
+make install
