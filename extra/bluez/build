@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+patch -Np1 -i fix-unistd.patch
+
+./configure --prefix=/usr \
+            --enable-experimental \
+            --enable-sixasis \
+            --disable-manpages
+
+make
+make install
