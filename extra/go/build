@@ -66,3 +66,4 @@ find . -type d -a -name testdata |
     while read -r dir; do
         rm -rf "$dir"
     done
+
