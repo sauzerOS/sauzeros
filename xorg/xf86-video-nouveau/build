@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+#fix build with latest Xorg
+grep -rl slave | xargs sed -i s/slave/secondary/
+
 patch -p1 < rootless_modesetting.patch
 
 export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
