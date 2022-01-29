@@ -9,7 +9,6 @@ meson \
     --prefix=/usr \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    -Ddocs=disabled \
     -Dintrospection=disabled \
     . output
 

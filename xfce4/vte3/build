@@ -8,10 +8,10 @@ meson \
     --mandir=/usr/share/man \
     -Ddocs=false \
     -Dgir=false \
-    -Dfribidi=false \
+    -Dfribidi=true \
     -Dicu=false \
     -Dvapi=false \
-    -Dgnutls=true \
+    -Dgnutls=false \
     -D_systemd=true \
     . output
 

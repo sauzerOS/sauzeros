@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 patch -Np1 -i rootless_modesetting.patch
-patch -Np1 -i fix-crash.patch
 
 ./configure --prefix=/usr \
     --enable-glamor \

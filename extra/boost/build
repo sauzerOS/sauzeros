@@ -8,10 +8,9 @@ for action in stage install; do
     ./b2 $action \
         variant=release \
         debug-symbols=off \
-        threading=multi \
-        python=3.9
+        threading=multi
 done
 
 # https://github.com/boostorg/python/issues/203#issuecomment-391477685
-ln -s "$1/usr/lib/libboost_python39.so" "$1/usr/lib/libboost_python3.so"
-ln -s "$1/usr/lib/libboost_numpy39.so"  "$1/usr/lib/libboost_numpy3.so"
+#ln -s "$1/usr/lib/libboost_python39.so" "$1/usr/lib/libboost_python3.so"
+#ln -s "$1/usr/lib/libboost_numpy39.so"  "$1/usr/lib/libboost_numpy3.so"

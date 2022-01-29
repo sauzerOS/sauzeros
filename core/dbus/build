@@ -9,10 +9,8 @@
     --with-console-auth-dir=/run/console \
     --with-system-pid-file=/run/dbus/pid \
     --with-system-socket=/run/dbus/system_bus_socket \
-    --enable-systemd \
     --enable-user-session \
-    --with-systemdsystemunitdir=/usr/lib/systemd/system \
-    --without-x
+    --with-systemdsystemunitdir=/usr/lib/systemd/system
 
 make
 make DESTDIR="$1" install

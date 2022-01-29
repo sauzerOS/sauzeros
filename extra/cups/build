@@ -15,6 +15,7 @@
     --with-optim="$CFLAGS" \
     --disable-webif \
     --disable-gssapi \
+    --with-tls=no \
     --disable-gnutls
 
 make

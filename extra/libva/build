@@ -7,8 +7,6 @@ meson \
     -Dwith_wayland=yes \
     -Dwith_x11=yes \
     -Dwith_glx=auto \
-    -Ddocs=false \
-    -Dintrospection=false \
     . output
 
 ninja -C output

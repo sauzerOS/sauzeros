@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i fix-unistd.patch
-
 ./configure --prefix=/usr \
             --enable-experimental \
             --enable-sixaxis \

@@ -23,7 +23,7 @@ meson --prefix=/usr                \
       -Dfirstboot=false            \
       -Dinstall-tests=false        \
       -Dldconfig=false             \
-      -Dsysusers=true              \
+      -Dsysusers=false             \
       -Db_lto=false                \
       -Dhomed=false                \
       -Duserdb=false               \
@@ -33,6 +33,7 @@ meson --prefix=/usr                \
       -Dman=false		   \
       -Doomd=false		   \
       -Dpamconfdir=/etc/pam.d      \
+      -Dsbat-distro-url="https://github.com/sauzeros" \
       ..
 
 LANG=en_US.UTF-8 ninja
