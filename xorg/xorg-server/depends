@@ -1,5 +1,6 @@
 bzip2
 freetype-harfbuzz
+libglvnd
 libX11
 libXau
 libXdamage
