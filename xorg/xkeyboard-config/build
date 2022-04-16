@@ -1,16 +1,10 @@
 #!/bin/sh -e
 
-# Swap to shell script instead of perl script
-# for conversion of rules files. See files/xml2lst.
-sed 's/perl //;s/xml2lst\.pl/xml2lst/' rules/Makefile.in > _
-mv -f _ rules/Makefile.in
+sed -i -E 's/(ln -s)/\1f/' rules/meson.build
 
-./configure \
-    --prefix=/usr \
-    --enable-compat-rules \
-    --without-xsltproc \
-    --disable-runtime-deps \
-    --disable-nls
+mkdir build
+cd    build
 
-make
-make DESTDIR="$1" install
+meson --prefix=/usr --buildtype=release ..
+ninja
+DESTDIR=$1 ninja install

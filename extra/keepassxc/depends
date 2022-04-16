@@ -1,6 +1,8 @@
+botan
 qt5
 qt5-svg
 qt5-tools make
+qt5-x11extras
 argon2
 libgcrypt
 libsodium

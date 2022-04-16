@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-#fix meson bug
-patch -p1 -i shared-mime-info-2.1-meson_0.60_fix-1.patch
-
 mkdir build
 cd build
 

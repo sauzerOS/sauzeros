@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-patch -p1 < fix-curl.patch
+#patch -p1 < fix-curl.patch
 
 # Instruct the compiler to trim absolute paths in resulting binaries and instead
 # change them to relative paths ($PWD/... ./...).
@@ -18,18 +18,11 @@ export RUSTFLAGS="$RUSTFLAGS --remap-path-prefix=$PWD=."
 }
 
 # Set shared linking as the default.
-for f in \
-    compiler/rustc_target/src/spec/linux_gnu_base.rs \
-    vendor/rustc-ap-rustc_target/src/spec/linux_gnu_base.rs
-do
-    sed 's/\(crt_static_default = \)true/\1false/' "$f" > _
-    mv -f _ "$f"
-done
+sed 's/\(crt_static_default = \)true/\1false/' \
+    compiler/rustc_target/src/spec/linux_gnu_base.rs > _
+mv -f _ compiler/rustc_target/src/spec/linux_gnu_base.rs
 
 # Ignore checksums of files modified above.
-sed 's/\("files":{\)[^}]*/\1/' \
-    vendor/rustc-ap-rustc_target/.cargo-checksum.json > _
-mv -f _ vendor/rustc-ap-rustc_target/.cargo-checksum.json
 sed 's/\("files":{\)[^}]*/\1/' \
     vendor/curl-sys/.cargo-checksum.json > _
 mv -f _ vendor/curl-sys/.cargo-checksum.json
