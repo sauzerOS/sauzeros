@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+autoreconf -fiv
+./configure --prefix=/usr --without-python --without-python3
+
+make
+make DESTDIR=$1 install

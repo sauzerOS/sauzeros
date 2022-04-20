@@ -1,2 +1,2 @@
-https://github.com/zerotier/ZeroTierOne/archive/refs/tags/1.8.8.tar.gz
+git+https://github.com/zerotier/ZeroTierOne
 files/zerotier-one.service

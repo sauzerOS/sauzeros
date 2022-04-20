@@ -10,6 +10,7 @@
     --localstatedir=/var \
     --sysconfdir=/etc \
     --disable-debug-info \
+    --disable-gnutls \
     --disable-docs \
     --enable-sdl \
     --enable-kvm \

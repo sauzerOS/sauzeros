@@ -1,0 +1,11 @@
+dbus
+gcr
+glib
+gsettings-desktop-schemas
+libcdio-paranoia
+libusb
+libgudev
+libsecret
+polkit
+polkit-gnome
+udisks2

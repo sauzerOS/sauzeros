@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --enable-lvm2        \
+            --disable-static
+
+make
+make DESTDIR=$1 install
+
+install -Dm644 mount_options.conf $1/etc/udisks2/
+install -Dm755 mount.ntfs $1/usr/bin/
