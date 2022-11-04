@@ -1,3 +1,4 @@
 fuse2 make
 gpgme
 e2fsprogs
+libpsl

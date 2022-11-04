@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 ./configure --prefix=/usr \
-    --enable-c++11 \
     --enable-release \
     --enable-all-engines
 

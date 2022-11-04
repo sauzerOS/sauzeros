@@ -1,13 +1,16 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-	    --enable-python \
-            --without-lua \
-	    --enable-bdb=off
+patch -Np1 -i rpmlib-filesystem-check.patch
 
-cd python
-python setup.py install --root="$1/" --optimize=1
-cd ..
-
+	./configure \
+		--prefix=/usr  \
+		--sysconfdir=/etc  \
+		--localstatedir=/var \
+		--enable-python \
+		--with-external-db \
+		--with-lua \
+		--with-cap \
+		CPPFLAGS="`pkg-config --cflags nss`" \
+		PYTHON=python
 make
 make DESTDIR=$1 install

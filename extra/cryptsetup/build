@@ -5,6 +5,7 @@
     --sbindir=/usr/bin \
     --enable-libargon2 \
     --disable-ssh-token \
+    --disable-asciidoc \
     --disable-static
 
 make

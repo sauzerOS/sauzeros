@@ -1,7 +1,13 @@
 #!/bin/sh -e
 
+#fix build error without openLDAP
+sed -e '/ks_ldap_free_state/i #if USE_LDAP' \
+    -e '/ks_get_state =/a #endif'           \
+    -i dirmngr/server.c
+
 ./configure \
     --prefix=/usr
+
 
 make
 make DESTDIR="$1" install

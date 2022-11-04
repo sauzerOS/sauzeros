@@ -5,7 +5,6 @@
     --with-bzip \
     --with-lzma \
     --with-zlib \
-    --with-openssl \
     --with-sqlite3 \
     --cc=gcc
 

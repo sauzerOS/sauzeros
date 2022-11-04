@@ -1,1 +1,2 @@
-https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/snapshot/f2fs-tools-1.14.0.tar.gz
+#snapshot to fix build with lz4 1.9.4
+https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/snapshot/f2fs-tools-19f77c6f6277a274434d6d8883f50e7955c6a8db.tar.gz

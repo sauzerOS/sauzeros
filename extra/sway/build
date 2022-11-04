@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -p1 < no-evdev.patch
-
 # Default background color.
 sed 's/0.25f, 0.25f, 0.25f/0.929, 0.870, 0.678/' \
     sway/desktop/render.c > _
@@ -9,7 +7,6 @@ mv -f _ sway/desktop/render.c
 
 meson \
     --prefix=/usr \
-    -Dexamples=false \
     . build
 
 ninja -C build

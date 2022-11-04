@@ -5,8 +5,11 @@
             --libexecdir=/usr/lib/gnupg \
             --enable-symcryptrun \
             --enable-gpg-is-gpg2 \
-            --disable-ldap \
             --disable-nls
+
+sed -e '/ks_ldap_free_state/i #if USE_LDAP' \
+    -e '/ks_get_state =/a #endif'           \
+    -i dirmngr/server.c
 
 make
 make DESTDIR="$1" install

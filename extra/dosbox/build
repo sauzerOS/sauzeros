@@ -3,10 +3,9 @@
 ./autogen.sh
 ./configure --prefix=/usr \
             --enable-sdl2 \
-            --enable-avcodec \
+            --disable-avcodec \
             --enable-core-inline
 
-#make -j$(($(nproc)+2))
 make
 make DESTDIR="$1" install
 

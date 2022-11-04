@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-#fix build with boost 1.78.0
-patch -p1 -i 71d608fc.patch
-
 mkdir build
 cd build
 

@@ -3,8 +3,9 @@
 ./autogen.sh
 ./configure --prefix=/usr \
             --bindir=/usr/bin \
-            --sbindir=/usr/bin
+            --sbindir=/usr/bin \
+            --disable-static
 
-make
+make -j1
 make DESTDIR="$1" install
 

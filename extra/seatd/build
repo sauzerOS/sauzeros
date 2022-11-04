@@ -10,7 +10,6 @@ meson \
     -Ddefault_library=both \
     -Dserver=enabled \
     -Dlibseat-logind=systemd \
-    -Dlogind=enabled \
     . build
 
 ninja -C build
