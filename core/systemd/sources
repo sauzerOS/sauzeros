@@ -1,6 +1,0 @@
-https://github.com/systemd/systemd/archive/refs/tags/v252-rc1.tar.gz
-files/system-session
-files/systemd-user
-files/20-wired.network
-files/25-wireless.network
-files/dns_servers.conf

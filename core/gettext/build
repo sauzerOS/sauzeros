@@ -1,8 +1,0 @@
-#!/bin/sh -e
-#doesn't build if gettext is not available on host system
-
-./configure --prefix=/usr \
-    --disable-static
-
-make
-make install
