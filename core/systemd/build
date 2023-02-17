@@ -1,0 +1,50 @@
+#!/bin/sh -e
+
+sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
+
+#reduce max shutdown timeout to 30s
+sed -i 's/TimeoutSec=5min/TimeoutSec=30s/g' src/sysv-generator/sysv-generator.c
+#reduce default timeout to 10s
+sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/" -i ./src/core/system.conf.in
+sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/" -i ./src/core/system.conf.in
+sed -i "s/#DefaultTimeoutAbortSec=/DefaultTimeoutAbortSec=10s/" -i ./src/core/system.conf.in
+
+mkdir -p build
+cd       build
+
+LANG=en_US.UTF-8 \
+meson --prefix=/usr                \
+      --sysconfdir=/etc            \
+      --localstatedir=/var         \
+      -Dblkid=true                 \
+      -Dbuildtype=release          \
+      -Ddefault-dnssec=no          \
+      -Ddefault-dns-over-tls=yes   \
+      -Dfirstboot=false            \
+      -Dinstall-tests=false        \
+      -Dldconfig=false             \
+      -Dsysusers=false             \
+      -Db_lto=false                \
+      -Dhomed=false                \
+      -Duserdb=false               \
+      -Ddns-servers="" \
+      -Dgnu-efi=true               \
+      -Dmode=release               \
+      -Dman=false		   \
+      -Doomd=false		   \
+      -Dpamconfdir=/etc/pam.d      \
+      -Dsbat-distro-url="https://github.com/sauzeros" \
+      ..
+
+LANG=en_US.UTF-8 ninja
+LANG=en_US.UTF-8 DESTDIR="$1" ninja install
+
+install -v -m755 -d "$1/etc/pam.d"
+install -v -m644 ../system-session "$1/etc/pam.d/system-session"
+install -v -m644 ../systemd-user "$1/etc/pam.d/systemd-user"
+
+install -v -m755 -d "$1/etc/systemd/network"
+install -v -m644 ../20-wired.network "$1/etc/systemd/network/20-wired.network"
+install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.network"
+install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
+install -v -m644 ../dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"

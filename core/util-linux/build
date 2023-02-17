@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --bindir=/usr/bin \
+    --sbindir=/usr/bin \
+    --libdir=/usr/lib \
+    --disable-makeinstall-chown \
+    --disable-chfn-chsh  \
+    --disable-login      \
+    --disable-nologin    \
+    --disable-su         \
+    --disable-setpriv    \
+    --disable-runuser    \
+    --disable-pylibmount \
+    --disable-static     \
+    --without-python     \
+    runstatedir=/run
+
+make
+make DESTDIR="$1" install
+
+# Fix broken --sbindir.
+mv -f "$1/usr/sbin/"* "$1/usr/bin"
+rmdir "$1/usr/sbin"

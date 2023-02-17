@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+#don't optimize for host
+cp -v configfsf.guess config.guess
+cp -v configfsf.sub   config.sub
+
+./configure --prefix=/usr    \
+            --enable-cxx     \
+            --disable-static
+
+make
+make DESTDIR=$1 install
+

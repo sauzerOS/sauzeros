@@ -1,0 +1,6 @@
+git+https://github.com/fanboimsft/kiss
+https://github.com/kisslinux/website/archive/f0525d4e00c5e07138ac2ceb53936d0b221608e7.tar.gz docs
+https://github.com/kisslinux/wiki/archive/89d4946d128dff35df87d3210fe10a591559296a.tar.gz wiki
+files/kiss_path.sh
+files/flags.sh
+files/kiss-hook

@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+mkdir -p \
+    "$1/usr/bin" \
+    "$1/usr/share/doc/kiss"
+
+# Install kiss utilities.
+cp -f kiss contrib/* "$1/usr/bin/"
+
+# Install distribution documentation.
+cp -f  kiss contrib/*  "$1/usr/bin"
+cp -f  docs/site/*.txt "$1/usr/share/doc/kiss"
+cp -rf docs/site/wiki  "$1/usr/share/doc/kiss"
+
+# Install the Wiki.
+cp -r wiki "$1/usr/share/doc/kiss/wiki"
+
+# Install our custom kiss_path
+install -D kiss_path.sh "$1/etc/profile.d/kiss_path.sh"
+install -D flags.sh "$1/etc/profile.d/flags.sh"
+install -D kiss-hook "$1/etc/kiss-hook"
+
+
