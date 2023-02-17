@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-install -Dm755 -t "$1/usr/bin" kiss-genpkg
-install -Dm755 -t "$1/usr/bin" kiss-genlocalpkg

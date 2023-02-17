@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-./configure --prefix=/usr \
-            --enable-experimental \
-            --enable-sixaxis \
-            --disable-manpages
-
-make
-make install

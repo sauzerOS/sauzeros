@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-make
-make install
-
-install -v -m755 -d "$1/usr/bin"
-cp sb-* "$1/usr/bin/"

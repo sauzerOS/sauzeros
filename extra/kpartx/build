@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-cd kpartx
-make
-
-mkdir -p "$1/usr/bin"
-install -Dm 755 kpartx "$1/usr/bin/"

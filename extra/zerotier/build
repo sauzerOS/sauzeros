@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-make ZT_SSO_SUPPORTED=0
-make DESTDIR="$1" install
-
-install -Dm644 zerotier-one.service "$1/usr/lib/systemd/system/zerotier-one.service"

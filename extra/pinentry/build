@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-./configure \
-    --prefix=/usr \
-    --enable-pinentry-tty
-
-make
-make DESTDIR="$1" install

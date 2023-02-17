@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-./configure --prefix=/usr     \
-            --with-dejavu-font-dir=/usr/share/fonts/TTF
-
-make
-make DESTDIR="$1" install
