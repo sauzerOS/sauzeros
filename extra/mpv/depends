@@ -1,0 +1,13 @@
+alsa-lib
+ffmpeg
+freetype-harfbuzz
+libass
+linux-headers make
+libxpresent
+libXScrnSaver
+luajit
+mesa
+mujs
+pkgconf make
+python  make
+xrandr

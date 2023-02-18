@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+meson \
+    --prefix=/usr \
+    -Dalsa=enabled \
+    -Dlibmpv=true \
+    -Dx11=enabled \
+    . output
+
+ninja -C output
+ninja -C output install
+

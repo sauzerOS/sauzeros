@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+mkdir build
+cd    build
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Ddatabase=gdbm     \
+      -Ddoxygen=false     \
+      -Dbluez5=disabled
+ninja
+ninja install
+
+# Remove systemwide conf
+rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"

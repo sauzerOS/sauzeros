@@ -1,0 +1,3 @@
+#!/bin/sh
+#delete cached sources
+rm -rvf $HOME/.cache/kiss/sources/google-chrome
