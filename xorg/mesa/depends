@@ -1,0 +1,19 @@
+bison make
+expat
+flex  make
+libdrm
+libelf
+libglvnd
+libvdpau
+libXfixes
+libxshmfence
+libXxf86vm
+linux-headers make
+llvm
+m4 make
+meson make
+pkgconf make
+python make
+python-mako make
+xrandr
+zlib
