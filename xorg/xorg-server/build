@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+patch -Np1 -i rootless_modesetting.patch
+
+./configure --prefix=/usr \
+    --enable-glamor \
+    --enable-suid-wrapper \
+    --enable-systemd-logind \
+    --enable-udev
+
+make
+make install

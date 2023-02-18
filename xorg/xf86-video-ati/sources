@@ -1,0 +1,3 @@
+https://x.org/releases/individual/driver/xf86-video-ati-19.1.0.tar.gz
+https://www.linuxfromscratch.org/patches/blfs/svn/xf86-video-ati-19.1.0-upstream_fixes-1.patch
+patches/rootless_modesetting.patch
