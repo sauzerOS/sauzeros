@@ -30,4 +30,4 @@ then source /etc/bashrc
 fi
 
 # Set default terminal
-export TERMINAL="st"
+export TERMINAL="xterm"

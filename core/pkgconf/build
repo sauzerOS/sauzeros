@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr              \
+            --with-internal-glib       \
+            --disable-host-tool
+
+make
+make install

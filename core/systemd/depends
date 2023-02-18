@@ -4,6 +4,8 @@ linux-pam
 gnu-efi
 gperf
 jinja2
+libxml2
+ninja
 kmod
 libcap
 meson
