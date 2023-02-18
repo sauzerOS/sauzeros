@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+go run build.go -no-upgrade install
+install -Dm755 bin/syncthing "$1/usr/bin/syncthing"
+
+cd etc/linux-systemd
+
+mkdir -pv "$1/usr/lib/systemd/system"
+mkdir -pv "$1/usr/lib/systemd/user"
+
+cp -a system/* "$1/usr/lib/systemd/system"
+cp -a user/* "$1/usr/lib/systemd/user"
