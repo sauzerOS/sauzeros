@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dhttp=false        \
+      -Dfuse=false        \
+      -Dgphoto2=false     \
+      -Dafc=false         \
+      -Dbluray=false      \
+      -Dnfs=false         \
+      -Dmtp=false         \
+      -Dsmb=false         \
+      -Ddnssd=false       \
+      -Dgoa=false         \
+      -Dgcr=false         \
+      -Dkeyring=false     \
+      -Dgoogle=false      ..
+
+
+ninja
+DESTDIR=$1 ninja install

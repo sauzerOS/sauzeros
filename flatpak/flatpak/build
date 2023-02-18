@@ -11,9 +11,6 @@ mv -f _ configure
 echo "int main(void) { return 1; }" > revokefs/main.c
 :>revokefs/writer.c
 
-PYTHONPATH=$PWD/pyparsing:$(python -c "import sys; print(':'.join(sys.path))")
-export PYTHONPATH
-
 sh ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \

@@ -1,8 +1,11 @@
 #!/bin/sh -e
 
+./autogen.sh
 ./configure --prefix=/usr              \
             --with-internal-glib       \
             --disable-host-tool
 
 make
 make install
+
+ln -s pkgconf $1/usr/bin/pkg-config

@@ -1,0 +1,8 @@
+dbus
+glib
+gsettings-desktop-schemas
+libcdio-paranoia
+libusb
+libgudev
+polkit
+udisks2
