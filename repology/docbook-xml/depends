@@ -1,0 +1,4 @@
+docbook-xsl-nons make
+libxml2
+sgml-common
+unzip

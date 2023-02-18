@@ -1,0 +1,1 @@
+rebuild docbook-xml if xdg-utils fails to load resources (fixes /etc/xml/catalog)
