@@ -16,8 +16,8 @@ sh ./configure \
     --sysconfdir=/etc \
     --with-system-bubblewrap \
     --enable-seccomp \
-    --disable-system-helper \
-    --disable-xauth \
+    --enable-policykit-system-helper \
+    --with-systemd \
     --disable-documentation
 
 make
