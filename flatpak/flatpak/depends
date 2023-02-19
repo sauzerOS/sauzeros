@@ -11,5 +11,6 @@ libgpg-error
 libseccomp
 libxml2
 ostree
+polkit
 python make
 python-pyparsing
