@@ -1,23 +1,12 @@
 #!/bin/sh -e
 
-for p in *.patch; do
-    patch -p1 < "$p"
-done
-
-# Don't enable native language support and don't compile schemas.
-sed -e '/compile_schemas/s/true/false/' \
-    -e '/ENABLE_NLS/s/1/0/' \
-    -e "/subdir('po/d" \
-    meson.build > _
-mv -f _ meson.build
-
 meson setup \
     -Dprefix=/usr \
     -Dx11_backend=true \
     -Dwayland_backend=false \
     -Dprint_backends=file,lpr \
     -Dcolord=no \
-    -Dintrospection=false \
+    -Dintrospection=true \
     -Ddemos=false \
     -Dexamples=false \
     -Dtests=false \

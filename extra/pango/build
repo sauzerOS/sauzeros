@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -p1 < no-fribidi.patch
-
 # Disable download of missing (optional) dependencies
 # during the build. This cannot be turned off otherwise.
 rm -rf subprojects
@@ -14,7 +12,7 @@ meson \
     --prefix=/usr \
     -Dgtk_doc=false \
     -Dxft=disabled \
-    -Dintrospection=disabled \
+    -Dintrospection=enabled \
     . build
 
 ninja -C build

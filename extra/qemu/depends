@@ -4,6 +4,7 @@ curl
 glib
 libepoxy
 libpng
+libtasn1
 liburing
 libusb
 libxkbcommon

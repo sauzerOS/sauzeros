@@ -7,7 +7,7 @@ meson \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
     -Ddocs=false \
-    -Dgir=false \
+    -Dgir=true \
     -Dfribidi=true \
     -Dicu=false \
     -Dvapi=false \

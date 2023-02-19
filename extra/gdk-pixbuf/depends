@@ -1,4 +1,5 @@
 glib
+gobject-introspection
 libjpeg-turbo
 libpng
 meson   make

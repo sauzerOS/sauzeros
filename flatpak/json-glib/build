@@ -4,7 +4,6 @@ meson \
     --prefix=/usr \
     --libexecdir=/usr/lib \
     -Dgtk_doc=disabled \
-    -Dintrospection=disabled \
     . output
 
 ninja -C output
