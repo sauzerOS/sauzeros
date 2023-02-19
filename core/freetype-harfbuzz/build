@@ -23,7 +23,7 @@ build_harfbuzz() (
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
         -Dfreetype=enabled \
-        -Dgobject=enabled \
+        -Dgobject=disabled \
         -Dicu=disabled \
         -Dbenchmark=disabled \
         -Dtests=disabled \
