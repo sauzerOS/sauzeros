@@ -6,6 +6,7 @@ freetype-harfbuzz
 fribidi
 gdk-pixbuf
 glib
+gnutls
 gobject-introspection
 gtk+3
 libX11
