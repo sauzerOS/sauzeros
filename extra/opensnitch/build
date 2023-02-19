@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+ar x opensnitch*amd64.deb
+tar -xf data.tar.xz -C "$1/"
+
+ar x python3-opensnitch-ui*.deb
+
+tar -xf data.tar.xz -C "$1/"
