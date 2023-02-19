@@ -1,1 +1,1 @@
-export KISS_PATH=/repo/no_updates:/repo/sauzeros/core:/repo/sauzeros/extra:/repo/sauzeros/xorg:/repo/sauzeros/xfce4
+export KISS_PATH=/repo/no_updates:/repo/sauzeros/core:/repo/sauzeros/extra:/repo/sauzeros/xorg:/repo/sauzeros/xfce4:/repo/sauzeros/flatpak:/repo/sauzeros/virt-manager:/repo/sauzeros/repology
