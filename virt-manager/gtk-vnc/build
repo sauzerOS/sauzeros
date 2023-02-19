@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+
+meson --prefix=/usr --buildtype=release build
+
+ninja -C build
+ninja -C build install

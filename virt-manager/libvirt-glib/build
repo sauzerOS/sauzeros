@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+mkdir build
+
+meson setup build --prefix=/usr --buildtype=plain
+
+ninja -C build
+ninja -C build install

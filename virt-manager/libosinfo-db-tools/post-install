@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+curl -fLO https://releases.pagure.org/libosinfo/osinfo-db-20221130.tar.xz
+osinfo-db-import --system osinfo-db-20221130.tar.xz
+

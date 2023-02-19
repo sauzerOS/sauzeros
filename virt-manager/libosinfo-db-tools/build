@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+meson setup build -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var
+ninja -C build
+ninja -C build install

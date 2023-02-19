@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+meson setup build -Dprefix=/usr \
+                  -Dsysconfdir=/etc \
+                  -Dlocalstatedir=/var \
+                  -Denable-gtk-doc=false \
+                  -Dwith-usb-ids-path=/usr/share/hwdata/usb.ids \
+                  -Dwith-pci-ids-path=/usr/share/hwdata/pci.ids
+
+ninja -C build
+ninja -C build install
