@@ -5,7 +5,7 @@ export KISS_HOOK=/etc/kiss-hook
 export KISS_SU=su
 export KISS_TMPDIR=/tmp
 export KISS_COMPRESS=zst
-export XZ_OPT="-T0"
+export XZ_OPT="-T0 -M 10000M"
 export $(cat /etc/locale.conf)
 export EDITOR=nano
 
