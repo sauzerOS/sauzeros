@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make install
+install -vdm755 $1/etc/ssl/local
