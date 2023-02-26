@@ -4,7 +4,6 @@ flex  make
 libdrm
 libelf
 libglvnd
-libvdpau
 libXfixes
 libxshmfence
 libXxf86vm
