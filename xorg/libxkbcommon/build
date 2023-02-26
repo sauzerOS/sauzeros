@@ -7,7 +7,7 @@ meson \
     --libexecdir=/usr/lib \
     -Ddefault_library=both \
     -Denable-docs=false \
-    -Denable-wayland=false \
+    -Denable-wayland=true \
     -Denable-x11=true \
     . output
 

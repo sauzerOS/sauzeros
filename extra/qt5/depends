@@ -17,6 +17,7 @@ linux-headers     make
 mesa
 perl              make
 sqlite
+wayland
 xcb-util
 xcb-util-image
 xcb-util-keysyms

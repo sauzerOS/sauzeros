@@ -23,7 +23,7 @@ mkdir .git
     -system-zlib \
     -system-freetype \
     -system-harfbuzz \
-    -silent 
+    -silent
 
 make
 make INSTALL_ROOT="$1" install

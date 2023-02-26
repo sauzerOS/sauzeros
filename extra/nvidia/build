@@ -12,10 +12,10 @@ mkdir -p \
     "$1/usr/lib/xorg/modules/drivers" \
     "$1/usr/share/man/man1" \
     "$1/usr/share/glvnd/egl_vendor.d" \
+    "$1/usr/share/egl/egl_external_platform.d/" \
     "$1/usr/share/vulkan/icd.d" \
     "$1/usr/share/vulkan/implicit_layer.d" \
-    "$1/usr/lib/modules/${KERNEL_UNAME:-$(uname -r)}/extra"
-
+    "$1/usr/lib/modules/${KERNEL_UNAME:-$(uname -r)}/extra" \
 
 bins="
 smi persistenced modprobe settings xconfig
@@ -38,11 +38,21 @@ for lib in $libs; do
     cp "${lib}.so.$2" "$1/usr/lib/"
 done
 
+    cp libnvidia-egl-gbm* "$1/usr/lib/"
+
     cp nvidia_drv.so "$1/usr/lib/xorg/modules/drivers/"
 
 chmod 4755 "$1/usr/bin/nvidia-modprobe"
 
+
+install -Dm755 libnvidia-egl-gbm.so.1* -t "$1/usr/lib/"
+mkdir -p "$1/usr/lib/gbm"
+ln -sr "$1/usr/lib/libnvidia-allocator.so.$2" "$1/usr/lib/gbm/nvidia-drm_gbm.so"
+
+install -Dm644 -t "$1/usr/lib/firmware/nvidia/$2/" firmware/*.bin
+
 cp 10_nvidia.json     "$1/usr/share/glvnd/egl_vendor.d/"
+cp 15_nvidia_gbm.json "$1/usr/share/egl/egl_external_platform.d/"
 cp nvidia_icd.json    "$1/usr/share/vulkan/icd.d/"
 cp nvidia_layers.json "$1/usr/share/vulkan/implicit_layer.d/"
 
