@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# Build fails in with clang due to
+# -Werror -> -Wsign-compare.
+export CFLAGS="-Wno-error $CFLAGS"
+
+meson \
+    --prefix=/usr \
+    --buildtype=plain \
+    -Ddefault_library=both \
+    -Dserver=enabled \
+    -Dlibseat-logind=systemd \
+    . build
+
+ninja -C build
+ninja -C build install
+
+install -Dm644 seatd.service "$1/usr/lib/systemd/system/seatd.service"

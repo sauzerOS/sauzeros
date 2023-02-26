@@ -1,0 +1,3 @@
+libxkbcommon
+startup-notification
+xcb-util-cursor

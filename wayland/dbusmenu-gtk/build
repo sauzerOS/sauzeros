@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# don't treat warnings as errors
+sed -i 's/-Werror//' libdbusmenu-*/Makefile.{am,in}
+
+export HAVE_VALGRIND_TRUE='#'
+export HAVE_VALGRIND_FALSE=''
+
+
+./configure --prefix=/usr \
+	    --with-gtk=3 \
+	    --disable-dumper \
+	    --disable-static \
+	    --disable-tests \
+	    --disable-vala
+
+make
+make DESTDIR=$1 install
