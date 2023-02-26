@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+7z x redmond-fonts.tar.7z.001
+tar xvf redmond-fonts.tar
+cd fonts
+
+mkdir -p $1/usr/share/fonts/redmond
+
+cp *.TT* $1/usr/share/fonts/redmond
+cp *.tt* $1/usr/share/fonts/redmond
+cp *.fon $1/usr/share/fonts/redmond
