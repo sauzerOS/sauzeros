@@ -14,3 +14,6 @@ meson setup \
 
 ninja -C output
 meson install -C output
+
+mkdir -p $1/etc/gtk-3.0/
+cp settings.ini $1/etc/gtk-3.0/
