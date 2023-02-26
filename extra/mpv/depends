@@ -1,6 +1,5 @@
 alsa-lib
 ffmpeg
-font-powerline
 freetype-harfbuzz
 libass
 linux-headers make
