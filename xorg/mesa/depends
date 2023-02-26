@@ -14,5 +14,7 @@ meson make
 pkgconf make
 python make
 python-mako make
+wayland
+wayland-protocols
 xrandr
 zlib
