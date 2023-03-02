@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+mkdir build
+git submodule init
+git submodule update
+
+cd build
+qmake ../src/NotepadNext.pro
+make
+make INSTALL_ROOT=$1 install

@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+./configure.py \
+    --prefix=/usr \
+    --with-bzip \
+    --with-lzma \
+    --with-zlib \
+    --with-sqlite3 \
+    --cc=gcc
+
+make
+DESTDIR="$1" make install

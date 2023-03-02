@@ -17,6 +17,8 @@ mkdir .git
     -nomake tests \
     -optimized-qmake \
     -no-separate-debug-info \
+    -dbus-linked \
+    -openssl-linked \
     -system-libjpeg \
     -system-libpng \
     -system-sqlite \
