@@ -74,6 +74,8 @@ EOF
 
 # Remove a lot of uneeded "stuff".
 rm -rf \
-    "$1/usr/include" \
-    "$1/usr/lib/firefox-devel" \
-    "$1/usr/share/idl"
+    "$1/usr/lib/firefox-devel"
+
+# Desktop file
+mkdir -p $1/usr/share/applications
+cp firefox.desktop $1/usr/share/applications/

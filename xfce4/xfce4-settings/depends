@@ -19,6 +19,7 @@ libXext
 libXfixes
 libXi
 libXinerama
+libxklavier
 libXrandr
 libXrender
 libXxf86vm
@@ -33,4 +34,5 @@ libxshmfence
 mesa
 pango
 pixman
+setxkbmap
 xfconf

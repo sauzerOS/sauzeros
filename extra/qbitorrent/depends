@@ -1,0 +1,5 @@
+boost make
+libtorrent
+openssl
+qt5
+zlib
