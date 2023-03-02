@@ -1,0 +1,3 @@
+https://ftp.mozilla.org/pub/firefox/releases/VERSION/source/firefox-110.0.1.source.tar.xz
+patches/fix-linux-header.patch
+patches/libwebrtc-screen-cast-sync.patch

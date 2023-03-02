@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+autoreconf -fvi
+./configure --prefix=/usr \
+	    --sbindir=/usr/bin \
+	    --enable-plugins \
+	    --enable-systemd
+
+make
+make install
+

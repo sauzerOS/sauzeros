@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+./configure \
+    --shared-zlib \
+    --shared-openssl \
+    --with-intl=small-icu \
+    --without-report \
+    --without-node-snapshot \
+    --without-node-code-cache \
+    --ninja
+
+ninja -C out/Release
+tools/install.py install "$1" /usr
+
+# Remove unneeded files.
+rm -rf \
+    "$1/usr/include/node/openssl" \
+    "$1/usr/share/doc" \
+    "$1/usr/share/systemtap" \
+    "$1/usr/lib/node_modules/npm/scripts" \
+    "$1/usr/lib/node_modules/npm/configure"
