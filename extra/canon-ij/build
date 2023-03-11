@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+
+    # Common files
+    ar -x packages/cnijfilter-common_4.10-1_amd64.deb data.tar.gz
+    tar -xf data.tar.gz -C $1/
+
+    # Model specific files
+    ar -x packages/cnijfilter-e400series_4.10-1_amd64.deb data.tar.gz
+    tar -xf data.tar.gz -C $1/
+
+    # Weird permissions error from namcap
+    sudo chmod 664 $1/usr/lib/bjlib/cnnet.ini
+    sudo chown root:root $1/usr/lib/bjlib/cnnet.ini
+
+    rm -r $1/usr/share/doc/
+
+    # Move the udev rule to its proper location
+    mv $1/etc/udev $1/usr/lib/

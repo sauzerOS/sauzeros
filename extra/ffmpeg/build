@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -Np1 -i ffmpeg-6.0-chromium_method-1.patch
+
 ./configure \
     --cc="$CC" \
     --cxx="$CXX" \

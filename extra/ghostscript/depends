@@ -1,0 +1,16 @@
+at-spi2-core
+cairo
+cups
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+gobject-introspection
+gtk+3
+harfbuzz
+libjpeg-turbo
+libpng
+libtiff
+little-cms
+openjpeg
+pango
+zlib

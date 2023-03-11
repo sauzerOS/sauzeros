@@ -1,4 +1,4 @@
-docbook-xsl-nons make
+docbook-xsl make
 libxml2
 sgml-common
 unzip

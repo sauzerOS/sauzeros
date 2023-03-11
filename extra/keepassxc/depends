@@ -3,4 +3,4 @@ qt5
 argon2
 libgcrypt
 libsodium
-libqrencode
+qrencode

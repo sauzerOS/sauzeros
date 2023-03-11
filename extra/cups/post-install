@@ -1,14 +1,10 @@
 #!/bin/sh -e
 
-cat <<EOF
+sudo useradd -c "Print Service User" -d /var/spool/cups -g lp -s /bin/false -u 9 lp
+sudo groupadd -g 19 lpadmin
 
-NOTE:
-
-to be able to use cups, you need to
-install cups-filters.
-
-The web interface is disabled on this
-package, use 'lpadmin' to configure your
-printer.
-
-EOF
+echo "******************************"
+echo "******************************"
+echo "add your used to lpadmin group"
+echo "******************************"
+echo "******************************"

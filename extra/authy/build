@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+unsquashfs -q -f -d . *.snap
+
+   install -d "$1/opt/authy"
+    cp -r ./* "$1/opt/authy"
+
+    # Desktop Entry
+    install -Dm644 "meta/gui/authy.desktop" "$1/usr/share/applications/authy.desktop"
+    sed -i 's|${SNAP}/meta/gui/icon.png|authy|g' "$1/usr/share/applications/authy.desktop"
+    install -Dm644 "meta/gui/icon.png" "$1/usr/share/pixmaps/authy.png"
+
+    # Clean up unnecessary files
+    rm -rf "$1/opt/authy"/{data-dir,gnome-platform,lib,meta,scripts,usr,*.sh}
+
+    # Symlink binary to /usr/bin
+    install -d "$1/usr/bin"
+    ln -s "/opt/authy/authy" "$1/usr/bin"

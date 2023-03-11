@@ -1,1 +1,1 @@
-https://download.qemu.org/qemu-7.2.0.tar.xz
+git+https://github.com/qemu/qemu#66a6aa8f9a56a6317e074b1f5e269fecdf4ad782

@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# Remove usage of /usr/bin/env to avoid PATH manipulation attacks
+sed --in-place 's/env //' samples/swtpm-create-tpmca samples/swtpm-create-user-config-files.in
+
+autoreconf -fvi
+./configure --prefix=/usr --with-gnutls --with-seccomp
+
+make
+make install
+
+echo 'u tss - "tss user for tpm2"' | install -Dm644 /dev/stdin "$1/usr/lib/sysusers.d/swtpm.conf"
+echo 'z /var/lib/swtpm-localca 0750 tss root' | install -Dm644 /dev/stdin "$1/usr/lib/tmpfiles.d/swtpm.conf"
+chmod 750 "$1/var/lib/swtpm-localca"

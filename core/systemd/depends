@@ -1,6 +1,6 @@
 bash
 dbus
-linux-pam
+pam
 gnu-efi
 gperf
 jinja2

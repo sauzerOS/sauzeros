@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+#create database
+echo "creating database, make sure postgresql is running"
+
+psql --username postgres -c "CREATE DATABASE repology"
+psql --username postgres -c "CREATE USER repology WITH PASSWORD 'repology'"
+psql --username postgres -c "GRANT ALL ON DATABASE repology TO repology"
+psql --username postgres --dbname repology -c "GRANT CREATE ON SCHEMA public TO PUBLIC"
+psql --username postgres --dbname repology -c "CREATE EXTENSION pg_trgm"
+psql --username postgres --dbname repology -c "CREATE EXTENSION libversion"

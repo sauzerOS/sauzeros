@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr \
+      -Ddocbook-docs=disabled \
+      -Dlibportal=enabled
+
+ninja
+ninja install

@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+            --disable-network-build \
+            --enable-qt5
+
+make
+make -j1 rulesdir=/usr/lib/udev/rules.d DESTDIR="$1/" install
+
+ rm -rf "$1"/etc/{sane.d,xdg}
+ install -dm755 "$1"/etc/sane.d/dll.d
+ echo hpaio > "$1"/etc/sane.d/dll.d/hpaio
+
+ # remove HAL .fdi file because HAL is no longer used
+ rm -vrf "$1"/usr/share/hal
+
+ # remove rc script
+ rm -vrf "$1"/etc/init.d
+
+ # add mixed license file
+ install -Dt "$1"/usr/share/licenses/${pkgname} -m644 COPYING
+
+ # Compile Python bytecode:
+ python -m compileall -d /usr/share "$1/usr/share"
+ python -O -m compileall -d /usr/share "$1/usr/share"

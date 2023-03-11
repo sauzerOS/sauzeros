@@ -3,5 +3,5 @@
 systemd-machine-id-setup
 systemctl preset-all
 
-#switch to systemd file from linux-pam
+#switch to systemd file from pam
 kiss a systemd /etc/pam.d/system-session

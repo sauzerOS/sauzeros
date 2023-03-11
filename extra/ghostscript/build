@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+rm -rf freetype lcms2mt jpeg libpng openjpeg zlib
+
+./configure --prefix=/usr           \
+            --disable-compile-inits \
+            --with-system-libtiff
+
+make
+make so
+make install
+make DESTDIR=$1 soinstall
+
+install -v -m644 base/*.h $1/usr/include/ghostscript
+ln -sfvn ghostscript $1/usr/include/ps

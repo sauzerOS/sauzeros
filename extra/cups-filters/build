@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+CXXFLAGS="$CXXFLAGS -std=c++17"  \
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --without-rcdir      \
+            --disable-static     \
+            --disable-avahi
+make
+make install
+
+install -v -Dm644 utils/cups-browsed.service $1/lib/systemd/system/cups-browsed.service

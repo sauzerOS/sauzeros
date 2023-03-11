@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr       \
+      --buildtype=release \
+      -Dappindicator=no   \
+      -Dwwan=false	  \
+      -Dselinux=false
+
+ninja
+ninja install

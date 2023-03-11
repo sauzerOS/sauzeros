@@ -1,0 +1,47 @@
+#!/bin/sh -e
+
+cd tigervnc
+patch -Np1 -i ../tigervnc-1.13.1-configuration_fixes-1.patch
+
+cp -r ../xorg-server/* unix/xserver/
+
+# build viewer
+
+cmake -G "Unix Makefiles"         \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_SBINDIR=/usr/bin \
+      -DCMAKE_INSTALL_LIBEXECDIR=/usr/bin \
+      -DCMAKE_BUILD_TYPE=Release  \
+      -Wno-dev .
+
+make
+
+# build server
+
+pushd unix/xserver
+patch -Np1 -i ../xserver21.1.1.patch
+autoreconf -fvi
+
+CPPFLAGS="-I/usr/include/drm"       \
+./configure --prefix=/usr            \
+--disable-xwayland    --disable-dri        --disable-dmx         \
+--disable-xorg        --disable-xnest      --disable-xvfb        \
+--disable-xwin        --disable-xephyr     --disable-kdrive      \
+--disable-devel-docs  --disable-config-hal --disable-config-udev \
+--disable-unit-tests  --disable-selective-werror                 \
+--disable-static      --enable-dri3                              \
+--without-dtrace      --enable-dri2        --enable-glx          \
+--with-pic
+
+make
+cd hw/vnc
+make DESTDIR=$1 install
+
+popd
+
+make DESTDIR=$1 install
+
+install -vdm755 $1/etc/X11/tigervnc
+install -v -m755 ../Xsession $1/etc/X11/tigervnc
+
+

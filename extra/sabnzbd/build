@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+  mkdir -p "$1/usr/lib/sabnzbd"
+  cp -r * "$1/usr/lib/sabnzbd"
+
+  find "$1/usr/lib/sabnzbd" -type d -exec chmod 755 {} \;
+  find "$1/usr/lib/sabnzbd" -type f -exec chmod 644 {} \;
+  chmod 755 "$1/usr/lib/sabnzbd/SABnzbd.py"
+
+  install -D -m 644 "linux/sabnzbd@.service" "$1/usr/lib/systemd/system/sabnzbd.service"
+  install -D -m 644 "sabnzbd.desktop"  "$1/usr/share/applications/sabnzbd.desktop"

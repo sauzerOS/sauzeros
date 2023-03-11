@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+cmake -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DVIDEO_SUPPORT=OFF \
+        -DCMAKE_INSTALL_LIBDIR=lib ..
+
+make
+make install
+

@@ -1,0 +1,7 @@
+glib
+gnupg2
+libgcrypt
+libsecret
+openssh
+p11-kit
+vala

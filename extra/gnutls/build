@@ -3,10 +3,7 @@
 ./configure \
     --prefix=/usr \
     --disable-nls \
-    --with-nettle-mini \
-    --with-included-libtasn1 \
     --with-included-unistring \
-    --without-p11-kit \
     --enable-static
 
 make

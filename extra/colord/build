@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr            \
+      --buildtype=release      \
+      -Ddaemon_user=colord     \
+      -Dvapi=true              \
+      -Dsystemd=true           \
+      -Dlibcolordcompat=true   \
+      -Dargyllcms_sensor=false \
+      -Dbash_completion=false  \
+      -Ddocs=false             \
+      -Dsane=true              \
+      -Dman=false ..
+
+ninja
+ninja install

@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+mkdir build
+cd    build
+
+meson --prefix=/usr          \
+      --buildtype=release    \
+      -Dgtk_doc=false        \
+      --wrap-mode=nodownload \
+      ..
+
+ninja
+ninja install

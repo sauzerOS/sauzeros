@@ -1,7 +1,13 @@
 gtksourceview
+gtk-vnc
 libvirt-glib
+libvirt-python
 libosinfo
+python-certifi
 python-docutils
 python-gobject
-python-libvirt
+python-idna
+python-normalizer
+python-requests
+python-urllib3
 vte3

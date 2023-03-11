@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --disable-avahi      \
+            --disable-gtkspell   \
+            --disable-meanwhile  \
+            --disable-gevolution \
+            --disable-tk         \
+            --disable-tcl        \
+            --disable-idn        \
+            --disable-cyrus-sasl \
+            --disable-gstreamer  \
+            --disable-vv
+
+make
+make install

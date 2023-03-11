@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+#cbindgen fix
+sed -i '/ROOT_CLIP_CHAIN/d' gfx/webrender_bindings/webrender_ffi.h
+
+export CFLAGS="$CFLAGS -w"
+export CXXFLAGS="$CXXFLAGS -w"
+
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
+export MOZBUILD_STATE_PATH=./mozbuild
+
+./mach configure
+./mach build -j10
+
+MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none ./mach install
+
+# Desktop file
+mkdir -p $1/usr/share/applications
+cp thunderbird.desktop $1/usr/share/applications/

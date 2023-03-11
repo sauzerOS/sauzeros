@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+#create user and group for deamon
+sudo groupadd -g 71 colord
+sudo useradd -c "Color Daemon Owner" -d /var/lib/colord -u 71 \
+        -g colord -s /bin/false colord

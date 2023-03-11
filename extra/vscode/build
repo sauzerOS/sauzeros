@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+mkdir -pv $1/opt/vscode
+cp -r * $1/opt/vscode/
+
+install -Dm 0644 code.desktop $1/usr/share/applications/code.desktop

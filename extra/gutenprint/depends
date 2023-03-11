@@ -1,0 +1,14 @@
+at-spi2-core
+cairo
+cups
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+gobject-introspection
+gtk+2
+harfbuzz
+libusb
+ncurses
+pango
+readline
+zlib

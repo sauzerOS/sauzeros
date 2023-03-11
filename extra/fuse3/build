@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-# Remove uneeded udev rule
-sed -i '/^udev/,$ s/^/#/' util/meson.build
+echo "BUILD AS ROOT"
 
 mkdir build
 cd build
@@ -10,10 +9,10 @@ meson \
     --prefix=/usr ..
 
 ninja
-DESTDIR="$1" ninja install
+DESTDIR=$1 ninja install
 
-# Remove all info files.
-rm -rf "$1/usr/share/info"
+rm -rf $1/dev
+rm -rf $1/etc/init.d
 
-# Remove docs.
-rm -rf "$1/usr/share/doc"
+#fusermount needs +s to work
+chmod +s $1/usr/bin/fusermount3

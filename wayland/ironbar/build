@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-cargo build --release
-
-mkdir -p $1/usr/bin
-install target/release/ironbar $1/usr/bin/

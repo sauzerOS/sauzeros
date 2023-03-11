@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+autoreconf -fiv
+
+PYTHON=python3               \
+./configure --prefix=/usr    \
+            --disable-static \
+            --with-default-dict=/usr/lib/cracklib/pw_dict
+make
+make install

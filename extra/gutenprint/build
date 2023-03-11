@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+sed -i 's|$(PACKAGE)/doc|doc/$(PACKAGE)-$(VERSION)|' \
+       {,doc/,doc/developer/}Makefile.in
+
+./configure --prefix=/usr --disable-static
+
+make
+make install
