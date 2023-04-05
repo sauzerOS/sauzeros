@@ -1,4 +1,4 @@
-gobject-introspection
+gobject-introspection make
 libpng
 meson   make
 pkgconf make

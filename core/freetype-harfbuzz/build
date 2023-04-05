@@ -6,8 +6,6 @@ build_freetype() (
     meson \
         --prefix=/usr \
         -Ddefault_library=both \
-        -Dbzip2=disabled \
-        -Dzlib=disabled \
         "$@" \
         . output
 
@@ -23,7 +21,6 @@ build_harfbuzz() (
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
         -Dfreetype=enabled \
-        -Dgobject=disabled \
         -Dicu=disabled \
         -Dbenchmark=disabled \
         -Dtests=disabled \

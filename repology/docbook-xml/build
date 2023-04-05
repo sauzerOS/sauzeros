@@ -1,8 +1,0 @@
-#!/bin/sh -e
-export pkgver=4.5
-
-unzip *.zip
-
-install -v -d -m755 "$1/usr/share/xml/docbook/xml-dtd-$pkgver"
-install -v -d -m755 "$1/etc/xml"
-cp -v -af docbook.cat *.dtd ent/ *.mod "$1/usr/share/xml/docbook/xml-dtd-$pkgver"

@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+./makeconf.sh
+./configure \
+    --prefix=/usr \
+    --disable-static \
+    --disable-example \
+    --exec-prefix=/
+
+make
+make DESTDIR="$1" install
+
+# remove useless files
+rm -rf "$1/etc/init.d"
+rm -rf "$1/dev"

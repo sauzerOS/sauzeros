@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
-mv Modules/* cmake/modules/
+#cp Modules/* cmake/modules/
+
+cd llvm
 
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
