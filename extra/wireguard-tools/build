@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+make -C src/
+make -C src/ \
+	DESTDIR="$1/" \
+	WITH_BASHCOMPLETION=yes \
+        WITH_WGQUICK=yes \
+        WITH_SYSTEMDUNITS=yes \
+        install
+
+

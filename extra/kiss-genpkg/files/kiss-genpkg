@@ -2,7 +2,7 @@
 
 [ -z $1 ] && echo "Provide a package name" && exit 1
 pkg=$1
-path=$(kiss search $pkg)
+path=$(kiss search $pkg | head -n 1)
 rm -rf $pkg
 
 mkdir $pkg

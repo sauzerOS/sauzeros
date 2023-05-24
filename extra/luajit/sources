@@ -1,1 +1,1 @@
-https://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz
+git+https://github.com/LuaJIT/LuaJIT#224129a8e64bfa219d35cd03055bf03952f167f6

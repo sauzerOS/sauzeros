@@ -1,0 +1,9 @@
+curl
+glib
+gpgme
+libarchive
+libassuan
+libgpg-error
+util-linux
+xz
+zlib

@@ -1,0 +1,6 @@
+libXScrnSaver
+libXcursor
+libXinerama
+libXrandr
+libXtst
+xorg-server
