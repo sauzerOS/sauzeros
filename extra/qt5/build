@@ -1,7 +1,17 @@
 #!/bin/sh -e
 
+
+patch -Np1 -i qt-everywhere-opensource-src-5.15.9-kf5-1.patch
+
 # Without this folder, Qt can't find its header files.
 mkdir .git
+mkdir -pv qtbase/.git
+
+#GCC 13 fix
+sed -e "/pragma once/a#include <cstdint>"                                      \
+    -i qtlocation/src/3rdparty/mapbox-gl-native/include/mbgl/util/geometry.hpp \
+       qtlocation/src/3rdparty/mapbox-gl-native/include/mbgl/util/string.hpp   \
+       qtlocation/src/3rdparty/mapbox-gl-native/src/mbgl/gl/stencil_mode.hpp
 
 ./configure \
     -confirm-license \
