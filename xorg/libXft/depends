@@ -1,7 +1,7 @@
 autoconf	  make
 automake	  make
 fontconfig        make
-freetype-harfbuzz make
+freetype          make
 libtool		  make
 libXrender        make
 xorgproto         make

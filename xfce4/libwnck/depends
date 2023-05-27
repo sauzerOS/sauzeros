@@ -1,6 +1,6 @@
 expat
 fontconfig
-freetype-harfbuzz
+freetype
 fribidi
 gdk-pixbuf
 glib

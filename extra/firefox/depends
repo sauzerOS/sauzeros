@@ -6,7 +6,7 @@ clang         make
 expat
 ffmpeg
 fontconfig
-freetype-harfbuzz
+freetype
 gdk-pixbuf
 glib
 gtk+3

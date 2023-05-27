@@ -3,7 +3,7 @@ exo
 expat
 ffmpegthumbnailer
 fontconfig
-freetype-harfbuzz
+freetype
 fribidi
 gdk-pixbuf
 glib

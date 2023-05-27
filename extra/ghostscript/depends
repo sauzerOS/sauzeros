@@ -2,7 +2,7 @@ at-spi2-core
 cairo
 cups
 fontconfig
-freetype-harfbuzz
+freetype
 gdk-pixbuf
 gobject-introspection
 gtk+3

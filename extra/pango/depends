@@ -1,6 +1,6 @@
 cairo
 fontconfig
-freetype-harfbuzz
+freetype
 fribidi
 glib
 gobject-introspection

@@ -1,6 +1,6 @@
 alsa-lib
 ffmpeg
-freetype-harfbuzz
+freetype
 libass
 linux-headers make
 libxpresent

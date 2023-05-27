@@ -2,7 +2,7 @@ cairo
 exo
 expat
 fontconfig
-freetype-harfbuzz
+freetype
 fribidi
 garcon
 gdk-pixbuf

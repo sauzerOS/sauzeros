@@ -2,7 +2,7 @@ bzip2
 cairo
 expat
 fontconfig
-freetype-harfbuzz
+freetype
 fribidi
 gdk-pixbuf
 glib
