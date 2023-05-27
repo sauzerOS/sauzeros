@@ -1,1 +1,24 @@
+cairo
+cmake make
+libdisplayinfo
+libdrm
+libglvnd
+libinput
+libX11
+libxcb
+libXcomposite
+libXfixes
+libxkbcommon
+pango
+pixman
+wayland
+wayland-protocols
+xwayland
+xcb-proto
+xcb-util
+xcb-util-keysyms
+xcb-util-renderutil
+xcb-util-wm
 seatd
+xorgproto make
+wlroots

@@ -6,7 +6,9 @@ cd subprojects/wlroots
 meson build/ --prefix=/usr --buildtype=release
 ninja -C build
 #ninja -C build/ install
-cd ../../
+cd ..
+cd udis86 && cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -H./ -B./build -G Ninja && cmake --build ./build --config Release --target all -j$(shell nproc)
+cd ../..
 make protocols
 make release
 cd hyprctl
