@@ -1,10 +1,12 @@
 #!/bin/sh -e
-export pkgver=5.1
 
 unzip *.zip -d extract
 cd extract
 
-
-install -v -d -m755 "$1/usr/share/xml/docbook/xml-dtd-$pkgver"
-install -v -d -m755 "$1/etc/xml"
-cp -v -af docbook.cat *.dtd ent/ *.mod "$1/usr/share/xml/docbook/xml-dtd-$pkgver"
+install -vdm755 $1/usr/share/xml/docbook/schema/{rng,sch}/5.1
+install -m644   schemas/rng/* $1/usr/share/xml/docbook/schema/rng/5.1
+install -m644   schemas/sch/* $1/usr/share/xml/docbook/schema/sch/5.1
+install -m755   tools/db4-entities.pl $1/usr/bin
+install -vdm755 $1/usr/share/xml/docbook/stylesheet/docbook5
+install -m644   tools/db4-upgrade.xsl \
+                $1/usr/share/xml/docbook/stylesheet/docbook5
