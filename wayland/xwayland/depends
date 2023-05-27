@@ -2,6 +2,7 @@ font-util
 libXfont2
 libxcvt
 libepoxy
+libXdmcp
 wayland
 wayland-eglstream-protocols
 wayland-protocols
