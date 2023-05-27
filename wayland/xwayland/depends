@@ -1,4 +1,5 @@
 font-util
+libXfont2
 wayland
 wayland-eglstream-protocols
 wayland-protocols
