@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-./autogen.sh
+./autogen.sh --disable-documentation
 
 # Remove fuse2 dependency (used solely with root "system-helper"
 # daemon for file transfer. Unneeded in our case and drops the
