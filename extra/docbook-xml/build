@@ -3,7 +3,8 @@
 unzip *.zip -d extract
 cd extract
 
-install -vdm755 $1/usr/share/xml/docbook/schema/{rng,sch}/5.1
+install -vdm755 $1/usr/share/xml/docbook/schema/rng/5.1
+install -vdm755 $1/usr/share/xml/docbook/schema/sch/5.1
 install -m644   schemas/rng/* $1/usr/share/xml/docbook/schema/rng/5.1
 install -m644   schemas/sch/* $1/usr/share/xml/docbook/schema/sch/5.1
 install -m755   tools/db4-entities.pl $1/usr/bin
