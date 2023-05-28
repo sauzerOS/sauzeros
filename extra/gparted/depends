@@ -1,6 +1,6 @@
-intltool
 gettext	make
 gtkmm
+itstool
 ntfs-3g
 parted
 perl-xml-parser
