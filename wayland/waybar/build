@@ -8,5 +8,6 @@ meson --prefix=/usr build
 meson configure -Dexperimental=true build
 
 cd build
+
 ninja
 ninja install
