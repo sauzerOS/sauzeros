@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+./autogen.sh
+
 # Remove fuse2 dependency (used solely with root "system-helper"
 # daemon for file transfer. Unneeded in our case and drops the
 # old fuse version.
