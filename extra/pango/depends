@@ -1,6 +1,6 @@
 cairo
 fontconfig
-freetype
+freetype make
 fribidi
 glib
 gobject-introspection

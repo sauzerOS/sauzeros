@@ -10,3 +10,5 @@ session  include        system-session
 
 # End /etc/pam.d/polkit-1
 EOF
+
+sudo chmod +s /usr/lib/polkit-1/polkit-agent-helper-1

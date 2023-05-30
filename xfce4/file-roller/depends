@@ -1,4 +1,5 @@
 cpio
+desktop-file-utils
 gtk+3
 json-glib
 libarchive
