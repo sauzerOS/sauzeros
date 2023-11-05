@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+sed 's/apiversion/soup_version/' -i docs/reference/meson.build
+
 mkdir build
 cd    build
 

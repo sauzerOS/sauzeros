@@ -4,7 +4,6 @@ mkdir build
 cd build
 
 meson --prefix=/usr \
-      -Dbackends=gtk3,qt5 \
 	  -Ddocs=false \
 	  -Dtests=false
 

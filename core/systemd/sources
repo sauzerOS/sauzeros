@@ -1,4 +1,4 @@
-https://github.com/systemd/systemd-stable/archive/refs/tags/v253.4.tar.gz
+https://github.com/systemd/systemd-stable/archive/refs/tags/v254.5.tar.gz
 files/system-session
 files/systemd-user
 files/20-wired.network

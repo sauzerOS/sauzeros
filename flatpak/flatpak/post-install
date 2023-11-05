@@ -4,4 +4,7 @@ cat <<EOF
 The flatpak repository can be enabled by running the following command:
 
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+install xdg-desktop-portal-gtk
+
 EOF

@@ -1,7 +1,9 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr
+mkdir build
+cd build
 
-make
-make DESTDIR="$1" install
+meson --prefix=/usr ..
+
+ninja
+ninja install

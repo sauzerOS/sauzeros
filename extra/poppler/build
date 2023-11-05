@@ -7,6 +7,7 @@ cmake  -DCMAKE_BUILD_TYPE=Release   \
        -DCMAKE_INSTALL_PREFIX=/usr  \
        -DTESTDATADIR=$PWD/testfiles \
        -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+       -DENABLE_QT6=OFF \
        ..
 
 make

@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -Dsession-managers="[]" ..
+
+ninja
+ninja install

@@ -1,4 +1,6 @@
+keyutils
 libbytesize
+libnvme
 libyaml
 parted
 volume-key

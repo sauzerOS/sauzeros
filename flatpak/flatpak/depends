@@ -1,6 +1,7 @@
 appstream
 bubblewrap
 curl
+fuse3
 gdk-pixbuf
 glib
 gpgme
@@ -15,6 +16,4 @@ polkit
 python make
 python-pyparsing
 xdg-dbus-proxy
-xdg-desktop-portal
-xdg-desktop-portal-gtk
 

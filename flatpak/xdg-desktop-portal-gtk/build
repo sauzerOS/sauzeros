@@ -1,6 +1,9 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr
+mkdir build
+cd build
 
-make
-make install
+meson setup --prefix=/usr -Dwallpaper=disabled ..
+
+ninja
+ninja install

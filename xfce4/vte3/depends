@@ -9,6 +9,7 @@ glib
 gnutls
 gobject-introspection
 gtk+3
+gtk+4
 libX11
 libXau
 libXcomposite

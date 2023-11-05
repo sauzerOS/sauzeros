@@ -7,7 +7,7 @@ cd build
 
 meson --prefix=/usr       \
       --buildtype=release \
-      -Dvapi=disabled     \
+      -Dvapi=enabled      \
       -Dgssapi=disabled   \
       -Dsysprof=disabled  \
       ..

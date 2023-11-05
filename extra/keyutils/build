@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make
+make DESTDIR=$1 SBINDIR='/usr/bin' BINDIR='/usr/bin' LIBDIR='/usr/lib' USRLIBDIR='/usr/lib' install install
