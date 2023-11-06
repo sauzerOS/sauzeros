@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
 #use p11-kit trust module
-sudo kiss a p11-kit /usr/lib/libnssckbi.so
+echo "switch to p11-kit trust module:sudo kiss a p11-kit /usr/lib/libnssckbi.so"
