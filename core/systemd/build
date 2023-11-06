@@ -32,6 +32,7 @@ meson --prefix=/usr                \
       -Dman=false		   \
       -Doomd=false		   \
       -Dpamconfdir=/etc/pam.d      \
+      -Dbootloader=true            \
       -Dsbat-distro-url="https://github.com/sauzeros" \
       ..
 
