@@ -1,1 +1,2 @@
 freetype make
+gobject-introspection make

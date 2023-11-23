@@ -1,87 +1,40 @@
 #!/bin/sh -e
 
-# Instruct the compiler to trim absolute paths in resulting binaries and instead
-# change them to relative paths ($PWD/... ./...).
-export RUSTFLAGS="$RUSTFLAGS --remap-path-prefix=$PWD=."
+cat << EOF > config.toml
+# see config.toml.example for more possible options
+# See the 8.4 book for an old example using shipped LLVM
+# e.g. if not installing clang, or using a version before 13.0
 
-# Set shared linking as the default.
-sed 's/\(crt_static_default = \)true/\1false/' \
-    compiler/rustc_target/src/spec/linux_gnu_base.rs > _
-mv -f _ compiler/rustc_target/src/spec/linux_gnu_base.rs
+# tell x.py to not keep printing an annoying warning
+changelog-seen = 2
 
-# Ignore checksums of files modified above.
-sed 's/\("files":{\)[^}]*/\1/' \
-    vendor/curl-sys/.cargo-checksum.json > _
-mv -f _ vendor/curl-sys/.cargo-checksum.json
-
-cat > config.toml <<EOF
 [llvm]
+# by default, rust will build for a myriad of architectures
+targets = "X86"
+
+# When using system llvm prefer shared libraries
 link-shared = true
-skip-rebuild = true
 
 [build]
-build     = "x86_64-unknown-linux-gnu"
-host      = [ "x86_64-unknown-linux-gnu" ]
-target    = [ "x86_64-unknown-linux-gnu" ]
+# omit docs to save time and space (default is to build them)
+docs = false
 
-docs           = false
-compiler-docs  = false
-extended       = true
-submodules     = false
-python         = "python3"
-locked-deps    = true
-vendor         = true
-tools          = [ "cargo", "rustfmt" ]
-sanitizers     = false
-profiler       = false
-full-bootstrap = false
-EOF
+# install extended tools: cargo, clippy, etc
+extended = true
 
-# If possible, use system rust to bootstrap.
-maj="${2%%.*}"
-min="${2%.*}"
-min="${min#*.}"
+# Do not query new versions of dependencies online.
+locked-deps = true
 
-# Fall back to vendor binaries if rustc, et al are not present, or if one of
-# them suffered ABI breakage.
-rust_version=$(rustc --version 2>/dev/null) || rust_version=null
-cargo --version 2>/dev/null || rust_version=null
-rustfmt --version 2>/dev/null || rust_version=null
-rust_version="${rust_version#rustc }"
+# Specify which extended tools (those from the default install).
+tools = ["cargo", "clippy", "rustdoc", "rustfmt"]
 
-case "$rust_version" in
-    "$maj.$min".*|"$maj.$((min - 1))".*)
-        cat >> config.toml <<EOF
-cargo          = "/usr/bin/cargo"
-rustc          = "/usr/bin/rustc"
-rustfmt        = "/usr/bin/rustfmt"
-EOF
-    ;;
-
-    *)
-        # This mimics the download process of rust's 'x.py'
-        # bootstrap library to allow for the removal of the internet
-        # connection requirement per build.
-        mkdir -p "${cache_dir:=build/cache/2023-01-10}"
-
-        for tarball in *.tar.xz\?no-extract; do
-            mv -f "$tarball" "$cache_dir/${tarball%%\?no-extract}"
-        done
-    ;;
-esac
-
-cat >> config.toml <<EOF
+# Use the source code shipped in the tarball for the dependencies.
+# The combination of this and the "locked-deps" entry avoids downloading
+# many crates from Internet, and makes the Rustc build more stable.
+vendor = true
 
 [install]
 prefix = "/usr"
-
-[target.x86_64-unknown-linux-gnu]
-llvm-config = "/usr/bin/llvm-config"
-crt-static  = false
-sanitizers  = false
-
-[dist]
-src-tarball = false
 
 [rust]
 backtrace         = false
@@ -96,27 +49,12 @@ incremental       = false
 jemalloc          = false
 rpath             = false
 dist-src          = false
+
+[target.x86_64-unknown-linux-gnu]
+# NB the output of llvm-config (i.e. help options) may be
+# dumped to the screen when config.toml is parsed.
+llvm-config = "/usr/bin/llvm-config"
 EOF
-
-# Workaround to get Rust to build in llvm-only environments.
-# libgcc_s.so is needed for Rust's bootstrap binaries, on llvm-only systems
-# this library does not exist. This hack creates it as alias to libunwind.
-libunwind_path=$("$CC" -print-file-name=libunwind.so)
-case $libunwind_path in */*)
-    printf 'llvm-libunwind = "system"\n' >> config.toml
-
-    mkdir -p libgcc
-
-    printf 'INPUT(-lunwind)\n' > \
-        libgcc/libgcc_s.so
-
-    ln -sf "$libunwind_path" \
-        libgcc/libgcc_s.so.1
-
-    export \
-        LD_LIBRARY_PATH="$PWD/libgcc:$LD_LIBRARY_PATH" \
-        LIBRARY_PATH="$PWD/libgcc:$LIBRARY_PATH"
-esac
 
 python x.py build -j "$(grep -scF 'core id' /proc/cpuinfo)"
 python x.py install
@@ -126,4 +64,3 @@ rm -rf \
     "$1/usr/share/doc" \
     "$1/usr/share/zsh" \
     "$1/usr/lib/rustlib/uninstall.sh"
-

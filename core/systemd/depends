@@ -10,4 +10,5 @@ kmod
 libcap
 meson
 pkgconf
+pyelftools
 shadow

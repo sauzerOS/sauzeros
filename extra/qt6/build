@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+sed -i '242,245d' qtbase/src/gui/platform/unix/qxkbcommon.cpp
+
+./configure -prefix /opt/qt6        \
+            -sysconfdir /etc/xdg    \
+            -dbus-linked            \
+            -openssl-linked         \
+            -system-sqlite          \
+            -nomake examples        \
+            -no-rpath               \
+            -journald               \
+            -skip qt3d              \
+            -skip qtquick3dphysics  \
+            -skip qtwebengine       \
+            -Wno-dev
+
+ninja
+ninja install
+
+# Remove references to build dir
+find $1/opt/qt6 -name \*.prl \
+   -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
