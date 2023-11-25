@@ -1,3 +1,9 @@
 libnetfilter_queue
+python-notify2
 python-grpcio
 python-pyqt5
+python-protobuf3
+python-slugify
+python-pyinotify
+python-notify2
+python-pyasn

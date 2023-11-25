@@ -1,6 +1,12 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr
+./configure --prefix=/usr    \
+            --disable-debug
 
 make
-make install
+make DESTDIR=$1 install
+
+# basic safe firewall config
+install -Dm644 nftables.conf "$1/etc/nftables.conf"
+# systemd
+install -Dm644 nftables.service "$1/usr/lib/systemd/system/nftables.service"
