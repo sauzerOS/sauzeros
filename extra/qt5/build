@@ -47,4 +47,4 @@ make INSTALL_ROOT="$1" install
 find $1/usr -name \*.prl \
    -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
 
-install -Dm755 qt.conf $1/usr/bin/qt.conf
+install -Dm644 qt.conf $1/usr/bin/qt.conf

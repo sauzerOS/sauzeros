@@ -16,4 +16,4 @@ polkit
 python make
 python-pyparsing
 xdg-dbus-proxy
-
+xdg-desktop-portal-gtk

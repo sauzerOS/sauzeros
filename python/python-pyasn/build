@@ -5,5 +5,5 @@ python3 setup.py install \
     --prefix=/usr \
     --root="$1"
 
-install -Dm755 ipasn_20140513_v12.dat.gz $1/usr/lib/python3/dist-packages/data/ipasn_20140513_v12.dat.gz
-install -Dm755 asnames.json $1/usr/lib/python3/dist-packages/data/asnames.json
+install -Dm644 ipasn_20140513_v12.dat.gz $1/usr/lib/python3/dist-packages/data/ipasn_20140513_v12.dat.gz
+install -Dm644 asnames.json $1/usr/lib/python3/dist-packages/data/asnames.json
