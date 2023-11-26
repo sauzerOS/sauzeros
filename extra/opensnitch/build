@@ -6,3 +6,6 @@ tar -xf data.tar.xz -C "$1/"
 ar x python3-opensnitch-ui*.deb
 
 tar -xf data.tar.xz -C "$1/"
+
+# remove sysvinit compat files
+rm -rf $1/etc/init.d
