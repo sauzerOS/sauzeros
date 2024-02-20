@@ -2,6 +2,7 @@ alsa-lib
 ffmpeg
 freetype
 libass
+libplacebo
 linux-headers make
 libxpresent
 libXScrnSaver

@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
+tar xvf stable
 mkdir -pv $1/opt/vscode
-cp -r * $1/opt/vscode/
+cp -r VSCode-linux-x64/* $1/opt/vscode/
 
 install -Dm 0644 code.desktop $1/usr/share/applications/code.desktop

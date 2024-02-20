@@ -1,6 +1,7 @@
 bison make
 expat
 flex  make
+glslang
 libdrm
 libelf
 libglvnd

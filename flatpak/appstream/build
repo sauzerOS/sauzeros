@@ -7,14 +7,14 @@ cd "AppStream-$2"
 :>po/meson.build
 :>docs/meson.build
 
-patch -p1 < ../no-i18n.patch
+patch -Np1 -i ../no-i18n.patch
 
 meson \
     --prefix=/usr \
     --libexecdir=/usr/lib \
     -Dcompose=false \
     -Dstemming=false \
-    -Dgir=false \
+    -Ddocs=false \
     . output
 
 ninja -C output

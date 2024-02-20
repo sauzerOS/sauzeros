@@ -2,12 +2,13 @@
 
 # Reported 20-27% performance improvements.
 # See: "PythonNoSemanticInterpositionSpeedup"
-export CFLAGS="$CFLAGS -fno-semantic-interposition"
+export CFLAGS="$CFLAGS -fno-semantic-interposition -ffat-lto-objects"
 export LDFLAGS="$LDFLAGS -fno-semantic-interposition"
 
 ./configure \
     --prefix=/usr \
     --enable-shared \
+    --enable-optimizations \
     --with-system-expat \
     --with-system-ffi \
     --with-ensurepip=yes

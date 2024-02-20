@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+#don't compile man pages
+sed -i.bak -e '26,28d;65,68d' Makefile
+
+make CARGOFLAGS="--target-dir=target" build
+make CARGOFLAGS="--target-dir=target" DESTDIR="$1" install

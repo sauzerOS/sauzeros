@@ -1,5 +1,5 @@
 botan
-qt6
+qt5
 argon2
 libgcrypt
 libsodium

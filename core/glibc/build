@@ -36,6 +36,6 @@ cp -v nscd/nscd.conf "$1"/etc/nscd.conf
 mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf
 cp -v ld.so.conf "$1"/etc/ld.so.conf
-	
+
 install -v -Dm644 nscd/nscd.tmpfiles "$1"/usr/lib/tmpfiles.d/nscd.conf
 install -v -Dm644 nscd/nscd.service "$1"/lib/systemd/system/nscd.service

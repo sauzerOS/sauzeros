@@ -3,6 +3,7 @@ gdk-pixbuf
 graphene
 iso-codes
 libepoxy
+libtiff
 libxkbcommon
 pango
 python-gobject

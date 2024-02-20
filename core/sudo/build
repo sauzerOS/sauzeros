@@ -6,7 +6,6 @@
     --libexecdir=/usr/lib \
     --disable-pam-session \
     --disable-root-mailer \
-    --disable-nls \
     --disable-openssl \
     --disable-python \
     --enable-pie \

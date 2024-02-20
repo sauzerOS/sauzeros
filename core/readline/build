@@ -3,7 +3,7 @@
 export CFLAGS="$CFLAGS -fPIC"
 
 # upstream patch
-patch -Np1 -i readline-8.2-upstream_fix-1.patch
+patch -Np1 -i readline-8.2-upstream_fixes-3.patch
 
 ./configure \
     --prefix=/usr

@@ -2,8 +2,7 @@
 
 ./configure \
     --prefix=/usr \
-    --disable-doc \
-    --disable-nls
+    --disable-doc
 
 make
 make install

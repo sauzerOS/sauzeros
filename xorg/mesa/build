@@ -14,10 +14,12 @@ meson \
     -Dglx-read-only-text=true \
     -Dplatforms=x11,wayland \
     -Degl=enabled \
-    -Dvalgrind=false \
+    -Dvalgrind=disabled \
+    -Dlibunwind=disabled \
     -Dzstd=disabled \
     -Dglvnd="${glvnd_enabled:-true}" \
-    -Dvulkan-drivers='' \
+    -Dvulkan-drivers=auto \
+    -Dgallium-drivers=auto \
     . output
 
 ninja -C output

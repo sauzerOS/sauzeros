@@ -12,8 +12,7 @@ mv -f _ src/Makefile.in
     --sysconfdir=/etc \
     --with-xmldir=/etc/fonts \
     --enable-static \
-    --disable-docs \
-    --disable-nls
+    --disable-docs
 
 make
 make install

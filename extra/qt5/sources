@@ -1,3 +1,4 @@
-https://download.qt.io/archive/qt/5.15/5.15.11/single/qt-everywhere-opensource-src-5.15.11.tar.xz
-https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.11-kf5-1.patch
+https://download.qt.io/archive/qt/5.15/5.15.12/single/qt-everywhere-opensource-src-5.15.12.tar.xz
+https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.12-kf5-1.patch
+https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.12-security_fix-1.patch
 files/qt.conf

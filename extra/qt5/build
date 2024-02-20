@@ -1,9 +1,10 @@
 #!/bin/sh -e
 
 # Remove unused definitions
-sed -i '276,279d' qtbase/src/platformsupport/input/xkbcommon/qxkbcommon.cpp
+#sed -i '276,279d' qtbase/src/platformsupport/input/xkbcommon/qxkbcommon.cpp
 
-patch -Np1 -i qt-everywhere-opensource-src-5.15.11-kf5-1.patch
+patch -Np1 -i qt-everywhere-opensource-src-5.15.12-kf5-1.patch
+patch -Np1 -i qt-everywhere-opensource-src-5.15.12-security_fix-1.patch
 
 # Without this folder, Qt can't find its header files.
 mkdir .git
