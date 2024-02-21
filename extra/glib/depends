@@ -1,4 +1,5 @@
 libffi
+libxml2
 meson   make
 pcre2
 pkgconf make
