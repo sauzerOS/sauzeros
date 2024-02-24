@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+cargo build --release
+install -Dt "$1"/usr/bin target/release/shotgun
