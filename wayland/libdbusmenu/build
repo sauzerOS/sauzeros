@@ -11,8 +11,7 @@ export HAVE_VALGRIND_FALSE=''
 	    --with-gtk=3 \
 	    --disable-dumper \
 	    --disable-static \
-	    --disable-tests \
-	    --disable-vala
+	    --disable-tests
 
 make
 make DESTDIR=$1 install

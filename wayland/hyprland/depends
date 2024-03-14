@@ -1,5 +1,6 @@
 cairo
 cmake make
+hyprlang
 libdisplayinfo
 libdrm
 libglvnd
@@ -20,5 +21,6 @@ xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-wm
 seatd
+tomlplusplus
 xorgproto make
 wlroots
