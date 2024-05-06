@@ -3,7 +3,7 @@
 autoreconf -fvi
 
 ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-            --libexecdir=/usr/lib --disable-static
+            --libexecdir=/usr/lib --disable-static --with-gtk4
 
 make
 make DESTDIR="$1" install dbusservicedir=/usr/share/dbus-1/system.d

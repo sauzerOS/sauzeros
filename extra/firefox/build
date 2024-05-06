@@ -38,10 +38,6 @@ ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
 EOF
 
-for i in {43..47}; do
-   sed -i '/ZWJ/s/}/,CLASS_CHARACTER&/' intl/lwbrk/LineBreaker.cpp 
-done
-
 sed -e "/match cursor.kind()/a                                    \
         CXCursor_LinkageSpec => return Err(ParseError::Recurse)," \
     -i third_party/rust/bindgen/ir/item.rs                        &&
@@ -66,9 +62,11 @@ sed '/mInputImageMap/s/uint32_t/uint64_t/' \
 
 sed '/cfg_attr/,/)]/d' -i gfx/qcms/src/lib.rs
 
-
-
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
+export MOZBUILD_STATE_PATH=${PWD}/mozbuild
 ./mach build
+
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 DESTDIR=$1 ./mach install
 
 # Remove a lot of uneeded "stuff".

@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr         \
+            --disable-rpath       \
+            --enable-shared       \
+            --without-valgrind    \
+            --without-baseruby    \
+            ac_cv_func_qsort_r=no
+
+make
+make DESTDIR=$1 install

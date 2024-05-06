@@ -14,8 +14,12 @@ cmake -DCMAKE_BUILD_TYPE=Release  \
       -DENABLE_MINIBROWSER=ON     \
       -DENABLE_DOCUMENTATION=OFF  \
       -DENABLE_WEBDRIVER=OFF      \
+      -DENABLE_SPELLCHECK=OFF     \
+      -DUSE_JPEGXL=OFF            \
+      -DUSE_AVIF=OFF              \
+      -DUSE_GSTREAMER_TRANSCODER=OFF \
       -DUSE_WOFF2=OFF             \
-      -DUSE_GTK4=OFF              \
+      -DUSE_GTK4=OFF               \
       -DENABLE_BUBBLEWRAP_SANDBOX=ON \
       -Wno-dev -G Ninja ..
 ninja
