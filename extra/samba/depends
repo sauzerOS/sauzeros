@@ -1,0 +1,10 @@
+gnutls
+jansson
+json
+libtirpc
+lmdb
+parse-yapp
+rpcsvc-proto
+fuse3
+gpgme
+libtasn1

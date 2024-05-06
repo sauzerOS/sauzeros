@@ -7,7 +7,6 @@ meson setup --prefix=/usr             \
             --buildtype=release       \
            -Dbroadway-backend=true    \
            -Dmedia-gstreamer=disabled \
-           -Dmedia-ffmpeg=disabled    \
            -Dintrospection=enabled    \
            ..
 

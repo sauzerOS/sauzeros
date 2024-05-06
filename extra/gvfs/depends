@@ -6,4 +6,5 @@ libcdio-paranoia
 libusb
 libgudev
 polkit
+samba
 udisks2

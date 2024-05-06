@@ -7,4 +7,5 @@ libtiff
 libxkbcommon
 pango
 python-gobject
+shaderc
 wayland-protocols

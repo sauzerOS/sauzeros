@@ -1,0 +1,7 @@
+https://download.samba.org/pub/samba/stable/samba-4.17.5.tar.gz
+files/samba.conf 
+files/nmbd.service 
+files/samba.service
+files/smbd.service 
+files/smbdat.service 
+files/smbd.socket

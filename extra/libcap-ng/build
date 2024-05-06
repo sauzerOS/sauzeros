@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+# make stupid autotools happy -_-
+touch NEWS
 autoreconf -fvi
 ./configure --prefix=/usr
 

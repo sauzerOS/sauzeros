@@ -8,7 +8,3 @@
 
 make
 make DESTDIR="$1" install
-
-for tool in lsmod insmod rmmod depmod modinfo modprobe; do
-    ln -s kmod "$1/usr/bin/$tool"
-done
