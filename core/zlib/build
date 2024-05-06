@@ -2,8 +2,19 @@
 
 export CFLAGS="$CFLAGS -fPIC"
 
+cd contrib/minizip
+cp Makefile Makefile.orig
+autoreconf -fiv
+cd ../..
+
 ./configure \
     --prefix=/usr
 
 make
-make install
+make install DESTDIR=$1
+
+# build minizip
+cd contrib/minizip
+./configure --prefix=/usr
+make
+make install DESTDIR=$1

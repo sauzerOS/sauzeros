@@ -1,26 +1,10 @@
 #!/bin/sh -e
 
-./autogen.sh --disable-documentation
+meson build --prefix=/usr \
+-D selinux_module=disabled \
+-D system_bubblewrap=bwrap \
+-D seccomp=disabled \
+-D system_dbus_proxy=xdg-dbus-proxy
 
-# Remove fuse2 dependency (used solely with root "system-helper"
-# daemon for file transfer. Unneeded in our case and drops the
-# old fuse version.
-sed \
-    -e 's/as_fn_error.*fuse/: "/g' \
-    -e '/Werror=missing-include-dirs/d' configure > _
-mv -f _ configure
-
-echo "int main(void) { return 1; }" > revokefs/main.c
-:>revokefs/writer.c
-
-sh ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --with-system-bubblewrap \
-    --enable-seccomp \
-    --enable-policykit-system-helper \
-    --with-systemd \
-    --disable-documentation
-
-make
-make DESTDIR="$1" install
+meson compile -C build
+meson install -C build --destdir=$1
