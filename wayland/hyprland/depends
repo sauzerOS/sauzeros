@@ -1,26 +1,16 @@
-cairo
-cmake make
+aquamarine
 hyprlang
-libdisplayinfo
-libdrm
-libglvnd
-libinput
-libX11
-libxcb
-libXcomposite
-libXfixes
-libxkbcommon
-pango
-pixman
-wayland
-wayland-protocols
-xwayland
-xcb-proto
+hyprland-protocols
+hyprcursor
+hyprutils
+hyprgraphics
+hyprwayland-scanner
+libXcursor
+re2
+seatd
 xcb-util
+xcb-util-errors
+xcb-util-image
 xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-wm
-seatd
-tomlplusplus
-xorgproto make
-wlroots

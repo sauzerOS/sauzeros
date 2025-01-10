@@ -1,19 +1,16 @@
 #!/bin/sh -e
 
-meson setup \
-    -Dprefix=/usr \
-    -Dx11_backend=true \
-    -Dwayland_backend=true \
-    -Dprint_backends=file,lpr \
-    -Dcolord=no \
-    -Dintrospection=true \
-    -Ddemos=false \
-    -Dexamples=false \
-    -Dtests=false \
-    output
+mkdir build
+cd    build
 
-ninja -C output
-meson install -C output
+meson setup ..                 \
+      --prefix=/usr            \
+      --buildtype=release      \
+      -D man=false             \
+      -D broadway_backend=true
+ninja
+DESTDIR=$1 ninja install
 
+cd ..
 mkdir -p $1/etc/gtk-3.0/
 cp settings.ini $1/etc/gtk-3.0/

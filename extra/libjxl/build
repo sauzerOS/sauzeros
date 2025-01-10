@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+./deps.sh
+
+cd third_party
+git submodule update --init
+cd ..
+rm -rfv third_party/brotli
+
+mkdir build
+cd    build
+
+cmake -D CMAKE_INSTALL_PREFIX=/usr             \
+      -D CMAKE_BUILD_TYPE=Release              \
+      -D BUILD_TESTING=OFF                     \
+      -D BUILD_SHARED_LIBS=ON                  \
+      -D JPEGXL_ENABLE_PLUGINS=ON              \
+      -D JPEGXL_INSTALL_JARDIR=/usr/share/java \
+      -G Ninja ..
+ninja
+DESTDIR=$1 ninja install

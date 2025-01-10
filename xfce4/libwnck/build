@@ -9,7 +9,6 @@ meson \
     --prefix=/usr \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    -Dintrospection=disabled \
     . output
 
 ninja -C output

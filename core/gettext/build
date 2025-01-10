@@ -1,8 +1,14 @@
 #!/bin/sh -e
 #doesn't build if gettext is not available on host system
 
+#fix bug with libxml2 >2.12
+sed -e '/^structured/s/xmlError \*/typeof(xmlCtxtGetLastError(NULL)) /' \
+    -i gettext-tools/src/its.c
+
 ./configure --prefix=/usr \
     --disable-static
 
 make
-make install
+make DESTDIR=$1 install
+
+rm -rf $1/usr/share/info

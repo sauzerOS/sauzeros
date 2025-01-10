@@ -1,6 +1,10 @@
 #!/bin/sh -e
 
-patch -Np1 -i ffmpeg-6.1.1-chromium_method-1.patch
+patch -Np1 -i ffmpeg-7.1-chromium_method-1.patch
+patch -Np1 -i ffmpeg-7.1-texinfo_fix-1.patch
+
+sed -e 's/X265_BUILD >= 210/(&) \&\& (X265_BUILD < 213)/' \
+    -i libavcodec/libx265.c
 
 ./configure \
     --cc="$CC" \
@@ -25,6 +29,6 @@ patch -Np1 -i ffmpeg-6.1.1-chromium_method-1.patch
     --x86asmexe=nasm
 
 make
-make install
+make DESTDIR=$1 install
 
 rm -rf "$1/usr/share/ffmpeg/examples"

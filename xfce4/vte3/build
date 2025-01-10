@@ -7,11 +7,7 @@ meson \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
     -Ddocs=false \
-    -Dgir=true \
-    -Dfribidi=true \
-    -Dicu=false \
-    -Dvapi=false \
-    -D_systemd=true \
+    -Dgtk4=false \
     . output
 
 ninja -C output

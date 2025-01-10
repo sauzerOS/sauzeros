@@ -1,7 +1,10 @@
 #!/bin/sh -e
 
+patch -Np1 -i binutils-2.43.1-upstream_fix-1.patch
+
 mkdir -v build
 cd       build
+
 
 ../configure --prefix=/usr       \
              --sysconfdir=/etc   \
@@ -14,4 +17,6 @@ cd       build
              --with-system-zlib
 
 make tooldir=/usr
-make tooldir=/usr install
+make tooldir=/usr DESTDIR=$1 install
+
+rm -rf $1/usr/share/info

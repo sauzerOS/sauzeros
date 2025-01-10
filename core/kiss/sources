@@ -1,4 +1,4 @@
-git+https://codeberg.org/kiss-community/kiss#38b71d01b28070be4e3a8fc51214ca1f8f55c5c8
+https://codeberg.org/kiss-community/kiss/archive/6.2.0.tar.gz
 https://github.com/kisslinux/website/archive/f0525d4e00c5e07138ac2ceb53936d0b221608e7.tar.gz docs
 files/kiss_path.sh
 files/flags.sh

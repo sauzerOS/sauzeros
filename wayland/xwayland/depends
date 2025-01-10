@@ -4,6 +4,8 @@ libxcvt
 libepoxy
 libXdmcp
 libtirpc
+libxkbfile
+pixman
 wayland
 wayland-eglstream-protocols
 wayland-protocols

@@ -3,8 +3,6 @@
 mkdir bld
 cd    bld
 
-meson --prefix=/usr \
-      ..            
-    
+meson --prefix=/usr ..
 ninja
 DESTDIR=$1 ninja install

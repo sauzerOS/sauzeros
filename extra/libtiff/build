@@ -5,4 +5,4 @@ cd       libtiff-build
 
 cmake -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
 ninja
-ninja install
+DESTDIR=$1 ninja install

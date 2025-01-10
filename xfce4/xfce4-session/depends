@@ -1,4 +1,5 @@
 cairo
+desktop-file-utils
 expat
 fontconfig
 freetype
@@ -29,8 +30,10 @@ libwnck
 libxcb
 libxfce4ui
 libxfce4util
+libxfce4windowing
 libxshmfence
 mesa
 pango
 pixman
 xfconf
+xfce-polkit

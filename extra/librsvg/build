@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-            --disable-static \
-            --disable-introspection
+mkdir build
+cd    build
 
-make
-make install
+meson setup --prefix=/usr --buildtype=release ..
+ninja
+DESTDIR=$1 ninja install

@@ -8,7 +8,7 @@ export CFLAGS="$CFLAGS -Wno-error"
             --enable-libdebuginfod=dummy
 
 make
-make -C libelf install
+make -C libelf DESTDIR=$1 install
 
 mkdir -p "$1/usr/lib/pkgconfig"
 cp -f config/libelf.pc "$1/usr/lib/pkgconfig/libelf.pc"

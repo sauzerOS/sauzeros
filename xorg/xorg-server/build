@@ -1,10 +1,12 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-    --enable-glamor \
-    --enable-suid-wrapper \
-    --enable-systemd-logind \
-    --enable-udev
+mkdir build
+cd    build
 
-make
-make install
+meson setup ..              \
+      --prefix=/usr         \
+      --localstatedir=/var  \
+      -D glamor=true        \
+      -D xkb_output_dir=/var/lib/xkb
+ninja
+DESTDIR=$1 ninja install

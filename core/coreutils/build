@@ -10,3 +10,5 @@ FORCE_UNSAFE_CONFIGURE=1 ./configure \
 
 make
 make DESTDIR="$1" install
+
+rm -rf $1/usr/share/info

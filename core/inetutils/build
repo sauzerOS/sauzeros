@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+#fix gcc 14 build
+sed -i 's/def HAVE_TERMCAP_TGETENT/ 1/' telnet/telnet.c
+
 ./configure --prefix=/usr \
     --localstatedir=/var \
     --disable-logger     \
@@ -12,6 +15,8 @@
 
 make
 make DESTDIR="$1" install
+
+rm -rf $1/usr/share/info
 
 chmod 755 "$1/usr/bin/ping"
 chmod 755 "$1/usr/bin/ping6"

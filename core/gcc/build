@@ -32,6 +32,8 @@ cd gcc-build
 make
 make DESTDIR="$1" install
 
+rm -rf $1/usr/share/info
+
 # Save 35MB.
 find "$1" -name libgtkpeer.a  -exec rm -f {} +
 find "$1" -name libgjsmalsa.a -exec rm -f {} +
@@ -50,3 +52,5 @@ install -Dm755 ../c99 "$1/usr/bin/c99"
     ln -s "/usr/lib/gcc/x86_64-pc-linux-gnu/$2/liblto_plugin.so" \
           "$1/usr/lib/bfd-plugins/liblto_plugin.so"
 }
+
+

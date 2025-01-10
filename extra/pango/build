@@ -1,19 +1,11 @@
 #!/bin/sh -e
 
-# Disable download of missing (optional) dependencies
-# during the build. This cannot be turned off otherwise.
-rm -rf subprojects
+mkdir build
+cd    build
 
-: > tests/meson.build
-: > examples/meson.build
-: > docs/meson.build
-
-meson \
-    --prefix=/usr \
-    -Dgtk_doc=false \
-    -Dxft=disabled \
-    -Dintrospection=enabled \
-    . build
-
-ninja -C build
-ninja -C build install
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            --wrap-mode=nofallback \
+            ..
+ninja
+DESTDIR=$1 ninja -j1 install

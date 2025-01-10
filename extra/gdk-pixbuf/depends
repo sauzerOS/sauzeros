@@ -1,6 +1,7 @@
 glib
-gobject-introspection
 libjpeg-turbo
 libpng
+libtiff
 meson   make
 pkgconf make
+shared-mime-info

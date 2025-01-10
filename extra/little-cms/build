@@ -6,4 +6,4 @@ sed '/BufferSize < TagSize/,+1 s/goto Error/TagSize = BufferSize/' \
 ./configure --prefix=/usr --disable-static
 
 make
-make install
+make DESTDIR=$1 install

@@ -30,6 +30,9 @@ libxcb
 libxfce4ui
 libxfce4util
 libxshmfence
+libgudev
+libnotify
+pcre2
 mesa
 pango
 pixman

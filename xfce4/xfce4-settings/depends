@@ -7,7 +7,10 @@ fribidi
 garcon
 gdk-pixbuf
 glib
+gnome-icon-theme
 gtk+3
+libcanberra
+libnotify
 libICE
 libSM
 libX11

@@ -2,3 +2,4 @@ gettext       make
 glib
 intltool      make
 libffi
+vala

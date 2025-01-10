@@ -20,6 +20,6 @@ EOF
 sh ./configure
 
 make
-make -j1 base-install
+make DESTDIR=$1 -j1 base-install
 
 chmod 755 "$1/usr/bin/"*

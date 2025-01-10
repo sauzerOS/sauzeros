@@ -4,7 +4,6 @@ mkdir build
 cd build
 
 meson --prefix=/usr \
-      -D xwayland_eglstream=true \
       -D glamor=true \
       -D dri3=true \
       -D xkb_dir=/usr/share/X11/xkb \
@@ -12,5 +11,5 @@ meson --prefix=/usr \
       ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install
 

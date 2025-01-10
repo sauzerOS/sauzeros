@@ -42,15 +42,15 @@ sed -e "/match cursor.kind()/a                                    \
         CXCursor_LinkageSpec => return Err(ParseError::Recurse)," \
     -i third_party/rust/bindgen/ir/item.rs                        &&
 
-cat >> Cargo.toml << EOF &&
-[patch.crates-io.bindgen_0_64_0]
-package = "bindgen"
-version = "0.64.0"
-path = "third_party/rust/bindgen"
-EOF
+#cat >> Cargo.toml << EOF &&
+#[patch.crates-io.bindgen_0_64_0]
+#package = "bindgen"
+#version = "0.69.4"
+#path = "third_party/rust/bindgen"
+#xEOF
 
-sed -r '/name = "bindgen"/,+5 s/^source|^checksum/#&/' \
-    -i Cargo.lock
+#sed -r '/name = "bindgen"/,+5 s/^source|^checksum/#&/' \
+#    -i Cargo.lock
 
 sed 's/uint32_t timestamp/uint64_t timestamp/'                \
     -i dom/media/gmp-plugin-openh264/gmp-fake-openh264.cpp    \

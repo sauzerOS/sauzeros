@@ -30,4 +30,5 @@ libxshmfence
 mesa
 pango
 pixman
+startup-notification
 xfconf

@@ -1,1 +1,2 @@
-glibmm
+at-spi2-core make
+glibmm make

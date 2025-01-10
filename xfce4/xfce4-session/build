@@ -5,8 +5,7 @@
     --localstatedir=/var \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    --disable-nls \
-    --disable-introspection
+    --disable-legacy-sm
 
 make
 make DESTDIR="$1" install

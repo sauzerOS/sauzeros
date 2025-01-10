@@ -1,4 +1,3 @@
 atkmm
-gtk+3
-libcairomm1
+gtk+4
 pangomm

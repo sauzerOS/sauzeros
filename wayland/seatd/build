@@ -13,6 +13,6 @@ meson \
     . build
 
 ninja -C build
-ninja -C build install
+DESTDIR=$1 ninja -C build install
 
 install -Dm644 seatd.service "$1/usr/lib/systemd/system/seatd.service"

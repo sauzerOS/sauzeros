@@ -1,12 +1,9 @@
 #!/bin/sh -e
 
-#fix
-sed -i '/not.*system/s/system/cpu_family/' meson.build
-
 meson \
     --prefix=/usr \
     -Dvalgrind=disabled \
     . build
 
 ninja -C build
-ninja -C build install
+DESTDIR=$1 ninja -C build install

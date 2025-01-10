@@ -2,7 +2,6 @@ alsa-lib
 bzip2
 cairo
 cbindgen      make
-clang         make
 expat
 ffmpeg
 fontconfig
@@ -16,6 +15,8 @@ libjpeg-turbo
 libpng
 libvpx
 libwebp
+libXcomposite
+libXdamage
 llvm          make
 m4            make
 mesa
@@ -26,6 +27,7 @@ nss
 pango
 pixman
 pkgconf       make
+pulseaudio
 python        make
 rust          make
 wayland

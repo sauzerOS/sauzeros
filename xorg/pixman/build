@@ -6,4 +6,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+DESTDIR=$1 ninja -C output install

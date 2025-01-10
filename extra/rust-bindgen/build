@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cargo build --release
+
+mkdir -pv $1/usr/bin
+install -v -m755 target/release/bindgen $1/usr/bin

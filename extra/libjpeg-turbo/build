@@ -8,4 +8,4 @@ cmake -B build \
     -DWITH_JPEG8=1
 
 cmake --build   build
-cmake --install build
+DESTDIR=$1 cmake --install build

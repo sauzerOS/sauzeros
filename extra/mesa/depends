@@ -1,0 +1,26 @@
+bison make
+cbindgen make
+expat
+flex  make
+glslang
+libdrm
+libelf
+libglvnd
+libvdpau
+libXfixes
+libxshmfence
+libXxf86vm
+linux-headers make
+llvm
+m4 make
+meson make
+pkgconf make
+python make
+python-mako make
+python-pyyaml make
+rust make
+rust-bindgen make
+vulkan-icd-loader
+wayland
+wayland-protocols
+zlib

@@ -4,4 +4,4 @@ sed 's/^FLAGS.*=/FLAGS = -static /' programs/Makefile > _
 mv -f _ programs/Makefile
 
 make prefix=/usr
-make prefix=/usr install
+make prefix=/usr DESTDIR=$1 install

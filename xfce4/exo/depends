@@ -3,7 +3,6 @@ expat
 fontconfig
 freetype
 fribidi
-garcon
 gdk-pixbuf
 glib
 gtk+3

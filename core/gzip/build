@@ -3,4 +3,6 @@
 ./configure --prefix=/usr
 
 make
-make install
+make DESTDIR=$1 install
+
+rm -rf $1/usr/share/info

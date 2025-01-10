@@ -8,4 +8,4 @@ sed 's/thread-test//' src/Makefile > _
 mv -f _ src/Makefile
 
 make COMPILER="$CC"
-make libdir=/usr/lib/ install
+make libdir=/usr/lib/ DESTDIR=$1 install

@@ -4,9 +4,7 @@
     --prefix=/usr \
     --localstatedir=/var \
     --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --disable-nls \
-    --disable-introspection
+    --mandir=/usr/share/man
 
 make
 make DESTDIR="$1" install

@@ -1,25 +1,8 @@
 #!/bin/sh -e
 
-make release
-
-	find src \( -name '*.h' -o -name '*.hpp' \) -exec install -Dm0644 {} "$1/usr/include/hyprland/{}" \;
-	pushd subprojects/wlroots/include
-	find . -name '*.h' -exec install -Dm0644 {} "$1/usr/include/hyprland/wlroots/{}" \;
-	popd
-	pushd subprojects/wlroots/build/include
-	find . -name '*.h' -exec install -Dm0644 {} "$1/usr/include/hyprland/wlroots/{}" \;
-	popd
-	mkdir -p "$1/usr/include/hyprland/protocols"
-	cp protocols/*-protocol.h "$1/usr/include/hyprland/protocols"
-	pushd build
-	cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-	popd
-	install -Dm0644 -t "$1/usr/share/pkgconfig" build/hyprland.pc
-	install -Dm0644 -t "$1/usr/share/man/man1" docs/{Hyprland,hyprctl}.1
-	install -Dm0755 -t "$1/usr/bin/" build/Hyprland build/hyprctl/hyprctl build/hyprpm/hyprpm
-	install -Dm0644 -t "$1/usr/share/hyprland/" assets/*.png
-	install -Dm0644 -t "$1/usr/share/wayland-sessions/" "example/hyprland.desktop"
-	install -Dm0644 -t "$1/usr/share/hyprland/" "example/hyprland.conf"
-        find subprojects/wlroots/build -name 'libwlroots.so.*' -type f -execdir \
-                install -Dm0755 -t "$1/usr/lib/" {} \;
-
+cd subprojects
+git clone https://github.com/canihavesomecoffee/udis86
+cd ..
+cmake --no-warn-unused-cli -DCMAKE_INSTALL_PREFIX=/usr -S . -B ./build
+cmake --build ./build --target all
+DESTDIR=$1 cmake --install build

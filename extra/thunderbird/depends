@@ -1,7 +1,6 @@
 autoconf
 botan
 cbindgen
-clang
 dbus-glib
 gtk+3
 icu

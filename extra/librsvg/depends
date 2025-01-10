@@ -1,4 +1,5 @@
 cairo
+cargo-c make
 gdk-pixbuf
 pango
 rust make

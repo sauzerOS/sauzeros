@@ -1,1 +1,1 @@
-clang make
+llvm make

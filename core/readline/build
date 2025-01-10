@@ -2,11 +2,10 @@
 
 export CFLAGS="$CFLAGS -fPIC"
 
-# upstream patch
-patch -Np1 -i readline-8.2-upstream_fixes-3.patch
-
 ./configure \
     --prefix=/usr
 
 make SHLIB_LIBS=-lncurses
 make DESTDIR="$1" install
+
+rm -rf $1/usr/share/info

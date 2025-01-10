@@ -1,4 +1,5 @@
-git+https://github.com/fanboimsft/dwm
+#git+https://github.com/fanboimsft/dwm
+https://dl.suckless.org/dwm/dwm-6.5.tar.gz
 files/dwm.desktop
 files/dwm-bins.tar.xz files
 files/emoji

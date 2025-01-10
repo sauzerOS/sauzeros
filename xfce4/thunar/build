@@ -4,10 +4,7 @@
     --prefix=/usr \
     --localstatedir=/var \
     --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --enable-gio-unix \
-    --enable-gudev \
-    --disable-debug
+    --mandir=/usr/share/man
 
 make
 make DESTDIR="$1" install

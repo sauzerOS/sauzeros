@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
-python3 setup.py build
-python3 setup.py install \
-    --prefix=/usr \
-    --root="$1"
+mkdir build
+cd    build
+
+meson setup --prefix=/usr --buildtype=release ..
+ninja
+DESTDIR=$1 ninja install

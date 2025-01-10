@@ -3,6 +3,6 @@
 mkdir build
 cd    build
 
-meson --prefix=/usr ..
+meson --prefix=/usr --buildtype=release ..
 ninja
 DESTDIR=$1 ninja install
