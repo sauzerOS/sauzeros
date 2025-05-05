@@ -1,70 +1,21 @@
 #!/bin/sh -e
 
-sh "NVIDIA-Linux-x86_64-${2}.run" --extract-only
-cd "NVIDIA-Linux-x86_64-${2}"
+# KISS extracts tarball to open-gpu-kernel-modules-570.144/
+cd open-gpu-kernel-modules-570.144
 
-#linux-rt fix
-sed -i -e 's|PREEMPT_RT_PRESENT=1|PREEMPT_RT_PRESENT=0|g' kernel/conftest.sh
-export IGNORE_CC_MISMATCH=1
+# Build and install kernel modules
+make modules -j$(nproc)
+sudo make modules_install
 
-mkdir -p \
-    "$1/usr/bin" \
-    "$1/usr/lib/xorg/modules/drivers" \
-    "$1/usr/share/man/man1" \
-    "$1/usr/share/glvnd/egl_vendor.d" \
-    "$1/usr/share/egl/egl_external_platform.d/" \
-    "$1/usr/share/vulkan/icd.d" \
-    "$1/usr/share/vulkan/implicit_layer.d" \
-    "$1/usr/lib/modules/${KERNEL_UNAME:-$(uname -r)}/extra" \
+# Update module dependencies
+sudo depmod
 
-bins="
-smi persistenced modprobe settings xconfig
-"
+# Configure GeForce support for RTX 4070 Ti
+sudo mkdir -p /etc/modprobe.d
+echo "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1" | sudo tee /etc/modprobe.d/nvidia.conf
 
-libs="
-libEGL_nvidia     libGLESv1_CM_nvidia libGLESv2_nvidia libnvidia-glcore
-libnvidia-eglcore libnvidia-glsi      libnvidia-cfg    libnvidia-ml
-libnvidia-ngx     libnvidia-glvkspirv libnvidia-tls    libnvidia-gtk3
-libvdpau_nvidia   libnvidia-opencl    libGLX_nvidia    libglxserver_nvidia
-libnvcuvid        libnvidia-encode    libnvidia-fbc
-"
+# Install user-space components
+cd ..
+chmod +x NVIDIA-Linux-x86_64-570.144.run
+sudo ./NVIDIA-Linux-x86_64-570.144.run --no-kernel-modules --silent
 
-for bin in $bins; do
-    cp "nvidia-${bin}" "$1/usr/bin/"
-    cp "nvidia-${bin}.1.gz" "$1/usr/share/man/man1/"
-done
-
-for lib in $libs; do
-    cp "${lib}.so.$2" "$1/usr/lib/"
-done
-
-    cp libnvidia-egl-gbm* "$1/usr/lib/"
-
-    cp nvidia_drv.so "$1/usr/lib/xorg/modules/drivers/"
-
-chmod 4755 "$1/usr/bin/nvidia-modprobe"
-
-
-install -Dm755 libnvidia-egl-gbm.so.1* -t "$1/usr/lib/"
-mkdir -p "$1/usr/lib/gbm"
-ln -sr "$1/usr/lib/libnvidia-allocator.so.$2" "$1/usr/lib/gbm/nvidia-drm_gbm.so"
-
-install -Dm644 -t "$1/usr/lib/firmware/nvidia/$2/" firmware/*.bin
-
-cp 10_nvidia.json     "$1/usr/share/glvnd/egl_vendor.d/"
-cp 15_nvidia_gbm.json "$1/usr/share/egl/egl_external_platform.d/"
-cp nvidia_icd.json    "$1/usr/share/vulkan/icd.d/"
-cp nvidia_layers.json "$1/usr/share/vulkan/implicit_layer.d/"
-
-# soname links
-for lib in "$1/usr/lib/"*.so*; do
-    soname=$(dirname "$lib")/$(readelf -d "$lib" | awk '/SONAME/ {print $5}' | tr -d '[]')
-    base=$(printf "%s" "$soname" | sed -r 's/(.*).so.*/\1.so/')
-    [ -e "$soname" ] || ln -sf "$(basename "$lib")" "$soname"
-    [ -e "$base" ] || ln -sf "$(basename "$soname")" "$base"
-done
-
-# kernel modules
-cd kernel
-make modules
-cp ./*.ko "$1/usr/lib/modules/${KERNEL_UNAME:-$(uname -r)}/extra"
