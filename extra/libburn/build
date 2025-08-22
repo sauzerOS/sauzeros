@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+#gcc 15 fix
+sed -i 's/catch_int ()/catch_int (int signum)/' test/poll.c
+
 ./configure \
     --prefix=/usr \
     --disable-static
