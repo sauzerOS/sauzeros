@@ -4,7 +4,7 @@
             --with-system-groups=lpadmin
 
 make
-make install
+make DESTDIR=$1 install
 
 mkdir -pv $1/etc/cups/
 echo "ServerName /run/cups/cups.sock" > $1/etc/cups/client.conf

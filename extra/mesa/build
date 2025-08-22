@@ -11,8 +11,8 @@ meson \
     -Dvalgrind=disabled \
     -Dlibunwind=disabled \
     -Dglvnd=true \
-    -Dvulkan-drivers="nouveau,swrast" \
-    -Dgallium-drivers="nouveau,virgl,svga,llvmpipe" \
+    -Dvulkan-drivers="auto" \
+    -Dgallium-drivers="auto" \
     -Dvideo-codecs=all     \
     . output
 

@@ -20,6 +20,8 @@ echo "rootsbindir=/usr/bin" >> configparms
 
 make
 make DESTDIR="$1" install
+make DESTDIR="$1" localedata/install-locales
+rm -rf $1/usr/share/info 
 
 cd ..
 

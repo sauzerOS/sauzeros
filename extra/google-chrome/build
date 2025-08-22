@@ -7,7 +7,7 @@ rm -r "$1"/etc/cron.daily/
 rm -r "$1"/opt/google/chrome/cron/
 
 #remove libwidevinecdm (segfaults on my system)
-rm -r "$1"/opt/google/chrome/WidevineCdm/
+#rm -r "$1"/opt/google/chrome/WidevineCdm/
 
 # Icons
 for i in 16x16 24x24 32x32 48x48 64x64 128x128 256x256; do

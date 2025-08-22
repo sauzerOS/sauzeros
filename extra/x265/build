@@ -1,7 +1,11 @@
 #!/bin/sh -e
 
+#cmake fix
+sed -r '/cmake_policy.*(0025|0054)/d' -i source/CMakeLists.txt
+
 cmake source \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_BUILD_TYPE=Release
 
 cmake --build .

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+#gcc 15 fix
+sed -i 's/do_version ()/do_version (PedDevice** dev, PedDisk** diskp)/' parted/parted.c
+
 ./configure \
 	--prefix=/usr \
 	--sbindir=/usr/bin \

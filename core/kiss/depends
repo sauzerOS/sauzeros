@@ -4,7 +4,7 @@ diffutils
 findutils
 gawk
 git
-gnugrep
+grep
 gzip
 sed
 tar

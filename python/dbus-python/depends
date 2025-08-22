@@ -1,1 +1,3 @@
 dbus-glib
+meson-python
+patchelf

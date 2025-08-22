@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+sed -i '/text_prop.value > 0/s/>/!=/' util/fluxbox-remote.cc
+
+./configure --prefix=/usr
+
+make
+make DESTDIR=$1 install

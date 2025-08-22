@@ -8,7 +8,9 @@ meson \
     --mandir=/usr/share/man \
     -Ddocs=false \
     -Dgtk4=false \
+    -Dgnutls=true \
+    -Dvapi=false \
     . output
 
 ninja -C output
-ninja -C output install
+DESTDIR=$1 ninja -C output install

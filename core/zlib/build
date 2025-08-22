@@ -7,3 +7,11 @@ export CFLAGS="$CFLAGS -fPIC"
 
 make
 make DESTDIR=$1 install
+
+#also build minizip for keepassxc
+
+cd contrib/minizip
+autoreconf -fvi
+./configure --prefix=/usr
+make
+make DESTDIR=$1 install

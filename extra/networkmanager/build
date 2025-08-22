@@ -11,7 +11,6 @@ meson setup                      \
       --buildtype=release        \
       -Dlibaudit=no              \
       -Dnmtui=false              \
-      -Dovs=false                \
       -Dppp=false                \
       -Dselinux=false            \
       -Dqt=false                 \
@@ -20,7 +19,7 @@ meson setup                      \
       ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install
 
 
 cd ..

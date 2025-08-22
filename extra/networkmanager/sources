@@ -1,4 +1,4 @@
-https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/1.46.0/NetworkManager-1.46.0.tar.bz2
+https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/releases/1.54.0/downloads/NetworkManager-1.54.0.tar.xz
 files/NetworkManager.conf
 files/no-dns-update.conf
 files/org.freedesktop.NetworkManager.rules

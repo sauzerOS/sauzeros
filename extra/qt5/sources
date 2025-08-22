@@ -1,4 +1,2 @@
-https://download.qt.io/archive/qt/5.15/5.15.12/single/qt-everywhere-opensource-src-5.15.12.tar.xz
-https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.12-kf5-1.patch
-https://www.linuxfromscratch.org/patches/blfs/svn/qt-everywhere-opensource-src-5.15.12-security_fix-1.patch
+https://invent.kde.org/qt/qt/qtbase/-/archive/v5.15.17-lts-lgpl/qtbase-v5.15.17-lts-lgpl.tar.bz2
 files/qt.conf

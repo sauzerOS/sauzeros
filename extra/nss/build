@@ -1,41 +1,29 @@
 #!/bin/sh -e
 
-export USE_64=1
-export BUILD_OPT=1
-export FREEBL_NO_DEPEND=0
-export NSS_USE_SYSTEM_SQLITE=1
-export NSS_DISABLE_GTESTS=1
-export NSS_ENABLE_WERROR=0
-export NSS_DISABLE_DEPRECATED_SEED=1
-export NSS_DISABLE_DEPRECATED_RC2=1
-export NSPR_INCLUDE_DIR=/usr/include/nspr
+patch -Np1 -i nss-standalone-1.patch
 
-export CCC="$CXX"
+cd nss
 
-make -C nss all
+make BUILD_OPT=1                      \
+  NSPR_INCLUDE_DIR=/usr/include/nspr  \
+  USE_SYSTEM_ZLIB=1                   \
+  ZLIB_LIBS=-lz                       \
+  NSS_ENABLE_WERROR=0                 \
+  $([ $(uname -m) = x86_64 ] && echo USE_64=1) \
+  $([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)
 
-mkdir -p \
-    "$1/usr/include/nss/private" \
-    "$1/usr/lib/pkgconfig"
+cd ../dist
 
-cp dist/public/nss/*.h "$1/usr/include/nss/"
-cp dist/private/nss/blapi.h dist/private/nss/alghmac.h \
-    "$1/usr/include/nss/private/"
-cp dist/Linux*/lib/*.so "$1/usr/lib/"
-cp dist/Linux*/lib/*.chk "$1/usr/lib/"
+mkdir -pv $1/usr/lib
+mkdir -pv $1/usr/bin
+mkdir -pv $1/usr/lib/pkgconfig
 
-nspr_ver="$(nspr-config --version)"
+install -v -m755 Linux*/lib/*.so              $1/usr/lib
+install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1/usr/lib
 
-sed nss/pkg/pkg-config/nss.pc.in \
-    -e "s,%libdir%,/usr/lib,g" \
-    -e "s,%prefix%,/usr,g" \
-    -e "s,%exec_prefix%,/usr/bin,g" \
-    -e "s,%includedir%,/usr/include/nss,g" \
-    -e "s,%NSPR_VERSION%,$nspr_ver,g" \
-    -e "s,%NSS_VERSION%,$2,g" > "$1/usr/lib/pkgconfig/nss.pc"
+install -v -m755 -d                           $1/usr/include/nss
+cp -v -RL {public,private}/nss/*              $1/usr/include/nss
 
-for file in \
-        nss/lib/ckfw/builtins/*/certdata.c \
-        nss/lib/ckfw/builtins/testlib/*/certdata-testlib.c; do
-    git hash-object -t blob "$file" >> build.hash
-done
+install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $1/usr/bin
+
+install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib/pkgconfig

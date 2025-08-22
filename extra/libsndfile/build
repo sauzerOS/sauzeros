@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+#gcc 15 fix
+sed '/typedef enum/,/bool ;/d' -i \
+  src/ALAC/alac_{en,de}coder.c
+
 ./configure \
     --prefix=/usr \
     --disable-static

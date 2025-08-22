@@ -3,12 +3,12 @@ dbus
 pam
 gnu-efi
 gperf
-jinja2
+python-jinja2
 libxml2
 ninja
 kmod
 libcap
 meson
 pkgconf
-pyelftools
+python-pyelftools
 shadow

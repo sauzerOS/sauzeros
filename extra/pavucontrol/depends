@@ -1,4 +1,3 @@
-intltool make
 gettext make
 gtkmm
 json-glib

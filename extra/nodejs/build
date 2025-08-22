@@ -1,17 +1,11 @@
 #!/bin/sh -e
 
-#ICU 76 fix
-sed '/pkgicu/s/icu-i18n/& icu-uc/' -i configure.py
-
 ./configure \
     --prefix=/usr \
     --shared-zlib \
     --shared-openssl \
     --shared-brotli \
-    --with-intl=small-icu \
-    --without-report \
-    --without-node-snapshot \
-    --without-node-code-cache
+    --with-intl=system-icu
 
 make
 make DESTDIR=$1 install

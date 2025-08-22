@@ -3,4 +3,4 @@
 meson build --prefix=/usr -Dvapi=false
 
 ninja -C build
-ninja -C build install
+DESTDIR=$1 ninja -C build install

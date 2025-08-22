@@ -10,4 +10,4 @@ meson --prefix=/usr       \
       -Dselinux=false
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

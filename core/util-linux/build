@@ -15,6 +15,7 @@
     --disable-runuser    \
     --disable-pylibmount \
     --disable-static     \
+    --disable-liblastlog2 \
     --without-python     \
     runstatedir=/run
 

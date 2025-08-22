@@ -3,6 +3,7 @@ cbindgen make
 expat
 flex  make
 glslang
+libclc
 libdrm
 libelf
 libglvnd

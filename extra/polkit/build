@@ -13,8 +13,7 @@ meson --prefix=/usr                       \
       --buildtype=release                 \
       -Dman=false                         \
       -Dsession_tracking=logind           \
-      -Dtests=false                       \
-      -Djs_engine=duktape                 \
+      -Dtests=false
       ..
 
 ninja

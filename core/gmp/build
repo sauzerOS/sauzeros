@@ -1,8 +1,11 @@
 #!/bin/sh -e
 
+#gcc 15 fix
+sed -i '/long long t1;/,+1s/()/(...)/' configure
+
 #don't optimize for host
-cp -v configfsf.guess config.guess
-cp -v configfsf.sub   config.sub
+#cp -v configfsf.guess config.guess
+#cp -v configfsf.sub   config.sub
 
 ./configure --prefix=/usr    \
             --enable-cxx     \

@@ -1,12 +1,13 @@
 #!/bin/sh -e
 
-meson \
-    --prefix=/usr \
-    -Dalsa=enabled \
-    -Dlibmpv=true \
-    -Dx11=enabled \
-    . output
+sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
 
-ninja -C output
-ninja -C output install
+mkdir build
+cd    build
 
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -D x11=enabled      \
+            ..
+ninja
+DESTDIR=$1 ninja install

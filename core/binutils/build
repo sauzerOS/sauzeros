@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i binutils-2.43.1-upstream_fix-1.patch
-
 mkdir -v build
 cd       build
 

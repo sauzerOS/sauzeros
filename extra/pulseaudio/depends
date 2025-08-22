@@ -1,5 +1,4 @@
 alsa-lib
-check make
 dbus
 gdbm
 gettext make
@@ -10,4 +9,3 @@ libsndfile
 libSM
 libxcb
 libXtst
-perl-xml-parser make

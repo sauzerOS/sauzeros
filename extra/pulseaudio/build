@@ -7,9 +7,10 @@ meson --prefix=/usr       \
       --buildtype=release \
       -Ddatabase=gdbm     \
       -Ddoxygen=false     \
+      -Dtests=false       \
       -Dbluez5=disabled
 ninja
-ninja install
+DESTDIR=$1 ninja install
 
 # Remove systemwide conf
 rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"

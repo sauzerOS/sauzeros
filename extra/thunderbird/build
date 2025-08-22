@@ -1,18 +1,14 @@
 #!/bin/sh -e
 
-#cbindgen fix
-sed -i '/ROOT_CLIP_CHAIN/d' gfx/webrender_bindings/webrender_ffi.h
-
-export CFLAGS="$CFLAGS -w"
-export CXXFLAGS="$CXXFLAGS -w"
+sed -e '1i\#![warn(dangerous_implicit_autorefs)]\r' \
+    -i third_party/rust/allocator-api2/src/stable/vec/mod.rs
 
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
-export MOZBUILD_STATE_PATH=./mozbuild
+export MOZBUILD_STATE_PATH=$(pwd)/mozbuild
+export CXX=g++
 
-./mach configure
-./mach build -j10
-
-MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none ./mach install
+./mach build
+MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none DESTDIR=$1 ./mach install
 
 # Desktop file
 mkdir -p $1/usr/share/applications

@@ -1,14 +1,15 @@
 #!/bin/sh -e
 
-# Required by qt5 and possibly other software.
-export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1"
 
 ./configure \
     --prefix=/usr \
     --enable-threadsafe \
-    --enable-dynamic-extensions \
-    --enable-fts5 \
+    --enable-fts{4,5} \
     ac_cv_search_readline=no \
+    CPPFLAGS="-D SQLITE_ENABLE_COLUMN_METADATA=1 \
+                      -D SQLITE_ENABLE_UNLOCK_NOTIFY=1   \
+                      -D SQLITE_ENABLE_DBSTAT_VTAB=1     \
+                      -D SQLITE_SECURE_DELETE=1"
 
 make
 make DESTDIR=$1 install

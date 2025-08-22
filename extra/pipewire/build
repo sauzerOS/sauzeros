@@ -8,4 +8,4 @@ meson setup --prefix=/usr       \
             -Dsession-managers="[]" ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

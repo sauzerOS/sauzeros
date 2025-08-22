@@ -6,4 +6,4 @@
     --with-pic
 
 make
-make DESTDUR=$1 install
+make DESTDIR=$1 install

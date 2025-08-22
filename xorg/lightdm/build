@@ -11,7 +11,7 @@
             --with-greeter-session=lightdm-gtk-greeter
 
 make
-make install
+make DESTDIR=$1 install
 
 mkdir -p $1/usr/bin
 cp tests/src/lightdm-session $1/usr/bin

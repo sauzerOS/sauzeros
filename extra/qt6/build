@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-sed -i '242,245d' qtbase/src/gui/platform/unix/qxkbcommon.cpp
+patch -Np1 -i qt-everywhere-src-6.9.1-upstream_fixes-1.patch
 
 ./configure -prefix /opt/qt6        \
             -sysconfdir /etc/xdg    \
@@ -12,11 +12,10 @@ sed -i '242,245d' qtbase/src/gui/platform/unix/qxkbcommon.cpp
             -journald               \
             -skip qt3d              \
             -skip qtquick3dphysics  \
-            -skip qtwebengine       \
-            -Wno-dev
+            -skip qtwebengine
 
 ninja
-ninja install
+DESTDIR=$1 ninja install
 
 # Remove references to build dir
 find $1/opt/qt6 -name \*.prl \

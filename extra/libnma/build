@@ -10,4 +10,4 @@ meson --prefix=/usr                             \
       -Dmobile_broadband_provider_info=false ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

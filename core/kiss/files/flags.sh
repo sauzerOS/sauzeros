@@ -1,4 +1,4 @@
-export CFLAGS="-march=native -mtune=native -O2 -pipe -fomit-frame-pointer -flto -ftree-vectorize"
+export CFLAGS="-march=native -mtune=native -O2 -pipe -fomit-frame-pointer"
 export CXXFLAGS=$CFLAGS
 export MAKEFLAGS="-j$(($(nproc)+2))"
 export KISS_SU=sudo
