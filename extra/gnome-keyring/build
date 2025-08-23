@@ -2,8 +2,12 @@
 
 sed -i 's:"/desktop:"/org:' schema/*.xml
 
-./configure --prefix=/usr     \
-            --sysconfdir=/etc \
-            --disable-doc
-make
-make install
+mkdir build-gkr
+cd    build-gkr
+
+meson setup ..            \
+      --prefix=/usr       \
+      --buildtype=release \
+      -D ssh-agent=true
+ninja
+DESTDIR=$1 ninja install
