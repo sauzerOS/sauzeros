@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+mkdir -pv $1/usr
+mv * $1/usr/

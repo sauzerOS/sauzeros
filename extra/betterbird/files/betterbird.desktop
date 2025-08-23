@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Betterbird
+Comment=Betterbird Email Client
+Exec=/opt/betterbird/betterbird %u
+Icon=/opt/betterbird/chrome/icons/default/default256.png
+Terminal=false
+Type=Application
+Categories=Network;Email;
+StartupWMClass=Betterbird
+MimeType=x-scheme-handler/mailto;

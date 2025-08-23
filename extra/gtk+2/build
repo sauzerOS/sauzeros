@@ -1,9 +1,13 @@
 #!/bin/sh -e
 
-sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
-    -i docs/{faq,tutorial}/Makefile.in
+#sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
+#    -i docs/{faq,tutorial}/Makefile.in
 
+patch -Np1 -i gtk+-2.24.33-Fix-casts.patch
+patch -Np1 -i gtk+-2.24.33-respect-NM.patch
+
+autoreconf -fvi
 ./configure --prefix=/usr --sysconfdir=/etc
 
 make
-make install
+make DESTDIR=$1 install

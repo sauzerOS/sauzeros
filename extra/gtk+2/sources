@@ -1,1 +1,3 @@
 https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.33.tar.xz
+patches/gtk+-2.24.33-Fix-casts.patch
+patches/gtk+-2.24.33-respect-NM.patch

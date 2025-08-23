@@ -9,6 +9,7 @@ garcon
 gdk-pixbuf
 glib
 gtk+3
+libdbusmenu-gtk3
 libICE
 libSM
 libX11

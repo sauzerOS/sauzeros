@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+./autogen.sh
+./configure --prefix=/usr --with-gtk3
+
+make
+make -j1 DESTDIR=$1 install

@@ -26,6 +26,7 @@ mv -f _ Makefile
     --enable-opengl \
     --enable-png \
     --enable-sdl \
+    --enable-slirp \
     --disable-sdl-image \
     --enable-virglrenderer \
     --disable-vnc-jpeg \
@@ -36,4 +37,4 @@ mv -f _ Makefile
     --disable-debug-info
 
 make
-make PREFIX=/usr install
+make DESTDIR=$1 PREFIX=/usr install

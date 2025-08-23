@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+sed -i 's%lib64%lib%g' config/Makefile.linux
+sed -i -e '/glew.lib.static:/d' \
+       -e '/0644 .*STATIC/d'    \
+       -e 's/glew.lib.static//' Makefile
+make
+make DESTDIR=$1 install.all
