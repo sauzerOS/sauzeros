@@ -2,5 +2,5 @@
 
  mkdir -p $1/usr/share/fonts/TTF
  mkdir -p $1/usr/share/fonts/OTF
- install -Dm644 fonts/*/full/ttf/*.tt[fc] -t "$1"/usr/share/fonts/TTF/
- install -Dm644 fonts/*/full/otf/*.otf -t "$1"/usr/share/fonts/OTF/
+ install -Dm644 *.tt[fc] -t "$1"/usr/share/fonts/TTF/
+ install -Dm644 *.otf -t "$1"/usr/share/fonts/OTF/

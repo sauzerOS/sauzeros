@@ -22,6 +22,7 @@ patch -Np1 -i ffmpeg-*-chromium_method-1.patch
     --enable-openssl \
     --enable-shared \
     --enable-gpl \
+    --enable-libdav1d \
     --x86asmexe=nasm
 
 make
