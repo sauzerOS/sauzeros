@@ -7,4 +7,4 @@ meson --prefix=/usr \
       -Dman=disabled ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

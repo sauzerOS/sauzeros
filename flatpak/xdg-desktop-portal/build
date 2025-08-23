@@ -1,11 +1,15 @@
 #!/bin/sh -e
 
+sudo pip install pytest
+sudo pip install python-dbusmock
+
 mkdir build
 cd build
 
-meson --prefix=/usr \
-      -Ddocbook-docs=disabled \
-      -Dlibportal=enabled
+meson --prefix=/usr -Dinstalled-tests=false \
+      -Ddocumentation=disabled \
+      -Dsandboxed-sound-validation=disabled \
+      -Dtests=disabled ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

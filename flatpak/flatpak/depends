@@ -17,4 +17,4 @@ python make
 python-pyparsing
 socat
 xdg-dbus-proxy
-xdg-desktop-portal-gtk
+
