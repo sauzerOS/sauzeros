@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+# decompress data
+	ar x *.deb
+	tar xvf data.tar.xz
+
+# install folders
+	mkdir -p ${1}/{opt,usr}
+	cp -r {opt,usr} "${1}/"
+
+	# clean up permissions
+	find "${1}" -type d | xargs -I {} chmod -R 755 "{}"
+	find "${1}" -type f | xargs -I {} chmod -R 644 "{}"
+	chmod 755 "${1}/opt/urserver/urserver"
+	chmod 755 "${1}/opt/urserver/urserver-start"
+	chmod 755 "${1}/opt/urserver/urserver-stop"
+
+	# add systemd service
+        install -Dm644 "urserver.service" "$1/usr/lib/systemd/user/urserver.service"

@@ -13,6 +13,7 @@ cmake -B build \
     -DWITH_XC_DOCS=OFF \
     -DWITH_XC_NETWORKING=OFF \
     -DWITH_XC_SSHAGENT=ON \
+    -DWITH_XC_BROWSER=ON \
     -DWITH_QT6=ON \
     -DWITH_QT5=OFF \
     -DWITH_TESTS=OFF
@@ -21,3 +22,4 @@ cmake -B build \
 cmake --build   build
 cmake --install build
 
+install -Dm644 org.keepassxc.KeePassXC.desktop $1/usr/share/applications/

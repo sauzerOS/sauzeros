@@ -1,8 +1,35 @@
 #!/bin/sh -e
 
 
-echo "***************************************"
-echo "***************************************"
-echo "install missing python modules with pip"
-echo "***************************************"
-echo "***************************************"
+echo "******************************************"
+echo "******************************************"
+echo "installing missing python modules with pip"
+echo "******************************************"
+echo "******************************************"
+
+packages=(
+    Cheetah3
+    sabctools
+    feedparser
+    CherryPy
+    cryptography
+    chardet
+    guessit
+    puremagic
+    PySocks
+    legacy-cgi
+    apprise
+)
+
+for package in "${packages[@]}"; do
+    echo "Installing $package..."
+    python3 -m pip install "$package"
+    if [ $? -eq 0 ]; then
+        echo "$package installed successfully."
+    else
+        echo "Failed to install $package."
+    fi
+done
+
+echo "Installation process completed."
+
