@@ -1,5 +1,5 @@
 gettext	make
-gtkmm
+gtkmm3
 itstool
 ntfs-3g
 parted

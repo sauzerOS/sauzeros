@@ -1,11 +1,12 @@
 #!/bin/sh -e
 
-export CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64"
-
 ./configure \
     --prefix=/usr \
     --disable-static \
+    --enable-extras \
+    --disable-ldconfig \
+    --sbin=/usr/bin \
     --with-fuse=external
 
 make
-make DESTDIR="$1" install
+make DESTDIR="$1" rootbindir=/usr/bin rootsbindir=/usr/bin rootlibdir=/usr/lib install

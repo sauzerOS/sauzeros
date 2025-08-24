@@ -1,7 +1,10 @@
 #!/bin/sh -e
 
-# gcc 10 fix
-sed -i '/The name/,+2 d' src/global.c
+#gcc 15 fix
+sed -e "/^extern int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \
+    -i src/extern.h
+sed -e "/^int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \
+    -i src/global.c
 
 ./configure \
     --prefix=/usr \
