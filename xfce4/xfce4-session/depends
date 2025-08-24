@@ -7,7 +7,7 @@ fribidi
 gdk-pixbuf
 glib
 gtk+3
-#iceauth
+iceauth
 libICE
 libSM
 libX11
