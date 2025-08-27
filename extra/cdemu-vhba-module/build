@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cd vhba-module
+
+make
+sudo make install

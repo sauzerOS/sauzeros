@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+git submodule update --init --recursive
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DUSE_GTK_VERSION=4 \
+      -DENABLE_QT=ON \
+      -DENABLE_GTK=OFF \
+      -DUSE_QT_VERSION=6 ..
+
+make
+make DESTDIR=$1 install

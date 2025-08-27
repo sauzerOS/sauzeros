@@ -1,13 +1,13 @@
 #!/bin/sh -e
 
-cat >> /etc/ld.so.conf << EOF
-# Begin Qt addition
-
-/opt/qt6/lib
+#cat >> /etc/ld.so.conf << EOF
+## Begin Qt addition
+#
+#/opt/qt6/lib
 
 # End Qt addition
-EOF
+#EOF
 
-ldconfig
+#ldconfig
 
-echo "Add /opt/qt6/bin to PATH and add /opt/qt6/lib/pkgconfig to PKG_CONFIG_PATH"
+#echo "Add /opt/qt6/bin to PATH and add /opt/qt6/lib/pkgconfig to PKG_CONFIG_PATH"

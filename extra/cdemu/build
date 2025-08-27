@@ -1,0 +1,39 @@
+#!/bin/sh -e
+
+cd cdemu-daemon
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+
+make
+make DESTDIR=$1 install
+
+install -Dt "$1/usr/lib/systemd/user" -m644 \
+../../cdemu-daemon.service
+
+install -Dt "$1/usr/share/dbus-1/services" -m644 \
+../../net.sf.cdemu.CDEmuDaemon.service
+
+install -Dm644 /dev/stdin "$1/usr/lib/udev/rules.d/60-cdemu.rules" <<END
+ACTION=="add", KERNEL=="vhba_ctl", SUBSYSTEM=="misc", TAG+="uaccess"
+END
+
+cd ../../cdemu-client
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+
+make
+make DESTDIR=$1 install
+
+cd ../../gcdemu
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+
+make
+make DESTDIR=$1 install
+

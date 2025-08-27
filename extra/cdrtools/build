@@ -1,10 +1,21 @@
 #!/bin/sh -e
 
-# We have to edit files to set the install location
-sed -i 's|/opt/schily|/usr|' DEFAULTS/Defaults.linux
+sed -i 's|/opt/schily|/usr|g'           DEFAULTS/Defaults.linux
+sed -i 's|DEFINSGRP=.*|DEFINSGRP=root|' DEFAULTS/Defaults.linux
+sed -i 's|INSDIR=\s*sbin|INSDIR=bin|'   rscsi/Makefile
 
-# install rscsi to /usr/bin instead of /usr/sbin
-sed -i 's|INSDIR=.*|INSDIR=bin|' rscsi/Makefile
+export GMAKE_NOWARN=true
+export CFLAGS="$CFLAGS -std=gnu89 -fno-strict-aliasing"
 
-make
-make DESTDIR="$1" install
+make -j1 INS_BASE=/usr  \
+         DEFINSUSR=root \
+         DEFINSGRP=root \
+         VERSION_OS="sauzerOS"
+
+GMAKE_NOWARN=true
+
+make DESTDIR=$1 INS_BASE=/usr    \
+     DEFINSUSR=root   \
+     DEFINSGRP=root   \
+     MANSUFF_LIB=3cdr \
+     install

@@ -1,0 +1,14 @@
+[Unit]
+Description=CDEmu daemon for user
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 10
+ExecStartPre=sudo /bin/modprobe vhba
+ExecStart=/usr/bin/cdemu-daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

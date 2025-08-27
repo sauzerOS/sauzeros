@@ -1,25 +1,14 @@
 #!/bin/sh -e
 
-# Remove unused definitions
-#sed -i '276,279d' qtbase/src/platformsupport/input/xkbcommon/qxkbcommon.cpp
-
-#patch -Np1 -i qt-everywhere-opensource-src-5.15.12-kf5-1.patch
-#patch -Np1 -i qt-everywhere-opensource-src-5.15.12-security_fix-1.patch
-
 # Without this folder, Qt can't find its header files.
 mkdir .git
 mkdir -pv qtbase/.git
 
-#GCC 13 fix
-#sed -e "/pragma once/a#include <cstdint>"                                      \
-#    -i qtlocation/src/3rdparty/mapbox-gl-native/include/mbgl/util/geometry.hpp \
-#       qtlocation/src/3rdparty/mapbox-gl-native/include/mbgl/util/string.hpp   \
-#       qtlocation/src/3rdparty/mapbox-gl-native/src/mbgl/gl/stencil_mode.hpp
 
 ./configure \
     -confirm-license \
     -opensource \
-    -prefix /usr \
+    -prefix /opt/qt5 \
     -docdir /usr/share/doc/qt \
     -headerdir /usr/include/qt \
     -archdatadir /usr/lib/qt \
@@ -45,7 +34,7 @@ make
 make INSTALL_ROOT="$1" install
 
 # Remove references to build directory
-find $1/usr -name \*.prl \
+find $1/opt/qt5 -name \*.prl \
    -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
 
 install -Dm644 qt.conf $1/usr/bin/qt.conf
