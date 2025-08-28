@@ -27,7 +27,7 @@ python-typing-extensions
 python-urllib3
 python-werkzeug
 python-xxhash
-python-yarl
+#python-yarl
 python-zstandard
 rpm
 rsync

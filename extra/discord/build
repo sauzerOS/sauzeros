@@ -5,3 +5,7 @@ tar xvf download*
 mkdir -pv $1/opt/
 cp -a Discord $1/opt/
 install -D -m 644 "discord.desktop"  "$1/usr/share/applications/discord.desktop"
+
+# remove sources
+
+rm -rf ~/.cache/kiss/sources/discord/*

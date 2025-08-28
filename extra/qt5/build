@@ -4,37 +4,42 @@
 mkdir .git
 mkdir -pv qtbase/.git
 
-
-./configure \
-    -confirm-license \
-    -opensource \
-    -prefix /opt/qt5 \
+  ./configure -confirm-license -opensource -v \
+    -prefix /usr \
     -docdir /usr/share/doc/qt \
     -headerdir /usr/include/qt \
     -archdatadir /usr/lib/qt \
     -datadir /usr/share/qt \
     -sysconfdir /etc/xdg \
     -examplesdir /usr/share/doc/qt/examples \
-    -nomake examples \
-    -nomake tests \
-    -optimized-qmake \
-    -no-separate-debug-info \
-    -dbus-linked \
-    -openssl-linked \
-    -system-libjpeg \
-    -system-libpng \
+    -plugin-sql-sqlite \
     -system-sqlite \
-    -system-zlib \
-    -system-freetype \
+    -openssl-linked \
+    -nomake examples \
+    -no-rpath \
+    -dbus-linked \
     -system-harfbuzz \
-    -skip qtwebengine \
-    -silent
+    -journald \
+    -no-mimetype-database \
+    -no-use-gold-linker \
+    -no-reduce-relocations \
+    -no-strip \
+    -ltcg
+
+
 
 make
 make INSTALL_ROOT="$1" install
 
-# Remove references to build directory
-find $1/opt/qt5 -name \*.prl \
-   -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+ # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+  find "${1}/usr/lib" -type f -name '*.prl' \
+    -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+  # Symlinks for backwards compatibility
+  for b in "${1}"/usr/bin/*; do
+    ln -s $(basename $b) "${1}"/usr/bin/$(basename $b)-qt5
+  done
 
-install -Dm644 qt.conf $1/usr/bin/qt.conf
+install -d -m755 "$1"/usr/include/qtxcb-private
+cp -r src/plugins/platforms/xcb/*.h "$1"/usr/include/qtxcb-private/
+
+

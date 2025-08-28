@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+patch -Np1 -i 256.patch
+patch -Np1 -i 251.patch
+patch -Np1 -i 242.patch
+
 ./configure \
     -p /usr
 

@@ -1,6 +1,10 @@
 botan
-qt6
+#qt6
 argon2
 libgcrypt
 libsodium
 qrencode
+qt5
+qt5-svg
+qt5-tools
+qt5-x11extras

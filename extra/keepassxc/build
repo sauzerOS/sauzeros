@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-patch -Np1 -i keepassxc-2.7.10-qt6-support-v2.patch
+#patch -Np1 -i keepassxc-2.7.10-qt6-support-v2.patch
 
 cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
@@ -14,8 +14,8 @@ cmake -B build \
     -DWITH_XC_NETWORKING=OFF \
     -DWITH_XC_SSHAGENT=ON \
     -DWITH_XC_BROWSER=ON \
-    -DWITH_QT6=ON \
-    -DWITH_QT5=OFF \
+    -DWITH_QT6=OFF \
+    -DWITH_QT5=ON \
     -DWITH_TESTS=OFF
 
 

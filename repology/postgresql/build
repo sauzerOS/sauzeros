@@ -6,7 +6,7 @@ sed -i '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' src/include/pg_config_man
             --enable-thread-safety
 
 make
-make install
+make DESTDIR=$1 install
 make -C contrib DESTDIR="$1" install
 
 mkdir -pv $1/usr/lib/tmpfiles.d/
