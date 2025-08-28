@@ -1,8 +1,13 @@
 #!/bin/sh -e
 
-python setup.py configure --default-hvs qemu
-python setup.py build
+mkdir build
+cd build
 
-python setup.py --no-update-icon-cache --no-compile-schemas install --root "$1"
-python -m compileall "$1"/usr/share/virt-manager
-python -O -m compileall "$1"/usr/share/virt-manager
+meson --prefix=/usr -Ddefault-hvs=qemu \
+      -Dtests=disabled ..
+
+ninja
+DESTDIR=$1 ninja install
+
+python -m compileall "${1}"/usr/share/virt-manager
+python -O -m compileall "${1}"/usr/share/virt-manager

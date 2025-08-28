@@ -11,3 +11,5 @@ python-normalizer
 python-requests
 python-urllib3
 vte3
+nftables
+dnsmasq

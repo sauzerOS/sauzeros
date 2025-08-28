@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
-meson setup build -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var
-ninja -C build
-ninja -C build install
+sed -i 's/-Werror//' meson.build
+
+meson setup build --prefix=/usr
+meson compile -C build
+DESTDIR="$1" meson install -C build
+

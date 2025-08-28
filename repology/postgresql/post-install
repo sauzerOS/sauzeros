@@ -1,8 +1,10 @@
-#!/bin/sh -e
+#!/bin/sh
 
-groupadd -g 41 postgres
-useradd -c "PostgreSQL Server" -g postgres -d /srv/pgsql/data \
-        -u 41 postgres
+# Create group if missing
+getent group postgres >/dev/null || groupadd -g 41 postgres
+
+# Create user if missing
+id -u postgres >/dev/null 2>&1 || useradd -c "PostgreSQL Server" -g postgres -d /srv/pgsql/data -u 41 -s /bin/false postgres
 
 install -v -dm755 /run/postgresql
 install -v -dm755 /srv/pgsql

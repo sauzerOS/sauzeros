@@ -8,4 +8,4 @@ meson setup build -Dprefix=/usr \
                   -Dwith-pci-ids-path=/usr/share/hwdata/pci.ids
 
 ninja -C build
-ninja -C build install
+DESTDIR=$1 ninja -C build install
