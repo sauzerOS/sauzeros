@@ -15,5 +15,5 @@ meson build  --prefix=/usr \
             -Ddriver_libvirtd=enabled
 
 ninja -C build
-ninja -C build install
+DESTDIR=$1 ninja -C build install
 
