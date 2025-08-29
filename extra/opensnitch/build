@@ -10,6 +10,3 @@ rm -rf $1/etc/init.d
 
 # remove ebpf modules since we build them manually
 rm $1/usr/lib/opensnitchd/ebpf/*
-#mkdir $1/{usr,etc}
-#cp -a {bin,lib,share} $1/usr/
-#cp -a opensnitchd $1/etc/
