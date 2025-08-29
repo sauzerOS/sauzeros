@@ -8,3 +8,4 @@ python-pyinotify
 python-notify2
 python-pyasn
 python-qt-material
+opensnitch-ebpf-module
