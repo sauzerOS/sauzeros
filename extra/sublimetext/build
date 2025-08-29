@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
-ar x *.deb
+ar x sublime*.deb
 tar xvf data.tar.xz
+
 cp -a opt $1/
 cp -a usr $1/

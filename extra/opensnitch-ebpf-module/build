@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cd ebpf_prog
+make KERNEL_DIR=/usr/src/linux/
+
+install -d -m 755 $1/usr/lib/opensnitchd/ebpf
+
+install -m 644 opensnitch.o $1/usr/lib/opensnitchd/ebpf/
+install -m 644 opensnitch-dns.o $1/usr/lib/opensnitchd/ebpf/
+install -m 644 opensnitch-procs.o $1/usr/lib/opensnitchd/ebpf/
