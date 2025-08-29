@@ -4,8 +4,8 @@
 cd open-gpu-kernel-modules
 
 # Build and install kernel modules
-make modules -j$(nproc)
-sudo make modules_install
+make KERNEL_SOURCE=/usr/src/linux modules -j$(nproc)
+sudo make KERNEL_SOURCE=/usr/src/linu modules_install
 
 # Update module dependencies
 sudo depmod

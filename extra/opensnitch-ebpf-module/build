@@ -1,7 +1,8 @@
 #!/bin/sh -e
+:> nostrip
 
 cd ebpf_prog
-make KERNEL_DIR=/usr/src/linux/
+CLANG="clang -fno-stack-protector" CFLAGS="" CXXFLAGS="" KERNEL_DIR=/usr/src/linux/ KERNEL_HEADERS=/usr/src/linux make
 
 install -d -m 755 $1/usr/lib/opensnitchd/ebpf
 

@@ -2,9 +2,7 @@
 
 ar x opensnitch*amd64.deb
 tar -xf data.tar.xz -C "$1/"
-
 ar x python3-opensnitch-ui*.deb
-
 tar -xf data.tar.xz -C "$1/"
 
 # remove sysvinit compat files
@@ -12,3 +10,6 @@ rm -rf $1/etc/init.d
 
 # remove ebpf modules since we build them manually
 rm $1/usr/lib/opensnitchd/ebpf/*
+#mkdir $1/{usr,etc}
+#cp -a {bin,lib,share} $1/usr/
+#cp -a opensnitchd $1/etc/

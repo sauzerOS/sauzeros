@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+git submodule init
+
+cmake -S . -B build -G Ninja \
+	-DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DLIBBPF_EMBEDDED=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
