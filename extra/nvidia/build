@@ -17,5 +17,5 @@ echo "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1" | sudo tee /etc/modpro
 # Install user-space components
 cd ..
 chmod +x NVIDIA-Linux-x86_64*.run
-sudo ./NVIDIA-Linux-x86_64-*.run --no-kernel-modules --silent
+sudo ./NVIDIA-Linux-x86_64-*.run --no-kernel-modules --silent --no-check-for-alternate-installs --no-x-check
 
