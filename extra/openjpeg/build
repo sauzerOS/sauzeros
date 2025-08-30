@@ -8,4 +8,4 @@ cmake -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_STATIC_LIBS=OFF ..
 
 make
-make install
+make DESTDIR=$1 install

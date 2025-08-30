@@ -2,5 +2,6 @@ boost
 cmake
 fontconfig
 gobject-introspection
+gpgmepp
 little-cms
 openjpeg

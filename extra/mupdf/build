@@ -25,8 +25,8 @@ export XCFLAGS=-fPIC
 make build=release shared=yes
 unset XCFLAGS
 
-make prefix=/usr                        \
-     shared=yes                         \
+make DESTDIR=$1 prefix=/usr  \
+     shared=yes              \
      install
 
 chmod 755 $1/usr/lib/libmupdf.so

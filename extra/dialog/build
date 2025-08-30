@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-./configure --prefix=/usr \
-            --with-ncursesw
-
-
-make
-make DESTDIR=$1 install-full

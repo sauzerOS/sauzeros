@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DUSE_POLKIT=TRUE \
+      -DWITH_UUID=e2fs \
+      -DCMAKE_BUILD_TYPE=RELEASE ..
+make
+make DESTDIR=$1 install
