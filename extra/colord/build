@@ -16,4 +16,4 @@ meson --prefix=/usr            \
       -Dman=false ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

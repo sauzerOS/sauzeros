@@ -23,7 +23,7 @@ meson --prefix=/usr                \
       -Dfirstboot=false            \
       -Dinstall-tests=false        \
       -Dldconfig=false             \
-      -Dsysusers=false             \
+      -Dsysusers=true              \
       -Db_lto=false                \
       -Dhomed=false                \
       -Duserdb=false               \
@@ -48,3 +48,34 @@ install -v -m644 ../20-wired.network "$1/etc/systemd/network/20-wired.network"
 install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.network"
 install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
 install -v -m644 ../dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
+
+#32bit
+
+cd ..
+rm -rf build
+mkdir build
+cd build
+
+meson setup --cross-file lib32       \
+      --prefix=/usr                  \
+      --libdir=/usr/lib32            \
+      --buildtype=release            \
+      -D default-dnssec=no           \
+      -D firstboot=false             \
+      -D install-tests=false         \
+      -D ldconfig=false              \
+      -D sysusers=true               \
+      -D rpmmacrosdir=no             \
+      -D homed=disabled              \
+      -D userdb=false                \
+      -D man=disabled                \
+      -Dsbat-distro-url="https://github.com/sauzeros" \
+      -D mode=release
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32/pkgconfig
+cp -vR DESTDIR/usr/lib32/security       $1/usr/lib32
+cp -va DESTDIR/usr/lib32/libsystemd.so* $1/usr/lib32
+cp -va DESTDIR/usr/lib32/libudev.so*    $1/usr/lib32
+cp -v  DESTDIR/usr/lib32/pkgconfig/*    $1/usr/lib32/pkgconfig

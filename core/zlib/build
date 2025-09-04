@@ -15,3 +15,22 @@ autoreconf -fvi
 ./configure --prefix=/usr
 make
 make DESTDIR=$1 install
+
+#32bit minizip
+make distclean
+CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
+./configure --prefix=/usr \
+    --libdir=/usr/lib32
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32/
+
+#32bit zlib
+cd ../..
+make distclean
+CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
+./configure --prefix=/usr \
+    --libdir=/usr/lib32
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32/
+

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+chgrp -v scanner  /run/lock/sane
+
+
 echo "*****************************"
 echo "*****************************"
 echo "add you user to scanner group"

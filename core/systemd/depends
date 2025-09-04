@@ -12,3 +12,4 @@ meson
 pkgconf
 python-pyelftools
 shadow
+util-linux

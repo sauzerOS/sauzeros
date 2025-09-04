@@ -1,1 +1,3 @@
 https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-2.5.1.tar.gz
+files/x86_64-pc-linux-gnu.personality
+files/i686-pc-linux-gnu.personality

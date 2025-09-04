@@ -12,3 +12,18 @@ make DESTDIR=$1 install
 
 # Remove documentation (Changelogs, etc).
 rm -rf "${1:?}/usr/share"
+
+#32bit
+
+sed -e "/^am__append_1/ s/doc//" -i Makefile
+make clean
+CC="gcc -m32" ./configure \
+    --prefix=/usr        \
+    --disable-static     \
+    --libdir=/usr/lib32  \
+    --host=i686-pc-linux-gnu
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

@@ -6,3 +6,8 @@ python setup.py install \
     --optimize=1 \
     --skip-build
 
+install -d $1/usr/share/meson/cross
+install -Dm644 lib32 $1/usr/share/meson/cross/lib32
+
+install -d $1/usr/share/meson/native
+install -Dm644 x86 $1/usr/share/meson/native/x86

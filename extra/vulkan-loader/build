@@ -1,0 +1,38 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+    -DVULKAN_HEADERS_INSTALL_DIR=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_INSTALL_DATADIR=/share \
+    -DCMAKE_SKIP_RPATH=True \
+    -DBUILD_TESTS=Off \
+    -DBUILD_WSI_XCB_SUPPORT=On \
+    -DBUILD_WSI_XLIB_SUPPORT=On \
+    -DBUILD_WSI_WAYLAND_SUPPORT=On \
+    -DCMAKE_BUILD_TYPE=Release \
+    -G Ninja ..
+
+ninja
+DESTDIR=$1 ninja install
+
+#32bit
+
+rm -rf *
+ASFLAGS+=" --32" CFLAGS+=" -m32"        \
+CXXFLAGS+=" -m32"                      \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig   \
+cmake -D CMAKE_INSTALL_PREFIX=/usr     \
+      -D CMAKE_INSTALL_LIBDIR=lib32    \
+      -D CMAKE_BUILD_TYPE=Release      \
+      -D CMAKE_SKIP_INSTALL_RPATH=ON   \
+      -G Ninja ..
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+

@@ -12,3 +12,35 @@ meson setup ..                  \
 
 ninja
 DESTDIR=$1 ninja install
+
+#32bit
+cd ..
+rm -rf build
+mkdir build
+cd build
+
+CFLAGS+=" -mstackrealign"
+CXXFLAGS+=" -mstackrealign"
+meson setup .. \
+  --cross-file=lib32 \
+  --prefix=/usr \
+  --libdir=/usr/lib32 \
+  --buildtype=release \
+  -D documentation=false \
+  -D dtrace=disabled \
+  -D glib_debug=disabled \
+  -D man-pages=disabled \
+  -D selinux=disabled \
+  -D introspection=disabled \
+  -D sysprof=disabled
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+install -d $1/usr/bin
+install -d $1/usr/share/libalpm/hooks
+cp -av DESTDIR/usr/lib32/* $1/usr/lib32/
+cp -av DESTDIR/usr/bin/gio-querymodules $1/usr/bin/gio-querymodules-32
+cd ..
+install -Dt $1/usr/share/libalpm/hook -m644 *.hook
+touch $1/usr/lib32/gio/modules/.keep

@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr    \
+            --disable-static
+
+make
+make DESTDIR=$1 install
+
+install -d $1/usr/share/gdb/auto-load/usr/lib
+mv -v $1/usr/lib/libisl*gdb.py $1/usr/share/gdb/auto-load/usr/lib

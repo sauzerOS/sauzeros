@@ -15,3 +15,16 @@ make DESTDIR="$1" \
     install_sw \
     install_ssldirs \
     install_man_docs
+
+#32bit
+make distclean
+./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib32        \
+         shared                \
+         zlib-dynamic          \
+         linux-x86
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

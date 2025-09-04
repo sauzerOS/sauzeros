@@ -1,21 +1,203 @@
 #!/bin/sh -e
 
-# KISS extracts tarball to open-gpu-kernel-modules
-cd open-gpu-kernel-modules
+sh NVIDIA-Linux-x86_64-$2.run --extract-only
+cd NVIDIA-Linux-x86_64-$2
+tar xvf nvidia-persistenced-init.tar.bz2
 
-# Build and install kernel modules
-make KERNEL_SOURCE=/usr/src/linux modules -j$(nproc)
-sudo make KERNEL_SOURCE=/usr/src/linu modules_install
+# OpenCL
+install -Dm644 nvidia.icd "$1/etc/OpenCL/vendors/nvidia.icd"
+install -Dm755 "libnvidia-opencl.so.$2" "$1/usr/lib/libnvidia-opencl.so.$2"
 
-# Update module dependencies
-sudo depmod
+# X driver
+install -Dm755 nvidia_drv.so "$1/usr/lib/xorg/modules/drivers/nvidia_drv.so"
 
-# Configure GeForce support for RTX 4070 Ti
-sudo mkdir -p /etc/modprobe.d
-echo "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1" | sudo tee /etc/modprobe.d/nvidia.conf
+# Wayland/GBM
+mkdir -p "$1/usr/lib/gbm"
+ln -sr "$1/usr/lib/libnvidia-allocator.so.$2" "$1/usr/lib/gbm/nvidia-drm_gbm.so"
 
-# Install user-space components
-cd ..
-chmod +x NVIDIA-Linux-x86_64*.run
-sudo ./NVIDIA-Linux-x86_64-*.run --no-kernel-modules --silent --no-check-for-alternate-installs --no-x-check
+# firmware
+install -Dm644 -t "$1/usr/lib/firmware/nvidia/$2/" firmware/*.bin
+
+# GLX extension module for X
+install -Dm755 "libglxserver_nvidia.so.$2" "$1/usr/lib/nvidia/xorg/libglxserver_nvidia.so.$2"
+# Ensure that X finds glx
+ln -s "libglxserver_nvidia.so.$2" "$1/usr/lib/nvidia/xorg/libglxserver_nvidia.so.1"
+ln -s "libglxserver_nvidia.so.$2" "$1/usr/lib/nvidia/xorg/libglxserver_nvidia.so"
+
+install -Dm755 "libGLX_nvidia.so.$2" "$1/usr/lib/libGLX_nvidia.so.$2"
+
+# OpenGL libraries
+install -Dm755 "libEGL_nvidia.so.$2" "$1/usr/lib/libEGL_nvidia.so.$2"
+install -Dm755 "libGLESv1_CM_nvidia.so.$2" "$1/usr/lib/libGLESv1_CM_nvidia.so.$2"
+install -Dm755 "libGLESv2_nvidia.so.$2" "$1/usr/lib/libGLESv2_nvidia.so.$2"
+install -Dm644 "10_nvidia.json" "$1/usr/share/glvnd/egl_vendor.d/10_nvidia.json"
+
+# OpenGL core library
+install -Dm755 "libnvidia-glcore.so.$2" "$1/usr/lib/libnvidia-glcore.so.$2"
+install -Dm755 "libnvidia-eglcore.so.$2" "$1/usr/lib/libnvidia-eglcore.so.$2"
+install -Dm755 "libnvidia-glsi.so.$2" "$1/usr/lib/libnvidia-glsi.so.$2"
+
+# misc
+install -Dm755 "libnvidia-api.so.1" "$1/usr/lib/libnvidia-api.so.1"
+install -Dm755 "libnvidia-fbc.so.$2" "$1/usr/lib/libnvidia-fbc.so.$2"
+install -Dm755 "libnvidia-encode.so.$2" "$1/usr/lib/libnvidia-encode.so.$2"
+install -Dm755 "libnvidia-cfg.so.$2" "$1/usr/lib/libnvidia-cfg.so.$2"
+install -Dm755 "libnvidia-ml.so.$2" "$1/usr/lib/libnvidia-ml.so.$2"
+install -Dm755 "libnvidia-glvkspirv.so.$2" "$1/usr/lib/libnvidia-glvkspirv.so.$2"
+install -Dm755 "libnvidia-allocator.so.$2" "$1/usr/lib/libnvidia-allocator.so.$2"
+install -Dm755 "libnvidia-gpucomp.so.$2" "$1/usr/lib/libnvidia-gpucomp.so.$2"
+
+# Vulkan ICD
+install -Dm644 "nvidia_icd.json" "$1/usr/share/vulkan/icd.d/nvidia_icd.json"
+install -Dm644 "nvidia_layers.json" "$1/usr/share/vulkan/implicit_layer.d/nvidia_layers.json"
+
+# VulkanSC
+install -D -m755 nvidia-pcc -t "$1/usr/bin"
+install -D -m755 "libnvidia-vksc-core.so.$2" -t "$1/usr/lib"
+install -D -m644 nvidia_icd_vksc.json -t "$1/usr/share/vulkansc/icd.d"
+
+# VDPAU
+install -Dm755 "libvdpau_nvidia.so.$2" "$1/usr/lib/vdpau/libvdpau_nvidia.so.$2"
+
+# nvidia-tls library
+install -Dm755 "libnvidia-tls.so.$2" "$1/usr/lib/libnvidia-tls.so.$2"
+
+# CUDA
+install -Dm755 "libcuda.so.$2" "$1/usr/lib/libcuda.so.$2"
+install -Dm755 "libnvcuvid.so.$2" "$1/usr/lib/libnvcuvid.so.$2"
+install -Dm755 "libcudadebugger.so.$2" "$1/usr/lib/libcudadebugger.so.$2"
+
+# NVVM Compiler library loaded by the CUDA driver to do JIT link-time-optimization
+install -Dm644 "libnvidia-nvvm.so.$2" "$1/usr/lib/libnvidia-nvvm.so.$2"
+install -Dm755 "libnvidia-nvvm70.so.4" "$1/usr/lib/libnvidia-nvvm70.so.4"
+
+# PTX JIT Compiler (Parallel Thread Execution (PTX) is a pseudo-assembly language for CUDA)
+install -Dm755 "libnvidia-ptxjitcompiler.so.$2" "$1/usr/lib/libnvidia-ptxjitcompiler.so.$2"
+
+# raytracing
+install -Dm755 "nvoptix.bin" "$1/usr/share/nvidia/nvoptix.bin"
+install -Dm755 "libnvoptix.so.$2" "$1/usr/lib/libnvoptix.so.$2"
+install -Dm755 "libnvidia-rtcore.so.$2" "$1/usr/lib/libnvidia-rtcore.so.$2"
+
+# NGX
+install -Dm755 nvidia-ngx-updater "$1/usr/bin/nvidia-ngx-updater"
+install -Dm755 "libnvidia-ngx.so.$2" "$1/usr/lib/libnvidia-ngx.so.$2"
+install -Dm755 _nvngx.dll "$1/usr/lib/nvidia/wine/_nvngx.dll"
+install -Dm755 nvngx.dll "$1/usr/lib/nvidia/wine/nvngx.dll"
+install -Dm755 nvngx_dlssg.dll "$1/usr/lib/nvidia/wine/nvngx_dlssg.dll"
+
+# Optical flow
+install -Dm755 "libnvidia-opticalflow.so.$2" "$1/usr/lib/libnvidia-opticalflow.so.$2"
+
+# Cryptography library wrapper
+install -Dm755 "libnvidia-pkcs11.so.$2" "$1/usr/lib/libnvidia-pkcs11.so.$2"
+install -Dm755 "libnvidia-pkcs11-openssl3.so.$2" "$1/usr/lib/libnvidia-pkcs11-openssl3.so.$2"
+
+# Sandboxhelper
+install -Dm755 "libnvidia-sandboxutils.so.$2" "$1/usr/lib/libnvidia-sandboxutils.so.$2"
+
+# Present Helper
+install -Dm755 "libnvidia-present.so.$2" "$1/usr/lib/libnvidia-present.so.$2"
+
+# Debug
+install -Dm755 nvidia-debugdump "$1/usr/bin/nvidia-debugdump"
+
+# nvidia-xconfig
+install -Dm755 nvidia-xconfig "$1/usr/bin/nvidia-xconfig"
+install -Dm644 nvidia-xconfig.1.gz "$1/usr/share/man/man1/nvidia-xconfig.1.gz"
+
+# nvidia-bug-report
+install -Dm755 nvidia-bug-report.sh "$1/usr/bin/nvidia-bug-report.sh"
+
+# nvidia-smi
+install -Dm755 nvidia-smi "$1/usr/bin/nvidia-smi"
+install -Dm644 nvidia-smi.1.gz "$1/usr/share/man/man1/nvidia-smi.1.gz"
+
+# nvidia-cuda-mps
+install -Dm755 nvidia-cuda-mps-server "$1/usr/bin/nvidia-cuda-mps-server"
+install -Dm755 nvidia-cuda-mps-control "$1/usr/bin/nvidia-cuda-mps-control"
+install -Dm644 nvidia-cuda-mps-control.1.gz "$1/usr/share/man/man1/nvidia-cuda-mps-control.1.gz"
+
+# nvidia-modprobe
+# This should be removed if nvidia fixed their uvm module!
+install -Dm4755 nvidia-modprobe "$1/usr/bin/nvidia-modprobe"
+install -Dm644 nvidia-modprobe.1.gz "$1/usr/share/man/man1/nvidia-modprobe.1.gz"
+
+# nvidia-persistenced
+install -Dm755 nvidia-persistenced "$1/usr/bin/nvidia-persistenced"
+install -Dm644 nvidia-persistenced.1.gz "$1/usr/share/man/man1/nvidia-persistenced.1.gz"
+install -Dm644 nvidia-persistenced-init/systemd/nvidia-persistenced.service.template "$1/usr/lib/systemd/system/nvidia-persistenced.service"
+sed -i 's/__USER__/nvidia-persistenced/' "$1/usr/lib/systemd/system/nvidia-persistenced.service"
+
+# application profiles
+install -Dm644 "nvidia-application-profiles-$2-rc" "$1/usr/share/nvidia/nvidia-application-profiles-$2-rc"
+install -Dm644 "nvidia-application-profiles-$2-key-documentation" "$1/usr/share/nvidia/nvidia-application-profiles-$2-key-documentation"
+
+# new power management support
+install -Dm644 systemd/system/*.service -t "$1/usr/lib/systemd/system"
+install -Dm755 systemd/system-sleep/nvidia "$1/usr/lib/systemd/system-sleep/nvidia"
+install -Dm755 systemd/nvidia-sleep.sh "$1/usr/bin/nvidia-sleep.sh"
+install -Dm755 nvidia-powerd "$1/usr/bin/nvidia-powerd"
+install -Dm644 nvidia-dbus.conf "$1/usr/share/dbus-1/system.d/nvidia-dbus.conf"
+install -Dm644 ../systemd-suspend-override.conf "$1/usr/lib/systemd/system/systemd-suspend.service.d/10-nvidia-no-freeze-session.conf"
+install -Dm644 ../systemd-suspend-override.conf "$1/usr/lib/systemd/system/systemd-suspend-then-hibernate.service.d/10-nvidia-no-freeze-session.conf"
+install -Dm644 ../systemd-suspend-override.conf "$1/usr/lib/systemd/system/systemd-hibernate.service.d/10-nvidia-no-freeze-session.conf"
+install -Dm644 ../systemd-suspend-override.conf "$1/usr/lib/systemd/system/systemd-hybrid-sleep.service.d/10-nvidia-no-freeze-session.conf"
+
+# distro specific files must be installed in /usr/share/X11/xorg.conf.d
+install -Dm644 ../nvidia-drm-outputclass.conf "$1/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
+install -Dm644 ../nvidia-utils.sysusers "$1/usr/lib/sysusers.d/nvidia-utils.conf"
+install -Dm644 ../nvidia.rules "$$1"/usr/lib/udev/rules.d/60-nvidia.rules
+
+echo "nvidia-uvm" | install -Dm644 /dev/stdin "$1/usr/lib/modules-load.d/nvidia-utils.conf"
+
+
+# Lists NVIDIA driver files for container runtimes like nvidia-container-toolkit
+install -Dm644 sandboxutils-filelist.json "$1/usr/share/nvidia/files.d/sandboxutils-filelist.json"
+
+#32bit
+cd 32
+
+# OpenCL
+install -D -m755 "libnvidia-opencl.so.$2" "$1/usr/lib32/libnvidia-opencl.so.$2"
+
+# GLX
+install -D -m755 "libGLX_nvidia.so.$2" "$1/usr/lib32/libGLX_nvidia.so.$2"
+
+# OpenGL libraries
+install -D -m755 "libEGL_nvidia.so.$2" "$1/usr/lib32/libEGL_nvidia.so.$2"
+install -D -m755 "libGLESv1_CM_nvidia.so.$2" "$1/usr/lib32/libGLESv1_CM_nvidia.so.$2"
+install -D -m755 "libGLESv2_nvidia.so.$2" "$1/usr/lib32/libGLESv2_nvidia.so.$2"
+
+# OpenGL core library
+install -D -m755 "libnvidia-glcore.so.$2" "$1/usr/lib32/libnvidia-glcore.so.$2"
+install -D -m755 "libnvidia-eglcore.so.$2" "$1/usr/lib32/libnvidia-eglcore.so.$2"
+install -D -m755 "libnvidia-glsi.so.$2" "$1/usr/lib32/libnvidia-glsi.so.$2"
+
+# misc
+mkdir -p "$1/usr/lib32/gbm" && ln -sr "$1/usr/lib32/libnvidia-allocator.so.$2" "$1/usr/lib32/gbm/nvidia-drm_gbm.so"
+install -D -m755 "libnvidia-fbc.so.$2" "$1/usr/lib32/libnvidia-fbc.so.$2"
+install -D -m755 "libnvidia-encode.so.$2" "$1/usr/lib32/libnvidia-encode.so.$2"
+install -D -m755 "libnvidia-ml.so.$2" "$1/usr/lib32/libnvidia-ml.so.$2"
+install -D -m755 "libnvidia-glvkspirv.so.$2" "$1/usr/lib32/libnvidia-glvkspirv.so.$2"
+install -D -m755 "libnvidia-allocator.so.$2" "$1/usr/lib32/libnvidia-allocator.so.$2"
+install -D -m755 "libnvidia-gpucomp.so.$2" "$1/usr/lib32/libnvidia-gpucomp.so.$2"
+
+# VDPAU
+install -D -m755 "libvdpau_nvidia.so.$2" "$1/usr/lib32/vdpau/libvdpau_nvidia.so.$2"
+
+# nvidia-tls library
+install -D -m755 "libnvidia-tls.so.$2" "$1/usr/lib32/libnvidia-tls.so.$2"
+
+# CUDA
+install -D -m755 "libcuda.so.$2" "$1/usr/lib32/libcuda.so.$2"
+install -D -m755 "libnvcuvid.so.$2" "$1/usr/lib32/libnvcuvid.so.$2"
+
+# PTX JIT Compiler (Parallel Thread Execution (PTX) is a pseudo-assembly language for CUDA)
+install -D -m755 "libnvidia-ptxjitcompiler.so.$2" "$1/usr/lib32/libnvidia-ptxjitcompiler.so.$2"
+
+# Optical flow
+install -D -m755 "libnvidia-opticalflow.so.$2" "$1/usr/lib32/libnvidia-opticalflow.so.$2"
+
+
 

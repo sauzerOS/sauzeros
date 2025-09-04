@@ -7,5 +7,5 @@ cd build
           -D CMAKE_INSTALL_PREFIX=/usr ..
 
 
-make
+make -j1
 make DESTDIR=$1 install

@@ -1,10 +1,6 @@
 #!/bin/sh -e
 
-#add scanner group if required
-if [ $(getent group admin) ];then
-sudo groupadd -g 70 scanner
-fi
-
+./autogen.sh
 ./configure --prefix=/usr        \
             --sysconfdir=/etc    \
             --localstatedir=/var \
@@ -13,9 +9,9 @@ fi
             --with-lockdir=/run/lock
 
 make
-make install
+make DESTDIR=$1 install
 
 install -Dm 644 -v tools/udev/libsane.rules           \
                   $1/etc/udev/rules.d/65-scanner.rules
-mkdir -p          $1/run/lock/sane
-sudo chgrp -v scanner  $1/run/lock/sane
+
+install -d        $1/run/lock/sane

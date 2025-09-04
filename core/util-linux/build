@@ -25,3 +25,31 @@ make DESTDIR="$1" install
 # Fix broken --sbindir.
 mv -f "$1/usr/sbin/"* "$1/usr/bin"
 rmdir "$1/usr/sbin"
+
+#32bit
+
+make distclean
+
+CC="gcc -m32" \
+./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+            --host=i686-pc-linux-gnu \
+            --libdir=/usr/lib32      \
+            --runstatedir=/run       \
+            --sbindir=/usr/sbin      \
+            --disable-chfn-chsh      \
+            --disable-login          \
+            --disable-nologin        \
+            --disable-su             \
+            --disable-setpriv        \
+            --disable-runuser        \
+            --disable-pylibmount     \
+            --disable-liblastlog2    \
+            --disable-static         \
+            --without-python
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+
+

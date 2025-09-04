@@ -1,11 +1,26 @@
 #!/bin/sh -e
 
 export CFLAGS="$CFLAGS -fPIC"
+sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
 
 ./configure \
     --prefix=/usr
 
-make SHLIB_LIBS=-lncurses
+make SHLIB_LIBS=-lncursesw
 make DESTDIR="$1" install
 
 rm -rf $1/usr/share/info
+
+#32bit
+make distclean
+CC="gcc -m32" ./configure \
+    --host=i686-pc-linux-gnu      \
+    --prefix=/usr                 \
+    --libdir=/usr/lib32           \
+    --disable-static              \
+    --with-curses
+make SHLIB_LIBS="-lncursesw"
+make SHLIB_LIBS="-lncursesw" DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+

@@ -12,4 +12,4 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr  \
       -G "Unix Makefiles" ..
 
 make
-make install
+make DESTDIR=$1 install

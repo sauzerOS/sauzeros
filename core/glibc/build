@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-mkdir -v gcc-build
-cd gcc-build
+mkdir -v glibc-build
+cd glibc-build
 
 echo "slibdir=/usr/lib" >> configparms
 echo "rtlddir=/usr/lib" >> configparms
@@ -29,3 +29,32 @@ mkdir -pv "$1"/etc
 mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf
 cp -v ld.so.conf "$1"/etc/ld.so.conf
+
+#32bit
+rm -rf glibc-build
+mkdir -v glibc-build
+find -name "*.a" -delete
+cd glibc-build
+
+CC="gcc -m32" CXX="g++ -m32" \
+../configure                             \
+      --prefix=/usr                      \
+      --host=i686-pc-linux-gnu           \
+      --build=$(../scripts/config.guess) \
+      --libdir=/usr/lib32                \
+      --libexecdir=/usr/lib32            \
+      --disable-werror                   \
+      --disable-nscd                     \
+      libc_cv_slibdir=/usr/lib32         \
+      --enable-stack-protector=strong    \
+      --enable-kernel=6.8
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -a DESTDIR/usr/lib32/* $1/usr/lib32/
+install -d $1/usr/include/gnu
+install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
+               $1/usr/include/gnu/
+echo "/usr/lib32" >> $1/etc/ld.so.conf
+install -d $1/usr/lib
+ln -sv /usr/lib32/ld-linux.so.2 $1/usr/lib/ld-linux.so.2

@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+kiss r gtk+2-arch

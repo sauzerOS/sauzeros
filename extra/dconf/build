@@ -6,4 +6,4 @@ cd    build
 meson --prefix=/usr --buildtype=release -Dbash_completion=false -Dman=false ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

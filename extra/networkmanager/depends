@@ -2,6 +2,7 @@ iwd
 jansson
 libndp
 libpsl
+libnvme
 libxslt
 nss
 polkit

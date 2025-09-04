@@ -7,7 +7,7 @@ autoreconf -fvi
 ./configure --prefix=/usr --with-gnutls --with-seccomp
 
 make
-make install
+make DESTDIR=$1 install
 
 echo 'u tss - "tss user for tpm2"' | install -Dm644 /dev/stdin "$1/usr/lib/sysusers.d/swtpm.conf"
 echo 'z /var/lib/swtpm-localca 0750 tss root' | install -Dm644 /dev/stdin "$1/usr/lib/tmpfiles.d/swtpm.conf"

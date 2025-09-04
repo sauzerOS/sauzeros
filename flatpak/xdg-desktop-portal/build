@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-sudo pip install pytest
-sudo pip install python-dbusmock
-
 mkdir build
 cd build
 

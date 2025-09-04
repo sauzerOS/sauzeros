@@ -10,3 +10,26 @@
 
 make
 make DESTDIR="$1" install
+
+#32bit
+
+make distclean
+export CFLAGS+=" -m32"
+export CXXFLAGS+=" -m32"
+export LDFLAGS+=" -m32"
+export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+./configure \
+   --prefix=/usr \
+   --libdir=/usr/lib32 \
+    --enable-pcre2-16 \
+    --enable-pcre2-32 \
+    --enable-pcre2grep-libz \
+    --enable-pcre2grep-libbz2 \
+    --enable-jit
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+
+

@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-sudo pip install cython
-
 mkdir build
 cd build
 

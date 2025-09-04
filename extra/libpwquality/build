@@ -5,4 +5,4 @@
             --with-securedir=/usr/lib/security \
             --with-python-binary=python3
 make
-make install
+make DESTDIR=$1 install

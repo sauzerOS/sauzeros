@@ -8,4 +8,4 @@ meson  --prefix=/usr       \
        -Dgst_debug=false
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

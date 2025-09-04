@@ -1,7 +1,12 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr
+./configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --localstatedir=/var \
+    --disable-specs \
+    --without-xmlto \
+    --disable-static
 
 make
 make DESTDIR="$1" install
@@ -10,3 +15,21 @@ make DESTDIR="$1" install
 # False positive.
 # shellcheck disable=2115
 rm -rf "$1/usr/share"
+
+#32bit
+
+make distclean
+CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+./configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --localstatedir=/var \
+    --disable-specs \
+    --without-xmlto \
+    --disable-static \
+     --libdir=/usr/lib32
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

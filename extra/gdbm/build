@@ -12,3 +12,20 @@ rm -rf "$1/usr/share/info"
 
 # Remove docs.
 rm -rf "$1/usr/share/doc"
+
+#32bit
+
+make distclean
+CC="gcc -m32" ./configure \
+    --prefix=/usr         \
+    --disable-static      \
+    --libdir=/usr/lib32   \
+    --libexecdir=/usr/lib32   \
+    --host=i686-pc-linux-gnu \
+    --enable-libgdbm-compat
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+

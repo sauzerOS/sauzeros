@@ -1,16 +1,11 @@
 #!/bin/sh
 
-# Add polkit group and user.
-sudo /usr/bin/groupadd -fg 27 polkitd
-
-sudo /usr/bin/useradd -c "PolicyKit Daemon Owner" -d /etc/polkit-1 -u 27 \
-    -g polkitd -s /bin/false polkitd
-
 mkdir build
 cd    build
 
 meson --prefix=/usr                       \
       --buildtype=release                 \
+      -Dos_type=lfs                       \
       -Dman=false                         \
       -Dsession_tracking=logind           \
       -Dtests=false
@@ -18,3 +13,6 @@ meson --prefix=/usr                       \
 
 ninja
 DESTDIR=$1 ninja install
+
+install -d $1/etc/pam.d/
+install -Dm644 ../polkit-1 $1/etc/pam.d/polkit-1

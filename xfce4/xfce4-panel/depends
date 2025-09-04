@@ -9,6 +9,7 @@ garcon
 gdk-pixbuf
 glib
 gtk+3
+gtk-layer-shell
 libdbusmenu-gtk3
 libICE
 libSM
@@ -37,3 +38,4 @@ mesa
 pango
 pixman
 xfconf
+libxfce4windowing

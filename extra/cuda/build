@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+sh cuda_$2_linux.run     \
+  --target cuda_$2_linux \
+  --noexec
+
+install -d $1/opt/cuda/bin
+cd cuda_$2_linux/builds
+rm -rf cuda_nsight cuda_sanitizer_api nsight_{compute,systems}
+rm -rvf bin integration NVIDIA*.run
+cp version.json $1/opt/cuda
+rm version.json EULA.txt
+
+for lib in *; do
+    cp -vR $lib/* $1/opt/cuda
+    rm -rf $lib
+done
+ln -svf lib64 $1/opt/cuda/lib
+  for mf in $(find $1/opt/cuda -name Makefile); do
+  sed -i "s|/usr/local/cuda|/opt/cuda|g" "$mf"
+  done
+
+sed -e "/.*unsupported GNU version.*/d" \
+    -e "/.*unsupported clang version.*/d" \
+    -i $1/opt/cuda/targets/x86_64-linux/include/crt/host_config.h
+
+install -d $1/etc/ld.so.conf.d/
+install -dm644 cuda.conf $1/etc/ld.so.conf.d/cuda.conf

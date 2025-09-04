@@ -11,7 +11,9 @@ cd       build
              --enable-plugins    \
              --enable-shared     \
              --disable-werror    \
-             --enable-64-bit-bfd \
+             --enable-new-dtags  \
+	     --enable-64-bit-bfd \
+	     --enable-default-hash-style=gnu \
              --with-system-zlib
 
 make tooldir=/usr

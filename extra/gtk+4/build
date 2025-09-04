@@ -11,4 +11,4 @@ meson setup --prefix=/usr             \
            ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

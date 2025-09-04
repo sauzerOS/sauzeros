@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
 cd vhba-module
-
-make
-sudo make install
+make KDIR=/usr/src/linux
+make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install

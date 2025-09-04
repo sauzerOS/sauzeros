@@ -1,6 +1,7 @@
 binutils
 flex make
 gmp 
+isl
 mpfr
 mpc
 zlib

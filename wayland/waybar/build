@@ -10,4 +10,4 @@ meson configure -Dexperimental=true build
 cd build
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+pip install pytest
+pip install python-dbusmock
+

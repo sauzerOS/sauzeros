@@ -4,4 +4,4 @@ autoreconf -fvi
 ./configure --prefix=/usr
 
 make
-make install
+make DESTDIR=$1 install

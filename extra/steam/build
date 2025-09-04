@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make DESTDIR=$1 install
+ln -sf /usr/bin/true $1/usr/bin/steamdeps
+rm -rf $1/usr/share/doc

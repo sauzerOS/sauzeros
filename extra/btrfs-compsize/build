@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make
+install -d $1/usr/bin
+cp compsize $1/usr/bin/

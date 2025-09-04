@@ -5,4 +5,4 @@ patch -Np1 -i fix.patch
 ./configure --prefix=/usr
 
 make
-make install
+make DESTDIR=$1 install

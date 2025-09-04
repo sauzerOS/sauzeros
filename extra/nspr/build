@@ -1,27 +1,30 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cd nspr
+sed -i '/^RELEASE/s|^|#|' pr/src/misc/Makefile.in
+sed -i 's|$(LIBRARY) ||'  config/rules.mk
 
-# ./nspr/pr/include/md/_linux.h tests only __GLIBC__ version
-# to detect c-library features, list musl features here for now.
-CFLAGS="$CFLAGS -D_PR_POLL_AVAILABLE -D_PR_HAVE_OFF64_T -D_PR_INET6 \
--D_PR_HAVE_INET_NTOP -D_PR_HAVE_GETHOSTBYNAME2 -D_PR_HAVE_GETADDRINFO \
--D_PR_INET6_PROBE" \
-../nspr/configure \
-    --prefix=/usr \
-    --disable-debug \
-    --enable-optimize \
-    --enable-64bit
+./configure --prefix=/usr   \
+            --with-mozilla  \
+            --with-pthreads \
+            --enable-64bit
 
 make
 make DESTDIR=$1 install
 
-# $1 is never unset
-# shellcheck disable=2115
-rm -rf \
-    "$1/usr/lib/"*.a \
-    "$1/usr/bin/prerr.properties" \
-    "$1/usr/bin/compile-et.pl" \
-    "$1/usr/share" \
-    "$1/usr/include/nspr/md"
+#32bit
+
+make distclean
+CC="gcc -m32" CXX="g++ -m32"   \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+./configure --prefix=/usr            \
+            --libdir=/usr/lib32      \
+            --host=i686-pc-linux-gnu \
+            --with-mozilla           \
+            --with-pthreads          \
+            --disable-64bit
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

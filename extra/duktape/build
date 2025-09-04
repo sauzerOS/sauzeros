@@ -2,9 +2,5 @@
 
 sed -i 's/-Os/-O2/' Makefile.sharedlibrary
 
-_make() (
-  make -f Makefile.sharedlibrary INSTALL_PREFIX=/usr "$@"
-)
-
-_make
-_make DESTDIR=$1 install
+make -f Makefile.sharedlibrary INSTALL_PREFIX=/usr
+make DESTDIR=$1 -f Makefile.sharedlibrary INSTALL_PREFIX=/usr install

@@ -6,4 +6,4 @@ sed -i 's|$(PACKAGE)/doc|doc/$(PACKAGE)-$(VERSION)|' \
 ./configure --prefix=/usr --disable-static
 
 make
-make install
+make DESTDIR=$1 install

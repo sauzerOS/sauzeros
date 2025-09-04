@@ -8,6 +8,6 @@ CXXFLAGS="$CXXFLAGS -std=c++17"  \
             --disable-static     \
             --disable-avahi
 make
-make install
+make DESTDIR=$1 install
 
 install -v -Dm644 utils/cups-browsed.service $1/lib/systemd/system/cups-browsed.service

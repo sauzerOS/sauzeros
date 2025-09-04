@@ -1,9 +1,32 @@
 #!/bin/sh -e
 
 meson \
-    --prefix=/usr \
-    -Dvalgrind=disabled \
+    --prefix=/usr        \
+    -D udev=true         \
+    -D tests=false       \
+    -D valgrind=disabled \
     . build
 
 ninja -C build
 DESTDIR=$1 ninja -C build install
+
+#32bit
+
+rm -rf build
+mkdir build
+cd build
+
+CC="gcc -m32" CXX="g++ -m32"         \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+meson setup --prefix=/usr            \
+            --buildtype=release      \
+            --libdir=/usr/lib32      \
+            -D tests=false           \
+            -D udev=true             \
+            -D valgrind=disabled     \
+            ..
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

@@ -3,7 +3,10 @@
 mkdir build
 cd build
 
-meson --prefix=/usr ..
-
+meson setup --prefix=/usr           \
+            --buildtype=release     \
+            ..
 ninja
 DESTDIR=$1 ninja install
+
+rm -vf $1/usr/lib/libGLU.a

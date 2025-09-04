@@ -9,3 +9,21 @@
 
 make
 make DESTDIR="$1" install
+
+#32bit
+
+mkdir build
+cd build
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+CC="gcc -m32 -march=i686"              \
+CXX="g++ -m32 -march=i686"             \
+meson setup --prefix=/usr ..    \
+            --buildtype=release \
+            --libdir=/usr/lib32 \
+            -D manpages=false
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+

@@ -1,18 +1,13 @@
 #!/bin/sh
 
-/usr/bin/depmod
-/usr/bin/ldconfig
+# nvidia-modprobe needs +s
+chmod 4755 /bin/nvidia-modprobe
 
-cat <<EOF
+# enable systemd services
+systemctl enable nvidia-resume nvidia-hibernate nvidia-suspend
 
-NOTE: If 'KERNEL_UNAME' was exported, it is necessary to run
-      'depmod \$KERNEL_UNAME' manually.
+# rebuild the nvidia modules
+kiss b nvidia-modules
 
-if using linux-rt, edit "include/linux/export.h" in kernel source tree
-
-remove gpl from:
-#define EXPORT_SYMBOL_GPL(sym)          _EXPORT_SYMBOL(sym, "")
-#define EXPORT_SYMBOL_NS(sym, ns)       __EXPORT_SYMBOL(sym, "", #ns)
-#define EXPORT_SYMBOL_NS_GPL(sym, ns)   __EXPORT_SYMBOL(sym, "", #ns)
-
-EOF
+depmod -a
+ldconfig

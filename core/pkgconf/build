@@ -9,3 +9,11 @@ make
 make DESTDIR=$1 install
 
 ln -s pkgconf $1/usr/bin/pkg-config
+
+install -d $1/usr/share/pkgconfig/personality.d
+install -Dm644 x86_64-pc-linux-gnu.personality $1/usr/share/pkgconfig/personality.d/x86_64-pc-linux-gnu.personality
+install -Dm644 i686-pc-linux-gnu.personality $1/usr/share/pkgconfig/personality.d/i686-pc-linux-gnu.personality
+
+install -d $1/usr/bin
+ln -sv pkgconf $1/usr/bin/x86_64-pc-linux-gnu-pkg-config
+ln -sv pkgconf $1/usr/bin/i686-pc-linux-gnu-pkg-config

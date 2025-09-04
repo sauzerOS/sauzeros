@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "rebuild freetype if new build"

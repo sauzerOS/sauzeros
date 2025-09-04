@@ -11,4 +11,4 @@ meson --prefix=/usr -Dldap-support=false \
                     --buildtype=release ..
 
 ninja
-ninja install
+DESTDIR=$1 ninja install

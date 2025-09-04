@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+# Build and install kernel modules
+make SYSSRC=/usr/src/linux modules -j$(nproc)
+
+mkdir -p "$1/lib/modules/$(make -s -C /usr/src/linux kernelrelease)/kernel/drivers/video"
+cp kernel-open/*.ko "$1/lib/modules/$(make -s -C /usr/src/linux kernelrelease)/kernel/drivers/video/"
+
+install -d $1/etc/modprobe.d
+cp nvidia.conf $1/etc/modprobe.d/

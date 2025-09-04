@@ -8,7 +8,6 @@ rm -rf freetype lcms2mt jpeg libpng openjpeg zlib
 
 make
 make so
-make install
 make DESTDIR=$1 soinstall
 
 install -v -m644 base/*.h $1/usr/include/ghostscript

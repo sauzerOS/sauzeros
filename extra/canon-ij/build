@@ -10,8 +10,8 @@
     tar -xf data.tar.gz -C $1/
 
     # Weird permissions error from namcap
-    sudo chmod 664 $1/usr/lib/bjlib/cnnet.ini
-    sudo chown root:root $1/usr/lib/bjlib/cnnet.ini
+    chmod 664 $1/usr/lib/bjlib/cnnet.ini
+    chown root:root $1/usr/lib/bjlib/cnnet.ini
 
     rm -r $1/usr/share/doc/
 

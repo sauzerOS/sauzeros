@@ -1,4 +1,5 @@
 alsa-lib
+bluez
 dbus
 gdbm
 gettext make
@@ -9,3 +10,5 @@ libsndfile
 libSM
 libxcb
 libXtst
+perl-xml-parser
+sbc

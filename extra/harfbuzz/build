@@ -8,3 +8,20 @@ meson setup ..            \
       --buildtype=release
 ninja
 DESTDIR=$1 ninja install
+
+#32bit
+
+rm -rf *
+meson setup ..              \
+      --cross-file=lib32    \
+      --prefix=/usr         \
+      --libdir=/usr/lib32   \
+      --buildtype=release   \
+      -D cairo=disabled     \
+      -D graphite2=disabled \
+      -D tests=disabled
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

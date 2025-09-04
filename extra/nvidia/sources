@@ -1,2 +1,6 @@
-https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/580.76.05.tar.gz open-gpu-kernel-modules
 https://us.download.nvidia.com/XFree86/Linux-x86_64/580.76.05/NVIDIA-Linux-x86_64-580.76.05.run
+files/70-nvidia.rules
+files/nvidia-drm-outputclass.conf
+files/systemd-suspend-override.conf
+files/nvidia-utils.sysusers
+files/nvidia.rules
