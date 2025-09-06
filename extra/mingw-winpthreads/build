@@ -1,0 +1,45 @@
+#!/bin/sh -e
+
+export CC=x86_64-w64-mingw32-gcc
+export CXX=x86_64-w64-mingw32-g++
+export CPPFLAGS="-I/usr/x86_64-w64-mingw32/include"
+
+mkdir build-x86_64-winpthreads
+cd    build-x86_64-winpthreads
+
+../mingw-w64-libraries/winpthreads/configure \
+            --prefix=/usr/x86_64-w64-mingw32 \
+            --host=x86_64-w64-mingw32        \
+            --disable-lib32                  \
+            --with-default-msvcrt=msvcrt
+make
+make DESTDIR=$1 install
+
+#32bit
+cd ..
+
+export CC=i686-w64-mingw32-gcc
+export CXX=i686-w64-mingw32-g++
+export CPPFLAGS="-I/usr/i686-w64-mingw32/include"
+
+mkdir build-i686-winpthreads
+cd    build-i686-winpthreads
+
+../mingw-w64-libraries/winpthreads/configure \
+            --prefix=/usr/i686-w64-mingw32   \
+            --host=i686-w64-mingw32          \
+            --disable-shared                 \
+            --disable-lib64                  \
+            --with-default-msvcrt=msvcrt
+
+make
+make DESTDIR=$1 install
+
+# remove duplicate files
+rm -rf $1/usr/i686-w64-mingw32/include/pthread_signal.h
+rm -rf $1/usr/i686-w64-mingw32/include/pthread_time.h
+rm -rf $1/usr/i686-w64-mingw32/include/pthread_unistd.h
+rm -rf $1/usr/x86_64-w64-mingw32/include/pthread_signal.h
+rm -rf $1/usr/x86_64-w64-mingw32/include/pthread_time.h
+rm -rf $1/usr/x86_64-w64-mingw32/include/pthread_unistd.h
+

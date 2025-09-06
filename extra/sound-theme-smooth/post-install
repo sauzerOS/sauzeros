@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "setting smooth as default sound theme"
+xfconf-query -c xsettings -p /Net/SoundThemeName -s "Smooth"

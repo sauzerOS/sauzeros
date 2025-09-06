@@ -1,6 +1,10 @@
 alsa-lib
+cuda
 dav1d
+fdk-aac
+freetype
 lame
+libaom
 libass
 libdrm
 libogg
@@ -15,3 +19,6 @@ pkgconf make
 x264
 x265
 xvidcore
+nasm
+nv-codec-headers
+

@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
- mkdir -p $1/usr/share/fonts/TTF
- mkdir -p $1/usr/share/fonts/OTF
- install -Dm644 *.tt[fc] -t "$1"/usr/share/fonts/TTF/
- install -Dm644 *.otf -t "$1"/usr/share/fonts/OTF/
+mkdir -p $1/usr/share/fonts/TTF
+mkdir -p $1/usr/share/fonts/OTF
+install -Dm644 *.tt[fc] -t "$1"/usr/share/fonts/TTF/
+install -Dm644 *.otf -t "$1"/usr/share/fonts/OTF/
 
 unzip freefont*.zip
 cd freefont-20120503

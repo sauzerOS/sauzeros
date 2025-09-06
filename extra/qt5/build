@@ -26,8 +26,6 @@ mkdir -pv qtbase/.git
     -no-strip \
     -ltcg
 
-
-
 make
 make INSTALL_ROOT="$1" install
 
@@ -41,5 +39,3 @@ make INSTALL_ROOT="$1" install
 
 install -d -m755 "$1"/usr/include/qtxcb-private
 cp -r src/plugins/platforms/xcb/*.h "$1"/usr/include/qtxcb-private/
-
-

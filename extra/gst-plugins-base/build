@@ -9,3 +9,18 @@ meson setup ..               \
       --wrap-mode=nodownload
 ninja
 DESTDIR=$1 ninja install
+
+#32bit
+
+rm -rf *
+meson setup --prefix=/usr       \
+            --libdir=/usr/lib32 \
+            --cross-file=lib32  \
+            --buildtype=release \
+            --wrap-mode=nodownload \
+            -D qt5=disabled \
+            ..
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -vR DESTDIR/usr/lib32/* $1/usr/lib32

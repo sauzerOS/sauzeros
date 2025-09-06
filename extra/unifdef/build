@@ -1,4 +1,7 @@
 #!/bin/sh -e
 
+#fix for gcc15
+sed -i 's/constexpr/unifdef_&/g' unifdef.c
+
 make
 make prefix=/usr DESTDIR=$1 install

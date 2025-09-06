@@ -1,0 +1,25 @@
+#!/bin/sh -e
+mkdir build-x86_64-headers
+cd    build-x86_64-headers
+
+../mingw-w64-headers/configure --prefix=/usr/x86_64-w64-mingw32 \
+                               --host=x86_64-w64-mingw32        \
+                               --enable-sdk=all                 \
+                               --with-default-msvcrt=msvcrt
+make DESTDIR=$1 install
+cd ..
+
+#32bit
+
+mkdir build-i686-headers
+cd    build-i686-headers
+
+../mingw-w64-headers/configure --prefix=/usr/i686-w64-mingw32 \
+                               --host=i686-w64-mingw32        \
+                               --enable-sdk=all               \
+                               --with-default-msvcrt=msvcrt
+make DESTDIR=$1 install
+
+# symlink for gcc-static
+install -d $1/usr/i686-w64-mingw32/mingw/
+ln -s /usr/i686-w64-mingw32/include $1/usr/i686-w64-mingw32/mingw/include

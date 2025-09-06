@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -GNinja ..
+
+ninja
+DESTDIR=$1 ninja install
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo -e "\033[1;33muse setup-wine-prefix to configure wine for dxvk and vkd3d-proton\033[0m"

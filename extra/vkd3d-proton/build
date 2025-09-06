@@ -1,0 +1,38 @@
+#!/bin/sh -e
+
+#fix broken header
+sed "165s/.*/  command : \['echo', '0'\],/" \
+  -i meson.build
+
+mkdir build-win64
+cd    build-win64
+
+meson setup .. --cross-file=../build-win64.txt \
+               --buildtype=release             \
+               --prefix=/usr
+
+ninja
+DESTDIR=$1 ninja install
+cd ..
+
+install -d     $1/usr/lib/vkd3d-proton/win64
+mv $1/usr/bin/*.dll $1/usr/lib/vkd3d-proton/win64
+
+#32bit
+
+mkdir build-win32
+cd    build-win32
+
+meson setup .. --cross-file ../build-win32.txt \
+               --buildtype=release             \
+               --prefix=/usr
+
+ninja
+DESTDIR=$1 ninja install
+
+install -d     $1/usr/lib/vkd3d-proton/win32
+mv $1/usr/bin/*.dll $1/usr/lib/vkd3d-proton/win32
+
+cd ..
+install -d $1/usr/bin
+install -vDm755 setup-wine-prefix $1/usr/bin/setup-wine-prefix

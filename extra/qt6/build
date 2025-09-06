@@ -1,10 +1,5 @@
 #!/bin/sh -e
 
-#patch -Np1 -i qt-everywhere-src-6.9.1-upstream_fixes-1.patch
-
-# don't build in RAM
-KISS_TMPDIR=/var/tmpdir
-
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=/usr \

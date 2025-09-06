@@ -1,11 +1,25 @@
 #!/bin/sh -e
 
+_timezones=('africa' 'antarctica' 'asia' 'australasia'
+           'europe' 'northamerica' 'southamerica'
+           'etcetera' 'backward' 'factory')
+
+sed -i "s:sbin:bin:g" Makefile
 make
-make DESTDIR="$1" ZICDIR=/usr/bin install
 
-set -- africa asia australasia europe northamerica southamerica
+# install tzcode stuff
+make DESTDIR="${1}" install
 
-./zic -d "$DESTDIR/usr/share/zoneinfo" "$@"
-./zic -d "$DESTDIR/usr/share/zoneinfo/posix" "$@"
-./zic -d "$DESTDIR/usr/share/zoneinfo/right" -L leapseconds "$@"
-./zic -d "$DESTDIR/usr/share/zoneinfo" -p America/New_York
+# install tzdata stuff
+./zic -b fat -d "${1}"/usr/share/zoneinfo ${_timezones[@]}
+./zic -b fat -d "${1}"/usr/share/zoneinfo/posix ${_timezones[@]}
+./zic -b fat -d "${1}"/usr/share/zoneinfo/right -L leapseconds ${_timezones[@]}
+# This creates the posixrules file. We use New York because POSIX requires the daylight savings time rules to be in accordance with US rules.   
+./zic -b fat -d "${1}"/usr/share/zoneinfo -p America/New_York
+install -m644 -t "${1}"/usr/share/zoneinfo iso3166.tab leap-seconds.list zone1970.tab SECURITY
+
+# cleanup
+rm "${1}/etc/localtime"
+
+# remove files provided by glibc
+rm -f $1/usr/bin/{tzselect,zdump,zic}

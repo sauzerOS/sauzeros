@@ -25,4 +25,6 @@ sed -e "/.*unsupported GNU version.*/d" \
     -i $1/opt/cuda/targets/x86_64-linux/include/crt/host_config.h
 
 install -d $1/etc/ld.so.conf.d/
-install -dm644 cuda.conf $1/etc/ld.so.conf.d/cuda.conf
+install -Dm644 ../../cuda.conf $1/etc/ld.so.conf.d/cuda.conf
+install -d $1/etc/profile.d
+install -Dm755 ../../cuda.sh $1/etc/profile.d/cuda.sh

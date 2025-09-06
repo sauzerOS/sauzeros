@@ -20,5 +20,6 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 
 make
 make DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32
+install -d $1/usr/{lib32,include}
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+cp -vr DESTDIR/usr/include/libunwind-x86.h $1/usr/include/

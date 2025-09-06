@@ -1,1 +1,2 @@
-https://github.com/mpv-player/mpv/archive/v0.40.0/mpv-0.40.0.tar.gz
+#https://github.com/mpv-player/mpv/archive/v0.40.0/mpv-0.40.0.tar.gz
+git+https://github.com/mpv-player/mpv

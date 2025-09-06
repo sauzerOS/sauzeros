@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+export CFLAGS=""
+export CXXFLAGS=""
+
+mkdir build-win64
+cd    build-win64
+
+#CFLAGS="-march=native -mtune=native -mno-avx -mno-avx2" \
+#CXXFLAGS="-march=native -mtune=native -mno-avx -mno-avx2" \
+meson setup .. --cross-file=../build-win64.txt \
+               --buildtype=release             \
+               --prefix=/usr
+
+ninja
+DESTDIR=$1 ninja install
+install -d     $1/usr/lib/dxvk/win64
+mv $1/usr/bin/*.dll $1/usr/lib/dxvk/win64
+
+#32bit
+cd ..
+mkdir build-win32
+cd    build-win32
+
+#CFLAGS="-march=native -mtune=native -mno-avx -mno-avx2" \
+#CXXFLAGS="-march=native -mtune=native -mno-avx -mno-avx2" \
+meson setup .. --cross-file ../build-win32.txt \
+               --buildtype=release             \
+               --prefix=/usr
+
+ninja
+DESTDIR=$1 ninja install
+install -d $1/usr/lib/dxvk/win32
+mv $1/usr/bin/*.dll $1/usr/lib/dxvk/win32

@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
 meson \
     --prefix=/usr \
     --libexecdir=/usr/lib \
@@ -12,4 +10,21 @@ meson \
     . output
 
 ninja -C output
-ninja -C output install
+DESTDIR=$1 ninja -C output install
+
+#32bit
+
+mkdir build
+cd build
+CC="gcc -m32" CXX="g++ -m32"         \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+meson setup ..                       \
+      --prefix=/usr                  \
+      --libdir=/usr/lib32            \
+      --buildtype=release            \
+      -D enable-docs=false
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

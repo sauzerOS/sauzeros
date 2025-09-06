@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+git submodule init
+git submodule update
+
+./configure.sh --prefix=/usr --use-system-urllib --use-system-pyzstd
+make DESTDIR=$1 install

@@ -1,0 +1,53 @@
+#!/bin/sh
+
+echo "setting up wine prefix in ~/.wine"
+WINEPREFIX=~/.wine wineboot -u
+echo "done"
+
+echo "64bit dxvk setup"
+for DLL_FILE in /usr/lib/dxvk/win64/*.dll; do
+    ln -sfv $DLL_FILE ~/.wine/drive_c/windows/system32/$(basename $DLL_FILE) &&
+    DLL_FILE=$(basename $DLL_FILE | sed s/.dll//g) &&
+    wine reg add \
+        'HKEY_CURRENT_USER\Software\Wine\DllOverrides' \
+        /v "$DLL_FILE" /d native /f
+done
+echo "done"
+
+echo "32bit dxvk setup"
+for DLL_FILE in /usr/lib/dxvk/win32/*.dll; do
+    if [ ! -d ~/.wine/drive_c/windows/syswow64 ]; then
+        ln -sfv $DLL_FILE ~/.wine/drive_c/windows/system32/$(basename $DLL_FILE)
+    else
+        ln -sfv $DLL_FILE ~/.wine/drive_c/windows/syswow64/$(basename $DLL_FILE)
+    fi
+    DLL_FILE=$(basename $DLL_FILE | sed s/.dll//g) &&
+    wine reg add \
+        'HKEY_CURRENT_USER\Software\Wine\DllOverrides' \
+        /v "$DLL_FILE" /d native /f
+done
+echo "done"
+
+echo "64bit vkd3d setup"
+for DLL_FILE in /usr/lib/vkd3d-proton/win64/*.dll; do
+    ln -sfv $DLL_FILE ~/.wine/drive_c/windows/system32/$(basename $DLL_FILE) &&
+    DLL_FILE=$(basename $DLL_FILE | sed s/.dll//g) &&
+    wine reg add \
+        'HKEY_CURRENT_USER\Software\Wine\DllOverrides' \
+        /v "$DLL_FILE" /d native /f
+done
+echo "done"
+
+echo "32bit vkd3d setup"
+for DLL_FILE in /usr/lib/vkd3d-proton/win32/*.dll; do
+    if [ ! -d ~/.wine/drive_c/windows/syswow64 ]; then
+        ln -sfv $DLL_FILE ~/.wine/drive_c/windows/system32/$(basename $DLL_FILE)
+    else
+        ln -sfv $DLL_FILE ~/.wine/drive_c/windows/syswow64/$(basename $DLL_FILE)
+    fi
+    DLL_FILE=$(basename $DLL_FILE | sed s/.dll//g) &&
+    wine reg add \
+        'HKEY_CURRENT_USER\Software\Wine\DllOverrides' \
+        /v "$DLL_FILE" /d native /f
+done
+echo "done"

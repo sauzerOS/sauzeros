@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make DESTDIR=$1 PREFIX=/usr install
+install -d $1/usr/lib{,32}/pkgconfig
+ln -sfv /usr/lib/pkgconfig/ffnvcodec.pc $1/usr/lib32/pkgconfig/ffnvcodec.pc

@@ -1,0 +1,63 @@
+#!/bin/sh -e
+
+# Explicitly set origin URL for submodules using relative paths
+git remote set-url origin https://github.com/jp7677/dxvk-nvapi.git
+git submodule update --init --filter=tree:0 --recursive
+
+# Uncomment to enable extra optimizations
+# Patch crossfiles with extra optimizations from makepkg.conf
+patch -p1 -i dxvk-nvapi-extraopts.patch
+
+CFLAGS="-O3 -march=native -pipe -mprefer-avx128"
+CXXFLAGS="-O3 -march=native -pipe -mprefer-avx128"
+LDFLAGS="-Wl,-O1,--sort-common,--as-needed"
+
+# These flags are taken from Proton
+CFLAGS+=" -mfpmath=sse -fwrapv -fno-strict-aliasing"
+CXXFLAGS+=" -mfpmath=sse -fwrapv -fno-strict-aliasing"
+LDFLAGS+=" -Wl,--file-alignment,4096"
+
+export CFLAGS CXXFLAGS LDFLAGS
+
+cross_ldflags="$LDFLAGS"
+
+cross_cflags="$CFLAGS -mcmodel=small"
+cross_cxxflags="$CXXFLAGS -mcmodel=small"
+sed -i build-win64.txt \
+    -e "s|@CARGS@|\'${cross_cflags// /\',\'}\'|g" \
+    -e "s|@CXXARGS@|\'${cross_cxxflags// /\',\'}\'|g" \
+    -e "s|@LDARGS@|\'${cross_ldflags// /\',\'}\'|g"
+
+cross_cflags="$CFLAGS -mstackrealign -mpreferred-stack-boundary=2"
+cross_cxxflags="$CXXFLAGS -mstackrealign -mpreferred-stack-boundary=2"
+sed -i build-win32.txt \
+    -e "s|@CARGS@|\'${cross_cflags// /\',\'}\'|g" \
+    -e "s|@CXXARGS@|\'${cross_cxxflags// /\',\'}\'|g" \
+    -e "s|@LDARGS@|\'${cross_ldflags// /\',\'}\'|g"
+
+meson setup . "build/x64" \
+    --cross-file build-win64.txt \
+    --prefix "/usr/share/dxvk-nvapi/x64" \
+    --bindir "" --libdir "" \
+    --buildtype "plain" \
+    -Denable_tests=false \
+    -Db_ndebug=false \
+    --strip
+ninja -C "build/x64" -v
+DESTDIR="$1" ninja -C "build/x64" install
+
+install -d $1/usr/bin
+install -Dm 755 -t "$1/usr/bin" setup_dxvk_nvapi
+
+#32bit
+
+meson setup . "build/x32" \
+--cross-file build-win32.txt \
+--prefix "/usr/share/dxvk-nvapi/x32" \
+    --bindir "" --libdir "" \
+    --buildtype "plain" \
+    -Denable_tests=false \
+    -Db_ndebug=false \
+    --strip
+ninja -C "build/x32" -v
+DESTDIR="$1" ninja -C "build/x32" install

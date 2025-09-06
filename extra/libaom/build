@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+mkdir aom-build
+cd    aom-build
+
+cmake -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_BUILD_TYPE=Release  \
+      -D BUILD_SHARED_LIBS=1       \
+      -D ENABLE_DOCS=no            \
+      -G Ninja ..
+
+ninja
+DESTDIR=$1 ninja install
+rm $1/usr/lib64/libaom.a
+
+#32bit
+
+rm -rf *
+CC="gcc -m32" CXX="g++ -m32"         \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+cmake -D CMAKE_INSTALL_PREFIX=/usr   \
+      -D CMAKE_INSTALL_LIBDIR=lib32  \
+      -D CMAKE_BUILD_TYPE=Release    \
+      -D BUILD_SHARED_LIBS=1         \
+      -D ENABLE_DOCS=no              \
+      -G Ninja ..
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
+rm -v $1/usr/lib32/libaom.a

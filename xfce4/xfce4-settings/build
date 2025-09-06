@@ -1,11 +1,19 @@
 #!/bin/sh -e
 
-./configure \
+ ./configure \
     --prefix=/usr \
-    --localstatedir=/var \
     --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --disable-nls
+    --localstatedir=/var \
+    --enable-x11 \
+    --enable-wayland \
+    --enable-xrandr \
+    --enable-xcursor \
+    --enable-libnotify \
+    --enable-libxklavier \
+    --enable-pluggable-dialogs \
+    --enable-sound-settings \
+    --disable-debug \
+    --enable-maintainer-mode
 
 make
 make DESTDIR="$1" install

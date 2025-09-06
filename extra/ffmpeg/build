@@ -2,30 +2,84 @@
 
 patch -Np1 -i ffmpeg-*-chromium_method-1.patch
 
-./configure \
-    --cc="$CC" \
-    --cxx="$CXX" \
+  ./configure \
     --prefix=/usr \
     --disable-debug \
     --disable-static \
+    --disable-stripping \
+    --enable-cuda-llvm \
+    --enable-lto \
+    --enable-fontconfig \
+    --enable-gmp \
+    --enable-gnutls \
+    --enable-gpl \
+    --enable-libaom \
     --enable-libass \
+    --enable-libdav1d \
     --enable-libdrm \
+    --enable-libfreetype \
+    --enable-libfribidi \
+    --enable-libglslang \
+    --enable-libharfbuzz \
     --enable-libmp3lame \
+    --enable-libopenjpeg \
     --enable-libopus \
+    --enable-libpulse \
+    --enable-librsvg \
     --enable-libvorbis \
     --enable-libvpx \
     --enable-libwebp \
     --enable-libx264 \
     --enable-libx265 \
+    --enable-libxcb \
+    --enable-libxml2 \
     --enable-libxvid \
-    --enable-nonfree \
-    --enable-openssl \
+    --enable-nvdec \
+    --enable-nvenc \
+    --enable-opengl \
     --enable-shared \
-    --enable-gpl \
-    --enable-libdav1d \
-    --x86asmexe=nasm
+    --enable-version3 \
+    --enable-vulkan
 
 make
+gcc tools/qt-faststart.c -o tools/qt-faststart
 make DESTDIR=$1 install
+install -v -m755    tools/qt-faststart $1/usr/bin
 
 rm -rf "$1/usr/share/ffmpeg/examples"
+
+#32bit
+
+make distclean
+./configure --prefix=/usr                             \
+            --libdir=/usr/lib32                       \
+            --shlibdir=/usr/lib32                     \
+            --cc="gcc -m32"                           \
+            --pkg-config=i686-pc-linux-gnu-pkg-config \
+            --enable-gpl                              \
+            --enable-version3                         \
+            --enable-nonfree                          \
+            --disable-static                          \
+            --enable-shared                           \
+            --disable-debug                           \
+            --enable-libaom                           \
+            --enable-libfdk-aac                       \
+            --enable-libfreetype                      \
+            --enable-libmp3lame                       \
+            --enable-libopus                          \
+            --enable-libvorbis                        \
+            --enable-libvpx                           \
+            --enable-libx264                          \
+            --enable-libx265                          \
+            --enable-nvenc                            \
+            --enable-nvdec                            \
+            --enable-vulkan                           \
+            --enable-cuda-llvm                        \
+            --enable-libpulse                         \
+            --enable-opengl                           \
+            --enable-openssl
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

@@ -12,6 +12,7 @@ xfwm4
 mousepad
 pavucontrol
 ristretto
+sound-theme-smooth
 thunar-archive-plugin
 xfce4-netload-plugin
 xfce4-notifyd
@@ -19,3 +20,5 @@ xfce4-pulseaudio-plugin
 xfce4-whiskermenu-plugin
 xfce4-xkb-plugin
 wireplumber
+xfce4-taskmanager
+gnome-keyring

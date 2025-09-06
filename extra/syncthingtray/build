@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+install -d $1/usr/share/icons/hicolor/scalable/apps/
+install -d $1/usr/share/applications/
+install -d $1/usr/bin
+cp syncthingtray.svg $1/usr/share/icons/hicolor/scalable/apps/
+cp syncthingtray.desktop $1/usr/share/applications/
+cp syncthingtray $1/usr/bin/ 

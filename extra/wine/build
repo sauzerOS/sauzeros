@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+# Apply flags for cross-compilation
+export CROSSCFLAGS="-O2 -pipe -g"
+export CROSSCXXFLAGS="-O2 -pipe -g"
+export CROSSLDFLAGS="-Wl,-O1"
+
+mkdir wine-64-build
+cd wine-64-build
+../configure \
+    --prefix=/usr \
+    --libdir=/usr/lib \
+    --disable-tests \
+    --enable-archs=x86_64,i386
+
+make
+make prefix="$1/usr" \
+     libdir="$1/usr/lib" \
+     dlldir="$1/usr/lib/wine" install

@@ -1,11 +1,10 @@
 #!/bin/sh -e
 
-# Remove the perl requirement from configure.
-# Also fix issue with non-GNU diff.
-sed 's/perl/:/g;s/diff --version/command -v diff/' configure > _
-mv -f _ configure
+sed -i 's/cp -p/cp/' build/make/Makefile
 
-sh ./configure \
+mkdir bld
+cd bld
+sh ../configure \
     --prefix=/usr \
     --target=x86_64-linux-gcc \
     --enable-vp8 \
@@ -26,3 +25,21 @@ sh ./configure \
 
 make
 make DESTDIR=$1 install
+
+#32bit
+
+rm -rf *
+CC="gcc -m32" CXX="g++ -m32"          \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig  \
+../configure --prefix=/usr            \
+             --libdir=/usr/lib32      \
+             --target=x86-linux-gcc   \
+             --enable-shared          \
+             --disable-static         \
+             --disable-examples       \
+             --disable-unit-tests
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

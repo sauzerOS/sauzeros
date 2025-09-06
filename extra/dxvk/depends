@@ -1,0 +1,7 @@
+vulkan-headers
+vulkan-loader
+spirv-headers
+spirv-tools
+glslang
+mingw-gcc
+wine

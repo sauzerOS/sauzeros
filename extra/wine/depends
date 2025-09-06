@@ -1,0 +1,15 @@
+pulseaudio
+dbus
+fontconfig
+freetype
+gnutls
+libunwind
+libglvnd
+mingw-gcc
+gstreamer
+sdl2
+vulkan-headers
+vulkan-loader
+spirv-headers
+spirv-tools
+glslang

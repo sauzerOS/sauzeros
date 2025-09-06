@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+export CC=x86_64-w64-mingw32-gcc
+export CXX=x86_64-w64-mingw32-g++
+export CPPFLAGS="-I/usr/x86_64-w64-mingw32/include"
+
+mkdir build-x86_64
+cd    build-x86_64
+
+../configure --prefix=/usr/x86_64-w64-mingw32 \
+             --host=x86_64-w64-mingw32        \
+             --disable-lib32                  \
+             --enable-experimental            \
+             --with-default-msvcrt=msvcrt
+make
+make DESTDIR=$1 install
+cd ..
+#32bit
+
+export CC=i686-w64-mingw32-gcc
+export CXX=i686-w64-mingw32-g++
+export CPPFLAGS="-I/usr/i686-w64-mingw32/include"
+
+mkdir build-i686
+cd    build-i686
+
+../configure --prefix=/usr/i686-w64-mingw32 \
+             --host=i686-w64-mingw32        \
+             --disable-lib64                \
+             --enable-experimental          \
+             --with-default-msvcrt=msvcrt
+
+make
+make DESTDIR=$1 install
