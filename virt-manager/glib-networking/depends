@@ -1,5 +1,0 @@
-glib
-gnutls
-libproxy make
-meson make
-pkgconf make

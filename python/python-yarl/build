@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-python -m build --wheel --no-isolation
-ython -m installer --destdir="$1" dist/*.whl

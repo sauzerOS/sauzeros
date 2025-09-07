@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Give xinit setgid to /dev/input.
-chown :input "$KISS_ROOT/usr/bin/xinit"
-chmod g+s    "$KISS_ROOT/usr/bin/xinit"

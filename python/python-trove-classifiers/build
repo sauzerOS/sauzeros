@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-sed -i '/calver/s/^/#/;$iversion="2025.8.6.13"' setup.py
-pip3 wheel -w dist --no-build-isolation --no-deps --no-cache-dir $PWD
-pip3 install --root=$1 --no-index --find-links dist --no-user trove-classifiers

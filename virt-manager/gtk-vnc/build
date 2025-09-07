@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-
-meson --prefix=/usr --buildtype=release build
-
-ninja -C build
-DESTDIR=$1 ninja -C build install

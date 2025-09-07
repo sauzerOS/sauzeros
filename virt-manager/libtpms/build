@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-autoreconf -fvi
-./configure --prefix=/usr
-
-make
-make DESTDIR=$1 install

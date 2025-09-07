@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-python -m build -nw
-python -m installer --destdir="$1" dist/*.whl

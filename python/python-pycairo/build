@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-mkdir build
-cd    build
-
-meson setup --prefix=/usr --buildtype=release ..
-ninja
-DESTDIR=$1 ninja install
