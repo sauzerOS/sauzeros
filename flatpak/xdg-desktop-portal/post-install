@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-pip uninstall pytest
-pip uninstall python-dbusmock
-

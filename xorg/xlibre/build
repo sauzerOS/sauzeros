@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-meson setup --prefix=/usr -Dxvfb=true -Dxnest=true -Dxephyr=true -Dsuid_wrapper=true build
-ninja -C build
-DESTDIR=$1 ninja -C build install

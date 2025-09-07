@@ -1,3 +1,0 @@
-#!/bin/sh -e
-
-echo "enable seatd service and add your user to wheel group"
