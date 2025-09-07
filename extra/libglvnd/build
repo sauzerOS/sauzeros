@@ -1,0 +1,30 @@
+#!/bin/sh -e
+
+mkdir build
+cd    build
+
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            -D gles1=false      \
+            -D hgl=false        \
+            ..
+
+ninja
+DESTDIR=$1 ninja install
+
+#32bit
+
+rm -rf *
+CC="gcc -m32" CXX="g++ -m32"         \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+meson setup --prefix=/usr            \
+            --libdir=/usr/lib32      \
+            --buildtype=release      \
+            -D gles1=false           \
+            -D hgl=false             \
+            ..
+
+ninja
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

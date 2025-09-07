@@ -1,0 +1,9 @@
+curl
+glib
+gperf make
+itstool make
+libxml2
+libxmlb
+libyaml
+libxslt
+meson make

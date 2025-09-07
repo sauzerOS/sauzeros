@@ -2,3 +2,14 @@ python-six
 par2cmdline
 p7zip
 unrar
+python-cheetah3
+python-sabctools
+python-feedparser
+python-cherrypy
+python-cryptography
+python-chardet
+python-guessit
+python-puremagic
+python-pysocks
+python-legacy-cgi
+python-apprise

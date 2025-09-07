@@ -1,0 +1,16 @@
+aquamarine
+hyprlang
+hyprland-protocols
+hyprcursor
+hyprutils
+hyprgraphics
+hyprwayland-scanner
+libXcursor
+re2
+seatd
+xcb-util
+xcb-util-errors
+xcb-util-image
+xcb-util-keysyms
+xcb-util-renderutil
+xcb-util-wm

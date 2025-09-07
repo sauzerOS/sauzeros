@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+mkdir build
+cd    build
+
+meson setup ..                  \
+      --prefix=/usr             \
+      --buildtype=release       \
+      -D documentation=disabled \
+      -D tests=disabled
+
+ninja
+DESTDIR=$1 ninja install

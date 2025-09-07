@@ -1,0 +1,4 @@
+libdbusmenu
+gnome-common make
+gtk-doc make
+gtk+2-arch make

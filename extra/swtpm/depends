@@ -1,0 +1,7 @@
+expect make
+gnutls
+libtpms
+json-glib
+libseccomp
+openssl
+socat make

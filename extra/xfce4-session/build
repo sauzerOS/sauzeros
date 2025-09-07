@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --disable-legacy-sm
+
+make
+make DESTDIR="$1" install
+
+#add dbus-launch to fix issues
+install -Dm 0644 xfce.desktop $1/usr/share/xsession/xfce.desktop

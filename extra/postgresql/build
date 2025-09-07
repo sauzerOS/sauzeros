@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+sed -i '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' src/include/pg_config_manual.h
+
+./configure --prefix=/usr          \
+            --enable-thread-safety
+
+make
+make DESTDIR=$1 install
+make -C contrib DESTDIR="$1" install
+
+mkdir -pv $1/usr/lib/tmpfiles.d/
+mkdir -pv $1/usr/lib/systemd/system/
+
+install -m 644 postgresql.conf $1/usr/lib/tmpfiles.d/
+install -m 644 postgresql.service $1/usr/lib/systemd/system/

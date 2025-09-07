@@ -1,0 +1,29 @@
+###########################################################################
+# Carbs Linux
+###########################################################################
+- name: sauzeros
+  type: repository
+  desc: sauzeros
+  family: kiss
+  ruleset: kiss
+  minpackages: 100
+  sources:
+    - name: repository
+      fetcher:
+        class: GitFetcher
+        url: 'https://github.com/sauzerOS/sauzeros.git'
+        sparse_checkout: [ '**/version', '**/sources', '**/patches', '**/meta' ]
+      parser:
+        class: KissGitParser
+        use_meta: true
+  repolinks:
+    - desc: sauzerOS
+      url: https://github.com/sauzeros/
+  packagelinks:
+    - type: PACKAGE_SOURCES
+      url: 'https://github.com/sauzeros/sauzeros/tree/master/{path}'
+    - type: PACKAGE_PATCH
+      url: 'https://github.com/sauzeros/sauzeros/blob/master/{path}/patches/{?patch}'
+    - type: PACKAGE_PATCH_RAW
+      url: 'https://raw.githubusercontent.com/sauzeros/sauzeros/master/{path}/patches/{?patch}'
+  groups: [ all, production ]
