@@ -1,0 +1,20 @@
+appstream
+bubblewrap
+curl
+fuse3
+gdk-pixbuf
+glib
+gpgme
+json-glib
+libarchive
+libassuan
+libgpg-error
+libseccomp
+libxml2
+ostree
+polkit
+python make
+python-pyparsing
+socat
+xdg-dbus-proxy
+

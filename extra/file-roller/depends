@@ -1,0 +1,10 @@
+cpio
+desktop-file-utils
+gtk+3
+json-glib
+libarchive
+libadwaita
+libportal
+unrar
+unzip
+#zip

@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+meson setup --prefix=/usr build
+
+ninja -C build
+DESTDIR=$1 ninja -C build install

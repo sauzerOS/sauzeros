@@ -1,0 +1,6 @@
+flatpak
+libportal
+pipewire
+umockdev
+python-pytest make
+python-dbusmock make

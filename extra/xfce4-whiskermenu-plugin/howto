@@ -1,0 +1,6 @@
+click the menu button, find "Session and Startup" and add a new entry in the "Application Autostart" tab. Use any name you like and put this in the Command field:
+
+xcape -e 'Super_L=Shift_L|Control_L|Alt_L|Super_L|D'
+It's remapping the Super key to a another, more complicated shortcut that 's unlikely to be used.
+
+assign the same complicated key combination to xfce4-popup-whiskermenu in the standard shortcut manager (click menu, type "keyboard", press Enter, the rest should be obvious)

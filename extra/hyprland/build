@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+cd subprojects
+git clone https://github.com/canihavesomecoffee/udis86
+cd ..
+cmake --no-warn-unused-cli -DCMAKE_INSTALL_PREFIX=/usr -S . -B ./build
+cmake --build ./build --target all
+DESTDIR=$1 cmake --install build

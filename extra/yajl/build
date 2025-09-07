@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+patch -Np1 -i 256.patch
+patch -Np1 -i 251.patch
+patch -Np1 -i 242.patch
+
+./configure \
+    -p /usr
+
+make -j1
+make DESTDIR="$1" install

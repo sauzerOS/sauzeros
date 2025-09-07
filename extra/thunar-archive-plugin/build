@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+meson $pkgname build \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib/xfce4
+
+meson compile -C build
+meson install -C build --destdir "$1"

@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr -Dinstalled-tests=false \
+      -Ddocumentation=disabled \
+      -Dsandboxed-sound-validation=disabled \
+      -Dtests=disabled ..
+
+ninja
+DESTDIR=$1 ninja install

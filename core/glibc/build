@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# use our custom localedata config
+cp en_CH localedata/locales/en_CH
+
 mkdir -v glibc-build
 cd glibc-build
 
@@ -20,11 +23,13 @@ echo "rootsbindir=/usr/bin" >> configparms
 
 make
 make DESTDIR="$1" install
-make DESTDIR="$1" localedata/install-locales
-rm -rf $1/usr/share/info 
-
+#make DESTDIR="$1" localedata/install-locales
+install -d $1/usr/lib/locale
 cd ..
+localedef --no-archive -i localedata/locales/en_US -f UTF-8 $1/usr/lib/locale/en_US.UTF-8
+localedef --no-archive -i localedata/locales/en_CH -f UTF-8 $1/usr/lib/locale/en_CH.UTF-8
 
+rm -rf $1/usr/share/info
 mkdir -pv "$1"/etc
 mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf

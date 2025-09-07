@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+sed -i 's/-Werror//' meson.build
+
+meson setup build --prefix=/usr
+meson compile -C build
+DESTDIR="$1" meson install -C build
+

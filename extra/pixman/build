@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+meson setup \
+    -Dprefix=/usr \
+    -Dgtk=disabled \
+    output
+
+ninja -C output
+DESTDIR=$1 ninja -C output install

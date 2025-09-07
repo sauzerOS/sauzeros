@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+meson --prefix=/usr \
+      -D glamor=true \
+      -D dri3=true \
+      -D xkb_dir=/usr/share/X11/xkb \
+      -D xkb_output_dir=/var/lib/xkb \
+      ..
+
+ninja
+DESTDIR=$1 ninja install
+

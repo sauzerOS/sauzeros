@@ -1,0 +1,7 @@
+autoconf	  make
+automake	  make
+fontconfig        make
+freetype          make
+libtool		  make
+libXrender        make
+xorgproto         make

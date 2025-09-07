@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+echo "###############################################################"
+echo "autostart /usr/bin/xcape -e 'Super_L=Alt_L|F1;Super_R=Alt_L|F1'"
+echo "then set xfce4-popup-whiskermenu shortcut to Alt+F1"
+echo "###############################################################"
