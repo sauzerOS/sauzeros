@@ -54,5 +54,5 @@ kiss b desktop-system
 
 ⚖️ Licensing
 
-All packages retain their original licenses.
-All unique content is licensed under WTFPL.
+All packages retain their original licenses.  
+All unique content is licensed under WTFPL.  
