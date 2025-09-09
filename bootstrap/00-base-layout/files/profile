@@ -1,0 +1,33 @@
+# /etc/profile
+#
+# System wide environment and startup programs.
+
+# Set default path
+export PATH=/usr/bin:/usr/sbin:/sbin:/bin:$HOME/.local/bin
+
+# Set default umask.
+umask 022
+
+# Load profiles from /etc/profile.d
+for file in /etc/profile.d/*.sh; do
+    [ -r "$file" ] && . "$file"
+done
+
+unset file
+
+# Setup some environment variables.
+export HISTSIZE=1000
+export HISTIGNORE="&:[bf]g:exit"
+
+# Set some defaults for graphical systems
+export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
+export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
+
+# Source bashrc in bash
+if [ -n "$BASH_VERSION" ]
+then source /etc/bashrc
+fi
+
+# Set default terminal
+export TERMINAL="xterm"

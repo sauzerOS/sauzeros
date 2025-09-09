@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+
 ar x google-chrome-stable_*amd64.deb
 tar -xf data.tar.xz -C "$1/"
 
@@ -22,5 +23,9 @@ sed -i \
 	"$1"/usr/share/applications/google-chrome.desktop
 
 # remove sources
-
-rm -rf ~/.cache/kiss/sources/google-chrome/*.deb
+if [ -f /etc/kiss/flags ]; then
+    # shellcheck disable=SC1091
+    . /etc/kiss/flags
+    export KISS_DIRS
+fi
+rm -rfv $KISS_DIRS/sources/google-chrome/*.deb

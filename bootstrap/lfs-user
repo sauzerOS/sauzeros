@@ -1,0 +1,48 @@
+# exit if not root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "This script must be run as root!" >&2
+    exit 1
+fi
+# Check if $LFS is set and not empty
+if [ -z "$LFS" ]; then
+    echo "Error: \$LFS environment variable is not set!" >&2
+    exit 1
+fi
+
+# Check if sauzeros repo exists
+if [ ! -d /repo/sauzeros ]; then
+    echo "Error: /repo/sauzeros does not exit."
+    echo "git clone https://github.com/sauzeros/sauzeros /repo/sauzeros"
+    exit 1
+fi
+
+groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+if [ ! -f /etc/sudoers.d/lfs ]; then
+    echo "lfs ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/lfs
+    chmod 440 /etc/sudoers.d/lfs
+fi
+echo "added user lfs to sudoers"
+mkdir -pv $LFS
+chown -R lfs:lfs $LFS
+cat > /home/lfs/.bash_profile << "EOF"
+exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+EOF
+cat > /home/lfs/.bashrc << "EOF"
+set +h
+umask 022
+LFS=$LFS
+LC_ALL=POSIX
+LFS_TGT=x86_64-lfs-linux-gnu
+LFS_TGT32=i686-lfs-linux-gnu
+LFS_TGTX32=x86_64-lfs-linux-gnux32
+PATH=/usr/bin
+LOGNAME=lfs
+USER=lfs
+MAKEFLAGS="-j22"
+if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
+PATH=$LFS/tools/bin:$PATH
+CONFIG_SITE=$LFS/usr/share/config.site
+export LFS LC_ALL LFS_TGT LFS_TGT32 LFS_TGTX32 PATH KISS_ROOT KISS_DIRS KISS_TMPDIR LOGNAME USER KISS_PATH MAKEFLAGS
+EOF
+su - lfs
