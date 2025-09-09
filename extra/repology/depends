@@ -18,6 +18,7 @@ python-pillow
 python-protobuf
 python-psycopg2
 python-pydantic
+python-pydantic-core
 python-pyparsing
 python-pyyaml
 python-requests

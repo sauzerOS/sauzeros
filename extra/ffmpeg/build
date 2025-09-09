@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-patch -Np1 -i ffmpeg-*-chromium_method-1.patch
+#patch -Np1 -i ffmpeg-*-chromium_method-1.patch
 
   ./configure \
     --prefix=/usr \
@@ -24,9 +24,9 @@ patch -Np1 -i ffmpeg-*-chromium_method-1.patch
     --enable-libmp3lame \
     --enable-libopenjpeg \
     --enable-libopus \
-    --enable-libpulse \
     --enable-librsvg \
     --enable-libvorbis \
+    --enable-libpulse \
     --enable-libvpx \
     --enable-libwebp \
     --enable-libx264 \
@@ -75,7 +75,6 @@ make distclean
             --enable-nvdec                            \
             --enable-vulkan                           \
             --enable-cuda-llvm                        \
-            --enable-libpulse                         \
             --enable-opengl                           \
             --enable-openssl
 

@@ -1,4 +1,2 @@
-https://codeberg.org/kiss-community/kiss/archive/6.2.0.tar.gz
-files/kiss_path.sh
-files/flags.sh
-files/wrapper
+git+https://github.com/sauzerOS/kiss
+

@@ -1,1 +1,7 @@
-hatch-fancy-pypi-readme
+python-annotated-types
+python-pydantic-core
+python-typing-extensions
+python-typing-inspection
+cython make
+python-hatchling make
+python-hatch-fancy-pypi-readme make

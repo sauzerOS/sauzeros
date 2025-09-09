@@ -5,9 +5,4 @@ mkdir -p \
 
 # Install kiss utilities.
 cp -f contrib/* "$1/usr/bin/"
-cp kiss "$1/usr/bin/kisss"
-cp wrapper "$1/usr/bin/kiss"
-
-# Install our custom kiss_path
-install -D kiss_path.sh "$1/etc/profile.d/kiss_path.sh"
-install -D flags.sh "$1/etc/profile.d/flags.sh"
+cp kiss "$1/usr/bin/kiss"

@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make CC=$LFS_TGT-gcc LDFLAGS="$LDFLAGS -static"
+make CC=$LFS_TGT-gcc PREFIX=/usr DESTDIR="$LFS" install

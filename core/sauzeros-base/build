@@ -9,6 +9,7 @@ install -dm 555  "$1/proc"
 install -dm 555  "$1/sys"
 install -dm 0750 "$1/root"
 install -dm 1777 "$1/tmp"
+install -dm 755 "$1/etc/profile.d"
 
 # Setup /usr hierarchy.
 for d in bin include lib lib32 share src; do
@@ -63,4 +64,6 @@ for f in init-repos ; do
     install -m 755 "$f" "$1/usr/bin"
 done
 
+install -m 755 flags.sh "$1/etc/profile.d"
+install -D "$1/repo/sauzeros/no_updates"
 ln -s /proc/self/mounts "$1/etc/mtab"
