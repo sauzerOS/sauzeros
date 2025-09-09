@@ -22,8 +22,8 @@
 - **Nvidia**  
 
 All packages are built with Nvidia GPU in mind.  
-This is just *Arch from source but worse*  
-If you want a usable system, just use [CachyOS](https://cachyos.org) or [Arch Linux](https://archlinux.org/).  
+*This is just Arch from source but worse*  
+If you want a usable system use [CachyOS](https://cachyos.org) or [Arch Linux](https://archlinux.org/).  
 
 ## ⚒️ Build Process
 
@@ -33,24 +33,24 @@ If you want a usable system, just use [CachyOS](https://cachyos.org) or [Arch Li
 
 ### 1️⃣ Build a clean multilib toolchain in `/newroot` (MLFS Chapters 5–6)
 
-git clone https://github.com/sauzeros /repo/sauzeros
-cd /repo/sauzeros/bootstrap
-sudo LFS=/newroot ./lfs-user
-./hokuto LIST
+>git clone https://github.com/sauzeros /repo/sauzeros
+>cd /repo/sauzeros/bootstrap
+>sudo LFS=/newroot ./lfs-user
+>./hokuto LIST
 
 ### 2️⃣ Chroot into /newroot
-sudo LFS=/newroot ./chroot
+>sudo LFS=/newroot ./chroot
 
 At this stage you are inside a clean multilib environment with just enough tools
 to use kiss for building the full system.
 
-### Set the target partition/folder for the system
-export KISS_ROOT=/target
-cd /repo/sauzeros/core
-kiss b sauzeros-base binutils gcc.... (will be replaced by base-system)
-From here you can attempt to build packages (not yet implemented):
-kiss b base-system
-kiss b desktop-system
+### Set the target partition/folder for the new system
+>export KISS_ROOT=/target
+>cd /repo/sauzeros/core
+>kiss b sauzeros-base binutils gcc.... (will be replaced by base-system)
+>From here you can attempt to build packages (not yet implemented):
+>kiss b base-system
+>kiss b desktop-system
 
 ⚖️ Licensing
 
