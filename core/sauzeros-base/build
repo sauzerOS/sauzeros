@@ -64,6 +64,9 @@ for f in init-repos ; do
     install -m 755 "$f" "$1/usr/bin"
 done
 
-install -m 755 flags.sh "$1/etc/profile.d"
-install -D "$1/repo/sauzeros/no_updates"
+install -d "$1/repo/sauzeros/no_updates"
 ln -s /proc/self/mounts "$1/etc/mtab"
+
+# kiss global config
+install -Dm644 kiss.conf "$1/etc/kiss/kiss.conf"
+install -Dm644 BIG_PKGS "$1/etc/kiss/BIG_PKGS"

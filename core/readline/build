@@ -9,7 +9,6 @@ sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
 make SHLIB_LIBS=-lncursesw
 make DESTDIR="$1" install
 
-rm -rf $1/usr/share/info
 
 #32bit
 make distclean

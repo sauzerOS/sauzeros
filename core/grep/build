@@ -8,6 +8,5 @@ export CFLAGS="$CFLAGS -Wno-error -static"
 make
 make DESTDIR=$1 install
 
-rm -rf $1/usr/share/info
 
 cp -f src/grep "$1/usr/bin/ggrep"
