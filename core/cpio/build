@@ -13,4 +13,3 @@ sed -e "/^int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" 
 make
 make DESTDIR="$1" install
 
-rm -rf $1/usr/share/info

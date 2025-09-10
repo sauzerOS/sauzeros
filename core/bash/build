@@ -9,7 +9,6 @@ export CFLAGS="$CFLAGS -DSYS_BASHRC='\"/etc/bash/bashrc\"'"
 make
 make DESTDIR="$1" install
 
-rm -rf $1/usr/share/info
 
 ln -s bash "$1/usr/bin/sh"
 

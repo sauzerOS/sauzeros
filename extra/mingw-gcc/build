@@ -43,5 +43,4 @@ rm -rf $1/usr/share/gcc-$2/python
 rm -rf $1/usr/lib/libcc1.so.0.0.0
 rm -rf $1/usr/lib/libcc1.so.0
 rm -rf $1/usr/lib/libcc1.so
-rm -rf $1/usr/share/info
 

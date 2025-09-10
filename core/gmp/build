@@ -14,7 +14,6 @@ sed -i '/long long t1;/,+1s/()/(...)/' configure
 make
 make DESTDIR=$1 install
 
-rm -rf $1/usr/share/info
 
 #32bit
 make distclean

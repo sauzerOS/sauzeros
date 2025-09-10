@@ -32,7 +32,6 @@ install -Dm755 locale-gen $1/usr/bin/locale-gen
 install -Dm644 locale.gen $1/etc/locale.gen
 localedef --no-archive -i localedata/locales/en_CH -f UTF-8 $1/usr/lib/locale/en_CH.UTF-8
 
-rm -rf $1/usr/share/info
 mkdir -pv "$1"/etc
 mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf
