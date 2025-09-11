@@ -70,7 +70,7 @@ while read -r url _; do
         *.tar.xz)       tar -xJf "$file" -C "$build_dir" ;;
         *.tar.zst)      tar --use-compress-program=unzstd -xf "$file" -C "$build_dir" ;;
         *.zip)          unzip -d "$build_dir" "$file" ;;
-        *)              echo "Unknown archive type: $file"; exit 1 ;;
+        *)              cp "$file" "$build_dir/" ;;
     esac
 done < "$pkg_dir/sources"
 

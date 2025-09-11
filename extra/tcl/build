@@ -5,4 +5,4 @@ cd unix
 ./configure --prefix=/usr --mandir=/usr/share/man --enable-threads --enable-64bit
 
 make
-make INSTALL_ROOT="$1" install install-private-headers
+make DESTDIR=$1 INSTALL_ROOT="$1" install install-private-headers install-libraries

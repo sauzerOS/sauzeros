@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr \
+      -DMZ_BUILD_TESTS=ON         \
+      -DBUILD_SHARED_LIBS=ON     \
+      -DCMAKE_BUILD_TYPE=Release  \
+      ..
+make
+make DESTDIR=$1 install
+
+# symlink for zip compat
+ln -s /usr/bin/minizip $1/usr/bin/zip

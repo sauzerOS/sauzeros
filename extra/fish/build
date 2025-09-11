@@ -4,3 +4,5 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr .
 
 make
 make DESTDIR=$1 install
+
+install -Dm644 config.fish $1/etc/fish/config.fish
