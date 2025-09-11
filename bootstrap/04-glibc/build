@@ -46,6 +46,7 @@ install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
 ln -svf ../lib32/ld-linux.so.2 $LFS/lib/ld-linux.so.2
 
 # checks
+set +e
 echo -e "\033[0;32mRunning basic toolchain sanity checks\033[0m"
 echo 'int main(){}' > dummy.c
 $LFS_TGT-gcc -m32 dummy.c
@@ -64,3 +65,4 @@ grep "/lib.*/libc.so.6 " dummy.log
 echo -e "\033[0;32mCorrect output:\nattempt to open $LFS/usr/lib/libc.so.6 succeeded\033[0m"
 grep found dummy.log
 echo -e "\033[0;32mCorrect output:\nfound ld-linux-x86-64.so.2 at $LFS/usr/lib/ld-linux-x86-64.so.2\033[0m"
+read -p "Press Enter to continue"

@@ -3,6 +3,8 @@
 export CFLAGS="$CFLAGS -fPIC"
 sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
 
+patch -Np0 -i readline83-001
+
 ./configure \
     --prefix=/usr
 

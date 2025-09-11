@@ -23,9 +23,8 @@ sed -i \
 	"$1"/usr/share/applications/google-chrome.desktop
 
 # remove sources
-if [ -f /etc/kiss/flags ]; then
-    # shellcheck disable=SC1091
-    . /etc/kiss/flags
+if [ -f /etc/kiss/kiss.conf ]; then
+    . /etc/kiss/kiss.conf
     export KISS_DIRS
 fi
 rm -rfv $KISS_DIRS/sources/google-chrome/*.deb

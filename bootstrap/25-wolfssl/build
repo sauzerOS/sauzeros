@@ -1,9 +1,10 @@
 #!/bin/sh -e
 
 ./autogen.sh
-./configure --host=$LFS_TGT \
+CFLAGS="-DWOLFSSL_NO_ASN_STRICT" ./configure --host=$LFS_TGT \
             --enable-static \
             --enable-opensslextra \
+            --enable-all \
             --prefix=/usr
 
 make
