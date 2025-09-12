@@ -1,0 +1,18 @@
+#!/bin/sh
+# fake-su: no-op su wrapper for always-root environment
+
+# If called with `su -c 'cmd'`
+if [ "$1" = "-c" ] && [ -n "$2" ]; then
+    shift  # remove -c
+    exec sh -c "$@"
+fi
+
+# If called with `su user -c 'cmd'`
+if [ $# -ge 3 ] && [ "$2" = "-c" ]; then
+    user="$1"
+    shift 2  # remove user and -c
+    exec sh -c "$@"
+fi
+
+# If called with just a shell (e.g. `su`)
+exec "${SHELL:-/bin/sh}"

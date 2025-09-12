@@ -64,3 +64,6 @@ for f in init-repos ; do
 done
 
 ln -s /proc/self/mounts "$LFS/etc/mtab"
+
+install -d "$LFS/etc/kiss"
+install -Dm 644 kiss.conf "$LFS/etc/kiss/kiss.conf"

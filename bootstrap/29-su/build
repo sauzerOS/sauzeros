@@ -1,0 +1,3 @@
+#!/bin/sh
+
+install -Dm755 su $LFS/bin/su

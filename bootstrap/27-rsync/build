@@ -3,7 +3,9 @@
 ./configure \
     --prefix=/usr \
     --disable-xxhash \
+    --host=$LFS_TGT \
     --disable-lz4 \
+    --disable-openssl \
     --without-included-zlib
 
 make
