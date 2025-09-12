@@ -25,13 +25,12 @@ fi
 echo "added user lfs to sudoers"
 mkdir -pv $LFS
 chown -R lfs:lfs $LFS
-cat > /home/lfs/.bash_profile << "EOF"
-exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+cat > /home/lfs/.bash_profile << EOF
+exec env -i HOME=\$HOME TERM=\$TERM PS1='\\u:\\w\\$ ' LFS="$LFS" /bin/bash
 EOF
 cat > /home/lfs/.bashrc << "EOF"
 set +h
 umask 022
-LFS=$LFS
 LC_ALL=POSIX
 LFS_TGT=x86_64-lfs-linux-gnu
 LFS_TGT32=i686-lfs-linux-gnu
@@ -45,4 +44,6 @@ PATH=$LFS/tools/bin:$PATH
 CONFIG_SITE=$LFS/usr/share/config.site
 export LFS LC_ALL LFS_TGT LFS_TGT32 LFS_TGTX32 PATH KISS_ROOT KISS_DIRS KISS_TMPDIR LOGNAME USER KISS_PATH MAKEFLAGS
 EOF
+export LFS="$LFS"
+echo "LFS is $LFS"
 su - lfs
