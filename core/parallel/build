@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+# remove annoying nag
+
+sed -i '/citation_notice();/d' src/parallel
+
 ./configure --prefix=/usr
 make
 make DESTDIR=$1 install
