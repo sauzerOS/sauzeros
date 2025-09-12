@@ -1,4 +1,14 @@
 #!/bin/sh -e
 
-pip3 wheel -w dist --no-build-isolation --no-deps --no-cache-dir $PWD
-pip3 install --root=$1 --no-index --find-links dist --no-user dbus-python
+meson setup -Ddoc=false build
+meson compile -C build
+python tools/generate-pkginfo.py $2 PKG-INFO
+meson install -C build --destdir=$1
+
+# Compile Python bytecode
+python -m compileall -d /usr/lib "$1/usr/lib"
+python -O -m compileall -d /usr/lib "$1/usr/lib"
+
+# Install egg-info
+install -Dm644 -t "$1$(python -c 'import site; print(site.getsitepackages()[0])')/dbus_python.egg-info/" PKG-INFO
+

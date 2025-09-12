@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-python3 -m build --wheel --no-isolation
-pip3 install --root=$1 --no-index --find-links dist urllib3
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl

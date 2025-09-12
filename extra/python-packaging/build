@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-pip3 wheel -w dist --no-build-isolation --no-deps $PWD
-pip3 install --root=$1 --no-index --find-links dist --no-cache-dir --no-user packaging
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl
