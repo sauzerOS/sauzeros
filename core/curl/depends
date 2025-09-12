@@ -1,3 +1,4 @@
 libpsl
 openssl
 zlib-ng
+zstd

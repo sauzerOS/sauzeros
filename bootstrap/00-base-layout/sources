@@ -16,4 +16,4 @@ files/resolv.conf
 files/securetty
 files/shells
 files/init-repos
-files/kiss
+files/kiss.conf

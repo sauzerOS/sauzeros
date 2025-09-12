@@ -65,4 +65,5 @@ grep "/lib.*/libc.so.6 " dummy.log
 echo -e "\033[0;32mCorrect output:\nattempt to open $LFS/usr/lib/libc.so.6 succeeded\033[0m"
 grep found dummy.log
 echo -e "\033[0;32mCorrect output:\nfound ld-linux-x86-64.so.2 at $LFS/usr/lib/ld-linux-x86-64.so.2\033[0m"
-read -p "Press Enter to continue"
+set -e
+read -p "Press Enter to continue" < /dev/tty

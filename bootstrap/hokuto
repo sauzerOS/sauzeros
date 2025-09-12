@@ -8,8 +8,19 @@ if [ -f "$1" ]; then
         [ -z "$pkgname" ] && continue
         # Skip comments and blank lines
         case "$pkgname" in \#*|"" ) continue ;; esac
+
+# Update terminal title
+echo -ne "\033]0;Building $pkgname\007"
+
+# Print to terminal
+echo -e "\033[1;34m==> Building $pkgname\033[0m"
+
         "$0" "$pkgname"
     done < "$1"
+
+# Reset title at the end
+echo -ne "\033]0;Build finished\007"
+
     exit 0
 fi
 

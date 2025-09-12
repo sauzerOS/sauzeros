@@ -5,7 +5,6 @@
             --host=$LFS_TGT     \
             --disable-shared    \
             --enable-static     \
-            --disable-zlib      \
             --without-zstd      \
             --disable-aws       \
             --disable-hsts      \
