@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --disable-xxhash \
+    --disable-lz4 \
+    --without-included-zlib
+
+make
+make DESTDIR="$LFS" install

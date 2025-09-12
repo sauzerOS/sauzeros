@@ -25,4 +25,4 @@ ttf-croscore
 xkeyboard-config
 xtrans make
 xinput
-zlib
+zlib-ng

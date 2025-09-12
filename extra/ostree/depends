@@ -7,4 +7,4 @@ libassuan
 libgpg-error
 util-linux
 xz
-zlib
+zlib-ng

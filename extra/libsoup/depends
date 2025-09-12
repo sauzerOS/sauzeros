@@ -5,4 +5,4 @@ libxml2
 meson make
 pkgconf make
 sqlite
-zlib
+zlib-ng

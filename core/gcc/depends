@@ -4,4 +4,4 @@ gmp
 isl
 mpfr
 mpc
-zlib
+zlib-ng

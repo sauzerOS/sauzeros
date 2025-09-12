@@ -11,4 +11,4 @@ libusb
 ncurses
 pango
 readline
-zlib
+zlib-ng

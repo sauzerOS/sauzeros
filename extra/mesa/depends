@@ -25,4 +25,4 @@ rust-bindgen make
 vulkan-loader
 wayland
 wayland-protocols
-zlib
+zlib-ng

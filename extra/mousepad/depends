@@ -32,4 +32,4 @@ pango
 pixman
 xfconf
 xz
-zlib
+zlib-ng

@@ -18,5 +18,5 @@ python  make
 make
 sdl2
 virglrenderer
-zlib
+zlib-ng
 zstd

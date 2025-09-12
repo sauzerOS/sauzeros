@@ -13,4 +13,4 @@ libtiff
 little-cms
 openjpeg
 pango
-zlib
+zlib-ng

@@ -32,4 +32,4 @@ python        make
 rust          make
 wayland
 wayland-protocols make
-zlib
+zlib-ng

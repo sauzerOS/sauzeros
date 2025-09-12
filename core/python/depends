@@ -4,4 +4,4 @@ libffi
 libxcrypt
 openssl
 sqlite
-zlib
+zlib-ng
