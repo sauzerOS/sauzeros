@@ -1,5 +1,7 @@
 [Unit]
 Description=ZeroTier One
+After=network-online.target network.target
+Wants=network-online.target
 
 [Service]
 ExecStart=/usr/bin/zerotier-one

@@ -30,4 +30,4 @@ mesa
 pango
 pixman
 xz
-zlib
+zlib-ng

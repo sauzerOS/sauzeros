@@ -3,4 +3,4 @@ linux-headers make
 openssl
 python        make
 ninja         make
-zlib
+zlib-ng

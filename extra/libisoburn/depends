@@ -1,4 +1,4 @@
 libburn
 libisofs
 ncurses
-zlib
+zlib-ng

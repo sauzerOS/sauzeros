@@ -5,4 +5,4 @@ libpng
 mesa
 pixman
 pkgconf make
-zlib
+zlib-ng

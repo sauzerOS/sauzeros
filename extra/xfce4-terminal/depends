@@ -35,4 +35,4 @@ pcre2
 pixman
 vte3
 xfconf
-zlib
+zlib-ng

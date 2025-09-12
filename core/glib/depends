@@ -4,4 +4,4 @@ meson   make
 ninja make
 pcre2
 pkgconf make
-zlib
+zlib-ng

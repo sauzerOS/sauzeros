@@ -1,5 +1,5 @@
 lz4
 lzo
 xz
-zlib
+zlib-ng
 zstd

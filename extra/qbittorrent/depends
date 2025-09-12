@@ -2,4 +2,4 @@ boost make
 libtorrent
 openssl
 qt6
-zlib
+zlib-ng
