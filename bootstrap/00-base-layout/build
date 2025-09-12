@@ -64,6 +64,3 @@ for f in init-repos ; do
 done
 
 ln -s /proc/self/mounts "$LFS/etc/mtab"
-
-# install kiss package manager
-install -Dm755 kiss "$LFS/bin/kiss"
