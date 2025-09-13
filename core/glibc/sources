@@ -2,3 +2,5 @@ https://ftpmirror.gnu.org/gnu/glibc/glibc-2.42.tar.xz
 files/nsswitch.conf
 files/ld.so.conf
 files/en_CH
+files/locale-gen
+files/locale.gen
