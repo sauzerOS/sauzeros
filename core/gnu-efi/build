@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+CFLAGS="$CFLAGS -fno-lto"
+LDFLAGS=""
+
 make -j1 all
 make
 make INSTALLROOT="$1" PREFIX=/usr LIBDIR=/usr/lib install
