@@ -23,7 +23,7 @@ echo "rootsbindir=/usr/bin" >> configparms
 
 make
 make DESTDIR="$1" install
-#make DESTDIR="$1" localedata/install-locales
+
 cd ..
 install -d $1/usr/lib/locale
 install -d $1/usr/bin
