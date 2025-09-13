@@ -1,0 +1,2 @@
+CFLAGS="-march=native -O2 -pipe -fomit-frame-pointer -flto=auto"
+LDFLAGS="-Wl,-O1,--as-needed,--sort-common,--fuse-ld=ld,-z,relro,-z,now,-z,noexecstack,-flto-auto"
