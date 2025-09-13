@@ -43,7 +43,7 @@ NSPR_INCLUDE_DIR=/usr/include/nspr    \
 
 cd ../dist
 
-install -d $1/usr/lib32
+install -d $1/usr/lib32/pkgconfig
 install -v -m755 Linux*/lib/*.so              $1/usr/lib32
 install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1/usr/lib32
 sed -i 's/lib/lib32/g' Linux*/lib/pkgconfig/nss.pc
