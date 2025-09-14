@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i gold-warn-unsupported.patch
-
 mkdir -v build
 cd       build
 
@@ -12,7 +10,6 @@ cd       build
     --enable-colored-disassembly \
     --enable-default-execstack=no \
     --enable-deterministic-archives \
-    --enable-gold \
     --enable-install-libiberty \
     --enable-ld=default \
     --enable-new-dtags \
@@ -20,7 +17,6 @@ cd       build
     --enable-plugins \
     --enable-relro \
     --enable-shared \
-    --enable-targets=x86_64-pep,bpf-unknown-none \
     --enable-threads \
     --disable-gdb \
     --disable-gdbserver \
@@ -34,4 +30,3 @@ cd       build
 
 make tooldir=/usr
 make tooldir=/usr DESTDIR=$1 install
-
