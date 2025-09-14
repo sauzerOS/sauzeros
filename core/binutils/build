@@ -1,20 +1,36 @@
 #!/bin/sh -e
 
+patch -Np1 -i gold-warn-unsupported.patch
+
 mkdir -v build
 cd       build
 
-
-../configure --prefix=/usr       \
-             --sysconfdir=/etc   \
-             --enable-gold       \
-             --enable-ld=default \
-             --enable-plugins    \
-             --enable-shared     \
-             --disable-werror    \
-             --enable-new-dtags  \
-	     --enable-64-bit-bfd \
-	     --enable-default-hash-style=gnu \
-             --with-system-zlib
+../configure --prefix=/usr \
+    --sysconfdir=$1/etc \
+    --with-lib-path=/usr/lib:/usr/local/lib \
+    --enable-cet \
+    --enable-colored-disassembly \
+    --enable-default-execstack=no \
+    --enable-deterministic-archives \
+    --enable-gold \
+    --enable-install-libiberty \
+    --enable-ld=default \
+    --enable-new-dtags \
+    --enable-pgo-build=lto \
+    --enable-plugins \
+    --enable-relro \
+    --enable-shared \
+    --enable-targets=x86_64-pep,bpf-unknown-none \
+    --enable-threads \
+    --disable-gdb \
+    --disable-gdbserver \
+    --disable-libdecnumber \
+    --disable-readline \
+    --disable-sim \
+    --disable-werror \
+    --with-debuginfod \
+    --with-pic \
+    --with-system-zlib
 
 make tooldir=/usr
 make tooldir=/usr DESTDIR=$1 install
