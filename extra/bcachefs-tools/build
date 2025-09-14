@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+make \
+    LIBEXECDIR=/usr/lib \
+    DESTDIR=$1 \
+    ROOT_SBINDIR="/usr/bin" \
+install
+
+# package completions
+
+install -dm755 $1/usr/share/{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
+  $1/usr/bin/bcachefs completions bash > "$1"/usr/share/bash-completion/completions/bcachefs
+  $1/usr/bin/bcachefs completions fish > "$1"/usr/share/fish/vendor_completions.d/bcachefs.fish
+  $1/usr/bin/bcachefs completions zsh > "$1"/usr/share/zsh/site-functions/_bcachefs
