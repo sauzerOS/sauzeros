@@ -1,3 +1,4 @@
 curl    make
+gettext make
 openssl make
-zlib-ng    make
+zlib-ng make
