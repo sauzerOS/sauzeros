@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+unset LDFLAGS
+
 mkdir build
 cd    build
 
