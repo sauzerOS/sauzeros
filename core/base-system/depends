@@ -18,6 +18,7 @@ kbd
 kiss
 kmod
 less
+make
 libxcrypt
 libxml2
 linux-headers

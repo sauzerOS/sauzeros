@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-#don't build in RAM
-export KISS_TMPDIR=/var/tmpdir
-echo $KISS_TMPDIR
 cd llvm
 
 grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
