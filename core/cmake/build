@@ -8,13 +8,17 @@ if kiss l cmake; then
         -DCMAKE_USE_SYSTEM_EXPAT=True \
         -DCMAKE_USE_SYSTEM_ZLIB=True \
         -DCMAKE_USE_SYSTEM_BZIP2=True \
+        -DCMAKE_AR=$(which gcc-ar) \
+        -DCMAKE_RANLIB=$(which gcc-ranlib) \
+        -DCMAKE_NM=$(which gcc-nm) \
         -DBUILD_TESTING=OFF
 
     cmake --build   build
-    cmake --install build
+DESTDIR=$1 cmake --install build
 
 else
-    ./configure \
+
+        ./configure \
         --prefix=/usr \
         --system-curl \
         --system-expat \
