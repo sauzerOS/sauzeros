@@ -14,6 +14,7 @@ libwebp
 linux-headers make
 nasm          make
 openssl
+openjpg
 opus
 pkgconf make
 x264
@@ -21,4 +22,3 @@ x265
 xvidcore
 nasm
 nv-codec-headers
-
