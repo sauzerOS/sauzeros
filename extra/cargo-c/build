@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-
+export CFLAGS+=' -ffat-lto-objects'
 curl -LO https://github.com/lu-zero/cargo-c/releases/download/v0.10.7/Cargo.lock
 
 cargo build --release
