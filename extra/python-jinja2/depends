@@ -1,2 +1,3 @@
-python-markupsafe
+python-markupsafe make
+python-pyproject-hook make
 python
