@@ -1,6 +1,7 @@
 cairo
 fontconfig
 freetype make
+harfbuzz
 fribidi
 glib
 gobject-introspection
