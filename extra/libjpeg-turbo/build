@@ -5,6 +5,9 @@ cmake -B build \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DCMAKE_SHARED_LIBS=True \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_AR=$(which gcc-ar) \
+    -DCMAKE_RANLIB=$(which gcc-ranlib) \
+    -DCMAKE_NM=$(which gcc-nm) \
     -DWITH_JPEG8=1
 
 cmake --build   build
