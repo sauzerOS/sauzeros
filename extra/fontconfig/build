@@ -8,7 +8,8 @@ ninja
 DESTDIR=$1 ninja install
 
 #32bit
-
+unset CFLAGS LDFLAGS
+CFLAGS="-march=native -O2 -pipe -fomit-frame-pointer"
 rm -rf *
 meson setup --prefix=/usr       \
             --libdir=/usr/lib32 \
