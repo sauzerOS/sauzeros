@@ -13,3 +13,4 @@ vulkan-loader
 spirv-headers
 spirv-tools
 glslang
+mesa-32
