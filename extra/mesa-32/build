@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+meson setup                    \
+      --cross-file=lib32       \
+      --prefix=/usr            \
+      --libdir=/usr/lib32      \
+      --buildtype=release      \
+      -D platforms=x11,wayland \
+      -D gallium-drivers=auto  \
+      -D vulkan-drivers=auto   \
+      -D gles1=disabled        \
+      -D video-codecs=all      \
+      -D valgrind=disabled     \
+      -D libunwind=disabled    \
+      ..
+sed -i 's/\/usr\/lib\//\/usr\/lib32\//g' ./build.ninja
+BINDGEN_EXTRA_CLANG_ARGS="-m32" ninja
+
+DESTDIR=$PWD/DESTDIR ninja install
+install -d $1/usr/{lib32,share}/
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+if [ -d DESTDIR/usr/share/vulkan ]; then
+    cp -vR DESTDIR/usr/share/vulkan $1/usr/share
+fi
