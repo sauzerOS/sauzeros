@@ -14,7 +14,7 @@ libwebp
 linux-headers make
 nasm          make
 openssl
-openjpg
+openjpeg
 opus
 pkgconf make
 x264
