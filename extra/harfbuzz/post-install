@@ -1,3 +1,4 @@
 #!/bin/sh
 
-echo "rebuild freetype if new build"
+echo "rebuilding freetype"
+kiss b freetype
