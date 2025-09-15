@@ -17,6 +17,7 @@ openssl
 openjpeg
 opus
 pkgconf make
+pulseaudio
 x264
 x265
 xvidcore
