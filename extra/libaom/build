@@ -7,6 +7,9 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr \
       -D CMAKE_BUILD_TYPE=Release  \
       -D BUILD_SHARED_LIBS=1       \
       -D ENABLE_DOCS=no            \
+      -D CMAKE_AR=$(which gcc-ar)  \
+      -D CMAKE_RANLIB=$(which gcc-ranlib) \
+      -D CMAKE_NM=$(which gcc-nm)  \
       -G Ninja ..
 
 ninja
@@ -23,6 +26,9 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr   \
       -D CMAKE_BUILD_TYPE=Release    \
       -D BUILD_SHARED_LIBS=1         \
       -D ENABLE_DOCS=no              \
+      -D CMAKE_AR=$(which gcc-ar)    \
+      -D CMAKE_RANLIB=$(which gcc-ranlib) \
+      -D CMAKE_NM=$(which gcc-nm)    \
       -G Ninja ..
 
 ninja
