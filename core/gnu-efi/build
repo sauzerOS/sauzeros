@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-CFLAGS="$CFLAGS -fno-lto"
-LDFLAGS=""
+unset CFLAGS LDFLAGS
 
 make -j1 all
 make
