@@ -11,6 +11,7 @@ libogg
 libvorbis
 libvpx
 libwebp
+librsvg
 linux-headers make
 nasm          make
 openssl
