@@ -1,38 +1,39 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DINSTALL_BINDIR=lib/qt6/bin \
-    -DINSTALL_PUBLICBINDIR=usr/bin \
-    -DINSTALL_LIBEXECDIR=lib/qt6 \
-    -DINSTALL_DOCDIR=share/doc/qt6 \
-    -DINSTALL_ARCHDATADIR=lib/qt6 \
-    -DINSTALL_DATADIR=share/qt6 \
-    -DINSTALL_INCLUDEDIR=include/qt6 \
-    -DINSTALL_MKSPECSDIR=lib/qt6/mkspecs \
-    -DINSTALL_EXAMPLESDIR=share/doc/qt6/examples \
-    -DFEATURE_journald=ON \
-    -DFEATURE_libproxy=OFF \
-    -DFEATURE_openssl_linked=ON \
-    -DFEATURE_system_sqlite=ON \
-    -DFEATURE_system_xcb_xinput=ON \
-    -DFEATURE_no_direct_extern_access=ON \
-    -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
-    -DQT_UNITY_BUILD=ON \
-    -DQT_BUILD_EXAMPLES=OFF \
-    -DQT_BUILD_TESTS=OFF \
-    -DFEATURE_qt3d=OFF \
-    -DFEATURE_qtquick3dphysics=OFF \
-    -DFEATURE_qtwebengine=OFF \
-    -DCMAKE_MESSAGE_LOG_LEVEL=STATUS ..
+cmake -S . -B build                               \
+    -D CMAKE_INSTALL_PREFIX=/usr                  \
+    -D CMAKE_BUILD_TYPE=RelWithDebInfo            \
+    -D INSTALL_BINDIR=lib/qt6/bin                 \
+    -D INSTALL_PUBLICBINDIR=usr/bin               \
+    -D INSTALL_LIBEXECDIR=lib/qt6                 \
+    -D INSTALL_DOCDIR=share/doc/qt6               \
+    -D INSTALL_ARCHDATADIR=lib/qt6                \
+    -D INSTALL_DATADIR=share/qt6                  \
+    -D INSTALL_INCLUDEDIR=include/qt6             \
+    -D INSTALL_MKSPECSDIR=lib/qt6/mkspecs         \
+    -D INSTALL_EXAMPLESDIR=share/doc/qt6/examples \
+    -D FEATURE_journald=ON                        \
+    -D FEATURE_libproxy=OFF                       \
+    -D FEATURE_openssl_linked=ON                  \
+    -D FEATURE_system_sqlite=ON                   \
+    -D FEATURE_system_xcb_xinput=ON               \
+    -D FEATURE_no_direct_extern_access=ON         \
+    -D CMAKE_INTERPROCEDURAL_OPTIMIZATION=ON      \
+    -D QT_UNITY_BUILD=ON                          \
+    -D QT_BUILD_EXAMPLES=OFF                      \
+    -D QT_BUILD_TESTS=OFF                         \
+    -D FEATURE_qt3d=OFF                           \
+    -D FEATURE_qtquick3dphysics=OFF               \
+    -D FEATURE_qtwebengine=OFF                    \
+    -D CMAKE_AR=$(which gcc-ar)                   \
+    -D CMAKE_RANLIB=$(which gcc-ranlib)           \
+    -D CMAKE_NM=$(which gcc-nm)                   \
+    -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
 
-cd ..
 cmake --build build
 DESTDIR=$1 cmake --install build
 
-  install -d -m755 "$1"/usr/include/qt6xcb-private/{gl_integrations,nativepainting}
-  cp -r qtbase/src/plugins/platforms/xcb/*.h "$1"/usr/include/qt6xcb-private/
-  cp -r qtbase/src/plugins/platforms/xcb/gl_integrations/*.h "$1"/usr/include/qt6xcb-private/gl_integrations/
-  cp -r qtbase/src/plugins/platforms/xcb/nativepainting/*.h "$1"/usr/include/qt6xcb-private/nativepainting/
+install -d -m755 "$1"/usr/include/qt6xcb-private/{gl_integrations,nativepainting}
+cp -r qtbase/src/plugins/platforms/xcb/*.h "$1"/usr/include/qt6xcb-private/
+cp -r qtbase/src/plugins/platforms/xcb/gl_integrations/*.h "$1"/usr/include/qt6xcb-private/gl_integrations/
+cp -r qtbase/src/plugins/platforms/xcb/nativepainting/*.h "$1"/usr/include/qt6xcb-private/nativepainting/

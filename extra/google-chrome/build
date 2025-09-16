@@ -22,9 +22,4 @@ sed -i \
 	-e "s/x-scheme-handler\/ftp;\?//g" \
 	"$1"/usr/share/applications/google-chrome.desktop
 
-# remove sources
-if [ -f /etc/kiss/kiss.conf ]; then
-    . /etc/kiss/kiss.conf
-    export KISS_DIRS
-fi
 rm -rfv $KISS_DIRS/sources/google-chrome/*.deb

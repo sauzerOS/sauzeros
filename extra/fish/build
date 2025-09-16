@@ -1,8 +1,34 @@
 #!/bin/sh -e
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr .
+unset CFLAGS LDFLAGS
 
-make
-make DESTDIR=$1 install
+WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
+COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+
+RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+-Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+
+LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
+CC="clang"
+CXX="clang++"
+CPP="clang-cpp"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
+
+cmake -S . -B build		   \
+      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_BUILD_TYPE=Release  \
+      -D CMAKE_AR=$(which llvm-ar) \
+      -D CMAKE_RANLIB=$(which llvm-ranlib) \
+      -D CMAKE_NM=$(which llvm-nm) \
+      -Wno-dev -G Ninja
+
+cmake --build build
+DESTDIR=$1 cmake --install build
 
 install -Dm644 config.fish $1/etc/fish/config.fish

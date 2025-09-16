@@ -1,1 +1,0 @@
-gtk+2 doesn't build so we use the arch package to build libdbusmenu-gtk3

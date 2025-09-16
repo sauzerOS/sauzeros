@@ -1,7 +1,12 @@
 #!/bin/sh -e
 
+CFLAGS="$CFLAGS -fno-lto"
+CXXFLAGS=$CFLAGS
+
 ./configure \
     --prefix=/usr \
+    --without-npm \
+    --shared-libuv \
     --shared-zlib \
     --shared-openssl \
     --shared-brotli \

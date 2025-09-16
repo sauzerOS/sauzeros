@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+cd firefox-$2
+
 cat > .mozconfig << EOF
 ac_add_options --prefix=/usr
 ac_add_options --libdir=/usr/lib
@@ -9,8 +11,11 @@ ac_add_options --enable-release
 ac_add_options --enable-rust-simd
 ac_add_options --enable-install-strip
 ac_add_options --enable-official-branding
+ac_add_options --enable-update-channel=release
 ac_add_options --enable-application=browser
 ac_add_options --enable-optimize
+ac_add_options --enable-linker=lld
+ac_add_options --enable-lto=thin
 ac_add_options --with-system-ffi
 ac_add_options --with-system-jpeg
 ac_add_options --with-system-libvpx
@@ -36,7 +41,32 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
+ac_add_options --disable-bootstrap
 EOF
+
+# LTO
+WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
+COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+
+RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+-Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+
+LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
+CC="clang"
+CXX="clang++"
+CPP="clang-cpp"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
+
+export MOZILLA_OFFICIAL=1
+export MOZ_NOSPAM=1
+export RUST_MIN_STACK=16777216
+ulimit -n 4096
 
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 export MOZBUILD_STATE_PATH=${PWD}/mozbuild
@@ -53,4 +83,4 @@ rm -rf \
 
 # Desktop file
 mkdir -p $1/usr/share/applications
-cp firefox.desktop $1/usr/share/applications/
+cp ../firefox.desktop $1/usr/share/applications/

@@ -50,6 +50,7 @@ rm -rf "$1/usr/share/ffmpeg/examples"
 
 #32bit
 
+CFLAGS+=' -fno-lto'
 make distclean
 ./configure --prefix=/usr                             \
             --libdir=/usr/lib32                       \

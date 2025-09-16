@@ -3,10 +3,11 @@
 unzip *.zip -d extract
 cd extract
 
-install -vdm755 $1/usr/share/xml/docbook/schema/rng/5.1
-install -vdm755 $1/usr/share/xml/docbook/schema/sch/5.1
-install -m644   schemas/rng/* $1/usr/share/xml/docbook/schema/rng/5.1
-install -m644   schemas/sch/* $1/usr/share/xml/docbook/schema/sch/5.1
+install -d $1/usr/bin
+install -vdm755 $1/usr/share/xml/docbook/schema/rng/$2
+install -vdm755 $1/usr/share/xml/docbook/schema/sch/$2
+install -m644   schemas/rng/* $1/usr/share/xml/docbook/schema/rng/$2
+install -m644   schemas/sch/* $1/usr/share/xml/docbook/schema/sch/$2
 install -m755   tools/db4-entities.pl $1/usr/bin
 install -vdm755 $1/usr/share/xml/docbook/stylesheet/docbook5
 install -m644   tools/db4-upgrade.xsl \

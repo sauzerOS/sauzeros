@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+unset LDFLAGS CFLAGS CXXFLAGS
+
 # Build and install kernel modules
 make SYSSRC=/usr/src/linux modules -j$(nproc)
 

@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+CFLAGS="$CFLAGS -fno-lto"
+
 sed "s/install -p/install/" Makefile > _
 mv -f _ Makefile
 

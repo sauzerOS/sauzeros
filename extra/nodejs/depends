@@ -1,6 +1,6 @@
 brotli
-linux-headers make
+libuv
 openssl
-python        make
-ninja         make
+python
+ninja
 zlib-ng

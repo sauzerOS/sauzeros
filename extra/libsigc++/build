@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-mkdir bld
-cd    bld
-
-meson --prefix=/usr ..
-ninja
-
-DESTDIR=$1 ninja install
+meson setup --prefix=/usr --buildtype=release builddir
+meson compile -C builddir
+DESTDIR=$1 meson install -C builddir

@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-#remove gkt+2 package only used for build
-KISS_FORCE=1 kiss r gtk+2-arch

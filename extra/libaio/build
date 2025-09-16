@@ -1,4 +1,6 @@
 #!/bin/sh -e
 
+CFLAGS="$CFLAGS -fno-lto"
+
 make
 make DESTDIR=$1 install

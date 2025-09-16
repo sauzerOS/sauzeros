@@ -22,3 +22,8 @@ xfce4-xkb-plugin
 wireplumber
 xfce4-taskmanager
 gnome-keyring
+networkmanager-applet
+lightdm-gtk-greeter
+xf86-input-libinput
+alsa-utils
+pulseaudio-alsa
