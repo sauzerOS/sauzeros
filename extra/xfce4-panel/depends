@@ -10,7 +10,6 @@ gdk-pixbuf
 glib
 gtk+3
 gtk-layer-shell
-libdbusmenu-gtk3
 libICE
 libSM
 libX11

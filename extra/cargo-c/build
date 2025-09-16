@@ -1,7 +1,25 @@
 #!/bin/sh -e
 
 export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-export CFLAGS+=' -ffat-lto-objects'
+unset CFLAGS LDFLAGS
+WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
+COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+
+RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+-Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+
+LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
+CC="clang"
+CXX="clang++"
+CPP="clang-cpp"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
+
 curl -LO https://github.com/lu-zero/cargo-c/releases/download/v0.10.7/Cargo.lock
 
 cargo build --release

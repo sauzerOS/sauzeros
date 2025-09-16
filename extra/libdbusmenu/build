@@ -14,4 +14,5 @@ export HAVE_VALGRIND_FALSE=''
 	    --disable-tests
 
 make
-make DESTDIR=$1 install
+make -j1 -C libdbusmenu-glib DESTDIR=$1 install
+make -j1 -C libdbusmenu-gtk DESTDIR=$1 install

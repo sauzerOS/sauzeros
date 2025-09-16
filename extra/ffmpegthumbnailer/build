@@ -1,11 +1,13 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+# ffmpeg 8.0 fix
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-      -DENABLE_THUMBNAILER=ON \
-      ..
+git fetch origin pull/240/head:pr240
+git checkout pr240
 
-make
-make DESTDIR=$1 install
+cmake -S . -B build -G Ninja \
+      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D ENABLE_THUMBNAILER=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
