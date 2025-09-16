@@ -2,3 +2,5 @@
 # See shells(5) for details.
 
 /bin/sh
+/bin/bash
+/bin/fish
