@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+zig build -Doptimize=ReleaseFast
+
+install -d $1/bin
+cp zig-out/bin/ghostty $1/bin

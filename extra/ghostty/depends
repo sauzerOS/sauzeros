@@ -1,0 +1,5 @@
+zig-bin
+gtk+4
+libadwaita
+gtk4-layer-shell
+blueprint-compiler
