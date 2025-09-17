@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+install -d $1/{bin,lib}
+install -d $1/lib/zig
+cp zig $1/bin
+cp -r lib/* $1/lib/zig/

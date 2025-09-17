@@ -3,4 +3,8 @@
 mkdir -pv $1/opt/vscode
 cp -r * $1/opt/vscode/
 
+install -d $1/bin
+ln -s /opt/vscode/bin/code $1/bin/code
+
+
 install -Dm 0644 code.desktop $1/usr/share/applications/code.desktop

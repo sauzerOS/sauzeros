@@ -3,49 +3,45 @@
 cd firefox-$2
 
 cat > .mozconfig << EOF
+ac_add_options --enable-application=browser
 ac_add_options --prefix=/usr
-ac_add_options --libdir=/usr/lib
-ac_add_options --enable-default-toolkit=cairo-gtk3
-ac_add_options --enable-strip
 ac_add_options --enable-release
+ac_add_options --enable-hardening
+ac_add_options --enable-optimize
 ac_add_options --enable-rust-simd
-ac_add_options --enable-install-strip
+ac_add_options --enable-linker=lld
+ac_add_options --disable-install-strip
+ac_add_options --disable-bootstrap
+ac_add_options --enable-lto=thin
+ac_add_options --without-wasm-sandboxed-libraries
+# Branding
 ac_add_options --enable-official-branding
 ac_add_options --enable-update-channel=release
-ac_add_options --enable-application=browser
-ac_add_options --enable-optimize
-ac_add_options --enable-linker=lld
-ac_add_options --enable-lto=thin
-ac_add_options --with-system-ffi
-ac_add_options --with-system-jpeg
-ac_add_options --with-system-libvpx
+ac_add_options --with-unsigned-addon-scopes=app,system
+ac_add_options --allow-addon-sideload
+# Keys
+#ac_add_options --with-google-location-service-api-keyfile=${PWD@Q}/google-api-key
+#ac_add_options --with-google-safebrowsing-api-keyfile=${PWD@Q}/google-api-key
+
+# System libraries
 ac_add_options --with-system-nspr
 ac_add_options --with-system-nss
-ac_add_options --with-system-pixman
-ac_add_options --with-system-png
+#ac_add_options --with-system-av1
+ac_add_options --with-system-libvpx
 ac_add_options --with-system-webp
-ac_add_options --with-system-zlib
-ac_add_options --without-wasm-sandboxed-libraries
-ac_add_options --disable-eme
-ac_add_options --disable-tests
-ac_add_options --disable-vtune
+ac_add_options --with-system-png
+ac_add_options --with-system-icu
+ac_add_options --with-system-jpeg
+ac_add_options --with-system-pipewire
+
+
+# Features
 ac_add_options --disable-updater
-ac_add_options --disable-jemalloc
-ac_add_options --disable-elf-hack
-ac_add_options --disable-callgrind
-ac_add_options --disable-profiling
-ac_add_options --disable-necko-wifi
-ac_add_options --disable-crashreporter
-ac_add_options --disable-accessibility
-ac_add_options --disable-debug
-ac_add_options --disable-debug-symbols
-ac_add_options --disable-parental-controls
-ac_add_options --disable-system-extension-dirs
-ac_add_options --disable-bootstrap
+ac_add_options --disable-tests
 EOF
 
 # LTO
-WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
+#WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
 COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
 CFLAGS="${COMMON_FLAGS}"
 CXXFLAGS="${COMMON_FLAGS}"
@@ -75,12 +71,8 @@ export MOZBUILD_STATE_PATH=${PWD}/mozbuild
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 DESTDIR=$1 ./mach install
 
-# Remove a lot of uneeded "stuff".
-rm -rf \
-    "$1/usr/include" \
-    "$1/usr/lib/firefox-devel" \
-    "$1/usr/share/idl"
-
-# Desktop file
-mkdir -p $1/usr/share/applications
-cp ../firefox.desktop $1/usr/share/applications/
+# Desktop file & icon
+install -d $1/usr/share/applications
+install -d $1/usr/share/icons/hicolor/symbolic/apps
+install -Dvm644 ../firefox.desktop $1/usr/share/applications/
+install -Dvm644 ../firefox-symbolic.svg -t "$1/usr/share/icons/hicolor/symbolic/apps"

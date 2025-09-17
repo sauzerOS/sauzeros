@@ -26,4 +26,5 @@ networkmanager-applet
 lightdm-gtk-greeter
 xf86-input-libinput
 alsa-utils
-pulseaudio-alsa
+blueman
+xfce4-power-manager

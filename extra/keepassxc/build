@@ -5,18 +5,21 @@ export DESTDIR="$1"
 #patch -Np1 -i keepassxc-2.7.10-qt6-support-v2.patch
 
 cmake -B build \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWITH_XC_UPDATECHECK=OFF \
-    -DWITH_GUI_TESTS=OFF \
-    -DWITH_XC_DOCS=OFF \
-    -DWITH_XC_NETWORKING=OFF \
-    -DWITH_XC_SSHAGENT=ON \
-    -DWITH_XC_BROWSER=ON \
-    -DWITH_QT6=OFF \
-    -DWITH_QT5=ON \
-    -DWITH_TESTS=OFF
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_LIBDIR=lib \
+    -D WITH_XC_UPDATECHECK=OFF \
+    -D WITH_GUI_TESTS=OFF \
+    -D WITH_XC_DOCS=OFF \
+    -D WITH_XC_NETWORKING=OFF \
+    -D WITH_XC_SSHAGENT=ON \
+    -D WITH_XC_BROWSER=ON \
+    -D WITH_QT6=OFF \
+    -D WITH_QT5=ON \
+    -D WITH_TESTS=OFF \
+    -D CMAKE_AR=$(which gcc-ar) \
+    -D CMAKE_RANLIB=$(which gcc-ranlib) \
+    -D CMAKE_NM=$(which gcc-nm)
 
 
 cmake --build   build

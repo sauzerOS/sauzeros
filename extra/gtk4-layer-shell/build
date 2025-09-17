@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+meson setup \
+      --prefix=/usr \
+      --wrap-mode=nofallback \
+      --buildtype=plain \
+      -Dtests=false \
+      -Ddocs=false \
+      -Dintrospection=true \
+      -Dvapi=true \
+      -Dexamples=false \
+      -Dsmoke-tests=false \
+      build
+
+DESTDIR=$1 meson install -C build

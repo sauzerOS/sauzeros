@@ -17,6 +17,7 @@ libvpx
 libwebp
 libXcomposite
 libXdamage
+libva
 llvm          make
 m4            make
 mesa
