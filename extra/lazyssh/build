@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+install -d $1/bin
+cp lazyssh $1/bin/
