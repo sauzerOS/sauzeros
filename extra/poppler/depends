@@ -5,3 +5,4 @@ gobject-introspection
 gpgmepp
 little-cms
 openjpeg
+glib
