@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-CXXFLAGS="$CXXFLAGS -std=c++17"  \
+autoreconf -fvi
 ./configure --prefix=/usr        \
             --sysconfdir=/etc    \
             --localstatedir=/var \
@@ -9,5 +9,3 @@ CXXFLAGS="$CXXFLAGS -std=c++17"  \
             --disable-avahi
 make
 make DESTDIR=$1 install
-
-install -v -Dm644 utils/cups-browsed.service $1/lib/systemd/system/cups-browsed.service
