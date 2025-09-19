@@ -1,6 +1,0 @@
-#!/bin/sh
-
-echo "enabling pipewire services"
-systemctl enable --global pipewire.socket
-systemctl enable --global pipewire-pulse.socket
-systemctl enable --global wireplumber
