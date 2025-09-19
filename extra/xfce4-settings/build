@@ -10,10 +10,8 @@
     --enable-xcursor \
     --enable-libnotify \
     --enable-libxklavier \
-    --enable-pluggable-dialogs \
     --enable-sound-settings \
-    --disable-debug \
-    --enable-maintainer-mode
+    --disable-debug
 
 make
 make DESTDIR="$1" install
