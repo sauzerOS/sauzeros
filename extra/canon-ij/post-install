@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Weird permissions error from namcap
+chmod 664 /usr/lib/bjlib/cnnet.ini
+chown root:root /usr/lib/bjlib/cnnet.ini
+
