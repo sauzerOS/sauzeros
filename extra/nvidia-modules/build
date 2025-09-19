@@ -2,6 +2,10 @@
 
 unset LDFLAGS CFLAGS CXXFLAGS
 
+export IGNORE_PREEMPT_RT_PRESENCE=1
+
+patch -p1 -d kernel-open -i ../gpl.patch
+
 # Build and install kernel modules
 make SYSSRC=/usr/src/linux modules -j$(nproc)
 
