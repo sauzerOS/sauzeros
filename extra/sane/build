@@ -1,17 +1,38 @@
 #!/bin/sh -e
 
-./autogen.sh
-./configure --prefix=/usr        \
-            --sysconfdir=/etc    \
-            --localstatedir=/var \
-            --with-group=scanner \
-            --enable-libusb_1_0  \
-            --with-lockdir=/run/lock
+autoreconf -fvi
+./configure  --prefix=/usr \
+    --disable-locking \
+    --disable-rpath \
+    --enable-pthread \
+    --localstatedir=/var \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc \
+    --with-libcurl \
+    --with-pic \
+    --with-poppler-glib \
+    --with-systemd \
+    --with-usb
 
 make
 make DESTDIR=$1 install
 
-install -Dm 644 -v tools/udev/libsane.rules           \
-                  $1/etc/udev/rules.d/65-scanner.rules
+# generate udev udev+hwdb
+install -vdm 755 "$1/usr/lib/udev/rules.d/"
+tools/sane-desc -m udev+hwdb -s doc/descriptions/ > "$1/usr/lib/udev/rules.d/65-sane.rules"
+tools/sane-desc -m udev+hwdb -s doc/descriptions-external/ >> "$1/usr/lib/udev/rules.d/65-sane.rules"
+# generate udev hwdb
+install -vdm 755 "$1/usr/lib/udev/hwdb.d/"
+tools/sane-desc -m hwdb -s doc/descriptions/ > "$1/usr/lib/udev/hwdb.d/20-sane.hwdb"
+# NOTE: an empty new line is required between the two .desc collections
+printf "\n" >> "$1/usr/lib/udev/hwdb.d/20-sane.hwdb"
+tools/sane-desc -m hwdb -s doc/descriptions-external/ >> "$1/usr/lib/udev/hwdb.d/20-sane.hwdb"
 
-install -d        $1/run/lock/sane
+# systemd integration
+install -vDm 644 saned.socket -t "$1/usr/lib/systemd/system/"
+install -vDm 644 saned.service "$1/usr/lib/systemd/system/saned@.service"
+install -vDm 644 66-saned.rules "$1/usr/lib/udev/rules.d/"
+# sysusers.d
+install -vDm 644 sane.sysusers "$1/usr/lib/sysusers.d/sane.conf"
+
+
