@@ -8,6 +8,7 @@ cd    build
 meson setup --prefix=/usr       \
             --buildtype=release \
             -D x11=enabled      \
+            -D drm=enabled      \
             ..
 ninja
 DESTDIR=$1 ninja install

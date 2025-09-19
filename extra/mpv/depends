@@ -3,6 +3,7 @@ ffmpeg
 freetype
 libass
 libplacebo
+libdisplayinfo
 linux-headers make
 libxpresent
 libXScrnSaver
