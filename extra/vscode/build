@@ -1,4 +1,5 @@
 #!/bin/sh -e
+:> nostrip
 
 mkdir -pv $1/opt/vscode
 cp -r * $1/opt/vscode/
