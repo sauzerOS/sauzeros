@@ -13,3 +13,13 @@ rm -rf "$1/usr/share/info"
 
 # Remove docs.
 rm -rf "$1/usr/share/doc"
+
+#32bit
+make clean
+CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
+./configure --prefix=/usr \
+    --libdir=/usr/lib32   \
+    --disable-gssapi
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32/
