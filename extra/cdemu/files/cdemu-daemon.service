@@ -1,14 +1,8 @@
 [Unit]
-Description=CDEmu daemon for user
-After=graphical-session.target
-Wants=graphical-session.target
+Description=CDEmu daemon
 
 [Service]
-Type=simple
-ExecStartPre=/bin/sleep 10
-ExecStartPre=sudo /bin/modprobe vhba
-ExecStart=/usr/bin/cdemu-daemon
-Restart=on-failure
-
-[Install]
-WantedBy=default.target
+Type=dbus
+BusName=net.sf.cdemu.CDEmuDaemon
+ExecStart=/usr/bin/cdemu-daemon --config-file "%h/.config/cdemu-daemon"
+Restart=no

@@ -1,4 +1,4 @@
 [D-BUS Service]
 Name=net.sf.cdemu.CDEmuDaemon
 SystemdService=cdemu-daemon.service
-Exec=/usr/bin/cdemu-daemon
+Exec=/bin/true
