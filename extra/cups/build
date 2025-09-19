@@ -1,12 +1,66 @@
 #!/bin/sh -e
 
-./configure --libdir=/usr/lib            \
-            --with-system-groups=lpadmin
+./configure --prefix=/usr \
+     --sysconfdir=/etc \
+     --localstatedir=/var \
+     --sbindir=/usr/bin \
+     --libdir=/usr/lib \
+     --with-logdir=/var/log/cups \
+     --with-docdir=/usr/share/cups/doc \
+     --with-exe-file-perm=0755 \
+     --with-cups-user=209 \
+     --with-cups-group=209 \
+     --with-max-log-size=0 \
+     --enable-pam=yes \
+     --enable-raw-printing \
+     --enable-dbus=yes \
+     --with-tls=gnutls \
+     --with-dbusdir=/usr/share/dbus-1 \
+     --enable-relro \
+     --enable-libpaper \
+     --with-optim="$CFLAGS"
 
 make
 make DESTDIR=$1 install
 
-mkdir -pv $1/etc/cups/
-echo "ServerName /run/cups/cups.sock" > $1/etc/cups/client.conf
+rm -rf $1/etc/rc*.d
+rm -rf $1/etc/init.d
+install -D -m644 cups.pam $1/etc/pam.d/cups
 
-install -Dm 0644 cups.pam $1/etc/pam.d/cups
+# fix perms on /var/spool and /etc
+chmod 755 $1/var/spool
+chmod 755 $1/etc
+
+# use cups group FS#36769
+install -Dm644 cups.sysusers $1/usr/lib/sysusers.d/cups.conf
+sed -i "s:#User 209:User 209:" $1/etc/cups/cups-files.conf{,.default}
+sed -i "s:#Group 209:Group 209:" $1/etc/cups/cups-files.conf{,.default}
+
+# install ssl directory where to store the certs, solves some samba issues
+install -dm700 -g 209 $1/etc/cups/ssl
+# remove directory from package, it will be recreated at each server start
+rm -rf $1/run
+
+# install some more configuration files that will get filled by cupsd
+touch $1/etc/cups/printers.conf
+touch $1/etc/cups/classes.conf
+touch $1/etc/cups/subscriptions.conf
+chgrp -R 209 $1/etc/cups
+
+# fix .desktop file
+sed -i 's|^Exec=htmlview http://localhost:631/|Exec=xdg-open http://localhost:631/|g' $1/usr/share/applications/cups.desktop
+
+# compress some driver files, adopted from Fedora
+find $1/usr/share/cups/model -name "*.ppd" | xargs gzip -n9f
+
+# remove client.conf man page
+rm -f $1/usr/share/man/man5/client.conf.5
+
+# comment out removed filters that are now part of cups-filters
+perl -p -i -e 's:^(.*\s+bannertops\s*)$:#\1:' $1/usr/share/cups/mime/mime.convs
+
+# comment out unnecessary PageLogFormat entry
+sed -i -e 's:PageLogFormat:#PageLogFormat:' $1/etc/cups/cupsd.conf*
+
+# no more xinetd support
+rm -rf $1/etc/xinetd.d

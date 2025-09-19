@@ -1,2 +1,3 @@
 https://github.com/OpenPrinting/cups/releases/download/v2.4.12/cups-2.4.12-source.tar.gz
 files/cups.pam
+files/cups.sysusers
