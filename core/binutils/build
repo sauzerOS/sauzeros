@@ -24,7 +24,6 @@ cd       build
     --disable-readline \
     --disable-sim \
     --disable-werror \
-    --with-debuginfod \
     --with-pic \
     --with-system-zlib
 
