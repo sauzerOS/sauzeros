@@ -2,7 +2,7 @@
 Name=SABnzbd
 GenericName=Binary newsreader
 Comment=Download from Usenet
-Exec=/usr/lib/sabnzbd/SABnzbd.py --browser 1 %F
+Exec=/usr/lib/sabnzbd/SABnzbd.py --browser 0 %F
 Icon=sabnzbd
 Terminal=false
 Type=Application
