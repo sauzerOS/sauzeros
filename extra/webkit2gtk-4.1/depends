@@ -9,3 +9,7 @@ woff2
 gtk+4
 little-cms
 gstreamer
+gst-plugins-base
+gst-plugins-bad
+xdg-dbus-proxy
+
