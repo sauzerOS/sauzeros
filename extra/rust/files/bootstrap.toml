@@ -42,7 +42,7 @@ rpath             = false
 dist-src          = false
 # Enable the same optimizations as the official upstream build.
 lto = "thin"
-codegen-units = 1
+#codegen-units = 1
 
 # Don't build lld which does not belong to this package and seems not
 # so useful for BLFS.  Even if it turns out to be really useful we'd build
