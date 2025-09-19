@@ -1,0 +1,7 @@
+lsof
+nss
+gtk+3
+libnotify
+libsecret
+libxkbfile
+shared-mime-info
