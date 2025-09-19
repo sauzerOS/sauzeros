@@ -3,7 +3,10 @@
 sed -i 's|$(PACKAGE)/doc|doc/$(PACKAGE)-$(VERSION)|' \
        {,doc/,doc/developer/}Makefile.in
 
-./configure --prefix=/usr --disable-static
+./configure --prefix=/usr \
+            --disable-static \
+            --without-gimp2  \
+            --without-gimp2-as-gutenprint
 
 make
 make DESTDIR=$1 install

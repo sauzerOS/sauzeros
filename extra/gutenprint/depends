@@ -5,7 +5,6 @@ fontconfig
 freetype
 gdk-pixbuf
 gobject-introspection
-gtk+2
 harfbuzz
 libusb
 ncurses
