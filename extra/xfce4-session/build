@@ -1,14 +1,16 @@
 #!/bin/sh -e
 
-./configure \
+ ./configure \
     --prefix=/usr \
-    --localstatedir=/var \
     --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --disable-legacy-sm
+    --localstatedir=/var \
+    --enable-x11 \
+    --enable-wayland \
+    --disable-debug \
+    --disable-legacy-sm \
+    --enable-upower-glib \
+    --enable-colord      \
+    --enable-maintainer-mode
 
 make
 make DESTDIR="$1" install
-
-#add dbus-launch to fix issues
-install -Dm 0644 xfce.desktop $1/usr/share/xsession/xfce.desktop
