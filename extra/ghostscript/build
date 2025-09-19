@@ -2,6 +2,8 @@
 
 rm -rf freetype lcms2mt jpeg libpng openjpeg zlib
 
+CFLAGS="${CFLAGS:--g -O3} -fPIC"
+
 ./configure --prefix=/usr           \
             --disable-compile-inits \
             --with-system-libtiff
@@ -11,4 +13,10 @@ make so
 make DESTDIR=$1 soinstall
 
 install -v -m644 base/*.h $1/usr/include/ghostscript
-ln -sfvn ghostscript $1/usr/include/ps
+# gsc collides with gambit gambit-c
+mv $1/usr/bin/{gsc,gs}
+ln -s gs $1/usr/bin/ghostscript
+ln -s /usr/share/man/man1/gs.1.gz $1/usr/share/man/man1/ghostscript.1
+
+# remove obsolete lpr bsd/Unix related files
+rm -rv $1/usr/bin/{lprsetup.sh,unix-lpr.sh}
