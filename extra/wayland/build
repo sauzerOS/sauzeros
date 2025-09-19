@@ -26,4 +26,4 @@ meson setup ..                       \
 ninja
 DESTDIR=$PWD/DESTDIR ninja install
 install -d $1/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
