@@ -1,0 +1,6 @@
+cups
+python-gobject
+python-pyqt5
+sane
+libusb
+xdg-utils
