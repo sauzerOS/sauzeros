@@ -17,7 +17,6 @@ meson setup ..              \
       --prefix=/usr         \
       --libdir=/usr/lib32   \
       --buildtype=release   \
-      -D cairo=disabled     \
       -D graphite2=disabled \
       -D tests=disabled
 
