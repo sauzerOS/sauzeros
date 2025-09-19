@@ -1,4 +1,5 @@
 cairo
+colord
 exo
 expat
 fontconfig
@@ -39,3 +40,4 @@ pango
 pixman
 setxkbmap
 xfconf
+upower
