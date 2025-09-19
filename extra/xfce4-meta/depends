@@ -28,3 +28,4 @@ xf86-input-libinput
 alsa-utils
 blueman
 xfce4-power-manager
+cups-pk-helper
