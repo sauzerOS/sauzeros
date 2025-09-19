@@ -6,3 +6,5 @@ little-cms
 mupdf
 poppler
 qpdf
+libcupsfilters
+libppd
