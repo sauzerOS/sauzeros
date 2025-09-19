@@ -1,25 +1,63 @@
 #!/bin/sh -e
 
+# add missing 'include <cups/ppd.h>' at various places
+patch -Np1 -i 0022-Add-include-cups-ppd.h-in-various-places-as-CUPS-2.2.patch
+# fix some handling unicode file names FS#58412
+patch -Np1 -i 0023-Fix-handling-of-unicode-filenames-in-sixext.py.patch
+# Workaround patch for missing Python3 transition of the old
+# (pre-USB-storage) photo memory card support (pcardext) - Debian patch
+patch -Np1 -i python3.diff
+# fix model support / Debian patch / FS#74942
+patch -Np1 -i 0003-models.dat-Re-add-drivers-missing-from-3.19.1.patch
+# https://bugs.launchpad.net/hplip/+bug/1879445
+# broken scanning - https://bugs.archlinux.org/task/66704
+patch -Np1 -i hplip-configure-python.patch
+#  allow non-jpeg scanning on all-in-one devices - FS#78135
+#patch -Np1 -i 0018-Allow-non-JPEG-scanning-on-the-HP-DeskJet-3520-All-i.patch
+# hp-firmware: module 'locale' not longer provides method 'format', causing traceback #4
+patch -Np1 -i hplip-locale-format.patch
+
+# gcc14 fix
+patch -Np1 -i hplip-hpaio-gcc14.patch
+patch -Np1 -i hplip-pserror-gcc14.patch
+# gcc15 fix
+patch -Np1 -i hplip-gcc15-stdc23.patch
+
+#fix build error
+sed -i '815s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
+sed -i '895s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
+sed -i '1247s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
+sed -i '1467s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
+
+
+export AUTOMAKE='automake --foreign'
+autoreconf --force --install
+
+
+export CFLAGS+=" -Wno-deprecated-declarations -Wno-implicit-function-declaration -Wno-return-mismatch"
+
 ./configure --prefix=/usr \
             --disable-network-build \
-            --enable-qt5
+            --enable-hpcups-install \
+            --enable-cups-drv-install \
+            --disable-qt4             \
+            --enable-qt5              \
+            --disable-imageProcessor-build
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 make
-make -j1 rulesdir=/usr/lib/udev/rules.d DESTDIR="$1/" install
+make -j1 rulesdir=/usr/lib/udev/rules.d DESTDIR=$1 install
 
- rm -rf "$1"/etc/{sane.d,xdg}
- install -dm755 "$1"/etc/sane.d/dll.d
- echo hpaio > "$1"/etc/sane.d/dll.d/hpaio
+rm -rf "$1"/etc/{sane.d,xdg}
+install -dm755 "$1"/etc/sane.d/dll.d
+echo hpaio > "$1"/etc/sane.d/dll.d/hpaio
 
- # remove HAL .fdi file because HAL is no longer used
- rm -vrf "$1"/usr/share/hal
+# remove HAL .fdi file because HAL is no longer used
+rm -vrf "$1"/usr/share/hal
 
- # remove rc script
- rm -vrf "$1"/etc/init.d
+# remove rc script
+rm -vrf "$1"/etc/init.d
 
- # add mixed license file
- install -Dt "$1"/usr/share/licenses/${pkgname} -m644 COPYING
-
- # Compile Python bytecode:
- python -m compileall -d /usr/share "$1/usr/share"
- python -O -m compileall -d /usr/share "$1/usr/share"
+# Compile Python bytecode:
+python -m compileall -d /usr/share "$1/usr/share"
+python -O -m compileall -d /usr/share "$1/usr/share"
