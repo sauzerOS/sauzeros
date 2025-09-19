@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-gunzip libpng-1.6.50-apng.patch.gz
 
-patch -p1 < libpng-1.6.50-apng.patch
+zcat libpng-1.6.50-apng.patch.gz | patch -p1
 
 ./configure \
     --prefix=/usr
