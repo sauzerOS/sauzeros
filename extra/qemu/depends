@@ -16,7 +16,7 @@ pixman
 pkgconf make
 python  make
 make
-sdl2
+sdl2-compat
 virglrenderer
 zlib-ng
 zstd
