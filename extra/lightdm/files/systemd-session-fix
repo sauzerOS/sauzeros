@@ -1,0 +1,8 @@
+#!/bin/sh
+# Sets DISPLAY/XAUTHORITY/WAYLAND_DISPLAY for user systemd
+
+# Import display variables into user systemd instance
+if command -v systemctl >/dev/null 2>&1; then
+    [ -n "$DISPLAY" ] && systemctl --user import-environment DISPLAY XAUTHORITY 2>/dev/null
+    [ -n "$WAYLAND_DISPLAY" ] && systemctl --user import-environment WAYLAND_DISPLAY 2>/dev/null
+fi

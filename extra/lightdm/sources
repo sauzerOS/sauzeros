@@ -1,2 +1,3 @@
 https://github.com/CanonicalLtd/lightdm/releases/download/1.32.0/lightdm-1.32.0.tar.xz
 files/lightdm.service
+files/systemd-session-fix
