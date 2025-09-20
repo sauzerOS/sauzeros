@@ -5,3 +5,4 @@ zig build -Doptimize=ReleaseFast
 install -d $1/{bin,usr}
 cp zig-out/bin/ghostty $1/bin
 cp -a zig-out/share    $1/usr
+install -Dm644 com.mitchellh.ghostty.desktop $1/usr/share/applications/com.mitchellh.ghostty.desktop

@@ -3,6 +3,7 @@ libversion
 popt
 postgresql
 postgresql-libversion
+python-blinker
 python-brotli
 python-certifi
 python-click
