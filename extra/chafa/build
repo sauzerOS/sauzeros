@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+autoreconf -fvi
+./configure --prefix=/usr \
+            --disable-doc
+make
+make DESTDIR=$1 install
