@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+cmake -B build -D CMAKE_BUILD_TYPE=None             \
+    -D CMAKE_INSTALL_PREFIX=/usr                    \
+    -D FLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth \
+    -D LIB_SUFFIX=""                                \
+    -D enable-ladspa=ON                             \
+    -S . -W no-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+#32bit
+rm -rf build
+export CC='gcc -m32'
+export CXX='g++ -m32'
+export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+cmake -B build -S .          \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_LIBDIR=lib32 \
+    -D CMAKE_INSTALL_PREFIX=/usr  \
+    -D FLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth \
+    -W no-dev
+cmake --build build
+DESTDIR=tmp32dir cmake --install build
+rm -rf tmp32dir/usr/{include,share,bin}
+rsync -a tmp32dir/* $1/
+
+7z x soundfonts.7z.001
+
+install -d $1/usr/share/sounds/sf2
+install -Dm 644 FatBoy-v0.790.sf2 $1/usr/share/sounds/sf2/FatBoy-v0.790.sf2
+install -Dm 644 FluidR3_GM.sf2 $1/usr/share/sounds/sf2/FluidR3_GM.sf2
+ln -s FatBoy-v0.790.sf2  $1/usr/share/sounds/sf2/default.sf2
