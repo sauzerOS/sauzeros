@@ -12,8 +12,7 @@ mv -f _ Makefile
     --disable-werror \
     --disable-tcg-interpreter \
     --enable-pie \
-    --audio-drv-list=alsa \
-    --enable-alsa \
+    --audio-drv-list=alsa,pa,pipewire,sdl \
     --enable-bzip2 \
     --enable-curl \
     --enable-curses \

@@ -17,6 +17,7 @@ pkgconf make
 python  make
 make
 sdl2-compat
+spice-server
 virglrenderer
 zlib-ng
 zstd

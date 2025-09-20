@@ -3,3 +3,4 @@ libtirpc
 python-docutils
 rpcsvc-proto
 yajl
+virtiofsd
