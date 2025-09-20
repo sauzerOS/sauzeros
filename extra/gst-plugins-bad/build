@@ -1,28 +1,25 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-
-meson setup ..               \
+meson setup build            \
       --prefix=/usr          \
       --buildtype=release    \
       -D gpl=enabled         \
-      -D gsm=disabled        \
+      -D gsm=disabled
 
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+DESTDIR=$1 meson install -C build
 
 #32bit
-
-rm -rf *
-meson setup --prefix=/usr       \
+rm -rf build
+meson setup build               \
+            --prefix=/usr       \
             --libdir=/usr/lib32 \
             --cross-file=lib32  \
             --buildtype=release \
             -D gpl=enabled      \
-            -D gsm=disabled     \
-            ..
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+            -D gsm=disabled
+
+meson compile -C build
+DESTDIR=$PWD/DESTDIR meson install -C build
 install -d $1/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
