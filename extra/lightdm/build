@@ -20,3 +20,6 @@ rm -rf $1/etc/init
 
 mkdir -p $1/usr/lib/systemd/system
 install -m 644 lightdm.service $1/usr/lib/systemd/system/
+
+# script to import DISPLAY XAUTHORITY WAYLAND_DISPLAY into systemd user session (required for desktop portal)
+install -Dm 755 systemd-session-fix $/usr/bin/systemd-session-fix

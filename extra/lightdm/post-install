@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 groupadd -g 65 lightdm
 useradd  -c "Lightdm Daemon" \
@@ -11,3 +11,5 @@ install -v -dm755 -o lightdm -g lightdm /var/lib/lightdm-data
 install -v -dm755 -o lightdm -g lightdm /var/cache/lightdm
 install -v -dm770 -o lightdm -g lightdm /var/log/lightdm
 
+echo "Add /usr/bin/systemd-session-fix to xfce autostart to fix xdg-desktop-portal"
+read -p "Press Enter to continue" < /dev/tty
