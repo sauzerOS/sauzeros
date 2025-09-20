@@ -2,5 +2,6 @@
 
 zig build -Doptimize=ReleaseFast
 
-install -d $1/bin
+install -d $1/{bin,usr}
 cp zig-out/bin/ghostty $1/bin
+cp -a zig-out/share    $1/usr
