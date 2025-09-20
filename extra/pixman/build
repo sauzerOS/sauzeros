@@ -7,3 +7,16 @@ meson setup \
 
 ninja -C output
 DESTDIR=$1 ninja -C output install
+
+#32 bit
+meson setup build           \
+      --cross-file=lib32    \
+      --prefix=/usr         \
+      --libdir=/usr/lib32   \
+      --buildtype=release   \
+      -D tests=disabled
+
+ninja -C build
+DESTDIR=$PWD/DESTDIR ninja -C build install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
