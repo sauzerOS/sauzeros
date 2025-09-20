@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-curl -fLO https://gitlab.com/libosinfo/osinfo-db/-/archive/v20250606/osinfo-db-v20250606.tar.bz2
-bunzip2 osinfo-db-v20250606.tar.bz2
-osinfo-db-import --system osinfo-db-v20250606.tar
-
