@@ -11,4 +11,4 @@ if ! id -u polkitd >/dev/null 2>&1; then
 fi
 
 chmod +s /usr/lib/polkit-1/polkit-agent-helper-1
-chmod +s /bin/pkexec
+chmod +s /usr/bin/pkexec
