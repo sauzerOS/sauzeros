@@ -6,7 +6,7 @@ ruby
 unifdef
 which
 woff2
-gtk+4
+gtk+3
 little-cms
 gstreamer
 gst-plugins-base

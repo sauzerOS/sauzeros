@@ -13,7 +13,7 @@ python-puremagic
 python-pysocks
 python-legacy-cgi
 python-apprise
-python-sgmllib
+python-sgmllib3k
 python-more-itertools
 python-jaraco.classes
 python-jaraco.collections
