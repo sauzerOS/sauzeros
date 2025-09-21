@@ -23,3 +23,5 @@ DESTDIR=tmp32dir meson install -C build
 cd build
 rm -rf tmp32dir/{etc,usr/include}
 cp -a tmp32dir/* $1/
+
+install -Dm644 ../gamemode.ini $1/etc/gamemode.ini
