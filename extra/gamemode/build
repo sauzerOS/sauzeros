@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+meson setup build    --prefix=/usr \
+    --libexecdir /usr/lib/gamemode \
+    -D with-examples=false
+
+meson compile -C build
+DESTDIR=$1 meson install -C build
+
+#32bit
+
+rm -rf build
+export CC='gcc -m32'
+export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+meson setup build    --prefix=/usr \
+    --libexecdir /usr/lib/gamemode \
+    -D with-examples=false         \
+    --libdir /usr/lib32            \
+    -D with-sd-bus-provider=no-daemon
+
+meson compile -C build
+DESTDIR=tmp32dir meson install -C build
+cd build
+rm -rf tmp32dir/{etc,usr/include}
+cp -a tmp32dir/* $1/

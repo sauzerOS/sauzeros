@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build -S .               \
+    -DCMAKE_BUILD_TYPE='None'     \
+    -DCMAKE_INSTALL_PREFIX='/usr' \
+    -DBUILD_SHARED_LIBS=ON        \
+    -Wno-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+

@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+meson setup build --prefix=/usr \
+             -D mangoapp=true   \
+            -D mangohudctl=true
+
+meson compile -C build
+DESTDIR=$1 meson install -C build
