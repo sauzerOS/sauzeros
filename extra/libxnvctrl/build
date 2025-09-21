@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+export PREFIX=/usr
+export NV_USE_BUNDLED_LIBJANSSON=0
+export OUTPUTDIR=out
+
+patch -Np1 -i nvidia-settings-libxnvctrl_so.patch
+
+export CFLAGS+=" -ffat-lto-objects"
+make
+
+install -Dm 644 src/libXNVCtrl/*.h -t "${1}/usr/include/NVCtrl"
+install -d "${1}/usr/lib"
+cp -Pr src/out/libXNVCtrl.* -t "${1}/usr/lib"
+
