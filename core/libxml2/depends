@@ -1,5 +1,3 @@
 icu
-pkgconf make
-readline
 xz
-zlib-ng
+zlib
