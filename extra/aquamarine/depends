@@ -2,7 +2,7 @@ hyprwayland-scanner
 hyprutils
 hwdata
 libinput
-libdisplayinfo
+libdisplay-info
 mesa
 seatd
 

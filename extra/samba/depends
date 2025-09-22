@@ -3,7 +3,7 @@ jansson
 json
 libtirpc
 lmdb
-parse-yapp
+perl-parse-yapp
 rpcsvc-proto
 fuse3
 gpgme
