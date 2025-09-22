@@ -1,4 +1,5 @@
 #!/bin/sh -e
 
-python -m build --wheel --no-isolation
+CC=clang RUSTFLAGS+=" -Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" \
+python -m build --wheel --no-isolation --skip-dependency-check
 python -m installer --destdir="$1" dist/*.whl
