@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+meson setup build \
+     --prefix=/usr \
+    -D openrc=disabled \
+    -D b_lto=true \
+    -D b_lto_mode=thin
+
+meson compile -C build
+DESTDIR=$1 meson install -C build
