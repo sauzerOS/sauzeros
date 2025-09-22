@@ -1,0 +1,11 @@
+python-certifi
+python-isodate
+python-lxml
+python-pycountry
+python-pysocks
+python-requests
+python-trio
+python-pycryptodome
+python-sortedcontainers
+python-sniffio
+python-outcome
