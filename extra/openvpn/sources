@@ -1,2 +1,1 @@
-#https://github.com/OpenVPN/openvpn/archive/refs/tags/v2.6.14.tar.gz
-git+https://github.com/OpenVPN/openvpn
+https://github.com/OpenVPN/openvpn/archive/refs/tags/v2.6.15.tar.gz

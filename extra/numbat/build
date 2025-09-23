@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+cargo build --release
+
+install -d $1/usr/bin
+install -d $1/usr/share/numbat
+install -d $1/usr/share/icons/hicolor
+install -Dm755 target/release/numbat $1/usr/bin/numbat
+cp -r numbat/modules $1/usr/share/numbat/
+install -Dm644 "assets/numbat.desktop" "$1/usr/share/applications/numbat.desktop"
+install -Dm644 "assets/numbat.svg" "$1/usr/share/icons/hicolor/scalable/apps/numbat.svg"
+
+  for icon in $(ls assets/numbat-*x*png)
+  do
+    filename_without_prefix=${icon#*-}
+    icon_size=${filename_without_prefix%.*}
+    install -Dm644 "$icon" "$1/usr/share/icons/hicolor/$icon_size/apps/numbat.png"
+  done
