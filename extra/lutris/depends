@@ -1,3 +1,4 @@
+cabextract
 webkit2gtk-4.1
 python-certifi
 python-gobject
@@ -5,5 +6,4 @@ python-lxml
 python-pillow
 python-requests
 python-urllib3
-#python-yaml
 unzip
