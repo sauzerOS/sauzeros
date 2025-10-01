@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+install -Dm755 hokuto $1/usr/bin/hokuto
+

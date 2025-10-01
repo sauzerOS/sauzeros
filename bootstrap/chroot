@@ -26,10 +26,6 @@ else
   mount -vt tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
 fi
 
-echo "mounting sources directory in chroot"
-mkdir -vp $LFS/var/cache/kiss/sources
-mount --bind /var/cache/kiss/sources $LFS/var/cache/kiss/sources
-
 echo "copying repo to chroot"
 cp -a /repo/sauzeros $LFS/repo/
 
@@ -41,7 +37,6 @@ cleanup() {
     umount -v "$LFS/proc" || true
     umount -v "$LFS/dev/pts" || true
     umount -v "$LFS/dev" || true
-    umount -v "$LFS/var/cache/kiss/sources" || true
 }
 trap cleanup EXIT
 
@@ -55,8 +50,4 @@ chroot "$LFS" /usr/bin/env -i   \
     CFLAGS="-march=native -O2 -pipe -fomit-frame-pointer" \
     LOGNAME=root                \
     USER=root                   \
-    KISS_PATH=/repo/sauzeros/core \
-    KISS_DIRS=/var/cache/kiss   \
-    KISS_COMPRESS=zst           \
-    KISS_TMPDIR=/tmp            \
     /bin/bash --login

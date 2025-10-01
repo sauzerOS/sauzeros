@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-if kiss l cmake; then
+if hokuto list cmake; then
     cmake -B build \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \

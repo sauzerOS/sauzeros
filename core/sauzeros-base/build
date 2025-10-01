@@ -52,7 +52,7 @@ ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
 for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
-         nanorc passwd profile resolv.conf securetty shells mime.types; do
+         nanorc passwd profile resolv.conf securetty shells mime.types hokuto.conf; do
     install -m 644 "$f" "$1/etc"
 done
 
@@ -67,6 +67,3 @@ done
 install -d "$1/repo/sauzeros/no_updates"
 ln -s /proc/self/mounts "$1/etc/mtab"
 
-# kiss global config
-install -Dm644 kiss.conf "$1/etc/kiss/kiss.conf"
-install -Dm644 BIG_PKGS "$1/etc/kiss/BIG_PKGS"

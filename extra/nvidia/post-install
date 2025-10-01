@@ -6,8 +6,5 @@ chmod 4755 /bin/nvidia-modprobe
 # enable systemd services
 systemctl enable nvidia-resume nvidia-hibernate nvidia-suspend nvidia-persistenced
 
-# rebuild the nvidia modules
-#kiss b nvidia-modules
-
 depmod -a
 ldconfig

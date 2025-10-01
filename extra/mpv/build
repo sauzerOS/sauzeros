@@ -2,13 +2,11 @@
 
 sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
 
-mkdir build
-cd    build
-
-meson setup --prefix=/usr       \
+meson setup build               \
             --buildtype=release \
+             --prefix=/usr      \
             -D x11=enabled      \
-            -D drm=enabled      \
-            ..
-ninja
-DESTDIR=$1 ninja install
+            -D drm=enabled
+
+meson compile -C build
+DESTDIR=$1 meson install -C build

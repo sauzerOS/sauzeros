@@ -9,6 +9,8 @@ install -Dm755 target/release/numbat $1/usr/bin/numbat
 cp -r numbat/modules $1/usr/share/numbat/
 install -Dm644 "assets/numbat.desktop" "$1/usr/share/applications/numbat.desktop"
 install -Dm644 "assets/numbat.svg" "$1/usr/share/icons/hicolor/scalable/apps/numbat.svg"
+#symlink to calc
+ln -s numbat $1/usr/bin/calc
 
   for icon in $(ls assets/numbat-*x*png)
   do
@@ -16,3 +18,4 @@ install -Dm644 "assets/numbat.svg" "$1/usr/share/icons/hicolor/scalable/apps/num
     icon_size=${filename_without_prefix%.*}
     install -Dm644 "$icon" "$1/usr/share/icons/hicolor/$icon_size/apps/numbat.png"
   done
+
