@@ -4,7 +4,6 @@
 	    --sysconfdir=/etc \
             --localstatedir=/var \
             --libexecdir=/usr/lib/iwd \
-            
 
 make
 make DESTDIR=$1 install

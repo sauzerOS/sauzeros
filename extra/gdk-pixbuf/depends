@@ -2,6 +2,6 @@ glib
 libjpeg-turbo
 libpng
 libtiff
-meson   make
-pkgconf make
+meson
+pkgconf
 shared-mime-info
