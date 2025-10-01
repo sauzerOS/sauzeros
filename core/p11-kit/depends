@@ -1,5 +1,5 @@
 libffi
 libtasn1
-ninja make
-meson make
-pkgconf make
+ninja
+meson
+pkgconf

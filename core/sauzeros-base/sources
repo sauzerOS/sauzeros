@@ -16,5 +16,4 @@ files/resolv.conf
 files/securetty
 files/shells
 files/init-repos
-files/kiss.conf
-files/BIG_PKGS
+files/hokuto.conf

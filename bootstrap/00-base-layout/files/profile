@@ -37,4 +37,3 @@ export $(cat /etc/locale.conf)
 export EDITOR=nano
 alias ls='ls --color'
 alias grep='grep --color=auto'
-export KISS_PATH=/repo/no_updates:/repo/sauzeros/core:/repo/sauzeros/extra

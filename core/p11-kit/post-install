@@ -1,4 +1,0 @@
-#!/bin/sh
-
-#use p11-kit trust module
-kiss a p11-kit /usr/lib/libnssckbi.so

@@ -1,15 +1,12 @@
 #!/bin/sh -e
 
 #fix
-
 sed -e '204a\    tree = ET.parse(xmlfile)'                 \
     -e 's/VkXML(ET.parse(xmlfile))/VkXML(tree.getroot())/' \
     -i src/vulkan/utils_gen.py
 
-mkdir build
-cd build
+meson setup build --prefix=/usr \
+        -D glslang=enabled
 
-meson --prefix=/usr ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+DESTDIR=$1 meson install -C build

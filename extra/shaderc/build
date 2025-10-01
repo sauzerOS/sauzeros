@@ -6,8 +6,8 @@ sed '/build-version/d' -i glslc/CMakeLists.txt
 
 cat <<- EOF > glslc/src/build-version.inc
 "2024.0\\n"
-"$(kiss list spirv-tools|cut -d \  -f 2|sed 's/-.*//')\\n"
-"$(kiss list glslang|cut -d \  -f 2|sed 's/-.*//')\\n"
+"$(hokuto list spirv-tools|cut -d \  -f 2|sed 's/-.*//')\\n"
+"$(hokuto list glslang|cut -d \  -f 2|sed 's/-.*//')\\n"
 EOF
 
   cmake \

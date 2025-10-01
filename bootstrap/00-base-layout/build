@@ -51,7 +51,7 @@ ln -s ../man "$LFS/usr/local/share/man"
 
 # /etc skeleton files.
 for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
-         nanorc passwd profile resolv.conf securetty shells mime.types; do
+         nanorc passwd profile resolv.conf securetty shells mime.types hokuto.conf; do
     install -m 644 "$f" "$LFS/etc"
 done
 
@@ -65,5 +65,3 @@ done
 
 ln -s /proc/self/mounts "$LFS/etc/mtab"
 
-install -d "$LFS/etc/kiss"
-install -Dm 644 kiss.conf "$LFS/etc/kiss/kiss.conf"

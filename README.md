@@ -45,13 +45,10 @@ At this stage you are inside a clean multilib environment with just enough tools
 to use kiss for building the full system.
 
 ### Set the target partition/folder for the new system
-export KISS_ROOT=/target  
+export HOKUTO_ROOT=/target  
 cd /repo/sauzeros/core  
-kiss b sauzeros-base binutils gcc.... (will be replaced by base-system)  
-(not yet implemented)  
-kiss b base-system  
-kiss b desktop-system  
-
+hokuto build base-system
+hokuto build xfce4-meta
 ⚖️ Licensing
 
 All packages retain their original licenses.  

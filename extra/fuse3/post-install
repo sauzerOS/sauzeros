@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-#fix permission
-chmod +s /bin/fusermount3

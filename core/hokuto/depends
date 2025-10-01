@@ -1,0 +1,12 @@
+aria2
+b3sum
+coreutils
+curl
+git
+grep
+gzip
+rsync
+sed
+tar
+xz
+zstd

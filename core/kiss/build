@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-mkdir -p \
-    "$1/usr/bin"
-
-# Install kiss utilities.
-cp -f contrib/* "$1/usr/bin/"
-cp kiss "$1/usr/bin/kiss"

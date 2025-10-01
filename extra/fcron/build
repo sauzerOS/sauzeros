@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr        \
+            --sysconfdir=/etc/fcron \
+            --localstatedir=/var \
+            --with-sendmail=/usr/bin/sendmail \
+            --with-piddir=/run   \
+            --with-editor=/usr/bin/nano \
+            --with-pam=no \
+            --with-boot-install=no
+make
+
+sed -e '/systemctl daemon-reload/d' -i Makefile
+
+make DESTDIR=$1 install
+#install -Dm644 files/fcron.pam "$1/etc/pam.d/fcron"
+#install -Dm644 files/fcrontab.pam "$1/etc/pam.d/fcrontab"
+install -Dm644 fcron.sysusers "$1/usr/lib/sysusers.d/fcron.conf"
+install -Dm640 systab.orig "$1/var/spool/fcron/systab.orig"
+install -Dm755 run-parts "$1/usr/bin/run-parts"
+
+# Add cron.* directories
+install -d -m755 "$1/etc/cron.daily"
+install -d -m755 "$1/etc/cron.hourly"
+install -d -m755 "$1/etc/cron.monthly"
+install -d -m755 "$1/etc/cron.weekly"
+
+ln -s fcrontab $1/usr/bin/crontab

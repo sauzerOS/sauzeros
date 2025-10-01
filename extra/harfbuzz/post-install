@@ -1,4 +1,4 @@
 #!/bin/sh
 
 echo "rebuilding freetype"
-kiss b freetype
+hokuto build freetype

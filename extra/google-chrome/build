@@ -21,5 +21,3 @@ sed -i \
 	-e "/Exec=/i\StartupWMClass=Google-chrome" \
 	-e "s/x-scheme-handler\/ftp;\?//g" \
 	"$1"/usr/share/applications/google-chrome.desktop
-
-rm -rfv $KISS_DIRS/sources/google-chrome/*.deb
