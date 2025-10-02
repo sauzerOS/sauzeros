@@ -1,19 +1,25 @@
 #!/bin/sh -e
 
-meson setup build         \
-      --prefix=/usr       \
-      --buildtype=release \
-      -D others=enabled   \
-      -D man=false        \
-      -D installed_tests=false \
-      -D builtin_loaders=all \
-      -D glycin=disabled  \
-      -D jpeg=enabled     \
-      -D gif=enabled      \
-      -D introspection=enabled \
-      -D png=enabled      \
-      -D thumbnailer=enabled \
-      -D tiff=enabled
+#fix xfce4-panel without glycin
+sed -i '132s/guint32 height;/gint32 height;/' gdk-pixbuf/io-bmp.c
+
+meson setup build            \
+      --prefix=/usr          \
+      --buildtype=release    \
+    -D android=disabled      \
+    -D builtin_loaders=all   \
+    -D documentation=false   \
+    -D gif=enabled           \
+    -D glycin=disabled       \
+    -D gtk_doc=false         \
+    -D installed_tests=false \
+    -D introspection=enabled \
+    -D jpeg=enabled          \
+    -D man=false             \
+    -D others=enabled        \
+    -D png=enabled           \
+    -D thumbnailer=enabled   \
+    -D tiff=enabled
 
 meson compile -C build
 DESTDIR=$1 meson install -C build

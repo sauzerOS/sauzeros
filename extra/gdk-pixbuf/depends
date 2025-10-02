@@ -1,7 +1,4 @@
 glib
-libjpeg-turbo
-libpng
-libtiff
 meson
 pkgconf
 shared-mime-info

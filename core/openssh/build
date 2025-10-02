@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+cd openssh*
 ./configure --prefix=/usr                            \
             --sysconfdir=/etc/ssh                    \
             --with-privsep-path=/var/lib/sshd        \
@@ -16,7 +17,7 @@ chmod +x "$1/usr/bin/ssh-copy-id"
 
 mkdir -pv $1/usr/lib/systemd/system/
 
-install -m644 sshd.service $1/usr/lib/systemd/system/
-install -m644 sshdat.service $1/usr/lib/systemd/system/sshd@.service
-install -m644 sshd.socket $1/usr/lib/systemd/system/
+install -m644 ../sshd.service $1/usr/lib/systemd/system/
+install -m644 ../sshdat.service $1/usr/lib/systemd/system/sshd@.service
+install -m644 ../sshd.socket $1/usr/lib/systemd/system/
 
