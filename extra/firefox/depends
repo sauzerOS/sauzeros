@@ -1,7 +1,7 @@
 alsa-lib
 bzip2
 cairo
-cbindgen      make
+cbindgen
 expat
 ffmpeg
 fontconfig
@@ -18,19 +18,19 @@ libwebp
 libXcomposite
 libXdamage
 libva
-llvm          make
-m4            make
+llvm
+m4
 mesa
-nasm          make
-nodejs        make
+nasm
+nodejs
 nspr
 nss
 pango
 pixman
-pkgconf       make
+pkgconf
 pulseaudio
-python        make
-rust          make
+python
+rust
 wayland
-wayland-protocols make
+wayland-protocols
 zlib-ng

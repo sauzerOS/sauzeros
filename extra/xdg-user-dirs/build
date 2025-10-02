@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr           \
-            --sysconfdir=/etc       \
-            --disable-documentation
-
-make
-make DESTDIR=$1 install
+meson setup build --prefix=/usr
+meson compile -C build
+DESTDIR=$1 meson install -C build

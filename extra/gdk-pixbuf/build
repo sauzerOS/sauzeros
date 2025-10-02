@@ -5,8 +5,15 @@ meson setup build         \
       --buildtype=release \
       -D others=enabled   \
       -D man=false        \
+      -D installed_tests=false \
+      -D builtin_loaders=all \
       -D glycin=disabled  \
-      --wrap-mode=nofallback
+      -D jpeg=enabled     \
+      -D gif=enabled      \
+      -D introspection=enabled \
+      -D png=enabled      \
+      -D thumbnailer=enabled \
+      -D tiff=enabled
 
 meson compile -C build
 DESTDIR=$1 meson install -C build

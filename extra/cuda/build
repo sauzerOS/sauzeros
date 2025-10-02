@@ -24,6 +24,10 @@ sed -e "/.*unsupported GNU version.*/d" \
     -e "/.*unsupported clang version.*/d" \
     -i $1/opt/cuda/targets/x86_64-linux/include/crt/host_config.h
 
+#delete broken symlink
+rm -f $1/opt/cuda/targets/x86_64-linux/include/include
+rm -f $1/opt/cuda/targets/x86_64-linux/lib/lib64
+
 install -d $1/etc/ld.so.conf.d/
 install -Dm644 ../../cuda.conf $1/etc/ld.so.conf.d/cuda.conf
 install -d $1/etc/profile.d
