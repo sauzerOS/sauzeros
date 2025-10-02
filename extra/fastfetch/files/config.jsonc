@@ -1,0 +1,26 @@
+{
+  "logo": {
+    "source": "/usr/share/pixmaps/hokuto.png", // path to your logo
+    "type": "auto",        // auto-detects type (image, text, builtin)
+    //"width": 40,           // optional: scale width
+    //"height": 20,          // optional: scale height
+    "position": "left"     // or "right"
+  },
+  "modules": [
+    "break",
+    "break",
+    "break",
+    "break",
+    "os",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "terminal",
+    "cpu",
+    "gpu",
+    "memory",
+    "disk",
+    "break",
+  ]
+}
