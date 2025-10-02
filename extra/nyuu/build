@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+install -Dm755 nyuu $1/usr/bin/nyuu
+install -Dm644 config-sample.json $1/etc/nyuu/config-sample.json
+
+
