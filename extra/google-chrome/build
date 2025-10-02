@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-
 ar x google-chrome-stable_*amd64.deb
 tar -xf data.tar.xz -C "$1/"
 
