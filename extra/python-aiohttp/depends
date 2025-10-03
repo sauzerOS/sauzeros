@@ -1,0 +1,3 @@
+cython
+llhttp
+python-pkgconfig

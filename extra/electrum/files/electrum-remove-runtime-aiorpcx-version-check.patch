@@ -1,0 +1,13 @@
+diff --git i/run_electrum w/run_electrum
+index fc50a584e..8d8ea46e5 100755
+--- i/run_electrum
++++ w/run_electrum
+@@ -85,8 +85,6 @@ def check_imports():
+         import electrum_aionostr
+     except ImportError as e:
+         sys.exit(f"Error: {str(e)}. Some dependencies are missing. Have you read the README? Or just try '$ python3 -m pip install -r contrib/requirements/requirements.txt'")
+-    if not ((0, 25, 0) <= aiorpcx._version < (0, 26)):
+-        raise RuntimeError(f'aiorpcX version {aiorpcx._version} does not match required: 0.25.0<=ver<0.26')
+     # the following imports are for pyinstaller
+     from google.protobuf import descriptor
+     from google.protobuf import message

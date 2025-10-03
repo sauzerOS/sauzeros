@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+export ELECTRUM_ECC_DONT_COMPILE=1
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl
