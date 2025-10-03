@@ -1,5 +1,5 @@
 #!/bin/sh -e
-
+CC=clang RUSTFLAGS+=" -Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" \
 cargo build --release
 
 install -d $1/usr/bin
