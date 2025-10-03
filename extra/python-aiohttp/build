@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export AIOHTTP_USE_SYSTEM_DEPS=1
+make cythonize
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl

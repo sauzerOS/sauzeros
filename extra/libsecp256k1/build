@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+autoreconf -fvi
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/bin \
+    --sysconfdir=/etc \
+    --sharedstatedir=/usr/share/libsecp256k1 \
+    --localstatedir=/var/lib/libsecp256k1 \
+    --disable-static \
+    --disable-benchmark \
+    --disable-coverage \
+    --enable-module-ecdh \
+    --enable-module-recovery \
+    --enable-module-extrakeys \
+    --enable-module-schnorrsig \
+    --enable-tests \
+    --enable-exhaustive-tests \
+    --with-gnu-ld
+
+make
+make DESTDIR=$1 install

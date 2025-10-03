@@ -1,0 +1,14 @@
+python
+python-aiorpcx
+python-aiohttp
+python-aiohttp-socks
+python-aiohappyeyeballs
+python-aiosignal
+python-dnspython
+python-qrcode
+python-multidict
+python-yarl
+python-electrum-aionostr
+python-electrum-ecc
+python-jsonpatch
+python-pyqt6

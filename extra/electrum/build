@@ -1,0 +1,16 @@
+#!/bin/sh
+
+patch -Np1 -i electrum-remove-runtime-aiorpcx-version-check.patch
+
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl
+
+site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+install -vdm755 "$1/$site_packages/electrum"
+      ./contrib/locale/build_locale.sh \
+      electrum/locale/locale \
+      "$1/$site_packages/electrum/locale"
+
+install -vDm644 -t "$1/usr/share/applications" "electrum.desktop"
+install -vDm644 -t "$1/usr/share/pixmaps" "electrum/gui/icons/electrum.png"
+install -vDm644 -t "$1/usr/share/icons/hicolor/128x128/apps" "electrum/gui/icons/electrum.png"
