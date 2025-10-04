@@ -5,7 +5,7 @@ libvirt-python
 libosinfo
 python-certifi
 python-docutils
-python-gobject
+python-pygobject
 python-idna
 python-normalizer
 python-requests

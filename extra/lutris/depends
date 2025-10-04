@@ -1,7 +1,7 @@
 cabextract
 webkit2gtk-4.1
 python-certifi
-python-gobject
+python-pygobject
 python-lxml
 python-pillow
 python-requests
