@@ -6,6 +6,6 @@ libepoxy
 libtiff
 libxkbcommon
 pango
-python-gobject
+python-pygobject
 shaderc
 wayland-protocols

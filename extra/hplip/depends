@@ -1,5 +1,5 @@
 cups
-python-gobject
+python-pygobject
 python-pyqt5
 sane
 libusb
