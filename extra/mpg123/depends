@@ -1,0 +1,15 @@
+alsa-lib
+dbus
+flac
+lame
+libXau
+libXdmcp
+libcap
+libogg
+libsndfile
+libvorbis
+libxcb
+opus
+pulseaudio
+sdl2-compat
+systemd
