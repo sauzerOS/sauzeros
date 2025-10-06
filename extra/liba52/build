@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr           \
+            --mandir=/usr/share/man \
+            --enable-shared         \
+            --disable-static        \
+            CFLAGS="${CFLAGS:--g -O3} -fPIC"
+
+make
+make DESTDIR=$1 install
+cp liba52/a52_internal.h $1/usr/include/a52dec
