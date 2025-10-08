@@ -1,0 +1,14 @@
+#!/bin/sh
+
+install -Dm644 eden.xml "$1/usr/share/mime/packages/eden.xml"
+install -Dm755 Eden-Linux-v$2-amd64.AppImage "$1/opt/eden/eden.AppImage"
+install -Dm644 dev.eden_emu.eden.desktop \
+         "$1/usr/share/applications/eden.desktop"
+
+# copy icon
+install -Dm644 dev.eden_emu.eden.svg \
+     "$1/usr/share/icons/hicolor/scalable/apps/eden.svg"
+
+install -dm755 "$1/usr/bin"
+
+ln -s "../../opt/eden/eden.AppImage" "$1/usr/bin/eden"
