@@ -1,3 +1,4 @@
+egl-wayland
 font-util
 libXfont2
 libxcvt
@@ -7,6 +8,5 @@ libtirpc
 libxkbfile
 pixman
 wayland
-wayland-eglstream-protocols
 wayland-protocols
 
