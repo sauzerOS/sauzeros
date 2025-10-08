@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+git submodule update --init
+meson setup build --prefix=/usr \
+    -D pipewire=enabled \
+    -D enable_openvr_support=false
+
+meson compile -C build
+meson install -C build --skip-subprojects --destdir=$1
+
