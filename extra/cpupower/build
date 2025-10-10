@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+pushd /usr/src/linux/tools/power/cpupower
+make \
+    DESTDIR="$1" \
+    sbindir='/usr/bin' \
+    libdir='/usr/lib' \
+    mandir='/usr/share/man' \
+    docdir='/usr/share/doc/cpupower' \
+install install-man
+popd
+# install startup scripts
+install -Dm 644 cpupower.default "$1/etc/default/cpupower"
+install -Dm 644 cpupower.service "$1/usr/lib/systemd/system/cpupower.service"
+install -Dm 755 cpupower.systemd "$1/usr/lib/systemd/scripts/cpupower"
+

@@ -1,0 +1,3 @@
+files/cpupower.default
+files/cpupower.service
+files/cpupower.systemd
