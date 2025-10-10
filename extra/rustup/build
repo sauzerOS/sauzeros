@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+cargo build --release --no-default-features --features reqwest-rustls-tls --features no-self-update --bin rustup-init
+
+install -d "${1}/usr/lib/rustup/bin"
+install -Dm755 "target/release/rustup-init" "${1}/usr/bin/rustup"
+
+_binlinks=('cargo' 'rustc' 'rustdoc' 'rust-gdb' 'rust-lldb' 'rustfmt' 'cargo-fmt' 'cargo-clippy' 'clippy-driver' 'cargo-miri')
+for link in "${_binlinks[@]}"; do
+      ln -s /usr/bin/rustup "${1}/usr/bin/${link}"
+done
+
+# Special treatment for rust-analyzer to still allow the separate package version to be used.
+ln -s /usr/bin/rustup "${1}/usr/lib/rustup/bin/rust-analyzer"
+
+install -Dm644 rustup-profile.sh "$1/etc/profile.d/rustup.sh"
+
+# Generate completion files.
+mkdir -p "$1/usr/share/bash-completion/completions"
+"$1"/usr/bin/rustup completions bash > "$1/usr/share/bash-completion/completions/rustup"
+"$1"/usr/bin/rustup completions bash cargo > "$1/usr/share/bash-completion/completions/cargo"
+mkdir -p "$1/usr/share/fish/vendor_completions.d"
+"$1"/usr/bin/rustup completions fish > "$1/usr/share/fish/vendor_completions.d/rustup.fish"
+mkdir -p "$1/usr/share/zsh/site-functions"
+"$1"/usr/bin/rustup completions zsh > "$1/usr/share/zsh/site-functions/_rustup"
+"$1"/usr/bin/rustup completions zsh cargo > "$1/usr/share/zsh/site-functions/_cargo"
+
+
