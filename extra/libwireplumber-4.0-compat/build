@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+git cherry-pick -n f4f495ee212c46611303dec9cd18996830d7f721
+
+meson setup build --prefix=/usr \
+    -D elogind=disabled \
+    -D system-lua=true
+meson compile -C build
+meson install -C build --destdir "$1"
+
+rm -rf $1/usr/bin
+rm -rf $1/usr/lib/systemd
+rm -rf $1/usr/share

@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+install -Dm 755 yt-dlp_linux $1/usr/bin/yt-dlp
