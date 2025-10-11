@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cd  lcl/interfaces/qt6/cbindings
+/usr/lib/qt6/bin/qmake6
+make
+make INSTALL_ROOT=$1 install

@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+ar x peazip_$2.LINUX.Qt6-1_amd64.deb
+tar xvf data.tar.zst -C $1/
+rm -rf $1/usr/lib/libQt6*
+rm -rf $1/usr/lib/peazip/libQt6*
+rm -rf $1/usr/lib/peazip/res/bin/{7z,brotli,zstd}
+
