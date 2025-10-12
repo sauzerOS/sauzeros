@@ -5,6 +5,7 @@ postgresql
 postgresql-libversion
 python-blinker
 python-brotli
+python-charset-normalizer
 python-certifi
 python-click
 python-flask
@@ -14,7 +15,6 @@ python-jsonslicer
 python-libversion
 python-libversion
 python-lxml
-python-normalizer
 python-pillow
 python-protobuf
 python-psycopg2

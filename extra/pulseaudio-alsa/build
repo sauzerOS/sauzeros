@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-./configure --sysconfdir=/etc --prefix=/usr
-
-make
-make DESTDIR=$1 install
-
-install -Dm 644 99-pulseaudio-default.conf $1/etc/alsa/conf.d/99-pulseaudio-default.conf

@@ -2,5 +2,5 @@ python-packaging
 python-ply
 python-sip
 python-toml
-python-pyqtbuilder
+pyqt-builder
 python-pyqt5-sip
