@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffile-prefix-map=\"$PWD\"=. -DSHARE_DIR=\\\"/usr/share/gzdoom\\\"" \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D SYSTEMINSTALL=ON \
+    -D INSTALL_PK3_PATH=share/gzdoom \
+    -D INSTALL_SOUNDFONT_PATH=share/gzdoom \
+    -D INSTALL_RPATH=/usr/lib
+
+cmake --build build
+DESTDIR=$1 cmake --install build
