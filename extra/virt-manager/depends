@@ -4,10 +4,10 @@ libvirt-glib
 libvirt-python
 libosinfo
 python-certifi
+python-charset-normalizer
 python-docutils
 python-pygobject
 python-idna
-python-normalizer
 python-requests
 python-urllib3
 vte3

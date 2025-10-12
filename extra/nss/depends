@@ -1,5 +1,4 @@
-linux-headers make
 nspr
-perl          make
+perl
 sqlite
 zlib-ng

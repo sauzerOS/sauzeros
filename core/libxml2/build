@@ -1,14 +1,11 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr     \
-            --sysconfdir=/etc \
-            --disable-static  \
-            --with-history    \
-            --with-icu        \
-            PYTHON=/usr/bin/python3
-
-make
-make DESTDIR="$1" install
+meson setup build --prefix=/usr \
+    -D icu=enabled \
+    -D legacy=enabled \
+    -D docs=disabled
+meson compile -C build
+meson install -C build --destdir=$1
 
 #prevent some packages from unnecessarily linking to ICU
 rm -vf $1/usr/lib/libxml2.la
@@ -16,7 +13,6 @@ sed '/libs=/s/xml2.*/xml2"/' -i $1/usr/bin/xml2-config
 
 #32bit
 
-make distclean
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 ./configure --prefix=/usr            \

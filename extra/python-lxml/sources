@@ -1,1 +1,1 @@
-https://files.pythonhosted.org/packages/aa/88/262177de60548e5a2bfc46ad28232c9e9cbde697bd94132aeb80364675cb/lxml-6.0.2.tar.gz
+git+https://github.com/lxml/lxml#lxml-6.0.2
