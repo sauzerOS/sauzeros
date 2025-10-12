@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=CleanDoom
+Comment=Modern Doom Mod Launcher
+Exec=cleandoom
+Icon=cleandoom
+Terminal=false
+Type=Application
+Categories=Game;
