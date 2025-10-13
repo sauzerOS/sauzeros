@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr                            \
+            --sysconfdir=/etc                        \
+            --with-ssl                               \
+            --enable-external-dotlock                \
+            --enable-pop                             \
+            --enable-imap                            \
+            --enable-hcache                          \
+            --enable-sidebar
+make
+make DESTDIR=$1 install
+
+chown root:mail $1/usr/bin/mutt_dotlock
+chmod -v 2755 $1/usr/bin/mutt_dotlock

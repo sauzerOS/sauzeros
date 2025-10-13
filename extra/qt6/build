@@ -12,6 +12,7 @@ cmake -S . -B build                               \
     -D INSTALL_INCLUDEDIR=include/qt6             \
     -D INSTALL_MKSPECSDIR=lib/qt6/mkspecs         \
     -D INSTALL_EXAMPLESDIR=share/doc/qt6/examples \
+    -D INSTALL_PRIVATE_HEADERS=ON                 \
     -D FEATURE_journald=ON                        \
     -D FEATURE_libproxy=OFF                       \
     -D FEATURE_openssl_linked=ON                  \

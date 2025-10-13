@@ -1,5 +1,6 @@
 make-ca
 libpsl
+libidn2
 openssl
 zlib-ng
 zstd

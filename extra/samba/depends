@@ -1,6 +1,6 @@
 gnutls
 jansson
-json
+perl-json
 libtirpc
 lmdb
 perl-parse-yapp
