@@ -1,0 +1,45 @@
+#!/bin/sh -e
+
+# additional content
+cp {cheats.zip,patches.zip} data/resources
+
+# unbreak the build
+sed -i '/#ifdef __linux__/,/#endif/d' src/core/system.cpp
+sed -i '/CMAKE_FIND_ROOT_PATH/d' CMakeModules/DuckStationDependencies.cmake
+sed -i 's/NOT Qt6_DIR MATCHES/Qt6_DIR MATCHES/' CMakeModules/DuckStationDependencies.cmake
+sed -i -E '/^[[:space:]]*find_package\(Qt6[[:space:]].*COMPONENTS[[:space:]]+Core[[:space:]]+Gui[[:space:]]+Widgets[[:space:]]+LinguistTools[[:space:]]+REQUIRED[[:space:]]*\)/a\  find_package(Qt6GuiPrivate REQUIRED)' CMakeModules/DuckStationDependencies.cmake
+
+sed -i 's/Qt6::Gui Qt6::Widgets/Qt6::Gui Qt6::GuiPrivate Qt6::Widgets/' src/duckstation-qt/CMakeLists.txt
+
+# only build required deps with custom script/version file
+cp {versions,build-dependencies-linux.sh} scripts/deps/
+scripts/deps/build-dependencies-linux.sh deps
+
+# build duckstation
+cmake -B build-release                            \
+-D CMAKE_C_COMPILER=clang                         \
+-D CMAKE_CXX_COMPILER=clang++                     \
+-D CMAKE_EXE_LINKER_FLAGS_INIT="-fuse-ld=lld"     \
+-D CMAKE_MODULE_LINKER_FLAGS_INIT="-fuse-ld=lld"  \
+-D CMAKE_SHARED_LINKER_FLAGS_INIT="-fuse-ld=lld"  \
+-D Qt6_DIR=/usr/lib/cmake/Qt6                     \
+-D CMAKE_PREFIX_PATH="$PWD/deps"                  \
+-D CMAKE_BUILD_TYPE=Release                       \
+-D CMAKE_INTERPROCEDURAL_OPTIMIZATION=ON          \
+-G Ninja
+
+ninja -C build-release
+
+# Install everything into /usr/lib/duckstation
+install -m 755 -d "${1}/usr/lib"
+cp -drv --no-preserve='ownership' build-release/bin "${1}/usr/lib/duckstation"
+# Install bundled libraries
+find "deps/lib64" -name '*.so*' -exec cp -dv --no-preserve='ownership' '{}' "${1}/usr/lib/duckstation/" \;
+
+# patch rpath
+patchelf --force-rpath --set-rpath "/usr/lib/duckstation" "${1}/usr/lib/duckstation/duckstation-qt"
+
+install -d $1/usr/bin
+ln -s /usr/lib/duckstation/duckstation-qt $1/usr/bin/duckstation-qt
+install -Dvm644 "duckstation-qt.desktop" "${1}/usr/share/applications/duckstation-qt.desktop"
+install -Dvm644 "${1}/usr/lib/duckstation/resources/images/duck.png" "${1}/usr/share/icons/hicolor/64x64/apps/duckstation-qt.png"

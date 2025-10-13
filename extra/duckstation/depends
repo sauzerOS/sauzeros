@@ -1,0 +1,6 @@
+cmake
+llvm
+sdl3
+qt6
+patchelf
+

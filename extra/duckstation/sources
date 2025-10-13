@@ -1,0 +1,6 @@
+git+https://github.com/stenzek/duckstation#v0.1-9787
+https://github.com/duckstation/chtdb/releases/download/latest/cheats.zip noextract
+https://github.com/duckstation/chtdb/releases/download/latest/patches.zip noextract
+files/duckstation-qt.desktop
+files/versions
+files/build-dependencies-linux.sh

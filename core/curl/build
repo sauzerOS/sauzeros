@@ -12,8 +12,7 @@
     --with-pic \
     --with-ca-fallback \
     --without-librtmp \
-    --without-libidn \
-    --without-libidn2
+    --without-libidn
 
 make
 make DESTDIR="$1" install
