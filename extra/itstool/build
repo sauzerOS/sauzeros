@@ -1,11 +1,7 @@
 #!/bin/sh -e
 
-#python 3.12+ fix
+patch -Np1 -i itstool-2.0.7-lxml-1.patch
 
-sed -i 's/re.sub(/re.sub(r/'         itstool.in
-sed -i 's/re.compile(/re.compile(r/' itstool.in
-
-
-PYTHON=/usr/bin/python3 ./configure --prefix=/usr
+PYTHON=/usr/bin/python3 ./autogen.sh --prefix=/usr
 make
 make DESTDIR=$1 install
