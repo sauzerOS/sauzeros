@@ -1,4 +1,6 @@
 #!/bin/sh -e
 
-make LDFLAGS="$LDFLAGS -static"
-make PREFIX=/usr DESTDIR="$1" install
+cd b3sum
+cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+cargo build --release
+install -Dt "$1"/usr/bin target/release/b3sum
