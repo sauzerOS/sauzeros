@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+ar x cursor_$2_amd64.deb
+tar xvf data.tar.xz -C $1/
