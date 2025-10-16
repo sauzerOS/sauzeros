@@ -1,10 +1,12 @@
 aria2
 b3sum
+bzip2
 coreutils
 curl
 git
 grep
 gzip
+lzip
 rsync
 sed
 tar

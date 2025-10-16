@@ -1,9 +1,8 @@
-bison make
-cbindgen make
+bison
+cbindgen
 expat
-flex  make
+flex
 glslang
-libclc
 libdrm
 libelf
 libglvnd
@@ -12,17 +11,17 @@ libxcb
 libXfixes
 libxshmfence
 libXxf86vm
-linux-headers make
+linux-headers
 llvm
 llvm-32
-m4 make
-meson make
-pkgconf make
-python make
-python-mako make
-python-pyyaml make
-rust make
-rust-bindgen make
+m4
+meson
+pkgconf
+python
+python-mako
+python-pyyaml
+rust
+rust-bindgen
 vulkan-loader
 wayland
 wayland-protocols

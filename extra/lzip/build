@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS"
+
+make
+make DESTDIR=$1 install

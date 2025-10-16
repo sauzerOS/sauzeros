@@ -8,6 +8,18 @@ export PATH=/usr/bin:/usr/sbin:/sbin:/bin:$HOME/.local/bin
 # Set default umask.
 umask 022
 
+# append_path DIR
+append_path() {
+  for _p in "$@"; do
+    [ -z "$_p" ] && continue
+    case ":$PATH:" in
+      *":$_p:"*) : ;;                # already present
+      *) PATH="$PATH:$_p" ;;         # append
+    esac
+  done
+  export PATH
+}
+
 # Load profiles from /etc/profile.d
 for file in /etc/profile.d/*.sh; do
     [ -r "$file" ] && . "$file"
@@ -37,3 +49,4 @@ export $(cat /etc/locale.conf)
 export EDITOR=nano
 alias ls='ls --color'
 alias grep='grep --color=auto'
+export KISS_PATH=/repo/no_updates:/repo/sauzeros/core:/repo/sauzeros/extra

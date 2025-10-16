@@ -5,12 +5,12 @@ sed '/examples/d;/third_party/d' -i CMakeLists.txt
 sed '/build-version/d' -i glslc/CMakeLists.txt
 
 cat <<- EOF > glslc/src/build-version.inc
-"2024.0\\n"
-"$(hokuto list spirv-tools|cut -d \  -f 2|sed 's/-.*//')\\n"
-"$(hokuto list glslang|cut -d \  -f 2|sed 's/-.*//')\\n"
+"${2}\\n"
+"$(pacman -Q spirv-tools|cut -d \  -f 2|sed 's/-.*//')\\n"
+"$(pacman -Q glslang|cut -d \  -f 2|sed 's/-.*//')\\n"
 EOF
 
-  cmake \
+cmake \
     -B build \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
@@ -19,5 +19,6 @@ EOF
     -DSHADERC_SKIP_TESTS=ON \
     -DPYTHON_EXECUTABLE=python \
     -Dglslang_SOURCE_DIR=/usr/include/glslang
-  ninja -C build
-  DESTDIR=$1 ninja -C build install
+
+ninja -C build
+DESTDIR=$1 ninja -C build install

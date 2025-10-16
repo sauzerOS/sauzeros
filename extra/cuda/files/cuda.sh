@@ -1,5 +1,5 @@
 # Begin /etc/profile.d/cuda.sh
 
-pathprepend /opt/cuda/bin           PATH
+append_path '/opt/cuda/bin'
 
 # End /etc/profile.d/cuda.sh
