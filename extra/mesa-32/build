@@ -8,13 +8,14 @@ meson setup                    \
       --libdir=/usr/lib32      \
       --buildtype=release      \
       -D platforms=x11,wayland \
-      -D gallium-drivers=auto  \
-      -D vulkan-drivers=auto   \
+      -D gallium-drivers="virgl,svga,softpipe,llvmpipe" \
+      -D vulkan-drivers="swrast" \
       -D gles1=disabled        \
       -D video-codecs=all      \
       -D valgrind=disabled     \
       -D libunwind=disabled    \
       ..
+
 sed -i 's/\/usr\/lib\//\/usr\/lib32\//g' ./build.ninja
 BINDGEN_EXTRA_CLANG_ARGS="-m32" ninja
 

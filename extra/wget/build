@@ -2,7 +2,8 @@
 
 ./configure --prefix=/usr      \
             --sysconfdir=/etc  \
-            --with-ssl=openssl
+            --with-bzip2       \
+            --with-lzma
 
 make
 make DESTDIR=$1 install

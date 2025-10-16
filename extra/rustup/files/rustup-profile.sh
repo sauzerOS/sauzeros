@@ -1,2 +1,2 @@
-append_path '/usr/lib/rustup/bin' export PATH
+append_path '/usr/lib/rustup/bin'
 
