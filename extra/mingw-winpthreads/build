@@ -3,6 +3,7 @@
 export CC=x86_64-w64-mingw32-gcc
 export CXX=x86_64-w64-mingw32-g++
 export CPPFLAGS="-I/usr/x86_64-w64-mingw32/include"
+export LDFLAGS="ld=ldd"
 
 mkdir build-x86_64-winpthreads
 cd    build-x86_64-winpthreads
@@ -21,6 +22,7 @@ cd ..
 export CC=i686-w64-mingw32-gcc
 export CXX=i686-w64-mingw32-g++
 export CPPFLAGS="-I/usr/i686-w64-mingw32/include"
+export LDFLAGS="ld=ldd"
 
 mkdir build-i686-winpthreads
 cd    build-i686-winpthreads
