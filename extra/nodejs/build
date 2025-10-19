@@ -3,13 +3,14 @@
 CFLAGS="$CFLAGS -fno-lto"
 CXXFLAGS=$CFLAGS
 
-./configure \
-    --prefix=/usr \
-    --shared-libuv \
-    --shared-zlib \
+./configure          \
+    --prefix=/usr    \
+    --shared-libuv   \
+    --shared-nghttp2 \
+    --shared-zlib    \
     --shared-openssl \
-    --shared-brotli \
+    --shared-brotli  \
     --with-intl=system-icu
 
-make
+make -j$(( $(nproc) / 2 ))
 make DESTDIR=$1 install

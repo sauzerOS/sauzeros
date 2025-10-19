@@ -1,2 +1,2 @@
-itstool make
-python-pygments make
+itstool
+python-pygments
