@@ -1,4 +1,5 @@
 #!/bin/sh -e
 
-python -m build --wheel --no-isolation
+git apply 0001-fix-many-deprecation-errors.patch
+python -m build -wn
 python -m installer --destdir="$1" dist/*.whl

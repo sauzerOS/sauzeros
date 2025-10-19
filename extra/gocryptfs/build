@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+export CGO_LDFLAGS="$LDFLAGS"
+export GOFLAGS="-buildmode=pie -trimpath -mod=vendor"
+
+./build.bash
+make DESTDIR=$1 install
