@@ -1,2 +1,2 @@
-glib make
-libsigc++3 make
+glib
+libsigc++3

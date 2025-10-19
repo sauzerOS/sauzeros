@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-mkdir bld
-cd    bld
+meson setup bld --prefix=/usr    \
+    -D build-documentation=false \
+    -D build-examples=false
 
-meson --prefix=/usr -Dbuild-documentation=false -Dbuild-examples=false ..
-ninja
-DESTDIR=$1 ninja install
+meson compile -C bld
+meson install -C bld --destdir=$1

@@ -3,4 +3,5 @@ libuv
 openssl
 python
 ninja
+nghttp2
 zlib-ng
