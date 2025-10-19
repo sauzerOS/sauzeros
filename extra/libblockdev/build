@@ -4,8 +4,7 @@
             --sysconfdir=/etc \
             --with-python3    \
             --without-gtk-doc \
-            --without-nvdimm  \
-            --without-dm
+            --without-nvdimm
 
 make
 make DESTDIR=$1 install

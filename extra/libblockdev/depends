@@ -3,5 +3,7 @@ keyutils
 libbytesize
 libnvme
 libyaml
+lvm2
 parted
+smartmontools
 volume-key
