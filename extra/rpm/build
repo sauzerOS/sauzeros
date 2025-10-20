@@ -1,16 +1,14 @@
 #!/bin/sh -e
 
-patch -Np1 -i rpmlib-filesystem-check.patch
+patch -Np1 -i fix-sequoia-off.patch
 
-	./configure \
-		--prefix=/usr  \
-		--sysconfdir=/etc  \
-		--localstatedir=/var \
-		--enable-python \
-		--with-external-db \
-		--with-lua \
-		--with-cap \
-		CPPFLAGS="`pkg-config --cflags nss`" \
-		PYTHON=python
-make
-make DESTDIR=$1 install
+cmake -B builddir                 \
+    -D WITH_AUDIT=OFF             \
+    -D WITH_SELINUX=OFF           \
+    -D WITH_SEQUOIA=OFF           \
+    -D WITH_FAPOLICYD=OFF         \
+    -D CMAKE_INSTALL_PREFIX=/usr  \
+    -D CMAKE_BUILD_TYPE=Release
+
+cmake --build builddir
+DESTDIR=$1 cmake --install builddir
