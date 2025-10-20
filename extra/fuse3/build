@@ -1,17 +1,16 @@
 #!/bin/sh -e
 
-#echo "BUILD AS ROOT"
-
 sed -i '/^udev/,$ s/^/#/' util/meson.build
-mkdir build
-cd build
 
-meson setup --prefix=/usr --buildtype=release ..
-ninja
-DESTDIR=$1 ninja install
+meson setup build --prefix=/usr \
+    --buildtype=release
+meson compile -C build
+meson install -C build --destdir=$1
 
 rm -rf $1/dev
 rm -rf $1/etc/init.d
 
 #fusermount needs +s to work
 chmod +s $1/usr/bin/fusermount3
+#symlink
+ln -s fusermount3 $1/usr/bin/fusermount

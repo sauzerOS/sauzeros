@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-install -Dm755 hokuto $LFS/usr/bin/hokuto
-
