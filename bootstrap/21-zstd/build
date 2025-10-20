@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-make CC=$LFS_TGT-gcc PREFIX=/usr HAVE_SHARED=0
-make CC=$LFS_TGT-gcc PREFIX=/usr DESTDIR=$LFS install
