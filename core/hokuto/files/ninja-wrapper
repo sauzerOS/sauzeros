@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# Wrapper for ninja that conditionally limits CPU cores and sets niceness.
+# It is activated by the HOKUTO_BUILD_PRIORITY environment variable.
+#
+
+REAL_NINJA="/usr/bin/ninja-real"
+
+# If the activation variable is not set or is set to 'normal',
+# just execute the real ninja and exit.
+if [ -z "$HOKUTO_BUILD_PRIORITY" ] || [ "$HOKUTO_BUILD_PRIORITY" = "normal" ]; then
+    exec "$REAL_NINJA" "$@"
+fi
+
+# --- Idle or Super Idle Priority Logic ---
+
+# Check if a -j or --jobs flag is already present in the arguments
+has_j_flag=0
+for arg in "$@"; do
+    case "$arg" in
+        -j*|--jobs*)
+            has_j_flag=1
+            break
+            ;;
+    esac
+done
+
+# Prepare the command execution prefix.
+# We will run the build with the lowest priority.
+NICE_CMD="nice -n 19"
+CMD_ARGS="$@"
+JOBS_ARG=""
+
+# If no -j flag is present, calculate and add our own
+if [ "$has_j_flag" -eq 0 ]; then
+    if [ "$HOKUTO_BUILD_PRIORITY" = "superidle" ]; then
+        # Super idle mode: 1 core
+        JOBS_ARG="-j1"
+    else
+        # Idle mode: half the cores
+        num_cores=$(($(nproc) / 2))
+        if [ "$num_cores" -lt 1 ]; then
+            num_cores=1
+        fi
+        JOBS_ARG="-j${num_cores}"
+    fi
+fi
+
+# Execute the final command with niceness, the calculated jobs flag (if any),
+# and the original arguments.
+exec $NICE_CMD "$REAL_NINJA" $JOBS_ARG $CMD_ARGS

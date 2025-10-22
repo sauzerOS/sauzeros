@@ -67,3 +67,5 @@ done
 install -d "$1/repo/sauzeros/no_updates"
 ln -s /proc/self/mounts "$1/etc/mtab"
 
+# Setup hokuto cache dirs
+install -dm 1777 "$1/var/cache/hokuto"
