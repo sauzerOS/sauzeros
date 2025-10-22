@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build                       \
+    -D CMAKE_INSTALL_PREFIX=/usr     \
+    -D WITH_DAV1D=ON                 \
+    -D WITH_RAV1E=OFF                \
+    -D WITH_FFMPEG_DECODER=ON        \
+    -D WITH_FFMPEG_DECODER_PLUGIN=ON \
+    -D WITH_OpenJPEG_DECODER=ON      \
+    -D WITH_GDK_PIXBUF=OFF
+
+cmake --build build
+DESTDIR="$1" cmake --install build
