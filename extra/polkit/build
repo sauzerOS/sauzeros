@@ -1,18 +1,18 @@
-#!/bin/sh
+#!/bin/sh -e
 
-mkdir build
-cd    build
+meson setup build --prefix=/usr  \
+      --buildtype=release        \
+      -D os_type=lfs             \
+      -D man=false               \
+      -D session_tracking=logind \
+      -D tests=false
 
-meson --prefix=/usr                       \
-      --buildtype=release                 \
-      -Dos_type=lfs                       \
-      -Dman=false                         \
-      -Dsession_tracking=logind           \
-      -Dtests=false
-      ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 install -d $1/etc/pam.d/
-install -Dm644 ../polkit-1 $1/etc/pam.d/polkit-1
+install -Dm644 polkit-1 $1/etc/pam.d/polkit-1
+install -Dm644 10-udisks2-mount.rules $1/etc/polkit-1/rules.d/10-udisks2-mount.rules
+install -Dm644 20-my-auth-keep.rules $1/etc/polkit-1/rules.d/20-my-auth-keep.rules
+install -Dm644 49-allow-passwordless-printer-admin.rules $1/etc/polkit-1/rules.d/49-allow-passwordless-printer-admin.rules
+install -Dm644 50-logs.rules $1/etc/polkit-1/rules.d/50-logs.rules

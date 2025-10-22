@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+echo $HOKUTO_IDLE_PRIORITY
+
 cd llvm
 
 grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'

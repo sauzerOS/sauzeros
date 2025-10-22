@@ -1,2 +1,6 @@
-https://github.com/polkit-org/polkit/archive/126/polkit-126.tar.gz
+git+https://github.com/polkit-org/polkit#2479524
 files/polkit-1
+files/10-udisks2-mount.rules
+files/20-my-auth-keep.rules
+files/49-allow-passwordless-printer-admin.rules
+files/50-logs.rules
