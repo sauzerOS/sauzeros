@@ -1,0 +1,11 @@
+bubblewrap
+cairo
+fontconfig
+little-cms
+libjxl
+libheif
+librsvg
+libseccomp
+gtk
+rust
+vala

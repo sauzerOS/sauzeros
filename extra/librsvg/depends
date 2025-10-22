@@ -1,5 +1,5 @@
 cairo
-cargo-c make
+cargo-c
 gdk-pixbuf
 pango
-rust make
+rust

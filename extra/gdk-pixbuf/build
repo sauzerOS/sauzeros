@@ -1,25 +1,22 @@
 #!/bin/sh -e
 
-#fix xfce4-panel without glycin
-sed -i '132s/guint32 height;/gint32 height;/' gdk-pixbuf/io-bmp.c
-
 meson setup build            \
       --prefix=/usr          \
       --buildtype=release    \
     -D android=disabled      \
     -D builtin_loaders=all   \
     -D documentation=false   \
-    -D gif=enabled           \
-    -D glycin=disabled       \
+    -D gif=disabled          \
+    -D glycin=enabled        \
     -D gtk_doc=false         \
     -D installed_tests=false \
     -D introspection=enabled \
-    -D jpeg=enabled          \
+    -D jpeg=disabled         \
     -D man=false             \
     -D others=enabled        \
-    -D png=enabled           \
-    -D thumbnailer=enabled   \
-    -D tiff=enabled
+    -D png=disabled          \
+    -D thumbnailer=disabled  \
+    -D tiff=disabled
 
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1
