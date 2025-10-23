@@ -17,16 +17,16 @@ cp -f \
     "$1/usr/bin"
 
 cp -f \
-    libbz2.so.1.0.8 \
+    libbz2.so.$2 \
     libbz2.a \
     "$1/usr/lib"
 
 cp -f bzip2.1 "$1/usr/share/man/man1"
 cp -f bzlib.h "$1/usr/include"
 
-ln -sf libbz2.so.1.0.8 "$1/usr/lib/libbz2.so"
-ln -sf libbz2.so.1.0.8 "$1/usr/lib/libbz2.so.1"
-ln -sf libbz2.so.1.0.8 "$1/usr/lib/libbz2.so.1.0"
+ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so"
+ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1"
+ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1.0"
 ln -sf bzip2 "$1/usr/bin/bunzip2"
 ln -sf bzip2 "$1/usr/bin/bzcat"
 
@@ -37,8 +37,8 @@ sed -e "s/^CC=.*/CC=gcc -m32/" -i Makefile{,-libbz2_so}
 make -f Makefile-libbz2_so
 make libbz2.a
 install -d $1/usr/lib32
-install -Dm755 libbz2.so.1.0.8 $1/usr/lib32/libbz2.so.1.0.8
-ln -sf libbz2.so.1.0.8 $1/usr/lib32/libbz2.so
-ln -sf libbz2.so.1.0.8 $1/usr/lib32/libbz2.so.1
-ln -sf libbz2.so.1.0.8 $1/usr/lib32/libbz2.so.1.0
+install -Dm755 libbz2.so.$2 $1/usr/lib32/libbz2.so.$2
+ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so
+ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so.1
+ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so.1.0
 install -Dm644 libbz2.a $1/usr/lib32/libbz2.a

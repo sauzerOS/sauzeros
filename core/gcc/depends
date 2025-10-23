@@ -1,5 +1,5 @@
 binutils
-flex make
+flex
 gmp 
 isl
 mpfr

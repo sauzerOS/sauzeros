@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+LDFLAGS="-fuse-ld=bfd -O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack"
 # use our custom localedata config
 cp en_CH localedata/locales/en_CH
 
