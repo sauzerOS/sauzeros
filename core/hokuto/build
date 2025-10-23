@@ -2,6 +2,3 @@
 
 install -Dm755 hokuto $1/usr/bin/hokuto
 ln -s hokuto $1/usr/bin/hk
-
-# install ninja wrapper for build jobs limit
-install -Dm755 ninja-wrapper $1/usr/bin/ninja
