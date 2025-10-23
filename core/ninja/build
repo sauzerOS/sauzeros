@@ -15,6 +15,7 @@ mkdir -pv $1/usr/share/zsh/site-functions/
 
 # install as ninja-real in order to use our wrapper
 install -vm755 ninja $1/usr/bin/ninja-real
+install -vm755 ninja-wrapper $1/usr/bin/ninja
 install -vDm644 misc/bash-completion $1/usr/share/bash-completion/completions/ninja
 install -vDm644 misc/zsh-completion  $1/usr/share/zsh/site-functions/_ninja
 

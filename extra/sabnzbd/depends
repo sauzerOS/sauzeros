@@ -29,3 +29,4 @@ python-rebulk
 python-babelfish
 python-markdown
 python-configobj
+python-rarfile

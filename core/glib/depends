@@ -1,7 +1,0 @@
-libffi
-libxml2
-meson   make
-ninja make
-pcre2
-pkgconf make
-zlib-ng
