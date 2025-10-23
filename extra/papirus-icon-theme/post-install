@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-gtk-update-icon-cache -f /usr/share/icons/ePapirus
-gtk-update-icon-cache -f /usr/share/icons/ePapirus-Dark
 gtk-update-icon-cache -f /usr/share/icons/Papirus
 gtk-update-icon-cache -f /usr/share/icons/Papirus-Dark
 gtk-update-icon-cache -f /usr/share/icons/Papirus-Light
