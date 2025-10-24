@@ -1,4 +1,3 @@
 #!/bin/sh -e
 
-KERNEL_VERSION=$(make -s -C /usr/src/linux kernelrelease)
-depmod -a -b "$1" "${KERNEL_VERSION}"
+depmod -a
