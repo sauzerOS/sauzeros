@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-if hokuto list cmake; then
+if hokuto list cmake 2>&1 | grep -qv "Error"; then
     cmake -B build \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
@@ -31,5 +31,4 @@ fi
 
 rm -rf \
     "$1/usr/doc" \
-    "$1/usr/share/cmake"*/Help \
-    "$1/usr/share/bash-completion"
+    "$1/usr/share/cmake"*/Help
