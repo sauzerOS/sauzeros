@@ -10,10 +10,16 @@ patch -p1 -d kernel-open -i ../gpl.patch
 # Build and install kernel modules
 export SYSSRC=/usr/src/linux/
 export SYSOUT=/usr/src/linux/
+
+# Get the kernel version from the source tree (not the running kernel)
+KERNEL_VERSION=$(make -s -C /usr/src/linux kernelrelease)
+
+# Build modules against the target kernel
 make modules -j$(nproc)
 
-mkdir -p "$1/lib/modules/$(make -s -C /usr/src/linux kernelrelease)/kernel/drivers/video"
-cp kernel-open/*.ko "$1/lib/modules/$(make -s -C /usr/src/linux kernelrelease)/kernel/drivers/video/"
+# Install to the target kernel's module directory
+mkdir -p "$1/lib/modules/${KERNEL_VERSION}/kernel/drivers/video"
+cp kernel-open/*.ko "$1/lib/modules/${KERNEL_VERSION}/kernel/drivers/video/"
 
 install -d $1/etc/modprobe.d
 cp nvidia.conf $1/etc/modprobe.d/
