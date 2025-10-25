@@ -14,7 +14,7 @@ echo "rootsbindir=/usr/bin" >> configparms
 
 ../configure --prefix=/usr \
     --disable-werror \
-    --enable-kernel=6.8 \
+    --enable-kernel=6.17 \
     --enable-stack-protector=strong \
     --libdir=/usr/lib \
     --libexecdir=/usr/lib \
