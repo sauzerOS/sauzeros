@@ -1,11 +1,11 @@
 #!/bin/sh -e
 
-meson --prefix=/usr build
+meson setup build --prefix=/usr
 
 ninja -C build
 DESTDIR=$1 ninja -C build install
 
-#32 bit
+#32bit
 rm -rf build
 meson setup build           \
       --cross-file=lib32    \
