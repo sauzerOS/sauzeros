@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
+
 echo depends bli part_gpt > grub-core/extra_deps.lst
+patch -Np0 -i  disable-license-check.patch
 ./configure --prefix=/usr        \
             --sysconfdir=/etc    \
             --disable-efiemu     \

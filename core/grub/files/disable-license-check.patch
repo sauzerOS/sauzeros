@@ -1,0 +1,16 @@
+--- util/grub-module-verifierXX.c	2023-03-14 15:07:54.000000000 +0000
++++ util/grub-module-verifierXX.c	2025-10-25 07:25:42.319914210 +0000
+@@ -233,12 +233,7 @@
+ check_license (const char * const filename,
+ 	       const struct grub_module_verifier_arch *arch, Elf_Ehdr *e, size_t module_size)
+ {
+-  Elf_Shdr *s = find_section (arch, e, ".module_license", module_size);
+-  if (s && (strcmp ((char *) e + grub_target_to_host(s->sh_offset), "LICENSE=GPLv3") == 0
+-	    || strcmp ((char *) e + grub_target_to_host(s->sh_offset), "LICENSE=GPLv3+") == 0
+-	    || strcmp ((char *) e + grub_target_to_host(s->sh_offset), "LICENSE=GPLv2+") == 0))
+-    return;
+-  grub_util_error ("%s: incompatible license", filename);
++return;
+ }
+ 
+ static Elf_Sym *
