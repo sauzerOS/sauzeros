@@ -1,13 +1,57 @@
 #!/bin/sh -e
 
-
+cd grub
 echo depends bli part_gpt > grub-core/extra_deps.lst
-patch -Np0 -i  disable-license-check.patch
-./configure --prefix=/usr        \
-            --sysconfdir=/etc    \
-            --disable-efiemu     \
-            --with-platform=efi  \
-            --target=x86_64      \
-            --disable-werror
-make
-make DESTDIR=$1 install
+patch -Np0 -i  ../disable-license-check.patch
+cd ..
+_platform=(
+  i386-pc
+  i386-efi
+  x86_64-efi
+)
+
+_configure_options=(
+  --prefix="/usr"
+  --bindir="/usr/bin"
+  --sbindir="/usr/bin"
+  --mandir="/usr/share/man"
+  --infodir="/usr/share/info"
+  --datarootdir="/usr/share"
+  --sysconfdir="/etc"
+  --program-prefix=""
+  --with-bootdir="/boot"
+  --with-grubdir="grub"
+  --enable-boot-time
+  --enable-cache-stats
+  --disable-werror
+)
+
+ for i in ${_platform[@]}; do
+    echo "Unset CFLAGS for build..."
+    unset CFLAGS CXXFLAGS
+    cp -r grub "grub-${i}"
+    cd "grub-${i}"
+    echo "Run ./configure for ${i} build..."
+    [[ "${i}" == "i386-pc" ]] && _configure_options+=(--enable-efiemu --with-platform="pc" --target="i386")
+    [[ "${i}" == "i386-efi" ]] && _configure_options+=(--disable-efiemu --with-platform="efi" --target="i386")
+    [[ "${i}" == "x86_64-efi" ]] && _configure_options+=(--with-platform="efi" --target="x86_64")
+    autoreconf -fvi
+    ./configure PACKAGE_VERSION=$2 \
+                ${_configure_options[@]}
+    echo "Run make for ${i} build..."
+    make
+    cd ..
+  done
+
+  for i in ${_platform[@]}; do
+    cd "grub-${i}"
+    echo "Run make install for ${i} build..."
+    make DESTDIR="${1}/" bashcompletiondir="/usr/share/bash-completion/completions" install
+    echo "Remove gdb debugging related files for ${i}..."
+    rm -f "${1}/usr/lib/grub/${i}"/*.module
+    rm -f "${1}/usr/lib/grub/${i}"/*.image
+    rm -f "${1}/usr/lib/grub/${i}"/{kernel.exec,gdb_grub,gmodule.pl}
+   cd ..
+  done
+  echo "Install /etc/default/grub (used by grub-mkconfig)..."
+  install -D -m0644 "grub.default" "${1}/etc/default/grub"

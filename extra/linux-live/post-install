@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 for kver in /lib/modules/*; do
     if [ -d "$kver" ]; then
@@ -6,4 +6,3 @@ for kver in /lib/modules/*; do
         depmod -a "$(basename "$kver")"
     fi
 done
-
