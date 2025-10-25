@@ -7,7 +7,7 @@ meson setup build --prefix=/usr \
 meson compile -C build
 DESTDIR=$1 meson install -C build
 
-#32 bit
+#32bit
 export CC="gcc -m32"
 export CXX="g++ -m32"
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"

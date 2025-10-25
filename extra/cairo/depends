@@ -4,5 +4,5 @@ libffi
 libpng
 mesa
 pixman
-pkgconf make
+pkgconf
 zlib-ng

@@ -8,7 +8,7 @@ meson setup \
 ninja -C output
 DESTDIR=$1 ninja -C output install
 
-#32 bit
+#32bit
 meson setup build           \
       --cross-file=lib32    \
       --prefix=/usr         \
