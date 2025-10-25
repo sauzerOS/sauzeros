@@ -18,15 +18,13 @@ flex
 gmp
 isl
 mpfr
-libmpc
+mpc
 gcc
 gcc
 bzip2
 linux-headers
 ncurses
 readline
-zlib-ng
-pcre2
 bc
 diffutils
 findutils
@@ -44,6 +42,7 @@ autoconf
 automake
 libtool
 pkgconf
+pcre2
 gettext
 util-linux
 libcap
@@ -51,7 +50,6 @@ ninja
 meson
 pam
 shadow
-psmisc
 gperf
 iana-etc
 inetutils
@@ -81,6 +79,8 @@ systemd
 dbus
 procps-ng
 which
+libunistring
+libidn2
 libpsl
 curl
 cmake
@@ -90,12 +90,12 @@ lzo
 e2fsprogs
 btrfs-progs
 cpio
-libidn2
 libtasn1
 p11-kit
 nspr
 nss
 make-ca
+psmisc
 dosfstools
 dracut
 efivar
