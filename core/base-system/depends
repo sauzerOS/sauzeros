@@ -21,6 +21,8 @@ mpfr
 mpc
 gcc
 gcc
+binutils
+less
 bzip2
 linux-headers
 ncurses
@@ -42,6 +44,7 @@ autoconf
 automake
 libtool
 pkgconf
+zlib-ng
 pcre2
 gettext
 util-linux
@@ -103,7 +106,6 @@ efibootmgr
 git
 libxml2
 gobject-introspection
-less
 libevent
 libusb
 usbutils

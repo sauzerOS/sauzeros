@@ -1,10 +1,10 @@
 #!/bin/sh -e
 
-unset CFLAGS LDFLAGS
+LDFLAGS="${LDFLAGS//-Wl/}"
+LDFLAGS="${LDFLAGS//,/ }"
 
-make -j1 all
-make
-make INSTALLROOT="$1" PREFIX=/usr LIBDIR=/usr/lib install
+make PREFIX=/usr
+make INSTALLROOT="$1" PREFIX=/usr install
 
 install -v -dm755 "$1/usr/share/gnu-efi/apps/x86_64"
 install -v -m644  x86_64/apps/*.efi \
