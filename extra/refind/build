@@ -1,0 +1,46 @@
+#!/bin/sh -e
+
+# remove the path prefix from the css reference, so that the css can live
+# in the same directory
+sed -e 's|../Styles/||g' -i docs/$3/*.html
+# hardcode RefindDir, so that refind-install can find refind_x64.efi
+sed -e 's|RefindDir=\"\$ThisDir/refind\"|RefindDir="/usr/share/refind/"|g' -i refind-install
+# add vendor line to the sbat file
+printf 'refind.%s,%s,%s,refind,%s,%s\n' 'sauzeros' '1' 'sauzerOS' "${epoch:+${epoch}:}${pkgver}-${pkgrel}" 'https://github.com/sauzerOS/' >> refind-sbat.csv
+
+# fix build with gnu-efi 4+
+patch -Np1 -i refind-0.14.2-gnu-efi-4.patch
+
+make
+make gptsync
+make fs
+
+# NOTE: the install target calls refind-install, therefore we install things manually
+# efi binaries
+install -vDm 644 refind/*.efi -t "$1/usr/share/$3/"
+install -vDm 644 drivers_*/*.efi -t "$1/usr/share/refind/drivers_$_arch/"
+install -vDm 644 gptsync/*.efi -t "$1/usr/share/$3/tools_$_arch/"
+# sample config
+install -vDm 644 $3.conf-sample -t "$1/usr/share/$3/"
+# keys
+install -vDm 644 keys/*{cer,crt} -t "$1/usr/share/$3/keys/"
+# keysdir
+install -vdm 700 "$1/etc/refind.d/keys"
+# fonts
+install -vDm 644 fonts/*.png -t "$1/usr/share/$3/fonts/"
+# icons
+install -vDm 644 icons/*.png -t "$1/usr/share/$3/icons"
+install -vDm 644 icons/svg/*.svg -t "$1/usr/share/$3/icons/svg/"
+# scripts
+install -vDm 755 {refind-{install,mkdefault,sb-healthcheck},mkrlconf,mvrefind} -t "$1/usr/bin/"
+install -vDm 755 fonts/mkfont.sh "$1/usr/bin/$3-mkfont"
+# man page
+install -vDm 644 docs/man/*.8 -t "$1/usr/share/man/man8/"
+# docs
+install -vDm 644 {CREDITS,NEWS,README}.txt -t "$1/usr/share/doc/$3-docs/"
+install -vDm 644 fonts/README.txt "$1/usr/share/doc/$3-docs/README.$3-docs-mkfont.txt"
+install -vDm 644 icons/README "$1/usr/share/doc/$3-docs/README.icons.txt"
+install -vDm 644 keys/README.txt "$1/usr/share/doc/$3-docs/README.keys.txt"
+install -vDm 644 docs/$3/*.{html,png,svg,txt} -t "$1/usr/share/doc/$3/html/"
+install -vDm 644 docs/Styles/*.css -t "$1/usr/share/doc/$3/html/"
+install -vDm 644 images/$3-banner.{png,svg} -t "$1/usr/share/doc/$3/html/"

@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+# perl fix
+sed 's/! $output_file eq/$output_file ne/' -i tp/Texinfo/Convert/*.pm
+
+LANG=C
+
 ./configure \
     --prefix=/usr
 
