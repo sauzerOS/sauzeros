@@ -1,6 +1,7 @@
 #!/bin/sh -e
-unzip chntpw-source-140201.zip
-cd chntpw-140201
+
+cd $3-$2
+
 sed -i 's/^CFLAGS= \(.*\) -m32 $/CFLAGS= \1 -Wno-incompatible-pointer-types/' Makefile
 make
   install -Dm0755 chntpw "$1/usr/bin/chntpw"

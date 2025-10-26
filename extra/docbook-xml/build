@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-unzip *.zip -d extract
-cd extract
-
 install -d $1/usr/bin
 install -vdm755 $1/usr/share/xml/docbook/schema/rng/$2
 install -vdm755 $1/usr/share/xml/docbook/schema/sch/$2
