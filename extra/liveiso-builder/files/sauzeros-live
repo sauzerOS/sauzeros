@@ -1,0 +1,112 @@
+#!/bin/bash -e
+
+# --- Color Definitions ---
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# --- 1) Root Check ---
+if [[ "$(id -u)" -ne 0 ]]; then
+    echo -e "${RED}Error: This script must be run as root (e.g., via sudo).${NC}" >&2
+    exit 1
+fi
+
+# --- FIX: Capture the original directory and user ---
+# When run via 'sudo', this captures the directory where the user ran the command.
+# If not using sudo (e.g., direct root login), it falls back to the current directory.
+if [ -n "$SUDO_USER" ]; then
+    # Captures the directory from where 'sudo' was invoked.
+    original_dir=$(pwd)
+else
+    # Fallback for direct root login.
+    original_dir=$(pwd)
+fi
+
+# --- 2) User Input for Directories ---
+read -e -p "$(echo -e ${BLUE}"Enter the build directory (default: /tmp/iso_build): "${NC})" build_dir
+build_dir=${build_dir:-/tmp/iso_build}
+# 'eval echo' is a safe way to force the shell to perform tilde expansion on the input.
+build_dir=$(eval echo "$build_dir")
+
+
+read -e -p "$(echo -e ${BLUE}"Enter the rootfs directory (default: /var/tmp/sauzerOS-live): "${NC})" rootfs_dir
+rootfs_dir=${rootfs_dir:-/var/tmp/sauzerOS-live}
+rootfs_dir=$(eval echo "$rootfs_dir")
+
+if [[ ! -d "$rootfs_dir" ]]; then
+    echo -e "${RED}Error: Rootfs directory '$rootfs_dir' not found.${NC}" >&2
+    exit 1
+fi
+
+# --- 3) Dynamic ISO Filename ---
+timestamp=$(date +'%Y%m%d-%H%M')
+iso_filename="sauzerOS-live-${timestamp}.iso"
+# FIX: Use the captured original directory for the final path.
+iso_path_final="${original_dir}/${iso_filename}"
+
+
+# --- Script Body ---
+echo -e "${BLUE}-> Using build directory: ${build_dir}${NC}"
+echo -e "${BLUE}-> Using rootfs directory: ${rootfs_dir}${NC}"
+
+if [ -d "$build_dir" ]; then
+    echo -e "${BLUE}-> Cleaning up previous build directory...${NC}"
+    rm -rf "$build_dir"
+fi
+mkdir -pv "$build_dir"
+
+pushd "$build_dir" > /dev/null
+
+echo -e "${BLUE}-> Creating ISO directory structure...${NC}"
+iso_root="iso_root"
+mkdir -pv "$iso_root"/{boot,limine,LiveOS,EFI/BOOT,}
+
+echo -e "${BLUE}-> Copying kernel and initramfs...${NC}"
+cp -v "$rootfs_dir"/boot/initramfs.img "$iso_root"/boot/initramfs.img
+cp -v "$rootfs_dir"/boot/vmlinuz-sauzerOS-live "$iso_root"/boot/vmlinuz
+
+echo -e "${BLUE}-> Creating squashfs image (this may take a while)...${NC}"
+mksquashfs "$rootfs_dir" "$iso_root"/LiveOS/squashfs.img -comp xz -b 1M
+
+echo -e "${BLUE}-> Installing Limine bootloader files...${NC}"
+cp -v /usr/share/limine/{limine-uefi-cd.bin,limine-bios-cd.bin,limine-bios.sys} "$iso_root"/limine/
+cp -v /usr/share/limine/BOOTX64.EFI "$iso_root"/EFI/BOOT/
+cp -v /usr/share/liveiso-builder/limine.conf "$iso_root"/limine/limine.conf
+
+echo -e "${BLUE}-> Preparing EFI shells...${NC}"
+xz -dc /usr/share/liveiso-builder/shell.efi.xz > "$iso_root"/EFI/BOOT/shellx64_mini.efi
+xz -dc /usr/share/liveiso-builder/shell_full.efi.xz > "$iso_root"/EFI/BOOT/shellx64.efi
+
+echo -e "${BLUE}-> Building the ISO image with xorriso...${NC}"
+# FIX: Use the absolute path for the output file.
+xorriso -as mkisofs -R -r -J                 \
+        -volid "sauzerOS-live"               \
+        -iso-level 3 -full-iso9660-filenames \
+        -b limine/limine-bios-cd.bin         \
+        -no-emul-boot -boot-load-size 4      \
+        -boot-info-table -hfsplus            \
+        -apm-block-size 2048                 \
+        --efi-boot limine/limine-uefi-cd.bin \
+        -efi-boot-part --efi-boot-image      \
+        --protective-msdos-label             \
+        "$iso_root" -o "$iso_path_final"
+
+echo -e "${BLUE}-> Making the ISO bootable on BIOS systems...${NC}"
+# FIX: Use the absolute path for limine install.
+limine bios-install "$iso_path_final"
+
+popd > /dev/null
+
+echo -e "${BLUE}-> Cleaning up intermediate files...${NC}"
+rm -rf "$build_dir"
+
+# --- FIX: Change ownership back to the original user ---
+# The $SUDO_USER, $SUDO_UID, and $SUDO_GID variables are set by the 'sudo' command.
+# This ensures the final ISO is owned by the user who ran the script, not by root.
+if [ -n "$SUDO_USER" ]; then
+    echo -e "${BLUE}-> Setting file ownership to '${SUDO_USER}'...${NC}"
+    chown "$SUDO_UID:$SUDO_GID" "$iso_path_final"
+fi
+
+# --- 4) Success Message ---
+echo -e "${BLUE}-> Success! ${iso_filename} written to ${original_dir}${NC}"

@@ -1,0 +1,4 @@
+files/limine.conf
+files/shell.efi.xz noextract
+files/shell_full.efi.xz noextract
+files/sauzeros-live

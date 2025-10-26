@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+  --enable-bios-cd        \
+  --enable-bios-pxe       \
+  --enable-bios           \
+  --enable-uefi-ia32      \
+  --enable-uefi-x86-64    \
+  --enable-uefi-cd
+
+make
+make DESTDIR=$1 install
