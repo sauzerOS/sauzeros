@@ -5,7 +5,24 @@ cd kernel
 shortver=$(echo "$2" | cut -d. -f1-2)
 patch -Np1 -i ../patches/$shortver/all/0001-cachyos-base-all.patch || true
 zcat ../config.gz > .config
-make olddefconfig
+make oldconfig
+while true; do
+    read -p "Save updated kernel config to repo package? [yes/no]: " answer
+    case "${answer,,}" in   # ,, lowercases the input (bashism)
+        yes)
+            gzip -c .config > /repo/sauzeros/core/$3/files/config.gz
+            echo "Kernel config saved to repo package."
+            break
+            ;;
+        no)
+            echo "Skipping kernel config save."
+            break
+            ;;
+        *)
+            echo "Please type 'yes' or 'no'."
+            ;;
+    esac
+done
 make all
 make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 
@@ -23,7 +40,6 @@ rm $1/usr/lib/modules/$2-sauzerOS_C/build
 # install headers
 
 builddir=$1/usr/lib/modules/$2-sauzerOS_C/build
-install -d $1/builddir
 
 install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
   vmlinux tools/bpf/bpftool/vmlinux.h
