@@ -1,0 +1,17 @@
+--- dmsquash-live-root.sh	2025-08-04 17:40:12.000000000 +0700
++++ dmsquash-live-root.sh	2025-10-25 23:53:48.726846934 +0700
+@@ -326,10 +326,10 @@
+     if [ -n "$live_ram" ]; then
+         imgsize=$(($(stat -c %s -- "$SQUASHED") / (1024 * 1024)))
+         check_live_ram $imgsize
+-        echo 'Copying live image to RAM...' > /dev/kmsg
+-        echo ' (this may take a minute)' > /dev/kmsg
+-        dd "if=$SQUASHED" of=/run/initramfs/squashed.img bs=512 2> /dev/null
+-        echo 'Done copying live image to RAM.' > /dev/kmsg
++        echo 'Copying live image to RAM...' > /dev/console
++        echo ' (this may take a minute)' > /dev/console
++        dd "if=$SQUASHED" of=/run/initramfs/squashed.img bs=512 status=progress 2> /dev/console
++        echo 'Done copying live image to RAM.' > /dev/console
+         SQUASHED="/run/initramfs/squashed.img"
+     fi
+ 
