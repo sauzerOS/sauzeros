@@ -1,8 +1,6 @@
 #!/bin/sh -e
 
 LDFLAGS="-fuse-ld=bfd -O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack"
-# use our custom localedata config
-cp en_CH localedata/locales/en_CH
 
 mkdir -v glibc-build
 cd glibc-build
@@ -31,7 +29,6 @@ install -d $1/usr/bin
 install -d $1/etc
 install -Dm755 locale-gen $1/usr/bin/locale-gen
 install -Dm644 locale.gen $1/etc/locale.gen
-localedef --no-archive -i localedata/locales/en_CH -f UTF-8 $1/usr/lib/locale/en_CH.UTF-8
 
 mkdir -pv "$1"/etc
 mkdir -pv "$1"/var/cache/nscd
@@ -55,7 +52,7 @@ CC="gcc -m32" CXX="g++ -m32" \
       --disable-nscd                     \
       libc_cv_slibdir=/usr/lib32         \
       --enable-stack-protector=strong    \
-      --enable-kernel=6.8
+      --enable-kernel=6.17
 make
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
