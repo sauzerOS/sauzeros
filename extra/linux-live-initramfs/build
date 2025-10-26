@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+dracut --force-add "dmsquash-live bash systemd" --kver $2-sauzerOS-live --xz $1/boot/initramfs.img
