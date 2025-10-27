@@ -2,7 +2,6 @@
 
 
 sed -i '/echo "Done!" || echo "Failed!!!"/a \
-# Ensure Steam-compatible symlink\n\
 ln -sf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-bundle.crt' make-ca
 
 make DESTDIR=$1 install

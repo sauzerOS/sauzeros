@@ -2,6 +2,6 @@
 
 # update certs
 make-ca -g
-
+make-ca -r
 # enable systemd update timer
 systemctl enable update-pki.timer

@@ -5,6 +5,8 @@ gzip
 xz
 zstd
 tar
+attr
+acl
 rsync
 expat
 libffi
@@ -34,8 +36,6 @@ file
 gawk
 grep
 make
-attr
-acl
 patch
 sed
 bash
@@ -79,7 +79,6 @@ icu
 glib
 dbus
 systemd
-dbus
 procps-ng
 which
 libunistring
@@ -94,9 +93,9 @@ e2fsprogs
 btrfs-progs
 cpio
 libtasn1
-p11-kit
 nspr
 nss
+p11-kit
 make-ca
 psmisc
 dosfstools
@@ -116,9 +115,7 @@ nano
 sudo
 lzip
 hokuto
-lvm2
-
-
+dbus
 
 
 
