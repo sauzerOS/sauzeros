@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+python setup.py build
+python setup.py install --root="${1}" --optimize=1 --skip-build
+
+libdir="$1/var/lib/$3"
+install -d -m755 "${libdir}"
+
+pushd build/lib/refind_btrfs/data
+
+install -D -m755 refind-btrfs "${1}/usr/bin/refind-btrfs"
+install -D -m644 refind-btrfs.service "${1}/usr/lib/systemd/system/refind-btrfs.service"
+
+btrfslogodir="${libdir}/icons/btrfs_logo"
+
+install -d "${btrfslogodir}"
+install -D icons/btrfs_logo/* -t "${btrfslogodir}"
+
+popd
+# custom snapshot management script
+install -d $1/usr/bin
+install -Dm 0755 snapshot $1/usr/bin/snapshot
+
+# custom conf file
+install -D -m644 refind-btrfs.conf "${1}/etc/refind-btrfs.conf"

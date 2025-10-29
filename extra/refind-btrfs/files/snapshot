@@ -1,0 +1,84 @@
+#!/bin/bash
+# btrfs-snapshot-and-refind.sh
+# Create a timestamped snapshot of / and then run refind-btrfs
+# Or, with -delete, interactively delete snapshots under /snapshots
+
+# --- Color definitions ---
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+RESET="\e[0m"
+
+SNAPDIR="/snapshots"
+
+# --- Root check ---
+if [[ $EUID -ne 0 ]]; then
+    echo -e "${RED}[ERROR]${RESET} This script must be run as root."
+    exit 1
+fi
+
+# --- Delete mode ---
+if [[ "$1" == "-delete" ]]; then
+    if [[ ! -d "$SNAPDIR" ]]; then
+        echo -e "${RED}[ERROR]${RESET} Snapshot directory ${SNAPDIR} does not exist."
+        exit 1
+    fi
+
+    echo -e "${BLUE}[ACTION]${RESET} Listing snapshots in ${SNAPDIR}"
+    shopt -s nullglob
+    for snap in "$SNAPDIR"/*; do
+        if [[ -d "$snap" ]]; then
+            read -p "Delete snapshot $(basename "$snap")? [y/N]: " ans
+            case "$ans" in
+                [yY]|[yY][eE][sS])
+                    echo -e "${YELLOW}[INFO]${RESET} Deleting $snap"
+                    btrfs subvolume delete "$snap"
+                    if [[ $? -eq 0 ]]; then
+                        echo -e "${GREEN}[OK]${RESET} Deleted $snap"
+                    else
+                        echo -e "${RED}[FAIL]${RESET} Could not delete $snap"
+                    fi
+                    ;;
+                *)
+                    echo -e "${YELLOW}[SKIP]${RESET} Skipped $snap"
+                    ;;
+            esac
+        fi
+    done
+    exit 0
+fi
+
+# --- Snapshot creation mode ---
+DATE=$(date +"%Y-%m-%d_%H-%M-%S")
+TARGET="${SNAPDIR}/${DATE}"
+
+# Ensure snapshot directory exists
+if [[ ! -d "$SNAPDIR" ]]; then
+    echo -e "${YELLOW}[INFO]${RESET} Creating snapshot directory at ${SNAPDIR}"
+    mkdir -p "$SNAPDIR"
+fi
+
+# Create snapshot
+echo -e "${BLUE}[ACTION]${RESET} Creating snapshot of / at ${TARGET}"
+btrfs subvolume snapshot / "$TARGET"
+if [[ $? -eq 0 ]]; then
+    echo -e "${GREEN}[OK]${RESET} Snapshot created successfully."
+else
+    echo -e "${RED}[FAIL]${RESET} Snapshot creation failed."
+    exit 1
+fi
+
+# Run refind-btrfs
+echo -e "${BLUE}[ACTION]${RESET} Running refind-btrfs to update boot entries"
+if command -v refind-btrfs >/dev/null 2>&1; then
+    refind-btrfs
+    if [[ $? -eq 0 ]]; then
+        echo -e "${GREEN}[OK]${RESET} refind-btrfs completed successfully."
+    else
+        echo -e "${RED}[FAIL]${RESET} refind-btrfs encountered an error."
+    fi
+else
+    echo -e "${RED}[ERROR]${RESET} refind-btrfs not found in PATH."
+    exit 1
+fi

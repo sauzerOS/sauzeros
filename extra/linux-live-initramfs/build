@@ -1,3 +1,4 @@
 #!/bin/sh -e
 
-dracut --force-add "dmsquash-live bash systemd" --kver $2-sauzerOS-live --xz $1/boot/initramfs.img
+install -d $1/boot/
+dracut --force-add "dmsquash-live bash systemd rescue fs-lib" --install "/etc/shadow /etc/nsswitch.conf /usr/lib64/libcrypt.so.2" --kver $2-sauzerOS-live --xz $1/boot/initramfs.img
