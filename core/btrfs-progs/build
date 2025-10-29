@@ -4,4 +4,4 @@
             --disable-static        \
             --disable-documentation
 make
-make DESTDIR=$1 install
+make DESTDIR=$1 install install_python
