@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cd runtime/Python3
+
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl

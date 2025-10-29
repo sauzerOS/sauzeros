@@ -23,8 +23,8 @@ else
 fi
 
 # --- 2) User Input for Directories ---
-read -e -p "$(echo -e ${BLUE}"Enter the build directory (default: /tmp/iso_build): "${NC})" build_dir
-build_dir=${build_dir:-/tmp/iso_build}
+read -e -p "$(echo -e ${BLUE}"Enter the build directory (default: /var/tmp/iso_build): "${NC})" build_dir
+build_dir=${build_dir:-/var/tmp/iso_build}
 # 'eval echo' is a safe way to force the shell to perform tilde expansion on the input.
 build_dir=$(eval echo "$build_dir")
 
@@ -39,8 +39,8 @@ if [[ ! -d "$rootfs_dir" ]]; then
 fi
 
 # --- 3) Dynamic ISO Filename ---
-timestamp=$(date +'%Y%m%d-%H%M')
-iso_filename="sauzerOS-live-${timestamp}.iso"
+#timestamp=$(date +'%Y%m%d-%H%M')
+iso_filename="sauzerOS-live.iso"
 # FIX: Use the captured original directory for the final path.
 iso_path_final="${original_dir}/${iso_filename}"
 
@@ -72,6 +72,7 @@ echo -e "${BLUE}-> Installing Limine bootloader files...${NC}"
 cp -v /usr/share/limine/{limine-uefi-cd.bin,limine-bios-cd.bin,limine-bios.sys} "$iso_root"/limine/
 cp -v /usr/share/limine/BOOTX64.EFI "$iso_root"/EFI/BOOT/
 cp -v /usr/share/liveiso-builder/limine.conf "$iso_root"/limine/limine.conf
+cp -v /usr/share/liveiso-builder/sauzeros_splash.png "$iso_root"/limine/splash.png
 
 echo -e "${BLUE}-> Preparing EFI shells...${NC}"
 xz -dc /usr/share/liveiso-builder/shell.efi.xz > "$iso_root"/EFI/BOOT/shellx64_mini.efi
@@ -84,8 +85,6 @@ xorriso -as mkisofs -R -r -J                 \
         -iso-level 3 -full-iso9660-filenames \
         -b limine/limine-bios-cd.bin         \
         -no-emul-boot -boot-load-size 4      \
-        -boot-info-table -hfsplus            \
-        -apm-block-size 2048                 \
         --efi-boot limine/limine-uefi-cd.bin \
         -efi-boot-part --efi-boot-image      \
         --protective-msdos-label             \
