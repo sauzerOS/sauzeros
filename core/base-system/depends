@@ -22,7 +22,7 @@ isl
 mpfr
 mpc
 gcc
-gcc
+gcc rebuild
 binutils
 less
 bzip2
@@ -115,6 +115,7 @@ nano
 sudo
 lzip
 hokuto
+glib
 dbus
 
 

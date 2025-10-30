@@ -1,9 +1,10 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+hokuto uninstall -f xmlto
 
-meson --prefix=/usr --buildtype=release -Dupdate-mimedb=true ..
-ninja
+meson setup build --prefix=/usr \
+    --buildtype=release \
+    -Dupdate-mimedb=false
 
-DESTDIR=$1 ninja install
+ninja -C build
+DESTDIR=$1 ninja install -C build
