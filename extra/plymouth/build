@@ -4,3 +4,7 @@ meson setup build --prefix=/usr \
     -D logo=/usr/share/liveiso-builder/os_sauzeros.png
 meson compile -C build
 meson install -C build --destdir=$1
+
+#install sauzeros theme
+tar xvf sauzeros-theme.tar.xz -C $1/usr/share/plymouth/themes/
+
