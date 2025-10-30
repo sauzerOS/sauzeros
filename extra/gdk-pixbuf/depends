@@ -1,5 +1,3 @@
 glib
-glycin
-meson
-pkgconf
+glycin optional
 shared-mime-info

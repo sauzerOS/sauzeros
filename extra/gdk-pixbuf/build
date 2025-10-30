@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+if hokuto check librsvg; then
+    glycin_opt=enabled
+else
+    glycin_opt=disabled
+fi
+
 meson setup build            \
       --prefix=/usr          \
       --buildtype=release    \
@@ -7,7 +13,7 @@ meson setup build            \
     -D builtin_loaders=all   \
     -D documentation=false   \
     -D gif=disabled          \
-    -D glycin=enabled        \
+    -D glycin=$glycin_opt    \
     -D gtk_doc=false         \
     -D installed_tests=false \
     -D introspection=enabled \

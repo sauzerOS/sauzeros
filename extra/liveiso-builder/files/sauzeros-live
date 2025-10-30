@@ -85,6 +85,8 @@ xorriso -as mkisofs -R -r -J                 \
         -iso-level 3 -full-iso9660-filenames \
         -b limine/limine-bios-cd.bin         \
         -no-emul-boot -boot-load-size 4      \
+        -boot-info-table                     \
+        -apm-block-size 2048                 \
         --efi-boot limine/limine-uefi-cd.bin \
         -efi-boot-part --efi-boot-image      \
         --protective-msdos-label             \

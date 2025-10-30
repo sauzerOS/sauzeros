@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+meson setup build --prefix=/usr \
+    -D logo=/usr/share/liveiso-builder/os_sauzeros.png
+meson compile -C build
+meson install -C build --destdir=$1

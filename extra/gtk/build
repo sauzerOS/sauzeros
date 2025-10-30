@@ -1,14 +1,10 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-
-meson setup --prefix=/usr             \
+meson setup build --prefix=/usr       \
             --buildtype=release       \
            -Dbroadway-backend=true    \
            -Dmedia-gstreamer=disabled \
-           -Dintrospection=enabled    \
-           ..
+           -Dintrospection=enabled
 
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1

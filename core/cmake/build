@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-if hokuto list cmake 2>&1 | grep -qv "Error"; then
-    cmake -B build \
+if hokuto check cmake; then
+cmake -B build \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_USE_SYSTEM_CURL=True \
@@ -13,11 +13,10 @@ if hokuto list cmake 2>&1 | grep -qv "Error"; then
         -DCMAKE_NM=$(which gcc-nm) \
         -DBUILD_TESTING=OFF
 
-    cmake --build   build
+cmake --build   build
 DESTDIR=$1 cmake --install build
 
 else
-
         ./configure \
         --prefix=/usr \
         --system-curl \

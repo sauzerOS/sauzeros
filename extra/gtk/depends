@@ -8,4 +8,5 @@ libxkbcommon
 pango
 python-pygobject
 shaderc
+shared-mime-info
 wayland-protocols

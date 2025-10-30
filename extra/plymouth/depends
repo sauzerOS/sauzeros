@@ -1,0 +1,13 @@
+bash
+cairo
+docbook-xsl
+fontconfig
+freetype
+glib
+gtk+3
+libdrm
+libevdev
+libpng
+libxkbcommon
+pango
+xkeyboard-config
