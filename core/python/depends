@@ -1,0 +1,7 @@
+expat
+gdbm
+libffi
+libxcrypt
+openssl
+tzdata
+zlib-ng
