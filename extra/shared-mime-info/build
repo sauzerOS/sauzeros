@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
-hokuto uninstall -f xmlto
+# uninstall xmlto for the build
+if hokuto check xmlto; then
+hokuto uninstall -f -y xmlto
 
 meson setup build --prefix=/usr \
     --buildtype=release \
@@ -8,3 +10,13 @@ meson setup build --prefix=/usr \
 
 ninja -C build
 DESTDIR=$1 ninja install -C build
+
+hokuto install -y xmlto
+
+else
+
+meson setup build --prefix=/usr \
+    --buildtype=release \
+    -Dupdate-mimedb=false
+
+fi

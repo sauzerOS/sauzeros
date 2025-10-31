@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-pushd /usr/src/linux/tools/power/cpupower
+pushd tools/power/cpupower
 make \
     DESTDIR="$1" \
     sbindir='/usr/bin' \

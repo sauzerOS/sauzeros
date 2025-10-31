@@ -12,5 +12,5 @@ CXXFLAGS=$CFLAGS
     --shared-brotli  \
     --with-intl=system-icu
 
-make -j$(( $(nproc) / 2 ))
+make
 make DESTDIR=$1 install
