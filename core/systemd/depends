@@ -1,0 +1,14 @@
+btrfs-progs optional
+curl
+cryptsetup optional
+gnu-efi
+efibootmgr
+libarchive
+libidn2
+libseccomp
+libxkbcommon
+make-ca
+p11-kit
+pam
+dbus rebuild
+make-ca rebuild

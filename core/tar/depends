@@ -1,0 +1,6 @@
+acl
+gzip
+lz4
+lzo
+xz
+zstd
