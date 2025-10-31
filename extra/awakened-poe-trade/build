@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+chmod +x Awakened-PoE-Trade-$2.AppImage
+./Awakened-PoE-Trade-$2.AppImage --appimage-extract
+cd squashfs-root
+rm awakened-poe-trade.{png,desktop} AppRun
+mkdir -pv $1/opt/awakenedpoe
+mkdir -pv $1/usr/share
+mkdir -pv $1/usr/share/applications
+cp -r resources $1/opt/awakenedpoe/
+cp -r usr/share/icons $1/usr/share/
+rm -rf {locales,resources,usr}
+cp * $1/opt/awakenedpoe/
+
+#fix permissions
+chmod -R u+w,a+rX $1/usr/share/icons
+chmod -R u+w,a+rX $1/opt/awakenedpoe/resources
+install -Dm 0644 ../awakened-poe-trade.desktop $1/usr/share/applications/awakened-poe-trade.desktop

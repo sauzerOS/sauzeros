@@ -1,4 +1,6 @@
 #!/bin/sh
+#silence output
+exec 2>&1 1>/dev/null
 
 # update certs
 make-ca -g

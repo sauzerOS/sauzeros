@@ -1,5 +1,5 @@
 #!/bin/sh -e
-
+#silence output
+exec 2>&1 1>/dev/null
 systemd-machine-id-setup
 systemctl preset-all
-echo "rebuild dbus on a fresh install"

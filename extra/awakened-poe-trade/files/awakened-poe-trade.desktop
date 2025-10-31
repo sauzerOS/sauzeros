@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Awakened PoE Trade
+Exec=/opt/awakenedpoe/awakened-poe-trade
+Terminal=false
+Type=Application
+Icon=awakened-poe-trade
+StartupWMClass=Awakened PoE Trade
+Categories=Utility;
