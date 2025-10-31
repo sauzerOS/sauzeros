@@ -3,6 +3,20 @@
 cd rustc-$2-src
 cp ../bootstrap.toml .
 
+# 1. Extract the numeric job count from MAKEFLAGS (e.g., from "-j10" to "10").
+#    This standard shell parameter expansion removes the '-j' prefix.
+jobs_var=${MAKEFLAGS#-j}
+
+echo "==> Configuring bootstrap.toml: inserting jobs = $jobs_var"
+
+#    The 'sed' command finds the line with "[build]" and uses the 'a\' (append)
+#    command to insert our new line immediately after it.
+#    Using a temporary file is the most portable and safe way to edit in-place.
+sed "/\[build\]/a\\
+jobs = $jobs_var" bootstrap.toml > bootstrap.toml.tmp && mv bootstrap.toml.tmp bootstrap.toml
+
+echo "==> bootstrap.toml successfully configured."
+
 [ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1
 [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 
