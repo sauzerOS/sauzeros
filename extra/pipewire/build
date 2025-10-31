@@ -3,9 +3,13 @@
 mkdir build
 cd build
 
-meson setup --prefix=/usr       \
-            --buildtype=release \
-            -Dsession-managers="[]" ..
+meson setup --prefix=/usr                \
+            --buildtype=release          \
+            -D bluez5=enabled            \
+-D bluez5-backend-hsp-native=enabled     \
+-D bluez5-backend-hfp-native=enabled     \
+-D bluez5-backend-hsphfpd=enabled        \
+-D session-managers="[]" ..
 
 ninja
 DESTDIR=$1 ninja install

@@ -4,6 +4,14 @@
             --sysconfdir=/etc     \
             --localstatedir=/var  \
             --disable-manpages    \
+            --enable-btpclient    \
+            --enable-midi         \
+            --enable-sixaxis      \
+            --enable-mesh         \
+            --enable-hid2hci      \
+            --enable-experimental \
+            --enable-datafiles    \
             --enable-library
+
 make
 make DESTDIR=$1 install
