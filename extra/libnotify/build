@@ -1,12 +1,9 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
+meson setup build    \
+    --prefix=/usr    \
+    -D gtk_doc=false \
+    -Dman=false
 
-meson --prefix=/usr \
-    -Dgtk_doc=false \
-    -Dman=false ..
-
-ninja
-DESTDIR="$1" ninja install
-
+meson compile -C build
+meson install -C build --destdir=$1
