@@ -2,4 +2,4 @@ openssl
 libunistring
 libidn2
 libpsl
-nghttp2
+nghttp2 optional

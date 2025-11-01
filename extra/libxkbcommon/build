@@ -1,30 +1,28 @@
 #!/bin/sh -e
 
-meson \
-    --prefix=/usr \
-    --libexecdir=/usr/lib \
+meson setup build          \
+    --prefix=/usr          \
+    --libexecdir=/usr/lib  \
     -Ddefault_library=both \
-    -Denable-docs=false \
-    -Denable-wayland=true \
-    -Denable-x11=true \
-    . output
+    -Denable-docs=false    \
+    -Denable-wayland=true  \
+    -Denable-x11=true      \
 
-ninja -C output
-DESTDIR=$1 ninja -C output install
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
 
-mkdir build
-cd build
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup ..                       \
+meson setup build                    \
       --prefix=/usr                  \
       --libdir=/usr/lib32            \
       --buildtype=release            \
       -D enable-docs=false
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

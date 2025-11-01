@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make WITHOUT_RPATH_FIX=1
+make PREFIX="$1/usr" INSTALLMAN="$1/usr/share/man" install
