@@ -1,46 +1,39 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup ..                  \
+meson setup build               \
       --prefix=/usr             \
       --buildtype=release       \
       -D glib_debug=disabled    \
       -D man-pages=disabled     \
       -D sysprof=disabled
 
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
-cd ..
 rm -rf build
-mkdir build
-cd build
 
 CFLAGS+=" -mstackrealign"
 CXXFLAGS+=" -mstackrealign"
-meson setup .. \
-  --cross-file=lib32 \
-  --prefix=/usr \
-  --libdir=/usr/lib32 \
-  --buildtype=release \
-  -D documentation=false \
-  -D dtrace=disabled \
-  -D glib_debug=disabled \
-  -D man-pages=disabled \
-  -D selinux=disabled \
-  -D introspection=disabled \
+meson setup build            \
+  --cross-file=lib32         \
+  --prefix=/usr              \
+  --libdir=/usr/lib32        \
+  --buildtype=release        \
+  -D documentation=false     \
+  -D dtrace=disabled         \
+  -D glib_debug=disabled     \
+  -D man-pages=disabled      \
+  -D selinux=disabled        \
+  -D introspection=disabled  \
   -D sysprof=disabled
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 install -d $1/usr/bin
 install -d $1/usr/share/libalpm/hooks
 cp -av DESTDIR/usr/lib32/* $1/usr/lib32/
 cp -av DESTDIR/usr/bin/gio-querymodules $1/usr/bin/gio-querymodules-32
-cd ..
 install -Dt $1/usr/share/libalpm/hook -m644 *.hook
 touch $1/usr/lib32/gio/modules/.keep
