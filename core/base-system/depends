@@ -48,7 +48,6 @@ dosfstools
 cpio
 procps-ng
 libxml2
-gobject-introspection
 libevent
 libusb
 usbutils
