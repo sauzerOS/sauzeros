@@ -1,2 +1,5 @@
+brotli
 libpng
-freetype optional
+librsvg
+harfbuzz optional
+which
