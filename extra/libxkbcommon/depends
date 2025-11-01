@@ -1,4 +1,7 @@
-bison   make
-meson   make
-pkgconf make
+bison
+meson
+libxml2
+pkgconf
 xkeyboard-config
+wayland
+wayland-protocols

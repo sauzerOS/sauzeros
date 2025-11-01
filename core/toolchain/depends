@@ -1,0 +1,4 @@
+rsync
+glibc rebuild
+gcc rebuild
+binutils

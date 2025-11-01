@@ -1,3 +1,5 @@
 autoconf
 automake
-zlib-ng
+libtool
+zlib-ng rebuild
+bzip2 rebuild

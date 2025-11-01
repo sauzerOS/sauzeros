@@ -1,6 +1,7 @@
 acl
 gzip
+libcap
 lz4
-lzo
+lzip
 xz
 zstd
