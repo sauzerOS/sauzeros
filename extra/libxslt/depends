@@ -1,4 +1,3 @@
 libxml2
-pkgconf make
-docbook-xml
-docbook-xsl
+libgcrypt
+pkgconf
