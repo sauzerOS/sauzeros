@@ -14,7 +14,7 @@ if [ -f "$XORG_CONF" ]; then
 
 # nvidia xlibre fix
 Section "ServerFlags"
-Option "IgnoreABI" "1"
+    Option "IgnoreABI" "1"
 EndSection
 EOF
         else
@@ -23,5 +23,12 @@ EOF
         fi
     fi
 else
-    echo "Warning: $XORG_CONF not found. Skipping IgnoreABI patch."
+    # If xorg.conf doesn't exist, create it with the required section.
+    echo "$XORG_CONF not found. Creating it with the nvidia xlibre fix..."
+    cat <<EOF > "$XORG_CONF"
+# nvidia xlibre fix
+Section "ServerFlags"
+    Option "IgnoreABI" "1"
+EndSection
+EOF
 fi
