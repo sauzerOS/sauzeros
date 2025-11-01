@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-
-cmake -D CMAKE_INSTALL_PREFIX=/usr ..
-make
-make DESTDIR=$1 install
+cmake -B build -D CMAKE_INSTALL_PREFIX=/usr
+cmake --build build
+DESTDIR=$1 cmake --install build
