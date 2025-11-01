@@ -5,18 +5,20 @@ if hokuto check xmlto; then
 hokuto uninstall -f -y xmlto
 
 meson setup build --prefix=/usr \
-    --buildtype=release \
+    --buildtype=release         \
     -Dupdate-mimedb=false
 
-ninja -C build
-DESTDIR=$1 ninja install -C build
+meson compile -C build
+meson install -C build --destdir=$1
 
 hokuto install -y xmlto
 
 else
 
 meson setup build --prefix=/usr \
-    --buildtype=release \
+    --buildtype=release         \
     -Dupdate-mimedb=false
 
+meson compile -C build
+meson install -C build --destdir=$1
 fi
