@@ -2,4 +2,4 @@
 
 meson setup build --prefix=/usr --buildtype=release
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1

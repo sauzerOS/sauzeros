@@ -1,8 +1,6 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-meson setup                    \
+meson setup build              \
       --cross-file=lib32       \
       --prefix=/usr            \
       --libdir=/usr/lib32      \
@@ -13,9 +11,9 @@ meson setup                    \
       -D gles1=disabled        \
       -D video-codecs=all      \
       -D valgrind=disabled     \
-      -D libunwind=disabled    \
-      ..
+      -D libunwind=disabled
 
+cd build
 sed -i 's/\/usr\/lib\//\/usr\/lib32\//g' ./build.ninja
 BINDGEN_EXTRA_CLANG_ARGS="-m32" ninja
 

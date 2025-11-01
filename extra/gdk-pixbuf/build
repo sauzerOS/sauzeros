@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-if hokuto check librsvg; then
+if hokuto check glycin; then
     glycin_opt=enabled
 else
     glycin_opt=disabled

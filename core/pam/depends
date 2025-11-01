@@ -1,4 +1,3 @@
 meson
 ninja
-libcap
-libcap rebuild
+libcap optional

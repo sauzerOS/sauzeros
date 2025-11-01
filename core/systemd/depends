@@ -1,14 +1,13 @@
 btrfs-progs optional
 curl
 cryptsetup optional
+dbus optional
 gnu-efi
 efibootmgr
 libarchive
 libidn2
 libseccomp
 libxkbcommon
-make-ca
+make-ca optional
 p11-kit
 pam
-dbus rebuild
-make-ca rebuild
