@@ -1,23 +1,18 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup --prefix=/usr --buildtype=release ..
-ninja
-DESTDIR=$1 ninja install
+meson setup build --prefix=/usr --buildtype=release
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
-unset CFLAGS LDFLAGS
-CFLAGS="-march=native -O2 -pipe -fomit-frame-pointer"
-rm -rf *
-meson setup --prefix=/usr       \
+rm -rf build
+meson setup build               \
+            --prefix=/usr       \
             --libdir=/usr/lib32 \
             --cross-file=lib32  \
             --buildtype=release \
-            ..
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

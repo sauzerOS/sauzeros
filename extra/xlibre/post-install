@@ -6,7 +6,7 @@ XORG_CONF="/etc/X11/xorg.conf"
 if [ -f "$XORG_CONF" ]; then
     # Check if IgnoreABI is already present
     if ! grep -q 'Option[[:space:]]\+"IgnoreABI"[[:space:]]\+"1"' "$XORG_CONF"; then
-        echo "Adding IgnoreABI option to $XORG_CONF..."
+        echo "Adding IgnoreABI option to $XORG_CONF"
 
         # Append the ServerFlags section if not present
         if ! grep -q 'Section[[:space:]]\+"ServerFlags"' "$XORG_CONF"; then
@@ -24,7 +24,7 @@ EOF
     fi
 else
     # If xorg.conf doesn't exist, create it with the required section.
-    echo "$XORG_CONF not found. Creating it with the nvidia xlibre fix..."
+    echo "$XORG_CONF not found. Creating it with the nvidia xlibre fix"
     cat <<EOF > "$XORG_CONF"
 # nvidia xlibre fix
 Section "ServerFlags"

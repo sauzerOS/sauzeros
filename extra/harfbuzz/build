@@ -1,18 +1,16 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup ..            \
+meson setup build         \
       --prefix=/usr       \
       --buildtype=release
-ninja
-DESTDIR=$1 ninja install
+
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
 
-rm -rf *
-meson setup ..              \
+rm -rf build
+meson setup build           \
       --cross-file=lib32    \
       --prefix=/usr         \
       --libdir=/usr/lib32   \
@@ -20,7 +18,7 @@ meson setup ..              \
       -D graphite2=disabled \
       -D tests=disabled
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
