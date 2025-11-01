@@ -1,15 +1,15 @@
 #!/bin/sh -e
 
-  install -dm755 "${1}/usr/share/sounds/Smooth"
-  install -dm755 "${1}/usr/share/sounds/Smooth/stereo"
-  install -dm755 "${1}/usr/share/doc/sound-theme-smooth"
-  install -dm755 "${1}/usr/share/licenses/sound-theme-smooth"
+install -dm755 "${1}/usr/share/sounds/Smooth"
+install -dm755 "${1}/usr/share/sounds/Smooth/stereo"
+install -dm755 "${1}/usr/share/doc/sound-theme-smooth"
+install -dm755 "${1}/usr/share/licenses/sound-theme-smooth"
 
 
-  cd documentation
-  docs=('how to install on xfce.txt' 'NO WARRANTY' 'Product Description')
-  install -Dm644 "${docs[@]}" "${1}/usr/share/doc/sound-theme-smooth"
+cd documentation
+docs=('how to install on xfce.txt' 'NO WARRANTY' 'Product Description')
+install -Dm644 "${docs[@]}" "${1}/usr/share/doc/sound-theme-smooth"
 
-  cd ..
-  install -Dm644 index.theme "${1}/usr/share/sounds/Smooth"
-  install -Dm644 stereo/* "${1}/usr/share/sounds/Smooth/stereo"
+cd ..
+install -Dm644 index.theme "${1}/usr/share/sounds/Smooth"
+install -Dm644 stereo/* "${1}/usr/share/sounds/Smooth/stereo"
