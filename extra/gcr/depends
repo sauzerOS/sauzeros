@@ -1,5 +1,6 @@
 glib
 gnupg2
+gtk+3
 libgcrypt
 libsecret
 openssh
