@@ -2,20 +2,15 @@
 
 unset LDFLAGS
 
-mkdir build
-cd    build
-
-meson setup ..        \
-  --prefix=/usr       \
-  --buildtype=release \
+meson setup setup build \
+  --prefix=/usr         \
+  --buildtype=release   \
   -Ddocs=disabled
 
-ninja
-DESTDIR="$1" ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 install -v -m755 -d "$1/etc/pam.d"
-
-cd ..
 install -v -m644 system-account "$1/etc/pam.d/system-account"
 install -v -m644 system-auth "$1/etc/pam.d/system-auth"
 install -v -m644 system-session "$1/etc/pam.d/system-session"
@@ -25,13 +20,16 @@ install -v -m644 other "$1/etc/pam.d/other"
 #32bit
 
 rm -rf build
-mkdir build
-cd build
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
 CC="gcc -m32 -march=i686"              \
 CXX="g++ -m32 -march=i686"             \
-meson setup --prefix=/usr --libdir=/usr/lib32 --buildtype=release -Ddocs=disabled ..
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson setup build       \
+    --prefix=/usr       \
+    --libdir=/usr/lib32 \
+    --buildtype=release \
+    -D docs=disabled
+
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson                          \
+meson setup build              \
     --prefix=/usr              \
     --sysconfdir=/etc          \
     --mandir=/usr/share/man    \
@@ -14,8 +14,7 @@ meson                          \
     -D vulkan-drivers="swrast" \
     -D gallium-drivers="virgl,svga,softpipe,llvmpipe"  \
     -D  gles1=disabled         \
-    -D video-codecs=all        \
-    . output
+    -D video-codecs=all
 
-ninja -C output
-DESTDIR=$1 ninja -C output install
+meson compile -C build
+meson install -C build --destdir=$1

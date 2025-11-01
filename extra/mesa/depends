@@ -26,3 +26,4 @@ vulkan-loader
 wayland
 wayland-protocols
 zlib-ng
+libva optional
