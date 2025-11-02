@@ -1,2 +1,3 @@
 cython
 iproute2
+python-pygobject
