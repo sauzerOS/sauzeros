@@ -5,7 +5,7 @@ flex
 glslang
 libdrm
 libelf
-libglvnd
+libglvnd optional
 libvdpau
 libxcb
 libXfixes

@@ -4,5 +4,3 @@ perl Makefile.PL
 
 make
 make DESTDIR=$1 install
-
-rm $1/usr/lib/perl5/5.40/core_perl/perllocal.pod
