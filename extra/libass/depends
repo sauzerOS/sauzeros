@@ -1,5 +1,6 @@
 expat
 fontconfig
 freetype
-nasm    make
-pkgconf make
+harfbuzz
+nasm
+pkgconf
