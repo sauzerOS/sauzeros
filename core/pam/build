@@ -2,7 +2,7 @@
 
 unset LDFLAGS
 
-meson setup setup build \
+meson setup build       \
   --prefix=/usr         \
   --buildtype=release   \
   -Ddocs=disabled
