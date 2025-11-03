@@ -1,29 +1,26 @@
 #!/bin/sh -e
 
-meson \
-    --prefix=/usr \
-    -Ddefault_library=both \
-    -Dtests=false \
-    -Ddocumentation=false \
-    -Ddtd_validation=false \
-    . build
+meson setup build           \
+    --prefix=/usr           \
+    -D default_library=both \
+    -D tests=false          \
+    -D documentation=false  \
+    -D dtd_validation=false
 
-ninja -C build
-DESTDIR=$1 ninja -C build install
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
 rm -rf build
-mkdir build
-cd build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup ..                       \
+meson setup build                    \
       --prefix=/usr                  \
       --libdir=/usr/lib32            \
       --buildtype=release            \
       -D documentation=false
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32

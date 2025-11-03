@@ -1,6 +1,6 @@
 expat
 flex
 libffi
-libxml
+libxml2
 meson
 pkgconf
