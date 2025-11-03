@@ -1,29 +1,27 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build                        \
+    --prefix=/usr                        \
+    --buildtype=release                  \
+    -D bluez5=enabled                    \
+    -D bluez5-backend-hsp-native=enabled \
+    -D bluez5-backend-hfp-native=enabled \
+    -D bluez5-backend-hsphfpd=enabled    \
+    -D session-managers="[]"
 
-meson setup --prefix=/usr                \
-            --buildtype=release          \
-            -D bluez5=enabled            \
--D bluez5-backend-hsp-native=enabled     \
--D bluez5-backend-hfp-native=enabled     \
--D bluez5-backend-hsphfpd=enabled        \
--D session-managers="[]" ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
+rm -rf build
+meson setup build            \
+    --cross-file=lib32       \
+    --prefix=/usr            \
+    --libdir=/usr/lib32      \
+    --buildtype=release      \
+    -D session-managers="[]"
 
-rm -rf *
-meson setup --cross-file=lib32 \
-            --prefix=/usr       \
-            --libdir=/usr/lib32 \
-            --buildtype=release \
-            -Dsession-managers="[]" ..
-
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32

@@ -1,26 +1,24 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build         \
+    --prefix=/usr         \
+    --buildtype=release   \
+    --wrap-mode=nodownload
 
-meson setup ..               \
-      --prefix=/usr          \
-      --buildtype=release    \
-      --wrap-mode=nodownload
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 #32bit
+rm -rf build
+meson setup build          \
+    --prefix=/usr          \
+    --libdir=/usr/lib32    \
+    --cross-file=lib32     \
+    --buildtype=release    \
+    --wrap-mode=nodownload \
+    -D qt5=disabled
 
-rm -rf *
-meson setup --prefix=/usr       \
-            --libdir=/usr/lib32 \
-            --cross-file=lib32  \
-            --buildtype=release \
-            --wrap-mode=nodownload \
-            -D qt5=disabled \
-            ..
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
