@@ -12,7 +12,7 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr \
       -D CMAKE_AR=$(which gcc-ar)  \
       -D CMAKE_RANLIB=$(which gcc-ranlib) \
       -D CMAKE_NM=$(which gcc-nm)  \
-      -G Ninja
+      -G Ninja ..
 
 ninja
 DESTDIR=$1 ninja install
