@@ -1,6 +1,5 @@
 fontconfig
 glib
-harfbuzz optional
 libffi
 libpng
 mesa
