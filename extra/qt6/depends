@@ -6,7 +6,6 @@ glib
 gst-plugins-base
 harfbuzz
 icu
-jasper
 libjpeg-turbo
 libinput
 libmng
