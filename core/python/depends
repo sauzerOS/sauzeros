@@ -3,5 +3,6 @@ gdbm
 libffi
 libxcrypt
 openssl
+sqlite
 tzdata
 zlib-ng
