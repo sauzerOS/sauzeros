@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+touch README
+[ -x configure ] && ./configure --prefix=/usr || ./autogen.sh --prefix=/usr
+make
+make DESTDIR=$1 install

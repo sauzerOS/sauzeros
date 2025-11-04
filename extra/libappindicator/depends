@@ -1,0 +1,6 @@
+glib
+gtk+3
+libdbusmenu
+gnome-common
+gobject-introspection
+gtk-doc

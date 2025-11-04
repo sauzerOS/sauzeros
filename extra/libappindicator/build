@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+# Fix unfallback from status icon
+patch -Np0 -i libappindicator-fix-unfallback.patch
+
+NOCONFIGURE=1 ./autogen.sh
+./configure --prefix=/usr \
+    --sysconfdir=/etc     \
+    --localstatedir=/var  \
+    --with-gtk=3          \
+    --enable-gtk-doc
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make -j1 DESTDIR=$1 install

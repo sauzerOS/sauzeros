@@ -1,0 +1,10 @@
+ghostscript
+glib
+gtk+3
+pango
+poppler
+python-pycairo
+python-dateutil
+python-pygobject
+python-packaging
+python-pikepdf
