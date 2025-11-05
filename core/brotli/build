@@ -27,4 +27,3 @@ cmake -B build \
 DESTDIR="$PWD/DESTDIR" cmake --install build
 install -d $1/usr/lib32/pkgconfig
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
-
