@@ -1,4 +1,4 @@
-https://us.download.nvidia.com/XFree86/Linux-x86_64/580.95.05/NVIDIA-Linux-x86_64-580.95.05.run
+https://us.download.nvidia.com/XFree86/Linux-x86_64/580.105.08/NVIDIA-Linux-x86_64-580.105.08.run
 files/nvidia-drm-outputclass.conf
 files/systemd-suspend-override.conf
 files/nvidia-utils.sysusers
