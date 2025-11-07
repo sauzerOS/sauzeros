@@ -1,14 +1,14 @@
 #!/bin/sh -e
 
-cd App*
+cd AppStream-$2
 
-mkdir build
-cd    build
+meson setup build       \
+    --prefix=/usr       \
+    --buildtype=release \
+    -D apidocs=false    \
+    -D docs=false       \
+    -D man=false        \
+    -D stemming=false
 
-meson setup --prefix=/usr       \
-            --buildtype=release \
-            -D apidocs=false    \
-            -D docs=false        \
-            -D stemming=false ..
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
