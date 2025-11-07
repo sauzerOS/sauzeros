@@ -1,9 +1,9 @@
 curl
 glib
-gperf make
-itstool make
+gperf
+itstool
 libxml2
 libxmlb
 libxslt
-meson make
+meson
 libfyaml
