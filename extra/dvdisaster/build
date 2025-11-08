@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr
+make
+make DESTDIR=$1 install
+
+# Remove unnecessary uninstaller script
+rm -f "${1}/usr/bin/dvdisaster-uninstall.sh"
+# Copy .desktop file to standard applications directory
+install -D -m 644 contrib/dvdisaster.desktop "${1}/usr/share/applications/dvdisaster.desktop"
+# Rename all .png icons to strip their resolution from their names, and place them in the proper standard icon subdirectories
+for i in 16 24 32 48 64 ; do
+  install -D -m 644 contrib/dvdisaster${i}.png "${1}/usr/share/icons/hicolor/${i}x${i}/apps/dvdisaster.png"
+done

@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+cd en-dict
+./configure
+make
+make DESTDIR=$1 install
+
+cd ../fr-dict
+./configure
+make
+make DESTDIR=$1 install
+
+cd ../de-dict
+./configure
+make
+make DESTDIR=$1 install

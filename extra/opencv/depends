@@ -1,0 +1,6 @@
+cmake
+libarchive
+ffmpeg
+gst-plugins-base
+gtk+3
+

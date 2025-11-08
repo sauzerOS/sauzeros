@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+#gcc 15 fix
+sed -e 's/; i.*size)/, e = end(); i != e; ++i, ++size_)/' \
+    -i modules/speller/default/vector_hash-t.hpp
+
+./configure --prefix=/usr
+make
+make DESTDIR=$1 install
+
+install -v -m 755 scripts/ispell $1/usr/bin/
+install -v -m 755 scripts/spell $1/usr/bin/

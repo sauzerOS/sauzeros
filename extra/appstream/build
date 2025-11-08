@@ -8,6 +8,7 @@ meson setup build       \
     -D apidocs=false    \
     -D docs=false       \
     -D man=false        \
+    -D qt=true          \
     -D stemming=false
 
 meson compile -C build
