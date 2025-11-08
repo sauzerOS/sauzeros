@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+mkdir build
+cd build
+
+
+../configure --prefix=/usr          \
+             --with-system-readline \
+             --with-system-zlib
+
+make
+make DESTDIR=$1 install
