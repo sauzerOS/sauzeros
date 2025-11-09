@@ -5,8 +5,8 @@ cd kernel
 shortver=$(echo "$2" | cut -d. -f1-2)
 patch -Np1 -i ../patches/$shortver/all/0001-cachyos-base-all.patch || true
 zcat ../config.gz > .config
-#make oldconfig
-make nconfig
+make oldconfig
+
 while true; do
     read -p "Save updated kernel config to repo package? [yes/no]: " answer
     case "${answer,,}" in   # ,, lowercases the input (bashism)

@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+make DEBUG=-DNDEBUG     \
+     INSTALL_USER=root  \
+     INSTALL_GROUP=root \
+     LOCAL_CONFIGURE_OPTIONS="--localstatedir=/var"
+
+make DESTDIR=$1 install
+
+rm -rfv $1/usr/lib/libhandle.{a,la}

@@ -9,8 +9,3 @@
 
 make
 make DESTDIR="$1" install
-
-sed -i "s/iconv//" "$1/usr/lib/pkgconfig/libarchive.pc"
-
-ln -s bsdcpio "$1/usr/bin/cpio"
-ln -s bsdtar  "$1/usr/bin/tar"

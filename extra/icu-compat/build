@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+cd source
+
+./configure --prefix=/usr
+
+make
+install -d $1/usr/lib
+cd lib
+cp libicudata.so.$2 $1/usr/lib
+cp libicui18n.so.$2 $1/usr/lib
+cp libicuio.so.$2 $1/usr/lib
+cp libicutu.so.$2 $1/usr/lib
+cp libicuuc.so.$2 $1/usr/lib

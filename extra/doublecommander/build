@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+ar x doublecmd-qt6_$2-0_amd64.deb
+tar xvf data.tar.* -C $1/

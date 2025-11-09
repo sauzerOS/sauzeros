@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+meson setup build           \
+    --prefix=/usr           \
+    -D docs=false           \
+    -D kernel_install=false \
+    -D alpm=false
+
+meson compile -C build
+meson install -C build --destdir=$1
+
+install busybox -Dm 755 $1/usr/lib/initcpio/busybox
