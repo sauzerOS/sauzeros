@@ -5,6 +5,17 @@ meson setup build --prefix=/usr \
 meson compile -C build
 meson install -C build --destdir=$1
 
-#install sauzeros theme
+# Install sauzeros theme
 tar xvf sauzeros-theme.tar.xz -C $1/usr/share/plymouth/themes/
 
+# Install mkinitcpio hook
+install -d $1/usr/lib/initcpio/{hooks,install}
+install -Dm644 plymouth.initcpio_hook "$1/usr/lib/initcpio/hooks/$3"
+install -Dm644 plymouth.initcpio_install "$1/usr/lib/initcpio/install/$3"
+
+# Install mkinitcpio shutdown hook and systemd drop-in snippet
+install -Dm644 plymouth-shutdown.initcpio_install "$1/usr/lib/initcpio/install/$3-shutdown"
+
+# Install logo
+install -d $1/usr/share/pixmaps
+install -Dm 644 sauzeros-logo.png $1/usr/share/pixmaps/sauzeros-logo.png
