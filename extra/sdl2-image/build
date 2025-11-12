@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+./configure --disable-static --prefix=/usr \
+    --disable-avif-shared \
+    --disable-jpg-shared \
+    --disable-png-shared \
+    --disable-stb-image \
+    --disable-tif-shared \
+    --disable-jxl-shared \
+    --disable-webp-shared
+
+make
+make DESTDIR=$1 install

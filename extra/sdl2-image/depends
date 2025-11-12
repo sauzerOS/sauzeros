@@ -1,0 +1,7 @@
+cmake
+sdl2-compat
+libpng
+libtiff
+libjpeg-turbo
+libwebp
+libjxl
