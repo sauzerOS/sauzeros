@@ -1,0 +1,15 @@
+cmake
+fluidsynth
+hicolor-icon-theme
+openal
+qt6
+sdl2-compat
+freetype
+glib
+libpcap
+libevdev
+libglvnd
+libpng
+libslirp
+libsndfile
+wayland

@@ -35,5 +35,5 @@ mv -f _ Makefile
     --enable-linux-user \
     --disable-debug-info
 
-make
-make DESTDIR=$1 PREFIX=/usr install
+meson compile -C build
+meson install -C build --destdir=$1

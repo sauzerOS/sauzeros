@@ -4,17 +4,18 @@ curl
 glib
 libepoxy
 libpng
+libslirp
 libtasn1
 liburing
 libusb
 libxkbcommon
 mesa
-meson   make
+meson
 ncurses
 perl make
 pixman
-pkgconf make
-python  make
+pkgconf
+python
 make
 sdl2-compat
 spice-server
