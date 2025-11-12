@@ -1,0 +1,12 @@
+cairo
+gcr
+gdk-pixbuf
+glib
+gmime3
+gnutls
+gspell
+gtk+3
+hicolor-icon-theme
+libnotify
+libsecret
+pango
