@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+LDFLAGS='-z now -z shstk' \
+cmake -B build \
+    --preset regular \
+    --toolchain "cmake/flags-gcc-x86_64.cmake" \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D USE_QT6=on
+
+cmake --build build
+
+DESTDIR="${1}" cmake --build build --target install
+
+for i in 48x48 64x64 72x72 96x96 128x128 192x192 256x256 512x512; do
+install -Dm644 "src/unix/assets/$i/net.86box.86Box.png" -t "$1/usr/share/icons/hicolor/$i/apps"
+done
+install -Dm644 "src/unix/assets/net.86box.86Box.desktop" "$1/usr/share/applications/net.86box.86Box.desktop"
+
+# roms
+cd roms/roms-$2
+install -d "$1/usr/share/86Box/roms"
+cp -R [a-z]* "$1/usr/share/86Box/roms"
