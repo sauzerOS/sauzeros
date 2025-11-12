@@ -6,3 +6,13 @@ for kver in /lib/modules/*; do
         depmod -a "$(basename "$kver")"
     fi
 done
+
+
+if hokuto check nvidia-modules; then
+hokuto build -a nvidia-modules
+fi
+
+if hokuto check cdemu-vhba-module; then
+hokuto build -a cdemu-vhba-module
+fi
+

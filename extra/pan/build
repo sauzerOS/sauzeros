@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build                   \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D WANT_DBUS=1               \
+    -D WANT_GMIME_CRYPTO=1       \
+    -D WANT_NOTIFY=1             \
+    -D WANT_GKR=1
+
+cmake --build build
+DESTDIR=$1 cmake --install build
