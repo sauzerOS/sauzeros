@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+patch -Np1 -i retroarch-config.patch
+
+ ./configure \
+    --prefix=/usr \
+    --enable-builtinmbedtls \
+    --disable-builtinzlib \
+    --disable-cg \
+    --disable-jack \
+    --disable-oss \
+    --disable-sdl \
+    --enable-dbus
+
+make -C libretro-common/audio/dsp_filters
+make -C gfx/video_filters
+
+make DESTDIR="${1}" install
+install -Dm 644 libretro-common/audio/dsp_filters/*.{dsp,so} -t "${1}"/usr/lib/retroarch/filters/audio/
+install -Dm 644 gfx/video_filters/*.{filt,so} -t "${1}"/usr/lib/retroarch/filters/video/
+
+cd assets
+
+install -dm 755 "${1}"/usr/share/retroarch/assets
+cp -dr --no-preserve=ownership glui "${1}"/usr/share/retroarch/assets/
+cp -dr --no-preserve=ownership xmb "${1}"/usr/share/retroarch/assets/
+cp -dr --no-preserve=ownership ozone "${1}"/usr/share/retroarch/assets/

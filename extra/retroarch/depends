@@ -1,0 +1,7 @@
+ffmpeg<=8.0.0
+flac
+pulseaudio
+mesa
+openssl
+qt6
+sdl2-compat
