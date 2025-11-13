@@ -1,7 +1,7 @@
-bison             make
-flex              make
-freetype          make
-gperf             make
+bison
+flex
+freetype
+gperf
 libICE
 libSM
 libX11
@@ -13,9 +13,7 @@ libinput
 libjpeg-turbo
 libpng
 libxkbcommon
-linux-headers     make
 mesa
-perl              make
 sqlite
 wayland
 xcb-util
@@ -23,4 +21,3 @@ xcb-util-image
 xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-wm
-zlib-ng

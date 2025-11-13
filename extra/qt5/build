@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-# Without this folder, Qt can't find its header files.
-mkdir .git
-mkdir -pv qtbase/.git
-
   ./configure -confirm-license -opensource -v \
     -prefix /usr \
     -docdir /usr/share/doc/qt \
