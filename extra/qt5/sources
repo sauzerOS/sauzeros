@@ -1,2 +1,2 @@
-https://invent.kde.org/qt/qt/qtbase/-/archive/v5.15.17-lts-lgpl/qtbase-v5.15.17-lts-lgpl.tar.bz2
+git+https://invent.kde.org/qt/qt/qtbase#v5.15.18-lts-lgpl
 files/qt.conf
