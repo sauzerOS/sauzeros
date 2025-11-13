@@ -1,0 +1,9 @@
+cairo
+exiv2
+ffmpegthumbnailer
+gdk-pixbuf
+glib
+gtk+3
+little-cms
+pango
+poppler

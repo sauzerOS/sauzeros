@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-make -j1 -f unix/Makefile generic_gcc
+make -j1 -f unix/Makefile generic CC="gcc -std=gnu89"
 make prefix=$1/usr MANDIR=$1/usr/share/man/man1 -f unix/Makefile install
