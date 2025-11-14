@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+install -d $1/usr/{bin,share}
+install -d $1/usr/share/{applications,dreamm,icons}
+
+install -Dm 0755 dreamm $1/usr/bin/dreamm
+install -Dm 0644 mt32emu-dreamm.so $1/usr/bin/mt32emu-dreamm.so
+install -Dm 0644 mt32_control.rom $1/usr/share/dreamm/mt32_control.rom
+install -Dm 0644 mt32_pcm.rom $1/usr/share/dreamm/mt32_pcm.rom
+install -Dm 0644 dreamm_icon.png $1/usr/share/icons/dreamm.png
+install -Dm 0644 dreamm.desktop $1/usr/share/applications/dreamm.desktop

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=DREAMM Emulator
+Comment=LucasArts game emulator
+Exec=/usr/bin/dreamm %f
+Icon=dreamm
+Terminal=false
+Type=Application
+Categories=Game;Emulator;
+StartupNotify=true

@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+cd sndio-$2
+
+./configure --prefix=/usr \
+    --enable-alsa
+
+make
+make DESTDIR=$1 install
