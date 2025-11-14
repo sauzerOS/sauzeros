@@ -1,0 +1,16 @@
+libpng
+libtheora
+sdl2-compat
+fluidsynth
+flac
+faad2
+libvorbis
+libmad
+freetype
+glu
+libjpeg-turbo
+libmpeg2
+glew
+giflib
+gtk+3
+sndio

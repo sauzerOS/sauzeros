@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+    --enable-release      \
+    --enable-all-engines  \
+    --disable-debug
+
+make
+make DESTDIR=$1 install
