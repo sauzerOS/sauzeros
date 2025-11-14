@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+export CFLAGS+=' -ffat-lto-objects'
+cmake -B build \
+   -D CMAKE_BUILD_TYPE=None \
+   -D CMAKE_INSTALL_PREFIX=/usr \
+   -D CMAKE_SKIP_RPATH=ON \
+   -D USE_SHARED_MBEDTLS_LIBRARY=ON \
+   -D USE_STATIC_MBEDTLS_LIBRARY=ON \
+   -Wno-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
