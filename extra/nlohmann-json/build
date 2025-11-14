@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build                      \
+   -D BUILD_TESTING=ON              \
+   -D CMAKE_BUILD_TYPE=None         \
+   -D CMAKE_INSTALL_PREFIX=/usr     \
+   -D CMAKE_INSTALL_LIBDIR=/usr/lib \
+   -D JSON_BuildTests=OFF           \
+   -D JSON_MultipleHeaders=ON       \
+   -W no-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build

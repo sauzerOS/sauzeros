@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+export CXXFLAGS+=" -Wno-error=deprecated-declarations"
+
+patch -Np1 -i qt6.10-fix.patch
+
+cmake -B build  \
+    -D CMAKE_INSTALL_PREFIX="/usr" \
+    -D ENABLE_BROWSER=OFF \
+    -D ENABLE_VST=ON \
+    -D ENABLE_VLC=OFF \
+    -D ENABLE_NEW_MPEGTS_OUTPUT=OFF \
+    -D ENABLE_AJA=OFF \
+    -D ENABLE_JACK=OFF \
+    -D ENABLE_LIBFDK=ON \
+    -D ENABLE_WEBRTC=OFF \
+    -D ENABLE_SPEEXDSP=OFF \
+    -D ENABLE_QSV11=OFF \
+    -D OBS_VERSION_OVERRIDE="$2" \
+    -D ENABLE_WEBSOCKET=OFF \
+    -Wno-dev
+
+cmake --build build
+DESTDIR="$1" cmake --install build

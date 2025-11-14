@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+# create directory for header files
+install -dm755 "${1}"/usr/include/
+
+# install header files in /usr/include
+cd src
+for h in *.h; do
+    install -m 644 ${h} "${1}"/usr/include/
+done
