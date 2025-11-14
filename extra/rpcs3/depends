@@ -1,0 +1,8 @@
+alsa-lib
+cmake
+flatbuffers
+pugixml
+llvm
+opencv
+libglvnd
+vulkan-headers
