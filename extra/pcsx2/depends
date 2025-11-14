@@ -1,0 +1,10 @@
+cmake
+libcap
+libpng
+libwebp
+xrandr
+sdl3
+llvm
+qt6
+shaderc
+p7zip

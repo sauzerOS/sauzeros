@@ -1,0 +1,101 @@
+#!/bin/sh -e
+
+CC=clang
+CXX=clang++
+CFLAGS="-O2 -pipe -fomit-frame-pointer -flto=auto"
+CXXFLAGS=$CFLAGS
+LDFLAGS="$(sed -E -e 's&\S*fuse-ld\S*&&g' <<< "$LDFLAGS") -fuse-ld=lld -flto=auto"
+
+# prevent march=native
+sed -E -e 's@^(\s*)(add_compile_options\(.*march=native.*\))@\1message("skip: march=native")@' \
+  -i cmake/BuildParameters.cmake
+
+# adjust data path
+sed -E -e '/CMAKE_INSTALL_FULL_DATADIR/s@/PCSX2\b@/pcsx2@' \
+  -i pcsx2/CMakeLists.txt \
+     cmake/BuildParameters.cmake
+
+# fix for Qt 6.10
+sed -E -e 's@\b(Qt6::)?(Gui)\b@\1\2 \1\2Private@' \
+ -i cmake/SearchForStuff.cmake \
+    pcsx2-qt/CMakeLists.txt
+
+git describe --tags | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
+
+# build deps
+cd kddockwidgets
+cmake -B build                         \
+    -D CMAKE_BUILD_TYPE=None           \
+    -D CMAKE_INSTALL_PREFIX='/usr'     \
+    -D CMAKE_PREFIX_PATH="../deps/usr" \
+    -D CMAKE_SKIP_RPATH=ON             \
+    -D BUILD_SHARED_LIBS=ON            \
+    -D KDDockWidgets_EXAMPLES=OFF      \
+    -D KDDockWidgets_FRONTENDS='qtwidgets;qtquick' \
+    -D KDDockWidgets_NO_SPDLOG=ON      \
+    -D KDDockWidgets_QT6=ON            \
+    -D KDDockWidgets_X11EXTRAS=OFF     \
+    -Wno-dev
+
+cmake --build build
+DESTDIR="../deps" cmake --install build
+
+cd ../plutovg
+cmake -B build                         \
+    -D CMAKE_BUILD_TYPE=None           \
+    -D CMAKE_INSTALL_PREFIX='/usr'     \
+    -D CMAKE_PREFIX_PATH="../deps/usr" \
+    -D CMAKE_SKIP_RPATH=ON             \
+    -D BUILD_SHARED_LIBS=ON            \
+    -Wno-dev
+
+cmake --build build
+DESTDIR="../deps" cmake --install build
+
+cd ../plutosvg
+cmake -B build                         \
+    -D CMAKE_BUILD_TYPE=None           \
+    -D CMAKE_INSTALL_PREFIX='/usr'     \
+    -D CMAKE_PREFIX_PATH="../deps/usr" \
+    -D CMAKE_SKIP_RPATH=ON             \
+    -D BUILD_SHARED_LIBS=ON            \
+    -D PLUTOSVG_BUILD_EXAMPLES=ON      \
+    -D PLUTOSVG_ENABLE_FREETYPE=ON     \
+    -Wno-dev
+
+cmake --build build
+DESTDIR="../deps" cmake --install build
+cd ..
+
+cmake -B build \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX='/usr' \
+    -D CMAKE_PREFIX_PATH="deps/usr" \
+    -D CMAKE_SKIP_RPATH=ON \
+    -D DISABLE_ADVANCE_SIMD=ON \
+    -D ENABLE_SETCAP=OFF \
+    -D ENABLE_TESTS=OFF \
+    -D PACKAGE_MODE=ON \
+    -D USE_ASAN=OFF \
+    -D USE_BACKTRACE=OFF \
+    -D USE_VULKAN=ON \
+    -D WAYLAND_API=ON \
+    -D X11_API=ON \
+    -Wno-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+ln -sf pcsx2-qt "$1/usr/bin/pcsx2"
+
+# install deps
+install -d $1/usr/lib/pcsx2
+cp deps/usr/lib64/*.so* $1/usr/lib/pcsx2/
+patchelf --add-rpath /usr/lib/pcsx2 $1/usr/bin/pcsx2
+
+# patches
+7z a -mx=9 -r patches.zip patches/.
+install -Dm644 patches.zip -t "$1/usr/share/pcsx2/resources/"
+
+# desktop entry
+install -Dm644 bin/resources/icons/AppIconLarge.png "$1/usr/share/pixmaps/pcsx2.png"
+install -Dm755 pcsx2.desktop "$1/usr/share/applications/pcsx2.desktop"
