@@ -3,3 +3,4 @@
 cd vhba-module
 make KDIR=/usr/src/linux
 make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
+rm -rf $1/lib/modules/*/modules*
