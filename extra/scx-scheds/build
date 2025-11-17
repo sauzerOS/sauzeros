@@ -4,6 +4,7 @@ meson setup build \
      --prefix=/usr \
     -D openrc=disabled \
     -D b_lto=true \
+    -D force_meson=true \
     -D b_lto_mode=thin
 
 meson compile -C build
