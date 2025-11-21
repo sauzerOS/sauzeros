@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Location of the Halloy config file
+CONF="$HOME/.config/halloy/config.toml"
+
+# Get public IP
+IP=$(curl -s https://api.ipify.org)
+
+# Only update if curl worked
+if [[ -n "$IP" ]]; then
+    # If public_address exists, replace it.
+    # If it doesn't exist, append it.
+    if grep -q '^public_address' "$CONF"; then
+        sed -i "s/^public_address = .*/public_address = \"$IP\"/" "$CONF"
+    else
+        # Insert under [file_transfer.server] if possible
+        if grep -q '^\[file_transfer.server\]' "$CONF"; then
+            sed -i "/^\[file_transfer.server\]/a public_address = \"$IP\"" "$CONF"
+        else
+            # Last resort: add it at the end
+            echo -e "\n[file_transfer.server]\npublic_address = \"$IP\"" >> "$CONF"
+        fi
+    fi
+fi
+
+# Launch Halloy
+exec halloy "$@"
