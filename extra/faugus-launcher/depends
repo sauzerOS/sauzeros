@@ -1,0 +1,8 @@
+python-filelock
+python-pygobject
+python-requests
+python-pillow
+python-vdf
+python-psutil
+imagemagick
+libayatana-appindicator

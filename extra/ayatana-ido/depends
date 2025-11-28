@@ -1,0 +1,6 @@
+gdk-pixbuf
+cairo
+gtk+3
+pango
+gobject-introspection
+vala
