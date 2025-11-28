@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+meson setup --prefix=/usr build
+meson compile -C build
+meson install -C build --destdir=$1

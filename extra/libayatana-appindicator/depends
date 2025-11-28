@@ -1,0 +1,6 @@
+gtk+3
+cmake
+vala
+gobject-introspection
+libdbusmenu
+libayatana-indicator
