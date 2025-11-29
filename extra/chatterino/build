@@ -1,21 +1,11 @@
 #!/bin/sh -e
 
-ar x *.deb
+chmod +x Chatterino-x86_64-Qt6.AppImage
+./Chatterino-x86_64-Qt6.AppImage --appimage-extract
 
-bsdtar -xf data.tar.zst -C "${1}"
-# Replace ICU versioned symbols in chatterino binary
-
-# Extract original ICU version suffix from linked libicui18n.so
-icu_orig=$(ldd "$1/usr/bin/chatterino" | grep -oP 'libicui18n\.so\.\K[0-9]+' | head -n1)
-
-# Get major ICU version from Makefile.inc
-icu_major=$(grep LIB_VERSION_MAJOR /usr/lib/icu/current/Makefile.inc | awk '{print $3}')
-
-# Generate symbol mapping file, replacing old version suffix with new major version
-nm -D "$1/usr/bin/chatterino" | grep "$icu_orig" | awk -v old="$icu_orig" -v new="$icu_major" '{print $2 " " $2}' | sed "s/$icu_orig\$/$icu_major/" | sort | uniq > map.txt
-
-# Patch the binary with updated symbol names and library versions
-patchelf "$1/usr/bin/chatterino" \
-  --rename-dynamic-symbols map.txt \
-  --replace-needed "libicuuc.so.$icu_orig" "libicuuc.so" \
-  --replace-needed "libicui18n.so.$icu_orig" "libicui18n.so"
+mkdir -pv $1/opt/chatterino/usr/{bin,lib}
+mkdir -pv $1/usr/bin
+mv squashfs-root/usr/lib/libicu* $1/opt/chatterino/usr/lib
+mv squashfs-root/usr/share $1/usr/
+mv squashfs-root/usr/bin/chatterino $1/opt/chatterino/usr/bin
+ln -s /opt/chatterino/usr/bin/chatterino $1/usr/bin/chatterino
