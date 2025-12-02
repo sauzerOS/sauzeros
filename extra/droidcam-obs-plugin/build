@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+mkdir -p build
+make LIBUSBMUXD=libusbmuxd-2.0 LIBIMOBILEDEV=libimobiledevice-1.0 ALLOW_STATIC=no
+mkdir -p "$1/usr/lib/obs-plugins"
+cp "build/droidcam-obs.so" \
+   "$1/usr/lib/obs-plugins/"
+mkdir -p "$1/usr/share/obs/obs-plugins/droidcam-obs"
+cp -r "data/locale" \
+   "$1/usr/share/obs/obs-plugins/droidcam-obs/"

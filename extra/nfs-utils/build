@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+# fix hardcoded sbin/libexec path to our needs
+sed -i "s|sbindir = /sbin|sbindir = /usr/bin|g" utils/*/Makefile.am
+sed -i "s|sbin|bin|" utils/nfsidmap/id_resolver.conf
+sed -i "s|libexec|bin|" tools/nfsrahead/99-nfs.rules
+autoreconf -vfi
+
+./configure --prefix=/usr \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/bin \
+    --with-statedir=/var/lib/nfs \
+    --with-statdpath=/var/lib/nfs/statd \
+    --with-start-statd=/usr/bin/start-statd \
+    --enable-nfsv4server \
+    --without-tcp-wrappers \
+    --enable-ipv6 \
+    --enable-libmount-mount \
+    --enable-mountconfig \
+    --disable-gss \
+    --with-systemd
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make DESTDIR=$1 install

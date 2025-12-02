@@ -1,0 +1,2 @@
+git+https://github.com/zaphoyd/websocketpp#4dfe1be
+files/websocketpp-0.8.2-boost-1.87-compat.patch

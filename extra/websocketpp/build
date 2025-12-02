@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+patch -Np1 -i websocketpp-0.8.2-boost-1.87-compat.patch
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D ENABLE_CPP11=ON \
+  -D BUILD_TESTS=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build

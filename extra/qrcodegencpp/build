@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+cp -R cmake/{cmake,CMakeLists.txt} .
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib \
+  -D BUILD_SHARED_LIBS=ON
+
+cmake --build build
+DESTDIR="$1" cmake --install build
