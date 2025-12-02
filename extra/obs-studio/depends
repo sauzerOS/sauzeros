@@ -1,7 +1,10 @@
+asio
 nv-codec-headers
 mbedtls<=3.6.5
 nlohmann-json
 simde
 uthash
 v4l-utils
-
+qrcodegencpp
+websocketpp
+speexdsp

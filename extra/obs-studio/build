@@ -14,10 +14,10 @@ cmake -B build  \
     -D ENABLE_JACK=OFF \
     -D ENABLE_LIBFDK=ON \
     -D ENABLE_WEBRTC=OFF \
-    -D ENABLE_SPEEXDSP=OFF \
+    -D ENABLE_SPEEXDSP=ON \
     -D ENABLE_QSV11=OFF \
     -D OBS_VERSION_OVERRIDE="$2" \
-    -D ENABLE_WEBSOCKET=OFF \
+    -D ENABLE_WEBSOCKET=ON \
     -Wno-dev
 
 cmake --build build

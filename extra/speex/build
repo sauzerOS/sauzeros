@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+  --enable-binaries \
+  --disable-static
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make DESTDIR=$1 install

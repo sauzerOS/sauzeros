@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+for kver in /lib/modules/*; do
+    if [ -d "$kver" ]; then
+        echo "Running depmod for $(basename "$kver")"
+        depmod -a "$(basename "$kver")"
+    fi
+done
+

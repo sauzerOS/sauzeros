@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+sed 's|/opt/droidcam-icon.png|/usr/share/pixmaps/droidcam.png|' -i src/droidcam.c
+sed -e 's|/usr/local/bin/||' -e 's|/opt/droidcam-icon.png|droidcam|' -i droidcam.desktop
+make JPEG_DIR='/usr/lib' JPEG_INCLUDE='/usr/include' USBMUXD='-lusbmuxd-2.0'
+install -Dm755 "droidcam" "droidcam-cli" -t "${1}/usr/bin"
+install -Dm644 icon2.png "${1}/usr/share/pixmaps/droidcam.png"
+install -Dm644 "droidcam.desktop" -t "${1}/usr/share/applications"
+install -Dm644 "droidcam.conf" -t "${1}/etc/modules-load.d"
+
+# kernel module
+cd v4l2loopback
+make
+mkdir -p $1/lib/modules/$(uname -r)/kernel/drivers/media/v4l2-core/
+install -Dm644 v4l2loopback-dc.ko $1/lib/modules/$(uname -r)/kernel/drivers/media/v4l2-core/v4l2loopback-dc.ko
