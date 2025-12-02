@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -Np1 -i device_discovery-fix.patch
+
 mkdir -p build
 make LIBUSBMUXD=libusbmuxd-2.0 LIBIMOBILEDEV=libimobiledevice-1.0 ALLOW_STATIC=no
 mkdir -p "$1/usr/lib/obs-plugins"
