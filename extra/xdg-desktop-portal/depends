@@ -2,5 +2,5 @@ flatpak
 libportal
 pipewire
 umockdev
-python-pytest make
-python-dbusmock make
+python-pytest
+python-dbusmock

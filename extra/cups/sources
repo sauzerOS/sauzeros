@@ -1,3 +1,4 @@
 https://github.com/OpenPrinting/cups/releases/download/v2.4.15/cups-2.4.15-source.tar.gz
+https://github.com/OpenPrinting/cups/pull/1439.patch
 files/cups.pam
 files/cups.sysusers

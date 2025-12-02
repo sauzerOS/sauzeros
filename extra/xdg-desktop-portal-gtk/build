@@ -1,13 +1,11 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build \
+  --prefix=/usr \
+  -D wallpaper=disabled
 
-meson setup --prefix=/usr -Dwallpaper=disabled ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 # install config for XFCE
-cd ..
 install -Dm644 xfce-portals.conf $1/usr/share/xdg-desktop-portal/xfce-portals.conf
