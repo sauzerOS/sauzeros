@@ -1,10 +1,10 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr       \
-            --buildtype=release       \
-           -Dbroadway-backend=true    \
-           -Dmedia-gstreamer=disabled \
-           -Dintrospection=enabled
+meson setup build --prefix=/usr        \
+            --buildtype=release        \
+           -D broadway-backend=true    \
+           -D colord=enabled           \
+           -D introspection=enabled
 
 meson compile -C build
 meson install -C build --destdir=$1

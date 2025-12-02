@@ -1,12 +1,11 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build \
+  --prefix=/usr \
+  -D installed-tests=false \
+  -D documentation=disabled \
+  -D sandboxed-sound-validation=disabled \
+  -D tests=disabled
 
-meson --prefix=/usr -Dinstalled-tests=false \
-      -Ddocumentation=disabled \
-      -Dsandboxed-sound-validation=disabled \
-      -Dtests=disabled ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
