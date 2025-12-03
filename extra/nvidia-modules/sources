@@ -1,4 +1,3 @@
-https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/580.105.08.tar.gz
+https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/590.44.01.tar.gz
 files/gpl.patch
 files/nvidia.conf
-files/951.patch
