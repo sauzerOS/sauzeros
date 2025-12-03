@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+KERNEL_BUILD_DIR="/lib/modules/$(uname -r)/build"
+export CC="gcc"
+export LD="ld.lld"
+
+
+cd modules/17.6.4/source/vmmon-only
+make CC="$CC" ${LD:+LD="$LD"}
+
+cd ../vmnet-only
+make CC="$CC" ${LD:+LD="$LD"}
+cd ..
+
+INSTALL_DIR="$1/lib/modules/$(uname -r)/misc/"
+mkdir -p INSTALL_DIR
+install -Dm644 vmmon-only/vmmon.ko "$INSTALL_DIR/vmmon.ko"
+install -Dm644 vmnet-only/vmnet.ko "$INSTALL_DIR/vmnet.ko"
+
