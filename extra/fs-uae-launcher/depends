@@ -2,6 +2,7 @@ fs-uae
 hicolor-icon-theme
 python
 python-idna
+python-lhafile
 python-opengl
 python-pillow
 python-pyqt6
