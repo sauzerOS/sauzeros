@@ -1,11 +1,23 @@
 #!/bin/sh -e
 
-meson setup build \
-     --prefix=/usr \
-    -D openrc=disabled \
-    -D b_lto=true \
-    -D force_meson=true \
-    -D b_lto_mode=thin
+export RUSTUP_TOOLCHAIN=stable
+export CARGO_TARGET_DIR=target
+cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+cargo build \
+     --release \
+     --frozen \
+     --all-features \
+     --workspace \
+     --exclude scx_rlfifo \
+     --exclude scx_wd40 \
+     --exclude scx_mitosis \
+     --exclude scxcash \
+     --exclude xtask \
+     --exclude vmlinux_docify \
+     --exclude scx_arena_selftests
 
-meson compile -C build
-DESTDIR=$1 meson install -C build
+# Install all built executables (skip .so and .d files)
+mkdir -pv $1/usr/bin
+find target/release \
+  -maxdepth 1 -type f -executable ! -name '*.so' \
+  -exec install -Dm755 -t "$1/usr/bin/" {} +

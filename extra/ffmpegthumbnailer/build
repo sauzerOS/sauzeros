@@ -1,11 +1,10 @@
 #!/bin/sh -e
 
 # ffmpeg 8.0 fix
+#git fetch origin pull/240/head:pr240
+#git checkout pr240
 
-git fetch origin pull/240/head:pr240
-git checkout pr240
-
-cmake -S . -B build -G Ninja \
+cmake -B build -G Ninja \
       -D CMAKE_INSTALL_PREFIX=/usr \
       -D ENABLE_THUMBNAILER=ON
 
