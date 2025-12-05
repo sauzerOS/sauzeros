@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-# fix print menu hang
-patch -Np1 -i 1439.patch
-
 ./configure --prefix=/usr \
      --sysconfdir=/etc \
      --localstatedir=/var \
