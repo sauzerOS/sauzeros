@@ -1,8 +1,16 @@
 #!/bin/sh -e
 
-zig build -Doptimize=ReleaseFast
+DESTDIR=build zig build \
+  --summary all \
+  --prefix "/usr" \
+  -Doptimize=ReleaseFast \
+  -Dgtk-x11=true \
+  -Dcpu=baseline \
+  -Dpie=true \
+  -Dversion-string="$2-sauzerOS"
 
-install -d $1/{bin,usr}
-cp zig-out/bin/ghostty $1/bin
-cp -a zig-out/share    $1/usr
-install -Dm644 com.mitchellh.ghostty.desktop $1/usr/share/applications/com.mitchellh.ghostty.desktop
+cp -a build/* "$1/"
+#install -d $1/{bin,usr}
+#cp zig-out/bin/ghostty $1/bin
+#cp -a zig-out/share    $1/usr
+#install -Dm644 com.mitchellh.ghostty.desktop $1/usr/share/applications/com.mitchellh.ghostty.desktop

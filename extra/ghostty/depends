@@ -1,4 +1,4 @@
-zig-bin
+zig-bin==0.14.0
 gtk
 libadwaita
 gtk4-layer-shell
