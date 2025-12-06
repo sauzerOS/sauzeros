@@ -1,11 +1,8 @@
 #!/bin/sh -e
 
-mkdir -p build
-cd build
+cmake -B build
+cmake --build build --target fastfetch --target flashfetch
+DESTDIR=$1 cmake --install build
 
-cmake ..
-cmake --build . --target fastfetch --target flashfetch
-DESTDIR=$1 cmake --install .
-
-install -Dm644 ../hokuto.png $1/usr/share/pixmaps/hokuto.png
-install -Dm644 ../config.jsonc $1/etc/fastfetch/config.jsonc
+install -Dm644 hokuto.png $1/usr/share/pixmaps/hokuto.png
+install -Dm644 config.jsonc $1/etc/fastfetch/config.jsonc
