@@ -10,7 +10,3 @@ DESTDIR=build zig build \
   -Dversion-string="$2-sauzerOS"
 
 cp -a build/* "$1/"
-#install -d $1/{bin,usr}
-#cp zig-out/bin/ghostty $1/bin
-#cp -a zig-out/share    $1/usr
-#install -Dm644 com.mitchellh.ghostty.desktop $1/usr/share/applications/com.mitchellh.ghostty.desktop
