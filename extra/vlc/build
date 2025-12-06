@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i vlc-3.0.21-taglib-1.patch
-patch -Np1 -i vlc-3.0.21-fedora_ffmpeg7-1.patch
-
 BUILDCC=gcc ./configure --prefix=/usr
 make
 make DESTDIR=$1 install
