@@ -8,4 +8,4 @@ make INSTALLROOT="$1" PREFIX=/usr install
 
 install -v -dm755 "$1/usr/share/gnu-efi/apps/x86_64"
 install -v -m644  x86_64/apps/*.efi \
-    "$1/usr/share/gnu-efi/apps/x86_64/"
+  "$1/usr/share/gnu-efi/apps/x86_64/"

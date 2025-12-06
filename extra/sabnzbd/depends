@@ -3,7 +3,7 @@ par2cmdline
 p7zip
 unrar
 python-cheetah3
-python-sabctools
+python-sabctools==8.2.6
 python-feedparser
 python-cherrypy
 python-cryptography
