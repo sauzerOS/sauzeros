@@ -1,0 +1,11 @@
+#!/bin/sh
+
+DEST_DIR="/home/$HOKUTO_REAL_USER/.config/PCSX2"
+mkdir -p "$DEST_DIR"
+
+echo "Installing patches in $HOKUTO_REAL_USER PCSX2 .config folder"
+unzip -o /usr/share/pcsx2/resources/patches.zip -d "$DEST_DIR" > /dev/null
+echo "Installing cheats in $HOKUTO_REAL_USER PCSX2 .config folder"
+unzip -o /usr/share/pcsx2/resources/cheats.zip -d "$DEST_DIR" > /dev/null
+
+chown -R "$HOKUTO_REAL_USER:$(id -gn "$HOKUTO_REAL_USER")" "$DEST_DIR"
