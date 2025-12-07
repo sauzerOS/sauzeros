@@ -96,6 +96,10 @@ patchelf --add-rpath /usr/lib/pcsx2 $1/usr/bin/pcsx2
 7z a -mx=9 -r patches.zip patches/.
 install -Dm644 patches.zip -t "$1/usr/share/pcsx2/resources/"
 
+# cheats
+7z a -mx=9 -r cheats.zip cheats/.
+install -Dm644 cheats.zip -t "$1/usr/share/pcsx2/resources/"
+
 # desktop entry
 install -Dm644 bin/resources/icons/AppIconLarge.png "$1/usr/share/pixmaps/pcsx2.png"
 install -Dm755 pcsx2.desktop "$1/usr/share/applications/pcsx2.desktop"
