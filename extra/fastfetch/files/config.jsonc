@@ -14,6 +14,11 @@
     "os",
     "kernel",
     "uptime",
+{
+      "type": "command",
+      "key": "Packages",
+      "text": "hokuto ls | wc -l"
+    },
     "packages",
     "shell",
     "terminal",
