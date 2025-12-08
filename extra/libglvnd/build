@@ -1,24 +1,24 @@
 #!/bin/sh -e
 
-meson setup build               \
-    --prefix=/usr               \
-            --buildtype=release \
-            -D gles1=false      \
-            -D hgl=false
+meson setup build     \
+  --prefix=/usr       \
+  --buildtype=release \
+  -D gles1=false      \
+  -D hgl=false
 
 meson compile -C build
 meson install -C build --destdir=$1
 
 #32bit
-
 rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup build --prefix=/usr      \
-            --libdir=/usr/lib32      \
-            --buildtype=release      \
-            -D gles1=false           \
-            -D hgl=false
+meson setup build                    \
+  --prefix=/usr                      \
+  --libdir=/usr/lib32                \
+  --buildtype=release                \
+  -D gles1=false                     \
+  -D hgl=false
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR

@@ -1,0 +1,26 @@
+- name: sauzeros-kde
+  type: repository
+  desc: sauzerOS KDE
+  family: kiss
+  ruleset: kiss
+  minpackages: 50
+  sources:
+    - name: repository
+      fetcher:
+        class: GitFetcher
+        url: 'https://github.com/sauzerOS/kde.git'
+        sparse_checkout: [ '**/version', '**/sources', '**/patches', '**/meta' ]
+      parser:
+        class: KissGitParser
+        use_meta: true
+  repolinks:
+    - desc: sauzerOS KDE
+      url: https://github.com/sauzerOS/kde/
+  packagelinks:
+    - type: PACKAGE_SOURCES
+      url: 'https://github.com/sauzerOS/kde/tree/master/{path}'
+    - type: PACKAGE_PATCH
+      url: 'https://github.com/sauzerOS/kde/blob/master/{path}/patches/{?patch}'
+    - type: PACKAGE_PATCH_RAW
+      url: 'https://raw.githubusercontent.com/sauzerOS/kde/master/{path}/patches/{?patch}'
+  groups: [ all, production ]
