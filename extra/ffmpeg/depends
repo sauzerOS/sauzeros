@@ -16,10 +16,11 @@ nasm
 openssl
 openjpeg
 opus
-pkgconf make
+pkgconf
 pulseaudio
 x264
 x265
 xvidcore
 nasm
 nv-codec-headers
+libplacebo

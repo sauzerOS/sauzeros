@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+meson setup build \
+  --prefix=/usr   \
+  -D docs=false   \
+  -D audit=false  \
+  -D linux-4-17=true \
+  -D system-console-users=gdm,sddm,lightdm,lxdm
+
+meson compile -C build
+meson install -C build --destdir=$1

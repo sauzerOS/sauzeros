@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+cd firefox-$2
+
 #icu 78.1 fix
 sed -i '/VIRAMA = 47/a CLASS_CHARACTER,' intl/lwbrk/LineBreaker.cpp
 
@@ -76,8 +78,8 @@ DESTDIR=$1 ./mach install
 # Desktop file & icon
 install -d $1/usr/share/applications
 install -d $1/usr/share/icons/hicolor/symbolic/apps
-install -Dvm644 firefox.desktop $1/usr/share/applications/
-install -Dvm644 firefox-symbolic.svg -t "$1/usr/share/icons/hicolor/symbolic/apps"
+install -Dvm644 ../firefox.desktop $1/usr/share/applications/
+install -Dvm644 ../firefox-symbolic.svg -t "$1/usr/share/icons/hicolor/symbolic/apps"
 
 # Install desktop icons and metadata
 theme=official
@@ -91,4 +93,3 @@ install -Dvm644 browser/branding/$theme/content/about-logo@2x.png \
 "$1/usr/share/icons/hicolor/384x384/apps/firefox.png"
 install -Dvm644 browser/branding/$theme/content/about-logo.svg \
 "$1/usr/share/icons/hicolor/scalable/apps/firefox.svg"
-

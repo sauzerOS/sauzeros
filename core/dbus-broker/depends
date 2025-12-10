@@ -1,0 +1,4 @@
+expat
+libcap-ng
+systemd
+meson make

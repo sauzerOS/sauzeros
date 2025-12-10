@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS"
+./configure --prefix=/usr \
+  --enable-static=no
 
 make
 make DESTDIR=$1 install

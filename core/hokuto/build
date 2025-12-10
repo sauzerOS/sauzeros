@@ -2,3 +2,4 @@
 
 install -Dm755 hokuto $1/usr/bin/hokuto
 ln -s hokuto $1/usr/bin/hk
+install -Dm644 hokuto.fish $1/usr/share/fish/completions/hokuto.fish 

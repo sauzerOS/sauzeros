@@ -27,3 +27,4 @@ wayland
 wayland-protocols
 zlib-ng
 libva optional
+libclc

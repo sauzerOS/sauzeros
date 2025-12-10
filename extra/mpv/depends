@@ -4,12 +4,12 @@ freetype
 libass
 libplacebo
 libdisplay-info
-linux-headers make
+linux-headers
 libxpresent
 libXScrnSaver
 luajit
 mesa
 mujs
-pkgconf make
-python  make
+pkgconf
+python
 xrandr

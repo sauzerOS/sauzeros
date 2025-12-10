@@ -1,5 +1,5 @@
 python-pycairo
 python-pygobject
-python-docutils make
-python-setuptools make
+python-docutils
+python-setuptools
 xrandr

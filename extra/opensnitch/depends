@@ -1,3 +1,4 @@
+dbus-python
 libnetfilter_queue
 python-notify2
 python-grpcio
@@ -8,4 +9,4 @@ python-pyinotify
 python-notify2
 python-pyasn
 python-qt-material
-#opensnitch-ebpf-module
+opensnitch-ebpf-module
