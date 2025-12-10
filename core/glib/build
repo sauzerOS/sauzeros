@@ -3,13 +3,13 @@
 meson setup build               \
       --prefix=/usr             \
       --buildtype=release       \
+      --default-library=both    \
       -D glib_debug=disabled    \
       -D man-pages=disabled     \
       -D sysprof=disabled
 
 meson compile -C build
 meson install -C build --destdir=$1
-
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
