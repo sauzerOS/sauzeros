@@ -34,3 +34,4 @@ python-zstandard
 rpm
 rsync
 yajl
+python-expandvars

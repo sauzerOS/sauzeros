@@ -7,3 +7,5 @@ python-pillow
 python-requests
 python-urllib3
 unzip
+dbus-python
+vulkan-tools

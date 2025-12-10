@@ -6,7 +6,12 @@ sed -e '204a\    tree = ET.parse(xmlfile)'                 \
     -i src/vulkan/utils_gen.py
 
 meson setup build --prefix=/usr \
-        -D glslang=enabled
+  -D vulkan=enabled  \
+  -D glslang=enabled \
+  -D shaderc=enabled \
+  -D lcms=enabled    \
+  -D d3d11=disabled  \
+  -D demos=false
 
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1

@@ -1,0 +1,9 @@
+git+https://github.com/caddyserver/caddy.git#2.10.2
+git+https://github.com/caddyserver/dist.git#2.10.2 caddy-dist
+files/caddy-api.service
+files/caddy.service
+files/caddy.sysusers
+files/caddy.tmpfiles
+files/override-main-module-version.patch
+files/use-data-dir-for-autosave.patch
+files/Caddyfile

@@ -14,3 +14,5 @@ vte3
 nftables
 dnsmasq
 spice-gtk
+osinfo-db
+osinfo-db-tools

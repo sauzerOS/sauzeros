@@ -1,3 +1,10 @@
 cython
 llhttp
+python-aiohappyeyeballs
+python-aiosignal
+python-attrs
+python-frozenlist
+python-multidict
+python-propcache
+python-yarl
 python-pkgconfig

@@ -1,13 +1,12 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build     \
+  --prefix=/usr       \
+  -D default-hvs=qemu \
+  -D tests=disabled
 
-meson --prefix=/usr -Ddefault-hvs=qemu \
-      -Dtests=disabled ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 python -m compileall "${1}"/usr/share/virt-manager
 python -O -m compileall "${1}"/usr/share/virt-manager
