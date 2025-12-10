@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# build mesa-32 if multilib is enabled and it's not installed yet
+if ! hokuto check pkgname && [ "$MULTILIB" -eq 1 ]; then
+echo "Building mesa-32"
+hokuto build -a mesa-32
+fi
