@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr
+meson setup build \
+  --prefix=/usr
 
-make
-make DESTDIR="$1" install
+meson compile -C build
+meson install -C build --destdir=$1
