@@ -18,8 +18,8 @@ cd ..
 install -d     $1/usr/lib/vkd3d-proton/win64
 mv $1/usr/bin/*.dll $1/usr/lib/vkd3d-proton/win64
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build-win32
 cd    build-win32
 
@@ -32,6 +32,7 @@ DESTDIR=$1 ninja install
 
 install -d     $1/usr/lib/vkd3d-proton/win32
 mv $1/usr/bin/*.dll $1/usr/lib/vkd3d-proton/win32
+fi
 
 cd ..
 install -d $1/usr/bin

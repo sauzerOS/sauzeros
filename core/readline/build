@@ -11,7 +11,7 @@ patch -Np0 -i readline83-001
 make SHLIB_LIBS=-lncursesw
 make DESTDIR="$1" install
 
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 CC="gcc -m32" ./configure \
@@ -24,4 +24,4 @@ make SHLIB_LIBS="-lncursesw"
 make SHLIB_LIBS="-lncursesw" DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
-
+fi

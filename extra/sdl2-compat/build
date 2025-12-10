@@ -2,15 +2,15 @@
 
 CFLAGS+=" -ffat-lto-objects"
 cmake -B build -G Ninja \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=None
-  cmake --build build
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None
 
-
+cmake --build build
 DESTDIR=$1 cmake --install build
 install -d $1/usr/lib/pkgconfig/
 ln -s sdl2-compat.pc $1/usr/lib/pkgconfig/sdl2.pc
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 export CC='gcc -m32'
@@ -21,7 +21,9 @@ cmake -B build -G Ninja \
       -D CMAKE_INSTALL_PREFIX=/usr \
       -D CMAKE_INSTALL_LIBDIR=lib32 \
       -D CMAKE_BUILD_TYPE=None
+
 cmake --build build
 DESTDIR=tmp32dir cmake --install build
 rm -rf tmp32dir/usr/{bin,include,share}
 rsync -a tmp32dir/* $1/
+fi

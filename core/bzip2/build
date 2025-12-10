@@ -30,8 +30,8 @@ ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1.0"
 ln -sf bzip2 "$1/usr/bin/bunzip2"
 ln -sf bzip2 "$1/usr/bin/bzcat"
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 make clean
 sed -e "s/^CC=.*/CC=gcc -m32/" -i Makefile{,-libbz2_so}
 make -f Makefile-libbz2_so
@@ -42,3 +42,4 @@ ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so
 ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so.1
 ln -sf libbz2.so.$2 $1/usr/lib32/libbz2.so.1.0
 install -Dm644 libbz2.a $1/usr/lib32/libbz2.a
+fi

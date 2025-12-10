@@ -17,8 +17,8 @@ install -v -m644 system-session "$1/etc/pam.d/system-session"
 install -v -m644 system-password "$1/etc/pam.d/system-password"
 install -v -m644 other "$1/etc/pam.d/other"
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf build
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
 CC="gcc -m32 -march=i686"              \
@@ -33,3 +33,4 @@ meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi

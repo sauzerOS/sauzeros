@@ -6,6 +6,7 @@ mv -f _ programs/Makefile
 make prefix=/usr
 make prefix=/usr DESTDIR=$1 install
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make clean
 CC="gcc -m32" make prefix=/usr
@@ -13,3 +14,4 @@ make prefix=/usr DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32/pkgconfig
 cp -Rv DESTDIR/usr/lib/* $1/usr/lib32/
 sed -e "/^libdir/s/lib$/lib32/" -i $1/usr/lib32/pkgconfig/libzstd.pc
+fi

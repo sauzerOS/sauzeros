@@ -11,8 +11,8 @@ meson install -C build --destdir=$1
 rm -vf $1/usr/lib/libxml2.la
 sed '/libs=/s/xml2.*/xml2"/' -i $1/usr/bin/xml2-config
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 ./configure --prefix=/usr            \
@@ -23,8 +23,10 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
             --with-history           \
             --with-icu               \
             --without-python
+
 make
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 rm -vf DESTDIR/usr/lib32/libxml2.la
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi

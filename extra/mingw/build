@@ -15,8 +15,9 @@ cd    build-x86_64
 make
 make DESTDIR=$1 install
 cd ..
-#32bit
 
+if [ "$MULTILIB" = "1" ]; then
+#32bit
 export CC=i686-w64-mingw32-gcc
 export CXX=i686-w64-mingw32-g++
 export CPPFLAGS="-I/usr/i686-w64-mingw32/include"
@@ -32,3 +33,4 @@ cd    build-i686
 
 make
 make DESTDIR=$1 install
+fi

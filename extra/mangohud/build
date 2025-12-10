@@ -5,8 +5,9 @@ meson setup build --prefix=/usr \
             -D mangohudctl=true
 
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 export CC="gcc -m32"
 export CXX="g++ -m32"
@@ -22,3 +23,4 @@ meson compile -C build32
 meson install -C build32 --destdir tmp32
 rm -rf build32/tmp32/usr/bin
 cp -r build32/tmp32/* $1/
+fi

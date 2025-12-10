@@ -1,33 +1,33 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup --prefix=/usr \
+meson setup build         \
+      --prefix=/usr       \
       --buildtype=release \
       -D database=gdbm    \
       -D doxygen=false    \
-      -D tests=false ..
+      -D tests=false
 
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
 
 # Remove systemwide conf
 rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
-rm -rf *
-meson setup --cross-file=lib32  \
+rm -rf build
+meson setup build               \
+            --cross-file=lib32  \
             --prefix=/usr       \
             --libdir=/usr/lib32 \
             --buildtype=release \
             -D database=gdbm    \
             -D doxygen=false    \
             -D bluez5=disabled  \
-            -D tests=false ..
+            -D tests=false
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

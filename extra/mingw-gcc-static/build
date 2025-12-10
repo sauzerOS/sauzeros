@@ -14,8 +14,8 @@ make all-gcc
 make DESTDIR=$1 install-gcc
 cd ..
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build-i686-mingw-w64-static
 cd    build-i686-mingw-w64-static
 
@@ -29,6 +29,7 @@ cd    build-i686-mingw-w64-static
 
 make all-gcc
 make DESTDIR=$1 install-gcc
+fi
 
 # remove gcc duplicates
 rm -rf $1/usr/share/{locale,info,man}

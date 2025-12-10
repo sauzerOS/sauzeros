@@ -1,9 +1,7 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup --prefix=/usr            \
+meson setup build                    \
+            --prefix=/usr            \
             --buildtype=release      \
             -D gallium-drivers=      \
             -D vulkan-drivers=       \
@@ -12,22 +10,23 @@ meson setup --prefix=/usr            \
             -D glx=disabled          \
             -D llvm=disabled         \
             -D valgrind=disabled     \
-            -D libunwind=disabled    \
-            ..
+            -D libunwind=disabled
 
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
+
 mkdir -pv $1/usr/include/GL/internal
-cp -v ../include/GL/internal/dri_interface.h $1/usr/include/GL/internal
+cp -v include/GL/internal/dri_interface.h $1/usr/include/GL/internal
 mkdir -pv $1/usr/include/EGL
-cp -v ../include/EGL/eglmesaext.h $1/usr/include/EGL
+cp -v include/EGL/eglmesaext.h $1/usr/include/EGL
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
-rm -rf *
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup --prefix=/usr            \
+meson setup build                    \
+            --prefix=/usr            \
             --libdir=/usr/lib32      \
             --buildtype=release      \
             -D gallium-drivers=      \
@@ -37,10 +36,10 @@ meson setup --prefix=/usr            \
             -D glx=disabled          \
             -D llvm=disabled         \
             -D valgrind=disabled     \
-            -D libunwind=disabled    \
-            ..
+            -D libunwind=disabled
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/{lib32,share}/
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

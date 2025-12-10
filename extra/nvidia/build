@@ -165,7 +165,7 @@ install -Dm644 sandboxutils-filelist.json "$1/usr/share/nvidia/files.d/sandboxut
 # libxnvctrl
 
 
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 cd 32
 
@@ -210,3 +210,4 @@ install -D -m755 "libnvidia-ptxjitcompiler.so.$2" "$1/usr/lib32/libnvidia-ptxjit
 
 # Optical flow
 install -D -m755 "libnvidia-opticalflow.so.$2" "$1/usr/lib32/libnvidia-opticalflow.so.$2"
+fi

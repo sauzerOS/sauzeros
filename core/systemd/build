@@ -49,8 +49,8 @@ install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.netw
 install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
 install -v -m644 ../dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 cd ..
 rm -rf build
 mkdir build
@@ -79,3 +79,4 @@ cp -vR DESTDIR/usr/lib32/security       $1/usr/lib32
 cp -va DESTDIR/usr/lib32/libsystemd.so* $1/usr/lib32
 cp -va DESTDIR/usr/lib32/libudev.so*    $1/usr/lib32
 cp -v  DESTDIR/usr/lib32/pkgconfig/*    $1/usr/lib32/pkgconfig
+fi

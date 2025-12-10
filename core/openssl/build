@@ -16,6 +16,7 @@ make DESTDIR="$1" \
     install_ssldirs \
     install_man_docs
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 ./config --prefix=/usr         \
@@ -24,7 +25,9 @@ make distclean
          shared                \
          zlib-dynamic          \
          linux-x86
+
 make
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi

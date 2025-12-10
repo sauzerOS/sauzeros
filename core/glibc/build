@@ -35,6 +35,7 @@ mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf
 cp -v ld.so.conf "$1"/etc/ld.so.conf
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf glibc-build
 mkdir -v glibc-build
@@ -63,3 +64,4 @@ install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
 echo "/usr/lib32" >> $1/etc/ld.so.conf
 install -d $1/usr/lib
 ln -sv /usr/lib32/ld-linux.so.2 $1/usr/lib/ld-linux.so.2
+fi

@@ -49,8 +49,8 @@ install -v -m755    tools/qt-faststart $1/usr/bin
 
 rm -rf "$1/usr/share/ffmpeg/examples"
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 CFLAGS+=' -fno-lto'
 make distclean
 ./configure --prefix=/usr                             \
@@ -84,3 +84,4 @@ make
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

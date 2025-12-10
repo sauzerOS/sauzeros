@@ -14,7 +14,7 @@ sed -i '/long long t1;/,+1s/()/(...)/' configure
 make
 make DESTDIR=$1 install
 
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 cp -v configfsf.guess config.guess
@@ -37,3 +37,4 @@ install -d $1/usr/lib32
 install -d $1/usr/include/m32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
 cp -Rv DESTDIR/usr/include/m32/* $1/usr/include/m32/
+fi

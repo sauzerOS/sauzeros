@@ -10,6 +10,7 @@ cmake -B build -D CMAKE_BUILD_TYPE=None             \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 export CC='gcc -m32'
@@ -25,9 +26,9 @@ cmake --build build
 DESTDIR=tmp32dir cmake --install build
 rm -rf tmp32dir/usr/{include,share,bin}
 rsync -a tmp32dir/* $1/
+fi
 
 7z x soundfonts.7z.001
-
 install -d $1/usr/share/sounds/sf2
 install -Dm 644 FatBoy-v0.790.sf2 $1/usr/share/sounds/sf2/FatBoy-v0.790.sf2
 install -Dm 644 FluidR3_GM.sf2 $1/usr/share/sounds/sf2/FluidR3_GM.sf2

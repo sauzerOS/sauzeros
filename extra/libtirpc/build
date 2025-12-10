@@ -8,12 +8,7 @@
 make
 make DESTDIR="$1" install
 
-# Remove all info files.
-rm -rf "$1/usr/share/info"
-
-# Remove docs.
-rm -rf "$1/usr/share/doc"
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make clean
 CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
@@ -23,3 +18,4 @@ CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32/
+fi

@@ -5,10 +5,10 @@ meson setup build --prefix=/usr \
   -D with-examples=false
 
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf build
 export CC='gcc -m32'
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
@@ -23,5 +23,6 @@ DESTDIR=tmp32dir meson install -C build
 cd build
 rm -rf tmp32dir/{etc,usr/include}
 cp -a tmp32dir/* $1/
+fi
 
 install -Dm644 ../gamemode.ini $1/etc/gamemode.ini

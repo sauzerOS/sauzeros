@@ -1,32 +1,32 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-cmake -D CMAKE_INSTALL_PREFIX=/usr                   \
+cmake -B build                                       \
+      -D CMAKE_INSTALL_PREFIX=/usr                   \
       -D CMAKE_BUILD_TYPE=Release                    \
       -D BUILD_SHARED_LIBS=ON                        \
       -D CMAKE_SKIP_INSTALL_RPATH=ON                 \
       -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr \
-      -G Ninja ..
+      -G Ninja
 
-ninja
-DESTDIR=$1 ninja install
+cmake --build build
+DESTDIR=$1 cmake --install build
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
-rm -rf *
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"                         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig                 \
-cmake -D CMAKE_INSTALL_PREFIX=/usr                   \
+cmake -B build                                       \
+      -D CMAKE_INSTALL_PREFIX=/usr                   \
       -D CMAKE_INSTALL_LIBDIR=lib32                  \
       -D CMAKE_BUILD_TYPE=Release                    \
       -D CMAKE_SKIP_INSTALL_RPATH=ON                 \
       -D BUILD_SHARED_LIBS=ON                        \
       -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr \
-      -G Ninja ..
+      -G Ninja
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi
