@@ -17,6 +17,7 @@ DESTDIR=$1 ninja install
 install -d     $1/usr/lib/dxvk/win64
 mv $1/usr/bin/*.dll $1/usr/lib/dxvk/win64
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 cd ..
 mkdir build-win32
@@ -32,3 +33,4 @@ ninja
 DESTDIR=$1 ninja install
 install -d $1/usr/lib/dxvk/win32
 mv $1/usr/bin/*.dll $1/usr/lib/dxvk/win32
+fi

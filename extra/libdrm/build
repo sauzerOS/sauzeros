@@ -1,32 +1,29 @@
 #!/bin/sh -e
 
-meson \
+meson setup build        \
     --prefix=/usr        \
     -D udev=true         \
     -D tests=false       \
-    -D valgrind=disabled \
-    . build
+    -D valgrind=disabled
 
-ninja -C build
-DESTDIR=$1 ninja -C build install
+meson compile -C build
+meson install -C build --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf build
-mkdir build
-cd build
-
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup --prefix=/usr            \
+meson setup build                    \
+            --prefix=/usr            \
             --buildtype=release      \
             --libdir=/usr/lib32      \
             -D tests=false           \
             -D udev=true             \
-            -D valgrind=disabled     \
-            ..
+            -D valgrind=disabled
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi

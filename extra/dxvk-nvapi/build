@@ -49,8 +49,8 @@ DESTDIR="$1" ninja -C "build/x64" install
 install -d $1/usr/bin
 install -Dm 755 -t "$1/usr/bin" setup_dxvk_nvapi
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 meson setup . "build/x32" \
 --cross-file build-win32.txt \
 --prefix "/usr/share/dxvk-nvapi/x32" \
@@ -61,3 +61,4 @@ meson setup . "build/x32" \
     --strip
 ninja -C "build/x32" -v
 DESTDIR="$1" ninja -C "build/x32" install
+fi

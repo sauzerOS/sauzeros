@@ -1,23 +1,22 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build \
+    --prefix=/usr
 
-meson --prefix=/usr ..
+meson compile -C build
+meson install -C build --destdir=$1
 
-ninja
-DESTDIR=$1 ninja install
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
-rm -rf * &&
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup --prefix=/usr            \
-            --libdir=/usr/lib32      \
-            ..
+meson setup build                    \
+            --prefix=/usr            \
+            --libdir=/usr/lib32
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi

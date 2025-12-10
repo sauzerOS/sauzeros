@@ -27,8 +27,8 @@ install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $1/usr/bin
 
 install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib/pkgconfig
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 cd ../nss
 find -name "Linux*.OBJ" -type d -exec rm -rf {} +
 rm -rf ../dist
@@ -48,3 +48,4 @@ install -v -m755 Linux*/lib/*.so              $1/usr/lib32
 install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1/usr/lib32
 sed -i 's/lib/lib32/g' Linux*/lib/pkgconfig/nss.pc
 install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib32/pkgconfig
+fi

@@ -1,38 +1,37 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cmake -B build                         \
+    -D CMAKE_INSTALL_PREFIX=/usr       \
+    -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+    -D CMAKE_INSTALL_LIBDIR=lib        \
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc   \
+    -D CMAKE_INSTALL_DATADIR=/share    \
+    -D CMAKE_SKIP_RPATH=True           \
+    -D BUILD_TESTS=Off                 \
+    -D BUILD_WSI_XCB_SUPPORT=On        \
+    -D BUILD_WSI_XLIB_SUPPORT=On       \
+    -D BUILD_WSI_WAYLAND_SUPPORT=On    \
+    -D CMAKE_BUILD_TYPE=Release        \
+    -G Ninja
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -DVULKAN_HEADERS_INSTALL_DIR=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_DATADIR=/share \
-    -DCMAKE_SKIP_RPATH=True \
-    -DBUILD_TESTS=Off \
-    -DBUILD_WSI_XCB_SUPPORT=On \
-    -DBUILD_WSI_XLIB_SUPPORT=On \
-    -DBUILD_WSI_WAYLAND_SUPPORT=On \
-    -DCMAKE_BUILD_TYPE=Release \
-    -G Ninja ..
+cmake --build build
+DESTDIR=$1 cmake --install build
 
-ninja
-DESTDIR=$1 ninja install
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
-rm -rf *
-ASFLAGS+=" --32" CFLAGS+=" -m32"        \
+rm -rf build
+ASFLAGS+=" --32" CFLAGS+=" -m32"       \
 CXXFLAGS+=" -m32"                      \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig   \
-cmake -D CMAKE_INSTALL_PREFIX=/usr     \
+cmake -B build                         \
+      -D CMAKE_INSTALL_PREFIX=/usr     \
       -D CMAKE_INSTALL_LIBDIR=lib32    \
       -D CMAKE_BUILD_TYPE=Release      \
       -D CMAKE_SKIP_INSTALL_RPATH=ON   \
-      -G Ninja ..
+      -G Ninja
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
-
+fi

@@ -7,6 +7,7 @@ export CFLAGS="$CFLAGS -fPIC"
 make
 make DESTDIR=$1 install
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit zlib
 make distclean
 CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
@@ -16,4 +17,4 @@ CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32/
-
+fi

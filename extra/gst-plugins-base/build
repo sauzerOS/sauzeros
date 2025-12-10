@@ -8,6 +8,7 @@ meson setup build         \
 meson compile -C build
 meson install -C build --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 meson setup build          \
@@ -22,3 +23,4 @@ meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
+fi

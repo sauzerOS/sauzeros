@@ -1,10 +1,10 @@
 #!/bin/sh -e
 
 meson setup build --prefix=/usr
+meson compile -C build
+meson install -C build --destdir=$1
 
-ninja -C build
-DESTDIR=$1 ninja -C build install
-
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 meson setup build           \
@@ -14,7 +14,8 @@ meson setup build           \
       --buildtype=release   \
       -D tests=disabled
 
-ninja -C build
-DESTDIR=$PWD/DESTDIR ninja -C build install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

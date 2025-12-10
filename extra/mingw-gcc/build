@@ -17,8 +17,8 @@ cd ..
 ln -sfv x86_64-w64-mingw32-gcc $1/usr/bin/x86_64-w64-mingw32-cc
 strip $1/usr/libexec/gcc/x86_64-w64-mingw32/15.2.0/{cc1*,collect2,lto*}
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build-i686-mingw-w64
 cd    build-i686-mingw-w64
 
@@ -34,13 +34,12 @@ make DESTDIR=$1 install
 
 ln -sfv i686-w64-mingw32-gcc $1/usr/bin/i686-w64-mingw32-cc
 strip $1/usr/libexec/gcc/i686-w64-mingw32/15.2.0/{cc1*,collect2,lto*}
+fi
 
 # remove duplicate gcc files
-
 rm -rf $1/usr/share/man
 rm -rf $1/usr/share/locale
 rm -rf $1/usr/share/gcc-$2/python
 rm -rf $1/usr/lib/libcc1.so.0.0.0
 rm -rf $1/usr/lib/libcc1.so.0
 rm -rf $1/usr/lib/libcc1.so
-

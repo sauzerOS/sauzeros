@@ -7,8 +7,8 @@
 make
 make DESTDIR="$1" install
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 make distclean
 CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 ./configure --prefix=/usr \
@@ -19,3 +19,4 @@ make
 make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

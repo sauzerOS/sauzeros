@@ -14,8 +14,8 @@ make
 make DESTDIR=$1 install
 rm -vf $1/usr/lib/libx265.a
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf *
 CC="gcc -m32" CXX="g++ -m32"              \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig      \
@@ -30,3 +30,4 @@ make DESTDIR=$PWD/DESTDIR install
 install -d $1/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
 rm -vf $1/usr/lib32/libx265.a
+fi

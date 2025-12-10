@@ -10,6 +10,8 @@ meson setup build               \
 meson compile -C build
 meson install -C build --destdir=$1
 
+
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 
@@ -37,3 +39,4 @@ cp -av DESTDIR/usr/lib32/* $1/usr/lib32/
 cp -av DESTDIR/usr/bin/gio-querymodules $1/usr/bin/gio-querymodules-32
 install -Dt $1/usr/share/libalpm/hook -m644 *.hook
 touch $1/usr/lib32/gio/modules/.keep
+fi

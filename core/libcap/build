@@ -17,6 +17,7 @@ mk() {
 mk
 mk DESTDIR="$1" install
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 make CC="gcc -m32 -march=i686"
@@ -25,3 +26,4 @@ install -d $1/usr/lib32/pkgconfig
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
 sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i $1/usr/lib32/pkgconfig/lib{cap,psx}.pc
 chmod -v 755 $1/usr/lib32/libcap.so.$2
+fi

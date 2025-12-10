@@ -1,13 +1,13 @@
 #!/bin/sh -e
 
-meson setup \
-    -Dprefix=/usr \
-    -Dgtk=disabled \
-    output
+meson setup output  \
+    -D prefix=/usr  \
+    -D gtk=disabled
 
-ninja -C output
-DESTDIR=$1 ninja -C output install
+meson compile -C output
+meson install -C output --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
 meson setup build           \
       --cross-file=lib32    \
@@ -20,3 +20,4 @@ ninja -C build
 DESTDIR=$PWD/DESTDIR ninja -C build install
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

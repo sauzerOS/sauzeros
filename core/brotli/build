@@ -11,8 +11,8 @@ cmake -B build \
 cmake --build   build
 cmake --install build
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf build
 export CC='gcc -m32'
 export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
@@ -27,3 +27,4 @@ cmake -B build \
 DESTDIR="$PWD/DESTDIR" cmake --install build
 install -d $1/usr/lib32/pkgconfig
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

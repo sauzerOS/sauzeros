@@ -2,29 +2,29 @@
 
   CXXFLAGS+=" -ffat-lto-objects"
   cmake \
-    -Bbuild-static \
-    -GNinja \
-    -DCMAKE_INSTALL_PREFIX='/usr' \
-    -DCMAKE_BUILD_TYPE='None' \
-    -DALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
-    -DBUILD_SHARED_LIBS='OFF'
+    -B build-static \
+    -G Ninja \
+    -D CMAKE_INSTALL_PREFIX='/usr' \
+    -D CMAKE_BUILD_TYPE='None' \
+    -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
+    -D BUILD_SHARED_LIBS='OFF'
   cmake --build build-static
 
   cmake \
-    -Bbuild-shared \
-    -GNinja \
-    -DCMAKE_INSTALL_PREFIX='/usr' \
-    -DCMAKE_BUILD_TYPE='None' \
-    -DALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
-    -DBUILD_SHARED_LIBS='ON' \
-    -DGLSLANG_TESTS='ON'
+    -B build-shared \
+    -G Ninja \
+    -D CMAKE_INSTALL_PREFIX='/usr' \
+    -D CMAKE_BUILD_TYPE='None' \
+    -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
+    -D BUILD_SHARED_LIBS='ON' \
+    -D GLSLANG_TESTS='ON'
   cmake --build build-shared
 
 DESTDIR=$1 cmake --install build-static
 DESTDIR=$1 cmake --install build-shared
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build
 cd build
 
@@ -42,4 +42,4 @@ ninja
 DESTDIR=$PWD/DESTDIR ninja install
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
-
+fi

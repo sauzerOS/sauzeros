@@ -15,8 +15,8 @@ install -d $1/usr
 cp -Rv DESTDIR/usr/* $1/usr
 cd ..
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build-i686
 cd    build-i686
 
@@ -30,5 +30,4 @@ make
 make   DESTDIR=$PWD/DESTDIR install
 rm -v  DESTDIR/usr/lib/bfd-plugins/libdep.so
 cp -Rv DESTDIR/usr/* $1/usr
-
-
+fi

@@ -1,18 +1,18 @@
 #!/bin/sh -e
 
-meson setup build          \
-    --prefix=/usr          \
-    --libexecdir=/usr/lib  \
-    -Ddefault_library=both \
-    -Denable-docs=false    \
-    -Denable-wayland=true  \
-    -Denable-x11=true      \
+meson setup build           \
+    --prefix=/usr           \
+    --libexecdir=/usr/lib   \
+    -D default_library=both \
+    -D enable-docs=false    \
+    -D enable-wayland=true  \
+    -D enable-x11=true      \
 
 meson compile -C build
 meson install -C build --destdir=$1
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
@@ -26,3 +26,4 @@ meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

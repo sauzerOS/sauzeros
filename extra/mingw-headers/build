@@ -9,8 +9,8 @@ cd    build-x86_64-headers
 make DESTDIR=$1 install
 cd ..
 
+if [ "$MULTILIB" = "1" ]; then
 #32bit
-
 mkdir build-i686-headers
 cd    build-i686-headers
 
@@ -23,3 +23,4 @@ make DESTDIR=$1 install
 # symlink for gcc-static
 install -d $1/usr/i686-w64-mingw32/mingw/
 ln -s /usr/i686-w64-mingw32/include $1/usr/i686-w64-mingw32/mingw/include
+fi
