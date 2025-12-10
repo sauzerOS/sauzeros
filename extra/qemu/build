@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-# Don't use bash
-sed 's/SHELL = bash -o pipefail/SHELL = sh/g' Makefile > _
-mv -f _ Makefile
-
 ./configure \
     --prefix=/usr \
     --localstatedir=/var \
@@ -37,3 +33,17 @@ mv -f _ Makefile
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+install -vdm 755 "$1/usr/lib/binfmt.d/"
+scripts/qemu-binfmt-conf.sh          \
+  --systemd ALL                      \
+  --exportdir "$1/usr/lib/binfmt.d/" \
+  --qemu-path "/usr/bin"             \
+  --persistent yes                   \
+  --preserve-argv0 yes
+
+install -vDm 644 bridge.conf -t "$1/etc/qemu/"
+install -vDm 644 qemu.sasl "$1/etc/sasl2/qemu.conf"
+install -vDm 644 qemu-sysusers.conf "$1/usr/lib/sysusers.d/qemu.conf"
+install -vDm 644 99-qemu-guest-agent.rules -t "$1/usr/lib/udev/rules.d/"
+install -vDm 644 qemu-ga.conf -t "$1/etc/$pkgbase/"

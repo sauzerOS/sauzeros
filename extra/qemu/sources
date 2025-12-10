@@ -1,1 +1,5 @@
 https://download.qemu.org/qemu-10.1.3.tar.xz
+files/99-qemu-guest-agent.rules
+files/bridge.conf
+files/qemu-ga.conf
+files/qemu-sysusers.conf

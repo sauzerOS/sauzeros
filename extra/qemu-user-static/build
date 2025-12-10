@@ -1,0 +1,72 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/qemu \
+    --localstatedir=/var \
+    --docdir=/usr/share/doc/qemu \
+    --enable-attr \
+    --enable-linux-user \
+    --enable-tcg \
+    --disable-bpf \
+    --disable-bsd-user \
+    --disable-capstone \
+    --disable-docs \
+    --disable-fdt \
+    --disable-gcrypt \
+    --disable-glusterfs \
+    --disable-gnutls \
+    --disable-gtk \
+    --disable-install-blobs \
+    --disable-kvm \
+    --disable-libiscsi \
+    --disable-libnfs \
+    --disable-libssh \
+    --disable-linux-io-uring \
+    --disable-nettle \
+    --disable-opengl \
+    --disable-qom-cast-debug \
+    --disable-sdl \
+    --disable-system \
+    --disable-tools \
+    --disable-tpm \
+    --disable-vde \
+    --disable-vhost-crypto \
+    --disable-vhost-kernel \
+    --disable-vhost-net \
+    --disable-vhost-user \
+    --disable-vnc \
+    --disable-werror \
+    --disable-xen \
+    --disable-zstd \
+    --static
+
+meson compile -C build
+meson install -C build --destdir=$1
+
+install -vdm 755 "$1/usr/lib/binfmt.d/"
+scripts/qemu-binfmt-conf.sh          \
+  --systemd ALL                      \
+  --exportdir "$1/usr/lib/binfmt.d/" \
+  --qemu-path "/usr/bin"             \
+  --persistent yes                   \
+  --preserve-argv0 yes
+
+# modify and rename binfmt.d configs to prevent name conflicts
+for _conf in "$1/usr/lib/binfmt.d/"*.conf; do
+  _exe_name="$(basename "${_conf/.conf/}")"
+  _new_exe_name="${_exe_name}-static"
+  _new_conf_name="${_conf/.conf/-static.conf}"
+
+  # create the static version
+  sed -e "s|usr/bin/${_exe_name}|usr/bin/${_new_exe_name}|" "$_conf" > "${_new_conf_name}"
+
+  # remove the original
+  rm -f "$_conf"
+done
+
+# rename static binaries to prevent name conflicts
+for _src in "$1/usr/bin/qemu-"*; do
+  mv -v "$_src" "$1/usr/bin/$(basename "$_src")-static"
+done
