@@ -42,6 +42,12 @@ scripts/qemu-binfmt-conf.sh          \
   --persistent yes                   \
   --preserve-argv0 yes
 
+# disable dynamic conf (default to qemu-user-static package)
+for f in "$1"/usr/lib/binfmt.d/*.conf; do
+    [ -e "$f" ] || continue
+    mv -v "$f" "$f.bak"
+done
+
 install -vDm 644 bridge.conf -t "$1/etc/qemu/"
 install -vDm 644 qemu.sasl "$1/etc/sasl2/qemu.conf"
 install -vDm 644 qemu-sysusers.conf "$1/usr/lib/sysusers.d/qemu.conf"

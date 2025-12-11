@@ -1,9 +1,13 @@
 #!/bin/sh -e
 
-make HOSTCC="${CC:-cc}" headers
+make mrproper
 
-# The headers require rsync for installation, this command
-# simply does the equivalent using find.
-find usr/include -name \*.h -type f | while read -r file; do
-    install -Dm644 "$file" "$1/$file"
-done
+if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+make ARCH=arm64 headers_install INSTALL_HDR_PATH=$1/usr
+
+else
+make ARCH=x86_64 headers_install INSTALL_HDR_PATH=$1/usr
+fi
+
+# Cleanup hidden files
+find $1/usr/include -name '.*' -delete
