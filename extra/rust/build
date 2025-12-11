@@ -1,7 +1,16 @@
 #!/bin/sh -e
 
 cd rustc-$2-src
-cp ../bootstrap.toml .
+
+if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+cp ../bootstrap-arm64.toml bootstrap.toml
+else
+  if ["$MULTILIB" = "1" ]; then
+cp ../bootstrap-amd64-multi.toml bootstrap.toml
+  else
+cp ../bootstrap-amd64.toml bootstrap.toml
+  fi
+fi
 
 # 1. Extract the numeric job count from MAKEFLAGS (e.g., from "-j10" to "10").
 #    This standard shell parameter expansion removes the '-j' prefix.

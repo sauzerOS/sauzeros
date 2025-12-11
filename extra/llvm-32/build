@@ -1,7 +1,11 @@
 #!/bin/sh -e
 
-cd llvm
+# treat this as a dummy package for rust if not doing amd64 multilib
+if [ "$HOKUTO_ARCH" = "aarch64" ] || [ "$MULTILIB" = "0" ]; then
+    exit 0
+fi
 
+cd llvm
 grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
 sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
 
