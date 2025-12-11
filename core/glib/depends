@@ -1,2 +1,3 @@
+meson make
 gobject-introspection optional
 pcre2

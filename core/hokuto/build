@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
-install -Dm755 hokuto $1/usr/bin/hokuto
+if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+install -Dm755 hokuto-arm64 "$1/usr/bin/hokuto"
+else
+install -Dm755 hokuto-amd64 "$1/usr/bin/hokuto"
+fi
+
 ln -s hokuto $1/usr/bin/hk
-install -Dm644 hokuto.fish $1/usr/share/fish/completions/hokuto.fish 
+install -Dm644 hokuto.fish $1/usr/share/fish/completions/hokuto.fish

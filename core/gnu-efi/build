@@ -6,6 +6,13 @@ LDFLAGS="${LDFLAGS//,/ }"
 make PREFIX=/usr
 make INSTALLROOT="$1" PREFIX=/usr install
 
+
+if [ "$HOKUTO_ARCH" = "x86_64" ]; then
 install -v -dm755 "$1/usr/share/gnu-efi/apps/x86_64"
 install -v -m644  x86_64/apps/*.efi \
   "$1/usr/share/gnu-efi/apps/x86_64/"
+else
+install -v -dm755 "$1/usr/share/gnu-efi/apps/aarch64"
+install -v -m644  aarch64/apps/*.efi \
+  "$1/usr/share/gnu-efi/apps/aarch64/"
+fi

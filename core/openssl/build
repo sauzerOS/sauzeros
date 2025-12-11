@@ -6,7 +6,7 @@
     --libdir=lib \
     no-unit-test \
     shared \
-    linux-x86_64
+    linux-$HOKUTO_ARCH
 
 make depend
 make
