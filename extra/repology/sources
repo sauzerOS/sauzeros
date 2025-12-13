@@ -1,1 +1,4 @@
-
+git+https://github.com/repology/repology-updater#3966c7d
+git+https://github.com/repology/repology-rules rules.d
+files/repos.tar.xz repos
+files/update-repology
