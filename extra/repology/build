@@ -1,1 +1,9 @@
 #!/bin/sh -e
+mkdir -p $1/usr/bin
+install -Dm755 update-repology $1/usr/bin/update-repology
+rm update-repology
+
+mkdir -p $1/opt/repology/updater
+rm -rf repos.d
+mv repos repos.d
+cp -r * $1/opt/repology/updater/
