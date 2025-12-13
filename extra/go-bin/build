@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+mkdir -p "$1/usr/bin" "$1/usr/lib/go"
+if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+cd arm64
+cp -pPR misc bin pkg src lib go.env "$1/usr/lib/go"
+
+else
+cd amd64
+cp -pPR misc bin pkg src lib go.env "$1/usr/lib/go"
+
+fi
+
+ln -s ../lib/go/bin/go    "$1/usr/bin"
+ln -s ../lib/go/bin/gofmt "$1/usr/bin"
+# Remove unneeded files.
+rm -f  "$1/usr/share/go/doc/articles/wiki/get.bin"
+rm -f  "$1/usr/lib/go/pkg/tool/"*/api
+rm -rf "$1/usr/lib/go/pkg/bootstrap"
+rm -rf "$1/usr/lib/go/pkg/obj"
+
+# Remove tests.
+for path in "$1/usr/lib/go/src" "$1/usr/lib/go/misc/cgo"
+do
+    find "$path" -type f -a -name \*_test.go -depth -exec rm {} +
+    find "$path" -type f -a -name \*.bash    -depth -exec rm {} +
+    find "$path" -type f -a -name \*.bat     -depth -exec rm {} +
+    find "$path" -type f -a -name \*.rc      -depth -exec rm {} +
+done
