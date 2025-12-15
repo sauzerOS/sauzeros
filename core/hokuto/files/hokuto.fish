@@ -24,6 +24,15 @@ function __hokuto_get_repo_packages
     end
 end
 
+# NEW: Helper function to extract installed package names
+function __hokuto_get_installed_packages
+    set -l install_path "/var/db/hokuto/installed/"
+    if test -d $install_path
+        # Find directories, max depth 1, print only the name
+        find $install_path -mindepth 1 -maxdepth 1 -type d -printf "%f\n" 2>/dev/null
+    end
+end
+
 # Define the list of binaries to apply completion to
 set -l prog_names hokuto hk
 
@@ -48,4 +57,29 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from build b" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
+
+    # 5. Logic for 'edit' (and 'e')
+    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    complete -c $prog -n "__fish_seen_subcommand_from edit e" \
+        -a "(__hokuto_get_repo_packages)" \
+        -d "Repository Package"
+
+    # 6. Logic for 'cd'
+    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    complete -c $prog -n "__fish_seen_subcommand_from cd" \
+        -a "(__hokuto_get_repo_packages)" \
+        -d "Repository Package"
+
+    # 7. Logic for 'uninstall' (and 'r')
+    # Offers package names found in /var/db/hokuto/installed/
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall r" \
+        -a "(__hokuto_get_installed_packages)" \
+        -d "Installed Package"
+
+    # 8. Logic for 'manifest' (and 'm')
+    # Offers package names found in /var/db/hokuto/installed/
+    complete -c $prog -n "__fish_seen_subcommand_from manifest m" \
+        -a "(__hokuto_get_installed_packages)" \
+        -d "Installed Package"
+
 end
