@@ -1,3 +1,3 @@
-cmake
+cmake make
 python
 zlib-ng
