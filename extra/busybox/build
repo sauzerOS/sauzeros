@@ -3,12 +3,13 @@
 #fix ncurses detection script
 sed '50s/main() {}/int main() {}/' -i scripts/kconfig/lxdialog/check-lxdialog.sh
 
+if [ "$HOKUTO_CARCH" = "arm64" ]; then
+# use custom config
+mv config-arm64 .config
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make
+else
 # use custom config
 mv config .config
-
-if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
-CFLAGS="-march=armv8-a+crc+crypto" ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make
-else
 make
 fi
 install -Dm0755 busybox "$1"/usr/bin/busybox
