@@ -52,7 +52,7 @@ ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
 for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
-         nanorc passwd profile resolv.conf securetty shells mime.types hokuto.conf; do
+         nanorc passwd profile resolv.conf securetty shells mime.types; do
     install -m 644 "$f" "$1/etc"
 done
 
@@ -69,3 +69,6 @@ ln -s /proc/self/mounts "$1/etc/mtab"
 
 # Setup hokuto cache dirs
 install -dm 1777 "$1/var/cache/hokuto"
+
+# Setup config.site
+install -Dm644 config.site "$1/usr/share/config.site"

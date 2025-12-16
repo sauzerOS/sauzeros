@@ -1,0 +1,50 @@
+# General defaults
+test "$prefix" = NONE && prefix=/usr
+test "$sharedstatedir" = '${prefix}/com' && sharedstatedir=/var/lib
+test "$localstatedir" = '${prefix}/var' && localstatedir=/var
+
+# ----------------------------------------------------------------------
+# Optimization: Skip header checks (Safe for all archs)
+# ----------------------------------------------------------------------
+ac_cv_header_stdc=yes
+ac_cv_header_sys_types_h=yes
+ac_cv_header_sys_stat_h=yes
+ac_cv_header_stdlib_h=yes
+ac_cv_header_string_h=yes
+ac_cv_header_memory_h=yes
+ac_cv_header_strings_h=yes
+ac_cv_header_inttypes_h=yes
+ac_cv_header_stdint_h=yes
+ac_cv_header_unistd_h=yes
+
+# ----------------------------------------------------------------------
+# Optimization: Pre-define Static Sizes
+# ----------------------------------------------------------------------
+# These types are the same size on x86_64, aarch64, AND 32-bit x86/ARM.
+ac_cv_sizeof_char=1
+ac_cv_sizeof_short=2
+ac_cv_sizeof_int=4
+ac_cv_sizeof_long_long=8
+ac_cv_sizeof_float=4
+ac_cv_sizeof_double=8
+
+# --- REMOVED FOR MULTILIB SAFETY ---
+# ac_cv_sizeof_long
+# ac_cv_sizeof_void_p
+# ac_cv_sizeof_size_t
+# ac_cv_sizeof_ssize_t
+# ac_cv_sizeof_off_t
+# -----------------------------------
+
+# ----------------------------------------------------------------------
+# Optimization: Endianness
+# ----------------------------------------------------------------------
+# x86, x86_64, ARM, and AArch64 (standard Linux) are all Little Endian.
+ac_cv_c_bigendian=no
+
+# ----------------------------------------------------------------------
+# Fixes: Cross-Compilation annoyances
+# ----------------------------------------------------------------------
+ac_cv_func_malloc_0_nonnull=yes
+ac_cv_func_realloc_0_nonnull=yes
+gl_cv_func_gettimeofday_clobber=no
