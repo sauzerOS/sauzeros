@@ -3,10 +3,13 @@
 #fix ncurses detection script
 sed '50s/main() {}/int main() {}/' -i scripts/kconfig/lxdialog/check-lxdialog.sh
 
-if [[ "$HOKUTO_CARCH" = "arm64" ]] || [[ "$HOKUTO_ARCH" = "aarch64" ]]; then
+if [[ "$HOKUTO_CARCH" = "arm64" ]];then
 # use custom config
 mv config-arm64 .config
 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make
+elif [[ "$HOKUTO_ARCH" = "aarch64" ]]; then
+mv config-arm64 .config
+make
 else
 # use custom config
 mv config .config
