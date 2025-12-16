@@ -1,14 +1,34 @@
 #!/bin/sh -e
 
-echo $HOKUTO_IDLE_PRIORITY
-
 cd llvm
-
 grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
 sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
 
-mkdir build
-cd build
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+CC=gcc CXX=g++ \
+cmake   -D CMAKE_INSTALL_PREFIX=/usr \
+	-D CMAKE_SKIP_INSTALL_RPATH=ON \
+	-D LLVM_ENABLE_FFI=ON \
+	-D CMAKE_BUILD_TYPE=Release \
+	-D LLVM_BUILD_LLVM_DYLIB=ON \
+	-D LLVM_LINK_LLVM_DYLIB=ON \
+	-D LLVM_ENABLE_RTTI=ON \
+	-D LLVM_TARGETS_TO_BUILD="AArch64" \
+	-D LLVM_BINUTILS_INCDIR=/usr/include \
+	-D LLVM_INCLUDE_BENCHMARKS=OFF \
+	-D CLANG_DEFAULT_PIE_ON_LINUX=ON \
+	-D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
+	-D LLVM_ENABLE_PROJECTS="clang;lld" \
+	-D LLVM_TOOL_GOLD_BUILD=OFF \
+	-D LLVM_ENABLE_RUNTIMES="compiler-rt" \
+	-D CLANG_DEFAULT_LINKER=lld \
+	-D LLVM_USE_SANITIZER=OFF \
+	-D COMPILER_RT_BUILD_SANITIZERS=OFF \
+	-D LLVM_BINUTILS_INCDIR=/usr/aarch64-linux-gnu/include \
+	-D CMAKE_TOOLCHAIN_FILE=../aarch64-linux.cmake \
+	-D LLVM_DEFAULT_TARGET_TRIPLE=aarch64-linux-gnu \
+	-W no-dev -G Ninja -B build
+else
 
 CC=gcc CXX=g++                               \
 cmake -D CMAKE_INSTALL_PREFIX=/usr           \
@@ -18,7 +38,7 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr           \
       -D LLVM_BUILD_LLVM_DYLIB=ON            \
       -D LLVM_LINK_LLVM_DYLIB=ON             \
       -D LLVM_ENABLE_RTTI=ON                 \
-      -D LLVM_TARGETS_TO_BUILD="BPF;X86;host;AMDGPU;NVPTX" \
+      -D LLVM_TARGETS_TO_BUILD="AArch64;AMDGPU;ARM;BPF;NVPTX;WebAssembly;X86" \
       -D LLVM_BINUTILS_INCDIR=/usr/include   \
       -D LLVM_INCLUDE_BENCHMARKS=OFF         \
       -D CLANG_DEFAULT_PIE_ON_LINUX=ON       \
@@ -26,10 +46,13 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr           \
       -D LLVM_ENABLE_PROJECTS="clang;lld"    \
       -D LLVM_ENABLE_RUNTIMES="compiler-rt"  \
       -D CLANG_DEFAULT_LINKER=lld            \
-      -W no-dev -G Ninja ..
+      -W no-dev -G Ninja -B build
 
-ninja
-DESTDIR=$1 ninja install
+fi
+
+
+cmake --build build
+DESTDIR=$1 cmake --install build
 
 mkdir -pv $1/etc/clang
 for i in clang clang++; do
