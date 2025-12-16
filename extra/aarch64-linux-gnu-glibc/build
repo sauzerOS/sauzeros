@@ -1,0 +1,54 @@
+#!/bin/sh -e
+
+mkdir -p glibc-build
+cd glibc-build
+
+echo 'slibdir=/lib' >> configparms
+echo 'rtlddir=/lib' >> configparms
+echo 'sbindir=/bin' >> configparms
+echo 'rootsbindir=/bin' >> configparms
+
+# remove hardening options for building libraries
+export CFLAGS="-U_FORTIFY_SOURCE -mlittle-endian -O2"
+export CPPFLAGS="-U_FORTIFY_SOURCE -O2"
+unset LD_LIBRARY_PATH
+
+# use bootstrap tools if the aarch64 cross compiler is not installed
+if ! hokuto check aarch64-linux-gnu-gcc; then
+
+  export BUILD_CC=gcc
+  export CC=$HOKUTO_BUILD_DIR/tools/bin/aarch64-lfs-linux-gnu-gcc
+  export CXX=$HOKUTO_BUILD_DIR/tools/bin/aarch64-lfs-linux-gnu-g++
+  export AR=$HOKUTO_BUILD_DIR/tools/bin/aarch64-lfs-linux-gnu-ar
+  export RANLIB=$HOKUTO_BUILD_DIR/tools/bin/aarch64-lfs-linux-gnu-ranlib
+
+else
+
+  export BUILD_CC=gcc
+  export CC=aarc64-linux-gnu-gcc
+  export CXX=aarc64-linux-gnu-g++
+  export AR=aarc64-linux-gnu-ar
+  export RANLIB=aarc64-linux-gnu-ranlib
+
+fi
+
+../configure \
+    --prefix=/usr \
+    --target=aarch64-linux-gnu \
+    --host=aarch64-linux-gnu \
+    --build=x86_64-unknown-linux-gnu \
+    --includedir=/include \
+    --libdir=/lib \
+    --libexecdir=/lib \
+    --with-headers=/usr/aarch64-linux-gnu/include \
+    --enable-obsolete-rpc \
+    --enable-kernel=5.4 \
+    --enable-bind-now \
+    --disable-profile \
+    --disable-werror
+
+echo 'build-programs=no' >> configparms
+make
+make install_root="$1"/usr/aarch64-linux-gnu install
+
+rm -r "$1"/usr/aarch64-linux-gnu/{etc,usr/share,var}

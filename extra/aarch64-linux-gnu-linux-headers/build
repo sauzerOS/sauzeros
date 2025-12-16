@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+make mrproper
+make INSTALL_HDR_PATH="$1/usr/aarch64-linux-gnu/" ARCH=arm64 V=0 headers_install
+
+# clean-up unnecessary files generated during install
+find "$1" \( -name .install -or -name ..install.cmd \) -delete
