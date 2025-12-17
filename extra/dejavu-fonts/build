@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+cd ttf
+install -d "$1"/usr/share/fonts/truetype/dejavu/
+install -Dm644 *.tt[fc] -t "$1"/usr/share/fonts/truetype/dejavu/
