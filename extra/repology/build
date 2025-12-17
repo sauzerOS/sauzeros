@@ -7,3 +7,5 @@ mkdir -p $1/opt/repology/updater
 rm -rf repos.d
 mv repos repos.d
 cp -r * $1/opt/repology/updater/
+chown -R root:wheel $1/opt/repology
+chmod -R g+rw /opt/repology
