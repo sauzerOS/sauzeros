@@ -6,8 +6,7 @@
     --disable-static \
     --enable-extras \
     --disable-ldconfig \
-    --sbin=/usr/bin \
-    --with-fuse=external
+    --sbin=/usr/bin
 
 make
 make DESTDIR="$1" rootbindir=/usr/bin rootsbindir=/usr/bin rootlibdir=/usr/lib install
