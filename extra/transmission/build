@@ -22,5 +22,3 @@ install -Dm644 "transmission.sysusers" \
 		"$1/usr/lib/sysusers.d/transmission.conf"
 install -Dm644 "transmission.tmpfiles" \
 		"$1/usr/lib/tmpfiles.d/transmission.conf"
-
-install -d $1/var/lib/transmission/.config/transmission-daemon/
