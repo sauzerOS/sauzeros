@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i fix-sequoia-off.patch
-
 cmake -B builddir                 \
     -D WITH_AUDIT=OFF             \
     -D WITH_SELINUX=OFF           \
