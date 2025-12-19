@@ -1,20 +1,20 @@
 #!/bin/sh -e
 
 ./Configure \
-    --prefix=/usr \
+    --prefix=$CROSS_PREFIX \
     --openssldir=/etc/ssl \
     --libdir=lib \
     no-unit-test \
     shared \
     linux-$HOKUTO_ARCH
 
-make depend
 make
+make DESTDIR=$1 install
 
-make DESTDIR="$1" \
-    install_sw \
-    install_ssldirs \
-    install_man_docs
+if [ "${CROSS_PREFIX:-}" = "/usr/aarch64-linux-gnu" ]; then
+    rm -rf -- "$1/etc"
+    rm -rf -- "$1/$CROSS_PREFIX/share"
+fi
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
