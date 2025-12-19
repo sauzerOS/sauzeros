@@ -1,1 +1,3 @@
 git+https://github.com/transmission/transmission
+files/transmission.sysusers
+files/transmission.tmpfiles
