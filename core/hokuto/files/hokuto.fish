@@ -34,7 +34,7 @@ function __hokuto_get_installed_packages
 end
 
 # Define the list of binaries to apply completion to
-set -l prog_names hokuto hk
+set -l prog_names hk hokuto
 
 # Define main subcommands
 set -l hokuto_commands install i build b uninstall r update u list ls checksum c version new n edit e bootstrap chroot cleanup find f manifest m

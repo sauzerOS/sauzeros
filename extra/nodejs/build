@@ -1,24 +1,32 @@
 #!/bin/sh -e
 
-#if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+export CC=aarch64-linux-gnu-gcc
+export CXX=aarch64-linux-gnu-g++
+export AR=aarch64-linux-gnu-ar
+export LINK=aarch64-linux-gnu-g++
+export CC_host=gcc
+export CXX_host=g++
+export AR_host=ar
+export LINK_host=g++
 
 ./configure         \
   --dest-cpu=arm64  \
   --dest-os=linux   \
   --cross-compiling
 
-#else
+else
 
-#./configure          \
-#    --prefix=/usr    \
-#    --shared-libuv   \
-#    --shared-nghttp2 \
-#    --shared-zlib    \
-#    --shared-openssl \
-#    --shared-brotli  \
-#    --with-intl=system-icu
+./configure          \
+    --prefix=/usr    \
+    --shared-libuv   \
+    --shared-nghttp2 \
+    --shared-zlib    \
+    --shared-openssl \
+    --shared-brotli  \
+    --with-intl=system-icu
 
-#fi
+fi
 
 make
 make DESTDIR=$1 install
