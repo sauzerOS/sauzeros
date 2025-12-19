@@ -1,11 +1,8 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-    cmake -D BUILD_ICD=OFF \
-          -D CMAKE_BUILD_TYPE=Release \
-          -D CMAKE_INSTALL_PREFIX=/usr ..
+cmake -B build -D BUILD_ICD=OFF \
+      -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_INSTALL_PREFIX=/usr
 
-
-make -j1
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
