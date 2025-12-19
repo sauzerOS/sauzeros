@@ -18,3 +18,8 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr \
 cmake --build   build
 DESTDIR=$1 cmake --install build
 
+install -Dm644 "transmission.sysusers" \
+		"$1/usr/lib/sysusers.d/transmission.conf"
+install -Dm644 "transmission.tmpfiles" \
+		"$1/usr/lib/tmpfiles.d/transmission.conf"
+
