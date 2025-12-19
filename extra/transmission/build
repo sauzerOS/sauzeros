@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+if [ "$HOKUTO_ARCH" = "aarch64" ];then
+GUI=OFF
+else
+GUI=ON
+fi
+
+git submodule update --init --recursive
+
+cmake -D CMAKE_INSTALL_PREFIX=/usr \
+      -D USE_GTK_VERSION=4 \
+      -D ENABLE_QT=$GUI \
+      -D ENABLE_GTK=OFF \
+      -D USE_QT_VERSION=6 \
+      -B build
+
+cmake --build   build
+DESTDIR=$1 cmake --install build
+
