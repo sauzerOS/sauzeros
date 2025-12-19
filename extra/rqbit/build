@@ -13,3 +13,6 @@ RUST_LOG=off "${1}/usr/bin/rqbit" completions bash > "${1}/usr/share/bash-comple
 RUST_LOG=off "${1}/usr/bin/rqbit" completions zsh > "${1}/usr/share/zsh/site-functions/_rqbit"
 RUST_LOG=off "${1}/usr/bin/rqbit" completions fish > "${1}/usr/share/fish/vendor_completions.d/rqbit.fish"
 
+# systemd service unit
+install -d $1/etc/systemd/system
+install -Dm644 rqbit.service $1/etc/systemd/system/rqbit.service
