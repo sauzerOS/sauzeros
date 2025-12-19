@@ -1,0 +1,18 @@
+[Unit]
+Description=rqbit BitTorrent Server
+# Ensures the network and your specific mount are ready before starting
+After=network.target mnt-store.mount
+Requires=mnt-store.mount
+
+[Service]
+Type=simple
+User=dbz
+Group=dbz
+ExecStart=/usr/bin/rqbit --http-api-listen-addr 0.0.0.0:3030 --listen-port 9997 server start /mnt/store/downloads
+# Automatically restart if it crashes
+Restart=on-failure
+# Helps prevent database corruption by giving it time to save state on shutdown
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

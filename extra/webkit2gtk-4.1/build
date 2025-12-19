@@ -16,7 +16,6 @@ cmake -B build                   \
     -D ENABLE_SPEECH_SYNTHESIS=OFF \
     -D USE_JPEGXL=OFF            \
     -D USE_AVIF=OFF              \
-    -D USE_GSTREAMER_TRANSCODER=ON \
     -D USE_WOFF2=ON              \
     -D USE_GTK4=OFF              \
     -D ENABLE_BUBBLEWRAP_SANDBOX=ON \
