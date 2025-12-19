@@ -2,27 +2,20 @@
 
 grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 
-mkdir build
-cd build
+CXXFLAGS+="-O2 -fPIC"             \
+meson setup -B build              \
+      --prefix=/usr               \
+      --buildtype=release         \
+      -D libaudit=no              \
+      -D nmtui=false              \
+      -D ppp=false                \
+      -D selinux=false            \
+      -D qt=false                 \
+      -D session_tracking=systemd \
+      -D modem_manager=false
 
-CXXFLAGS+="-O2 -fPIC"            \
-meson setup                      \
-      --prefix=/usr              \
-      --buildtype=release        \
-      -Dlibaudit=no              \
-      -Dnmtui=false              \
-      -Dppp=false                \
-      -Dselinux=false            \
-      -Dqt=false                 \
-      -Dsession_tracking=systemd \
-      -Dmodem_manager=false      \
-      ..
-
-ninja
-DESTDIR=$1 ninja install
-
-
-cd ..
+meson compile -C build
+DESTDIR=$1 meson install -C build
 
 install  -Dm 644 NetworkManager.conf "$1/etc/NetworkManager/NetworkManager.conf"
 install -Dm 644 no-dns-update.conf  "$1/etc/NetworkManager/conf.d/no-dns-update.conf"

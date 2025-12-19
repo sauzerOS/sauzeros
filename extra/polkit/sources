@@ -1,4 +1,4 @@
-git+https://github.com/polkit-org/polkit#2479524
+git+https://github.com/polkit-org/polkit#127
 files/polkit-1
 files/10-udisks2-mount.rules
 files/20-my-auth-keep.rules
