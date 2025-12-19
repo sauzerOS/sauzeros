@@ -47,10 +47,23 @@ for prog in $prog_names
     complete -c $prog -n "not __fish_seen_subcommand_from $hokuto_commands" -a "$hokuto_commands"
 
     # 3. Logic for 'install' (and 'i')
-    # Offers full path to .tar.zst files in the binary cache
-    complete -c $prog -n "__fish_seen_subcommand_from install i" \
-        -a "(ls /var/cache/hokuto/bin/*.tar.zst 2>/dev/null)" \
-        -d "Binary Cache File"
+    # Displays 'package.tar.zst (cross)' but inserts the full /var/cache/... path
+    complete -c $prog -n "__fish_seen_subcommand_from install i" -a "(
+        set -l cache_root '/var/cache/hokuto/bin/'
+        for file in \$cache_root{,generic/,cross/}*.tar.zst
+            if test -f \$file
+                # Get just the filename
+                set -l name (basename \$file)
+                # Determine category for the description
+                set -l desc 'Binary Cache'
+                if string match -q '*/generic/*' \$file; set desc 'Generic'; end
+                if string match -q '*/cross/*' \$file; set desc 'Cross'; end
+                
+                # Output 'Full_Path\tDescription'
+                echo -e \"\$file\\t\$desc\"
+            end
+        end
+    )"
 
     # 4. Logic for 'build' (and 'b')
     # Offers package names found in the repositories defined in /etc/hokuto.conf
