@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cargo fetch --locked --target "$(rustc --print host-tuple)"
+export VERGEN_GIT_BRANCH=main
+cargo build --release --frozen
+install -Dm 755 "target/release/termscp" -t "$1/usr/bin"
