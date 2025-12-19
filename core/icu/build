@@ -3,8 +3,23 @@
 cp -a source source32
 cd source
 
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+
+mkdir build-host
+cd build-host
+CC=cc CXX=g++ AR=ar RANLIB=ranlib ../configure \
+  --prefix=/usr \
+  --enable-static
+make
+cd ..
+./configure --host=aarch64-linux-gnu \
+    --enable-static \
+    --prefix=$CROSS_PREFIX \
+    --with-cross-build=/var/tmp/hokuto/icu/build/source/build-host
+else
 ./configure --prefix=/usr
 
+fi
 make
 make DESTDIR="$1" install
 
