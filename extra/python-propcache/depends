@@ -1,0 +1,2 @@
+cython<=3.5.0 make
+python-expandvars make

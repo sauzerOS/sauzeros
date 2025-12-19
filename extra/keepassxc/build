@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
 #patch -Np1 -i keepassxc-2.7.10-qt6-support-v2.patch
 
 cmake -B build \
@@ -23,6 +21,6 @@ cmake -B build \
 
 
 cmake --build   build
-cmake --install build
+DESTDIR=$1 cmake --install build
 
 #install -Dm644 org.keepassxc.KeePassXC.desktop $1/usr/share/applications/

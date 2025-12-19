@@ -1,16 +1,24 @@
 #!/bin/sh -e
 
-CFLAGS="$CFLAGS -fno-lto"
-CXXFLAGS=$CFLAGS
+#if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
 
-./configure          \
-    --prefix=/usr    \
-    --shared-libuv   \
-    --shared-nghttp2 \
-    --shared-zlib    \
-    --shared-openssl \
-    --shared-brotli  \
-    --with-intl=system-icu
+./configure         \
+  --dest-cpu=arm64  \
+  --dest-os=linux   \
+  --cross-compiling
+
+#else
+
+#./configure          \
+#    --prefix=/usr    \
+#    --shared-libuv   \
+#    --shared-nghttp2 \
+#    --shared-zlib    \
+#    --shared-openssl \
+#    --shared-brotli  \
+#    --with-intl=system-icu
+
+#fi
 
 make
 make DESTDIR=$1 install

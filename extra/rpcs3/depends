@@ -1,8 +1,8 @@
 alsa-lib
-cmake
+cmake make
 flatbuffers
 pugixml
-llvm
-opencv
+llvm make
+opencv make
 libglvnd
 vulkan-headers

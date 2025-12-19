@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs modules
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$1
+mkdir -p $1/boot/
+mkdir -p $1/boot/overlays/
+
+cp arch/arm64/boot/Image.gz $1/boot/kernel8.img
+cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb $1/boot/
+cp arch/arm/boot/dts/overlays/*.dts $1/boot/overlays/

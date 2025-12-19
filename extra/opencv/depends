@@ -1,4 +1,4 @@
-cmake
+cmake make
 libarchive
 ffmpeg
 gst-plugins-base

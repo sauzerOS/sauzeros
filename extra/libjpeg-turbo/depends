@@ -1,2 +1,2 @@
-cmake
-nasm
+cmake make
+nasm make

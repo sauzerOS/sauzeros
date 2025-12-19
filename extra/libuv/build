@@ -1,7 +1,14 @@
 #!/bin/sh -e
 
 ./autogen.sh
-./configure --prefix=/usr --disable-static
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+./configure --prefix=$CROSS_PREFIX \
+     --host=aarch64-linux-gnu \
+     --disable-static
+else
+./configure --prefix=/usr \
+    --disable-static
+fi
 
 make
 make DESTDIR=$1 install

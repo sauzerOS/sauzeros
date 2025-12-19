@@ -8,10 +8,10 @@ cp -r ../xorg-server/* unix/xserver/
 # build viewer
 
 cmake -G "Unix Makefiles"         \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_INSTALL_SBINDIR=/usr/bin \
-      -DCMAKE_INSTALL_LIBEXECDIR=/usr/bin \
-      -DCMAKE_BUILD_TYPE=Release  \
+      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_INSTALL_SBINDIR=/usr/bin \
+      -D CMAKE_INSTALL_LIBEXECDIR=/usr/bin \
+      -D CMAKE_BUILD_TYPE=Release  \
       -Wno-dev .
 
 make
@@ -43,5 +43,3 @@ make DESTDIR=$1 install
 
 install -vdm755 $1/etc/X11/tigervnc
 install -v -m755 ../Xsession $1/etc/X11/tigervnc
-
-
