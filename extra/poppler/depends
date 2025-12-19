@@ -1,5 +1,5 @@
-boost
-cmake
+boost make
+cmake make
 fontconfig
 gobject-introspection
 gpgmepp

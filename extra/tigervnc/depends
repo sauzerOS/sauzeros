@@ -1,4 +1,4 @@
-cmake
+cmake make
 fltk
 gnutls
 libgcrypt

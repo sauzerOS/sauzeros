@@ -1,7 +1,18 @@
 #!/bin/sh -e
 
+# Setup directory hierarchy for aarch64 prefix
+mkdir -pv $1/usr/aarch64-linux-gnu/usr/{bin,include,lib,share}
+ln -s usr/bin $1/usr/aarch64-linux-gnu/bin
+ln -s usr/bin $1/usr/aarch64-linux-gnu/sbin
+ln -s usr/bin $1/usr/aarch64-linux-gnu/usr/sbin
+ln -s usr/lib $1/usr/aarch64-linux-gnu/lib
+ln -s usr/lib $1/usr/aarch64-linux-gnu/lib64
+ln -s usr/lib $1/usr/aarch64-linux-gnu/usr/lib64
+ln -s usr/include $1/usr/aarch64-linux-gnu/include
+ln -s usr/share $1/usr/aarch64-linux-gnu/share
+
 make mrproper
-make INSTALL_HDR_PATH="$1/usr/aarch64-linux-gnu/" ARCH=arm64 V=0 headers_install
+make INSTALL_HDR_PATH="$1/usr/aarch64-linux-gnu/usr/" ARCH=arm64 V=0 headers_install
 
 # clean-up unnecessary files generated during install
 find "$1" \( -name .install -or -name ..install.cmd \) -delete

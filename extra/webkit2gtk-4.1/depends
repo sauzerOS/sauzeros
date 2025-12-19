@@ -1,5 +1,5 @@
 cairo
-cmake
+cmake make
 libsoup3
 openjpeg
 ruby

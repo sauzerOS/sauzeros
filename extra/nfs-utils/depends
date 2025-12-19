@@ -2,3 +2,6 @@ libevent
 sqlite
 rpcsvc-proto
 libnl
+libtirpc
+keyutils
+rpcbind

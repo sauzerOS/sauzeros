@@ -1,7 +1,10 @@
 brotli
 libuv
+icu
 openssl
-python
 ninja
 nghttp2
 zlib-ng
+procps-ng make
+python make
+

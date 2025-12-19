@@ -20,13 +20,14 @@ AR="llvm-ar"
 NM="llvm-nm"
 RANLIB="llvm-ranlib"
 
-cmake -S . -B build		   \
-      -D CMAKE_INSTALL_PREFIX=/usr \
-      -D CMAKE_BUILD_TYPE=Release  \
-      -D CMAKE_AR=$(which llvm-ar) \
-      -D CMAKE_RANLIB=$(which llvm-ranlib) \
-      -D CMAKE_NM=$(which llvm-nm) \
-      -Wno-dev -G Ninja
+cmake -B build                     \
+  -D CMAKE_INSTALL_PREFIX=/usr     \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_BUILD_TYPE=Release      \
+  -D BUILD_DOCS=False		   \
+  -D FISH_USE_SYSTEM_PCRE2=ON      \
+  -D WITH_GETTEXT=ON               \
+  -Wno-dev
 
 cmake --build build
 DESTDIR=$1 cmake --install build

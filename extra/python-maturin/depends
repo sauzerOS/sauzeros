@@ -1,2 +1,3 @@
-python-setuptools-rust
+python-setuptools-rust make
 python-semanticversion
+rust make

@@ -1,10 +1,10 @@
-cmake
+cmake make
 libcap
 libpng
 libwebp
 xrandr
 sdl3
-llvm
+llvm make
 qt6
 shaderc
 p7zip

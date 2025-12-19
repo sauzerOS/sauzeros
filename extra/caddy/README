@@ -1,0 +1,32 @@
+# Caddyfile example conf with local issued cert
+{
+    # Restrict the admin interface to a local unix file socket whose directory
+    # is restricted to caddy:caddy. By default the TCP socket allows arbitrary
+    # modification for any process and user that has access to the local
+    # interface. If admin over TCP is turned on one should make sure
+    # implications are well understood.
+    admin "unix//run/caddy/admin.socket"
+    # Use Caddy's internal CA instead of Let's Encrypt/ZeroSSL
+    acme_ca internal
+    auto_https disable_redirects
+}
+
+https://mydomain.sauzeros.org {
+    # generate locally issued cert
+    tls internal
+    root * /usr/share/caddy
+    file_server
+}
+
+
+# convert caddy local root.crt and add it to trust store with make-ca
+openssl x509 -in /var/lib/caddy/pki/authorities/local/root.crt \
+    -text \
+    -fingerprint \
+    -setalias "Caddy Local Authority" \
+    -addtrust serverAuth \
+    -addtrust emailProtection \
+    -addtrust codeSigning \
+    > /etc/ssl/local/caddy_local_root.pem
+
+make-ca -r
