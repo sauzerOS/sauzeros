@@ -1,3 +1,4 @@
+extra-cmake-modules make
 asio
 nv-codec-headers
 mbedtls<=3.6.5

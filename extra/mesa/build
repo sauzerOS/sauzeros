@@ -13,7 +13,7 @@ meson setup build              \
     -D glvnd=true              \
     -D vulkan-drivers="swrast" \
     -D gallium-drivers="virgl,svga,softpipe,llvmpipe"  \
-    -D  gles1=disabled         \
+    -D gles1=disabled          \
     -D video-codecs=all
 
 meson compile -C build
