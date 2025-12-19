@@ -11,6 +11,7 @@ export AR_host=ar
 export LINK_host=g++
 
 ./configure         \
+  --prefix=/usr     \
   --dest-cpu=arm64  \
   --dest-os=linux   \
   --cross-compiling

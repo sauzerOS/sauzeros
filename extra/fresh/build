@@ -1,17 +1,14 @@
 #!/bin/sh -e
 
-export RUSTUP_TOOLCHAIN=stable
-export CARGO_TARGET_DIR=target
-export CC=clang
-cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+cargo fetch --locked
 cargo build --frozen --release
 # Binary (installed alongside plugins, symlinked from /usr/bin)
-install -Dm755 target/release/fresh "$1/usr/share/fresh-editor/fresh"
+install -Dm755 target/release/fresh "$1/usr/share/fresh/fresh"
 install -dm755 "$1/usr/bin"
-n -s "/usr/share/fresh-editor/fresh" "$1/usr/bin/fresh"
+ln -s "/usr/share/fresh/fresh" "$1/usr/bin/fresh"
 
 # Plugins
-cp -r plugins "$1/usr/share/fresh-editor/"
+cp -r plugins "$1/usr/share/fresh/"
 
 # Keymaps
-cp -r keymaps "$1/usr/share/fresh-editor/"
+cp -r keymaps "$1/usr/share/fresh/"

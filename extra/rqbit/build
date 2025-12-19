@@ -1,9 +1,7 @@
 #!/bin/sh -e
 
-TARGET=aarch64-unknown-linux-gnu
-
-cargo fetch --locked --target "$TARGET"
-cargo build -p rqbit --frozen --release --target "$TARGET"
+cargo fetch --locked
+cargo build -p rqbit --frozen --release
 install -d $1/usr/bin
 install -Dm 755 target/release/rqbit $1/usr/bin
 
