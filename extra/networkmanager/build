@@ -3,7 +3,7 @@
 grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
 
 CXXFLAGS+="-O2 -fPIC"             \
-meson setup -B build              \
+meson setup build                 \
       --prefix=/usr               \
       --buildtype=release         \
       -D libaudit=no              \

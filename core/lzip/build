@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-  --enable-static=no
+./configure --prefix=/usr
 
 make
 make DESTDIR=$1 install
