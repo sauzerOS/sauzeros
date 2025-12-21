@@ -1,8 +1,29 @@
 #!/bin/sh -e
 
-./configure     --prefix=/usr \
+./configure                   \
+    --prefix=/usr             \
     --with-included-unistring \
     --enable-static
+
 make
 make DESTDIR="$1" install
 
+if [ "$MULTILIB" = "1" ]; then
+make distclean
+CC="gcc -m32" CXX="g++ -m32"         \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+./configure                  \
+    --prefix=/usr            \
+    --libdir=/usr/lib32      \
+    --libexecdir=/usr/lib32  \
+    --without-p11-kit        \
+    --disable-static         \
+    --with-included-unistring \
+    --host=i686-pc-linux-gnu \
+    --build=i686-pc-linux-gnu
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+fi
