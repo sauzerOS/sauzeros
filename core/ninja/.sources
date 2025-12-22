@@ -1,0 +1,2 @@
+https://github.com/ninja-build/ninja/archive/v${version}/ninja-${version}.tar.gz
+files/ninja-wrapper

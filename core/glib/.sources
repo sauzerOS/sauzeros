@@ -1,0 +1,2 @@
+https://download.gnome.org/sources/glib/${version-major-minor}/glib-${version}.tar.xz
+files/gio-querymodules-32.hook

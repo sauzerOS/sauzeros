@@ -1,0 +1,2 @@
+https://github.com/dracut-ng/dracut-ng/archive/refs/tags/${version}.tar.gz
+files/show-progress.patch

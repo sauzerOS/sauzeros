@@ -1,0 +1,4 @@
+https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${version}.tar.gz
+files/sshdat.service
+files/sshd.service
+files/sshd.socket

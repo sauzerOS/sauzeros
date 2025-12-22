@@ -1,0 +1,4 @@
+https://ftp.gnu.org/gnu/readline/readline-${version-major-minor}.tar.gz
+https://ftp.gnu.org/gnu/readline/readline-${version-major-minor}-patches/readline83-001
+https://ftp.gnu.org/gnu/readline/readline-${version-major-minor}-patches/readline83-002
+https://ftp.gnu.org/gnu/readline/readline-${version-major-minor}-patches/readline83-003
