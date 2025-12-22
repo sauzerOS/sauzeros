@@ -1,0 +1,10 @@
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}.tar.gz
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-001
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-002
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-003
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-004
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-005
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-006
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-007
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-008
+https://ftp.gnu.org/gnu/bash/bash-${version-major-minor}-patches/bash53-009

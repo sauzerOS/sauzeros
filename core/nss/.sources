@@ -1,0 +1,2 @@
+https://archive.mozilla.org/pub/security/nss/releases/NSS_${version_}_RTM/src/nss-${version_}.tar.gz
+https://www.linuxfromscratch.org/patches/blfs/svn/nss-standalone-1.patch

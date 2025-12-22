@@ -1,0 +1,4 @@
+https://github.com/sauzerOS/hokuto/releases/download/v${version}/hokuto-${version}-amd64.tar.xz
+https://github.com/sauzerOS/hokuto/releases/download/v${version}/hokuto-${version}-arm64.tar.xz
+files/hokuto.fish
+files/hokuto.conf
