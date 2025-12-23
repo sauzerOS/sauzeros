@@ -17,3 +17,5 @@ mkdir -p INSTALL_DIR
 install -Dm644 vmmon-only/vmmon.ko "$INSTALL_DIR/vmmon.ko"
 install -Dm644 vmnet-only/vmnet.ko "$INSTALL_DIR/vmnet.ko"
 
+install -d $1/etc/modules-load.d/
+install -Dm644 vmware.conf $1/etc/modules-load.d/vmware.conf
