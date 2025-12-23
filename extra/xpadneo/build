@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cd hid-xpadneo
+make KDIR=/usr/src/linux
+make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
+rm -rf $1/lib/modules/*/modules*
+
+cd ..
+install -d $1/etc/modules-load.d/
+install -Dm644 xpadneo.conf $1/etc/modules-load.d/xpadneo.conf
