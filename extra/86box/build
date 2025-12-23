@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# fix 5.3 build
+patch -Np1 -i 0092ce15de3efac108b961882f870a8c05e8c38f.patch
+
 LDFLAGS='-z now -z shstk' \
 cmake -B build \
     --preset regular \
