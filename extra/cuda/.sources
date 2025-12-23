@@ -1,0 +1,3 @@
+https://developer.download.nvidia.com/compute/cuda/${version}/local_installers/cuda_${version}_590.44.01_linux.run
+files/cuda.conf
+files/cuda.sh
