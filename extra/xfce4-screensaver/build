@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr
+meson setup build --prefix=/usr \
+  -D docs=disabled \
+  -D session-manager=systemd
+
 meson compile -C build
 meson install -C build --destdir=$1
