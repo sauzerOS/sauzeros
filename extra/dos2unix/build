@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make LDFLAGS_USER="${LDFLAGS}"
+make DESTDIR="$1" install

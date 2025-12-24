@@ -1,0 +1,14 @@
+alsa-lib
+curl
+glew
+libpng
+pulseaudio
+mpg123
+dos2unix make
+giflib make
+glib make
+gtk+3 make
+libjpeg-turbo make
+libcap make
+python make
+xa make

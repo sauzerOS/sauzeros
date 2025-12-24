@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+sed -i 's/all: killxa/all:/' Makefile
+
+make
+make DESTDIR=$1/usr install
