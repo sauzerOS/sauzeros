@@ -24,7 +24,7 @@ cmake -B build                     \
   -D CMAKE_INSTALL_PREFIX=/usr     \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
   -D CMAKE_BUILD_TYPE=Release      \
-  -D BUILD_DOCS=False		   \
+  -D WITH_DOCS=OFF                 \
   -D FISH_USE_SYSTEM_PCRE2=ON      \
   -D WITH_GETTEXT=ON               \
   -Wno-dev

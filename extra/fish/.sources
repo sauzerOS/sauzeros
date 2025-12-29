@@ -1,1 +1,2 @@
 https://github.com/fish-shell/fish-shell/releases/download/${version}/fish-${version}.tar.xz
+files/config.fish
