@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+#patch -Np1 < valkey.conf-sane-defaults.patch
+
+cmake -B build \
+     -D BUILD_TLS=yes \
+     -D USE_SYSTEMD=yes
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+install -Dm644 -t "$1"/etc/valkey valkey.conf sentinel.conf
+install -Dm644 valkey.sysusers "$1"/usr/lib/sysusers.d/valkey.conf
+install -Dm644 valkey.tmpfiles "$1"/usr/lib/tmpfiles.d/valkey.conf
+
+install -Dm644 -t "$1"/usr/lib/systemd/system/ valkey.service valkey-sentinel.service
+cd "$1"/usr/lib/systemd/system/
+ln -s {valkey,redis}.service
+ln -s {valkey,redis}-sentinel.service
+
