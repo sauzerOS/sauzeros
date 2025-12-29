@@ -16,7 +16,7 @@ index df12b72d2..d61b42d35 100644
  # Note that on modern Linux systems "/run/valkey.pid" is more conforming
  # and should be used instead.
 -pidfile /var/run/valkey_6379.pid
-+# pidfile /var/run/valkey_6379.pid
++pidfile /var/run/valkey/valkey_6379.pid
  
  # Specify the server verbosity level.
  # This can be one of:
