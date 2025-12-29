@@ -1,0 +1,6 @@
+python
+python-requests
+python-build make
+python-hatchling make
+python-installer make
+python-wheel make
