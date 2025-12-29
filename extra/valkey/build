@@ -3,6 +3,7 @@
 #patch -Np1 < valkey.conf-sane-defaults.patch
 
 cmake -B build \
+     -D CMAKE_INSTALL_PREFIX=/usr \
      -D BUILD_TLS=yes \
      -D USE_SYSTEMD=yes
 cmake --build build
