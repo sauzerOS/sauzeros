@@ -1,5 +1,5 @@
 https://github.com/valkey-io/valkey/archive/refs/tags/${version}.tar.gz
-files/valkey.conf-sane-defaults.patch
+files/valkey.conf.ok
 files/valkey-sentinel.service
 files/valkey.service
 files/valkey.sysusers
