@@ -1,12 +1,11 @@
 #!/bin/sh -e
 
-patch -Np1 < valkey.conf-sane-defaults.patch
-
 make BUILD_TLS=yes \
      USE_SYSTEMD=yes
 
 make PREFIX=$1/usr install
 
+mv valkey.conf.ok valkey.conf
 install -Dm644 -t "$1"/etc/valkey valkey.conf sentinel.conf
 install -Dm644 valkey.sysusers "$1"/usr/lib/sysusers.d/valkey.conf
 install -Dm644 valkey.tmpfiles "$1"/usr/lib/tmpfiles.d/valkey.conf
