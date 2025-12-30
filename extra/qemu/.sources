@@ -1,4 +1,4 @@
-https://download.qemu.org/qemu-10.2.0.tar.xz
+https://download.qemu.org/qemu-${version}.tar.xz
 files/99-qemu-guest-agent.rules
 files/bridge.conf
 files/qemu-ga.conf
