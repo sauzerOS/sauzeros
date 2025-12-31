@@ -1,2 +1,2 @@
-git+https://aomedia.googlesource.com/aom#d772e334cc724105040382a977ebb10dfd393293
+https://storage.googleapis.com/aom-releases/libaom-3.13.1.tar.gz
 https://www.linuxfromscratch.org/patches/blfs/svn/libaom-3.13.1-nasm3-1.patch
