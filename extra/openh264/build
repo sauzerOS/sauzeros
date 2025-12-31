@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make
+make DESTDIR=$1 PREFIX=/usr install-shared
+install -D -m755 h264{dec,enc} -t "${1}/usr/bin"
