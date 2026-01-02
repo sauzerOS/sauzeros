@@ -1,1 +1,2 @@
-rdfind
+parallel make
+rdfind make

@@ -6,7 +6,7 @@ cat amd-ucode/microcode_amd*.bin > kernel/x86/microcode/AuthenticAMD.bin
 make DESTDIR="$1" FIRMWAREDIR=/usr/lib/firmware install
 
 echo "compressing firmware"
-find $1/usr/lib/firmware -type f -exec xz -T0 "{}" \;
+find $1/usr/lib/firmware -type f -exec xz -C crc32 -T0 "{}" \;
 
 # Trigger a microcode reload for configurations not using early updates
 echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
