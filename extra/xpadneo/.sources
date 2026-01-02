@@ -1,1 +1,3 @@
 git+https://github.com/atar-axis/xpadneo#${version}
+files/xpadneo.conf
+files/99-xpadneo-bluetooth.conf
