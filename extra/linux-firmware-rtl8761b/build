@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+install -d $1/usr/lib/firmware/rtl_bt
+install -Dm644 rtl8761b_config.bin.xz $1/usr/lib/firmware/rtl_b
+install -Dm644 rtl8761b_fw.bin.xz $1/usr/lib/firmware/rtl_b
+install -Dm644 rtl8761bu_config.bin.xz $1/usr/lib/firmware/rtl_b
+install -Dm644 rtl8761bu_fw.bin.xz  $1/usr/lib/firmware/rtl_bt
