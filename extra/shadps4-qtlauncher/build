@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+git submodule update --init --recursive
+rm -rf externals/pugixml
+rm -rf externals/vulkan-headers
+rm -rf externals/sdl3
+rm -rf externals/json
+
+# fix nlohmann-json
+sed -E -e '/nlohmann_json/i find_package(nlohmann_json)' -i CMakeLists.txt
+sed -E -e '/add_subdirectory\(json\)/d' -i externals/CMakeLists.txt
+
+# pkgver
+printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+
+sed -i '/-march=/d' CMakeLists.txt
+
+cmake -B build -G Ninja \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_C_FLAGS_RELEASE="-DNDEBUG" \
+  -D CMAKE_CXX_FLAGS_RELEASE="-DNDEBUG" \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_SKIP_INSTALL_RPATH=ON \
+  -D ENABLE_UPDATER=OFF \
+  -Wno-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
