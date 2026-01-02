@@ -1,0 +1,9 @@
+glslang
+ffmpeg
+libpng
+pugixml
+boost make
+cmake make
+nlohmann-json make
+spirv-headers make
+sdl3 make
