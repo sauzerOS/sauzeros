@@ -1,6 +1,7 @@
 alsa-lib
 curl
 glew
+libevdev
 libpng
 pulseaudio
 mpg123
