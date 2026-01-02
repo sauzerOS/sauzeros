@@ -1,0 +1,4 @@
+files/rtl8761b_config.bin.xz filter=lfs diff=lfs merge=lfs -text
+files/rtl8761b_fw.bin.xz filter=lfs diff=lfs merge=lfs -text
+files/rtl8761bu_config.bin.xz filter=lfs diff=lfs merge=lfs -text
+files/rtl8761bu_fw.bin.xz filter=lfs diff=lfs merge=lfs -text
