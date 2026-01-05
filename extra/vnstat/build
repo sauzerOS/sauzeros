@@ -2,9 +2,17 @@
 
 autoreconf -fiv
 
+if [ "$HOKUTO_CROSS" = "1" ]; then
+./configure --prefix=/usr \
+  --host=$HOKUTO_ARCH \
+  --sbindir=/usr/bin \
+  --sysconfdir=/etc
+
+else
 ./configure --prefix=/usr \
   --sbindir=/usr/bin \
   --sysconfdir=/etc
+fi
 
 make
 make DESTDIR=$1 install
