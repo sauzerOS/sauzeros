@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+autoreconf -fiv
+
+./configure --prefix=/usr \
+  --sbindir=/usr/bin \
+  --sysconfdir=/etc
+
+make
+make DESTDIR=$1 install
+
+install -Dm0755 examples/vnstat.cgi -t "$1"/usr/share/doc/vnstat/examples
+install -Dm0644 examples/systemd/vnstat.service -t "$1"/usr/lib/systemd/system
