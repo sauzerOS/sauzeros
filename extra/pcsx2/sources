@@ -1,4 +1,4 @@
-git+https://github.com/PCSX2/pcsx2#v2.6.0
+git+https://github.com/PCSX2/pcsx2#v2.6.1
 git+https://github.com/PCSX2/pcsx2_patches patches
 git+https://github.com/xs1l3n7x/pcsx2_cheats_collection cheats
 git+https://github.com/KDAB/KDDockWidgets#2.3.0 kddockwidgets
