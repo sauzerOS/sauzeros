@@ -1,29 +1,24 @@
 #!/bin/sh -e
 
-#rm -rf src/lib/{liblame,libx264,libffmpeg}
-#sed -i 's/lib64/lib/g' configure.ac
-#autoreconf -fi
+rm -rf src/lib/{liblame,libx264,libffmpeg}
+sed -i 's/lib64/lib/g' configure.ac
+autoreconf -fi
 
 export CFLAGS="$CFLAGS -Wl,--allow-multiple-definition -w"
 
-#PKG_CONFIG_PATH='/usr/lib/ffmpeg/pkgconfig' ./configure \
-#  --disable-ffmpeg \
-#  --disable-sdl2ui \
-#  --enable-gtk3ui \
-#  --enable-x64 \
-#  --with-libcurl \
-#  --with-mpg123 \
-#  --with-gif \
-#  --libdir=/usr/lib \
-#  --prefix=/usr
+PKG_CONFIG_PATH='/usr/lib/ffmpeg/pkgconfig' ./configure \
+  --disable-ffmpeg \
+  --disable-sdl2ui \
+  --enable-gtk3ui \
+  --enable-x64 \
+  --with-libcurl \
+  --with-mpg123 \
+  --with-gif \
+  --libdir=/usr/lib \
+  --prefix=/usr
 
-cmake -B build -D CMAKE_INSTALL_PREFIX=/usr
-cmake --build build
-cd build
-make DESTDIR=$1 install
-
-#make
-#make DESTDIR="$1" realdocdir=/usr/share/doc/vice install
+make
+make DESTDIR="$1" realdocdir=/usr/share/doc/vice install
 
 install -d $1/usr/share/applications
 install -d $1/usr/share/vice/common
