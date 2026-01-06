@@ -1,0 +1,3 @@
+https://github.com/sabnzbd/sabnzbd/releases/download/${version}/SABnzbd-${version}-src.tar.gz
+files/sabnzbd.desktop
+files/sabnzbd.svg

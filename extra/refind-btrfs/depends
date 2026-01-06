@@ -4,7 +4,7 @@ python-injector
 python-more-itertools
 python-pid
 python-pillow
-python-semanticversion
+python-semantic-version
 python-systemd
 python-tomlkit
 python-transitions
