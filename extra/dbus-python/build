@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson setup -Ddoc=false build
+meson setup -D doc=false build
 meson compile -C build
 python tools/generate-pkginfo.py $2 PKG-INFO
 meson install -C build --destdir=$1
