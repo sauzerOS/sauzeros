@@ -1,0 +1,5 @@
+https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/releases/${version}/downloads/NetworkManager-${version}.tar.xz
+files/NetworkManager.conf
+files/no-dns-update.conf
+files/org.freedesktop.NetworkManager.rules
+files/polkit.conf

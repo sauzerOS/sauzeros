@@ -1,5 +1,5 @@
 cairo
-gcr
+gcr<4.0
 gdk-pixbuf
 glib
 gmime3
