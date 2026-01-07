@@ -1,4 +1,4 @@
-gtksourceview
+gtksourceview<5.0
 gtk-vnc
 libvirt-glib
 libvirt-python
