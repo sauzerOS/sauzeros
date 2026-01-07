@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+rpm2archive fpc-$2-1.x86_64.rpm
+tar xvf fpc-$2-1.x86_64.rpm.tgz -C $1/
+cd $1/usr/lib64
+mv * ../lib/
+
+rm -rf $1/usr/lib/.build-id/
