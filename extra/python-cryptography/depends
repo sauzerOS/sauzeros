@@ -1,3 +1,4 @@
-python-maturin
+openssl
+python-maturin make
 python-cffi
-python-pycparser
+python-pycparser make

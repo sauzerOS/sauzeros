@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sed 's|.install-cython ||' -i Makefile
+
 export AIOHTTP_USE_SYSTEM_DEPS=1
 make cythonize
 python -m build --wheel --no-isolation

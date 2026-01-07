@@ -1,4 +1,4 @@
-cython
+cython make
 llhttp
 python-aiohappyeyeballs
 python-aiosignal
@@ -7,4 +7,4 @@ python-frozenlist
 python-multidict
 python-propcache
 python-yarl
-python-pkgconfig
+python-pkgconfig make
