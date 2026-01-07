@@ -1,6 +1,9 @@
 #!/bin/sh -e
 
-meson setup -D doc=false build
+meson setup build \
+  --prefix=/usr   \
+  -D doc=false
+
 meson compile -C build
 python tools/generate-pkginfo.py $2 PKG-INFO
 meson install -C build --destdir=$1
@@ -11,4 +14,3 @@ python -O -m compileall -d /usr/lib "$1/usr/lib"
 
 # Install egg-info
 install -Dm644 -t "$1$(python -c 'import site; print(site.getsitepackages()[0])')/dbus_python.egg-info/" PKG-INFO
-

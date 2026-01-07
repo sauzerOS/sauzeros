@@ -1,0 +1,2 @@
+https://files.pythonhosted.org/packages/source/p/pyinotify/pyinotify-${version}.tar.gz
+files/pyinotify-python-3.12-fix.patch

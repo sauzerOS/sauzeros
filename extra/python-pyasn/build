@@ -2,3 +2,7 @@
 
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
+
+install -Dm 644 ipasn_20140513_v12.dat.gz  $1/usr/lib/python3.14/site-packages/pyasn/data/ipasn_20140513_v12.dat.gz
+gunzip asnames.json.gz
+install -Dm 644 asnames.json $1/usr/lib/python3.14/site-packages/pyasn/data/asnames.json
