@@ -1,6 +1,6 @@
 python-packaging
 python-ply
-python-sip<=6.8.6
+python-sip make
 python-toml
 pyqt-builder
 python-pyqt5-sip

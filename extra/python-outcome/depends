@@ -1,4 +1,1 @@
-cython
-libxml2
-libxslt
 python-setuptools make

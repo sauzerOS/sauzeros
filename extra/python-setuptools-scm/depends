@@ -1,1 +1,5 @@
 python-packaging
+python-setuptools
+python-build make
+python-installer make
+python-wheel make
