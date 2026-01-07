@@ -1,13 +1,11 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build     \
+  --prefix=/usr       \
+  --buildtype=release \
+  -D gtk_doc=false    \
+  -D libnma_gtk4=true \
+  -D mobile_broadband_provider_info=false
 
-meson --prefix=/usr                             \
-      --buildtype=release                       \
-      -Dgtk_doc=false                           \
-      -Dlibnma_gtk4=true			\
-      -Dmobile_broadband_provider_info=false ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
