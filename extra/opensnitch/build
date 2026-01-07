@@ -1,12 +1,54 @@
 #!/bin/sh -e
 
-ar x opensnitch*amd64.deb
-tar -xf data.tar.xz -C "$1/"
-ar x python3-opensnitch-ui*.deb
-tar -xf data.tar.xz -C "$1/"
+# * prefer scaled SVG instead of pixellated 48x48 PNG
+patch -p1 -i "fix-setup.py.patch"
 
-# remove sysvinit compat files
-rm -rf $1/etc/init.d
+# remove Debian-specific path from sys.path
+patch -p1 -i "remove-debian-path.patch"
 
-# remove ebpf modules since we build them manually
-rm $1/usr/lib/opensnitchd/ebpf/*
+# use system python packages
+patch -p1 -i "use-system-python-packages.patch"
+
+# other fixes
+site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+sed -i "s|/usr/lib/python3/dist-packages/data/|${site_packages}/pyasn/data/|g" ui/opensnitch/utils/__init__.py
+sed -i "s|/usr/lib/python3/dist-packages/|${site_packages}/|g" ui/bin/opensnitch-ui
+sed -i.orig 's/grpc_tools.protoc/grpc_tools.protoc --experimental_editions/' "proto/Makefile"
+
+# set Go flags
+export CGO_CPPFLAGS="${CPPFLAGS}"
+export CGO_CFLAGS="${CFLAGS}"
+export CGO_CXXFLAGS="${CXXFLAGS}"
+export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=mod"
+export GOPATH="$HOKUTO_BUILD_DIR/gopath"
+export PATH=$PATH:$GOPATH/bin
+
+go install github.com/golang/protobuf/protoc-gen-go
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
+
+# Build protobuf protocol
+make protocol
+
+# Build daemon
+pushd daemon
+make
+popd
+
+# Build python package
+pushd ui
+find opensnitch/proto/ -name 'ui_pb2_grpc.py' -exec sed -i 's/^import ui_pb2/from . import ui_pb2/' {} \;
+python -m build --wheel --no-isolation
+popd
+
+
+install -vDm755 -t "$1/usr/bin" daemon/opensnitchd
+
+# systemd integration
+install -vDm644 utils/packaging/daemon/deb/debian/opensnitch.service "$1/usr/lib/systemd/system/opensnitchd.service"
+install -vDm644 "tmpfiles.conf" "$1/usr/lib/tmpfiles.d/$pkgname.conf"
+
+# configuration
+install -vDm644 -t "$1/etc/opensnitchd" daemon/data/{default-config,system-fw}.json
+
+# python ui
+python -m installer --destdir="$1" ui/dist/*.whl
