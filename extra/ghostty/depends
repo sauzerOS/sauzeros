@@ -1,5 +1,5 @@
-zig-bin==0.14.0
+blueprint-compiler make
 gtk
-libadwaita
 gtk4-layer-shell
-blueprint-compiler
+libadwaita
+zig-bin==0.14.0 make
