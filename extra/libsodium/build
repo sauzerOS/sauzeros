@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+cd libsodium-stable
 ./configure \
     --prefix=/usr
 
