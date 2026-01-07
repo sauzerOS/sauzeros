@@ -7,7 +7,7 @@ fribidi
 gdk-pixbuf
 glib
 gtk+3
-gtksourceview
+gtksourceview<5.0
 libX11
 libXau
 libXcomposite
