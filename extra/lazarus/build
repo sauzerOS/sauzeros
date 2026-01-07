@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+make -j1 OPT='-gl -gw -Crtoi' LCL_PLATFORM=qt6 bigide
+
+# skip the 'make install' mess completely and do everything manually
+mkdir -p "$1"/usr/lib/lazarus "$1"/usr/bin "$1"/usr/share/man/man1 "$1"/usr/share/doc
+rsync -a \
+  --exclude="CVS"     --exclude=".cvsignore" \
+  --exclude="*.ppw"   --exclude="*.ppl" \
+  --exclude="*.ow"    --exclude="*.a"\
+  --exclude="*.rst"   --exclude=".#*" \
+  --exclude="*.~*"    --exclude="*.bak" \
+  --exclude="*.orig"  --exclude="*.rej" \
+  --exclude=".xvpics" \
+  --exclude="killme*" --exclude=".gdb_hist*" \
+  --exclude="debian"  --exclude="COPYING*" \
+  --exclude="*.app"   --exclude="tools/install" \
+  . "$1"/usr/lib/lazarus
+
+ln -s /usr/lib/lazarus/lazbuild "$1"/usr/bin/lazbuild
+cp -R install/man/man1/* "$1"/usr/share/man/man1/
+rm -r "$1"/usr/lib/lazarus/install
