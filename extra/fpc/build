@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+pushd fpcsrc/compiler
+fpcmake -Tall
+popd
+make build
+
+export HOME="$HOKUTO_BUILD_DIR"
+make -j1 PREFIX=$1/usr NO_MAN_COMPRESS=1 install
+export PATH=$1/usr/bin:$PATH
+ln -s /usr/lib/fpc/$2/ppcx64 $1/usr/bin/
+mkdir -p "${1}"/etc
+  "${1}"/usr/lib/fpc/${2}/samplecfg "${1}/usr/lib/fpc/${2}" "${1}"/etc
+  "${1}"/usr/lib/fpc/${2}/samplecfg "/usr/lib/fpc/${2}" "${1}"/etc
+  cp ".fp/fp."{cfg,ini} "${1}/usr/lib/fpc/${2}/ide/text/"
+
+# use -fPIC by default
+echo -e "#ifdef cpux86_64\n# for x86_64 use -fPIC by default\n-Cg\n#endif" >> "${1}/etc/fpc.cfg"
+
+mv "${1}"/usr/man "${1}"/usr/share/
+
+find "${1}"/etc/ -type f -exec sed -i "s|"${1}"||g" {} \;
