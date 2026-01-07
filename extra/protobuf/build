@@ -6,7 +6,7 @@ cmake -S . -B build \
     -D CMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
     -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
     -D protobuf_BUILD_SHARED_LIBS=ON \
-    -D protobuf_ABSL_PROVIDER=package \
+    -D protobuf_BUILD_TESTS=OFF \
     -W no-dev
 
 cmake --build build
