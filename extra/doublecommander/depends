@@ -1,1 +1,8 @@
+desktop-file-utils
+ffmpegthumbnailer make
+hicolor-icon-theme
+imagemagick make
+lazarus make
 qt6
+qt6pas
+shared-mime-info
