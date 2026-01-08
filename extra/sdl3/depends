@@ -1,0 +1,18 @@
+alsa-lib
+libdecor
+libusb
+libX11
+libXcursor
+libXext
+libXrender
+pipewire
+pulseaudio
+cmake make
+libXinerama make
+libxkbcommon make
+libXrandr make
+mesa make
+ninja make
+vulkan-headers make
+wayland make
+wayland-protocols make
