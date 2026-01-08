@@ -12,3 +12,4 @@ make-ca optional
 p11-kit
 pam
 python-jinja2
+python-pyelftools
