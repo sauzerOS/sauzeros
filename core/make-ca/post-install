@@ -5,5 +5,8 @@ exec 2>&1 1>/dev/null
 # update certs
 make-ca -f -C /etc/ssl/certdata.txt
 
+# compat symlink
+[ ! -L /etc/ssl/certs/ca-certificates.crt ] && ln -svf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+
 # enable systemd update timer
 systemctl enable update-pki.timer
