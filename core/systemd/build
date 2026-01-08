@@ -9,11 +9,9 @@ sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/" -i ./src/core
 sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/" -i ./src/core/system.conf.in
 sed -i "s/#DefaultTimeoutAbortSec=/DefaultTimeoutAbortSec=10s/" -i ./src/core/system.conf.in
 
-mkdir -p build
-cd       build
-
 LANG=en_US.UTF-8 \
-meson --prefix=/usr                \
+meson setuo build                  \
+      --prefix=/usr                \
       --sysconfdir=/etc            \
       --localstatedir=/var         \
       -Dblkid=true                 \
@@ -33,30 +31,27 @@ meson --prefix=/usr                \
       -Doomd=true		   \
       -Dpamconfdir=/etc/pam.d      \
       -Dbootloader=true            \
-      -Dsbat-distro-url="https://github.com/sauzeros" \
-      ..
+      -Dsbat-distro-url="https://github.com/sauzeros"
 
-LANG=en_US.UTF-8 ninja
-LANG=en_US.UTF-8 DESTDIR="$1" ninja install
+LANG=en_US.UTF-8 meson compile -C build
+LANG=en_US.UTF-8 meson install -C build --destdir=$1
 
 install -v -m755 -d "$1/etc/pam.d"
-install -v -m644 ../system-session "$1/etc/pam.d/system-session"
-install -v -m644 ../systemd-user "$1/etc/pam.d/systemd-user"
+install -v -m644 system-session "$1/etc/pam.d/system-session"
+install -v -m644 systemd-user "$1/etc/pam.d/systemd-user"
 
 install -v -m755 -d "$1/etc/systemd/network"
-install -v -m644 ../20-wired.network "$1/etc/systemd/network/20-wired.network"
-install -v -m644 ../25-wireless.network "$1/etc/systemd/network/25-wireless.network"
+install -v -m644 20-wired.network "$1/etc/systemd/network/20-wired.network"
+install -v -m644 25-wireless.network "$1/etc/systemd/network/25-wireless.network"
 install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
-install -v -m644 ../dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
+install -v -m644 dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
-cd ..
 rm -rf build
-mkdir build
-cd build
 
-meson setup --cross-file lib32       \
+meson setup build                    \
+      --cross-file lib32             \
       --prefix=/usr                  \
       --libdir=/usr/lib32            \
       --buildtype=release            \
@@ -72,8 +67,9 @@ meson setup --cross-file lib32       \
       -Dsbat-distro-url="https://github.com/sauzeros" \
       -D mode=release
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
+
 install -d $1/usr/lib32/pkgconfig
 cp -vR DESTDIR/usr/lib32/security       $1/usr/lib32
 cp -va DESTDIR/usr/lib32/libsystemd.so* $1/usr/lib32
