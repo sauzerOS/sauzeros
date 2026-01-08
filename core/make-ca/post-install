@@ -3,7 +3,7 @@
 exec 2>&1 1>/dev/null
 
 # update certs
-make-ca -g
-make-ca -r
+make-ca -f -C /etc/ssl/certdata.txt
+
 # enable systemd update timer
 systemctl enable update-pki.timer

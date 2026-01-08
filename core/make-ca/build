@@ -6,3 +6,5 @@ ln -sf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-bundle.crt' make-ca
 
 make DESTDIR=$1 install
 install -vdm755 $1/etc/ssl/local
+install -Dm644 <(gzip -dc certdata.txt.gz) "$1/etc/ssl/certdata.txt"
+
