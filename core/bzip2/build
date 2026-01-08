@@ -30,6 +30,7 @@ ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1.0"
 ln -sf bzip2 "$1/usr/bin/bunzip2"
 ln -sf bzip2 "$1/usr/bin/bzcat"
 
+sed "s|@VERSION@|$2|" -i bzip2.pc
 install -Dm644 bzip2.pc -t "$1"/usr/lib/pkgconfig
 
 if [ "$MULTILIB" = "1" ]; then
