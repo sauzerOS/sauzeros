@@ -10,7 +10,7 @@ sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/" -i ./src/core/s
 sed -i "s/#DefaultTimeoutAbortSec=/DefaultTimeoutAbortSec=10s/" -i ./src/core/system.conf.in
 
 LANG=en_US.UTF-8 \
-meson setuo build                  \
+meson setup build                  \
       --prefix=/usr                \
       --sysconfdir=/etc            \
       --localstatedir=/var         \
