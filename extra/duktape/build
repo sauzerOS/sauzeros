@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
 sed -i 's/-Os/-O2/' Makefile.sharedlibrary
+# Add missing NEEDED on libm.so
+sed -i 's/duktape\.c/& -lm/' Makefile.sharedlibrary
 
 make -f Makefile.sharedlibrary INSTALL_PREFIX=/usr
 make DESTDIR=$1 -f Makefile.sharedlibrary INSTALL_PREFIX=/usr install
