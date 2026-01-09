@@ -1,5 +1,5 @@
 file
 libarchive
-lua
+lua==5.4.8
 popt
 scdoc make
