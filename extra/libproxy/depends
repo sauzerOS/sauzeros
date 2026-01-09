@@ -1,1 +1,7 @@
+curl
 duktape
+glib
+gobject-introspection make
+gsettings-desktop-schemas make
+meson make
+vala make

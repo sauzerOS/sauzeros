@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+sed -i "s:sbin:bin:g" Makefile
+make prefix=/usr CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+make prefix=/usr DESTDIR=$1 install

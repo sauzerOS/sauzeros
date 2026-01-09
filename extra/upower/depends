@@ -1,0 +1,10 @@
+glib
+libgudev
+libimobiledevice
+libplist
+polkit
+docbook-xsl make
+gobject-introspection make
+meson make
+python make
+systemd make
