@@ -9,4 +9,3 @@ fi
 ln -s hokuto $1/usr/bin/hk
 install -Dm644 hokuto.fish $1/usr/share/fish/vendor_completions.d/hokuto.fish
 ln -s hokuto.fish $1/usr/share/fish/vendor_completions.d/hk.fish
-install -Dm644 hokuto.conf $1/etc/hokuto.conf
