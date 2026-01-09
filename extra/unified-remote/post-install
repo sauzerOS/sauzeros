@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "Open TCP/UDP ports 9511-9512 for unified remote"
