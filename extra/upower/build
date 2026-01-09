@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr -D gtk-doc=false
+meson setup build \
+  --prefix=/usr   \
+  -D gtk-doc=false
+
 meson compile -C build
 DESTDIR=$1 meson install -C build
