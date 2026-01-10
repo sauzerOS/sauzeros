@@ -6,5 +6,7 @@ ln -sf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-bundle.crt' make-ca
 
 make DESTDIR=$1 install
 install -vdm755 $1/etc/ssl/local
-install -Dm644 <(gzip -dc certdata.txt.gz) "$1/etc/ssl/certdata.txt"
 
+# sauzeros binary repo cert + initial certdata.txt
+install -Dm644 <(xz -dc certdata.txt.xz) "$1/etc/ssl/certdata.txt"
+install -Dm644 <(xz -dc caddy_local_root.pem.xz) "$1/etc/ssl/local/caddy_local_root.pem"
