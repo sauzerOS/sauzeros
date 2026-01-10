@@ -1,16 +1,14 @@
 #!/bin/sh -e
 
-#patch -Np1 -i extra-cmake-modules-6.17.0-upstream_fix-1.patch
-
 sed -i '/"lib64"/s/64//' kde-modules/KDEInstallDirsCommon.cmake
 
 sed -e '/PACKAGE_INIT/i set(SAVE_PACKAGE_PREFIX_DIR "${PACKAGE_PREFIX_DIR}")' \
     -e '/^include/a set(PACKAGE_PREFIX_DIR "${SAVE_PACKAGE_PREFIX_DIR}")' \
     -i ECMConfig.cmake.in
 
-mkdir build
-cd    build
+cmake -B build -G ninja        \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_WITH_QT6=ON
 
-cmake -D CMAKE_INSTALL_PREFIX=/usr -D BUILD_WITH_QT6=ON ..
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
