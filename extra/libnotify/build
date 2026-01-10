@@ -1,9 +1,10 @@
 #!/bin/sh -e
 
-meson setup build    \
-    --prefix=/usr    \
-    -D gtk_doc=false \
-    -Dman=false
+meson setup build            \
+    --prefix=/usr            \
+    -D gtk_doc=false         \
+    -D docbook_docs=disabled \
+    -D man=false
 
 meson compile -C build
 meson install -C build --destdir=$1
