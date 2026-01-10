@@ -3,6 +3,6 @@ libgudev
 libgusb
 little-cms
 polkit
-sane
+sane optional
 sqlite
 vala

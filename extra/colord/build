@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+if hokuto check sane; then
+    sane_opt=enabled
+else
+    sane_opt=disabled
+fi
+
 meson setup build           \
   --prefix=/usr             \
   --buildtype=release       \
@@ -10,7 +16,7 @@ meson setup build           \
   -D argyllcms_sensor=false \
   -D bash_completion=false  \
   -D docs=false             \
-  -D sane=true              \
+  -D sane=$sane_opt         \
   -D man=false
 
 meson compile -C build
