@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
 if hokuto check sane; then
-    sane_opt=enabled
+    sane_opt=true
 else
-    sane_opt=disabled
+    sane_opt=false
 fi
 
 meson setup build           \
