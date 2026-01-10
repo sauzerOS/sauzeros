@@ -6,7 +6,6 @@ files/group
 files/hokuto.conf
 files/host.conf
 files/hosts
-files/init-repos
 files/inputrc
 files/issue
 files/locale.conf
