@@ -1,11 +1,9 @@
 #!/bin/sh -e
 
-mkdir -v build
-cd       build
+cmake -B build                 \
+  -D CMAKE_BUILD_TYPE=Release  \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_STATIC_LIBS=OFF
 
-cmake -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DBUILD_STATIC_LIBS=OFF ..
-
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build

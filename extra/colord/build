@@ -1,19 +1,17 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build           \
+  --prefix=/usr             \
+  --buildtype=release       \
+  -D daemon_user=colord     \
+  -D vapi=true              \
+  -D systemd=true           \
+  -D libcolordcompat=true   \
+  -D argyllcms_sensor=false \
+  -D bash_completion=false  \
+  -D docs=false             \
+  -D sane=true              \
+  -D man=false
 
-meson --prefix=/usr            \
-      --buildtype=release      \
-      -Ddaemon_user=colord     \
-      -Dvapi=true              \
-      -Dsystemd=true           \
-      -Dlibcolordcompat=true   \
-      -Dargyllcms_sensor=false \
-      -Dbash_completion=false  \
-      -Ddocs=false             \
-      -Dsane=true              \
-      -Dman=false ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1

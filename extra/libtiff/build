@@ -1,9 +1,8 @@
 #!/bin/sh -e
 
-mkdir -p libtiff-build
-cd       libtiff-build
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -G Ninja ..
-
-ninja
-DESTDIR=$1 ninja install
+cmake --build build
+DESTDIR=$1 cmake --install build

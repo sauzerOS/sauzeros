@@ -1,0 +1,3 @@
+https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz
+files/cups.pam
+files/cups.sysusers
