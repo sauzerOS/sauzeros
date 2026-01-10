@@ -1,9 +1,14 @@
 #!/bin/sh -e
 
+if hokuto check colord; then
+    colord_opt=enabled
+else
+    colord_opt=disabled
+fi
 meson setup build --prefix=/usr        \
             --buildtype=release        \
            -D broadway-backend=true    \
-           -D colord=enabled           \
+           -D colord=$colord_opt       \
            -D introspection=enabled
 
 meson compile -C build
