@@ -2,6 +2,9 @@ colord optional
 fribidi
 gdk-pixbuf
 graphene
+gstreamer
+gst-plugins-base
+gst-plugins-bad
 iso-codes
 libepoxy
 libtiff
