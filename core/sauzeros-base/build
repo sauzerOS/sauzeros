@@ -43,7 +43,7 @@ ln -s spool/mail  "$1/var/mail"
 ln -s ../run      "$1/var/run"
 ln -s ../run/lock "$1/var/lock"
 
-# Setup /usr/local (usually for any programs installed outside package manager).
+# Setup /usr/local
 for d in bin etc games include lib man sbin share src; do
     install -dm 755 "$1/usr/local/$d"
 done
@@ -51,7 +51,7 @@ done
 ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
-for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
+for f in bashrc fstab group host.conf hokuto.conf hosts issue inputrc locale.conf os-release \
          nanorc passwd profile resolv.conf securetty shells mime.types; do
     install -m 644 "$f" "$1/etc"
 done
@@ -60,11 +60,6 @@ for f in crypttab ; do
     install -m 600 "$f" "$1/etc"
 done
 
-for f in init-repos ; do
-    install -m 755 "$f" "$1/usr/bin"
-done
-
-install -d "$1/repo/sauzeros/no_updates"
 ln -s /proc/self/mounts "$1/etc/mtab"
 
 # Setup hokuto cache dirs
@@ -72,3 +67,22 @@ install -dm 1777 "$1/var/cache/hokuto"
 
 # Setup config.site
 install -Dm644 config.site "$1/usr/share/config.site"
+
+# Set multilib setting
+if [ "$MULTILIB" = "1" ]; then
+sed -i 's/^HOKUTO_MULTILIB=0$/HOKUTO_MULTILIB=1/' "$1/etc/hokuto.conf"
+fi
+
+# Set GNU Mirror
+sed -i "s|^GNU_MIRROR=.*|GNU_MIRROR=$GNU_MIRROR|" "$1/etc/hokuto.conf"
+
+# Set LTO
+sed -i "s/^HOKUTO_LTO=.*/HOKUTO_LTO=$SET_HOKUTO_LTO/" "$1/etc/hokuto.conf"
+
+# Set CFLAGS
+if [ "$HOKUTO_GENERIC" = "1" ]; then
+CFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto.conf")
+CXXFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto.conf")
+sed -i "s|^CFLAGS=.*|CFLAGS=${CFLAGS_GEN}|" "$1/etc/hokuto.conf"
+sed -i "s|^CXXFLAGS=.*|CXXFLAGS=${CXXFLAGS_GEN}|" "$1/etc/hokuto.conf"
+fi
