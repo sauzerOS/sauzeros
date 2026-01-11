@@ -1,1 +1,2 @@
 https://cdn.kernel.org/pub/linux/kernel/v${version-major}.x/linux-${version}.tar.xz
+files/config.gz
