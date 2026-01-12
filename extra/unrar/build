@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
-make -f makefile
+export LDFLAGS+=' -pthread'
 
-install -Dm755 unrar "$1/usr/bin/unrar"
+make -C unrarlib lib
+make -C unrar
+
+install -Dm755 unrar/unrar "$1/usr/bin/unrar"
+install -Dm755 unrarlib/libunrar.so -t "$1"/usr/lib/
+install -Dm644 unrarlib/dll.hpp -t "$1"/usr/include/unrar/
