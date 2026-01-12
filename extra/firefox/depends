@@ -18,20 +18,21 @@ libwebp
 libXcomposite
 libXdamage
 libva
-llvm
+llvm make
 m4
 mesa
 nasm
-nodejs
+nodejs make
 nspr
 nss
 pango
 pixman
 pkgconf
 pulseaudio
-python
-rust
+python make
+rust make
 wayland
 wayland-protocols
 zlib-ng
 nvidia-vaapi-driver
+unzip make
