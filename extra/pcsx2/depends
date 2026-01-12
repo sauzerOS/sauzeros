@@ -9,3 +9,4 @@ qt6
 shaderc
 p7zip
 unzip
+extra-cmake-modules make
