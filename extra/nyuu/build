@@ -1,6 +1,12 @@
 #!/bin/sh -e
 
-install -Dm755 nyuu $1/usr/bin/nyuu
-install -Dm644 config-sample.json $1/etc/nyuu/config-sample.json
+if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+install -Dm755 aarch64/nyuu "$1/usr/bin/nyuu"
+install -Dm644 aarch64/config-sample.json $1/etc/nyuu/config-sample.json
+else
+install -Dm755 amd64/nyuu "$1/usr/bin/nyuu"
+install -Dm644 amd64/config-sample.json $1/etc/nyuu/config-sample.json
+fi
+
 
 

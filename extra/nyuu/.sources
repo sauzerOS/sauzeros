@@ -1,0 +1,2 @@
+https://github.com/animetosho/Nyuu/releases/download/v${version}/nyuu-v${version}-linux-amd64.tar.xz amd64
+https://github.com/animetosho/Nyuu/releases/download/v${version}/nyuu-v${version}-linux-aarch64.tar.xz aarch64
