@@ -1,4 +1,4 @@
-ffmpeg<=8.0.0
+ffmpeg
 flac
 pulseaudio
 mesa
