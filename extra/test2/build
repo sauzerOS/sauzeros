@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-install -d $1/tmp
-install -Dm644 test $1/tmp/test
-install -Dm644 test2 $1/tmp/test2
