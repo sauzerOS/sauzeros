@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 cd hid-xpadneo
-make KDIR=/usr/src/linux
-make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
+make KERNEL_SOURCE_DIR=/usr/src/linux
+make KERNEL_SOURCE_DIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
 rm -rf $1/lib/modules/*/modules*
 
 cd ..

@@ -7,4 +7,4 @@ Exec=/opt/discord/Discord
 Icon=/opt/discord/discord.png
 Type=Application
 Categories=Network;InstantMessaging;
-Path=/opt/Discord
+Path=/opt/discord
