@@ -37,7 +37,7 @@ end
 set -l prog_names hk hokuto
 
 # Define main subcommands
-set -l hokuto_commands install i build b uninstall r update u list ls checksum c version new n edit e bootstrap chroot cleanup find f manifest m
+set -l hokuto_commands install i build b uninstall r update u list ls checksum c version new n edit e bootstrap chroot cleanup find f manifest m bump
 
 for prog in $prog_names
     # 1. Disable default file completion
@@ -94,5 +94,11 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from manifest m" \
         -a "(__hokuto_get_installed_packages)" \
         -d "Installed Package"
+
+    # 9. Logic for 'bump'
+    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    complete -c $prog -n "__fish_seen_subcommand_from bump" \
+        -a "(__hokuto_get_repo_packages)" \
+        -d "Repository Package"
 
 end
