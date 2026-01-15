@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-patch -Np2 -i rockridge-ssize_t.patch
-
+./bootstrap
 ./configure \
     --prefix=/usr \
     --enable-libacl \
