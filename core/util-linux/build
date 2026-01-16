@@ -1,55 +1,81 @@
 #!/bin/sh -e
 
-./autogen.sh
-./configure \
-    --prefix=/usr \
-    --localstatedir=/var \
-    --bindir=/usr/bin \
-    --sbindir=/usr/bin \
-    --libdir=/usr/lib \
-    --disable-makeinstall-chown \
-    --disable-chfn-chsh  \
-    --disable-login      \
-    --disable-nologin    \
-    --disable-su         \
-    --disable-setpriv    \
-    --disable-runuser    \
-    --disable-pylibmount \
-    --disable-static     \
-    --disable-liblastlog2 \
-    --without-python     \
-    runstatedir=/run
+meson_options=(
+    --prefix=/usr
+    --sbindir bin
+    --libexecdir lib
+    --buildtype plain
+    -D fs-search-path=/usr/bin:/usr/local/bin
+    -D libuser=disabled
+    -D libutempter=disabled
+    -D ncurses=disabled
+    -D ncursesw=enabled
+    -D econf=disabled
+    -D build-chfn-chsh=enabled
+    -D build-line=disabled
+    -D build-mesg=enabled
+    -D build-newgrp=enabled
+    -D build-vipw=enabled
+    -D build-write=enabled
+)
 
-make
-make DESTDIR="$1" install
+meson setup build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir=$1
 
-# Fix broken --sbindir.
-mv -f "$1/usr/sbin/"* "$1/usr/bin"
-rmdir "$1/usr/sbin"
+# remove static libraries
+rm "${1}"/usr/lib/lib*.a*
+
+# install PAM files for login-utils
+install -Dm0644 common.pam "${1}/etc/pam.d/chfn"
+install -Dm0644 common.pam "${1}/etc/pam.d/chsh"
+install -Dm0644 login.pam "${1}/etc/pam.d/login"
+install -Dm0644 remote.pam "${1}/etc/pam.d/remote"
+install -Dm0644 runuser.pam "${1}/etc/pam.d/runuser"
+install -Dm0644 runuser.pam "${1}/etc/pam.d/runuser-l"
+install -Dm0644 su.pam "${1}/etc/pam.d/su"
+install -Dm0644 su.pam "${1}/etc/pam.d/su-l"
+
+sed -i '/ListenStream/ aRuntimeDirectory=uuidd' "${1}/usr/lib/systemd/system/uuidd.socket"
+
+# install systemd-sysusers
+install -Dm0644 util-linux.sysusers \
+  "${1}/usr/lib/sysusers.d/util-linux.conf"
+
+install -Dm0644 60-rfkill.rules \
+  "${1}/usr/lib/udev/rules.d/60-rfkill.rules"
+
+install -Dm0644 rfkill-unblock_.service \
+  "${1}/usr/lib/systemd/system/rfkill-unblock@.service"
+install -Dm0644 rfkill-block_.service \
+  "${1}/usr/lib/systemd/system/rfkill-block@.service"
+
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
-make distclean
+rm -rf build
 
-CC="gcc -m32" \
-./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
-            --host=i686-pc-linux-gnu \
-            --libdir=/usr/lib32      \
-            --runstatedir=/run       \
-            --sbindir=/usr/sbin      \
-            --disable-chfn-chsh      \
-            --disable-login          \
-            --disable-nologin        \
-            --disable-su             \
-            --disable-setpriv        \
-            --disable-runuser        \
-            --disable-pylibmount     \
-            --disable-liblastlog2    \
-            --disable-static         \
-            --without-python
+meson_options_32=(
+    --prefix=/usr
+    --libexecdir /usr/lib32
+    --libdir     /usr/lib32
+    --auto-features disabled
+    -D build-libblkid=enabled
+    -D build-libuuid=enabled
+    -D build-libmount=enabled
+    -D build-libsmartcols=enabled
+    -D build-libfdisk=enabled
+    -D ncurses=disabled
+    -D ncursesw=enabled
+)
 
-make
-make DESTDIR=$PWD/DESTDIR install
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+meson setup build "${meson_options_32[@]}"
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
 fi

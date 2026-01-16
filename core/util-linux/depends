@@ -1,4 +1,14 @@
 autoconf make
 gettext
+libcap-ng
+libxcrypt
 lzlib
+meson make
+ncurses
+pam
+python make
+readline
+shadow
+sqlite make
 tar make
+zlib-ng

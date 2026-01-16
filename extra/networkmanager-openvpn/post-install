@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-#create required user
-groupadd -r nm-openvpn
-useradd -r -g nm-openvpn -d / -s /sbin/nologin -c "Default user for running openvpn spawned by NetworkManager" nm-openvpn
-

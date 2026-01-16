@@ -1,1 +1,10 @@
 https://github.com/util-linux/util-linux/archive/refs/tags/v${version}.tar.gz
+files/60-rfkill.rules
+files/common.pam
+files/login.pam
+files/remote.pam
+files/rfkill-block_.service
+files/rfkill-unblock_.service
+files/runuser.pam
+files/su.pam
+files/util-linux.sysusers
