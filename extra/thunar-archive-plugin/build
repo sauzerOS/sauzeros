@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson $pkgname build \
+meson setup build \
     --localstatedir=/var \
     --libexecdir=/usr/lib/xfce4
 
