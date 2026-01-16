@@ -2,4 +2,4 @@ gnome-keyring
 libsecret
 networkmanager
 openconnect
-webkit2gtk-4
+webkit2gtk-4.1

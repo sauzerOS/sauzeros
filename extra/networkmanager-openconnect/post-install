@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-#create required user
-groupadd -r nm-openconnect
-useradd -r -g nm-openconnect -d / -s /sbin/nologin -c "Default user for running openconnect spawned by NetworkManager" nm-openconnect
-
