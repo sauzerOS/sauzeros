@@ -1,4 +1,4 @@
-https://github.com/CanonicalLtd/lightdm/releases/download/1.32.0/lightdm-1.32.0.tar.xz
+https://github.com/CanonicalLtd/lightdm/releases/download/${version}/lightdm-${version}.tar.xz
 files/lightdm-autologin.pam
 files/lightdm-default-config.patch
 files/lightdm.pam

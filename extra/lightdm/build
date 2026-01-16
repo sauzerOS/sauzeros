@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+patch -Np1 -i lightdm-default-config.patch
+#NOCONFIGURE=1 ./autogen.sh
+
 ./configure --prefix=/usr                 \
             --libexecdir=/usr/lib/lightdm \
             --localstatedir=/var          \
@@ -13,16 +16,23 @@
 make
 make DESTDIR=$1 install
 
-mkdir -p $1/usr/bin
-cp tests/src/lightdm-session $1/usr/bin
-sed -i '1 s/sh/bash --login/' $1/usr/bin/lightdm-session
-rm -rf $1/etc/init
-
-mkdir -p $1/usr/lib/systemd/system
-install -m 644 lightdm.service $1/usr/lib/systemd/system/
-
 # script to import DISPLAY XAUTHORITY WAYLAND_DISPLAY into systemd user session (required for desktop portal)
 install -Dm 755 systemd-session-fix $1/usr/bin/systemd-session-fix
 
-# pam config
-install -Dm644 lightdm  $1/etc/pam.d/lightdm
+install -m 755 Xsession "${1}"/etc/lightdm/Xsession
+rm -rf "${1}"/etc/init
+rm -rf "${1}"/usr/include/lightdm-qt{,5}-*
+
+# PAM
+install -m 644 lightdm.pam "${1}"/etc/pam.d/lightdm
+install -m 644 lightdm-autologin.pam "${1}"/etc/pam.d/lightdm-autologin
+
+# PolicyKit
+install -dm 755 "${1}"/usr/share/polkit-1/rules.d
+install -m 644 lightdm.rules "${1}"/usr/share/polkit-1/rules.d/lightdm.rules
+
+# Systemd
+install -dm 755 "${1}"/usr/lib/{systemd/system,sysusers.d,tmpfiles.d}
+install -m 644 lightdm.service "${1}"/usr/lib/systemd/system/lightdm.service
+install -m 644 lightdm.sysusers "${1}"/usr/lib/sysusers.d/lightdm.conf
+install -m 644 lightdm.tmpfiles "${1}"/usr/lib/tmpfiles.d/lightdm.conf

@@ -1,6 +1,11 @@
-exo
 libgcrypt
-itstool
-pam
-libXdmcp
+exo
+libxcb
 libxklavier
+pam
+polkit
+xlibre | xorg-server
+gobject-introspection make
+itstool make
+libgcrypt make
+vala make
