@@ -1,1 +1,6 @@
 shadow
+libedit make
+libxcrypt make
+openssl make
+pam make
+zlib-ng make

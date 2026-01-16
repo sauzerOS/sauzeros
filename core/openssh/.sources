@@ -1,4 +1,8 @@
 https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${version}.tar.gz
-files/sshdat.service
+files/70-openssh-restart-sshd.hook
+files/openssh.tmpfiles
+files/ssh-agent.service
+files/ssh-agent.socket
+files/sshdgenkeys.service
 files/sshd.service
-files/sshd.socket
+files/sshd@.service

@@ -1,23 +1,48 @@
 #!/bin/sh -e
 
-cd openssh*
-./configure --prefix=/usr                            \
-            --sysconfdir=/etc/ssh                    \
-            --with-privsep-path=/var/lib/sshd        \
-            --with-default-path=/usr/bin             \
-            --with-superuser-path=/usr/bin \
-            --with-pid-dir=/run
+cd $3-$2
 
+# remove variable (but useless) first line in config (related to upstream VCS)
+sed '/^#.*\$.*\$$/d' -i ssh{,d}_config
+
+configure_options=(
+    --disable-lastlog
+    --disable-strip
+    --libexecdir=/usr/lib/ssh
+    --prefix=/usr
+    --sbindir=/usr/bin
+    --sysconfdir=/etc/ssh
+    --with-default-path='/usr/local/sbin:/usr/local/bin:/usr/bin'
+    --with-pam
+    --with-libedit
+    --with-pid-dir=/run
+    --with-privsep-path=/usr/share/empty.sshd
+    --with-privsep-user=nobody
+    --with-ssl-engine
+    --with-xauth=/usr/bin/xauth
+    --without-zlib-version-check
+  )
+
+./configure ${configure_options[@]}
 make
-make DESTDIR="$1" install
+make DESTDIR=$1 install
 
-cp -f contrib/ssh-copy-id   "$1/usr/bin"
-cp -f contrib/ssh-copy-id.1 "$1/usr/share/man/man1"
-chmod +x "$1/usr/bin/ssh-copy-id"
+install -vdm 755 "$1/etc/ssh/ssh_config.d"
 
-mkdir -pv $1/usr/lib/systemd/system/
+install -Dm644 ../sshdgenkeys.service -t "$1"/usr/lib/systemd/system/
+install -Dm644 ../sshd.service -t "$1"/usr/lib/systemd/system/
+install -Dm644 ../sshd@.service -t "$1"/usr/lib/systemd/system/
+install -Dm644 ../ssh-agent.{service,socket} -t "$1"/usr/lib/systemd/user/
+install -vDm 644 ../70-openssh-restart-sshd.hook -t "$1/usr/share/libalpm/hooks/"
 
-install -m644 ../sshd.service $1/usr/lib/systemd/system/
-install -m644 ../sshdat.service $1/usr/lib/systemd/system/sshd@.service
-install -m644 ../sshd.socket $1/usr/lib/systemd/system/
+# factory files
+install -Dm644 "$1/etc/ssh/moduli" -t "$1"/usr/share/factory/etc/ssh/
+install -Dm644 "$1/etc/ssh/ssh_config" -t "$1"/usr/share/factory/etc/ssh/
+install -Dm644 "$1/etc/ssh/sshd_config" -t "$1"/usr/share/factory/etc/ssh/
+
+install -vDm 644 ../$3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
+
+install -Dm755 contrib/findssl.sh -t "$1"/usr/bin/
+install -Dm755 contrib/ssh-copy-id -t "$1"/usr/bin/
+install -Dm644 contrib/ssh-copy-id.1 -t "$1"/usr/share/man/man1/
 
