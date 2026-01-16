@@ -1,0 +1,2 @@
+https://go.dev/dl/go${version}.linux-amd64.tar.gz amd64
+https://go.dev/dl/go${version}.linux-arm64.tar.gz arm64
