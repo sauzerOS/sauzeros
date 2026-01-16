@@ -1,0 +1,9 @@
+# Edit /etc/lightdm/lightdm.conf
+[Seat:*]
+autologin-user=username
+autologin-session=session
+
+# Add autologin group
+groupadd -r autologin
+gpasswd -a username autologin
+
