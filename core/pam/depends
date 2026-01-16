@@ -1,3 +1,4 @@
-meson
-ninja
+meson make
+flex make
+ninja make
 libcap optional

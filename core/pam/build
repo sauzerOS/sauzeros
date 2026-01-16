@@ -1,21 +1,25 @@
 #!/bin/sh -e
 
-unset LDFLAGS
-
 meson setup build       \
   --prefix=/usr         \
   --buildtype=release   \
-  -Ddocs=disabled
+  -D docs=disabled
 
 meson compile -C build
 meson install -C build --destdir=$1
 
-install -v -m755 -d "$1/etc/pam.d"
-install -v -m644 system-account "$1/etc/pam.d/system-account"
-install -v -m644 system-auth "$1/etc/pam.d/system-auth"
-install -v -m644 system-session "$1/etc/pam.d/system-session"
-install -v -m644 system-password "$1/etc/pam.d/system-password"
-install -v -m644 other "$1/etc/pam.d/other"
+# environment file for ssh-agent
+install -v -m 644 environment "$1/etc/environment"
+
+install -v -m 755 -d "$1/etc/pam.d"
+install -v -m 644 other "$1/etc/pam.d/other"
+install -v -m 644 system-auth "$1/etc/pam.d/system-auth"
+install -v -m 644 system-local-login "$1/etc/pam.d/system-local-login"
+install -v -m 644 system-login "$1/etc/pam.d/system-login"
+install -v -m 644 system-remote-login "$1/etc/pam.d/system-remote-login"
+install -v -m 644 system-services "$1/etc/pam.d/system-services"
+
+install -Dm 644 $3.tmpfiles "${1}"/usr/lib/tmpfiles.d/${3}.conf
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
