@@ -9,6 +9,3 @@ autoreconf -fvi
 
 make
 make DESTDIR=$1 install install dbusservicedir=/usr/share/dbus-1/system.d
-
-echo 'u nm-openvpn - "NetworkManager OpenVPN"' |
-    install -Dm644 /dev/stdin "$1/usr/lib/sysusers.d/networkmanager-openvpn.conf"

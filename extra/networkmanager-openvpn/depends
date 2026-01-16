@@ -1,3 +1,5 @@
+glib
+gtk
 libsecret
 networkmanager
 openvpn
