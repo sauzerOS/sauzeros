@@ -1,9 +1,25 @@
+curl
+glib
+iproute2
 iwd
 jansson
 libndp
+libnewt
 libpsl
-libnvme
-libxslt
+mobile-broadband-provider-info
+modemmanager
+nspr
 nss
-polkit
-vala
+readline
+dnsmasq make
+gobject-introspection make
+iproute2 make
+libnvme make
+libpsl make
+meson make
+nftables make
+openresolv make
+polkit make
+readline make
+systemd make
+vala make

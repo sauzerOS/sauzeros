@@ -1,18 +1,19 @@
 #!/bin/sh -e
 
-grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
-
 CXXFLAGS+="-O2 -fPIC"             \
 meson setup build                 \
       --prefix=/usr               \
       --buildtype=release         \
+      -D iwd=true                 \
+      -D b_lto=true               \
+      -D config_dns_rc_manager_default=symlink \
       -D libaudit=no              \
-      -D nmtui=false              \
       -D ppp=false                \
+      -D nmtui=true               \
       -D selinux=false            \
       -D qt=false                 \
       -D session_tracking=systemd \
-      -D modem_manager=false
+      -D modem_manager=true
 
 meson compile -C build
 DESTDIR=$1 meson install -C build
