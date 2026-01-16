@@ -45,7 +45,7 @@ install -vDm755 -t "$1/usr/bin" daemon/opensnitchd
 
 # systemd integration
 install -vDm644 utils/packaging/daemon/deb/debian/opensnitch.service "$1/usr/lib/systemd/system/opensnitchd.service"
-install -vDm644 "tmpfiles.conf" "$1/usr/lib/tmpfiles.d/$pkgname.conf"
+install -vDm644 "tmpfiles.conf" "$1/usr/lib/tmpfiles.d/$3.conf"
 
 # configuration
 install -vDm644 -t "$1/etc/opensnitchd" daemon/data/{default-config,system-fw}.json
