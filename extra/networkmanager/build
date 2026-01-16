@@ -19,6 +19,5 @@ meson compile -C build
 DESTDIR=$1 meson install -C build
 
 install  -Dm 644 NetworkManager.conf "$1/etc/NetworkManager/NetworkManager.conf"
-install -Dm 644 no-dns-update.conf  "$1/etc/NetworkManager/conf.d/no-dns-update.conf"
 install -Dm 644 polkit.conf "$1/etc/NetworkManager/conf.d/polkit.conf"
 install -Dm 644 org.freedesktop.NetworkManager.rules "$1/usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules"

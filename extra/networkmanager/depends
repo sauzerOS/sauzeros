@@ -18,7 +18,6 @@ libnvme make
 libpsl make
 meson make
 nftables make
-openresolv make
 polkit make
 readline make
 systemd make
