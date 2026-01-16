@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+export CGO_CPPFLAGS="${CPPFLAGS}"
+export CGO_CFLAGS="${CFLAGS}"
+export CGO_CXXFLAGS="${CXXFLAGS}"
+export CGO_LDFLAGS="${LDFLAGS}"
+export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+BUILD_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+go build -o build/$3 -ldflags="-X 'main.buildVersion=${pkgver}' -X 'main.buildDate=${BUILD_DATE}'" ./cmd/doggo/
+install -Dm755 build/"$3" "$1"/usr/bin/"$3"
+install -Dm644 README.md "$1"/usr/share/doc/"$3"/README.md
