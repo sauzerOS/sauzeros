@@ -1,1 +1,3 @@
-meson
+meson make
+ninja make
+systemd

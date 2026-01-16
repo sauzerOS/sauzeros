@@ -14,4 +14,8 @@ meson setup build         \
 meson compile -C build
 meson install -C build --destdir=$1
 
-install -Dm644 seatd.service "$1/usr/lib/systemd/system/seatd.service"
+# Allow users in the "seat" group to access seatd, and provide a service
+# that will be necessary for e.g. wlroots-based seat management
+install -Dm 644 "contrib/systemd/seatd.service" \
+  -t "$1/usr/lib/systemd/system/"
+install -Dm 644 "sysuser.conf" "$1/usr/lib/sysusers.d/seatd.conf"
