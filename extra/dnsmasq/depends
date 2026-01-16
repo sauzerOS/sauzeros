@@ -1,1 +1,6 @@
-openresolv
+dbus
+gmp
+nettle
+libidn2
+nftables
+
