@@ -3,7 +3,7 @@
 mkdir -pv "$1/usr/lib/systemd/system"
 mkdir -pv "$1/etc/vpnc/"
 
-make 
+make
 make DESTDIR="$1" PREFIX=/usr SBINDIR=/usr/bin install-common
 
 install -Dm 644 vpnc@.service -t "$1/usr/lib/systemd/system"
