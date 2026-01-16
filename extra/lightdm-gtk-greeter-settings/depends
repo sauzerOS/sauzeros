@@ -1,0 +1,8 @@
+gdk-pixbuf
+glib
+gtk+3
+lightdm-gtk-greeter
+pango
+python
+python-pygobject
+python-distutils-extra make
