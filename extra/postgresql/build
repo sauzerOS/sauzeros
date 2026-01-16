@@ -8,15 +8,25 @@ sed -e 's/"app-pgchecksums "/"app-pgchecksums"/' \
 sed -e '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' \
     -i src/include/pg_config_manual.h
 
-./configure --prefix=/usr          \
-            --enable-thread-safety
+# use fat LTO objects for static libraries
+CFLAGS+=" -ffat-lto-objects"
+CXXFLAGS+=" -ffat-lto-objects"
+
+./configure       \
+  --prefix=/usr   \
+  --with-readline \
+  --with-openssl  \
+  --with-pam      \
+  --with-icu      \
+  --with-systemd  \
+  --with-zstd     \
+  --enable-thread-safety
 
 make
 make DESTDIR=$1 install
 make -C contrib DESTDIR="$1" install
 
-mkdir -pv $1/usr/lib/tmpfiles.d/
-mkdir -pv $1/usr/lib/systemd/system/
-
-install -m 644 postgresql.conf $1/usr/lib/tmpfiles.d/
-install -m 644 postgresql.service $1/usr/lib/systemd/system/
+install -Dm 644 postgresql.pam "${1}/etc/pam.d/postgresql"
+install -Dm 644 postgresql.service -t "${1}/usr/lib/systemd/system"
+install -Dm 644 postgresql.sysusers "${1}/usr/lib/sysusers.d/postgresql.conf"
+install -Dm 644 postgresql.tmpfiles "${1}/usr/lib/tmpfiles.d/postgresql.conf"

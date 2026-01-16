@@ -1,1 +1,9 @@
+bash
 icu
+openssl
+pam
+systemd
+util-linux
+zlib-ng
+zstd
+readline make

@@ -1,4 +1,4 @@
-https://ftp.postgresql.org/pub/source/v18.1/postgresql-18.1.tar.bz2
+https://ftp.postgresql.org/pub/source/v${version}/postgresql-${version}.tar.bz2
 files/postgresql.pam
 files/postgresql.service
 files/postgresql.sysusers
