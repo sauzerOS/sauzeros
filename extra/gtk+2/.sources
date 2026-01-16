@@ -1,3 +1,3 @@
-https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.33.tar.xz
+https://download.gnome.org/sources/gtk+/${version-major-minor}/gtk+-${version}.tar.xz
 files/0001-Lower-severity-of-XID-collision-warnings.patch
 files/0002-Stop-looking-for-modules-in-cwd.patch

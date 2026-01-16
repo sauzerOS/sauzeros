@@ -1,13 +1,22 @@
 #!/bin/sh -e
 
-#sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
-#    -i docs/{faq,tutorial}/Makefile.in
+patch -Np1 -i 0001-Lower-severity-of-XID-collision-warnings.patch
+patch -Np1 -i 0002-Stop-looking-for-modules-in-cwd.patch
 
-patch -Np1 -i gtk+-2.24.33-Fix-casts.patch
-patch -Np1 -i gtk+-2.24.33-respect-NM.patch
-
+sed -i '/AM_INIT_AUTOMAKE/s/]/ foreign]/' configure.ac
 autoreconf -fvi
-./configure --prefix=/usr --sysconfdir=/etc
+CFLAGS+=" -Wno-error=implicit-int -Wno-error=incompatible-pointer-types"
 
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --with-xinput=yes \
+  --disable-gtk-doc
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR=$1 install
+
+# Built by GTK 4, shared with GTK 2/3
+rm "$1/usr/bin/gtk-update-icon-cache"
