@@ -1,30 +1,53 @@
 #!/bin/sh -e
 
-sed -i 's/groups$(EXEEXT) //' src/Makefile.in
-find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \;
-find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \;
-find man -name Makefile.in -exec sed -i 's/passwd\.5 / /'   {} \;
+# apply archlinux patches
+patch -Np1 -i 0001-Disable-replaced-tools-their-man-pages-and-PAM-integ.patch
+patch -Np1 -i 0002-Adapt-login.defs-for-PAM-and-util-linux.patch
+patch -Np1 -i 0003-Add-Arch-Linux-defaults-for-login.defs.patch
 
-sed -i -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
-       -e 's@/var/spool/mail@/var/mail@' etc/login.defs
+autoreconf -fvi
 
-./configure \
-    --prefix=/usr \
-    --bindir=/usr/bin \
-    --sbindir=/usr/bin \
-    --sysconfdir=/etc \
-    --without-libbsd \
+configure_options=(
+    --bindir=/usr/bin
+    --disable-account-tools-setuid  # no setuid for chgpasswd, chpasswd, groupadd, groupdel, groupmod, newusers, useradd, userdel, usermod
+    --enable-man
+    --libdir=/usr/lib
+    --mandir=/usr/share/man
+    --prefix=/usr
+    --sbindir=/usr/bin
+    --sysconfdir=/etc
+    --with-fcaps  # use capabilities instead of setuid for setuidmap and setgidmap
     --with-group-name-max-length=32
+    --with-libpam  # PAM integration for chpasswd, groupmems, newusers, passwd
+    --with-yescrypt
+    --without-bcrypt
+    --without-libbsd  # shadow can use internal implementation for getting passphrase
+    --without-nscd  # we do not ship nscd anymore
+    --without-selinux
+    --without-su  # su is provided by util-linux
+)
 
+# add extra check, preventing accidental deletion of other user's home dirs when using `userdel -r <user with home in />`
+export CFLAGS="$CFLAGS -DEXTRA_CHECK_HOME_DIR"
+./configure "${configure_options[@]}"
+
+# prevent excessive overlinking due to libtool
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
-make DESTDIR="$1" install
+make DESTDIR=$1 install
+make DESTDIR=$1 -C man install
 
-# Fix broken --sbindir.
-mv -f "$1/usr/sbin/"* "$1/usr/bin"
-rmdir "$1/usr/sbin"
+# custom useradd(8) defaults (not provided by upstream)
+install -vDm 600 useradd.defaults "$1/etc/default/useradd"
 
-install -v -m755 -d "$1/etc/pam.d"
-install -v -m644 chage  "$1/etc/pam.d/chage"
-install -v -m644 login  "$1/etc/pam.d/login"
-install -v -m644 passwd  "$1/etc/pam.d/passwd"
-install -v -m644 su  "$1/etc/pam.d/su"
+# systemd units
+install -vDm 644 shadow.timer -t "$1/usr/lib/systemd/system/"
+install -vDm 644 shadow.service -t "$1/usr/lib/systemd/system/"
+install -vdm 755 "$1/usr/lib/systemd/system/timers.target.wants"
+ln -s shadow.timer "$1/usr/lib/systemd/system/timers.target.wants/shadow.timer"
+
+install -vDm 644 $3.sysusers "$1/usr/lib/sysusers.d/$3.conf"
+install -vDm 644 $3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
+
+# adapt executables to match the modes used by tmpfiles.d, so that pacman does not complain:
+chmod 750 "$1/usr/bin/groupmems"

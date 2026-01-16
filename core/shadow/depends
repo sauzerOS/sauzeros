@@ -1,2 +1,5 @@
+acl
+attr
+libxcrypt
 pam
 systemd
