@@ -10,9 +10,8 @@ meson setup build --prefix=/usr  \
 meson compile -C build
 meson install -C build --destdir=$1
 
-install -d $1/etc/pam.d/
-install -Dm644 polkit-1 $1/etc/pam.d/polkit-1
-install -Dm644 10-udisks2-mount.rules $1/etc/polkit-1/rules.d/10-udisks2-mount.rules
-install -Dm644 20-my-auth-keep.rules $1/etc/polkit-1/rules.d/20-my-auth-keep.rules
-install -Dm644 49-allow-passwordless-printer-admin.rules $1/etc/polkit-1/rules.d/49-allow-passwordless-printer-admin.rules
-install -Dm644 50-logs.rules $1/etc/polkit-1/rules.d/50-logs.rules
+install -Dm 644 polkit-1 $1/usr/lib/pam.d/polkit-1
+install -Dm 644 10-udisks2-mount.rules $1/etc/polkit-1/rules.d/10-udisks2-mount.rules
+install -Dm 644 20-my-auth-keep.rules $1/etc/polkit-1/rules.d/20-my-auth-keep.rules
+install -Dm 644 49-allow-passwordless-printer-admin.rules $1/etc/polkit-1/rules.d/49-allow-passwordless-printer-admin.rules
+install -Dm 644 50-logs.rules $1/etc/polkit-1/rules.d/50-logs.rules

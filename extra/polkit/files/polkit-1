@@ -1,8 +1,6 @@
-# Begin /etc/pam.d/polkit-1
+#%PAM-1.0
 
-auth     include        system-auth
-account  include        system-account
-password include        system-password
-session  include        system-session
-
-# End /etc/pam.d/polkit-1
+auth       include      system-auth
+account    include      system-auth
+password   include      system-auth
+session    include      system-auth
