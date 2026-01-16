@@ -36,9 +36,8 @@ meson setup build                  \
 LANG=en_US.UTF-8 meson compile -C build
 LANG=en_US.UTF-8 meson install -C build --destdir=$1
 
-install -v -m755 -d "$1/etc/pam.d"
-install -v -m644 system-session "$1/etc/pam.d/system-session"
-install -v -m644 systemd-user "$1/etc/pam.d/systemd-user"
+# overwrite the systemd-user PAM configuration with our own
+install -D -m0644 systemd-user.pam "$1"/usr/lib/pam.d/systemd-user
 
 install -v -m755 -d "$1/etc/systemd/network"
 install -v -m644 20-wired.network "$1/etc/systemd/network/20-wired.network"
