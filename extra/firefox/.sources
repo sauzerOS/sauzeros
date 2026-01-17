@@ -1,3 +1,5 @@
 https://archive.mozilla.org/pub/firefox/releases/${version}/source/firefox-${version}.source.tar.xz
 files/firefox.desktop
 files/firefox-symbolic.svg
+files/mozconfig
+files/google-api-key
