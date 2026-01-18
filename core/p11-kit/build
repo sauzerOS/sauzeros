@@ -10,6 +10,8 @@ cat >> trust/trust-extract-compat << "EOF"
 /usr/sbin/make-ca -r
 EOF
 
+patch -Np1 -i 738.patch
+
 meson setup p11-build     \
       --prefix=/usr       \
       --buildtype=release \
@@ -21,5 +23,4 @@ DESTDIR=$1 meson install -C p11-build
 ln -sfv /usr/libexec/p11-kit/trust-extract-compat \
         $1/usr/bin/update-ca-certificates
 
-# breaks firefox
-#ln -sfv ./pkcs11/p11-kit-trust.so $1/usr/lib/libnssckbi.so
+ln -sfv ./pkcs11/p11-kit-trust.so $1/usr/lib/libnssckbi.so
