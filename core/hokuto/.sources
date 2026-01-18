@@ -2,3 +2,4 @@ https://github.com/sauzerOS/hokuto/releases/download/v${version}/hokuto-${versio
 https://github.com/sauzerOS/hokuto/releases/download/v${version}/hokuto-${version}-arm64.tar.xz
 files/hokuto.fish
 files/hokuto.pkgset
+files/hokuto.update
