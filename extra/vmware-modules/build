@@ -1,18 +1,24 @@
 #!/bin/sh -e
 
-KERNEL_BUILD_DIR="/lib/modules/$(uname -r)/build"
+# get newest modules dir
+latest=$(ls -1 /lib/modules | sort -V | tail -n 1)
+
+KERNEL_BUILD_DIR="/lib/modules/$latest/build"
 export CC="gcc"
 export LD="ld.lld"
 
-
-pushd modules/17.6.4/source/vmmon-only
+pushd modules/$2/source/vmmon-only
+# fix Makefile to use newest modules dir
+sed -i "s|VM_UNAME = \$(shell uname -r)|VM_UNAME = $latest|" Makefile
 make CC="$CC" ${LD:+LD="$LD"}
 
 cd ../vmnet-only
+# fix Makefile to use newest modules dir
+sed -i "s|VM_UNAME = \$(shell uname -r)|VM_UNAME = $latest|" Makefile
 make CC="$CC" ${LD:+LD="$LD"}
 cd ..
 
-INSTALL_DIR="$1/lib/modules/$(uname -r)/misc/"
+INSTALL_DIR="$1/lib/modules/$latest/misc/"
 mkdir -p INSTALL_DIR
 install -Dm644 vmmon-only/vmmon.ko "$INSTALL_DIR/vmmon.ko"
 install -Dm644 vmnet-only/vmnet.ko "$INSTALL_DIR/vmnet.ko"
