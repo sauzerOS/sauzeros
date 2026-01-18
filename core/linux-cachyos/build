@@ -4,6 +4,8 @@ cd kernel
 # apply cachyos patches
 shortver=$(echo "$2" | cut -d. -f1-2)
 patch -Np1 -i ../patches/$shortver/all/0001-cachyos-base-all.patch || true
+
+# apply config
 zcat ../config.gz > .config
 make oldconfig
 
