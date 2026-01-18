@@ -1,8 +1,22 @@
 #!/bin/sh
 
-for kver in /lib/modules/*; do
-    if [ -d "$kver" ]; then
-        echo "Running depmod for $(basename "$kver")"
-        depmod -a "$(basename "$kver")"
+# Get the installed kernel version from hokuto
+current=$(hokuto ls linux-cachyos | awk '{print $2}')
+
+echo "Currently installed kernel version: $current"
+
+# Loop through all module directories
+for dir in /lib/modules/*; do
+    base=$(basename "$dir")
+    if [[ $base != $current* ]]; then
+        echo "Removing $dir"
+        rm -rf "$dir"
+    else
+        echo "Keeping $dir"
     fi
 done
+
+# Find the matching directory under /lib/modules
+match=$(basename $(ls -d /lib/modules/$current*))
+echo "Running depmod for $match"
+depmod -a "$match"
