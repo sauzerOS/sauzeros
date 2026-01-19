@@ -1,4 +1,4 @@
-https://github.com/shadow-maint/shadow/releases/download/4.19.0/shadow-4.19.0.tar.xz
+https://github.com/shadow-maint/shadow/releases/download/4.19.2/shadow-4.19.2.tar.xz
 files/0001-Disable-replaced-tools-their-man-pages-and-PAM-integ.patch
 files/0002-Adapt-login.defs-for-PAM-and-util-linux.patch
 files/0003-Add-Arch-Linux-defaults-for-login.defs.patch
