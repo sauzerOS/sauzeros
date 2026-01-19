@@ -10,8 +10,6 @@ cat >> trust/trust-extract-compat << "EOF"
 /usr/sbin/make-ca -r
 EOF
 
-patch -Np1 -i 738.patch
-
 meson setup p11-build     \
       --prefix=/usr       \
       --buildtype=release \
