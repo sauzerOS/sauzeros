@@ -51,7 +51,7 @@ done
 ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
-for f in bashrc fstab group host.conf hokuto.conf hosts issue inputrc locale.conf os-release \
+for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
          nanorc passwd profile resolv.conf securetty shells mime.types; do
     install -m 644 "$f" "$1/etc"
 done
@@ -65,24 +65,28 @@ ln -s /proc/self/mounts "$1/etc/mtab"
 # Setup hokuto cache dirs
 install -dm 1777 "$1/var/cache/hokuto"
 
+# Setup hokuto conf
+install -d $1/etc/hokuto
+install -Dm 644 hokuto.conf "$1/etc/hokuto/hokuto.conf"
+
 # Setup config.site
 install -Dm644 config.site "$1/usr/share/config.site"
 
 # Set multilib setting
 if [ "$MULTILIB" = "1" ]; then
-sed -i 's/^HOKUTO_MULTILIB=0$/HOKUTO_MULTILIB=1/' "$1/etc/hokuto.conf"
+sed -i 's/^HOKUTO_MULTILIB=0$/HOKUTO_MULTILIB=1/' "$1/etc/hokuto/hokuto.conf"
 fi
 
 # Set GNU Mirror
-sed -i "s|^GNU_MIRROR=.*|GNU_MIRROR=$GNU_MIRROR|" "$1/etc/hokuto.conf"
+sed -i "s|^GNU_MIRROR=.*|GNU_MIRROR=$GNU_MIRROR|" "$1/etc/hokuto/hokuto.conf"
 
 # Set LTO
-sed -i "s/^HOKUTO_LTO=.*/HOKUTO_LTO=$SET_HOKUTO_LTO/" "$1/etc/hokuto.conf"
+sed -i "s/^HOKUTO_LTO=.*/HOKUTO_LTO=$SET_HOKUTO_LTO/" "$1/etc/hokuto/hokuto.conf"
 
 # Set CFLAGS
 if [ "$HOKUTO_GENERIC" = "1" ]; then
-CFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto.conf")
-CXXFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto.conf")
-sed -i "s|^CFLAGS=.*|CFLAGS=${CFLAGS_GEN}|" "$1/etc/hokuto.conf"
-sed -i "s|^CXXFLAGS=.*|CXXFLAGS=${CXXFLAGS_GEN}|" "$1/etc/hokuto.conf"
+CFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto/hokuto.conf")
+CXXFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto/hokuto.conf")
+sed -i "s|^CFLAGS=.*|CFLAGS=${CFLAGS_GEN}|" "$1/etc/hokuto/hokuto.conf"
+sed -i "s|^CXXFLAGS=.*|CXXFLAGS=${CXXFLAGS_GEN}|" "$1/etc/hokuto/hokuto.conf"
 fi
