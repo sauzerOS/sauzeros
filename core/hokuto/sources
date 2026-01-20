@@ -2,4 +2,5 @@ https://github.com/sauzerOS/hokuto/releases/download/v0.3.13/hokuto-0.3.13-amd64
 https://github.com/sauzerOS/hokuto/releases/download/v0.3.13/hokuto-0.3.13-arm64.tar.xz
 files/hokuto.fish
 files/hokuto.pkgset
+files/hokuto.rebuild
 files/hokuto.update

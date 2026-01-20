@@ -2,10 +2,10 @@
 function __hokuto_get_repo_packages
     set -l repo_paths
     
-    # 1. Parse /etc/hokuto.conf if it exists
-    if test -f /etc/hokuto.conf
+    # 1. Parse /etc/hokuto/hokuto.conf if it exists
+    if test -f /etc/hokuto/hokuto.conf
         # Extract the line starting with HOKUTO_PATH=
-        set -l config_line (grep "^HOKUTO_PATH=" /etc/hokuto.conf)
+        set -l config_line (grep "^HOKUTO_PATH=" /etc/hokuto/hokuto.conf)
         
         if test -n "$config_line"
             # Split by '=' to get the value, then trim quotes, then split by ':'
@@ -50,14 +50,12 @@ for prog in $prog_names
     # Displays 'package.tar.zst (cross)' but inserts the full /var/cache/... path
     complete -c $prog -n "__fish_seen_subcommand_from install i" -a "(
         set -l cache_root '/var/cache/hokuto/bin/'
-        for file in \$cache_root{,generic/,cross/}*.tar.zst
+        for file in $cache_root/*.tar.zst
             if test -f \$file
                 # Get just the filename
                 set -l name (basename \$file)
-                # Determine category for the description
+                # Set desciption
                 set -l desc 'Binary Cache'
-                if string match -q '*/generic/*' \$file; set desc 'Generic'; end
-                if string match -q '*/cross/*' \$file; set desc 'Cross'; end
                 
                 # Output 'Full_Path\tDescription'
                 echo -e \"\$file\\t\$desc\"
@@ -66,19 +64,19 @@ for prog in $prog_names
     )"
 
     # 4. Logic for 'build' (and 'b')
-    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
     complete -c $prog -n "__fish_seen_subcommand_from build b" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
 
     # 5. Logic for 'edit' (and 'e')
-    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
     complete -c $prog -n "__fish_seen_subcommand_from edit e" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
 
     # 6. Logic for 'cd'
-    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
     complete -c $prog -n "__fish_seen_subcommand_from cd" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
@@ -96,7 +94,7 @@ for prog in $prog_names
         -d "Installed Package"
 
     # 9. Logic for 'bump'
-    # Offers package names found in the repositories defined in /etc/hokuto.conf
+    # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
     complete -c $prog -n "__fish_seen_subcommand_from bump" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
