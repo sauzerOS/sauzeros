@@ -4,7 +4,7 @@ libxcb
 libxklavier
 pam
 polkit
-xlibre | xorg-server
+xlibre
 gobject-introspection make
 itstool make
 libgcrypt make

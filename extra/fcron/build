@@ -13,8 +13,8 @@ make
 sed -e '/systemctl daemon-reload/d' -i Makefile
 
 make DESTDIR=$1 install
-#install -Dm644 files/fcron.pam "$1/etc/pam.d/fcron"
-#install -Dm644 files/fcrontab.pam "$1/etc/pam.d/fcrontab"
+install -Dm644 files/fcron.pam "$1/etc/pam.d/fcron"
+install -Dm644 files/fcrontab.pam "$1/etc/pam.d/fcrontab"
 install -Dm644 fcron.sysusers "$1/usr/lib/sysusers.d/fcron.conf"
 install -Dm640 systab.orig "$1/var/spool/fcron/systab.orig"
 install -Dm755 run-parts "$1/usr/bin/run-parts"
