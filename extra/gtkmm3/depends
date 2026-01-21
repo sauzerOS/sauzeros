@@ -1,4 +1,6 @@
-atkmm
+atkmm==2.28.4
 gtk+3
-libcairomm1
-pangomm
+glibmm==2.66.8
+libcairomm1==1.14.5
+pangomm==2.46.4
+meson make
