@@ -49,3 +49,4 @@ xinit
 xkbcomp
 xrandr
 xtrans
+xlibre-xf86-input-libinput optional
