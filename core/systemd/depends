@@ -1,10 +1,12 @@
 btrfs-progs optional
-curl
 cryptsetup optional
-dbus optional
-gnu-efi
+curl
+dbus
 efibootmgr
+gnu-efi
+kmod
 libarchive
+libelf
 libidn2
 libseccomp
 libxkbcommon
@@ -13,5 +15,3 @@ p11-kit
 pam
 python-jinja2
 python-pyelftools
-libelf
-kmod
