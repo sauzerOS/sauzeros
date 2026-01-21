@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+install -d $1/etc/systemd/system
+install -d $1/usr/bin
+
+install -Dm 644 cloudflare-ddns.service $1/etc/systemd/system/cloudflare-ddns.service
+install -Dm 644 cloudflare-ddns.timer $1/etc/systemd/system/cloudflare-ddns.timer
+install -Dm 700 cloudflare-ddns $1/usr/bin/cloudflare-ddns
