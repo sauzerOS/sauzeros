@@ -8,7 +8,7 @@ ncurses
 pam
 python make
 readline
-shadow
 sqlite make
+systemd optional
 tar make
 zlib-ng

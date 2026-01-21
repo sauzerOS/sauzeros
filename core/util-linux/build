@@ -36,7 +36,9 @@ install -Dm0644 runuser.pam "${1}/etc/pam.d/runuser-l"
 install -Dm0644 su.pam "${1}/etc/pam.d/su"
 install -Dm0644 su.pam "${1}/etc/pam.d/su-l"
 
+#if [ -f "${1}/usr/lib/systemd/system/uuidd.socket" ]; then
 sed -i '/ListenStream/ aRuntimeDirectory=uuidd' "${1}/usr/lib/systemd/system/uuidd.socket"
+#fi
 
 # install systemd-sysusers
 install -Dm0644 util-linux.sysusers \
