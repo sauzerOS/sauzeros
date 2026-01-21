@@ -3,6 +3,7 @@
 ./configure                   \
     --prefix=/usr             \
     --with-included-unistring \
+    --disable-doc             \
     --enable-static
 
 make
@@ -18,6 +19,7 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
     --libexecdir=/usr/lib32  \
     --without-p11-kit        \
     --disable-static         \
+    --disable-doc            \
     --with-included-unistring \
     --host=i686-pc-linux-gnu \
     --build=i686-pc-linux-gnu
