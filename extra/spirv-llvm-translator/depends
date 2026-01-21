@@ -1,0 +1,4 @@
+llvm
+spirv-tools
+cmake make
+spirv-headers make
