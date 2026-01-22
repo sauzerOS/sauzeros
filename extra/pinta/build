@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+for file in *.md *.txt; do
+  basename=$(tr '[:lower:]' '[:upper:]' <<< "${file%.*}")
+  newname="$basename.${file#*.}"
+  [ ! "$file" == "$newname" ] && mv "$file" "$newname"
+done
+
+sed -i 's/net8.0/net10.0/g' Directory.Build.props
+
+./autogen.sh \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var
+
+make
+make DESTDIR="${1}" install
+chmod -v 755 "${1}/usr/lib/pinta/"*.dll

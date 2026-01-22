@@ -1,0 +1,31 @@
+#!/bin/sh -e
+version=$2
+runtimever="${value%%.*sdk*}"
+
+install -dm 755 "${1}"/usr/{bin,lib,share/{dotnet,dnx,licenses/dotnet-host}}
+cp -dr --no-preserve='ownership' dotnet host dnx "${1}"/usr/share/dotnet/
+cp -dr --no-preserve='ownership' LICENSE.txt ThirdPartyNotices.txt "${1}"/usr/share/licenses/dotnet-host
+ln -sf /usr/share/dotnet/dotnet "${1}"/usr/bin/dotnet
+ln -sf /usr/share/dotnet/dnx "${1}"/usr/bin/dnx
+ln -sf /usr/share/dotnet/host/fxr/"${runtimever}"/libhostfxr.so "${1}"/usr/lib/libhostfxr.so
+install -Dm 644 dotnet.sh -t "${1}"/etc/profile.d/
+
+install -dm 755 "${1}"/usr/share/{dotnet/shared,licenses}
+cp -dr --no-preserve='ownership' shared/Microsoft.NETCore.App "${1}"/usr/share/dotnet/shared/
+ln -s dotnet-host-bin "${1}"/usr/share/licenses/dotnet-runtime-bin
+
+install -dm 755 "${1}"/usr/share/{dotnet/shared,licenses}
+cp -dr --no-preserve='ownership' shared/Microsoft.AspNetCore.App "${1}"/usr/share/dotnet/shared/
+ln -s dotnet-host-bin "${1}"/usr/share/licenses/aspnet-runtime-bin
+
+install -dm 755 "${1}"/usr/share/{dotnet,licenses}
+cp -dr --no-preserve='ownership' sdk sdk-manifests templates "${1}"/usr/share/dotnet/
+ln -s dotnet-host-bin "${1}"/usr/share/licenses/dotnet-sdk-bin
+
+install -dm 755 "${1}"/usr/share/{dotnet,dotnet/packs,licenses}
+cp -dr --no-preserve='ownership' packs/Microsoft.NETCore.App.{Host.linux-x64,Ref} "${1}"/usr/share/dotnet/packs/
+ln -s dotnet-host-bin "${1}"/usr/share/licenses/dotnet-targeting-pack-bin
+
+install -dm 755 "${1}"/usr/share/{dotnet,dotnet/packs,licenses}
+cp -dr --no-preserve='ownership' packs/Microsoft.AspNetCore.App.Ref "${1}"/usr/share/dotnet/packs/
+ln -s dotnet-host-bin "${1}"/usr/share/licenses/aspnet-targeting-pack-bin
