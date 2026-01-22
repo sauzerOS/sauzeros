@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+install -d $1/etc/systemd/system
+install -d $1/usr/bin
+
+install -Dm 644 cloudflare-dyndns.service $1/etc/systemd/system/cloudflare-dyndns.service
+install -Dm 644 cloudflare-dyndns.timer $1/etc/systemd/system/cloudflare-dyndns.timer
+install -Dm 700 cloudflare-dyndns $1/usr/bin/cloudflare-dyndns
