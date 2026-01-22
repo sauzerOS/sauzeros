@@ -17,7 +17,7 @@ meson_options=(
     -D build-newgrp=enabled
     -D build-vipw=enabled
     -D build-write=enabled
-    -D colors-default=enabled
+    -D colors-default=true
 )
 
 meson setup build "${meson_options[@]}"
