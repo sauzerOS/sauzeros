@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+cmake -B build                                  \
+    -D CMAKE_BUILD_TYPE:STRING='Release'        \
+    -D CMAKE_INSTALL_PREFIX:PATH='/usr'         \
+    -D CONFIGURATION_NAME:STRING="qt6"          \
+    -D CONFIGURATION_DISPLAY_NAME=""            \
+    -D CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D QT_PACKAGE_PREFIX:STRING='Qt6'           \
+    -D BUILTIN_TRANSLATIONS:BOOL=OFF            \
+    -D BUILD_SHARED_LIBS:BOOL=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
