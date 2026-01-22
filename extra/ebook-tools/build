@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+patch -p2 -i crash-fix.patch # https://sourceforge.net/p/ebook-tools/bugs/8/
+
+cmake -B build \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+cmake --build build
+DESTDIR="$1" cmake --install build

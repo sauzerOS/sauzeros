@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# Fix OOB array access
+  sed -e 's|\(dir_program\[MAX_PATH\)\(] = \)|\1-1\2|' -i clit18/clit.c
+# Link to shared libtommath and use system LDFLAGS
+  sed -e 's|../libtommath-0.30/libtommath.a|/usr/lib/libtommath.so ${LDFLAGS}|' -i clit18/Makefile
+# Use system CFLAGS
+  sed -e 's|CFLAGS=-O3 -Wall|CFLAGS+=|' -i lib/Makefile
+  sed -e 's|CFLAGS=-funsigned-char -Wall -O2|CFLAGS+=|' -i clit18/Makefile
+
+export CFLAGS+=" -Wno-implicit-function-declaration"
+cd lib && make
+cd ../clit18 && make
+install -Dm755 clit -t "$1"/usr/bin

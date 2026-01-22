@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make -f makefile.shared IGNORE_SPEED=1
+make -f makefile.shared PREFIX=/usr DESTDIR="$1" INSTALL_GROUP=root install

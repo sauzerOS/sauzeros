@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+./configure.sh \
+  --prefix=/usr \
+  --enable-all-features \
+  --with-fenced-code \
+  --shared
+
+make
+
+# fix ldconfig call
+sed -e 's|/sbin/ldconfig|/sbin/ldconfig -n|' -i librarian.sh
+make DESTDIR=$1 install
