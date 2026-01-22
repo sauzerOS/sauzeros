@@ -19,3 +19,6 @@ EOF
 
 make
 make DESTDIR="$1" install
+
+install -d $1/etc
+install -Dm 644 gitconfig $1/etc/gitconfig
