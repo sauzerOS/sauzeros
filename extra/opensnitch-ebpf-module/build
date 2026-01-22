@@ -1,5 +1,4 @@
 #!/bin/sh -e
-:> nostrip
 
 cd ebpf_prog
 CLANG="clang -fno-stack-protector" CFLAGS="" CXXFLAGS="" KERNEL_DIR=/usr/src/linux/ KERNEL_HEADERS=/usr/src/linux make
