@@ -1,2 +1,2 @@
 at-spi2-core make
-glibmm make
+glibmm==2.66.8 make
