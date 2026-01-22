@@ -1,3 +1,3 @@
 cairo
-libsigc++
+libsigc++3
 meson make
