@@ -6,7 +6,7 @@ rm -fv man/man8/arpd.8
 # Disable iptables modules
 sed -i 's/.m_ipt.o//' tc/Makefile
 
-./configure
+./configure --color=auto
 
 make
 make DESTDIR="$1" SBINDIR="/usr/bin" install
