@@ -1,0 +1,4 @@
+perl-yaml-libyaml make
+qtutilities make
+qt6
+cmake make

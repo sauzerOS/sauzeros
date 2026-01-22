@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+ cmake -B build \
+    -D CMAKE_BUILD_TYPE:STRING='Release' \
+    -D CMAKE_INSTALL_PREFIX:PATH='/usr' \
+    -D CONFIGURATION_NAME:STRING="qt6" \
+    -D CONFIGURATION_DISPLAY_NAME="" \
+    -D CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D CONFIGURATION_PACKAGE_SUFFIX_QTUTILITIES:STRING="-qt6" \
+    -D QT_PACKAGE_PREFIX:STRING='Qt6' \
+    -D BUILTIN_TRANSLATIONS:BOOL=ON \
+    -D BUILD_SHARED_LIBS:BOOL=ON \
+    -D FORK_AWESOME_FONT_FILE="$PWD/120/fonts/forkawesome-webfont.woff2" \
+    -D FORK_AWESOME_ICON_DEFINITIONS="$PWD/120/src/icons/icons.yml"
+
+cmake --build build
+DESTDIR=$1 cmake --install build

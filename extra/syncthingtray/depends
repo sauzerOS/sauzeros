@@ -1,1 +1,12 @@
-syncthing
+boost
+cpp-utilities
+desktop-file-utils
+openssl
+qt6
+qtforkawesome
+qtutilities
+cmake make
+extra-cmake-modules make
+libplasma make
+kio make
+plasma-workspace make

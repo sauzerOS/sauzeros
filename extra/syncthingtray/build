@@ -1,8 +1,27 @@
 #!/bin/sh -e
 
-install -d $1/usr/share/icons/hicolor/scalable/apps/
-install -d $1/usr/share/applications/
-install -d $1/usr/bin
-cp syncthingtray.svg $1/usr/share/icons/hicolor/scalable/apps/
-cp syncthingtray.desktop $1/usr/share/applications/
-cp syncthingtray $1/usr/bin/ 
+ cmake \
+    -B build \
+    -D CMAKE_BUILD_TYPE:STRING='Release' \
+    -D CMAKE_INSTALL_PREFIX:PATH='/usr' \
+    -D CONFIGURATION_NAME:STRING="qt6" \
+    -D CONFIGURATION_DISPLAY_NAME="" \
+    -D CONFIGURATION_PACKAGE_SUFFIX_QTUTILITIES:STRING="-qt6" \
+    -D LIB_SYNCTHING_CONNECTOR_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D SYNCTHINGFILEITEMACTION_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D LIB_SYNCTHING_MODEL_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D SYNCTHINGPLASMOID_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D SYNCTHINGWIDGETS_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D SYNCTHINGCTL_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D SYNCTHINGTRAY_CONFIGURATION_TARGET_SUFFIX:STRING="qt6" \
+    -D QT_PACKAGE_PREFIX:STRING='Qt6' \
+    -D KF_PACKAGE_PREFIX:STRING='KF6' \
+    -D BUILTIN_TRANSLATIONS:BOOL=OFF \
+    -D BUILTIN_TRANSLATIONS_OF_QT:BOOL=OFF \
+    -D BUILD_SHARED_LIBS:BOOL=ON \
+    -D WEBVIEW_PROVIDER="none" \
+    -D JS_PROVIDER="qml" \
+    -D SYSTEMD_SUPPORT=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
