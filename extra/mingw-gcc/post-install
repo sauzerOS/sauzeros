@@ -1,2 +1,0 @@
-#!/bin/sh
-echo "remove mingw-gcc-static"
