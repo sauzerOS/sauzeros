@@ -1,0 +1,4 @@
+git+https://github.com/minio/minio.git#RELEASE.${version-}T17-29-55Z
+files/minio.conf
+files/minio.service
+files/minio.sysusers
