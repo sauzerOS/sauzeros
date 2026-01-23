@@ -9,6 +9,7 @@ python-pyinotify
 python-notify2
 python-packaging
 go make
+opensnitch-ebpf-module
 python-grpcio-tools make
 python-jaraco.text make
 qt6 make

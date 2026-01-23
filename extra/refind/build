@@ -36,11 +36,3 @@ install -vDm 755 {refind-{install,mkdefault,sb-healthcheck},mkrlconf,mvrefind} -
 install -vDm 755 fonts/mkfont.sh "$1/usr/bin/$3-mkfont"
 # man page
 install -vDm 644 docs/man/*.8 -t "$1/usr/share/man/man8/"
-# docs
-install -vDm 644 {CREDITS,NEWS,README}.txt -t "$1/usr/share/doc/$3-docs/"
-install -vDm 644 fonts/README.txt "$1/usr/share/doc/$3-docs/README.$3-docs-mkfont.txt"
-install -vDm 644 icons/README "$1/usr/share/doc/$3-docs/README.icons.txt"
-install -vDm 644 keys/README.txt "$1/usr/share/doc/$3-docs/README.keys.txt"
-install -vDm 644 docs/$3/*.{html,png,svg,txt} -t "$1/usr/share/doc/$3/html/"
-install -vDm 644 docs/Styles/*.css -t "$1/usr/share/doc/$3/html/"
-install -vDm 644 images/$3-banner.{png,svg} -t "$1/usr/share/doc/$3/html/"

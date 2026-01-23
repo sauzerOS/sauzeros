@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-patch -Np1 -i sgml-common-0.6.3-manpage-1.patch
+patch -Np1 -i sgml-common-$2-manpage-1.patch
 
 autoreconf -fvi
 ./configure \
@@ -9,6 +9,3 @@ autoreconf -fvi
 
 make
 make DESTDIR="$1" docdir=/usr/share/doc install
-
-# Remove docs.
-rm -rf "$1/usr/share/doc"
