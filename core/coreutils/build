@@ -5,6 +5,7 @@ automake -af
 
 FORCE_UNSAFE_CONFIGURE=1 ./configure \
     --prefix=/usr                    \
+    --with-openssl                   \
     --enable-no-install-program=kill,uptime
 
 make

@@ -1,3 +1,4 @@
 bison
+linux-headers
 m4
-python
+python make

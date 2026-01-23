@@ -1,4 +1,5 @@
 autoconf make
+coreutils
 gettext
 libcap-ng
 libxcrypt

@@ -1,3 +1,4 @@
+glibc
 patch make
 ncurses
 readline

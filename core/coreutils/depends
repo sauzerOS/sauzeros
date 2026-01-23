@@ -1,1 +1,8 @@
+acl
 attr
+glibc
+gmp
+libcap
+openssl
+gperf make
+
