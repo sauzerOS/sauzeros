@@ -19,6 +19,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CONFIGURE_ARGS+=( "--with-sysroot=/$HOKUTO_ARCH-linux-gnu" )
     CONFIGURE_ARGS+=( "--host=$HOKUTO_ARCH-linux-gnu" )
     CONFIGURE_ARGS+=( "--without-libpsl" )
+
 fi
 
 ./configure \
