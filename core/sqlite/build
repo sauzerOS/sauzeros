@@ -21,7 +21,7 @@ fi
 make
 make DESTDIR=$1 install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 CC="gcc -m32" CXX="g++ -m32"                  \
