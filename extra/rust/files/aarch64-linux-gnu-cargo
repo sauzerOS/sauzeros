@@ -1,0 +1,6 @@
+#!/bin/bash
+# Cross-compiler wrapper for cargo
+# Sets the target by default so you don't have to pass --target every time
+export CARGO_BUILD_TARGET="aarch64-unknown-linux-gnu"
+export RUSTFLAGS="--sysroot=/usr/aarch64-linux-gnu \$RUSTFLAGS"
+exec /usr/aarch64-linux-gnu/bin/cargo "\$@"

@@ -1,37 +1,92 @@
-#!/bin/sh -e
+#!/bin/bash
+set -e
 
-cd rustc-$2-src
+# Assuming $2 is version and $1 is DESTDIR
+cd "rustc-$2-src"
 
-if [ "$HOKUTO_ARCH" = "aarch64" ]; then
-    cp ../bootstrap-arm64.toml bootstrap.toml
-elif [ "$MULTILIB" = "1" ]; then
-    cp ../bootstrap-amd64-multi.toml bootstrap.toml
+# Select the correct TOML
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+    echo "==> Preparing Cross-Compilation (Building Bundled LLVM for arm64)"
+    cp ../bootstrap-cross-arm64.toml bootstrap.toml
 else
-    cp ../bootstrap-amd64.toml bootstrap.toml
+    # Fallback to your existing logic for native/multilib
+    if [ "$HOKUTO_ARCH" = "aarch64" ]; then
+        cp ../bootstrap-arm64.toml bootstrap.toml
+    elif [ "$MULTILIB" = "1" ]; then
+        cp ../bootstrap-amd64-multi.toml bootstrap.toml
+    else
+        cp ../bootstrap-amd64.toml bootstrap.toml
+    fi
 fi
 
-# 1. Extract the numeric job count from MAKEFLAGS (e.g., from "-j10" to "10").
-#    This standard shell parameter expansion removes the '-j' prefix.
+# Insert jobs count
 jobs_var=${MAKEFLAGS#-j}
+sed -i "/\[build\]/a jobs = $jobs_var" bootstrap.toml
 
-echo "==> Configuring bootstrap.toml: inserting jobs = $jobs_var"
+# Cross-Compilation Environment Setup
+if [ "$HOKUTO_CROSS" = "1" ]; then
 
-#    The 'sed' command finds the line with "[build]" and uses the 'a\' (append)
-#    command to insert our new line immediately after it.
-#    Using a temporary file is the most portable and safe way to edit in-place.
-sed "/\[build\]/a\\
-jobs = $jobs_var" bootstrap.toml > bootstrap.toml.tmp && mv bootstrap.toml.tmp bootstrap.toml
+# Update bootstrap.toml with the determined prefix
+sed -i "s|^prefix =.*|prefix = \"$CROSS_PREFIX\"|" bootstrap.toml
 
-echo "==> bootstrap.toml successfully configured."
+export SYSROOT="/usr/aarch64-linux-gnu"
 
+# LLVM Config remains the same
+export LLVM_CONFIG="/usr/bin/aarch64-linux-gnu-llvm-config"
+
+# Scope C/CXX flags to the TARGET only
+# Note the architecture-specific suffix
+export CFLAGS_aarch64_unknown_linux_gnu="--sysroot=$SYSROOT"
+export CXXFLAGS_aarch64_unknown_linux_gnu="--sysroot=$SYSROOT"
+
+# Scope Pkg-Config to the TARGET only
+export PKG_CONFIG_PATH_aarch64_unknown_linux_gnu="$SYSROOT/usr/lib/pkgconfig:$SYSROOT/lib/pkgconfig"
+export PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu="$SYSROOT"
+export PKG_CONFIG_ALLOW_CROSS=1
+
+# Scope RUSTFLAGS to the TARGET only
+# This is the crucial change: we use CARGO_TARGET_<TRIPLE>_RUSTFLAGS
+# instead of the global RUSTFLAGS
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-L $SYSROOT/usr/lib -L $SYSROOT/lib -Clink-arg=--sysroot=$SYSROOT"
+
+# Tell bootstrap which linker to use for target code
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER="aarch64-linux-gnu-gcc"
+
+export BOOTSTRAP_SKIP_TARGET_SANITY=1
+
+# IMPORTANT: Unset global RUSTFLAGS if they were set previously
+unset RUSTFLAGS
+unset LIBRARY_PATH
+fi
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
+# Standard T2-style pkg-config helpers
 [ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1
 [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+fi
 
+# Clear host flags to prevent contamination
 unset CFLAGS CXXFLAGS LDFLAGS
 
-./x.py build
-DESTDIR=$1 ./x.py install
+# --- 4. Build and Install ---
 
+echo "==> Starting x.py build"
+./x.py build
+
+echo "==> Installing to $1"
+DESTDIR="$1" ./x.py install
+
+if [ "$HOKUTO_CROSS" = "1" ] && [ "$CROSS_PREFIX" = "/usr/aarch64-linux-gnu" ]; then
+rm -rf "$1$CROSS_PREFIX/share/man"
+rm -rf $1/etc
+install -d $1/usr/bin
+install -Dm755 ../aarch64-linux-gnu-rustc $1/usr/bin/aarch64-linux-gnu-rustc
+install -Dm755 ../aarch64-linux-gnu-cargo $1/usr/bin/aarch64-linux-gnu-cargo
+ln -s rustc "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-rustc"
+ln -s cargo "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-cargo"
+fi
+
+# --- 5. Cleanup ---
 rm -rf \
     "$1/usr/lib/rustlib/src/" \
     "$1/usr/lib/rustlib/uninstall.sh"

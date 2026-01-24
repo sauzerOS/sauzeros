@@ -1,0 +1,51 @@
+#!/bin/sh -e
+
+# tell x.py to not keep printing an annoying warning
+change-id = "ignore"
+
+[llvm]
+# Use the system LLVM instead of bundled
+link-shared = true
+static-libstdcpp = false
+
+[build]
+build = "x86_64-unknown-linux-gnu"
+host = ["aarch64-unknown-linux-gnu"]
+target = ["aarch64-unknown-linux-gnu"]
+
+docs = false
+extended = true
+locked-deps = true
+vendor = true
+tools = ["cargo", "clippy", "rustdoc", "rustfmt"]
+
+[install]
+prefix = "/usr"
+
+[rust]
+channel = "stable"
+codegen-tests = false
+debug = false
+debuginfo-level = 0
+incremental = false
+lto = "thin"
+# Ensure Rust doesn't try to download pre-built X86 binaries 
+#download-ci-llvm = false
+
+[target.x86_64-unknown-linux-gnu]
+cc = "/usr/bin/gcc"
+cxx = "/usr/bin/g++"
+ar = "/usr/bin/gcc-ar"
+ranlib = "/usr/bin/gcc-ranlib"
+# The host still needs its own llvm-config if available [cite: 15]
+llvm-config = "/usr/bin/llvm-config"
+
+[target.aarch64-unknown-linux-gnu]
+# Use your x86_64 -> arm64 cross-compiler
+cc = "/usr/bin/aarch64-linux-gnu-gcc"
+cxx = "/usr/bin/aarch64-linux-gnu-g++"
+ar = "/usr/bin/aarch64-linux-gnu-ar"
+ranlib = "/usr/bin/aarch64-linux-gnu-ranlib"
+linker = "/usr/bin/aarch64-linux-gnu-gcc"
+# Point to cross-wrapper
+llvm-config = "/usr/bin/aarch64-linux-gnu-llvm-config"
