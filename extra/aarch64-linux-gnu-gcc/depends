@@ -1,8 +1,0 @@
-aarch64-linux-gnu-binutils
-aarch64-linux-gnu-glibc
-mpc
-isl
-zlib-ng
-zstd
-gmp make
-mpfr make
