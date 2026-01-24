@@ -2,3 +2,4 @@ bison
 linux-headers
 m4
 python make
+aarch64-linux-headers cross

@@ -1,5 +1,65 @@
 #!/bin/sh -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
+TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+mkdir -p glibc-build
+cd glibc-build
+
+echo "slibdir=/lib" >> configparms
+echo "rtlddir=/lib" >> configparms
+echo "sbindir=/bin" >> configparms
+echo "rootsbindir=/bin" >> configparms
+
+# remove hardening options for building libraries
+export CFLAGS="-U_FORTIFY_SOURCE -mlittle-endian -O2"
+export CPPFLAGS="-U_FORTIFY_SOURCE -O2"
+unset LD_LIBRARY_PATH
+
+# use bootstrap tools if the cross compiler is not installed
+if ! hokuto check "${HOKUTO_ARCH}-gcc"; then
+  export BUILD_CC=gcc
+  export CC=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-gcc
+  export CXX=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-g++
+  export AR=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-ar
+  export RANLIB=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-ranlib
+else
+  export BUILD_CC=gcc
+  export CC=${TARGET_TRIPLET}-gcc
+  export CXX=${TARGET_TRIPLET}-g++
+  export AR=${TARGET_TRIPLET}-ar
+  export RANLIB=${TARGET_TRIPLET}-ranlib
+fi
+
+../configure \
+    --prefix=/usr \
+    --target="${TARGET_TRIPLET}" \
+    --host="${TARGET_TRIPLET}" \
+    --build="$(cc -dumpmachine)" \
+    --includedir=/include \
+    --libdir=/lib \
+    --libexecdir=/lib \
+    --with-headers="${CROSS_PREFIX}/include" \
+    --enable-obsolete-rpc \
+    --enable-kernel=5.4 \
+    --enable-bind-now \
+    --disable-profile \
+    --disable-werror
+
+echo 'build-programs=no' >> configparms
+make
+make install_root="$1${CROSS_PREFIX}" install
+
+rm -rf "$1${CROSS_PREFIX}"/{etc,usr/share,var}
+else
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # Native package cross-compilation
+    TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    HOST_OPT="--host=${TARGET_TRIPLET} --build=$(cc -dumpmachine)"
+    # During cross-build, we MUST use the target kernel headers on the host
+    HEADERS_OPT="--with-headers=/usr/${TARGET_TRIPLET}/include"
+fi
+
 LDFLAGS="-fuse-ld=bfd -O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack"
 
 mkdir -v glibc-build
@@ -11,12 +71,13 @@ echo "sbindir=/usr/bin" >> configparms
 echo "rootsbindir=/usr/bin" >> configparms
 
 ../configure --prefix=/usr \
+    $HOST_OPT \
     --disable-werror \
     --enable-kernel=6.17 \
     --enable-stack-protector=strong \
     --libdir=/usr/lib \
     --libexecdir=/usr/lib \
-    --with-headers=/usr/include \
+    ${HEADERS_OPT:---with-headers=/usr/include} \
     --disable-nscd \
     libc_cv_slibdir=/lib
 
@@ -24,17 +85,17 @@ make
 make DESTDIR="$1" install
 
 cd ..
-install -d $1/usr/lib/locale
-install -d $1/usr/bin
-install -d $1/etc
-install -Dm755 locale-gen $1/usr/bin/locale-gen
-install -Dm644 locale.gen $1/etc/locale.gen
+install -d "$1/usr/lib/locale"
+install -d "$1/usr/bin"
+install -d "$1/etc"
+install -Dm755 locale-gen "$1/usr/bin/locale-gen"
+install -Dm644 locale.gen "$1/etc/locale.gen"
 
 mkdir -pv "$1"/etc
 mkdir -pv "$1"/var/cache/nscd
 cp -v nsswitch.conf "$1"/etc/nsswitch.conf
 cp -v ld.so.conf "$1"/etc/ld.so.conf
-
+fi
 if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf glibc-build

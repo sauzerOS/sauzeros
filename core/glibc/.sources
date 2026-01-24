@@ -3,3 +3,4 @@ files/nsswitch.conf
 files/ld.so.conf
 files/locale-gen
 files/locale.gen
+files/aarch64-linux-gnu-tools.tar.xz tools
