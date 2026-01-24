@@ -5,3 +5,7 @@ mpfr
 mpc
 tar
 zlib-ng
+aarch64-binutils cross
+aarch64-glibc cross
+
+
