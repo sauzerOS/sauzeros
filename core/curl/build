@@ -1,23 +1,33 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr \
-    --enable-ipv6 \
-    --enable-unix-sockets \
-    --enable-hidden-symbols \
-    --disable-manual \
-    --disable-ldap \
-    --disable-ares \
-    --with-openssl \
-    --with-pic \
-    --with-ca-fallback \
-    --without-librtmp \
+CONFIGURE_ARGS=(
+    --prefix="$CROSS_PREFIX"
+    --enable-ipv6
+    --enable-unix-sockets
+    --enable-hidden-symbols
+    --disable-manual
+    --disable-ldap
+    --disable-ares
+    --with-openssl
+    --with-pic
+    --with-ca-fallback
+    --without-librtmp
     --without-libidn
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CONFIGURE_ARGS+=( "--with-sysroot=/$HOKUTO_ARCH-linux-gnu" )
+    CONFIGURE_ARGS+=( "--host=$HOKUTO_ARCH-linux-gnu" )
+    CONFIGURE_ARGS+=( "--without-libpsl" )
+fi
+
+./configure \
+    "${CONFIGURE_ARGS[@]}"
 
 make
 make DESTDIR="$1" install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 CC="gcc -m32" CXX="g++ -m32"           \
