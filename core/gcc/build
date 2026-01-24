@@ -1,5 +1,60 @@
 #!/bin/sh -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+# Do not run fixincludes
+sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
+
+mkdir gcc-build
+cd gcc-build
+
+../configure \
+    --prefix=/usr \
+    --program-prefix="${TARGET_TRIPLET}-" \
+    --with-local-prefix="$CROSS_PREFIX" \
+    --with-sysroot="$CROSS_PREFIX" \
+    --with-build-sysroot="/usr/${TARGET_TRIPLET}" \
+    --with-native-system-header-dir=/include \
+    --libdir=/usr/lib \
+    --libexecdir=/usr/lib \
+    --target="${TARGET_TRIPLET}" \
+    --host="$(gcc -dumpmachine)" \
+    --build="$(gcc -dumpmachine)" \
+    --disable-nls \
+    --enable-default-pie \
+    --enable-languages=c,c++ \
+    --enable-shared \
+    --enable-threads=posix \
+    --with-system-zlib \
+    --with-isl \
+    --enable-__cxa_atexit \
+    --disable-libunwind-exceptions \
+    --enable-clocale=gnu \
+    --disable-libstdcxx-pch \
+    --disable-libssp \
+    --enable-gnu-unique-object \
+    --enable-linker-build-id \
+    --enable-lto \
+    --enable-plugin \
+    --enable-install-libiberty \
+    --with-linker-hash-style=gnu \
+    --enable-gnu-indirect-function \
+    --disable-multilib \
+    --disable-werror \
+    --enable-checking=release
+
+make
+make DESTDIR="$1" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libquadmath,libatomic}
+
+if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
+# Remove files that conflict with host gcc package
+rm -r "$1"/usr/share/man/man7
+rm -r "$1"/usr/share/info
+rm -r "$1"/usr/share/gcc-$2
+fi
+
+else
+
 # Use lib not lib64 by default.
 sed -e '/m64=/s/lib64/lib/' \
     -e '/m32=/s/m32=.*/m32=..\/lib32$(call if_multiarch,:i386-linux-gnu)/' \
@@ -44,7 +99,7 @@ fi
 
 make
 make DESTDIR="$1" install
-
+fi
 # Save 35MB.
 find "$1" -name libgtkpeer.a  -exec rm -f {} +
 find "$1" -name libgjsmalsa.a -exec rm -f {} +
@@ -63,3 +118,13 @@ mkdir -p "$1/usr/lib/bfd-plugins"
 ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$2/liblto_plugin.so \
         $1/usr/lib/bfd-plugins/
 }
+
+if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
+# Remove files that conflict with host gcc package
+rm -rf "$1"/usr/share/man
+rm -rf "$1"/usr/share/info
+rm -rf "$1"/usr/share/gcc-$2
+rm -rf "$1"/usr/bin/cc
+rm -rf "$1"/usr/bin/c99
+rm -rf "$1"/usr/lib/bfd-plugins
+fi
