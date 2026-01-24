@@ -1,4 +1,4 @@
-https://github.com/TigerVNC/tigervnc/archive/v1.16.0/tigervnc-1.16.0.tar.gz tigervnc
+https://github.com/TigerVNC/tigervnc/archive/v${version}/tigervnc-${version}.tar.gz tigervnc
 https://www.x.org/pub/individual/xserver/xorg-server-21.1.18.tar.xz xorg-server
 https://www.linuxfromscratch.org/patches/blfs/svn/tigervnc-1.15.0-configuration_fixes-1.patch
 files/Xsession
