@@ -2,12 +2,24 @@
 
 export CFLAGS="$CFLAGS -fPIC"
 
-./configure --prefix=/usr --zlib-compat
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+cmake -B build \
+    -D CMAKE_SYSTEM_NAME=Linux \
+    -D CMAKE_SYSTEM_PROCESSOR=aarch64 \
+    -D CMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
+    -D CMAKE_INSTALL_PREFIX=/usr/aarch64-linux-gnu \
+    -D ZLIB_COMPAT=ON \
+    -D ZLIB_ENABLE_TESTS=OFF
 
+cd build
+else
+./configure --prefix=/usr \
+  --zlib-compat
+fi
 make
 make DESTDIR=$1 install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit zlib
 make distclean
 CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
