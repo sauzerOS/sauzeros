@@ -4,21 +4,13 @@
 sed '/examples/d;/third_party/d' -i CMakeLists.txt
 sed '/build-version/d' -i glslc/CMakeLists.txt
 
-cat <<- EOF > glslc/src/build-version.inc
-"${2}\\n"
-"$(pacman -Q spirv-tools|cut -d \  -f 2|sed 's/-.*//')\\n"
-"$(pacman -Q glslang|cut -d \  -f 2|sed 's/-.*//')\\n"
-EOF
+cmake -B build \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
+    -D SHADERC_SKIP_TESTS=ON \
+    -D PYTHON_EXECUTABLE=python \
+    -D glslang_SOURCE_DIR=/usr/include/glslang
 
-cmake \
-    -B build \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
-    -DSHADERC_SKIP_TESTS=ON \
-    -DPYTHON_EXECUTABLE=python \
-    -Dglslang_SOURCE_DIR=/usr/include/glslang
-
-ninja -C build
-DESTDIR=$1 ninja -C build install
+cmake --build build
+DESTDIR=$1 cmake --install build
