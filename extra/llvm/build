@@ -45,6 +45,10 @@ cmake -G Ninja -S $LLVM_SRC_DIR -B $CROSS_BUILD_DIR \
 cmake --build $CROSS_BUILD_DIR
 DESTDIR=$1 cmake --install $CROSS_BUILD_DIR
 
+# Install wrapper
+install -d $1/usr/bin
+install -Dm755 aarch64-linux-gnu-llvm-config $1/usr/bin/aarch64-linux-gnu-llvm-config
+
 else
 
 CC=gcc CXX=g++                               \
