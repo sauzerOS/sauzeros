@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# build llvm-32 if multilib is enabled and it's not installed yet
-if ! hokuto check llvm && [ "$MULTILIB" = "1" ]; then
-echo "Building llvm-32"
-hokuto build -a llvm-32
-fi

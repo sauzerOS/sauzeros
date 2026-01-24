@@ -5,29 +5,46 @@ grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
 sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
 
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
-CC=gcc CXX=g++ \
-cmake   -D CMAKE_INSTALL_PREFIX=/usr \
-	-D CMAKE_SKIP_INSTALL_RPATH=ON \
-	-D LLVM_ENABLE_FFI=ON \
-	-D CMAKE_BUILD_TYPE=Release \
-	-D LLVM_BUILD_LLVM_DYLIB=ON \
-	-D LLVM_LINK_LLVM_DYLIB=ON \
-	-D LLVM_ENABLE_RTTI=ON \
-	-D LLVM_TARGETS_TO_BUILD="AArch64" \
-	-D LLVM_BINUTILS_INCDIR=/usr/include \
-	-D LLVM_INCLUDE_BENCHMARKS=OFF \
-	-D CLANG_DEFAULT_PIE_ON_LINUX=ON \
-	-D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
-	-D LLVM_ENABLE_PROJECTS="clang;lld" \
-	-D LLVM_TOOL_GOLD_BUILD=OFF \
-	-D LLVM_ENABLE_RUNTIMES="compiler-rt" \
-	-D CLANG_DEFAULT_LINKER=lld \
-	-D LLVM_USE_SANITIZER=OFF \
-	-D COMPILER_RT_BUILD_SANITIZERS=OFF \
-	-D LLVM_BINUTILS_INCDIR=/usr/aarch64-linux-gnu/include \
-	-D CMAKE_TOOLCHAIN_FILE=../aarch64-linux.cmake \
-	-D LLVM_DEFAULT_TARGET_TRIPLE=aarch64-linux-gnu \
-	-W no-dev -G Ninja -B build
+LLVM_SRC_DIR="$HOKUTO_BUILD_DIR/llvm"  # Adjust to your actual llvm subfolder
+HOST_BUILD_DIR="build-host"
+CROSS_BUILD_DIR="build-cross"
+
+echo "=== Pass 1: Building Host Tools ==="
+mkdir -p $HOST_BUILD_DIR
+CC=gcc CXX=g++ cmake -G Ninja -S $LLVM_SRC_DIR -B $HOST_BUILD_DIR \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D LLVM_TARGETS_TO_BUILD="AArch64" \
+    -D LLVM_ENABLE_PROJECTS="clang"
+
+ninja -C $HOST_BUILD_DIR llvm-tblgen llvm-config clang-tblgen
+
+echo "=== Pass 2: Building Cross-Compiled LLVM ==="
+mkdir -p $CROSS_BUILD_DIR
+cmake -G Ninja -S $LLVM_SRC_DIR -B $CROSS_BUILD_DIR \
+    -D CMAKE_TOOLCHAIN_FILE=../aarch64-linux.cmake \
+    -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX \
+    -D LLVM_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/llvm-tblgen \
+    -D CLANG_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/clang-tblgen \
+    -D LLVM_CONFIG_PATH=$(pwd)/$HOST_BUILD_DIR/build-host/bin/llvm-config \
+    -D LLVM_DEFAULT_TARGET_TRIPLE=aarch64-linux-gnu \
+    -D LLVM_TARGETS_TO_BUILD="AArch64" \
+    -D LLVM_ENABLE_PROJECTS="clang;lld" \
+    -D LLVM_ENABLE_RUNTIMES="compiler-rt" \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D LLVM_BUILD_LLVM_DYLIB=ON \
+    -D LLVM_LINK_LLVM_DYLIB=ON \
+    -D LLVM_ENABLE_RTTI=ON \
+    -D LLVM_ENABLE_FFI=ON \
+    -D LLVM_INCLUDE_BENCHMARKS=OFF \
+    -D CLANG_DEFAULT_PIE_ON_LINUX=ON \
+    -D CLANG_DEFAULT_LINKER=lld \
+    -D COMPILER_RT_BUILD_SANITIZERS=OFF \
+    -D CMAKE_SKIP_INSTALL_RPATH=ON \
+    -W no-dev
+
+cmake --build $CROSS_BUILD_DIR
+DESTDIR=$1 cmake --install $CROSS_BUILD_DIR
+
 else
 
 CC=gcc CXX=g++                               \
@@ -48,9 +65,6 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr           \
       -D CLANG_DEFAULT_LINKER=lld            \
       -W no-dev -G Ninja -B build
 
-fi
-
-
 cmake --build build
 DESTDIR=$1 cmake --install build
 
@@ -58,3 +72,4 @@ mkdir -pv $1/etc/clang
 for i in clang clang++; do
   echo -fstack-protector-strong > $1/etc/clang/$i.cfg
 done
+fi
