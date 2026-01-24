@@ -67,6 +67,7 @@ install -dm 1777 "$1/var/cache/hokuto"
 
 # Setup hokuto conf
 install -d $1/etc/hokuto
+install -d $1/etc/hokuto/keys
 install -Dm 644 hokuto.conf "$1/etc/hokuto/hokuto.conf"
 
 # Setup config.site
