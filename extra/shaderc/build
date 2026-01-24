@@ -4,6 +4,8 @@
 sed '/examples/d;/third_party/d' -i CMakeLists.txt
 sed '/build-version/d' -i glslc/CMakeLists.txt
 
+echo "\"$2\"" > glslc/src/build-version.inc
+
 cmake -B build \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
