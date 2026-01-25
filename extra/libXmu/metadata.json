@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxmu",
+  "category": "extra",
+  "description": "X11 miscellaneous micro-utility library",
+  "info": "",
+  "license": "MIT-open-group AND SMLNJ AND X11 AND ISC",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}
