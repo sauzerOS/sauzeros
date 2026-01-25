@@ -1,0 +1,10 @@
+{
+  "url": "https://ninja-build.org/",
+  "category": "base",
+  "description": "Small build system with a focus on speed",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "devel"
+  ]
+}

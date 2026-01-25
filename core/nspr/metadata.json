@@ -1,0 +1,10 @@
+{
+  "url": "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR",
+  "category": "base",
+  "description": "Netscape Portable Runtime",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "devel"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://www.oberhumer.com/opensource/lzo",
+  "category": "base",
+  "description": "Portable lossless data compression library",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "compression",
+    "library"
+  ]
+}

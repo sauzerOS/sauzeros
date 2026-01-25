@@ -1,0 +1,12 @@
+{
+  "url": "http://e2fsprogs.sourceforge.net",
+  "category": "base",
+  "description": "Ext2/3/4 filesystem utilities",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "disk-tools",
+    "utility"
+  ]
+}

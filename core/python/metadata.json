@@ -1,0 +1,10 @@
+{
+  "url": "https://www.python.org/",
+  "category": "base",
+  "description": "The Python programming language",
+  "info": "",
+  "license": "PSF-2.0",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://invisible-island.net/ncurses/ncurses.html",
+  "category": "base",
+  "description": "System V Release 4.0 curses emulation library",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "library"
+  ]
+}

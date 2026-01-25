@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/libunistring/",
+  "category": "base",
+  "description": "Library for manipulating Unicode strings and C strings",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

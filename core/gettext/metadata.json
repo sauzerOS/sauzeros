@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/gettext/",
+  "category": "base",
+  "description": "GNU internationalization library",
+  "info": "",
+  "license": "GFDL-1.2-only",
+  "tags": [
+    "devel"
+  ]
+}

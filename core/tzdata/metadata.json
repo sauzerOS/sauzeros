@@ -1,0 +1,10 @@
+{
+  "url": "https://www.iana.org/time-zones",
+  "category": "base",
+  "description": "Sources for time zone and daylight saving time data",
+  "info": "",
+  "license": "LicenseRef-tz",
+  "tags": [
+    "misc"
+  ]
+}

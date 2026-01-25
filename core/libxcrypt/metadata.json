@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/besser82/libxcrypt/",
+  "category": "base",
+  "description": "Modern library for one-way hashing of passwords",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "encryption",
+    "library"
+  ]
+}

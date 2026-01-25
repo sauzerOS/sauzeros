@@ -1,0 +1,11 @@
+{
+  "url": "https://www.perl.org",
+  "category": "base",
+  "description": "A highly capable, feature-rich programming language",
+  "info": "",
+  "license": "Artistic-1.0-Perl OR GPL-1.0-or-later",
+  "tags": [
+    "devel",
+    "perl"
+  ]
+}

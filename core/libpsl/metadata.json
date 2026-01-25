@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/rockdaboot/libpsl",
+  "category": "base",
+  "description": "Public Suffix List library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://gcc.gnu.org",
+  "category": "base",
+  "description": "The GNU Compiler Collection - C and C++ frontends",
+  "info": "",
+  "license": "GFDL-1.3-or-later",
+  "tags": [
+    "compiler",
+    "devel"
+  ]
+}

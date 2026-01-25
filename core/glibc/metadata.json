@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnu.org/software/libc",
+  "category": "base",
+  "description": "GNU C Library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}

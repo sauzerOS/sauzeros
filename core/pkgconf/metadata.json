@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pkgconf/pkgconf",
+  "category": "base",
+  "description": "Package compiler and linker metadata toolkit",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "devel"
+  ]
+}

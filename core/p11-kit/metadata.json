@@ -1,0 +1,12 @@
+{
+  "url": "https://p11-glue.freedesktop.org",
+  "category": "base",
+  "description": "Loads and enumerates PKCS#11 modules",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "encryption",
+    "library",
+    "network"
+  ]
+}

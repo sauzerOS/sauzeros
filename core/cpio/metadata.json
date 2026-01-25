@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/cpio",
+  "category": "extra",
+  "description": "A tool to copy files into or out of a cpio or tar archive",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "compression",
+    "utility"
+  ]
+}

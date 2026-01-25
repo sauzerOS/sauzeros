@@ -1,0 +1,10 @@
+{
+  "url": "http://linux-pam.org",
+  "category": "base",
+  "description": "PAM (Pluggable Authentication Modules) library",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/texinfo/",
+  "category": "base",
+  "description": "GNU documentation system for on-line information and printed output",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

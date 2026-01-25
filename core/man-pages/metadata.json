@@ -1,0 +1,11 @@
+{
+  "url": "https://www.kernel.org/doc/man-pages/",
+  "category": "base",
+  "description": "Linux man pages",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

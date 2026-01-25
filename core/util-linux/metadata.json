@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/util-linux/util-linux",
+  "category": "base",
+  "description": "Miscellaneous system utilities for Linux",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

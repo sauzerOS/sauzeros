@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/gperf/",
+  "category": "base",
+  "description": "Perfect hash function generator",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

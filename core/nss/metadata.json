@@ -1,0 +1,11 @@
+{
+  "url": "https://firefox-source-docs.mozilla.org/security/nss/index.html",
+  "category": "base",
+  "description": "Network Security Services",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "devel",
+    "network"
+  ]
+}

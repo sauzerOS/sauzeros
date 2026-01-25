@@ -1,0 +1,10 @@
+{
+  "url": "https://www.cmake.org/",
+  "category": "extra",
+  "description": "A cross-platform open-source make system",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "devel"
+  ]
+}

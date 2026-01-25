@@ -1,0 +1,11 @@
+{
+  "url": "https://www.nano-editor.org",
+  "category": "base",
+  "description": "Pico editor clone with enhancements",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "editor"
+  ]
+}

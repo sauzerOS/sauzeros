@@ -1,0 +1,10 @@
+{
+  "url": "https://libevent.org/",
+  "category": "base",
+  "description": "Event notification library",
+  "info": "",
+  "license": "BSD-3-Clause-Modification",
+  "tags": [
+    "library"
+  ]
+}

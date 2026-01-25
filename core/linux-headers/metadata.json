@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/archlinux/linux",
+  "category": "base",
+  "description": "Headers and scripts for building modules for the Linux kernel",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "devel",
+    "kernel"
+  ]
+}

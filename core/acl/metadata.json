@@ -1,0 +1,10 @@
+{
+  "url": "https://savannah.nongnu.org/projects/acl",
+  "category": "base",
+  "description": "Access control list utilities, libraries and headers",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "devel"
+  ]
+}

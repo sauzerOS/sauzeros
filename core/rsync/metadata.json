@@ -1,0 +1,13 @@
+{
+  "url": "https://rsync.samba.org/",
+  "category": "base",
+  "description": "A fast and versatile file copying tool for remote and local files",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "network",
+    "sync",
+    "utility"
+  ]
+}

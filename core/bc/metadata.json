@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/bc/",
+  "category": "base",
+  "description": "An arbitrary precision calculator language",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "devel"
+  ]
+}

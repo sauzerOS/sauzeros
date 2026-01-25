@@ -1,0 +1,10 @@
+{
+  "url": "https://tiswww.case.edu/php/chet/readline/rltop.html",
+  "category": "base",
+  "description": "GNU readline library",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "devel"
+  ]
+}

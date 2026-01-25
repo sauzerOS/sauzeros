@@ -1,0 +1,10 @@
+{
+  "url": "https://mesonbuild.com/",
+  "category": "base",
+  "description": "High productivity build system",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "devel"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/patch/",
+  "category": "base",
+  "description": "A utility to apply patch files to original sources",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

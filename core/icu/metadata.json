@@ -1,0 +1,10 @@
+{
+  "url": "https://icu.unicode.org",
+  "category": "base",
+  "description": "International Components for Unicode library",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "devel"
+  ]
+}

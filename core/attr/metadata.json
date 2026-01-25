@@ -1,0 +1,10 @@
+{
+  "url": "https://savannah.nongnu.org/projects/attr",
+  "category": "base",
+  "description": "Extended attribute support library for ACL support",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "devel"
+  ]
+}

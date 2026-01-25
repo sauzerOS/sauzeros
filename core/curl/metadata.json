@@ -1,0 +1,12 @@
+{
+  "url": "https://curl.se/",
+  "category": "base",
+  "description": "command line tool and library for transferring data with URLs",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "network",
+    "utility"
+  ]
+}

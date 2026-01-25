@@ -1,0 +1,11 @@
+{
+  "url": "https://sourceware.org/bzip2/",
+  "category": "base",
+  "description": "A high-quality data compression program",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "cli",
+    "compression"
+  ]
+}

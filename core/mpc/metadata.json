@@ -1,0 +1,10 @@
+{
+  "url": "http://www.multiprecision.org/",
+  "category": "base",
+  "description": "Library for the arithmetic of complex numbers with arbitrarily high precision",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "devel"
+  ]
+}

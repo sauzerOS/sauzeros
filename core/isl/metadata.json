@@ -1,0 +1,11 @@
+{
+  "url": "https://libisl.sourceforge.io",
+  "category": "base",
+  "description": "Library for manipulating sets and relations of integer points bounded by linear constraints",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}

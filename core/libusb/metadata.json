@@ -1,0 +1,10 @@
+{
+  "url": "https://libusb.info/",
+  "category": "base",
+  "description": "Library that provides generic access to USB devices",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

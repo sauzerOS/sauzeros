@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/diffutils",
+  "category": "base",
+  "description": "Utility programs used for creating patch files",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

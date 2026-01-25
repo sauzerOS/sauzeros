@@ -1,0 +1,11 @@
+{
+  "url": "https://www.openssl.org",
+  "category": "base",
+  "description": "The Open Source toolkit for Secure Sockets Layer and Transport Layer Security",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "encryption",
+    "library"
+  ]
+}

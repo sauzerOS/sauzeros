@@ -1,0 +1,10 @@
+{
+  "url": "https://sourceware.org/libffi/",
+  "category": "base",
+  "description": "Portable foreign function interface library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

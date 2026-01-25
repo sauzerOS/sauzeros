@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/sed/",
+  "category": "base",
+  "description": "GNU stream editor",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

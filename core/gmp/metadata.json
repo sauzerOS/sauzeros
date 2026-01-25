@@ -1,0 +1,11 @@
+{
+  "url": "https://gmplib.org/",
+  "category": "base",
+  "description": "A free library for arbitrary precision arithmetic",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}

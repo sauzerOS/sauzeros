@@ -1,0 +1,11 @@
+{
+  "url": "http://www.gtk.org/",
+  "category": "base",
+  "description": "Common C routines used by Gtk+ and other libs",
+  "info": "",
+  "license": "",
+  "tags": [
+    "devel",
+    "gnome"
+  ]
+}

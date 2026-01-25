@@ -1,0 +1,11 @@
+{
+  "url": "https://mj.ucw.cz/sw/pciutils/",
+  "category": "base",
+  "description": "PCI bus configuration space access library and tools",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

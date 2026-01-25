@@ -1,0 +1,12 @@
+{
+  "url": "https://tukaani.org/xz/",
+  "category": "base",
+  "description": "Library and command line tools for XZ and LZMA compressed files",
+  "info": "",
+  "license": "GPL-2.0-or-later AND 0BSD AND LicenseRef-Public-Domain AND LGPL-2.1-or-later",
+  "tags": [
+    "cli",
+    "compression",
+    "utility"
+  ]
+}

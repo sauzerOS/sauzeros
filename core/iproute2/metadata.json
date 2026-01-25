@@ -1,0 +1,12 @@
+{
+  "url": "https://git.kernel.org/pub/scm/network/iproute2/iproute2.git",
+  "category": "base",
+  "description": "IP Routing Utilities",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "network",
+    "utility"
+  ]
+}

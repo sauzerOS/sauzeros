@@ -1,0 +1,13 @@
+{
+  "url": "https://www.gnu.org/software/tar/",
+  "category": "base",
+  "description": "Utility used to store, backup, and transport files",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "archive",
+    "cli",
+    "compression",
+    "utility"
+  ]
+}

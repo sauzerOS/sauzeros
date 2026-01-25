@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home",
+  "category": "base",
+  "description": "XML C parser and toolkit",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

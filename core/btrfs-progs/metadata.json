@@ -1,0 +1,11 @@
+{
+  "url": "https://btrfs.readthedocs.io",
+  "category": "base",
+  "description": "Btrfs filesystem utilities",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "disk-tools"
+  ]
+}

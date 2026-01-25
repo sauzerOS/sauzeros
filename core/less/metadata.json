@@ -1,0 +1,11 @@
+{
+  "url": "https://www.greenwoodsoftware.com/less/",
+  "category": "base",
+  "description": "A terminal based program for viewing text files",
+  "info": "",
+  "license": "GPL-3.0-or-later OR LicenseRef-Less",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

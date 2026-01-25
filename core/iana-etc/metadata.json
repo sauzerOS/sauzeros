@@ -1,0 +1,10 @@
+{
+  "url": "https://www.iana.org/protocols",
+  "category": "base",
+  "description": "/etc/protocols and /etc/services provided by IANA",
+  "info": "",
+  "license": "custom:none",
+  "tags": [
+    "network"
+  ]
+}

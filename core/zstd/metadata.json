@@ -1,0 +1,12 @@
+{
+  "url": "https://facebook.github.io/zstd/",
+  "category": "base",
+  "description": "Zstandard - Fast real-time compression algorithm",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "compression",
+    "utility"
+  ]
+}

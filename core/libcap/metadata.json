@@ -1,0 +1,10 @@
+{
+  "url": "https://sites.google.com/site/fullycapable/",
+  "category": "base",
+  "description": "POSIX 1003.1e capabilities",
+  "info": "",
+  "license": "BSD-3-Clause OR GPL-2.0-only",
+  "tags": [
+    "library"
+  ]
+}

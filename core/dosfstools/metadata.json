@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/dosfstools/dosfstools",
+  "category": "base",
+  "description": "DOS filesystem utilities",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "disk-tools",
+    "utility"
+  ]
+}

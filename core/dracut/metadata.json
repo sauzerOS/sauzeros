@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/dracut-ng/dracut-ng",
+  "category": "extra",
+  "description": "An event driven initramfs infrastructure",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "kernel",
+    "utility"
+  ]
+}

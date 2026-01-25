@@ -1,0 +1,11 @@
+{
+  "url": "https://www.sudo.ws/sudo/",
+  "category": "base",
+  "description": "Give certain users the ability to run some commands as root",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

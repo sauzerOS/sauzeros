@@ -1,0 +1,11 @@
+{
+  "url": "https://savannah.gnu.org/projects/which/",
+  "category": "base",
+  "description": "A utility to show the full path of commands",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

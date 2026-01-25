@@ -1,0 +1,11 @@
+{
+  "url": "https://lz4.github.io/lz4/",
+  "category": "base",
+  "description": "Extremely fast compression algorithm",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "compression",
+    "library"
+  ]
+}

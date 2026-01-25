@@ -1,0 +1,11 @@
+{
+  "url": "https://www.sqlite.org/",
+  "category": "base",
+  "description": "A C library that implements an SQL database engine",
+  "info": "",
+  "license": "LicenseRef-Sqlite",
+  "tags": [
+    "database",
+    "server"
+  ]
+}

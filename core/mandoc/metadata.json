@@ -1,0 +1,11 @@
+{
+  "url": "https://mdocml.bsd.lv",
+  "category": "extra",
+  "description": "A suite of tools compiling mdoc from the OpenBSD project",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

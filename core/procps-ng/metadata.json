@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.com/procps-ng/procps",
+  "category": "base",
+  "description": "Utilities for monitoring your system and its processes",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

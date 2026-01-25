@@ -1,0 +1,10 @@
+{
+  "url": "https://sauzeros.github.io",
+  "category": "base",
+  "description": "Toolchain rebuild meta package",
+  "info": "",
+  "license": "",
+  "tags": [
+    "meta"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://libexpat.github.io/",
+  "category": "base",
+  "description": "An XML parser library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel"
+  ]
+}

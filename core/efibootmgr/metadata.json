@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/rhboot/efibootmgr",
+  "category": "base",
+  "description": "Linux user-space application to modify the EFI Boot Manager",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "boot",
+    "cli",
+    "utility"
+  ]
+}

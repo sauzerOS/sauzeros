@@ -1,0 +1,13 @@
+{
+  "url": "https://www.openssh.com/portable.html",
+  "category": "base",
+  "description": "SSH protocol implementation for remote login, command execution and file transfer",
+  "info": "# SSH-AGENT\n1. enable user service\nsystemctl --user enable --now ssh-agent\n2. add SSH_AUTH_SOCK to /etc/environment (automatically loaded by PAM)\nSSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket\n\n",
+  "license": "BSD",
+  "tags": [
+    "cli",
+    "network",
+    "server",
+    "utility"
+  ]
+}

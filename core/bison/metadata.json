@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/bison/bison.html",
+  "category": "base",
+  "description": "The GNU general-purpose parser generator",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "devel"
+  ]
+}

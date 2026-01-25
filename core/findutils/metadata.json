@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnu.org/software/findutils/",
+  "category": "base",
+  "description": "GNU utilities to locate files",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/bash/bash.html",
+  "category": "base",
+  "description": "The GNU Bourne Again shell",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "shell"
+  ]
+}

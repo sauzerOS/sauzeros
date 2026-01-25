@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/lfs-book/make-ca",
+  "category": "base",
+  "description": "BLFS script to generate CA certificates",
+  "info": "make-ca is a utility to deliver and manage a complete PKI configuration for\nworkstations and servers using only standard Unix utilities, OpenSSL, and\np11-kit, using a Mozilla cacerts.txt or like file as the trust source. It can\noptionally generate keystores for OpenJDK PKCS#12 and NSS if installed. It was\noriginally developed for use with Linux From Scratch to minimize dependencies\nfor early system build, but has been written to be generic enough for any Linux\ndistribution.\n",
+  "license": "MIT/GPLv3",
+  "tags": [
+    "cli",
+    "encryption",
+    "utility"
+  ]
+}

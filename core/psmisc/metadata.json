@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.com/psmisc/psmisc",
+  "category": "base",
+  "description": "Miscellaneous procfs tools",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

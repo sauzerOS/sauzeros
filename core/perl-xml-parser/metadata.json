@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/XML-Parser/",
+  "category": "base",
+  "description": "Expat-based XML parser module for perl",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

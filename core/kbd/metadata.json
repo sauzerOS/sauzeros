@@ -1,0 +1,11 @@
+{
+  "url": "http://www.kbd-project.org",
+  "category": "base",
+  "description": "Keytable files and keyboard utilities",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

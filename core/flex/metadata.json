@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/westes/flex",
+  "category": "base",
+  "description": "A tool for generating text-scanning programs",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

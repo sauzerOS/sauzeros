@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/aristocratos/btop",
+  "category": "extra",
+  "description": "A monitor of system resources, bpytop ported to C++",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/binutils/",
+  "category": "base",
+  "description": "A set of programs to assemble and manipulate binary and object files",
+  "info": "",
+  "license": "FSFAP",
+  "tags": [
+    "devel"
+  ]
+}

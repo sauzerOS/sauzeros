@@ -1,0 +1,11 @@
+{
+  "url": "https://wiki.gnome.org/Projects/GObjectIntrospection",
+  "category": "base",
+  "description": "Introspection system for GObject-based libraries",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "devel",
+    "gnome"
+  ]
+}

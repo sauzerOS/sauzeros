@@ -1,0 +1,12 @@
+{
+  "url": "https://www.gnu.org/software/grep/",
+  "category": "base",
+  "description": "A string search utility",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

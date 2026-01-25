@@ -1,0 +1,11 @@
+{
+  "url": "https://www.mpfr.org/",
+  "category": "base",
+  "description": "Multiple-precision floating-point library",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}

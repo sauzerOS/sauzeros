@@ -1,0 +1,12 @@
+{
+  "url": "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
+  "category": "base",
+  "description": "Linux kernel module management tools and library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "kernel",
+    "utility"
+  ]
+}

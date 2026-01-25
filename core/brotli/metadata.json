@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/google/brotli",
+  "category": "base",
+  "description": "Generic-purpose lossless compression algorithm",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel",
+    "library",
+    "compression"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/automake",
+  "category": "base",
+  "description": "A GNU tool for automatically creating Makefiles",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "devel"
+  ]
+}
