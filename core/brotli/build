@@ -2,16 +2,24 @@
 
 export DESTDIR="$1"
 
-cmake -B build \
+CMAKE_ARGS="-B build \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_PREFIX=$CROSS_PREFIX \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_SHARED_LIBS=True
+    -DBUILD_SHARED_LIBS=True"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CMAKE_ARGS="$CMAKE_ARGS \
+        -DCMAKE_SYSTEM_NAME=Linux \
+        -DCMAKE_SYSTEM_PROCESSOR=$HOKUTO_ARCH"
+fi
+
+cmake $CMAKE_ARGS
 
 cmake --build   build
 cmake --install build
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 export CC='gcc -m32'
