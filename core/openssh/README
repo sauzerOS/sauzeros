@@ -1,6 +1,0 @@
-# SSH-AGENT
-1. enable user service
-systemctl --user enable --now ssh-agent
-2. add SSH_AUTH_SOCK to /etc/environment (automatically loaded by PAM)
-SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket
-
