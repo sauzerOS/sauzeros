@@ -1,0 +1,12 @@
+{
+  "url": "http://www.mutt.org/",
+  "category": "extra",
+  "description": "Small but very powerful text-based mail client",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "mail",
+    "network"
+  ]
+}
