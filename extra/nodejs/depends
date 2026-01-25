@@ -7,4 +7,9 @@ nghttp2
 zlib-ng
 procps-ng make
 python make
-
+aarch64-libuv cross make
+aarch64-brotli cross make
+aarch64-icu cross make
+aarch64-openssl cross make
+aarch64-nghttp2 cross make
+aarch64-zlib-ng cross make

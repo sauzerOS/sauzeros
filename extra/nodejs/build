@@ -1,33 +1,48 @@
 #!/bin/sh -e
 
-if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
-export CC=aarch64-linux-gnu-gcc
-export CXX=aarch64-linux-gnu-g++
-export AR=aarch64-linux-gnu-ar
-export LINK=aarch64-linux-gnu-g++
-export CC_host=gcc
-export CXX_host=g++
-export AR_host=ar
-export LINK_host=g++
+# Node.js configure expects specific names for CPUs
+# mapping: aarch64 -> arm64, x86_64 -> x64
+DEST_CPU="$HOKUTO_CARCH"
+if [ -z "$DEST_CPU" ]; then
+    DEST_CPU=$(uname -m)
+fi
 
-./configure         \
-  --prefix=/usr     \
-  --dest-cpu=arm64  \
-  --dest-os=linux   \
-  --cross-compiling
+case "$DEST_CPU" in
+    x86_64)  DEST_CPU="x64" ;;
+    aarch64) DEST_CPU="arm64" ;;
+esac
 
+# Common configure arguments
+CONF_ARGS="--prefix=$CROSS_PREFIX \
+           --shared-libuv \
+           --shared-nghttp2 \
+           --shared-zlib \
+           --shared-openssl \
+           --shared-brotli \
+           --with-intl=system-icu"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # Host tools configuration
+    export CC_host=gcc
+    export CXX_host=g++
+    export AR_host=ar
+    export LINK_host=g++
+    
+    # Target tools configuration
+    # HOKUTO sets CC and CXX already
+    export LINK="$CXX"
+
+    ./configure $CONF_ARGS \
+        --dest-cpu="$DEST_CPU" \
+        --dest-os=linux \
+        --cross-compiling
 else
-
-./configure          \
-    --prefix=/usr    \
-    --shared-libuv   \
-    --shared-nghttp2 \
-    --shared-zlib    \
-    --shared-openssl \
-    --shared-brotli  \
-    --with-intl=system-icu
-
+    # Regular native build
+    ./configure $CONF_ARGS
 fi
 
 make
-make DESTDIR=$1 install
+# Debug built files location
+find out -name node -type f
+
+make install DESTDIR="$1"
