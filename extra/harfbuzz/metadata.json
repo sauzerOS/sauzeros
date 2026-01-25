@@ -1,0 +1,10 @@
+{
+  "url": "https://harfbuzz.github.io/",
+  "category": "extra",
+  "description": "OpenType text shaping engine",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/KhronosGroup/glslang",
+  "category": "extra",
+  "description": "OpenGL and OpenGL ES shader front end and validator",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/ollama/ollama",
+  "category": "extra",
+  "description": "Create, run and share large language models (LLMs)",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

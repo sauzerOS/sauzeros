@@ -1,0 +1,13 @@
+{
+  "url": "https://antigravity.google/",
+  "category": "extra",
+  "description": "An agentic development platform from Google, evolving the IDE into the agent-first era.",
+  "info": "",
+  "license": "",
+  "tags": [
+    "devel",
+    "editor",
+    "gui",
+    "ide"
+  ]
+}

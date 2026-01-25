@@ -1,0 +1,12 @@
+{
+  "url": "https://electrum.org",
+  "category": "extra",
+  "description": "Lightweight Bitcoin wallet",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "crypto",
+    "gui",
+    "wallet"
+  ]
+}

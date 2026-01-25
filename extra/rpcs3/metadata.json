@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/RPCS3/rpcs3",
+  "category": "extra",
+  "description": "A Sony PlayStation 3 emulator",
+  "info": "",
+  "license": "GPLv2",
+  "tags": [
+    "games",
+    "emulator",
+    "gui"
+  ]
+}

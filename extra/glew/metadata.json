@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/nigels-com/glew",
+  "category": "extra",
+  "description": "The OpenGL Extension Wrangler Library",
+  "info": "",
+  "license": "LicenseRef-glew",
+  "tags": [
+    "library"
+  ]
+}

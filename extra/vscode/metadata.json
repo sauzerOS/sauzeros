@@ -1,0 +1,12 @@
+{
+  "url": "https://code.visualstudio.com/",
+  "category": "extra",
+  "description": "Visual Studio Code (vscode): Editor for building and debugging modern web and cloud applications (official binary version)",
+  "info": "",
+  "license": "",
+  "tags": [
+    "editor",
+    "gui",
+    "ide"
+  ]
+}

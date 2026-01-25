@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/qpdf/qpdf",
+  "category": "extra",
+  "description": "QPDF: A Content-Preserving PDF Transformation System",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "pdf",
+    "utility"
+  ]
+}
