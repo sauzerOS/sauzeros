@@ -2,26 +2,32 @@
 
 make mrproper
 
-if [ "$HOKUTO_ARCH" = "aarch64" ] && [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-# Case 1: cross=1 and arch=aarch64
-mkdir -pv $1/usr/aarch64-linux-gnu/usr/{bin,include,lib,share}
-ln -s usr/bin $1/usr/aarch64-linux-gnu/bin
-ln -s usr/bin $1/usr/aarch64-linux-gnu/sbin
-ln -s usr/bin $1/usr/aarch64-linux-gnu/usr/sbin
-ln -s usr/lib $1/usr/aarch64-linux-gnu/lib
-ln -s usr/lib $1/usr/aarch64-linux-gnu/lib64
-ln -s usr/lib $1/usr/aarch64-linux-gnu/usr/lib64
-ln -s usr/include $1/usr/aarch64-linux-gnu/include
-ln -s usr/share $1/usr/aarch64-linux-gnu/share
-make INSTALL_HDR_PATH="$1/usr/aarch64-linux-gnu/usr/" ARCH=arm64 V=0 headers_install
+KARCH=$HOKUTO_ARCH
+[ "$KARCH" = "x86_64" ] && KARCH=x86
+[ "$KARCH" = "aarch64" ] && KARCH=arm64
 
-elif [ "$HOKUTO_ARCH" = "aarch64" ] && [ "${HOKUTO_CROSS:-0}" != "1" ]; then
-# Case 2: cross=0 and arch=aarch64
-make ARCH=aarch64 headers_install INSTALL_HDR_PATH=$1/usr
-
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+# If CROSS_PREFIX is not /usr, we are likely building a cross-toolchain package.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
+    TARGET_DIR="$1$CROSS_PREFIX"
+    
+    mkdir -pv "$TARGET_DIR/usr"
+    
+    # Create sysroot structure compatibility symlinks
+    for d in bin sbin lib lib64 share; do
+        case $d in
+            lib|lib64) ln -sf usr/lib "$TARGET_DIR/$d" ;;
+            *)         ln -sf usr/$d  "$TARGET_DIR/$d" ;;
+        esac 2>/dev/null || :
+    done
+    ln -sf usr/include "$TARGET_DIR/include"
+    
+    # Install headers to the sysroot /usr
+    make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$TARGET_DIR/usr"
 else
-# Case 3: default
-make ARCH=x86_64 headers_install INSTALL_HDR_PATH=$1/usr
+    # Native build or cross-native (where CROSS_PREFIX defaults to /usr)
+    # Headers go directly to /usr/include
+    make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$1/usr"
 fi
 
 # clean-up unnecessary files generated during install
