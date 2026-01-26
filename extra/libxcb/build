@@ -1,12 +1,28 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr   \
-    --sysconfdir=/etc       \
-    --mandir=/usr/share/man \
-    --localstatedir=/var    \
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+    # libxcb needs to find xcb-proto during build.
+    # PYTHONPATH is set by hokuto, but ensure it's exported for configure tests.
+    export PYTHONPATH="$PYTHONPATH"
+fi
+
+./configure --prefix="$PREFIX"   \
+    --sysconfdir="$SYSCONF_DIR"       \
+    --mandir="$PREFIX/share/man" \
+    --localstatedir="$PREFIX/var"    \
     --disable-specs         \
     --without-xmlto         \
-    --disable-static
+    --disable-static \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install

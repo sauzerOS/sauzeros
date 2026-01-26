@@ -3,3 +3,6 @@ pkgconf make
 python  make
 xcb-proto
 xorg-util-macros
+aarch64-xcb-proto cross make
+aarch64-libXau cross make
+aarch64-xcb-proto cross make
