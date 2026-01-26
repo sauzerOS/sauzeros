@@ -1,7 +1,35 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
     --buildtype=release
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+
+    # Create a native pkg-config wrapper that unsets the cross variables.
+    # This prevents the target sysroot from being prepended to host tools.
+    cat <<EOF > native-pkg-config
+#!/bin/sh
+unset PKG_CONFIG_SYSROOT_DIR
+unset PKG_CONFIG_LIBDIR
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig
+exec pkg-config "\$@"
+EOF
+    chmod +x native-pkg-config
+
+    cat <<EOF > host-tools.ini
+[binaries]
+pkg-config = '$PWD/native-pkg-config'
+EOF
+    MESON_OPTS+=(--native-file host-tools.ini)
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
 
