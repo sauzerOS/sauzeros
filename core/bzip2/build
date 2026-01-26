@@ -1,39 +1,39 @@
 #!/bin/sh -e
 
-make CC="gcc $CFLAGS -fPIC $LDFLAGS" -f Makefile-libbz2_so
-make CC="gcc $CFLAGS -static -fPIC $LDFLAGS" bzip2
+make CC="${CC:-gcc} $CFLAGS -fPIC $LDFLAGS" AR="${AR:-ar}" RANLIB="${RANLIB:-ranlib}" -f Makefile-libbz2_so
+make CC="${CC:-gcc} $CFLAGS -static -fPIC $LDFLAGS" AR="${AR:-ar}" RANLIB="${RANLIB:-ranlib}" bzip2
 
 mkdir -p \
-    "$1/usr/bin" \
-    "$1/usr/lib" \
-    "$1/usr/share/man/man1" \
-    "$1/usr/include"
+    "$1/$CROSS_PREFIX/bin" \
+    "$1/$CROSS_PREFIX/lib" \
+    "$1/$CROSS_PREFIX/share/man/man1" \
+    "$1/$CROSS_PREFIX/include"
 
 cp -f \
     bzip2 \
     bzdiff \
     bzgrep \
     bzmore \
-    "$1/usr/bin"
+    "$1/$CROSS_PREFIX/bin"
 
 cp -f \
     libbz2.so.$2 \
     libbz2.a \
-    "$1/usr/lib"
+    "$1/$CROSS_PREFIX/lib"
 
-cp -f bzip2.1 "$1/usr/share/man/man1"
-cp -f bzlib.h "$1/usr/include"
+cp -f bzip2.1 "$1/$CROSS_PREFIX/share/man/man1"
+cp -f bzlib.h "$1/$CROSS_PREFIX/include"
 
-ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so"
-ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1"
-ln -sf libbz2.so.$2 "$1/usr/lib/libbz2.so.1.0"
-ln -sf bzip2 "$1/usr/bin/bunzip2"
-ln -sf bzip2 "$1/usr/bin/bzcat"
+ln -sf libbz2.so.$2 "$1/$CROSS_PREFIX/lib/libbz2.so"
+ln -sf libbz2.so.$2 "$1/$CROSS_PREFIX/lib/libbz2.so.1"
+ln -sf libbz2.so.$2 "$1/$CROSS_PREFIX/lib/libbz2.so.1.0"
+ln -sf bzip2 "$1/$CROSS_PREFIX/bin/bunzip2"
+ln -sf bzip2 "$1/$CROSS_PREFIX/bin/bzcat"
 
 sed "s|@VERSION@|$2|" -i bzip2.pc
-install -Dm644 bzip2.pc -t "$1"/usr/lib/pkgconfig
+install -Dm644 bzip2.pc -t "$1/$CROSS_PREFIX"/lib/pkgconfig
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make clean
 sed -e "s/^CC=.*/CC=gcc -m32/" -i Makefile{,-libbz2_so}
