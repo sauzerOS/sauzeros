@@ -1,11 +1,17 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
+
 meson_options=(
-    --prefix=/usr
+    --prefix="$PREFIX"
+    --sysconfdir="$SYSCONF_DIR"
     --sbindir bin
     --libexecdir lib
     --buildtype plain
-    -D fs-search-path=/usr/bin:/usr/local/bin
+    -D fs-search-path="$PREFIX/bin:/usr/local/bin"
     -D libuser=disabled
     -D libutempter=disabled
     -D ncurses=disabled
@@ -20,41 +26,47 @@ meson_options=(
     -D colors-default=true
 )
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    meson_options+=(--cross-file "$HOKUTO_ARCH")
+    if [ "$PREFIX" != "/usr" ]; then
+        export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    fi
+fi
+
 meson setup build "${meson_options[@]}"
 meson compile -C build
-meson install -C build --destdir=$1
+meson install -C build --destdir="$1"
 
 # remove static libraries
-rm "${1}"/usr/lib/lib*.a*
+rm -f "$1$PREFIX"/lib/lib*.a*
 
 # install PAM files for login-utils
-install -Dm0644 common.pam "${1}/etc/pam.d/chfn"
-install -Dm0644 common.pam "${1}/etc/pam.d/chsh"
-install -Dm0644 login.pam "${1}/etc/pam.d/login"
-install -Dm0644 remote.pam "${1}/etc/pam.d/remote"
-install -Dm0644 runuser.pam "${1}/etc/pam.d/runuser"
-install -Dm0644 runuser.pam "${1}/etc/pam.d/runuser-l"
-install -Dm0644 su.pam "${1}/etc/pam.d/su"
-install -Dm0644 su.pam "${1}/etc/pam.d/su-l"
+install -Dm0644 common.pam "${1}$SYSCONF_DIR/pam.d/chfn"
+install -Dm0644 common.pam "${1}$SYSCONF_DIR/pam.d/chsh"
+install -Dm0644 login.pam  "${1}$SYSCONF_DIR/pam.d/login"
+install -Dm0644 remote.pam "${1}$SYSCONF_DIR/pam.d/remote"
+install -Dm0644 runuser.pam "${1}$SYSCONF_DIR/pam.d/runuser"
+install -Dm0644 runuser.pam "${1}$SYSCONF_DIR/pam.d/runuser-l"
+install -Dm0644 su.pam      "${1}$SYSCONF_DIR/pam.d/su"
+install -Dm0644 su.pam      "${1}$SYSCONF_DIR/pam.d/su-l"
 
-if [ -f "${1}/usr/lib/systemd/system/uuidd.socket" ]; then
-sed -i '/ListenStream/ aRuntimeDirectory=uuidd' "${1}/usr/lib/systemd/system/uuidd.socket"
+if [ -f "${1}$PREFIX/lib/systemd/system/uuidd.socket" ]; then
+    sed -i '/ListenStream/ aRuntimeDirectory=uuidd' "${1}$PREFIX/lib/systemd/system/uuidd.socket"
 fi
 
 # install systemd-sysusers
 install -Dm0644 util-linux.sysusers \
-  "${1}/usr/lib/sysusers.d/util-linux.conf"
+  "${1}$PREFIX/lib/sysusers.d/util-linux.conf"
 
 install -Dm0644 60-rfkill.rules \
-  "${1}/usr/lib/udev/rules.d/60-rfkill.rules"
+  "${1}$PREFIX/lib/udev/rules.d/60-rfkill.rules"
 
 install -Dm0644 rfkill-unblock_.service \
-  "${1}/usr/lib/systemd/system/rfkill-unblock@.service"
+  "${1}$PREFIX/lib/systemd/system/rfkill-unblock@.service"
 install -Dm0644 rfkill-block_.service \
-  "${1}/usr/lib/systemd/system/rfkill-block@.service"
+  "${1}$PREFIX/lib/systemd/system/rfkill-block@.service"
 
-
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 
@@ -76,7 +88,7 @@ export CC="gcc -m32"
 export CXX="g++ -m32"
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-meson setup build "${meson_options_32[@]}"
+meson setup build "${meson_options_32[@]}" --cross-file lib32
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
