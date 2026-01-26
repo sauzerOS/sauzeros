@@ -10,15 +10,26 @@ cat >> trust/trust-extract-compat << "EOF"
 /usr/sbin/make-ca -r
 EOF
 
-meson setup p11-build     \
-      --prefix=/usr       \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+meson_options=(
+      --prefix="$PREFIX"       \
       --buildtype=release \
       -D trust_paths=/etc/pki/anchors
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    meson_options+=(--cross-file "$HOKUTO_ARCH")
+fi
+
+meson setup p11-build "${meson_options[@]}"
 
 meson compile -C p11-build
 DESTDIR=$1 meson install -C p11-build
 
-ln -sfv /usr/libexec/p11-kit/trust-extract-compat \
-        $1/usr/bin/update-ca-certificates
+ln -sfv "$PREFIX/libexec/p11-kit/trust-extract-compat" \
+        "$1$PREFIX/bin/update-ca-certificates"
 
-ln -sfv ./pkcs11/p11-kit-trust.so $1/usr/lib/libnssckbi.so
+ln -sfv ./pkcs11/p11-kit-trust.so "$1$PREFIX/lib/libnssckbi.so"
+
+
