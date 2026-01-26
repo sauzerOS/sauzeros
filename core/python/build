@@ -5,10 +5,34 @@
 export CFLAGS="$CFLAGS -fno-semantic-interposition -ffat-lto-objects"
 export LDFLAGS="$LDFLAGS -fno-semantic-interposition"
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Determine build strategy
+if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
+    # HOKUTO_ARCH is already normalized to e.g. aarch64/x86_64
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET --build=$(gcc -dumpmachine)"
+
+    # Disable PGO/LTO optimizations during cross-compile as they require running target code
+    # We also disable IPv6 because getaddrinfo detection usually fails during cross-compilation
+    CROSS_OPTS="$CROSS_OPTS --disable-optimizations --disable-ipv6"
+
+    # Python 3.11+ can use a host python for building
+    if command -v python3 >/dev/null; then
+        CROSS_OPTS="$CROSS_OPTS --with-build-python=python3"
+    fi
+    # Pre-seed some results that cannot be determined when cross-compiling
+    export ac_cv_file__dev_ptmx=yes
+    export ac_cv_file__dev_ptc=no
+else
+    CROSS_OPTS="--enable-optimizations"
+fi
+
 ./configure \
-    --prefix=/usr \
+    --prefix="$PREFIX" \
     --enable-shared \
-    --enable-optimizations \
+    $CROSS_OPTS \
     --with-system-expat \
     --with-system-ffi \
     --with-ensurepip=install
@@ -16,7 +40,7 @@ export LDFLAGS="$LDFLAGS -fno-semantic-interposition"
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install
 
-ln -s python3 "$1/usr/bin/python"
-if [[ -f "$1/usr/bin/pip3" ]]; then
-ln -s pip3 "$1/usr/bin/pip"
+ln -sf python3 "$1$PREFIX/bin/python"
+if [[ -f "$1$PREFIX/bin/pip3" ]]; then
+    ln -sf pip3 "$1$PREFIX/bin/pip"
 fi
