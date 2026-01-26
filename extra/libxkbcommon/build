@@ -1,15 +1,25 @@
 #!/bin/sh -e
 
-meson setup build           \
-    --prefix=/usr           \
-    --libexecdir=/usr/lib   \
-    -D default_library=both \
-    -D enable-docs=false    \
-    -D enable-wayland=true  \
-    -D enable-x11=true      \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    --libexecdir="$PREFIX/lib"
+    -D default_library=both
+    -D enable-docs=false
+    -D enable-wayland=true
+    -D enable-x11=true
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
+
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
