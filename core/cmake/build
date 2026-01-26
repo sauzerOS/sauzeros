@@ -1,33 +1,85 @@
 #!/bin/sh -e
 
-if hokuto check cmake; then
-cmake -B build \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_USE_SYSTEM_CURL=True \
-        -DCMAKE_USE_SYSTEM_EXPAT=True \
-        -DCMAKE_USE_SYSTEM_ZLIB=True \
-        -DCMAKE_USE_SYSTEM_BZIP2=True \
-        -DCMAKE_AR=$(which gcc-ar) \
-        -DCMAKE_RANLIB=$(which gcc-ranlib) \
-        -DCMAKE_NM=$(which gcc-nm) \
-        -DBUILD_TESTING=OFF
+# Identify target architecture for CMake
+TARGET_ARCH="$HOKUTO_ARCH"
+if [ "$TARGET_ARCH" = "arm64" ] || [ "$TARGET_ARCH" = "aarch64" ]; then
+    TARGET_ARCH="aarch64"
+fi
 
-cmake --build   build
-DESTDIR=$1 cmake --install build
+# Detect sysroot from the compiler if possible
+# This ensures header checks like pid_t use the correct standard headers
+SYSROOT_FLAG=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    DETECTED_SYSROOT=$($CC -print-sysroot 2>/dev/null || true)
+    if [ -d "$DETECTED_SYSROOT" ]; then
+        SYSROOT_FLAG="-D CMAKE_SYSROOT=$DETECTED_SYSROOT"
+    fi
+fi
 
+CMAKE_ARGS="-D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_USE_SYSTEM_CURL=True \
+    -D CMAKE_USE_SYSTEM_EXPAT=True \
+    -D CMAKE_USE_SYSTEM_ZLIB=True \
+    -D CMAKE_USE_SYSTEM_BZIP2=True \
+    -D CMAKE_USE_SYSTEM_LIBLZMA=True \
+    -D CMAKE_USE_SYSTEM_ZSTD=True \
+    -D BUILD_TESTING=OFF"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # When HOKUTO_CROSS_SYSTEM=1, CROSS_PREFIX is /usr/<triplet> (correct root path)
+    # When regular cross compiling, CROSS_PREFIX is /usr (wrong root path for searching deps)
+    # If detected sysroot is valid and not /, use it as the find root path
+    if [ -n "$DETECTED_SYSROOT" ] && [ "$DETECTED_SYSROOT" != "/" ]; then
+        ROOT_PATH="$DETECTED_SYSROOT"
+    else
+        # Fallback for system builds or if sysroot detection failed
+        ROOT_PATH="$CROSS_PREFIX"
+    fi
+
+    # Cross-compilation settings
+    CMAKE_ARGS="$CMAKE_ARGS \
+        -D CMAKE_SYSTEM_NAME=Linux \
+        -D CMAKE_SYSTEM_PROCESSOR=$TARGET_ARCH \
+        -D CMAKE_C_COMPILER=$CC \
+        -D CMAKE_CXX_COMPILER=$CXX \
+        -D CMAKE_AR=$(which $AR) \
+        -D CMAKE_RANLIB=$(which $RANLIB) \
+        -D CMAKE_NM=$(which $NM) \
+        $SYSROOT_FLAG \
+        -D CMAKE_FIND_ROOT_PATH=$ROOT_PATH \
+        -D CMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
+        -D CMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
+        -D CMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY"
+
+    if [ "$CROSS_PREFIX" != "/usr" ]; then
+        export PKG_CONFIG_LIBDIR="$CROSS_PREFIX/lib/pkgconfig:$CROSS_PREFIX/share/pkgconfig"
+        export PKG_CONFIG_SYSROOT_DIR="$CROSS_PREFIX"
+    fi
 else
-        ./configure \
-        --prefix=/usr \
+    CMAKE_ARGS="$CMAKE_ARGS \
+        -D CMAKE_AR=$(which gcc-ar) \
+        -D CMAKE_RANLIB=$(which gcc-ranlib) \
+        -D CMAKE_NM=$(which gcc-nm)"
+fi
+
+# Use host cmake if available, otherwise bootstrap
+if [ "${HOKUTO_CROSS:-0}" = "1" ] || hokuto check cmake; then
+    cmake $CMAKE_ARGS -B build
+    cmake --build build
+    DESTDIR=$1 cmake --install build
+else
+    # Native bootstrap
+    ./configure --prefix=/usr \
         --system-curl \
         --system-expat \
         --system-zlib \
-        --system-bzip2
+        --system-bzip2 \
+        --system-liblzma \
+        --system-zstd
 
     make
     make DESTDIR=$1 install
 fi
 
-rm -rf \
-    "$1/usr/doc" \
-    "$1/usr/share/cmake"*/Help
+rm -rf "$1/usr/share/cmake"*/Help
