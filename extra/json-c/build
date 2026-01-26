@@ -1,12 +1,23 @@
 #!/bin/sh -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS="-DCMAKE_SYSTEM_NAME=Linux"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && CROSS_OPTS="$CROSS_OPTS -DCMAKE_SYSTEM_PROCESSOR=aarch64"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && CROSS_OPTS="$CROSS_OPTS -DCMAKE_SYSTEM_PROCESSOR=x86_64"
+fi
+
 cmake -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_PREFIX="$PREFIX" \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_BUILD_TYPE=Release \
     -DDISABLE_EXTRA_LIBS=ON \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    $CROSS_OPTS
 
 cmake --build   build
 DESTDIR=$1 cmake --install build
+
