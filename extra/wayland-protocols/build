@@ -1,11 +1,20 @@
 #!/bin/sh -e
 
-meson \
-    --prefix=/usr \
-    --buildtype=release \
-    -Dtests=false \
-    . output
+PREFIX="${CROSS_PREFIX:-/usr}"
 
-ninja -C output
-DESTDIR=$1 ninja -C output install
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    --buildtype=release
+    -Dtests=false
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+fi
+
+meson setup build "${MESON_OPTS[@]}"
+
+meson compile -C build
+meson install -C build --destdir=$1
+
 

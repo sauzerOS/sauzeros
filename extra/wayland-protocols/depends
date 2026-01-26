@@ -1,2 +1,3 @@
 meson make
 wayland make
+aarch64-wayland cross make
