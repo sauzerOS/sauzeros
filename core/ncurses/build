@@ -1,37 +1,50 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# triplet for --host
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
 ./configure \
-    --prefix=/usr \
-    --mandir=/usr/share/man \
+    --prefix="$PREFIX" \
+    --mandir="$PREFIX/share/man" \
     --enable-pc-files \
     --disable-rpath-hack \
-    --with-pkg-config-libdir=/usr/lib/pkgconfig \
+    --with-pkg-config-libdir="$PREFIX/lib/pkgconfig" \
     --with-shared \
     --enable-widec \
     --without-ada \
     --without-tests \
     --without-debug \
-    --without-cxx-binding
+    --without-cxx-binding \
+    $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
 
 # Force ncurses to link against wide-character ncurses library.
 for lib in ncurses form panel menu; do
-    rm -f "$1/usr/lib/lib${lib}.so"
-    printf '%s\n' "INPUT(-l${lib}w)" > "$1/usr/lib/lib${lib}.so"
-    chmod 755 "$1/usr/lib/lib${lib}.so"
-    ln -sf "lib${lib}w.a" "$1/usr/lib/lib${lib}.a"
+    rm -f "$1$PREFIX/lib/lib${lib}.so"
+    printf '%s\n' "INPUT(-l${lib}w)" > "$1$PREFIX/lib/lib${lib}.so"
+    chmod 755 "$1$PREFIX/lib/lib${lib}.so"
+    ln -sf "lib${lib}w.a" "$1$PREFIX/lib/lib${lib}.a"
 done
 
 # Some packages look for libcurses instead of libncurses when building.
-printf '%s\n' "INPUT(-lncursesw)" > "$1/usr/lib/libcursesw.so"
-ln -s libncurses.so "$1/usr/lib/libcurses.so"
+printf '%s\n' "INPUT(-lncursesw)" > "$1$PREFIX/lib/libcursesw.so"
+ln -sf libncurses.so "$1$PREFIX/lib/libcurses.so"
 
 # Fix pkgconfig file.
-ln -s ncursesw.pc "$1/usr/lib/pkgconfig/ncurses.pc"
+ln -sf ncursesw.pc "$1$PREFIX/lib/pkgconfig/ncurses.pc"
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 CC="gcc -m32" CXX="g++ -m32" \
