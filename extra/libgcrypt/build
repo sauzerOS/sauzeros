@@ -5,11 +5,21 @@ sed '/^#ifdef USE_JENT/a #include <fcntl.h>\n#include <limits.h>' \
     random/rndjent.c > _
 mv -f _ random/rndjent.c
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
 ./configure \
-    --prefix=/usr \
+    --prefix="$PREFIX" \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    --localstatedir=/var
+    --localstatedir=/var \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
