@@ -1,14 +1,29 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-    --sysconfdir=/etc \
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
+
+# triplet for --host
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure --prefix="$PREFIX" \
+    --sysconfdir="$SYSCONF_DIR" \
     --disable-static \
-    --disable-gssapi
+    --disable-gssapi \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make clean
 CFLAGS+=" -m32" CXXFLAGS+=" -m32" \
