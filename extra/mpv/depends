@@ -6,7 +6,7 @@ libplacebo
 libdisplay-info
 linux-headers
 libxpresent
-libXScrnSaver
+libxscrnsaver
 luajit
 mesa
 mujs

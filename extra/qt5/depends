@@ -4,11 +4,11 @@ freetype
 gperf
 libICE
 libSM
-libX11
-libXext
-libXi
-libXrandr
-libXrender
+libx11
+libxext
+libxi
+libxrandr
+libxrender
 libinput
 libjpeg-turbo
 libpng

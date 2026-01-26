@@ -1,5 +1,5 @@
-libX11
-libXi
-libXinerama
-libXmu
+libx11
+libxi
+libxinerama
+libxmu
 pkgconf make

@@ -1,5 +1,5 @@
 libdrm
-libX11
-libXext
+libx11
+libxext
 mesa
 xlibre

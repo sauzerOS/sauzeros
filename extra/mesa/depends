@@ -8,9 +8,9 @@ libelf
 libglvnd optional
 libvdpau
 libxcb
-libXfixes
+libxfixes
 libxshmfence
-libXxf86vm
+libxxf86vm
 linux-headers
 llvm
 llvm-32

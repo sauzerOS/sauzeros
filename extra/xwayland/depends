@@ -1,9 +1,9 @@
 egl-wayland
 font-util
-libXfont2
+libxfont2
 libxcvt
 libepoxy
-libXdmcp
+libxdmcp
 libtirpc
 libxkbfile
 pixman

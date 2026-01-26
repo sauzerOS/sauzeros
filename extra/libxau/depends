@@ -1,0 +1,3 @@
+pkgconf   make
+xorgproto make
+aarch64-xorgproto cross make

@@ -1,5 +1,5 @@
-libX11
-libXau
+libx11
+libxau
 libxcb
 pkgconf make
 xcb-util

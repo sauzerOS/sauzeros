@@ -1,0 +1,4 @@
+libxext
+libxt
+pkgconf          make
+xorg-util-macros make

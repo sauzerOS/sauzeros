@@ -3,3 +3,4 @@ attr
 libxcrypt
 pam
 systemd
+aarch64-systemd cross make

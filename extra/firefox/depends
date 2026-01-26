@@ -15,8 +15,8 @@ libjpeg-turbo
 libpng
 libvpx
 libwebp
-libXcomposite
-libXdamage
+libxcomposite
+libxdamage
 libva
 llvm make
 m4

@@ -9,9 +9,9 @@ libelf
 libglvnd
 libvdpau
 libxcb
-libXfixes
+libxfixes
 libxshmfence
-libXxf86vm
+libxxf86vm
 linux-headers make
 llvm
 llvm-32

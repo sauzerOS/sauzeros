@@ -1,4 +1,4 @@
-libXau
+libxau
 libxcb
 m4      make
 pkgconf make

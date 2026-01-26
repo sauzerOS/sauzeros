@@ -2,8 +2,8 @@ alsa-lib
 dbus
 flac
 lame
-libXau
-libXdmcp
+libxau
+libxdmcp
 libcap
 libogg
 libsndfile

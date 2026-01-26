@@ -1,3 +1,4 @@
 meson make
 gobject-introspection optional
 pcre2
+aarch64-pcre2 cross make

@@ -1,3 +1,5 @@
 libaio
 util-linux
 systemd
+aarch64-util-linux cross make
+aarch64-systemd cross make

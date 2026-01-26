@@ -3,11 +3,11 @@ egl-gbm
 egl-wayland
 egl-x11
 libglvnd
-libXau
+libxau
 libxcb
-libX11
-libXext
-libXv
+libx11
+libxext
+libxv
 xcb-proto
 xorgproto
 xorg-util-macros

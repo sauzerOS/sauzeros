@@ -1,0 +1,45 @@
+#!/bin/sh -e
+
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure \
+    --prefix="$PREFIX" \
+    --sysconfdir="$SYSCONF_DIR" \
+    --mandir="$PREFIX/share/man" \
+    --localstatedir="$PREFIX/var" \
+    --disable-specs \
+    --without-xmlto \
+    --disable-static \
+    $CROSS_OPTS
+
+make
+make DESTDIR="$1" install
+
+if [ "$MULTILIB" = "1" ]; then
+#32bit
+make distclean
+CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+./configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --localstatedir=/var \
+    --disable-specs \
+    --without-xmlto \
+    --disable-static \
+     --libdir=/usr/lib32
+
+make
+make DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+fi

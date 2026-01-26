@@ -1,0 +1,4 @@
+libxext
+libxrender
+pkgconf   make
+xorgproto make

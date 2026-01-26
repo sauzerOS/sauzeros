@@ -1,1 +1,3 @@
-../llvm/depends
+cmake make
+python
+zlib-ng

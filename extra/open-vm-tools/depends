@@ -1,7 +1,7 @@
 libmspack make
-libXinerama make
-libXi make
-libXtst make
+libxinerama make
+libxi make
+libxtst make
 gdk-pixbuf make
 gdk-pixbuf-xlib make
 gtk+3 make

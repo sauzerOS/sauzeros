@@ -1,0 +1,4 @@
+libSM
+libx11
+pkgconf   make
+xorgproto make

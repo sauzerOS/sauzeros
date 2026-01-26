@@ -1,0 +1,6 @@
+libx11
+libxau
+libxext
+libxi
+libxcb
+pkgconf make

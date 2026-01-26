@@ -1,4 +1,4 @@
-libX11
-libXmu
+libx11
+libxmu
 pkgconf          make
 xorg-util-macros make

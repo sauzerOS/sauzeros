@@ -13,3 +13,10 @@ sqlite make
 systemd optional
 tar make
 zlib-ng
+aarch64-sqlite cross make
+aarch64-libxcrypt cross make
+aarch64-pkgconf cross make
+aarch64-pam cross make
+aarch64-ncurses cross make
+aarch64-file cross make
+aarch64-python cross make

@@ -9,6 +9,6 @@ libtool make
 libsndfile
 libSM
 libxcb
-libXtst
+libxtst
 perl-xml-parser
 sbc

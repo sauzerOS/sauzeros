@@ -1,5 +1,5 @@
-libX11
-libXrandr
+libx11
+libxrandr
 pkgconf          make
 xorg-util-macros make
 xorgproto        make

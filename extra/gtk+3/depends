@@ -8,7 +8,7 @@ glib
 gobject-introspection
 libepoxy
 libxkbcommon
-libXi
+libxi
 meson   make
 pango
 pkgconf make

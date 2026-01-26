@@ -15,3 +15,22 @@ p11-kit
 pam
 python-jinja2
 python-pyelftools
+aarch64-libxcrypt cross make
+aarch64-libgcrypt cross make
+aarch64-util-linux cross make
+aarch64-python-jinja2 cross make
+aarch64-python-pyelftools cross make
+aarch64-python-markupsafe cross make
+aarch64-lz4 cross make
+aarch64-json-c cross make
+aarch64-acl cross make
+aarch64-p11-kit cross make
+aarch64-libseccomp cross make
+aarch64-libidn2 cross make
+aarch64-libelf cross make
+aarch64-libarchive cross make
+aarch64-kmod cross make
+aarch64-pcre2 cross make
+aarch64-libxkbcommon cross make
+aarch64-dbus cross make
+aarch64-glib cross make

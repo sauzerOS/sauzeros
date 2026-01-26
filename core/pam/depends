@@ -2,3 +2,4 @@ meson make
 flex make
 ninja make
 libcap optional
+aarch64-libtirpc cross make

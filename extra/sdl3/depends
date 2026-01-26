@@ -1,16 +1,16 @@
 alsa-lib
 libdecor
 libusb
-libX11
-libXcursor
-libXext
-libXrender
+libx11
+libxcursor
+libxext
+libxrender
 pipewire
 pulseaudio
 cmake make
-libXinerama make
+libxinerama make
 libxkbcommon make
-libXrandr make
+libxrandr make
 mesa make
 ninja make
 vulkan-headers make

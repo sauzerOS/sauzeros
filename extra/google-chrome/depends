@@ -2,7 +2,7 @@ at-spi2-core
 cups
 nss
 alsa-lib
-libXcomposite
+libxcomposite
 libxkbcommon
 pango
 gtk+3
