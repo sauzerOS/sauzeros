@@ -1,12 +1,26 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# triplet for --host
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
 ./configure \
-    --prefix=/usr \
-    --sbindir=/usr/bin \
+    --prefix="$PREFIX" \
+    --sbindir="$PREFIX/bin" \
+    --libdir="$PREFIX/lib" \
     --enable-libargon2 \
     --disable-ssh-token \
     --disable-asciidoc \
-    --disable-static
+    --disable-static \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
