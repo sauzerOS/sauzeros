@@ -1,19 +1,60 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 ./autogen.sh
-./configure --prefix=/usr              \
-            --with-internal-glib       \
-            --disable-host-tool
+
+# Determine build strategy
+# If host-tool option is used, we build a native executable that targets the cross-prefix
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+    # Building a host tool (e.g. aarch64-pkgconf running on x86_64)
+    # We use personality search paths to make it find target files
+    CROSS_OPTS="--with-pkg-config-dir=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    CROSS_OPTS="$CROSS_OPTS --with-system-libdir=$PREFIX/lib"
+    CROSS_OPTS="$CROSS_OPTS --with-system-includedir=$PREFIX/include"
+else
+    # Building for the target system (either native or cross-native)
+    if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+        HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+        [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+        [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+        CROSS_OPTS="--host=$HOST_TRIPLET"
+    fi
+fi
+
+./configure --prefix="$PREFIX"           \
+            $CROSS_OPTS
 
 make
-make DESTDIR=$1 install
+make DESTDIR="$1" install
 
-ln -s pkgconf $1/usr/bin/pkg-config
+ln -sf pkgconf "$1$PREFIX/bin/pkg-config"
 
-install -d $1/usr/share/pkgconfig/personality.d
-install -Dm644 x86_64-pc-linux-gnu.personality $1/usr/share/pkgconfig/personality.d/x86_64-pc-linux-gnu.personality
-install -Dm644 i686-pc-linux-gnu.personality $1/usr/share/pkgconfig/personality.d/i686-pc-linux-gnu.personality
+# Only install the relevant personality and triplet symlink
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && TARGET_TRIPLET="x86_64-pc-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && TARGET_TRIPLET="aarch64-linux-gnu"
 
-install -d $1/usr/bin
-ln -sv pkgconf $1/usr/bin/x86_64-pc-linux-gnu-pkg-config
-ln -sv pkgconf $1/usr/bin/i686-pc-linux-gnu-pkg-config
+    # Check if we have a personality file for this arch
+    if [ -f "${TARGET_TRIPLET}.personality" ]; then
+        install -d "$1$PREFIX/share/pkgconfig/personality.d"
+        install -Dm644 "${TARGET_TRIPLET}.personality" "$1$PREFIX/share/pkgconfig/personality.d/${TARGET_TRIPLET}.personality"
+    fi
+    ln -svf pkgconf "$1$PREFIX/bin/${TARGET_TRIPLET}-pkg-config"
+
+    # For host tools (cross-system), symlink into /usr/bin so it's in the standard PATH
+    if [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+        install -d "$1/usr/bin"
+        ln -svf "$PREFIX/bin/${TARGET_TRIPLET}-pkg-config" "$1/usr/bin/${TARGET_TRIPLET}-pkg-config"
+    fi
+else
+    # Native build: maintain the standard x86 symlinks
+    install -d "$1/usr/share/pkgconfig/personality.d"
+    install -Dm644 x86_64-pc-linux-gnu.personality "$1/usr/share/pkgconfig/personality.d/x86_64-pc-linux-gnu.personality"
+    install -Dm644 i686-pc-linux-gnu.personality "$1/usr/share/pkgconfig/personality.d/i686-pc-linux-gnu.personality"
+
+    ln -svf pkgconf "$1/usr/bin/x86_64-pc-linux-gnu-pkg-config"
+    ln -svf pkgconf "$1/usr/bin/i686-pc-linux-gnu-pkg-config"
+fi
