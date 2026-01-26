@@ -1,51 +1,67 @@
 #!/bin/sh -e
 
-sed -i 's/GROUP="render", //' rules.d/50-udev-default.rules.in
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+LOCALSTATE_DIR="${PREFIX}/var"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc" && LOCALSTATE_DIR="/var"
 
-#reduce max shutdown timeout to 30s
-sed -i 's/TimeoutSec=5min/TimeoutSec=30s/g' src/sysv-generator/sysv-generator.c
-#reduce default timeout to 10s
-sed -i "s/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=10s/" -i ./src/core/system.conf.in
-sed -i "s/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=10s/" -i ./src/core/system.conf.in
-sed -i "s/#DefaultTimeoutAbortSec=/DefaultTimeoutAbortSec=10s/" -i ./src/core/system.conf.in
+MESON_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+    if [ "$PREFIX" != "/usr" ]; then
+        export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    fi
+
+    if ! hokuto check "${HOKUTO_ARCH}-cryptsetup"; then
+    MESON_OPTS+=("-Dlibcryptsetup=disabled")
+    fi
+
+    if ! hokuto check "${HOKUTO_ARCH}-gnutls"; then
+    MESON_OPTS+=("-Dgnutls=disabled")
+    fi
+    MESON_OPTS+=("-Dqrencode=disabled")
+fi
 
 LANG=en_US.UTF-8 \
 meson setup build                  \
-      --prefix=/usr                \
-      --sysconfdir=/etc            \
-      --localstatedir=/var         \
-      -Dblkid=true                 \
-      -Dbuildtype=release          \
-      -Ddefault-dnssec=no          \
-      -Ddefault-dns-over-tls=yes   \
-      -Dfirstboot=false            \
-      -Dinstall-tests=false        \
-      -Dldconfig=false             \
-      -Dsysusers=true              \
-      -Db_lto=true                 \
-      -Dhomed=false                \
-      -Duserdb=false               \
-      -Ddns-servers=""             \
-      -Dmode=release               \
-      -Dman=false		   \
-      -Doomd=true		   \
-      -Dpamconfdir=/etc/pam.d      \
-      -Dbootloader=true            \
-      -Dsbat-distro-url="https://github.com/sauzeros"
+      --prefix="$PREFIX"           \
+      --sysconfdir="$SYSCONF_DIR"   \
+      --localstatedir="$LOCALSTATE_DIR" \
+      "${MESON_OPTS[@]}"                  \
+      -D blkid=enabled              \
+      -D buildtype=release          \
+      -D default-dnssec=no          \
+      -D default-dns-over-tls=yes   \
+      -D firstboot=false            \
+      -D install-tests=false        \
+      -D ldconfig=false             \
+      -D sysusers=true              \
+      -D b_lto=true                 \
+      -D homed=disabled             \
+      -D userdb=false               \
+      -D dns-servers=""             \
+      -D mode=release               \
+      -D man=disabled               \
+      -D oomd=true                  \
+      -D pamconfdir="$SYSCONF_DIR/pam.d" \
+      -D bootloader=enabled         \
+      -D sbat-distro-url="https://github.com/sauzeros"
 
 LANG=en_US.UTF-8 meson compile -C build
 LANG=en_US.UTF-8 meson install -C build --destdir=$1
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
 # overwrite the systemd-user PAM configuration with our own
-install -D -m0644 systemd-user.pam "$1"/usr/lib/pam.d/systemd-user
+install -D -m0644 systemd-user.pam "$1/lib/pam.d/systemd-user"
+install -v -m755 -d "$1/systemd/network"
+install -v -m644 20-wired.network "$1/systemd/network/20-wired.network"
+install -v -m644 25-wireless.network "$1/systemd/network/25-wireless.network"
+install -v -m755 -d "$1/systemd/resolved.conf.d"
+install -v -m644 dns_servers.conf "$1/systemd/resolved.conf.d/dns_servers.conf"
+fi
 
-install -v -m755 -d "$1/etc/systemd/network"
-install -v -m644 20-wired.network "$1/etc/systemd/network/20-wired.network"
-install -v -m644 25-wireless.network "$1/etc/systemd/network/25-wireless.network"
-install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
-install -v -m644 dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
-
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
 
@@ -63,7 +79,7 @@ meson setup build                    \
       -D homed=disabled              \
       -D userdb=false                \
       -D man=disabled                \
-      -Dsbat-distro-url="https://github.com/sauzeros" \
+      -D sbat-distro-url="https://github.com/sauzeros" \
       -D mode=release
 
 meson compile -C build
