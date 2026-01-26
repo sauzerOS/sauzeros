@@ -1,19 +1,25 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr \
+CONF_ARGS="--prefix=$CROSS_PREFIX \
     --without-xmlwf \
     --without-examples \
     --without-tests \
-    --without-docbook
+    --without-docbook"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CONF_ARGS="$CONF_ARGS --host=$HOKUTO_ARCH-linux-gnu"
+fi
+
+./configure $CONF_ARGS
 
 make
 make DESTDIR=$1 install
 
 # Remove documentation (Changelogs, etc).
-rm -rf "${1:?}/usr/share"
+# Use -f to avoid failing if share directory doesn't exist
+rm -rf "${1:?}/$CROSS_PREFIX/share"
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 sed -e "/^am__append_1/ s/doc//" -i Makefile
 make clean
