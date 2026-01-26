@@ -1,10 +1,30 @@
 #!/bin/sh -e
 
-CFLAGS=" " ./configure --prefix=/usr       \
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+
+    # Autoconf cannot run tests when cross-compiling
+    export ac_cv_func_malloc_0_nonnull=yes
+    export ac_cv_func_realloc_0_nonnull=yes
+fi
+
+./configure --prefix="$PREFIX"       \
+            --sysconfdir="$SYSCONF_DIR" \
+            --sbindir="$PREFIX/bin" \
             --enable-cmdlib     \
             --enable-pkgconfig  \
-            --enable-udev_sync
+            --enable-udev_sync  \
+            $CROSS_OPTS
 
 make
-make DESTDIR=$1 install
-make DESTDIR=$1 install_systemd_units
+make DESTDIR="$1" install
+make DESTDIR="$1" install_systemd_units
+
