@@ -1,6 +1,21 @@
 #!/bin/sh -e
 
-make -C lib PREFIX=/usr
-make -C programs PREFIX=/usr lz4 lz4c
+PREFIX="${CROSS_PREFIX:-/usr}"
 
-make install PREFIX=/usr DESTDIR="$1"
+# Pass CC and AR explicitly to support cross-compilation
+make -C lib PREFIX="$PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}" RANLIB="${RANLIB:-ranlib}"
+make -C programs PREFIX="$PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}" lz4 lz4c
+
+make install PREFIX="$PREFIX" DESTDIR="$1"
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+    # 32-bit multilib build
+    make clean
+    make -C lib PREFIX=/usr CC="gcc -m32"
+    mkdir -p DESTDIR
+    make -C lib PREFIX=/usr DESTDIR="$PWD/DESTDIR" install
+    install -d "$1/usr/lib32/pkgconfig"
+    cp -Rv DESTDIR/usr/lib/* "$1/usr/lib32/"
+    sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i "$1/usr/lib32/pkgconfig/liblz4.pc"
+fi
+
