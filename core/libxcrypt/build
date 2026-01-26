@@ -1,15 +1,30 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr                \
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Define host triplet if cross-compiling
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    # Canonicalize known architectures
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure --prefix="$PREFIX"           \
+            --libdir="$PREFIX/lib"       \
             --enable-hashes=strong,glibc \
             --enable-obsolete-api=no     \
             --disable-static             \
-            --disable-failure-tokens
+            --disable-failure-tokens     \
+            $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 CC="gcc -m32" \
