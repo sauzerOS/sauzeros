@@ -1,1 +1,3 @@
 python
+python-setuptools make
+aarch64-python-setuptools cross make
