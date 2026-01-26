@@ -1,7 +1,10 @@
 #!/bin/sh -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 ./configure \
-    --prefix=/usr
+    --prefix="$PREFIX"
 
 make
 make DESTDIR="$1" install
+
