@@ -1,14 +1,42 @@
 #!/bin/sh -e
 
-meson setup build           \
-    --prefix=/usr           \
-    -D default_library=both \
-    -D tests=false          \
-    -D documentation=false  \
-    -D dtd_validation=false
+PREFIX="${CROSS_PREFIX:-/usr}"
 
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    -D default_library=both
+    -D tests=false
+    -D documentation=false
+    -D dtd_validation=false
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+    # Create a native pkg-config wrapper that unsets the cross variables.
+    # This is necessary because hokuto exports PKG_CONFIG_SYSROOT_DIR globally,
+    # which causes native dependency checks to wrongly prepend the sysroot.
+    cat <<EOF > native-pkg-config
+#!/bin/sh
+unset PKG_CONFIG_SYSROOT_DIR
+unset PKG_CONFIG_LIBDIR
+# Optionally set a path to ensure host .pc files are found
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig
+exec pkg-config "\$@"
+EOF
+    chmod +x native-pkg-config
+
+    cat <<EOF > host-tools.ini
+[binaries]
+pkg-config = '$PWD/native-pkg-config'
+wayland-scanner = '/usr/bin/wayland-scanner'
+EOF
+    MESON_OPTS+=(--native-file host-tools.ini)
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit

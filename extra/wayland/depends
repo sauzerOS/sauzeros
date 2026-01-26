@@ -4,3 +4,5 @@ libffi
 libxml2
 meson
 pkgconf
+aarch64-expat cross make
+aarch64-pkgconf cross make
