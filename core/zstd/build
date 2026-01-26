@@ -3,10 +3,10 @@
 sed 's/^FLAGS.*=/FLAGS = -static /' programs/Makefile > _
 mv -f _ programs/Makefile
 
-make prefix=/usr
-make prefix=/usr DESTDIR=$1 install
+make prefix="$CROSS_PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}"
+make prefix="$CROSS_PREFIX" DESTDIR="$1" install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make clean
 CC="gcc -m32" make prefix=/usr
