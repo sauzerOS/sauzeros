@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pyca/cryptography",
+  "category": "extra",
+  "description": "A package designed to expose cryptographic recipes and primitives to Python developers",
+  "info": "",
+  "license": "Apache-2.0 OR BSD-3-Clause",
+  "tags": [
+    "encryption",
+    "python"
+  ]
+}
