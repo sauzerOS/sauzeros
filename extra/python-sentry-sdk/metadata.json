@@ -1,0 +1,10 @@
+{
+  "url": "https://sentry.io/for/python",
+  "category": "extra",
+  "description": "The official Python SDK for Sentry.io",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}
