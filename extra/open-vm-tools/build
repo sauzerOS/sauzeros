@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-#sed -i -e 's|-Werror||g' -e 's|.*common-agent/etc/config/Makefile.*||' configure.ac
-#mkdir -p common-agent/etc/config
-#autoreconf -vi
-
 ./configure --prefix=/usr \
 --sbindir=/usr/bin \
 --sysconfdir=/etc \

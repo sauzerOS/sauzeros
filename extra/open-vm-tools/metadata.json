@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/vmware/open-vm-tools",
+  "category": "extra",
+  "description": "The Open Virtual Machine Tools (open-vm-tools) are the open source implementation of VMware Tools",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "kernel",
+    "virtual-machine"
+  ]
+}
