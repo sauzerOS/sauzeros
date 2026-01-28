@@ -1,6 +1,27 @@
 #!/bin/sh -e
+echo "cflags are $CFLAGS"
+echo "cxxflags are $CXXFLAGS"
+echo "rustflags are $RUSTFLAGS"
+
+# Determine target triplet for cross-compilation
+TARGET_TRIPLET=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    case "$HOKUTO_ARCH" in
+        x86_64)
+            TARGET_TRIPLET="x86_64-unknown-linux-gnu"
+            ;;
+        aarch64)
+            TARGET_TRIPLET="aarch64-unknown-linux-gnu"
+            ;;
+        *)
+            TARGET_TRIPLET="${HOKUTO_ARCH}-unknown-linux-gnu"
+            ;;
+    esac
+else
+    TARGET_TRIPLET="$(rustc -vV | sed -n 's/host: //p')"
+fi
 
 cd b3sum
-cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-cargo build --release
-install -Dt "$1"/usr/bin target/release/b3sum
+cargo fetch --locked --target "$TARGET_TRIPLET"
+cargo build --release --target "$TARGET_TRIPLET"
+install -Dt "$1"/usr/bin target/$TARGET_TRIPLET/release/b3sum

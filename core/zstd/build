@@ -3,7 +3,14 @@
 sed 's/^FLAGS.*=/FLAGS = -static /' programs/Makefile > _
 mv -f _ programs/Makefile
 
-make prefix="$CROSS_PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}"
+MAKE_ARGS="prefix=$CROSS_PREFIX CC=${CC:-gcc} AR=${AR:-ar}"
+
+# Optimization logic for zstd
+if echo "$CPUFLAGS" | grep -q "avx2"; then
+    export CFLAGS="$CFLAGS -mavx2"
+fi
+
+make $MAKE_ARGS
 make prefix="$CROSS_PREFIX" DESTDIR="$1" install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then

@@ -2,6 +2,10 @@
 
 PREFIX="${CROSS_PREFIX:-/usr}"
 
+if echo "$CPUFLAGS" | grep -q "avx2"; then
+    export CFLAGS="$CFLAGS -mavx2"
+fi
+
 # Pass CC and AR explicitly to support cross-compilation
 make -C lib PREFIX="$PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}" RANLIB="${RANLIB:-ranlib}"
 make -C programs PREFIX="$PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}" lz4 lz4c

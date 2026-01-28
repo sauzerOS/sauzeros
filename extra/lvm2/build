@@ -28,3 +28,6 @@ make
 make DESTDIR="$1" install
 make DESTDIR="$1" install_systemd_units
 
+if [ "$PREFIX" != "/usr" ]; then
+rm -rf $1/etc
+fi

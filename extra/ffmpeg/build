@@ -1,5 +1,14 @@
 #!/bin/sh -e
 
+  # Optimization logic for CPUFLAGS
+  OPT_FLAGS=""
+  case "$CPUFLAGS" in
+    *avx2*)   OPT_FLAGS="$OPT_FLAGS --enable-avx2" ;;
+    *avx*)    OPT_FLAGS="$OPT_FLAGS --enable-avx" ;;
+    *sse4_2*) OPT_FLAGS="$OPT_FLAGS --enable-sse42" ;;
+    *neon*)   OPT_FLAGS="$OPT_FLAGS --enable-neon" ;;
+  esac
+
   ./configure \
     --prefix=/usr \
     --disable-debug \
@@ -37,7 +46,8 @@
     --enable-opengl \
     --enable-shared \
     --enable-version3 \
-    --enable-vulkan
+    --enable-vulkan \
+    $OPT_FLAGS
 
 make
 gcc tools/qt-faststart.c -o tools/qt-faststart

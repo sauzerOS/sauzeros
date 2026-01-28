@@ -79,6 +79,7 @@ echo "rootsbindir=/usr/bin" >> configparms
     --libexecdir=/usr/lib \
     ${HEADERS_OPT:---with-headers=/usr/include} \
     --disable-nscd \
+    --enable-multiarch \
     libc_cv_slibdir=/lib
 
 make

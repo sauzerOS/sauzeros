@@ -34,3 +34,4 @@ aarch64-pcre2 cross make
 aarch64-libxkbcommon cross make
 aarch64-dbus cross make
 aarch64-glib cross make
+aarch64-cryptsetup cross make optional
