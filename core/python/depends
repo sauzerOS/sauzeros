@@ -2,6 +2,7 @@ expat
 gdbm
 libffi
 libxcrypt
+ncurses
 openssl
 sqlite
 tzdata
@@ -11,4 +12,6 @@ aarch64-expat cross make
 aarch64-libxcrypt cross make
 aarch64-sqlite cross make
 aarch64-zlib-ng cross make
+aarch64-ncurses cross make
 aarch64-openssl cross make
+aarch64-readline cross make

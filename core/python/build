@@ -8,6 +8,11 @@ export LDFLAGS="$LDFLAGS -fno-semantic-interposition"
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 PREFIX="${CROSS_PREFIX:-/usr}"
 
+# Python 3.11+ can use a host python for building
+if hokuto check python; then
+      OPTS="--with-build-python=python3"
+fi
+
 # Determine build strategy
 if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     # HOKUTO_ARCH is already normalized to e.g. aarch64/x86_64
@@ -18,10 +23,10 @@ if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     # We also disable IPv6 because getaddrinfo detection usually fails during cross-compilation
     CROSS_OPTS="$CROSS_OPTS --disable-optimizations --disable-ipv6"
 
-    # Python 3.11+ can use a host python for building
-    if command -v python3 >/dev/null; then
-        CROSS_OPTS="$CROSS_OPTS --with-build-python=python3"
-    fi
+    # Ensure ncursesw headers are found (specifically term.h which is often not included by curses.h)
+    export CFLAGS="$CFLAGS -I/usr/${HOST_TRIPLET}/usr/include/ncursesw"
+    export CPPFLAGS="$CPPFLAGS -I/usr/${HOST_TRIPLET}/usr/include/ncursesw"
+
     # Pre-seed some results that cannot be determined when cross-compiling
     export ac_cv_file__dev_ptmx=yes
     export ac_cv_file__dev_ptc=no
@@ -33,6 +38,7 @@ fi
     --prefix="$PREFIX" \
     --enable-shared \
     $CROSS_OPTS \
+    $OPTS \
     --with-system-expat \
     --with-system-ffi \
     --with-ensurepip=install
@@ -40,6 +46,12 @@ fi
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install
 
+# Force pip upgrade using the staged binary
+# We rely on python detecting the staging path as sys.prefix from argv[0]
+export LD_LIBRARY_PATH="$1$PREFIX/lib:$LD_LIBRARY_PATH"
+"$1$PREFIX/bin/python3" -m ensurepip --upgrade
+
+# Manually create python symlink since python3 is the default
 ln -sf python3 "$1$PREFIX/bin/python"
 if [[ -f "$1$PREFIX/bin/pip3" ]]; then
     ln -sf pip3 "$1$PREFIX/bin/pip"
