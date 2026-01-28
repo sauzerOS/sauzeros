@@ -1,0 +1,11 @@
+{
+  "url": "https://sinelaw.github.io/fresh/",
+  "category": "extra",
+  "description": "A lightweight, fast terminal-based text editor with LSP support and TypeScript plugins",
+  "info": "",
+  "license": "",
+  "tags": [
+    "cli",
+    "editor"
+  ]
+}
