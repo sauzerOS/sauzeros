@@ -1,0 +1,10 @@
+{
+  "url": "https://www.winehq.org",
+  "category": "extra",
+  "description": "A compatibility layer for running Windows programs",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "wine"
+  ]
+}
