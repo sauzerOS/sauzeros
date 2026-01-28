@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/aio-libs/multidict",
+  "category": "extra",
+  "description": "Asyncio-based multidict implementation for Python",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library",
+    "python"
+  ]
+}
