@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.org/project/setuptools/",
+  "category": "extra",
+  "description": "Easily download, build, install, upgrade, and uninstall Python packages",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}
