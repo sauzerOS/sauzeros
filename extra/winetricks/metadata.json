@@ -1,0 +1,11 @@
+{
+  "url": "https://wiki.winehq.org/winetricks",
+  "category": "extra",
+  "description": "Script to install various redistributable runtime libraries in Wine.",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "utility",
+    "wine"
+  ]
+}
