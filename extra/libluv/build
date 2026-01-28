@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build                     \
+      -D WITH_SHARED_LIBUV=ON      \
+      -D LUA_BUILD_TYPE=System     \
+      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D BUILD_SHARED_LIBS=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+

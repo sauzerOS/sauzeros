@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/neovim/unibilium",
+  "category": "extra",
+  "description": "A terminfo parsing library",
+  "info": "",
+  "license": "LGPL3",
+  "tags": [
+    "library"
+  ]
+}

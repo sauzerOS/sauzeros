@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/tree-sitter/tree-sitter",
+  "category": "extra",
+  "description": "Incremental parsing library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

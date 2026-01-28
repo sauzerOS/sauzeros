@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/luvit/luv",
+  "category": "extra",
+  "description": "Bare libuv bindings for lua",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

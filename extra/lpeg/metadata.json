@@ -1,0 +1,10 @@
+{
+  "url": "https://www.inf.puc-rio.br/~roberto/lpeg/",
+  "category": "extra",
+  "description": "Parsing Expression Grammars For Lua for Lua 5.4",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

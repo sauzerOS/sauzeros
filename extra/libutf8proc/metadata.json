@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/JuliaStrings/utf8proc",
+  "category": "extra",
+  "description": "C library for processing UTF-8 encoded Unicode strings",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

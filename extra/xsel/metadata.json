@@ -1,0 +1,11 @@
+{
+  "url": "https://vergenet.net/~conrad/software/xsel/",
+  "category": "extra",
+  "description": "Command-line program for getting and setting the contents of the X selection",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "cli",
+    "x11"
+  ]
+}

@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+cmake -S lib -B build \
+      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_INTERPROCEDURAL_OPTIMIZATION=ON # Enable LTO
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+cd cli
+cargo build --release --locked
+
+for completion in bash elvish fish nushell zsh; do
+  cargo run --frozen --release -- \
+  complete --shell $completion > $completion-completions
+done
+
+install -Dt "$1"/usr/bin ../target/release/tree-sitter
+
+install -Dm644 bash-completions "$1"/usr/share/bash-completion/completions/tree-sitter
+install -Dm644 elvish-completions "$1"/usr/share/elvish/lib/tree-sitter.elv
+install -Dm644 fish-completions "$1"/usr/share/fish/vendor_completions.d/tree-sitter.fish
+install -Dm644 nushell-completions "$1"/usr/share/nushell/vendor/autoload/tree-sitter.nu
+install -Dm644 zsh-completions "$1"/usr/share/zsh/site-functions/_tree-sitter

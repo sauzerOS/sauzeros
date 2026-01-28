@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/tree-sitter/tree-sitter-bash",
+  "category": "extra",
+  "description": "Bash grammar for tree-sitter",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

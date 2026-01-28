@@ -1,0 +1,11 @@
+{
+  "url": "https://neovim.io",
+  "category": "extra",
+  "description": "Fork of Vim aiming to improve user experience, plugins, and GUIs",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "editor"
+  ]
+}
