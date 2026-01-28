@@ -5,3 +5,4 @@ pkgconf make
 popt
 util-linux
 aarch64-lvm2 cross make
+aarch64-popt cross make
