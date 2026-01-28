@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/sharkdp/numbat",
+  "category": "extra",
+  "description": "A statically typed programming language for scientific computations with first class support for physical dimensions and units",
+  "info": "",
+  "license": "",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}
