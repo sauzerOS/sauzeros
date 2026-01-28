@@ -1,0 +1,10 @@
+{
+  "url": "https://libmpeg2.sourceforge.io/",
+  "category": "extra",
+  "description": "Library for decoding MPEG-1 and MPEG-2 video streams",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "url": "https://bitbucket.org/multicoreware/x265_git",
+  "category": "extra",
+  "description": "Open Source H265/HEVC video encoder",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "library",
+    "multimedia",
+    "utility"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://discord.com",
+  "category": "extra",
+  "description": "All-in-one voice and text chat for gamers",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "chat",
+    "gui",
+    "network"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.theora.org/",
+  "category": "extra",
+  "description": "Standard encoder and decoder library for the Theora video compression format",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}

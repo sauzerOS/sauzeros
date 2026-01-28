@@ -1,0 +1,11 @@
+{
+  "url": "http://doublecmd.sourceforge.net/",
+  "category": "extra",
+  "description": "twin-panel (commander-style) file manager",
+  "info": "",
+  "license": "Apache-2.0, BSD-2-Clause, GPL-2.0-or-later, LGPL-2.0-or-later, MIT, MPL-1.1, MPL-2.0, Zlib",
+  "tags": [
+    "file-manager",
+    "gui"
+  ]
+}

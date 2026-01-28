@@ -1,0 +1,13 @@
+{
+  "url": "https://www.videolan.org/developers/x264.html",
+  "category": "extra",
+  "description": "Open Source H264/AVC video encoder",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "library",
+    "multimedia",
+    "utility"
+  ]
+}

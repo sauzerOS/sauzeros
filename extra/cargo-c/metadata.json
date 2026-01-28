@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/lu-zero/cargo-c/",
+  "category": "extra",
+  "description": "A cargo subcommand to build and install C-ABI compatible dynamic and static libraries",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://gparted.org/",
+  "category": "extra",
+  "description": "A Partition Magic clone, frontend to GNU Parted",
+  "info": "",
+  "license": "GFDL-1.2-or-later",
+  "tags": [
+    "disk-tools",
+    "gui",
+    "utility"
+  ]
+}
