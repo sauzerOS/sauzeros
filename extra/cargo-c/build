@@ -1,27 +1,10 @@
 #!/bin/sh -e
 
-export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-unset CFLAGS LDFLAGS
-WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
-COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
-CFLAGS="${COMMON_FLAGS}"
-CXXFLAGS="${COMMON_FLAGS}"
-FCFLAGS="${COMMON_FLAGS}"
-FFLAGS="${COMMON_FLAGS}"
+cargo fetch --locked --target "$(rustc --print host-tuple)" --manifest-path=Cargo.toml
 
-RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
--Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+export CFLAGS+=' -ffat-lto-objects'
+export RUSTUP_TOOLCHAIN='stable'
+export CARGO_TARGET_DIR="target"
+cargo build --release --frozen --manifest-path="Cargo.toml"
 
-LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
-CC="clang"
-CXX="clang++"
-CPP="clang-cpp"
-AR="llvm-ar"
-NM="llvm-nm"
-RANLIB="llvm-ranlib"
-
-curl -LO https://github.com/lu-zero/cargo-c/releases/download/v0.10.7/Cargo.lock
-
-cargo build --release
-mkdir -pv $1/usr/bin
-install -vm755 target/release/cargo-{capi,cbuild,cinstall,ctest} $1/usr/bin/
+find "target/release" -maxdepth 1 -type f -executable -exec install -D -m755 -t "${1}/usr/bin" {} +

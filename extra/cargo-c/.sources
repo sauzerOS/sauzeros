@@ -1,0 +1,2 @@
+https://github.com/lu-zero/cargo-c/archive/refs/tags/v${version}.tar.gz
+https://github.com/lu-zero/cargo-c/releases/download/v${version}/Cargo.lock
