@@ -1,0 +1,12 @@
+{
+  "url": "https://www.mozilla.org/firefox/",
+  "category": "extra",
+  "description": "Fast, Private \u0026 Safe Web Browser",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "browser",
+    "gui",
+    "network"
+  ]
+}
