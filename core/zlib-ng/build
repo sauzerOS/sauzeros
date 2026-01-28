@@ -12,13 +12,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
         -D ZLIB_ENABLE_TESTS=OFF
     cd build
 else
-    # Detection logic for CPUFLAGS
     CONF_ARGS="--prefix=/usr --zlib-compat"
-    case "$CPUFLAGS" in
-        *avx2*)   CONF_ARGS="$CONF_ARGS --x86-avx2" ;;
-        *sse4_2*) CONF_ARGS="$CONF_ARGS --x86-sse42" ;;
-        *neon*)   CONF_ARGS="$CONF_ARGS --arm-neon" ;;
-    esac
     ./configure $CONF_ARGS
 fi
 make
