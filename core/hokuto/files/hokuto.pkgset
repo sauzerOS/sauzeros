@@ -150,3 +150,11 @@ cosmic-settings-daemon
 cosmic-workspaces
 just
 xdg-desktop-portal-cosmic
+
+gst:
+gstreamer
+gst-plugins-base
+gst-plugins-bad
+gst-plugins-good
+gst-plugins-ugly
+gst-libav
