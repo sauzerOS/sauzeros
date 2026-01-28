@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/cpburnz/python-pathspec",
+  "category": "extra",
+  "description": "Utility library for gitignore style pattern matching of file paths",
+  "info": "",
+  "license": "MPL2",
+  "tags": [
+    "library",
+    "python"
+  ]
+}
