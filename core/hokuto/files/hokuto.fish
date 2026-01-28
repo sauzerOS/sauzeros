@@ -19,7 +19,7 @@ function __hokuto_get_repo_packages
     for path in $repo_paths
         if test -d $path
             # Find directories, max depth 1, print only the name
-            find $path -mindepth 1 -maxdepth 1 -type d -printf "%f\n" 2>/dev/null
+            find $path -mindepth 1 -maxdepth 1 -type d -not -name '.git' -printf "%f\n" 2>/dev/null
         end
     end
 end
@@ -37,7 +37,7 @@ end
 set -l prog_names hk hokuto
 
 # Define main subcommands
-set -l hokuto_commands install i build b uninstall r update u list ls checksum c version new n edit e bootstrap chroot cleanup find f manifest m bump
+set -l hokuto_commands install i build b uninstall r update u list ls checksum c version new n edit e bootstrap chroot cleanup find f manifest m bump meta
 
 for prog in $prog_names
     # 1. Disable default file completion
@@ -48,20 +48,25 @@ for prog in $prog_names
 
     # 3. Logic for 'install' (and 'i')
     # Displays 'package.tar.zst (cross)' but inserts the full /var/cache/... path
-    complete -c $prog -n "__fish_seen_subcommand_from install i" -a "(
-        set -l cache_root '/var/cache/hokuto/bin/'
-        for file in $cache_root/*.tar.zst
-            if test -f \$file
+    complete -c $prog -n "__fish_seen_subcommand_from install i" -a '(
+        set -l cache_root "/var/cache/hokuto/bin/"
+        for file in $cache_root*.tar.zst
+            if test -f $file
                 # Get just the filename
-                set -l name (basename \$file)
-                # Set desciption
-                set -l desc 'Binary Cache'
+                set -l name (basename $file)
+                # Set description
+                set -l desc "Binary Cache"
                 
-                # Output 'Full_Path\tDescription'
-                echo -e \"\$file\\t\$desc\"
+                # Output "Full_Path\tDescription"
+                echo -e "$file\t$desc"
             end
         end
-    )"
+    )'
+
+    # Extension: also offer repository packages
+    complete -c $prog -n "__fish_seen_subcommand_from install i" \
+        -a "(__hokuto_get_repo_packages)" \
+        -d "Repository Package"
 
     # 4. Logic for 'build' (and 'b')
     # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
@@ -96,6 +101,11 @@ for prog in $prog_names
     # 9. Logic for 'bump'
     # Offers package names found in the repositories defined in /etc/hokuto/hokuto.conf
     complete -c $prog -n "__fish_seen_subcommand_from bump" \
+        -a "(__hokuto_get_repo_packages)" \
+        -d "Repository Package"
+
+    # 10. Logic for 'meta'
+    complete -c $prog -n "__fish_seen_subcommand_from meta" \
         -a "(__hokuto_get_repo_packages)" \
         -d "Repository Package"
 
