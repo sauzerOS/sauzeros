@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X11 damaged region extension library",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}
