@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxkbfile",
+  "category": "extra",
+  "description": "X11 keyboard file manipulation library",
+  "info": "",
+  "license": "LicenseRef-libxkbfile",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}
