@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/Faugus/faugus-launcher",
+  "category": "extra",
+  "description": "A simple and lightweight app for running Windows games using UMU-Launcher",
+  "info": "",
+  "license": "",
+  "tags": [
+    "games",
+    "gui",
+    "wine"
+  ]
+}
