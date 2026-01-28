@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build                           \
+      -D CMAKE_BUILD_TYPE=RelWithDebInfo \
+      -D CMAKE_INSTALL_PREFIX=/usr
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+install -Dm644 runtime/nvim.desktop -t "${1}"/usr/share/applications/
+install -Dm644 runtime/nvim.appdata.xml -t "${1}"/usr/share/metainfo/
+install -Dm644 runtime/nvim.png -t "${1}"/usr/share/pixmaps/

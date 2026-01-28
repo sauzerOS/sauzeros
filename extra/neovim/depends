@@ -1,0 +1,11 @@
+libluv
+libutf8proc
+libuv
+lpeg
+luajit
+tree-sitter<=0.25.10
+tree-sitter-bash
+unibilium
+xsel
+cmake make
+git make
