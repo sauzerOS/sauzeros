@@ -1,0 +1,10 @@
+{
+  "url": "https://gstreamer.freedesktop.org/",
+  "category": "extra",
+  "description": "Multimedia graph framework - core",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}
