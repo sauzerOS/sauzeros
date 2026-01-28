@@ -1,0 +1,10 @@
+{
+  "url": "https://www.leonerd.org.uk/code/libvterm/",
+  "category": "extra",
+  "description": "Abstract library implementation of a VT220/xterm/ECMA-48 terminal emulator",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

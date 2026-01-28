@@ -1,6 +1,7 @@
 libluv
 libutf8proc
 libuv
+libvterm
 lpeg
 luajit
 tree-sitter<=0.25.10
