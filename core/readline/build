@@ -7,8 +7,21 @@ for p in readline83-*; do
     patch -Np0 -i "$p";
 done
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET --build=$(gcc -dumpmachine)"
+    
+    # Readline requires knowing if wcwidth is broken (can't test when cross compiling)
+    export bash_cv_wcwidth_broken=no
+fi
+
 ./configure \
-    --prefix=/usr
+    --prefix="$PREFIX" \
+    $CROSS_OPTS
 
 make SHLIB_LIBS=-lncursesw
 make DESTDIR="$1" install
