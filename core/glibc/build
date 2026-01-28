@@ -17,6 +17,9 @@ unset LD_LIBRARY_PATH
 
 # use bootstrap tools if the cross compiler is not installed
 if ! hokuto check "${HOKUTO_ARCH}-gcc"; then
+cd ..
+tar xvf aarch64-linux-gnu-tools.tar.xz
+cd glibc-build
   export BUILD_CC=gcc
   export CC=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-gcc
   export CXX=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-g++

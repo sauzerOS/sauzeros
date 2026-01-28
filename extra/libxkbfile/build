@@ -1,32 +1,30 @@
 #!/bin/sh -e
 
-./configure                 \
-    --prefix=/usr           \
-    --sysconfdir=/etc       \
+meson setup build \
+    --prefix=/usr \
+    --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    --localstatedir=/var    \
-    --without-xmlto         \
-    --disable-specs         \
-    --disable-static
+    --localstatedir=/var \
+    --buildtype=release
 
-make
-make DESTDIR="$1" install
+meson compile -C build
+meson install -C build --destdir="$1"
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
-make distclean
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-./configure --prefix=/usr   \
-    --sysconfdir=/etc       \
+meson setup build \
+    --prefix=/usr \
+    --cross-file lib32 \
+    --sysconfdir=/etc \
     --mandir=/usr/share/man \
-    --localstatedir=/var    \
-    --disable-specs         \
-    --without-xmlto         \
-    --disable-static        \
-    --libdir=/usr/lib32
+    --localstatedir=/var \
+    --buildtype=release \
+    --libdir=lib32
 
-make
-make DESTDIR=$PWD/DESTDIR install
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
 fi

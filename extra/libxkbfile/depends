@@ -1,3 +1,5 @@
 libx11
+meson     make
 pkgconf   make
 xorgproto make
+
