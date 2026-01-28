@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxext",
+  "category": "extra",
+  "description": "X11 miscellaneous extensions library",
+  "info": "",
+  "license": "LicenseRef-libxext",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}
