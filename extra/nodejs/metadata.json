@@ -1,0 +1,11 @@
+{
+  "url": "https://nodejs.org/",
+  "category": "extra",
+  "description": "Evented I/O for V8 javascript (\"Current\" release)",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}
