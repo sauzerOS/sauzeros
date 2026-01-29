@@ -1,0 +1,11 @@
+{
+  "url": "https://brave.com",
+  "category": "extra",
+  "description": "Web browser that blocks ads and trackers by default (binary release)",
+  "info": "",
+  "license": "",
+  "tags": [
+    "browser",
+    "network"
+  ]
+}
