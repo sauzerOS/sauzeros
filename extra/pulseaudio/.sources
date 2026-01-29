@@ -1,1 +1,1 @@
-https://github.com/pulseaudio/pulseaudio/archive/refs/tags/v${version}.tar.gz
+https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz
