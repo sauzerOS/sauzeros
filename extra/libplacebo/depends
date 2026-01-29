@@ -1,4 +1,5 @@
 glslang
 python-glad
 little-cms
+shaderc
 vulkan-headers
