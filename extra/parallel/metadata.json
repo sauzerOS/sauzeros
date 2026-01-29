@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnu.org/software/parallel/",
+  "category": "extra",
+  "description": "A shell tool for executing jobs in parallel",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}
