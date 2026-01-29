@@ -9,6 +9,7 @@ meson setup build       \
     -D docs=false       \
     -D man=false        \
     -D qt=true          \
+    -D bash-completion=false \
     -D stemming=false
 
 meson compile -C build
