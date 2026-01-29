@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+install -Dm755 rar          "${1}/usr/bin/rar"
+install -Dm755 default.sfx  "${1}/usr/lib/default.sfx"
+install -Dm644 rar.1     "${1}/usr/share/man/man1/rar.1"
+install -Dm644 rarfiles.lst "${1}/etc/rarfiles.lst"
