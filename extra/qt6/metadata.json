@@ -1,0 +1,10 @@
+{
+  "url": "https://www.qt.io",
+  "category": "extra",
+  "description": "A cross-platform application and UI framework",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "library"
+  ]
+}
