@@ -2,6 +2,7 @@ btrfs-progs optional
 cryptsetup optional
 curl
 dbus
+dbus rebuild
 efibootmgr
 gnu-efi
 kmod
