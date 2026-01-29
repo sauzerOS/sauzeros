@@ -1,0 +1,10 @@
+{
+  "url": "https://symas.com/lmdb",
+  "category": "extra",
+  "description": "Symas Lightning Memory-Mapped Database",
+  "info": "",
+  "license": "custom:OpenLDAP",
+  "tags": [
+    "library"
+  ]
+}
