@@ -5,6 +5,6 @@ itstool
 libxml2
 libxmlb
 libxslt
-meson
+meson make
 libfyaml
 qt6

@@ -1,0 +1,10 @@
+{
+  "url": "https://distributions.freedesktop.org/wiki/AppStream",
+  "category": "extra",
+  "description": "Provides a standard for creating app stores across distributions",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}
