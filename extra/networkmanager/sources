@@ -2,3 +2,4 @@ https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/releases/1.54.3/d
 files/NetworkManager.conf
 files/org.freedesktop.NetworkManager.rules
 files/polkit.conf
+files/no-cache.conf
