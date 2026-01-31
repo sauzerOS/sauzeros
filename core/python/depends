@@ -6,6 +6,7 @@ ncurses
 openssl
 sqlite
 tzdata
+xz
 zlib-ng
 aarch64-libffi cross make
 aarch64-expat cross make

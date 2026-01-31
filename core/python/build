@@ -56,3 +56,12 @@ ln -sf python3 "$1$PREFIX/bin/python"
 if [[ -f "$1$PREFIX/bin/pip3" ]]; then
     ln -sf pip3 "$1$PREFIX/bin/pip"
 fi
+
+# Fix shebang in pip scripts (which capture the staging directory path)
+# We want them to point to the actual install location (e.g. /usr/bin/python3)
+for pip_bin in "$1$PREFIX/bin/pip"*; do
+    if [[ -f "$pip_bin" ]]; then
+        # Replace the first line if it looks like a python shebang
+        sed -i "1s|^#!.*python.*|#!$PREFIX/bin/python3|" "$pip_bin"
+    fi
+done
