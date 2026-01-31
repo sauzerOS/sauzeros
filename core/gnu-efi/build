@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+sed -e 's/-Werror//g' -i Make.defaults
+CFLAGS="-O2"
+
 LDFLAGS="${LDFLAGS//-Wl/}"
 LDFLAGS="${LDFLAGS//,/ }"
 
