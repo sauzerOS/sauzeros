@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/evilsocket/opensnitch",
+  "category": "extra",
+  "description": "A GNU/Linux application firewall",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "firewall",
+    "gui",
+    "network",
+    "python"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/yt-dlp/yt-dlp",
+  "category": "extra",
+  "description": "A youtube-dl fork with additional features and fixes",
+  "info": "",
+  "license": "Unlicense",
+  "tags": [
+    "cli",
+    "multimedia",
+    "utility"
+  ]
+}

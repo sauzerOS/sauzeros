@@ -1,0 +1,11 @@
+{
+  "url": "https://deno.land",
+  "category": "extra",
+  "description": "A secure runtime for JavaScript and TypeScript",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}
