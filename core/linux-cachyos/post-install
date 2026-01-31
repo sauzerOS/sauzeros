@@ -1,10 +1,19 @@
 #!/bin/sh
 
-# Get the installed kernel version from hokuto
-# We need to grep for the package name to be sure.
-current=$(hokuto ls linux-cachyos | grep "linux-cachyos" | awk '{print $2}' | sed 's/-[0-9]*$//')
-# The version in /lib/modules usually doesn't have the revision (e.g. 6.18.8, not 6.18.8-1)
-# So we strip the revision suffix (-1) if present.
+# Get the installed kernel version from metadata files
+# parsing "hokuto ls" is unreliable due to styling/colors
+if [ -f "/var/db/hokuto/installed/linux-cachyos/version" ]; then
+    current=$(cat /var/db/hokuto/installed/linux-cachyos/version)
+elif [ -f "/var/db/hokuto/installed/linux-cachyos/pkginfo" ]; then
+    current=$(grep "^version=" /var/db/hokuto/installed/linux-cachyos/pkginfo | cut -d= -f2)
+else
+    # Fallback to hokuto ls but strip colors and pick 3rd column
+    # Use -r to try to be raw if supported, or just strip ansi
+    current=$(hokuto ls linux-cachyos | grep "linux-cachyos" | sed 's/\x1b\[[0-9;]*m//g' | awk '{print $3}')
+fi
+
+# Strip revision if present (e.g. 6.18.8-1 -> 6.18.8)
+current=$(echo "$current" | sed 's/-[0-9]*$//')
 
 if [ -z "$current" ]; then
     echo "Error: Could not determine installed kernel version. Skipping module cleanup."
