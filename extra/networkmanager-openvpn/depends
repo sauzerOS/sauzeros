@@ -1,5 +1,6 @@
 glib
 gtk
 libsecret
+libnma
 networkmanager
 openvpn

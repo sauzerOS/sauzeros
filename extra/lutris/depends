@@ -1,11 +1,12 @@
 cabextract
-webkit2gtk-4.1
+dbus-python
 python-certifi
-python-pygobject
+python-idna
 python-lxml
 python-pillow
+python-pygobject
 python-requests
 python-urllib3
 unzip
-dbus-python
 vulkan-tools
+webkit2gtk-4.1
