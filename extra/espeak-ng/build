@@ -1,0 +1,13 @@
+#!/bin/sh -e
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE='None' \
+  -D FETCHCONTENT_FULLY_DISCONNECTED=ON \
+  -D BUILD_SHARED_LIBS=ON \
+  -D ESPEAK_COMPAT=ON \
+  -D ESPEAK_BUILD_MANPAGES=ON \
+  -Wno-dev
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
+rm -rv "${1}"/usr/include/espeak

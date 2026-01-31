@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+make
+make DESTDIR="${1}/" install
+rm -v "${1}/usr/lib/libsonic.a"
+install -vDm644 sonic.1 -t "${1}/usr/share/man/man1/"

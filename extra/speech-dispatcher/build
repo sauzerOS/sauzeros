@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+  --sysconfdir=/etc \
+  --disable-static \
+  --libexecdir=/usr/lib/speech-dispatcher/ \
+  --with-ibmtts=no \
+  --with-kali=no \
+  --with-baratinoo=no \
+  --with-voxin=no \
+  --without-flite
+
+make
+make DESTDIR=$1 install

@@ -1,0 +1,8 @@
+glib
+libtool
+intltool make
+espeak-ng make
+dotconf make
+pulseaudio make
+pipewire make
+libao make
