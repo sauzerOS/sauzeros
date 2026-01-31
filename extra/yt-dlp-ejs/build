@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
 python -m build --wheel --no-isolation
-python -m installer --destdir="$1" dist/*.whl
+python -m installer --destdir="${1}" dist/*.whl

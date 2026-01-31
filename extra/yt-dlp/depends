@@ -1,0 +1,8 @@
+ffmpeg
+python
+python-certifi
+python-requests
+python-urllib3
+python-websockets
+yt-dlp-ejs
+python-build-tools make

@@ -1,0 +1,8 @@
+gcc
+git make
+python make
+rust make
+nodejs make
+ninja make
+cmake make
+protobuf make
