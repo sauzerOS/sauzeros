@@ -1,18 +1,29 @@
 #!/bin/sh
 
 # Get the installed kernel version from hokuto
-current=$(hokuto ls linux-cachyos | awk '{print $2}')
+# We need to grep for the package name to be sure.
+current=$(hokuto ls linux-cachyos | grep "linux-cachyos" | awk '{print $2}' | sed 's/-[0-9]*$//')
+# The version in /lib/modules usually doesn't have the revision (e.g. 6.18.8, not 6.18.8-1)
+# So we strip the revision suffix (-1) if present.
+
+if [ -z "$current" ]; then
+    echo "Error: Could not determine installed kernel version. Skipping module cleanup."
+    exit 0
+fi
 
 echo "Currently installed kernel version: $current"
 
 # Loop through all module directories
 for dir in /lib/modules/*; do
+    if [ ! -d "$dir" ]; then continue; fi
     base=$(basename "$dir")
-    if [[ $base != $current* ]]; then
-        echo "Removing $dir"
-        rm -rf "$dir"
-    else
+    # Check if the directory name STARTs with the current version
+    # (Sometimes module dirs have suffixes like -sauzerOS)
+    if [[ "$base" == "$current"* ]]; then
         echo "Keeping $dir"
+    else
+        echo "Removing old modules: $dir"
+        rm -rf "$dir"
     fi
 done
 
