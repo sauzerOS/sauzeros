@@ -158,3 +158,9 @@ gst-plugins-bad
 gst-plugins-good
 gst-plugins-ugly
 gst-libav
+
+linux:
+linux-headers
+linux-cachyos
+linux-live
+cpupower
