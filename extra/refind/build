@@ -9,7 +9,13 @@ sed -e 's|RefindDir=\"\$ThisDir/refind\"|RefindDir="/usr/share/refind/"|g' -i re
 printf 'refind.%s,%s,%s,refind,%s,%s\n' 'sauzeros' '1' 'sauzerOS' "${epoch:+${epoch}:}${pkgver}-${pkgrel}" 'https://github.com/sauzerOS/' >> refind-sbat.csv
 
 # fix build with gnu-efi 4+
+# Using simplified patch that only handles duplicate symbols.
+# We use GNU_EFI_3_0_COMPAT to handle ABI changes (ReallocatePool args, CompareGuid return).
 patch -Np1 -i refind-0.14.2-gnu-efi-4.patch
+
+# Inject compatibility flag directly into Make.common to ensure it's picked up
+# We use explicit legacy ABI for ReallocatePool (arg swap) and CompareGuid (0-return)
+sed -i 's/-D__MAKEWITH_GNUEFI/-D__MAKEWITH_GNUEFI -DGNU_EFI_USE_REALLOCATEPOOL_ABI=0 -DGNU_EFI_USE_COMPAREGUID_ABI=0/g' Make.common
 
 make
 make gptsync

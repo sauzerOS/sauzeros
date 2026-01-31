@@ -18,56 +18,16 @@ diff '--color=auto' -urN refind-0.14.2-original/EfiLib/gnuefi-helper.c refind-0.
  /**
    Determine whether a given device path is valid.
    If DevicePath is NULL, then ASSERT().
-diff '--color=auto' -urN refind-0.14.2-original/EfiLib/legacy.c refind-0.14.2/EfiLib/legacy.c
---- refind-0.14.2-original/EfiLib/legacy.c	2024-01-29 01:51:20.000000000 +0700
-+++ refind-0.14.2/EfiLib/legacy.c	2025-10-27 02:37:48.654433955 +0700
-@@ -790,11 +790,13 @@
-     //
-     // Save the BbsIndex
-     //
--    mBootOptionBbsMapping = EfiReallocatePool (
--                              mBootOptionBbsMapping,
-+mBootOptionBbsMapping = EfiReallocatePool (
-                               mBootOptionBbsMappingCount * sizeof (BOOT_OPTION_BBS_MAPPING),
--                              (mBootOptionBbsMappingCount + 1) * sizeof (BOOT_OPTION_BBS_MAPPING)
-+                              (mBootOptionBbsMappingCount + 1) * sizeof (BOOT_OPTION_BBS_MAPPING),
-+                              mBootOptionBbsMapping
-                               );
-+
-+
-     ASSERT (mBootOptionBbsMapping != NULL);
-     mBootOptionBbsMapping[mBootOptionBbsMappingCount].BootOptionNumber = OptionNumber;
-     mBootOptionBbsMapping[mBootOptionBbsMappingCount].BbsIndex         = Index;
 diff '--color=auto' -urN refind-0.14.2-original/filesystems/fsw_efi.h refind-0.14.2/filesystems/fsw_efi.h
 --- refind-0.14.2-original/filesystems/fsw_efi.h	2024-04-04 05:04:55.000000000 +0700
 +++ refind-0.14.2/filesystems/fsw_efi.h	2025-10-27 02:59:06.259610834 +0700
-@@ -42,7 +42,7 @@
+@@ -42,7 +42,8 @@
  #include "../include/refit_call_wrapper.h"
  
  #ifdef __MAKEWITH_GNUEFI
 -#define CompareGuid(a, b) CompareGuid(a, b)==0
-+//#define CompareGuid(a, b) CompareGuid(a, b)==0
++#undef CompareGuid
++#define CompareGuid(a, b) (CompareGuid_0(a, b)==0)
  #endif
  
  #define REFIND_EFI_DISK_IO_PROTOCOL_GUID \
-diff '--color=auto' -urN refind-0.14.2-original/refind/lib.c refind-0.14.2/refind/lib.c
---- refind-0.14.2-original/refind/lib.c	2024-04-05 02:47:34.000000000 +0700
-+++ refind-0.14.2/refind/lib.c	2025-10-27 02:42:44.109746908 +0700
-@@ -537,7 +537,7 @@
-             LOG(2, LOG_LINE_NORMAL, L"Allocating memory in AddListElement()");
-         } else {
-             LOG(2, LOG_LINE_NORMAL, L"Reallocating memory in AddListElement(); *ElementCount is %ld", *ElementCount);
--            *ListPtr = EfiReallocatePool(*ListPtr, sizeof(VOID *) * (*ElementCount), sizeof(VOID *) * AllocateCount);
-+            *ListPtr = EfiReallocatePool(sizeof(VOID *) * (*ElementCount), sizeof(VOID *) * AllocateCount, *ListPtr);
-         }
-     }
-     (*ListPtr)[*ElementCount] = NewElement;
-@@ -1476,7 +1476,7 @@
-                 LOG(3, LOG_LINE_NORMAL, L"Reallocating buffer from %d to %d",
-                     LastBufferSize, BufferSize);
-             }
--            Buffer = EfiReallocatePool(Buffer, LastBufferSize, BufferSize);
-+Buffer = EfiReallocatePool(LastBufferSize, BufferSize, Buffer);
-             LastBufferSize = BufferSize;
-         }
-         if (EFI_ERROR(Status)) {
