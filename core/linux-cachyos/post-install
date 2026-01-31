@@ -1,42 +1,48 @@
 #!/bin/sh
 
-# Get the installed kernel version from metadata files
-# parsing "hokuto ls" is unreliable due to styling/colors
+# Get the installed kernel version
+# User confirms this file exists post-install.
+# We awk $1 to handle potential revision or spaces (e.g. "6.18.8 1")
 if [ -f "/var/db/hokuto/installed/linux-cachyos/version" ]; then
-    current=$(cat /var/db/hokuto/installed/linux-cachyos/version)
-elif [ -f "/var/db/hokuto/installed/linux-cachyos/pkginfo" ]; then
-    current=$(grep "^version=" /var/db/hokuto/installed/linux-cachyos/pkginfo | cut -d= -f2)
+    version=$(head -n1 /var/db/hokuto/installed/linux-cachyos/version | awk '{print $1}')
 else
-    # Fallback to hokuto ls but strip colors and pick 3rd column
-    # Use -r to try to be raw if supported, or just strip ansi
-    current=$(hokuto ls linux-cachyos | grep "linux-cachyos" | sed 's/\x1b\[[0-9;]*m//g' | awk '{print $3}')
+    echo "Error: /var/db/hokuto/installed/linux-cachyos/version not found."
+    exit 1
 fi
 
-# Strip revision if present (e.g. 6.18.8-1 -> 6.18.8)
-current=$(echo "$current" | sed 's/-[0-9]*$//')
-
-if [ -z "$current" ]; then
-    echo "Error: Could not determine installed kernel version. Skipping module cleanup."
-    exit 0
+if [ -z "$version" ]; then
+    echo "Error: Could not detect version."
+    exit 1
 fi
 
-echo "Currently installed kernel version: $current"
+# Define the expected module directory format
+# Per user: pkgver-sauzerOS_C
+expected_mod_dir="${version}-sauzerOS_C"
 
-# Loop through all module directories
+echo "Detected Kernel Version: $version"
+echo "Target Module Directory: $expected_mod_dir"
+
+# Cleanup loop
+# We only remove directories that match the sauzerOS_C pattern but are NOT the current version.
 for dir in /lib/modules/*; do
     if [ ! -d "$dir" ]; then continue; fi
-    base=$(basename "$dir")
-    # Check if the directory name STARTs with the current version
-    # (Sometimes module dirs have suffixes like -sauzerOS)
-    if [[ "$base" == "$current"* ]]; then
-        echo "Keeping $dir"
-    else
-        echo "Removing old modules: $dir"
+    dirname=$(basename "$dir")
+
+    if [ "$dirname" = "$expected_mod_dir" ]; then
+        echo "Keeping current modules: $dirname"
+    elif [[ "$dirname" == *"-sauzerOS_C" ]]; then
+        echo "Removing old modules: $dirname"
         rm -rf "$dir"
+    else
+        echo "Skipping unrelated module directory: $dirname"
     fi
 done
 
-# Find the matching directory under /lib/modules
-match=$(basename $(ls -d /lib/modules/$current*))
-echo "Running depmod for $match"
-depmod -a "$match"
+# Run depmod on the new kernel modules
+if [ -d "/lib/modules/$expected_mod_dir" ]; then
+    echo "Running depmod -a $expected_mod_dir"
+    depmod -a "$expected_mod_dir"
+else
+    echo "Warning: Module directory /lib/modules/$expected_mod_dir does not exist!"
+    exit 1
+fi

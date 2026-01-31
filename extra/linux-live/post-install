@@ -1,33 +1,48 @@
 #!/bin/sh
 
-# Get the installed kernel version from hokuto
-# We need to grep for the package name to be sure.
-current=$(hokuto ls linux-live | grep "linux-live" | awk '{print $2}' | sed 's/-[0-9]*$//')
-# The version in /lib/modules usually doesn't have the revision (e.g. 6.18.8, not 6.18.8-1)
-# So we strip the revision suffix (-1) if present.
-
-if [ -z "$current" ]; then
-    echo "Error: Could not determine installed kernel version. Skipping module cleanup."
-    exit 0
+# Get the installed kernel version
+# User confirms this file exists post-install.
+# We awk $1 to handle potential revision or spaces (e.g. "6.18.8 1")
+if [ -f "/var/db/hokuto/installed/linux-live/version" ]; then
+    version=$(head -n1 /var/db/hokuto/installed/linux-live/version | awk '{print $1}')
+else
+    echo "Error: /var/db/hokuto/installed/linux-live/version not found."
+    exit 1
 fi
 
-echo "Currently installed kernel version: $current"
+if [ -z "$version" ]; then
+    echo "Error: Could not detect version."
+    exit 1
+fi
 
-# Loop through all module directories
+# Define the expected module directory format
+# Per user: pkgver-sauzerOS-live
+expected_mod_dir="${version}-sauzerOS-live"
+
+echo "Detected Kernel Version: $version"
+echo "Target Module Directory: $expected_mod_dir"
+
+# Cleanup loop
+# We only remove directories that match the sauzerOS-live pattern but are NOT the current version.
 for dir in /lib/modules/*; do
     if [ ! -d "$dir" ]; then continue; fi
-    base=$(basename "$dir")
-    # Check if the directory name STARTs with the current version
-    # (Sometimes module dirs have suffixes like -sauzerOS)
-    if [[ "$base" == "$current"* ]]; then
-        echo "Keeping $dir"
-    else
-        echo "Removing old modules: $dir"
+    dirname=$(basename "$dir")
+
+    if [ "$dirname" = "$expected_mod_dir" ]; then
+        echo "Keeping current modules: $dirname"
+    elif [[ "$dirname" == *"-sauzerOS-live" ]]; then
+        echo "Removing old modules: $dirname"
         rm -rf "$dir"
+    else
+        echo "Skipping unrelated module directory: $dirname"
     fi
 done
 
-# Find the matching directory under /lib/modules
-match=$(basename $(ls -d /lib/modules/$current*))
-echo "Running depmod for $match"
-depmod -a "$match"
+# Run depmod on the new kernel modules
+if [ -d "/lib/modules/$expected_mod_dir" ]; then
+    echo "Running depmod -a $expected_mod_dir"
+    depmod -a "$expected_mod_dir"
+else
+    echo "Warning: Module directory /lib/modules/$expected_mod_dir does not exist!"
+    exit 1
+fi
