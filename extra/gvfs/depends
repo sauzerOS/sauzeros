@@ -3,8 +3,8 @@ glib
 gsettings-desktop-schemas
 libarchive
 libcdio-paranoia
-libusb
 libgudev
+libusb
 polkit
 samba
 udisks2

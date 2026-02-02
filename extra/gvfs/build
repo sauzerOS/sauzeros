@@ -1,25 +1,22 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setuo build          \
+      --prefix=/usr        \
+      --buildtype=release  \
+      -D http=false        \
+      -D fuse=true         \
+      -D gphoto2=false     \
+      -D afc=false         \
+      -D bluray=false      \
+      -D nfs=false         \
+      -D mtp=false         \
+      -D smb=true          \
+      -D dnssd=false       \
+      -D goa=false         \
+      -D gcr=false         \
+      -D keyring=false     \
+      -D onedrive=false    \
+      -D google=false
 
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Dhttp=false        \
-      -Dfuse=true         \
-      -Dgphoto2=false     \
-      -Dafc=false         \
-      -Dbluray=false      \
-      -Dnfs=false         \
-      -Dmtp=false         \
-      -Dsmb=true          \
-      -Ddnssd=false       \
-      -Dgoa=false         \
-      -Dgcr=false         \
-      -Dkeyring=false     \
-      -Donedrive=false    \
-      -Dgoogle=false      ..
-
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
