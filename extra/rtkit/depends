@@ -1,0 +1,7 @@
+dbus
+glibc
+libcap
+polkit
+systemd
+meson make
+vim make
