@@ -1,4 +1,4 @@
-d9df210b43d9938e064212c8adce351bb7d1d72720e9fe321c6c0c85189acc45  shadow-4.19.2.tar.xz
+992d84b1d57c467c9b6afdce408094cc7d15e90866e3b7815e2c5a63c511a92c  shadow-4.19.3.tar.xz
 3f1d376caad278e4fad6cf7aee50b73d0a718e287b4fb0e84140df051aea958a  0001-Disable-replaced-tools-their-man-pages-and-PAM-integ.patch
 2b30e335293628a0c4798a4427b056eb95b49558d2b68d38ca409e24f4be4a0c  0002-Adapt-login.defs-for-PAM-and-util-linux.patch
 29975744e1fb537961429e459d8de8d4cbb1e52c3120d608c50a2e3376763d58  0003-Add-Arch-Linux-defaults-for-login.defs.patch
