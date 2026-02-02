@@ -1,3 +1,4 @@
-links
-xmlto
-
+file
+docbook-xsl make
+links make
+xmlto make

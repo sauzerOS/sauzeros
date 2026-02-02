@@ -1,3 +1,4 @@
+adwaita-icon-theme
 libgcrypt
 exo
 libxcb
@@ -5,7 +6,7 @@ libxklavier
 pam
 polkit
 xlibre
-gobject-introspection make
+|gobject-introspection make
 itstool make
 libgcrypt make
 vala make

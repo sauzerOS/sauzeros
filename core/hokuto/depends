@@ -1,6 +1,5 @@
-curl
-lzip
 git
-tar
+lzip
 rsync
+tar
 zstd

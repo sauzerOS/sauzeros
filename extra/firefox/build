@@ -56,14 +56,4 @@ install -Dvm644 browser/branding/$theme/content/about-logo.svg \
 "$1/usr/share/icons/hicolor/scalable/apps/firefox.svg"
 
 # distribution
-  install -Dvm644 /dev/stdin "$1/usr/lib/$3/distribution/distribution.ini" <<END
-[Global]
-id=sauzerOS
-version=1.0
-about=Mozilla Firefox for sauzerOS
-
-[Preferences]
-app.distributor=sauzeros
-app.distributor.channel=$3
-app.partner.archlinux=sauzeros
-END
+install -Dvm644 ../distribution.ini "$1/usr/lib/$3/distribution/distribution.ini"

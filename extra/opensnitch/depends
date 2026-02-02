@@ -8,6 +8,7 @@ python-pyqt6
 python-pyinotify
 python-notify2
 python-packaging
+python-typing-extensions
 go make
 opensnitch-ebpf-module
 python-grpcio-tools make

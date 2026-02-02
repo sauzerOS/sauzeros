@@ -1,1 +1,11 @@
 1118dc8e5ee46d33776c43279b57724962ac49a239b9b1542a01e4ed852d23e7  hplip-3.25.8.tar.gz
+6fa5f65b3e9c5a3db16d19c39283354e5bee7fcc4e2750a23e317816da5cf367  hplip-gcc15-stdc23.patch
+b1dae3066a14a747c174c263a98811c3acfc2535bb8514532defee2c6200ace5  0003-models.dat-Re-add-drivers-missing-from-3.19.1.patch
+2477c90bbd2085701bfc04be6e5128c17f1690619c708ba3fac4cc71bb6b9c09  0018-Allow-non-JPEG-scanning-on-the-HP-DeskJet-3520-All-i.patch
+4e3e34262e7612d03dfeed1eca64136e684836a316628b0144d3648ccf263655  0022-Add-include-cups-ppd.h-in-various-places-as-CUPS-2.2.patch
+8bec52fcc29da740cd20efc5be2637cbfee919ef59246eef32630066748ecd03  0023-Fix-handling-of-unicode-filenames-in-sixext.py.patch
+3404b58cb3b0911cc8441edc9e9f826acc09e3d3fd2e486b6e155ec95936c941  hplip-configure-python.patch
+75c2b03c1b94cc0cfe47ec50a964c09dce1eb29440a9855ff69b5ece64c870be  hplip-locale-format.patch
+6f47cef2465653c631e93b801a639308d4ea271f4332dfb6010d0ad2ff6f8ef7  python3.diff
+bb8abff487e023b688006f48cbb8d8b6bd18908c5538463f36c0cf2a5f64418c  hplip-pserror-gcc14.patch
+7836374ab8ea4657a442c267a9489c04008a6b50b905508ca2f5210a5caf3913  hplip-hpaio-gcc14.patch

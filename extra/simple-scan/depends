@@ -1,5 +1,13 @@
+cairo
 colord
-gtk+3
+gdk-pixbuf
+glib
+gtk
+hicolor-icon-theme
+libadwaita
 libgusb
-libhandy
+libwebp
 sane
+zlib-ng
+meson make
+vala make
