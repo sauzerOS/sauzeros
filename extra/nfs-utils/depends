@@ -4,4 +4,3 @@ rpcsvc-proto
 libnl
 libtirpc
 keyutils
-rpcbind
