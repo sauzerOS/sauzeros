@@ -1,11 +1,9 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-
-cmake -D CMAKE_INSTALL_PREFIX=/usr \
+cmake -B build \
+      -D CMAKE_INSTALL_PREFIX=/usr \
       -D CMAKE_BUILD_TYPE=Release \
-      -D CMAKE_SKIP_INSTALL_RPATH=ON \
-      -G Ninja ..
-ninja
-DESTDIR=$1 ninja install
+      -D CMAKE_SKIP_INSTALL_RPATH=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
