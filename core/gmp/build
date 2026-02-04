@@ -7,9 +7,19 @@ sed -i '/long long t1;/,+1s/()/(...)/' configure
 #cp -v configfsf.guess config.guess
 #cp -v configfsf.sub   config.sub
 
-./configure --prefix=/usr    \
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu"
+    # Ensure generic build for cross-compilation
+    cp -v configfsf.guess config.guess
+    cp -v configfsf.sub   config.sub
+else
+    HOST_OPT=""
+fi
+
+./configure --prefix=${CROSS_PREFIX:-/usr} \
             --enable-cxx     \
-            --disable-static
+            --disable-static \
+            $HOST_OPT
 
 make
 make DESTDIR=$1 install

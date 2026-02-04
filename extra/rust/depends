@@ -1,2 +1,4 @@
 llvm
 llvm-32 make
+aarch64-llvm cross make
+qemu-user-static cross make

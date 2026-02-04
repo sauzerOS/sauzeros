@@ -8,11 +8,14 @@ sqlite
 tzdata
 xz
 zlib-ng
-aarch64-libffi cross make
 aarch64-expat cross make
+aarch64-gcc cross make
+aarch64-libffi cross make
 aarch64-libxcrypt cross make
-aarch64-sqlite cross make
-aarch64-zlib-ng cross make
 aarch64-ncurses cross make
 aarch64-openssl cross make
 aarch64-readline cross make
+aarch64-sqlite cross make
+aarch64-xz cross make
+aarch64-zlib-ng cross make
+aarch64-zstd cross make

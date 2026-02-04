@@ -1,2 +1,3 @@
 gperf make
 linux-headers make
+aarch64-gcc cross make

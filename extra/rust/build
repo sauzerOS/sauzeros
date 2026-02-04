@@ -6,28 +6,28 @@ cd "rustc-$2-src"
 
 # Select the correct TOML
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
-    echo "==> Preparing Cross-Compilation (Building Bundled LLVM for arm64)"
-    cp ../bootstrap-cross-arm64.toml bootstrap.toml
+    echo "==> Preparing Cross-Compilation"
+    cp ../bootstrap-cross-arm64.toml config.toml
 else
     # Fallback to your existing logic for native/multilib
     if [ "$HOKUTO_ARCH" = "aarch64" ]; then
-        cp ../bootstrap-arm64.toml bootstrap.toml
+        cp ../bootstrap-arm64.toml config.toml
     elif [ "$MULTILIB" = "1" ]; then
-        cp ../bootstrap-amd64-multi.toml bootstrap.toml
+        cp ../bootstrap-amd64-multi.toml config.toml
     else
-        cp ../bootstrap-amd64.toml bootstrap.toml
+        cp ../bootstrap-amd64.toml config.toml
     fi
 fi
 
 # Insert jobs count
 jobs_var=${MAKEFLAGS#-j}
-sed -i "/\[build\]/a jobs = $jobs_var" bootstrap.toml
+sed -i "/\[build\]/a jobs = $jobs_var" config.toml
 
 # Cross-Compilation Environment Setup
 if [ "$HOKUTO_CROSS" = "1" ]; then
 
-# Update bootstrap.toml with the determined prefix
-sed -i "s|^prefix =.*|prefix = \"$CROSS_PREFIX\"|" bootstrap.toml
+# Update config.toml with the determined prefix
+sed -i "s|^prefix =.*|prefix = \"$CROSS_PREFIX\"|" config.toml
 
 export SYSROOT="/usr/aarch64-linux-gnu"
 
@@ -44,10 +44,23 @@ export PKG_CONFIG_PATH_aarch64_unknown_linux_gnu="$SYSROOT/usr/lib/pkgconfig:$SY
 export PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu="$SYSROOT"
 export PKG_CONFIG_ALLOW_CROSS=1
 
+# Use specific pkg-config for the target
+export PKG_CONFIG_aarch64_unknown_linux_gnu="aarch64-linux-gnu-pkg-config"
+
+# Unset global PKG_CONFIG to prevent host tools (build_helper) from using the cross-wrapper
+unset PKG_CONFIG
+unset PKG_CONFIG_LIBDIR
+unset PKG_CONFIG_SYSROOT_DIR
+unset PKG_CONFIG_PATH
+
 # Scope RUSTFLAGS to the TARGET only
 # This is the crucial change: we use CARGO_TARGET_<TRIPLE>_RUSTFLAGS
 # instead of the global RUSTFLAGS
-export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-L $SYSROOT/usr/lib -L $SYSROOT/lib -Clink-arg=--sysroot=$SYSROOT"
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-L $SYSROOT/usr/lib -L $SYSROOT/lib -Clink-arg=--sysroot=$SYSROOT -Clink-arg=-lzstd -Clink-arg=-lidn2"
+
+# Ensure libzstd and libidn2 are found via pkg-config for the target
+export LIBZSTD_SYS_USE_PKG_CONFIG=1
+export LIBIDN2_SYS_USE_PKG_CONFIG=1
 
 # Tell bootstrap which linker to use for target code
 export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER="aarch64-linux-gnu-gcc"
@@ -71,6 +84,26 @@ unset CFLAGS CXXFLAGS LDFLAGS
 # --- 4. Build and Install ---
 
 echo "==> Starting x.py build"
+
+# Pre-populate bootstrap cache to prevent redownload
+# Extract date from src/stage0.json to ensure correct cache directory
+# JSON format: "date": "YYYY-MM-DD"
+STAGE0_DATE=$(grep -oP '"date": "\K[0-9]{4}-[0-9]{2}-[0-9]{2}' src/stage0.json || echo "2025-12-11")
+
+echo "==> Stage0 date detected: $STAGE0_DATE"
+CACHE_DIR="build/cache/$STAGE0_DATE"
+mkdir -p "$CACHE_DIR"
+
+# Copy pre-downloaded tarballs from the source root to the cache
+for file in rust-std-1.92.0-x86_64-unknown-linux-gnu.tar.xz cargo-1.92.0-x86_64-unknown-linux-gnu.tar.xz rustc-1.92.0-x86_64-unknown-linux-gnu.tar.xz; do
+    if [ -f "../$file" ]; then
+        echo "==> Found local $file, copying to $CACHE_DIR"
+        cp "../$file" "$CACHE_DIR/"
+    else
+        echo "==> Warning: Local $file not found in source root"
+    fi
+done
+
 ./x.py build
 
 echo "==> Installing to $1"
@@ -80,10 +113,20 @@ if [ "$HOKUTO_CROSS" = "1" ] && [ "$CROSS_PREFIX" = "/usr/aarch64-linux-gnu" ]; 
 rm -rf "$1$CROSS_PREFIX/share/man"
 rm -rf $1/etc
 install -d $1/usr/bin
-install -Dm755 ../aarch64-linux-gnu-rustc $1/usr/bin/aarch64-linux-gnu-rustc
-install -Dm755 ../aarch64-linux-gnu-cargo $1/usr/bin/aarch64-linux-gnu-cargo
-ln -s rustc "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-rustc"
-ln -s cargo "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-cargo"
+    install -Dm755 ../aarch64-linux-gnu-rustc $1/usr/bin/aarch64-linux-gnu-rustc
+    install -Dm755 ../aarch64-linux-gnu-cargo $1/usr/bin/aarch64-linux-gnu-cargo
+    ln -s rustc "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-rustc"
+    ln -s cargo "$1/usr/aarch64-linux-gnu/bin/aarch64-linux-gnu-cargo"
+
+    # Symlink target libraries to main host rustlib so host rustc can find them
+    # exact path: /usr/lib/rustlib/aarch64-unknown-linux-gnu -> ../../aarch64-linux-gnu/lib/rustlib/aarch64-unknown-linux-gnu
+    install -d "$1/usr/lib/rustlib"
+    ln -sf "../../aarch64-linux-gnu/lib/rustlib/aarch64-unknown-linux-gnu" "$1/usr/lib/rustlib/aarch64-unknown-linux-gnu"
+
+    # We don't need the cross-compiler binaries in the prefix since we use host rustc
+    # But we keep them for now to avoid breaking existing users of the prefix binaries, 
+    # though they are likely broken (x86 binaries in aarch64 prefix).
+    # actually, let's just trust the wrapper and host rustc.
 fi
 
 # --- 5. Cleanup ---

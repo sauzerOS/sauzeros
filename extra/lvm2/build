@@ -22,6 +22,8 @@ fi
             --enable-cmdlib     \
             --enable-pkgconfig  \
             --enable-udev_sync  \
+            --with-systemdsystemunitdir="${PREFIX}/lib/systemd/system" \
+            --with-tmpfilesdir="${PREFIX}/lib/tmpfiles.d" \
             $CROSS_OPTS
 
 make

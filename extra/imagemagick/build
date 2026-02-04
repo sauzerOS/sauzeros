@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr
+PREFIX=${CROSS_PREFIX:-/usr}
+
+if [ "$HOKUTO_CROSS" = "1" ]; then
+    CONF_FLAGS="--host=$HOKUTO_ARCH-linux-gnu"
+fi
+
+./configure --prefix="$PREFIX" $CONF_FLAGS
 make
 make DESTDIR=$1 install

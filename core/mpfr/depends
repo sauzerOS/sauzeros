@@ -1,2 +1,3 @@
 gmp
 isl
+aarch64-gmp cross make

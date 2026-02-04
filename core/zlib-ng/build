@@ -7,7 +7,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
         -D CMAKE_SYSTEM_NAME=Linux \
         -D CMAKE_SYSTEM_PROCESSOR=aarch64 \
         -D CMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
-        -D CMAKE_INSTALL_PREFIX=/usr/aarch64-linux-gnu \
+        -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX \
         -D ZLIB_COMPAT=ON \
         -D ZLIB_ENABLE_TESTS=OFF
     cd build

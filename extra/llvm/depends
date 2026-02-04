@@ -1,3 +1,4 @@
 cmake make
 python
 zlib-ng
+aarch64-linux-headers cross

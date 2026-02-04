@@ -2,3 +2,5 @@ libx11  make
 pkgconf make
 python  make
 xkbcomp
+aarch64-linux-headers cross
+aarch64-gcc cross make

@@ -13,15 +13,30 @@ meson_options=(
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    meson_options+=(--cross-file "$HOKUTO_ARCH")
-    if [ "$PREFIX" != "/usr" ]; then
-        export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    if [ "$PREFIX" = "/usr" ]; then
+        meson_options+=(
+            --cross-file "${HOKUTO_ARCH}"
+        )
+    else
+        meson_options+=(--cross-file "$HOKUTO_ARCH")
+        if [ "$PREFIX" != "/usr" ]; then
+            export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+        fi
     fi
 fi
 
 meson setup build "${meson_options[@]}"
 meson compile -C build
 meson install -C build --destdir="$1"
+
+# Fix incorrect paths from cross-compilation
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
+    if [ -d "$1$PREFIX/$HOKUTO_ARCH-linux-gnu" ]; then
+        echo "Moving files from sysroot $1$PREFIX/$HOKUTO_ARCH-linux-gnu to $1$PREFIX"
+        cp -rl "$1$PREFIX/$HOKUTO_ARCH-linux-gnu/"* "$1$PREFIX/"
+        rm -rf "$1$PREFIX/$HOKUTO_ARCH-linux-gnu"
+    fi
+fi
 
 if [ "${CROSS_PREFIX:-/usr}" = "/usr" ]; then
 # environment file for ssh-agent

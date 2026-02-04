@@ -1,13 +1,23 @@
 #!/bin/sh -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    TARGET_ARCH="$HOKUTO_ARCH"
+    if [ "$TARGET_ARCH" = "arm64" ]; then TARGET_ARCH="aarch64"; fi
+    CROSS_OPTS="--host=${TARGET_ARCH}-linux-gnu"
+fi
+
 ./configure \
-    --prefix=/usr \
+    --prefix="$PREFIX" \
     --sysconfdir=/etc \
-    --mandir=/usr/share/man \
+    --mandir="$PREFIX/share/man" \
     --localstatedir=/var \
     --without-xmlto \
     --disable-specs \
-    --disable-static
+    --disable-static \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install

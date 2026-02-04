@@ -10,19 +10,8 @@ KARCH=$HOKUTO_ARCH
 # If CROSS_PREFIX is not /usr, we are likely building a cross-toolchain package.
 if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
     TARGET_DIR="$1$CROSS_PREFIX"
-    
-    mkdir -pv "$TARGET_DIR/usr"
-    
-    # Create sysroot structure compatibility symlinks
-    for d in bin sbin lib lib64 share; do
-        case $d in
-            lib|lib64) ln -sf usr/lib "$TARGET_DIR/$d" ;;
-            *)         ln -sf usr/$d  "$TARGET_DIR/$d" ;;
-        esac 2>/dev/null || :
-    done
-    ln -sf usr/include "$TARGET_DIR/include"
-    
-    # Install headers to the sysroot /usr
+    # Sysroot structure is now managed by sauzeros-base
+    # We just install headers to the sysroot /usr
     make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$TARGET_DIR/usr"
 else
     # Native build or cross-native (where CROSS_PREFIX defaults to /usr)

@@ -16,5 +16,3 @@ meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
-
-

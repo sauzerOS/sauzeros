@@ -12,9 +12,9 @@ MESON_OPTS=(
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-    # Create a native pkg-config wrapper that unsets the cross variables.
-    # This is necessary because hokuto exports PKG_CONFIG_SYSROOT_DIR globally,
-    # which causes native dependency checks to wrongly prepend the sysroot.
+# Create a native pkg-config wrapper that unsets the cross variables.
+# This is necessary because hokuto exports PKG_CONFIG_SYSROOT_DIR globally,
+# which causes native dependency checks to wrongly prepend the sysroot.
     cat <<EOF > native-pkg-config
 #!/bin/sh
 unset PKG_CONFIG_SYSROOT_DIR
@@ -36,6 +36,13 @@ fi
 meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
+# During cross-compilation, provide a symlink to the host wayland-scanner in the sysroot.
+# This ensures that tools (like wayland-protocols) find and can execute the host scanner.
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    mkdir -p "$1/$PREFIX/bin"
+    ln -sf /usr/bin/wayland-scanner "$1/$PREFIX/bin/wayland-scanner"
+fi
 
 
 if [ "$MULTILIB" = "1" ]; then

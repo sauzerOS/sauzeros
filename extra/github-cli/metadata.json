@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/cli/cli",
+  "category": "extra",
+  "description": "The GitHub CLI",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}

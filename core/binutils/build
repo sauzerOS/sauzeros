@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
+if [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
 TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
 sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
 ./configure --target="${TARGET_TRIPLET}" \
@@ -27,7 +27,7 @@ mkdir -v build
 cd       build
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu --build=$(cc -dumpmachine)"
+    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu --build=$(gcc -dumpmachine)"
 else
     PGO_OPT="--enable-pgo-build=lto"
 fi
@@ -59,4 +59,15 @@ fi
 
 make tooldir=/usr
 make tooldir=/usr DESTDIR="$1" install
+
+# Fix symlinks for cross-native build (binutils defaults to prefixed names)
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${HOKUTO_CROSS_SYSTEM:-0}" != "1" ]; then
+    for f in "$1"/usr/bin/$HOKUTO_ARCH-linux-gnu-*; do
+        [ -e "$f" ] || continue
+        base=$(basename "$f")
+        target=${base#$HOKUTO_ARCH-linux-gnu-}
+        # Don't overwrite if it exists (though it shouldn't for a pure cross native pkg)
+        ln -sfv "$base" "$1/usr/bin/$target"
+    done
+fi
 fi

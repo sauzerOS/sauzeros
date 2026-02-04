@@ -1,2 +1,4 @@
 llvm make
 gettext make
+aarch64-llvm cross make
+

@@ -1,0 +1,10 @@
+bzip2
+curl
+glibc
+json-c
+xz
+zlib-ng
+zstd
+aarch64-gcc cross make
+aarch64-pkgconf cross make
+aarch64-libarchive cross make

@@ -1,2 +1,3 @@
 attr
 aarch64-attr cross make
+aarch64-gcc cross make

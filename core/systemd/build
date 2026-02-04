@@ -8,19 +8,27 @@ LOCALSTATE_DIR="${PREFIX}/var"
 
 MESON_OPTS=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-    if [ "$PREFIX" != "/usr" ]; then
-        export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
-    fi
+    if [ "$PREFIX" = "/usr" ]; then
+        MESON_OPTS+=(
+            --cross-file "${HOKUTO_ARCH}"
+            -Dgnutls=disabled
+            -Dqrencode=disabled
+        )
+    else
+        MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+        if [ "$PREFIX" != "/usr" ]; then
+            export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+        fi
 
-    if ! hokuto check "${HOKUTO_ARCH}-cryptsetup"; then
-    MESON_OPTS+=("-Dlibcryptsetup=disabled")
-    fi
+        if ! hokuto check "${HOKUTO_ARCH}-cryptsetup"; then
+        MESON_OPTS+=("-Dlibcryptsetup=disabled")
+        fi
 
-    if ! hokuto check "${HOKUTO_ARCH}-gnutls"; then
-    MESON_OPTS+=("-Dgnutls=disabled")
+        if ! hokuto check "${HOKUTO_ARCH}-gnutls"; then
+        MESON_OPTS+=("-Dgnutls=disabled")
+        fi
+        MESON_OPTS+=("-Dqrencode=disabled")
     fi
-    MESON_OPTS+=("-Dqrencode=disabled")
 fi
 
 LANG=en_US.UTF-8 \
@@ -50,6 +58,15 @@ meson setup build                  \
 
 LANG=en_US.UTF-8 meson compile -C build
 LANG=en_US.UTF-8 meson install -C build --destdir=$1
+
+# Fix incorrect paths from cross-compilation
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
+    if [ -d "$1$PREFIX/$HOKUTO_ARCH-linux-gnu" ]; then
+        echo "Moving files from sysroot $1$PREFIX/$HOKUTO_ARCH-linux-gnu to $1$PREFIX"
+        cp -rl "$1$PREFIX/$HOKUTO_ARCH-linux-gnu/"* "$1$PREFIX/"
+        rm -rf "$1$PREFIX/$HOKUTO_ARCH-linux-gnu"
+    fi
+fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
 # overwrite the systemd-user PAM configuration with our own

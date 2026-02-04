@@ -1,33 +1,59 @@
 #!/bin/sh -e
 
-unset CFLAGS LDFLAGS
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # Cross-compilation configuration
+    PREFIX="${CROSS_PREFIX:-/usr}"
 
-WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
-COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
-CFLAGS="${COMMON_FLAGS}"
-CXXFLAGS="${COMMON_FLAGS}"
-FCFLAGS="${COMMON_FLAGS}"
-FFLAGS="${COMMON_FLAGS}"
+    # Map architecture names for CMake
+    CMAKE_ARCH="$HOKUTO_ARCH"
+    RUST_TARGET="$HOKUTO_ARCH"
 
-RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
--Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+    if [ "$CMAKE_ARCH" = "aarch64" ]; then 
+        CMAKE_ARCH="aarch64"
+        RUST_TARGET="aarch64-unknown-linux-gnu"
+    elif [ "$CMAKE_ARCH" = "x86_64" ]; then
+        RUST_TARGET="x86_64-unknown-linux-gnu"
+    fi
 
-LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
-CC="clang"
-CXX="clang++"
-CPP="clang-cpp"
-AR="llvm-ar"
-NM="llvm-nm"
-RANLIB="llvm-ranlib"
+    CMAKE_OPTS="-D CMAKE_SYSTEM_NAME=Linux \
+                -D CMAKE_SYSTEM_PROCESSOR=$CMAKE_ARCH \
+                -D Rust_CARGO_TARGET=$RUST_TARGET"
+    # We rely on the build environment variables (CC, CXX, CFLAGS, LDFLAGS) set by Hokuto.
+    # Do NOT unset CFLAGS/LDFLAGS here.
+else
+    # Native optimized build
+    unset CFLAGS LDFLAGS
+
+    WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
+    COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+    CFLAGS="${COMMON_FLAGS}"
+    CXXFLAGS="${COMMON_FLAGS}"
+    FCFLAGS="${COMMON_FLAGS}"
+    FFLAGS="${COMMON_FLAGS}"
+
+    RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+    -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
+
+    LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
+    CC="clang"
+    CXX="clang++"
+    CPP="clang-cpp"
+    AR="llvm-ar"
+    NM="llvm-nm"
+    RANLIB="llvm-ranlib"
+    PREFIX="/usr"
+    export CC CXX CPP AR NM RANLIB CFLAGS CXXFLAGS LDFLAGS
+fi
 
 cmake -B build                     \
-  -D CMAKE_INSTALL_PREFIX=/usr     \
+  -D CMAKE_INSTALL_PREFIX="$PREFIX" \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
   -D CMAKE_BUILD_TYPE=Release      \
   -D WITH_DOCS=OFF                 \
   -D FISH_USE_SYSTEM_PCRE2=ON      \
-  -D WITH_GETTEXT=ON               \
-  -Wno-dev
+  -D WITH_MESSAGE_LOCALIZATION=ON  \
+  -Wno-dev \
+  $CMAKE_OPTS
 
 cmake --build build
 DESTDIR=$1 cmake --install build

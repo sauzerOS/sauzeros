@@ -6,3 +6,4 @@ popt
 util-linux
 aarch64-lvm2 cross make
 aarch64-popt cross make
+aarch64-gcc cross make

@@ -11,3 +11,4 @@ aarch64-expat cross make
 aarch64-xz cross make
 aarch64-zlib-ng cross make
 aarch64-zstd cross make
+aarch64-gcc cross make

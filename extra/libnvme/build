@@ -1,6 +1,14 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr
+MESON_ARGS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_ARGS="--cross-file /usr/share/meson/cross/$HOKUTO_ARCH"
+fi
+
+meson setup build \
+  --prefix=${CROSS_PREFIX:-/usr} \
+  -D tests=false                 \
+  $MESON_ARGS
 
 meson compile -C build
 meson install -C build --destdir=$1

@@ -1,2 +1,5 @@
 meson make
 systemd optional
+aarch64-gcc cross make
+aarch64-expat cross make
+aarch64-libx11 cross make

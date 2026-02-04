@@ -1,6 +1,12 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr --disable-static
+CONFIGURE_ARGS="--prefix=$CROSS_PREFIX --disable-static"
+
+if [ "$HOKUTO_CROSS" = "1" ]; then
+    CONFIGURE_ARGS="$CONFIGURE_ARGS --host=$HOKUTO_ARCH-linux-gnu"
+fi
+
+./configure $CONFIGURE_ARGS
 
 make
 make DESTDIR=$1 install

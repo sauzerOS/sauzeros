@@ -62,6 +62,25 @@ done
 
 ln -s /proc/self/mounts "$1/etc/mtab"
 
+# Setup cross-compilation directories (aarch64-linux-gnu)
+# This ensures the sysroot structure exists even if specific packages are removed.
+for arch in aarch64-linux-gnu; do
+    CROSS_DIR="$1/usr/$arch"
+    install -dm 755 "$CROSS_DIR/usr/lib"
+    install -dm 755 "$CROSS_DIR/usr/bin"
+    install -dm 755 "$CROSS_DIR/usr/sbin"
+    install -dm 755 "$CROSS_DIR/usr/share"
+    install -dm 755 "$CROSS_DIR/usr/include"
+
+    # Create sysroot structure compatibility symlinks
+    ln -s usr/lib    "$CROSS_DIR/lib"
+    ln -s usr/lib    "$CROSS_DIR/lib64"
+    ln -s usr/bin    "$CROSS_DIR/bin"
+    ln -s usr/bin    "$CROSS_DIR/sbin"
+    ln -s usr/share  "$CROSS_DIR/share"
+    ln -s usr/include "$CROSS_DIR/include"
+done
+
 # Setup hokuto cache dirs
 install -dm 1777 "$1/var/cache/hokuto"
 

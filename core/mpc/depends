@@ -1,3 +1,5 @@
 gmp
 isl
 mpfr
+aarch64-gmp cross make
+aarch64-mpfr cross make

@@ -8,7 +8,7 @@ python setup.py install \
 
 install -d "$1/usr/share/meson/cross"
 install -Dm644 lib32   "$1/usr/share/meson/cross/lib32"
-install -Dm644 aarch64 "$1/usr/share/meson/cross/aarch64"
+install -Dm644 aarch64        "$1/usr/share/meson/cross/aarch64"
 
 # Maintain compatibility for native x86 builds
 install -d "$1/usr/share/meson/native"

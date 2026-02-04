@@ -1,7 +1,14 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr    \
-            --disable-static
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu"
+else
+    HOST_OPT=""
+fi
+
+./configure --prefix=${CROSS_PREFIX:-/usr} \
+            --disable-static \
+            $HOST_OPT
 
 make
 make DESTDIR=$1 install

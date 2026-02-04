@@ -1,2 +1,2 @@
 ncurses
-aarch64-ncurses cross makes
+aarch64-ncurses cross makesaarch64-gcc cross make

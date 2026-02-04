@@ -1,2 +1,3 @@
 automake make
 libtool make
+aarch64-gcc cross make

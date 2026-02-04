@@ -7,27 +7,43 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # ICU requires a host build to generate data for the target
     mkdir build-host
     cd build-host
-    CC=cc CXX=g++ AR=ar RANLIB=ranlib ../configure \
+    # Unset target flags for host build to prevent "bad value for -march" errors
+    CC=cc CXX=g++ AR=ar RANLIB=ranlib \
+    CFLAGS="" CXXFLAGS="" LDFLAGS="" \
+    ../configure \
       --prefix=/usr \
       --enable-static
-    make
+    
+    # Also ensure make doesn't pick them up if exported
+    CFLAGS="" CXXFLAGS="" LDFLAGS="" make
     cd ..
     
     # Generic triplet detection
     TARGET_ARCH="$HOKUTO_ARCH"
     if [ "$TARGET_ARCH" = "arm64" ]; then TARGET_ARCH="aarch64"; fi
 
-    ./configure --host="${TARGET_ARCH}-linux-gnu" \
+    mkdir build-cross
+    cd build-cross
+
+    export CC="${TARGET_ARCH}-linux-gnu-gcc"
+    export CXX="${TARGET_ARCH}-linux-gnu-g++"
+    export AR="${TARGET_ARCH}-linux-gnu-ar"
+    export RANLIB="${TARGET_ARCH}-linux-gnu-ranlib"
+    
+    ../configure --host="${TARGET_ARCH}-linux-gnu" \
         --enable-static \
         --prefix="$CROSS_PREFIX" \
-        --with-cross-build="$(pwd)/build-host"
+        --with-cross-build="$(pwd)/../build-host"
+        
+    make
+    make DESTDIR="$1" install
+    cd ..
 else
     # Regular native build
     ./configure --prefix=/usr
+    make
+    make DESTDIR="$1" install
 fi
-
-make
-make DESTDIR="$1" install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
     # 32-bit build for multilib support

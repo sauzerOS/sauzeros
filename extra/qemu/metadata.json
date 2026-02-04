@@ -1,0 +1,12 @@
+{
+  "url": "https://www.qemu.org/",
+  "category": "extra",
+  "description": "A generic and open source machine emulator and virtualizer",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "cli",
+    "emulator",
+    "virtual-machine"
+  ]
+}

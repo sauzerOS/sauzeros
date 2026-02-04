@@ -1,2 +1,4 @@
 glibc
+zlib-ng
 gcc make
+aarch64-linux-headers cross

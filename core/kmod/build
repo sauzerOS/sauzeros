@@ -18,6 +18,9 @@ fi
     --disable-manpages \
     --with-xz \
     --with-zlib \
+    --with-systemdsystemunitdir="${PREFIX}/lib/systemd/system" \
+    --with-bashcompletiondir="${PREFIX}/share/bash-completion/completions" \
+    --with-fishcompletiondir="${PREFIX}/share/fish/vendor_completions.d" \
     $CROSS_OPTS
 
 make

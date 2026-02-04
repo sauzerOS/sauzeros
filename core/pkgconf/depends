@@ -3,3 +3,4 @@ automake
 libtool
 zlib-ng rebuild
 bzip2 rebuild
+aarch64-linux-headers cross

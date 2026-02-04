@@ -1,2 +1,3 @@
 perl
 zlib-ng
+aarch64-gcc cross make

@@ -4,3 +4,4 @@ libxcrypt
 pam
 systemd
 aarch64-systemd cross make
+aarch64-gcc cross make

@@ -3,3 +3,4 @@ flex make
 ninja make
 libcap optional
 aarch64-libtirpc cross make
+aarch64-gcc cross make

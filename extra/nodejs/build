@@ -23,14 +23,27 @@ CONF_ARGS="--prefix=$CROSS_PREFIX \
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # Host tools configuration
-    export CC_host=gcc
-    export CXX_host=g++
-    export AR_host=ar
-    export LINK_host=g++
+    #export CC_host=gcc
+    #export CXX_host=g++
+    #export AR_host=ar
+    #export LINK_host=g++
     
+    # Crucial: Unset/Reset global flags to prevent target SYSROOT includes from polluting the host build.
+    # The cross-compiler (CC) knows its own sysroot; we don't need explicit -I flags in CFLAGS.
+    # We explicitly set clean optimization flags for both Host and Target to override the polluted env.
+    #export CFLAGS="-O2"
+    #export CXXFLAGS="-O2"
+    #export CPPFLAGS=""
+    #export LDFLAGS=""
+
+    #export CFLAGS_host="-O2"
+    #export CXXFLAGS_host="-O2"
+    #export CPPFLAGS_host=""
+    #export LDFLAGS_host=""
+    #
     # Target tools configuration
     # HOKUTO sets CC and CXX already
-    export LINK="$CXX"
+    #export LINK="$CXX"
 
     ./configure $CONF_ARGS \
         --dest-cpu="$DEST_CPU" \

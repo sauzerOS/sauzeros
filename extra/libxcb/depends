@@ -6,3 +6,4 @@ xorg-util-macros
 aarch64-xcb-proto cross make
 aarch64-libxau cross make
 aarch64-xcb-proto cross make
+aarch64-gcc cross make

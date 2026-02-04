@@ -1,3 +1,4 @@
 cmake make
 chafa
 imagemagick
+aarch64-imagemagick cross make

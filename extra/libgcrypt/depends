@@ -1,2 +1,3 @@
 libgpg-error
 aarch64-libgpg-error cross make
+aarch64-gcc cross make

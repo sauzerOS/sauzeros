@@ -13,3 +13,4 @@ aarch64-icu cross make
 aarch64-openssl cross make
 aarch64-nghttp2 cross make
 aarch64-zlib-ng cross make
+aarch64-gcc cross make

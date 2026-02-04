@@ -7,5 +7,7 @@ tar
 zlib-ng
 aarch64-binutils cross
 aarch64-glibc cross
-
-
+aarch64-linux-headers cross
+aarch64-gmp crossnative
+aarch64-mpfr crossnative
+aarch64-mpc crossnative

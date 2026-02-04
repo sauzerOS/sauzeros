@@ -1,6 +1,21 @@
 #!/bin/sh -e
 
-cmake -B build
+PREFIX=${CROSS_PREFIX:-/usr}
+
+if [ "$HOKUTO_CROSS" = "1" ]; then
+    export CMAKE_FLAGS="-D CMAKE_SYSTEM_NAME=Linux \
+    -D ENABLE_CHAFA=OFF  \
+    -D ENABLE_VULKAN=OFF \
+    -D ENABLE_DRM=OFF    \
+    -D ENABLE_DRM_AMDGPU=OFF \
+    -D ENABLE_XRANDR=OFF \
+    -D ENABLE_PULSE=OFF  \
+    -D ENABLE_EGL=OFF    \
+    -D ENABLE_GLX=OFF    \
+    -D CMAKE_SYSTEM_PROCESSOR=$HOKUTO_ARCH"
+fi
+
+cmake -B build -D CMAKE_INSTALL_PREFIX="$PREFIX" $CMAKE_FLAGS
 cmake --build build --target fastfetch --target flashfetch
 DESTDIR=$1 cmake --install build
 

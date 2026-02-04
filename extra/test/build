@@ -1,0 +1,5 @@
+#!/bin/sh -e
+echo "CROSS PREFIX $CROSS_PREFIX"
+echo "CROSS SYSTEM $HOKUTO_CROSS_SYSTEM"
+echo "CFLAGS $CFLAGS"
+echo "CC IS $CC"

@@ -10,3 +10,4 @@ aarch64-wayland cross make
 aarch64-wayland-protocols cross make
 aarch64-libxcb cross make
 aarch64-libxml2 cross make
+aarch64-gcc cross make

@@ -1,1 +1,3 @@
 xorg-util-macros
+aarch64-gcc cross make
+aarch64-pkgconf cross make

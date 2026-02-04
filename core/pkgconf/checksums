@@ -1,4 +1,4 @@
 760ad09ee0ff46f0b64a314d59d174d041047dba7dc5fc788b2210f7fa76caec  pkgconf-2.5.1.tar.gz
 95c553228935d73eb7ff6fb86aaf386a172ba9ce869dc9cb06cd0a1a40f635a7  x86_64-pc-linux-gnu.personality
 875b98c858ec9601b3c7ebbb7e0fb42f66b6e77ebfacb327ea1842271b1fd158  i686-pc-linux-gnu.personality
-4c0e6ca6d98c83ac5c3f09157df146cfaa163b2fbd00a8c5697dcd7fe213ce55  aarch64-linux-gnu.personality
+722688b32895d5347f6645711886256fb7dbe84132ba4c3fb43a2e65ef509ee4  aarch64-linux-gnu.personality
