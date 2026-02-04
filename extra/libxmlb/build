@@ -1,11 +1,8 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
+meson setup build  \
+    --prefix=/usr  \
+    -D gtkdoc=false
 
-meson \
-    --prefix=/usr \
-    -Dgtkdoc=false \
-    . output
-
-ninja -C output
-ninja -C output install
+meson compile -C build
+meson install -C build --destdir=$1
