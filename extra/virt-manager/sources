@@ -1,1 +1,2 @@
-git+https://github.com/virt-manager/virt-manager#5.1.0
+git+https://github.com/virt-manager/virt-manager#v5.1.0
+https://github.com/virt-manager/virt-manager/pull/983.patch

@@ -1,6 +1,6 @@
 fuse3
 libtirpc
-python-docutils
+python-docutils make
 rpcsvc-proto
 yajl
 virtiofsd

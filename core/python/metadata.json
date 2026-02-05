@@ -2,7 +2,7 @@
   "url": "https://www.python.org/",
   "category": "base",
   "description": "The Python programming language",
-  "info": "",
+  "info": "On upgrade pip doesn't get built\nUninstall python first to force pip being built\n",
   "license": "PSF-2.0",
   "tags": [
     "python"

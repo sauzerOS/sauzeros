@@ -1,19 +1,26 @@
 #!/bin/sh -e
 
-meson build  --prefix=/usr \
-             --libexecdir=lib/libvirt \
-            -Drunstatedir=/run \
-	    -Dselinux=disabled \
-            -Dapparmor=disabled \
-            -Ddocs=enabled \
-            -Dtests=disabled \
-            -Ddriver_qemu=enabled \
-            -Ddriver_remote=enabled \
-            -Dfuse=enabled \
-            -Dqemu_user=dbz \
-            -Dqemu_group=dbz \
-            -Ddriver_libvirtd=enabled
+meson setup build            \
+  --prefix=/usr              \
+  --libexecdir=lib/libvirt   \
+  -D runstatedir=/run        \
+  -D selinux=disabled        \
+  -D apparmor=disabled       \
+  -D docs=disabled           \
+  -D tests=disabled          \
+  -D driver_qemu=enabled     \
+  -D driver_remote=enabled   \
+  -D fuse=enabled            \
+  -D qemu_user=libvirt-qemu  \
+  -D qemu_group=libvirt-qemu \
+  -D driver_libvirtd=enabled
 
-ninja -C build
-DESTDIR=$1 ninja -C build install
+meson compile -C build
+meson install -C build --destdir=$1
 
+
+mkdir -p "${1}"/usr/lib/{sysusers,tmpfiles}.d
+echo 'g libvirt - -' > "${1}"/usr/lib/sysusers.d/libvirt-qemu.conf
+echo 'u! libvirt-qemu /var/lib/libvirt "Libvirt QEMU user"' >> "${1}"/usr/lib/sysusers.d/libvirt.conf
+echo 'm libvirt-qemu kvm' >> "${1}"/usr/lib/sysusers.d/libvirt.conf
+echo 'z /var/lib/libvirt/qemu 0751' > "${1}"/usr/lib/tmpfiles.d/libvirt.conf

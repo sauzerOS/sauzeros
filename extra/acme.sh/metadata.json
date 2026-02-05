@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/acmesh-official/acme.sh",
+  "category": "extra",
+  "description": "An ACME Shell script, an acme client alternative to certbot",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "network",
+    "utility"
+  ]
+}

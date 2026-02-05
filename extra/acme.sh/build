@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+install -dm755 "${1}"/usr/share/acme.sh/deploy
+install -dm755 "${1}"/usr/share/acme.sh/dnsapi
+install -dm755 "${1}"/usr/share/acme.sh/notify
+install -dm755 "${1}"/usr/bin
+
+install -m755 acme.sh "${1}"/usr/share/acme.sh/
+install -m755 deploy/*.sh "${1}"/usr/share/acme.sh/deploy/
+install -m755 dnsapi/*.sh "${1}"/usr/share/acme.sh/dnsapi/
+install -m755 notify/*.sh "${1}"/usr/share/acme.sh/notify/
+
+ln -s /usr/share/acme.sh/acme.sh "${1}"/usr/bin/acme.sh

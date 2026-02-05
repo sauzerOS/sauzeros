@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/veeso/termscp",
+  "category": "extra",
+  "description": "A feature rich terminal UI file transfer and explorer",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "file-manager",
+    "network",
+    "utility"
+  ]
+}

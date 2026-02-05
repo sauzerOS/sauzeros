@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -Np1 -i 983.patch
+
 meson setup build     \
   --prefix=/usr       \
   -D default-hvs=qemu \

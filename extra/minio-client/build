@@ -24,7 +24,6 @@ export MC_RELEASE="RELEASE"
 
 if [ "${CGO_ENABLED:-1}" = "0" ]; then
     # Cross-compilation or non-CGO build
-    
     FLAGS_OUTPUT=$(go run buildscripts/gen-ldflags.go 2>/dev/null || echo "-X github.com/minio/mc/cmd.Version=RELEASE -X github.com/minio/mc/cmd.ReleaseTag=RELEASE -X github.com/minio/mc/cmd.CommitID=0000000000000000000000000000000000000000 -X github.com/minio/mc/cmd.ShortCommitID=000000000000 -X github.com/minio/mc/cmd.Time=2024-01-01T00:00:00Z")
 
     # FIX: -trimpath should be a flag to 'go build', NOT passed inside -ldflags
@@ -37,7 +36,6 @@ else
     export CGO_CPPFLAGS="${CPPFLAGS}"
     export CGO_CXXFLAGS="${CXXFLAGS}"
     export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-    
     FLAGS_OUTPUT=$(go run buildscripts/gen-ldflags.go 2>/dev/null || echo "-X github.com/minio/mc/cmd.Version=RELEASE -X github.com/minio/mc/cmd.ReleaseTag=RELEASE -X github.com/minio/mc/cmd.CommitID=0000000000000000000000000000000000000000 -X github.com/minio/mc/cmd.ShortCommitID=000000000000 -X github.com/minio/mc/cmd.Time=2024-01-01T00:00:00Z")
 
     GO_LDFLAGS="\

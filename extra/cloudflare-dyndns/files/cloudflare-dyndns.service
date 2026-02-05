@@ -5,5 +5,5 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/cloudflare-ddns
+ExecStart=/usr/bin/cloudflare-dyndns
 User=root

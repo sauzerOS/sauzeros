@@ -1,0 +1,11 @@
+{
+  "url": "https://minio.io",
+  "category": "extra",
+  "description": "Object storage server compatible with Amazon S3",
+  "info": "",
+  "license": "",
+  "tags": [
+    "network",
+    "server"
+  ]
+}

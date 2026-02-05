@@ -1,0 +1,11 @@
+{
+  "url": "https://virt-manager.org/",
+  "category": "extra",
+  "description": "Desktop user interface for managing virtual machines",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "gui",
+    "virtual-machine"
+  ]
+}

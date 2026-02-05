@@ -40,20 +40,11 @@ fi
     $CROSS_OPTS \
     $OPTS \
     --with-system-expat \
-    --with-system-ffi \
-    --with-ensurepip=install
+    --with-system-ffi
 
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install
 
-
-# Force pip upgrade using the staged binary
-# We rely on python detecting the staging path as sys.prefix from argv[0]
-if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
-export LD_LIBRARY_PATH="$1$PREFIX/lib:$LD_LIBRARY_PATH"
-"$1$PREFIX/bin/python3" -m ensurepip --upgrade
-fi
-# Manually create python symlink since python3 is the default
 ln -sf python3 "$1$PREFIX/bin/python"
 if [[ -f "$1$PREFIX/bin/pip3" ]]; then
     ln -sf pip3 "$1$PREFIX/bin/pip"
