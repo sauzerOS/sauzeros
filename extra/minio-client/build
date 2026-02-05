@@ -1,0 +1,50 @@
+#!/bin/sh -e
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    case "$HOKUTO_ARCH" in
+        aarch64) GOARCH=arm64 ;;
+        x86_64)  GOARCH=amd64 ;;
+        *)       GOARCH=$HOKUTO_ARCH ;;
+    esac
+    export GOARCH
+    export CGO_ENABLED=0
+fi
+
+# Fix git usage
+if command -v git >/dev/null 2>&1; then
+    # Create dummy git commit info if inside a git repo or if build script tries to run git
+    # This prevents "exit status 128" if we are not in a full git repo or git fails
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+else 
+    # Fallback if git is missing entirely
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+fi
+
+export MC_RELEASE="RELEASE"
+
+if [ "${CGO_ENABLED:-1}" = "0" ]; then
+    # Cross-compilation or non-CGO build
+    
+    FLAGS_OUTPUT=$(go run buildscripts/gen-ldflags.go 2>/dev/null || echo "-X github.com/minio/mc/cmd.Version=RELEASE -X github.com/minio/mc/cmd.ReleaseTag=RELEASE -X github.com/minio/mc/cmd.CommitID=0000000000000000000000000000000000000000 -X github.com/minio/mc/cmd.ShortCommitID=000000000000 -X github.com/minio/mc/cmd.Time=2024-01-01T00:00:00Z")
+
+    # FIX: -trimpath should be a flag to 'go build', NOT passed inside -ldflags
+    GO_LDFLAGS="-s -w $FLAGS_OUTPUT"
+    go build -trimpath -ldflags "$GO_LDFLAGS" -o mc .
+else
+    # Standard build with CGO
+    export CGO_LDFLAGS="${LDFLAGS}"
+    export CGO_CFLAGS="${CFLAGS}"
+    export CGO_CPPFLAGS="${CPPFLAGS}"
+    export CGO_CXXFLAGS="${CXXFLAGS}"
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+    
+    FLAGS_OUTPUT=$(go run buildscripts/gen-ldflags.go 2>/dev/null || echo "-X github.com/minio/mc/cmd.Version=RELEASE -X github.com/minio/mc/cmd.ReleaseTag=RELEASE -X github.com/minio/mc/cmd.CommitID=0000000000000000000000000000000000000000 -X github.com/minio/mc/cmd.ShortCommitID=000000000000 -X github.com/minio/mc/cmd.Time=2024-01-01T00:00:00Z")
+
+    GO_LDFLAGS="\
+        -linkmode=external \
+        -compressdwarf=false \
+        $FLAGS_OUTPUT"
+    go build -ldflags "$GO_LDFLAGS" -o mc .
+fi
+
+install -Dm755 mc "${1}/usr/bin/mcli"
