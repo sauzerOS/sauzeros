@@ -1,0 +1,7 @@
+gcc
+glibc
+kimageannotator
+libx11
+libxcb
+qt6
+extra-cmake-modules make
