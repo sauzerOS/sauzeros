@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/ksnip/kImageAnnotator",
+  "category": "extra",
+  "description": "Tool for annotating images",
+  "info": "",
+  "license": "LGPL-3.0-only",
+  "tags": [
+    "graphics",
+    "kde",
+    "multimedia",
+    "utility"
+  ]
+}

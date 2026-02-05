@@ -1,0 +1,6 @@
+gcc
+glibc
+kcolorpicker
+libx11
+qt6
+cmake make

@@ -1,4 +1,6 @@
 dotnet-core-bin
 libadwaita
-hicolor-icon-theme
+autoconf-archive
 gtk make
+hicolor-icon-theme
+intltool make
