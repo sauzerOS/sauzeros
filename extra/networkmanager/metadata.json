@@ -1,0 +1,11 @@
+{
+  "url": "https://networkmanager.dev/",
+  "category": "extra",
+  "description": "Network connection manager and user applications",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "network"
+  ]
+}
