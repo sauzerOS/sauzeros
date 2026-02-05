@@ -1,6 +1,6 @@
 gcc
 glibc
-kcolorpicker
+kcolorpicker==0.2.0
 libx11
 qt6
 cmake make
