@@ -1,0 +1,13 @@
+{
+  "url": "https://www.rarlab.com/",
+  "category": "extra",
+  "description": "CLI RAR archive tool",
+  "info": "",
+  "license": "",
+  "tags": [
+    "archive",
+    "cli",
+    "compression",
+    "utility"
+  ]
+}
