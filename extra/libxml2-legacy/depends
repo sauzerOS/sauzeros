@@ -1,0 +1,6 @@
+glibc
+icu
+xz
+zlib-ng
+git make
+meson make

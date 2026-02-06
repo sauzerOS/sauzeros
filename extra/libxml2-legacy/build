@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+_prefix=usr/lib/$3
+
+patch -Np1 -i 0001-meson-Build-fixes.patch
+
+meson_options=(
+    --prefix /$_prefix
+    -D http=true
+    -D legacy=true
+    -D python=false
+)
+
+meson setup build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir "$1"
+
+cd $1
+mv $_prefix/lib/libxml2.so.* -t usr/lib
+ln -sr usr/lib/libxml2.so.2 -t $_prefix/lib
+rm -r $_prefix/{bin,share}
