@@ -2,7 +2,7 @@
   "url": "https://github.com/Venom1991/refind-btrfs",
   "category": "extra",
   "description": "Generate rEFInd manual boot stanzas from Btrfs snapshots",
-  "info": "set default btrfs volume to / \nrefind looks for the kernel/initramfs relative to the default volume\n\n",
+  "info": "mount /dev/xxx /mnt\nbtrfs subvolume set-default 5 /mnt \nbtrfs subvolume get-default /mnt\nrefind looks for the kernel/initramfs relative to the default subvolume\nif it's not set to top level (5) it can't load the kernels from @snapshots subvolume\n",
   "license": "",
   "tags": [
     "boot",
