@@ -68,14 +68,16 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
     fi
 fi
 
-if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
+if [ "$PREFIX" = "/usr" ]; then
 # overwrite the systemd-user PAM configuration with our own
 install -D -m0644 systemd-user.pam "$1/lib/pam.d/systemd-user"
+# install custom config files
 install -v -m755 -d "$1/systemd/network"
 install -v -m644 20-wired.network "$1/systemd/network/20-wired.network"
 install -v -m644 25-wireless.network "$1/systemd/network/25-wireless.network"
 install -v -m755 -d "$1/systemd/resolved.conf.d"
 install -v -m644 dns_servers.conf "$1/systemd/resolved.conf.d/dns_servers.conf"
+install -v -m644 10-dmesg.conf "$1/usr/lib/sysctl.d/10-dmesg.conf"
 fi
 
 if [ "$PREFIX" != "/usr" ]; then
