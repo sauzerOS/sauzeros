@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/cboxdoerfer/fsearch",
+  "category": "extra",
+  "description": "A fast graphical file search utility",
+  "info": "",
+  "license": "",
+  "tags": [
+    "gui",
+    "search",
+    "utility"
+  ]
+}

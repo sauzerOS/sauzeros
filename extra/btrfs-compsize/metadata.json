@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/kilobyte/compsize",
+  "category": "extra",
+  "description": "find compression type/ratio on a file or set of files",
+  "info": "",
+  "license": "",
+  "tags": [
+    "cli",
+    "compression",
+    "disk-tools"
+  ]
+}

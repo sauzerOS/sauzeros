@@ -4,5 +4,6 @@ hicolor-icon-theme
 libxcrypt
 libxml2-legacy
 pcsclite
+vmware-modules==17.6.4
 sqlite make
 uefipatch make

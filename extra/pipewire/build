@@ -12,6 +12,8 @@ meson setup build                        \
 meson compile -C build
 meson install -C build --destdir=$1
 
+install -Dm 644 $1/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf $1/etc/alsa/conf.d
+
 if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
