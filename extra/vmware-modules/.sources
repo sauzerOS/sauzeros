@@ -1,2 +1,3 @@
-git+https://github.com/ngodn/vmware-vmmon-vmnet-linux-6.16.x
 files/vmware.conf
+files/vmmon.tar.xz
+files/vmnet.tar.xz
