@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+meson_options=(
+     --prefix=/usr
+    -D libsystemd=true
+    -D libudev=true
+    -D polkit=true
+    -D serial=true
+    -D systemdunit=system
+)
+
+meson setup build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir "${1}"
+
+install -D -m0644 doc/org.debian.pcsc-lite.policy -t "${1}"/usr/share/polkit-1/actions/
+install -d "${1}"/usr/lib/pcsc/drivers
