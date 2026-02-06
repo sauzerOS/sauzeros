@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D USE_WAYLAND_CLIPBOARD=ON \
+  -D DISABLE_UPDATE_CHECKER=ON \
+  -D USE_KDSINGLEAPPLICATION=OFF \
+  -Wno-dev
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
+
+# Remove vendored static builds of shared libraries (used for single application, which we disable)
+# See https://github.com/flameshot-org/flameshot/blob/v13.0.0/packaging/rpm/fedora/flameshot.spec#L64-L70
+rm -rf "${1}/usr/include/QtColorWidgets/" \
+	"${1}/usr/include/kdsingleapplication-qt6/" \
+	"${1}/usr/lib/cmake/KDSingleApplication-qt6/" \
+	"${1}/usr/lib/cmake/QtColorWidgets/" \
+	"${1}/usr/lib/libQtColorWidgets.a" \
+	"${1}/usr/lib/libkdsingleapplication-qt6.a" \
+	"${1}/usr/lib/pkgconfig/QtColorWidgets.pc"
