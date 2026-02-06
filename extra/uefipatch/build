@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+_tools=(UEFIPatch UEFIReplace)
+
+for _tool in "${_tools[@]}"; do
+cd "${_tool}"
+qmake
+make
+cd ..
+done
+
+for tool in "${_tools[@]}"; do
+  install -Dm755 "${tool}/${tool}" "${1}/usr/bin/${tool,,}"
+done
+# Install patches.txt
+install -Dm644 UEFIPatch/patches.txt "${1}/usr/share/${3}/patches.txt"
