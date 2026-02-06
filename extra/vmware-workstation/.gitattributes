@@ -1,0 +1,4 @@
+files/VMware-Workstation-Full-17.6.4-24832109.x86_64.bundle filter=lfs diff=lfs merge=lfs -text
+files/VMware-Workstation-Full-25H2-24995812.x86_64.bundle filter=lfs diff=lfs merge=lfs -text
+files/winVistaSP1.iso filter=lfs diff=lfs merge=lfs -text
+files/winVistaSP2.iso filter=lfs diff=lfs merge=lfs -text

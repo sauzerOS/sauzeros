@@ -1,0 +1,7 @@
+windows.iso filter=lfs diff=lfs merge=lfs -text
+winPre2k.iso filter=lfs diff=lfs merge=lfs -text
+winPreVista.iso filter=lfs diff=lfs merge=lfs -text
+linux.iso filter=lfs diff=lfs merge=lfs -text
+linuxPreGlibc25.iso filter=lfs diff=lfs merge=lfs -text
+netware.iso filter=lfs diff=lfs merge=lfs -text
+solaris.iso filter=lfs diff=lfs merge=lfs -text

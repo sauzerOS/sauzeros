@@ -1,0 +1,245 @@
+#!/bin/sh -e
+
+_extractedimages=(windows)
+_isoimages=(linux linuxPreGlibc25 netware solaris winPre2k winPreVista winVistaSP1 winVistaSP2)
+
+# Extract installer
+bash VMware-Workstation-Full-$2.x86_64.bundle --extract extracted
+vmware_installer_version=$(cat "extracted/vmware-installer/manifest.xml" | grep -oPm1 "(?<=<version>)[^<]+")
+
+# Make directories and copy files.
+
+mkdir -p \
+  "${1}/etc"/{pam.d,modprobe.d,vmware} \
+  "${1}/usr"/{share,bin} \
+  "${1}/usr/include/vmware-vix" \
+  "${1}/usr/lib"/{vmware/setup,vmware-vix,vmware-ovftool,vmware-installer/"$vmware_installer_version",modules-load.d} \
+  "${1}/usr/share"/{doc/vmware-vix,licenses/"${3}"} \
+  "${1}/var/lib/vmware/Shared VMs"
+
+cd "extracted"
+
+cp -r \
+  vmware-workstation/share/* \
+  vmware-workstation/man \
+  vmware-network-editor-ui/share/* \
+  vmware-player-app/share/* \
+  "${1}/usr/share"
+
+cp -r \
+  vmware-workstation/bin/* \
+  vmware-vmx/{,s}bin/* \
+  vmware-vix-core/bin/* \
+  vmware-vprobe/bin/* \
+  vmware-player-app/bin/* \
+  "${1}/usr/bin"
+
+cp -r \
+  vmware-workstation/lib/* \
+  vmware-player-app/lib/* \
+  vmware-vmx/{lib/*,roms} \
+  vmware-vprobe/lib/* \
+  vmware-usbarbitrator/bin \
+  vmware-network-editor/lib \
+  "${1}/usr/lib/vmware"
+
+cp -r \
+  vmware-player-setup/vmware-config \
+  "${1}/usr/lib/vmware/setup"
+
+cp -r \
+  vmware-vix-lib-Workstation1700/lib/Workstation-17.0.0 \
+  vmware-vix-core/{lib/*,vixwrapper-config.txt} \
+  "${1}/usr/lib/vmware-vix"
+
+cp -r \
+  vmware-vix-core/doc/* \
+  "${1}/usr/share/doc/vmware-vix"
+
+cp -r \
+  vmware-ovftool/* \
+  "${1}/usr/lib/vmware-ovftool"
+
+cp -r \
+  vmware-installer/{python,sopython,vmis,vmis-launcher,vmware-installer,vmware-installer.py} \
+  "${1}/usr/lib/vmware-installer/$vmware_installer_version"
+
+cp -r \
+  vmware-vix-core/include/* \
+  "${1}/usr/include/vmware-vix"
+
+for isoimage in ${_extractedimages[@]}
+do
+  install -Dm 644 "vmware-tools-$isoimage/$isoimage.iso" "${1}/usr/lib/vmware/isoimages/$isoimage.iso"
+done
+
+cd ..
+for isoimage in ${_isoimages[@]}
+do
+  install -Dm 644 "$isoimage.iso" "${1}/usr/lib/vmware/isoimages/$isoimage.iso"
+done
+
+rm "${1}/usr/lib/vmware-ovftool"/{vmware-eula.rtf,open_source_licenses.txt,manifest.xml}
+
+install -d -m 755 "${1}/usr/lib/vmware-installer/$vmware_installer_version"/{lib/lib,artwork}
+install -Dm 755 "configure-initscript.sh" "${1}/usr/lib/vmware-installer/$vmware_installer_version/bin/configure-initscript.sh"
+
+cd extracted
+install -Dm 644 "vmware-vmx/etc/modprobe.d/modprobe-vmware-fuse.conf" "${1}/etc/modprobe.d/vmware-fuse.conf"
+
+install -Dm 644 vmware-vmx/extra/modules.xml "${1}"/usr/lib/vmware/modules/modules.xml
+install -Dm 644 vmware-installer/bootstrap "${1}"/etc/vmware-installer/bootstrap
+
+cd ..
+install -Dm 644 vmware-vix-bootstrap "${1}"/etc/vmware-vix/bootstrap
+install -Dm 644 vmware-bootstrap "${1}"/etc/vmware/bootstrap
+install -Dm 644 config "${1}"/etc/vmware/config
+
+
+#echo -e "vmw_vmci\nvmmon" > "${1}/usr/lib/modules-load.d/vmware.conf"
+
+for service_file in \
+  vmware-networks-configuration.service \
+  vmware-networks.service \
+  vmware-usbarbitrator.service \
+  vmware-networks.path \
+  vmware-usbarbitrator.path
+do
+  install -Dm 644 \
+    "$service_file" \
+    "${1}/usr/lib/systemd/system/$service_file"
+done
+
+
+# Apply permissions where necessary.
+
+chmod +x \
+  "${1}/usr/bin"/* \
+  "${1}/usr/lib/vmware/bin"/* \
+  "${1}/usr/lib/vmware/setup"/* \
+  "${1}/usr/lib/vmware/lib"/libvmware-gksu.so/gksu-run-helper \
+  "${1}/usr/lib/vmware-ovftool"/{ovftool,ovftool.bin} \
+  "${1}/usr/lib/vmware-installer/$vmware_installer_version"/{vmware-installer,vmis-launcher} \
+  "${1}/usr/lib/vmware-vix/setup"/*
+
+chmod +s \
+  "${1}/usr/bin"/vmware-authd \
+  "${1}/usr/lib/vmware/bin"/{vmware-vmx,vmware-vmx-debug,vmware-vmx-stats}
+
+
+# Add symlinks the installer would create.
+
+for link in \
+  licenseTool \
+  vmplayer \
+  vmware \
+  vmware-app-control \
+  vmware-enter-serial \
+  vmware-fuseUI \
+  vmware-gksu \
+  vmware-modconfig \
+  vmware-modconfig-console \
+  vmware-mount \
+  vmware-netcfg \
+  vmware-setup-helper \
+  vmware-tray \
+  vmware-vmblock-fuse \
+  vmware-vprobe \
+  vmware-zenity
+do
+  ln -s /usr/lib/vmware/bin/appLoader "${1}/usr/lib/vmware/bin/$link"
+done
+
+for link in \
+  vmrest
+do
+  ln -s /usr/lib/vmware/bin/appLoader "${1}/usr/bin/$link"
+done
+
+for link in \
+  vmware-fuseUI \
+  vmware-mount \
+  vmware-netcfg \
+  vmware-usbarbitrator
+do
+  ln -s /usr/lib/vmware/bin/$link "${1}/usr/bin/$link"
+done
+
+ln -s /usr/lib/vmware/icu "${1}/etc/vmware/icu"
+ln -s /usr/lib/vmware-ovftool/ovftool "${1}/usr/bin/ovftool"
+ln -s /usr/lib/vmware-vix/libvixAllProducts.so "${1}/usr/lib/libvixAllProducts.so"
+
+
+# Replace placeholder "variables" with real paths.
+
+for file in \
+  gtk-3.0/gdk-pixbuf.loaders
+do
+  sed -i 's,@@LIBCONF_DIR@@,/usr/lib/vmware/libconf,g' "${1}/usr/lib/vmware/libconf/etc/$file"
+done
+
+sed -i 's,@@BINARY@@,/usr/bin/vmware,' "${1}/usr/share/applications/vmware-workstation.desktop"
+sed -i 's,@@BINARY@@,/usr/bin/vmplayer,' "${1}/usr/share/applications/vmware-player.desktop"
+sed -i 's,@@BINARY@@,/usr/bin/vmware-netcfg,' "${1}/usr/share/applications/vmware-netcfg.desktop"
+
+sed \
+  -e "s/@@VERSION@@/$vmware_installer_version/" \
+  -e "s,@@VMWARE_INSTALLER@@,/usr/lib/vmware-installer/$vmware_installer_version," \
+  -i "${1}/etc/vmware-installer/bootstrap"
+
+rm -r "${1}/usr/lib/vmware/modules/source"
+
+# macOS guest support patch
+install -d $1/usr/bin
+install -Dm 755 unlocker.py $1/usr/bin/vmware-macos-unlock.py
+
+for isoimage in ${_fusion_isoimages[@]}
+do
+  install -Dm 644 "$isoimage.iso" "${1}/usr/lib/vmware/isoimages/$isoimage.iso"
+done
+
+# EFI firmwares patch to disable macOS server checking
+_efi_arch=("32" "64" "20-32" "20-64")
+for arch in ${_efi_arch[@]}
+do
+  uefipatch "${1}/usr/lib/vmware/roms/EFI${arch}.ROM" "efi-patches.txt" -o "${1}/usr/lib/vmware/roms/EFI${arch}.ROM" > /dev/null
+done
+
+# Create a database which contains the list of guest tools (necessary to avoid that vmware try to download them)
+pkgver="${2//-/_}"; pkgver="${pkgver#*_}"
+database_filename="$1/etc/vmware-installer/database"
+install -d "$1/etc/vmware-installer"
+echo -n "" > "$database_filename"
+
+sqlite3 "$database_filename" "CREATE TABLE settings(key VARCHAR PRIMARY KEY, value VARCHAR NOT NULL, component_name VARCHAR NOT NULL);"
+sqlite3 "$database_filename" "INSERT INTO settings(key,value,component_name) VALUES('db.schemaVersion','2','vmware-installer');"
+sqlite3 "$database_filename" "CREATE TABLE components(id INTEGER PRIMARY KEY, name VARCHAR NOT NULL, version VARCHAR NOT NULL, buildNumber INTEGER NOT NULL, component_core_id INTEGER NOT NULL, longName VARCHAR NOT NULL, description VARCHAR, type INTEGER NOT NULL);"
+
+for isoimage in ${_extractedimages[@]}
+do
+  version=$(cat "extracted/vmware-tools-$isoimage/manifest.xml" | grep -oPm1 "(?<=<version>)[^<]+")
+  sqlite3 "$database_filename" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-$isoimage','$version',$pkgver,1,'$isoimage','$isoimage',1);"
+done
+
+for isoimage in ${_isoimages[@]}
+do
+  sqlite3 "$database_filename" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-$isoimage','1',$pkgver,1,'$isoimage','$isoimage',1);"
+done
+
+# Define some environment variables for VMware and remove the tests about kernel modules
+install -Dm 644 "vmware-environment.sh" "${1}/etc/conf.d/vmware"
+for program in vmware vmplayer vmware-tray; do
+  sed -e '/export PRODUCT_NAME/asource /etc/conf.d/vmware' \
+      -e 's/if "$BINDIR"\/vmware-modconfig --appname=.*/if true ||/' \
+      -i "${1}/usr/bin/$program"
+done
+
+# Add StartupWMClass attribute to desktop files
+sed -i '/^StartupNotify=.*/a StartupWMClass=vmware' "${1}/usr/share/applications/vmware-workstation.desktop"
+sed -i '/^StartupNotify=.*/a StartupWMClass=vmplayer' "${1}/usr/share/applications/vmware-player.desktop"
+sed -i '/^StartupNotify=.*/a StartupWMClass=vmware-netcfg' "${1}/usr/share/applications/vmware-netcfg.desktop"
+
+
+# Remove some bundled libs
+rm -rf $1/usr/lib/vmware/lib/libxml2*
+rm -rf $1/usr/lib/vmware/lib/libstdc*
