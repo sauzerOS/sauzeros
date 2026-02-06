@@ -1,11 +1,5 @@
 #!/bin/sh -e
 
-#sed -i '/MU.*_EXE. :/{
-#        s/\(.(MUPDF_LIB)\)\(.*\)$/\2 | \1/
-#        N
-#        s/$/ -lmupdf -L$(OUT)/
-#        }' Makefile
-
 cat > user.make << EOF &&
 USE_SYSTEM_FREETYPE := yes
 USE_SYSTEM_HARFBUZZ := yes
