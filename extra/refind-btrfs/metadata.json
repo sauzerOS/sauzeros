@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/Venom1991/refind-btrfs",
+  "category": "extra",
+  "description": "Generate rEFInd manual boot stanzas from Btrfs snapshots",
+  "info": "set default btrfs volume to / \nrefind looks for the kernel/initramfs relative to the default volume\n\n",
+  "license": "",
+  "tags": [
+    "boot",
+    "cli",
+    "disk-tools",
+    "utility"
+  ]
+}
