@@ -7,8 +7,6 @@ files/Makefile
 files/netware.iso
 files/solaris.iso
 files/unlocker.py
-files/vmmon.patch
-files/vmnet.patch
 files/vmware-bootstrap
 files/vmware-environment.sh
 files/vmware-networks-configuration.service
