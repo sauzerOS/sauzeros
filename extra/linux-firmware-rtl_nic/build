@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+install -d $1/usr/lib/firmware
+cp -r rtl_nic $1/usr/lib/firmware
+# compress firmware
+find $1/usr/lib/firmware -type f -exec xz -C crc32 -T0 "{}" \;
+
