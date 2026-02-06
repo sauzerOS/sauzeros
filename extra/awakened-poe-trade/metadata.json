@@ -1,0 +1,12 @@
+{
+  "url": "https://snosme.github.io/awakened-poe-trade/download",
+  "category": "extra",
+  "description": "Path of Exile trading app for price checking.(Prebuilt version.Use system-wide electron)",
+  "info": "",
+  "license": "",
+  "tags": [
+    "games",
+    "gui",
+    "utility"
+  ]
+}
