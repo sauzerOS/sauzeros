@@ -1,6 +1,6 @@
 cmake make
 llvm make
-sdl3
-qt6
 patchelf make
+qt6
+sdl3
 

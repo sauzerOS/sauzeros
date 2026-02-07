@@ -15,6 +15,9 @@ sed -i 's/Qt6::Gui Qt6::Widgets/Qt6::Gui Qt6::GuiPrivate Qt6::Widgets/' src/duck
 cp {versions,build-dependencies-linux.sh} scripts/deps/
 scripts/deps/build-dependencies-linux.sh deps
 
+# remove nag screen
+sed -i '147a\  return; // Bypass unofficial build warning' src/duckstation-qt/autoupdaterdialog.cpp
+
 # build duckstation
 cmake -B build-release                            \
 -D CMAKE_C_COMPILER=clang                         \
