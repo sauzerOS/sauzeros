@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/sched-ext/scx",
+  "category": "extra",
+  "description": "sched_ext schedulers and tools",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "kernel",
+    "utility"
+  ]
+}

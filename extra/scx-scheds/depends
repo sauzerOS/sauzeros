@@ -1,3 +1,4 @@
 jq
 protobuf
 libseccomp
+rust | rust-bin make
