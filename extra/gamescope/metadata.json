@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/ValveSoftware/gamescope",
+  "category": "extra",
+  "description": "SteamOS session compositing window manager",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "cli",
+    "games",
+    "utility"
+  ]
+}
