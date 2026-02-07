@@ -1,2 +1,2 @@
-https://downloads.sourceforge.net/libpng/libpng-${version}.tar.xz
-https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-${version}-apng.patch.gz
+https://sourceforge.net/projects/libpng/files/libpng16/${version}/libpng-${version}.tar.xz
+files/libpng-1.6.54-apng.patch

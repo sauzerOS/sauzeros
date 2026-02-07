@@ -1,16 +1,22 @@
 #!/bin/sh -e
 
-gzip -cd libpng-$2-apng.patch.gz | patch -p1
+patch -Np1 -i libpng-$2-apng.patch
 
-./configure \
-    --prefix=/usr
+cmake -B build                 \
+  -D CMAKE_BUILD_TYPE=Release  \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_SHARED_LIBS=ON      \
+  -D PNG_TESTS=OFF             \
+  -D PNG_STATIC=OFF            \
+  -D PNG_SHARED=ON             \
+  -D PNG_TOOLS=OFF
 
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
-make distclean
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"         \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 ./configure --prefix=/usr            \
