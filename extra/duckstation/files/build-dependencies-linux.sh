@@ -46,20 +46,20 @@ if [[ "$SKIP_DOWNLOAD" != true && ! -f "libbacktrace-$LIBBACKTRACE.tar.gz" ]]; t
 	curl -C - -L \
 		-O "https://github.com/nih-at/libzip/releases/download/v$LIBZIP/libzip-$LIBZIP.tar.gz" \
 		-o "libbacktrace-$LIBBACKTRACE.tar.gz" "https://github.com/ianlancetaylor/libbacktrace/archive/$LIBBACKTRACE.tar.gz" \
-		-o "cpuinfo-$CPUINFO.tar.gz" "https://github.com/stenzek/cpuinfo/archive/$CPUINFO.tar.gz" \
+		-o "cpuinfo-$CPUINFO_COMMIT.tar.gz" "https://github.com/stenzek/cpuinfo/archive/$CPUINFO_COMMIT.tar.gz" \
 		-o "discord-rpc-$DISCORD_RPC.tar.gz" "https://github.com/stenzek/discord-rpc/archive/$DISCORD_RPC.tar.gz" \
 		-o "plutosvg-$PLUTOSVG.tar.gz" "https://github.com/stenzek/plutosvg/archive/$PLUTOSVG.tar.gz" \
-		-o "shaderc-$SHADERC.tar.gz" "https://github.com/stenzek/shaderc/archive/$SHADERC.tar.gz" \
+		-o "shaderc-$SHADERC_COMMIT.tar.gz" "https://github.com/stenzek/shaderc/archive/$SHADERC_COMMIT.tar.gz" \
 		-o "soundtouch-$SOUNDTOUCH.tar.gz" "https://github.com/stenzek/soundtouch/archive/$SOUNDTOUCH.tar.gz"
 fi
 
 cat > SHASUMS <<EOF
 $LIBZIP_GZ_HASH  libzip-$LIBZIP.tar.gz
 $LIBBACKTRACE_GZ_HASH  libbacktrace-$LIBBACKTRACE.tar.gz
-$CPUINFO_GZ_HASH  cpuinfo-$CPUINFO.tar.gz
+$CPUINFO_GZ_HASH  cpuinfo-$CPUINFO_COMMIT.tar.gz
 $DISCORD_RPC_GZ_HASH  discord-rpc-$DISCORD_RPC.tar.gz
 $PLUTOSVG_GZ_HASH  plutosvg-$PLUTOSVG.tar.gz
-$SHADERC_GZ_HASH  shaderc-$SHADERC.tar.gz
+$SHADERC_GZ_HASH  shaderc-$SHADERC_COMMIT.tar.gz
 $SOUNDTOUCH_GZ_HASH  soundtouch-$SOUNDTOUCH.tar.gz
 EOF
 
@@ -67,7 +67,7 @@ shasum -a 256 --check SHASUMS
 
 # Have to clone with git, because it does version detection.
 if [[ "$SKIP_DOWNLOAD" != true && ! -d "SPIRV-Cross" ]]; then
-	git clone https://github.com/KhronosGroup/SPIRV-Cross/ -b $SPIRV_CROSS --depth 1
+	git clone https://github.com/KhronosGroup/SPIRV-Cross/ -b $SPIRV_CROSS_TAG --depth 1
 	if [ "$(git --git-dir=SPIRV-Cross/.git rev-parse HEAD)" != "$SPIRV_CROSS_SHA" ]; then
 		echo "SPIRV-Cross version mismatch, expected $SPIRV_CROSS_SHA, got $(git rev-parse HEAD)"
 		exit 1
@@ -79,7 +79,7 @@ if [ "$ONLY_DOWNLOAD" == true ]; then
 	exit 0
 fi
 
-echo "Building libbacktrace..."
+echo "Building libbacktrace"
 rm -fr "libbacktrace-$LIBBACKTRACE"
 tar xf "libbacktrace-$LIBBACKTRACE.tar.gz"
 cd "libbacktrace-$LIBBACKTRACE"
@@ -88,7 +88,7 @@ make
 make install
 cd ..
 
-echo "Building libzip..."
+echo "Building libzip"
 rm -fr "libzip-$LIBZIP"
 tar xf "libzip-$LIBZIP.tar.gz"
 cd "libzip-$LIBZIP"
@@ -100,16 +100,16 @@ cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building shaderc..."
-rm -fr "shaderc-$SHADERC"
-tar xf "shaderc-$SHADERC.tar.gz"
-cd "shaderc-$SHADERC"
+echo "Building shaderc"
+rm -fr "shaderc-$SHADERC_COMMIT"
+tar xf "shaderc-$SHADERC_COMMIT.tar.gz"
+cd "shaderc-$SHADERC_COMMIT"
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$INSTALLDIR" -DCMAKE_INSTALL_PREFIX="$INSTALLDIR" -DSHADERC_SKIP_TESTS=ON -DSHADERC_SKIP_EXAMPLES=ON -DSHADERC_SKIP_COPYRIGHT_CHECK=ON -B build -G Ninja
 cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building SPIRV-Cross..."
+echo "Building SPIRV-Cross"
 cd SPIRV-Cross
 rm -fr build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$INSTALLDIR" -DCMAKE_INSTALL_PREFIX="$INSTALLDIR" -DSPIRV_CROSS_SHARED=ON -DSPIRV_CROSS_STATIC=OFF -DSPIRV_CROSS_CLI=OFF -DSPIRV_CROSS_ENABLE_TESTS=OFF -DSPIRV_CROSS_ENABLE_GLSL=ON -DSPIRV_CROSS_ENABLE_HLSL=OFF -DSPIRV_CROSS_ENABLE_MSL=OFF -DSPIRV_CROSS_ENABLE_CPP=OFF -DSPIRV_CROSS_ENABLE_REFLECT=OFF -DSPIRV_CROSS_ENABLE_C_API=ON -DSPIRV_CROSS_ENABLE_UTIL=ON -B build -G Ninja
@@ -117,16 +117,16 @@ cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building cpuinfo..."
-rm -fr "cpuinfo-$CPUINFO"
-tar xf "cpuinfo-$CPUINFO.tar.gz"
-cd "cpuinfo-$CPUINFO"
+echo "Building cpuinfo"
+rm -fr "cpuinfo-$CPUINFO_COMMIT"
+tar xf "cpuinfo-$CPUINFO_COMMIT.tar.gz"
+cd "cpuinfo-$CPUINFO_COMMIT"
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$INSTALLDIR" -DCMAKE_INSTALL_PREFIX="$INSTALLDIR" -DCPUINFO_LIBRARY_TYPE=shared -DCPUINFO_RUNTIME_TYPE=shared -DCPUINFO_LOG_LEVEL=error -DCPUINFO_LOG_TO_STDIO=ON -DCPUINFO_BUILD_TOOLS=OFF -DCPUINFO_BUILD_UNIT_TESTS=OFF -DCPUINFO_BUILD_MOCK_TESTS=OFF -DCPUINFO_BUILD_BENCHMARKS=OFF -DUSE_SYSTEM_LIBS=ON -B build -G Ninja
 cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building discord-rpc..."
+echo "Building discord-rpc"
 rm -fr "discord-rpc-$DISCORD_RPC"
 tar xf "discord-rpc-$DISCORD_RPC.tar.gz"
 cd "discord-rpc-$DISCORD_RPC"
@@ -135,7 +135,7 @@ cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building plutosvg..."
+echo "Building plutosvg"
 rm -fr "plutosvg-$PLUTOSVG"
 tar xf "plutosvg-$PLUTOSVG.tar.gz"
 cd "plutosvg-$PLUTOSVG"
@@ -144,7 +144,7 @@ cmake --build build --parallel
 ninja -C build install
 cd ..
 
-echo "Building soundtouch..."
+echo "Building soundtouch"
 rm -fr "soundtouch-$SOUNDTOUCH"
 tar xf "soundtouch-$SOUNDTOUCH.tar.gz"
 cd "soundtouch-$SOUNDTOUCH"
@@ -154,7 +154,7 @@ ninja -C build install
 cd ..
 
 if [ "$SKIP_CLEANUP" != true ]; then
-	echo "Cleaning up..."
+	echo "Cleaning up"
 	cd ..
 	rm -fr deps-build
 fi
