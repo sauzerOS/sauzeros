@@ -1,4 +1,4 @@
-https://github.com/systemd/systemd/archive/refs/tags/v259.tar.gz
+https://github.com/systemd/systemd/archive/refs/tags/v259.1.tar.gz
 files/10-dmesg.conf
 files/20-wired.network
 files/25-wireless.network
