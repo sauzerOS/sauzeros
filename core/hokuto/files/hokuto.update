@@ -1,1 +1,3 @@
 kwayland kwin kwin-x11
+mesa mesa-32
+llvm llvm-32
