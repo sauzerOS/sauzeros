@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/dundee/gdu",
+  "category": "extra",
+  "description": "Fast disk usage analyzer",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "disk-tools",
+    "utility"
+  ]
+}
