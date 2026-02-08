@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+cmake -B build                 \
+  -D CMAKE_INSTALL_PREFIX=/usr
+
+cmake --build build
+install -Dm 755 build/out/bin/FAE_Linux $1/usr/bin/FAE_Linux
