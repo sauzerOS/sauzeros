@@ -1,1 +1,3 @@
 04849dce3d0576b61c114bcdd9c40081eeacf66a69bd3fff86c601eb4e7e9b39  rpm-6.0.1.tar.bz2
+f1f8e7dfa427d6c9f328fca9d6b72524b19264dcc69a6344cf8dc36432e80490  rpmlib-filesystem-check.patch
+bfc1db53c334d1029a6163671ab5e277f0a81c9cd38d917432b9b62e0bfd768d  fix-sequoia-off.patch

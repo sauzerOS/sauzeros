@@ -1,0 +1,83 @@
+#!/bin/sh -e
+
+cd peazip-$2.src
+
+_packets=(
+  dev/metadarkstyle/metadarkstyle.lpk
+  dev/project_pea.lpi
+  dev/project_peach.lpi
+)
+
+
+_laz_opts=(
+  --build-all
+  --cpu="x86_64"
+  --lazarusdir='/usr/lib/lazarus'
+  --os='linux'
+  --primary-config-path='config'
+  --widgetset="qt6"
+  --opt="-O3 -Sa -CX -XX -k--sort-common -k--as-needed -k-z -krelro -k-z -know"
+)
+
+
+# use system binaries
+sed -E -e 's&(\bHSYSBIN\b\s*)=\s*[0-9];&\1= 2;&' \
+  -i "dev/peach.pas"
+
+# set paths, needs trailing slash
+sed -E \
+  -e 's&(\bHBINPATH\b\s*)=\s*'\'\'';&\1= '\''/usr/bin/'\'';&' \
+  -e 's&(\bHSHAREPATH\b\s*)=\s*'\'\'';&\1= '\'"/usr/share/$_pkgname/"\'';&' \
+  -i "dev/peach.pas"
+
+# remove buttons from about dialog
+buttons=(
+    FormPeach.baboutbin
+    FormPeach.baboutchangelog
+    FormPeach.baboutfaq
+    FormPeach.baboutlocalhelp
+    FormPeach.baboutplugindir
+    FormPeach.baboutplugins
+    FormPeach.baboutremoveunace
+    FormPeach.baboutremoveunrar
+    FormPeach.baboutsupport
+    FormPeach.baboutthemes
+    FormPeach.babouttos
+    FormPeach.babouttracker
+    FormPeach.babouttranslations
+    FormPeach.baboutup
+    FormPeach.baboutweb
+  )
+
+for i in ${_buttons[@]}; do
+  sed -E -e "/^${i//./\\.}.Caption:=/s&^.*\$&${i}.Visible:=False;&" -i "dev/peach.pas"
+done
+
+# build
+for i in ${_packets[@]}; do
+  lazbuild "${_laz_opts[@]}" "$i"
+done
+
+
+# binaries
+_path_src="dev"
+install -Dm755 "$_path_src/peazip" "${1}/usr/bin/peazip"
+install -Dm755 "$_path_src/pea" "${1}/usr/bin/pea"
+
+# icons
+_path_src="res/share/icons"
+install -Dm644 "$_path_src"/peazip_{7z,rar,zip}.png -t "${1}/usr/share/icons/hicolor/256x256/mimetypes"
+install -Dm644 "$_path_src"/peazip_{add,extract,browse,convert}.png -t "${1}/usr/share/icons/hicolor/256x256/actions"
+
+# launcher
+_path_src="res/share/batch/freedesktop_integration"
+install -Dm644 "$_path_src"/peazip.png -t "${1}/usr/share/icons/hicolor/256x256/apps"
+install -Dm644 "$_path_src"/peazip.desktop -t "${1}/usr/share/applications"
+
+# res
+_path_src="res/share"
+mkdir -pm755 "${1}/usr/share/$_pkgname"
+cp -a "$_path_src"/{icons,lang,themes} "${1}/usr/share/$_pkgname/"
+
+# permissions
+chmod -R u+rwX,go+rX,go-w "${1}/"
