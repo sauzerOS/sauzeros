@@ -1,0 +1,2 @@
+https://github.com/systemd/zram-generator/archive/refs/tags/v${version}.tar.gz
+files/zram-generator.conf

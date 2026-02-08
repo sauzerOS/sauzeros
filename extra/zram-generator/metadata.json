@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/systemd/zram-generator",
+  "category": "extra",
+  "description": "Systemd unit generator for zram devices",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "compression",
+    "utility"
+  ]
+}
