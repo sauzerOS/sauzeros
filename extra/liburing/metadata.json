@@ -1,0 +1,10 @@
+{
+  "url": "https://git.kernel.dk/cgit/liburing",
+  "category": "extra",
+  "description": "Linux-native io_uring I/O access library",
+  "info": "",
+  "license": "GPL-2.0-only WITH Linux-syscall-note OR MIT",
+  "tags": [
+    "library"
+  ]
+}
