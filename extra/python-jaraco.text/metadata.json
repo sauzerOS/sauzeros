@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jaraco/jaraco.text",
+  "category": "extra",
+  "description": "Module for text manipulation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}
