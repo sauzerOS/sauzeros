@@ -1,7 +1,0 @@
-#!/bin/sh
-
-install -v -dm700 /srv/pgsql/data
-install -v -dm755 /run/postgresql
-chown -Rv postgres:postgres /srv/pgsql /run/postgresql
-
-sudo -u postgres initdb -D /srv/pgsql/data

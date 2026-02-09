@@ -30,3 +30,9 @@ install -Dm 644 postgresql.pam "${1}/etc/pam.d/postgresql"
 install -Dm 644 postgresql.service -t "${1}/usr/lib/systemd/system"
 install -Dm 644 postgresql.sysusers "${1}/usr/lib/sysusers.d/postgresql.conf"
 install -Dm 644 postgresql.tmpfiles "${1}/usr/lib/tmpfiles.d/postgresql.conf"
+
+majorver=${2%%.*}
+sed -e "s/%PGMAJORVERSION%/${majorver}/g" \
+    -e "s/%PREVMAJORVERSION%/$((majorver - 1))/g" \
+    postgresql-check-db-dir.in |
+install -Dm755 /dev/stdin "${1}/usr/bin/postgresql-check-db-dir"

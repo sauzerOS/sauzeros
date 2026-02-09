@@ -1,0 +1,12 @@
+{
+  "url": "https://hpjansson.org/chafa/",
+  "category": "extra",
+  "description": "Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "graphics",
+    "utility"
+  ]
+}
