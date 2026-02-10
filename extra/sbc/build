@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr --disable-static --disable-tester
+./configure --prefix=/usr \
+  --disable-static \
+  --disable-tester
 
 make
 make DESTDIR=$1 install
