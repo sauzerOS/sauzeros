@@ -1,0 +1,12 @@
+{
+  "url": "https://streamlink.github.io/",
+  "category": "extra",
+  "description": "CLI program that launches streams from various streaming services in a custom video player (livestreamer fork)",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "cli",
+    "multimeda",
+    "utility"
+  ]
+}
