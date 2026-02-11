@@ -1,0 +1,12 @@
+{
+  "url": "https://strace.io/",
+  "category": "extra",
+  "description": "A diagnostic, debugging and instructional userspace tracer",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "cli",
+    "devel",
+    "utility"
+  ]
+}
