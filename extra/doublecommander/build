@@ -1,8 +1,9 @@
 #!/bin/sh -e
 
-cp -a /usr/lib/lazarus ./
+mkdir -p lazarus
+find /usr/lib/lazarus -mindepth 1 -maxdepth 1 ! -name ".cache" -exec cp -a {} lazarus/ \;
 sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i install/linux/install.sh
-sed -e "s@=\$(which lazbuild)@=\"\$(which lazbuild) --lazarusdir=$HOKUTO_BUILD_DIR/lazarus\"@" -i build.sh
+sed -e "s@=\$(which lazbuild)@=\"\$(which lazbuild) --lazarusdir=$HOKUTO_BUILD_DIR/lazarus --primary-config-path=$HOKUTO_BUILD_DIR/.lazarus\"@" -i build.sh
 sed -e '/doublecmd.zdli/d' -i install/linux/install.sh
 
 ./build.sh components qt6
