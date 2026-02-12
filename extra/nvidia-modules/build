@@ -7,6 +7,9 @@ unset LDFLAGS CFLAGS CXXFLAGS
 
 patch -p1 -d kernel-open -i ../gpl.patch
 
+# fix for 6.19
+patch -Np1 -i 1015.patch
+
 # Build and install kernel modules
 export SYSSRC=/usr/src/linux/
 export SYSOUT=/usr/src/linux/

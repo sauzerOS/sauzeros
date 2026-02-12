@@ -1,0 +1,11 @@
+{
+  "url": "https://audacious-media-player.org/",
+  "category": "extra",
+  "description": "Lightweight, advanced audio player focused on audio quality",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "gui",
+    "multimedia"
+  ]
+}

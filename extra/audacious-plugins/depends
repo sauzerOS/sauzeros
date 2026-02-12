@@ -1,4 +1,5 @@
 alsa-lib
+audacious
 brotli
 bzip2
 curl
@@ -51,6 +52,7 @@ nettle
 nghttp2
 openjpeg
 opus
+opusfile
 p11-kit
 pcre2
 pipewire
@@ -63,3 +65,4 @@ wayland
 x264
 x265
 xvidcore
+meson make

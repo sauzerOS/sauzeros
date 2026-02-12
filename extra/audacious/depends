@@ -1,4 +1,4 @@
-audacious-plugins
+audacious-plugins optional
 brotli
 bzip2
 dbus
@@ -32,3 +32,4 @@ pixman
 systemd
 util-linux
 wayland
+meson make
