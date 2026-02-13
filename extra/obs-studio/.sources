@@ -1,0 +1,2 @@
+https://github.com/obsproject/obs-studio/releases/download/${version}/OBS-Studio-${version}-Sources.tar.gz
+files/qt6.10-fix.patch
