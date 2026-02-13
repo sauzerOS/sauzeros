@@ -33,9 +33,11 @@ install -Dm644 ../sshdgenkeys.service -t "$1"/usr/lib/systemd/system/
 install -Dm644 ../sshd.service -t "$1"/usr/lib/systemd/system/
 install -Dm644 ../sshd@.service -t "$1"/usr/lib/systemd/system/
 install -Dm644 ../ssh-agent.{service,socket} -t "$1"/usr/lib/systemd/user/
+install -Dm644 ../sshd.pam "$1"/etc/pam.d/sshd
 install -vDm 644 ../70-openssh-restart-sshd.hook -t "$1/usr/share/libalpm/hooks/"
 
 # factory files
+install -Dm644 ../sshd.pam "$1"/usr/share/factory/etc/pam.d/sshd
 install -Dm644 "$1/etc/ssh/moduli" -t "$1"/usr/share/factory/etc/ssh/
 install -Dm644 "$1/etc/ssh/ssh_config" -t "$1"/usr/share/factory/etc/ssh/
 install -Dm644 "$1/etc/ssh/sshd_config" -t "$1"/usr/share/factory/etc/ssh/
