@@ -6,3 +6,4 @@ files/ssh-agent.socket
 files/sshdgenkeys.service
 files/sshd.service
 files/sshd@.service
+files/sshd.pam
