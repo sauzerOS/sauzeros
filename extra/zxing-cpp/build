@@ -1,11 +1,16 @@
 #!/bin/sh -e
 
-cmake -B build \
-    -D CMAKE_INSTALL_PREFIX=/usr \
-    -D CMAKE_BUILD_TYPE=None \
-    -D ZXING_EXAMPLES=OFF \
-    -D ZXING_UNIT_TESTS=OFF \
-    -D ZXING_C_API=ON
+patch -Np1 -i system-stb.patch
+
+cmake -B build                    \
+    -D CMAKE_INSTALL_PREFIX=/usr  \
+    -D CMAKE_BUILD_TYPE=None      \
+    -D ZXING_EXAMPLES=OFF         \
+    -D ZXING_EXAMPLES_QT=OFF      \
+    -D ZXING_UNIT_TESTS=OFF       \
+    -D ZXING_C_API=ON             \
+    -D ZXING_USE_BUNDLED_ZINT=OFF \
+    -D ZXING_WRITERS=BOTH
 
 cmake --build build
 DESTDIR="$1" cmake --install build

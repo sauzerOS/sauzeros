@@ -1,0 +1,4 @@
+glibc
+cmake make
+git make
+qt6 make

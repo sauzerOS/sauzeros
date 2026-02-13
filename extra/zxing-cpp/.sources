@@ -1,1 +1,2 @@
 https://github.com/zxing-cpp/zxing-cpp/archive/refs/tags/v${version}.tar.gz
+files/system-stb.patch

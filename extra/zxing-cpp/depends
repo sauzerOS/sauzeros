@@ -1,4 +1,5 @@
 gcc
 glibc
+zint
 cmake make
 stb make
