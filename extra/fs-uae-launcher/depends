@@ -3,7 +3,7 @@ hicolor-icon-theme
 python
 python-idna
 python-lhafile
-python-opengl
+python-pyopengl
 python-pillow
 python-pyqt6
 python-requests
