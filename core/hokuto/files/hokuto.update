@@ -1,3 +1,5 @@
 kwayland kwin kwin-x11
 mesa mesa-32
 llvm llvm-32
+ki18n kfilemetadata kcolorscheme kconfigwidgets kwidgetsaddons kbookmarks  breeze-icons kiconthemes knotifications kjobwidgets solid kio kidletime kio-extras kglobalaccel kxmlgui kcmutils baloo
+sonnet ktexteditor
