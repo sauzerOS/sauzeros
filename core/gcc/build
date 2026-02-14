@@ -68,14 +68,14 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # Cross-native build: Build on x86, Host on ARM64, Target ARM64
     TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
     HOST_OPT="--build=$(gcc -dumpmachine) --host=${TARGET_TRIPLET} --target=${TARGET_TRIPLET}"
-    
+
     # Isolate Build (x86) from Host (ARM64) configuration
     export CC_FOR_BUILD="gcc"
     export CXX_FOR_BUILD="g++"
     export CFLAGS_FOR_BUILD="-O2"
     export CXXFLAGS_FOR_BUILD="-O2"
     export LDFLAGS_FOR_BUILD=""
-    
+
     # Capture Host flags and clear environment to prevent leakage
     HOST_CFLAGS="$CFLAGS"
     HOST_CXXFLAGS="$CXXFLAGS"
@@ -85,12 +85,12 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     HOST_CPPFLAGS="$CPPFLAGS"
     unset CC CXX CFLAGS CXXFLAGS LDFLAGS CPPFLAGS
     # Autoconf sometimes misses these if not explicitly set in environment for cross-builds
-    
+
     # We are building for a different arch, so we can't assume i386 config applies effectively,
     # but strictly speaking the source being patched is for i386 which might not be used.
     # However, we DO need to ensure we don't try strict multilib for x86 if we are arm64
     MULTILIB_DISABLE="1"
-    
+
     # Workaround: Disable plugins explicitly for cross-native build
     PLUGIN_OPT="--disable-plugin"
 else
@@ -173,4 +173,9 @@ rm -rf "$1"/usr/share/gcc-$2
 rm -rf "$1"/usr/bin/cc
 rm -rf "$1"/usr/bin/c99
 rm -rf "$1"/usr/lib/bfd-plugins
+fi
+
+# compat symlink
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" = "/usr" ]; then
+ln -sfv aarch64-linux-gnu-gcc $1/usr/bin/aarch64-unknown-linux-gnu-gcc
 fi
