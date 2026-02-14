@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/sh -e
 
 install -Dm644 eden.xml "$1/usr/share/mime/packages/eden.xml"
-install -Dm755 Eden-Linux-v$2-amd64.AppImage "$1/opt/eden/eden.AppImage"
+install -Dm755 Eden-Linux-v$2-amd64-clang-pgo.AppImage "$1/opt/eden/eden.AppImage"
 install -Dm644 dev.eden_emu.eden.desktop \
          "$1/usr/share/applications/eden.desktop"
 

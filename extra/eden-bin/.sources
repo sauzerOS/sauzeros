@@ -1,0 +1,4 @@
+https://github.com/eden-emulator/Releases/releases/download/v${version}/Eden-Linux-v${version}-amd64-clang-pgo.AppImage
+files/eden.xml
+files/dev.eden_emu.eden.desktop
+files/dev.eden_emu.eden.svg

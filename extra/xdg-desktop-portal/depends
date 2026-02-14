@@ -3,4 +3,4 @@ libportal
 pipewire
 umockdev
 python-pytest
-python-dbusmock
+python-python-dbusmock
