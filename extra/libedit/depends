@@ -1,0 +1,3 @@
+ncurses
+aarch64-ncurses cross make
+aarch64-gcc cross make

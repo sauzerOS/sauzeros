@@ -4,3 +4,5 @@ libxcrypt make
 openssl make
 pam make
 zlib-ng make
+aarch64-libedit cross make
+aarch64-gcc cross make
