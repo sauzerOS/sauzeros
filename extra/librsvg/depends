@@ -2,4 +2,5 @@ cairo
 cargo-c
 gdk-pixbuf
 pango
-rust
+rust make
+meson make
