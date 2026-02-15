@@ -1,0 +1,11 @@
+{
+  "url": "https://eden-emulator.github.io/",
+  "category": "extra",
+  "description": "Nintendo Switch emulator forked from yuzu.",
+  "info": "",
+  "license": "",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}
