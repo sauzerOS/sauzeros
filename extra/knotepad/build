@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr
+
+cmake --build build
+
+install -Dm 755 build/knotepad $1/usr/bin/knotepad
+install -Dm 644 knotepad.desktop $1/usr/share/applications/knotepad.desktop
+install -Dm 644 knotepad.svg $1/usr/share/icons/hicolor/scalable/apps/knotepad.svg

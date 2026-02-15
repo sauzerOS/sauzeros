@@ -1,0 +1,16 @@
+cmake make
+breeze-icons
+karchive 
+kcodecs 
+kcolorscheme 
+kconfig 
+kconfigwidgets 
+kcoreaddons 
+kglobalaccel 
+kguiaddons 
+ki18n 
+kiconthemes 
+kitemviews 
+kwidgetsaddons 
+kxmlgui 
+qt6

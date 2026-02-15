@@ -31,7 +31,12 @@ sed -E -e 's&(fmt::format)\("shadPS4 v&\1("shadPS4 &' \
 
 cmake -B build \
   -G Ninja     \
-  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_BUILD_TYPE=RELEASE \
+  -D CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE=ON \
+  -D CMAKE_C_COMPILER=clang \
+  -D CMAKE_CXX_COMPILER=clang++ \
+  -D CMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
+  -D CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold" \
   -D CMAKE_INSTALL_PREFIX='/usr' \
   -D CMAKE_SKIP_RPATH=ON \
   -D BUILD_TESTING=OFF \

@@ -4,6 +4,7 @@ libpng
 pugixml
 boost make
 cmake make
+mold make
 nlohmann-json make
 spirv-headers make
 sdl3 make

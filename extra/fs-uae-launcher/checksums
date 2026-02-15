@@ -1,1 +1,3 @@
 5da89534d87a644237fae36bcfc92433edfc8336d9f1860220f4e394b72543a2  fs-uae-launcher-3.2.35.tar.xz
+a307703106073d5f40c77107e8bbbc6a7ca0b24b0bc00ff23490ddc32172de93  010-fs-uae-launcher-fix-install-path.patch
+74f8b9142376389e2cb38aa53d1f045fc02e74032e2e6eed351b7ead71e4b2c1  020-fs-uae-launcher-remove-python2.patch
