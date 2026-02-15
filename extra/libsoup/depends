@@ -5,3 +5,4 @@ libxml2
 nghttp2
 sqlite
 vala
+meson make

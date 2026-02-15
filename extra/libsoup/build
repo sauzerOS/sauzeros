@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+sed 's/apiversion/soup_version/' -i docs/reference/meson.build
+
+meson setup build \
+  --prefix=/usr          \
+  --buildtype=release    \
+  -D vapi=enabled         \
+  -D gssapi=disabled      \
+  -D sysprof=disabled     \
+  --wrap-mode=nofallback
+
+meson compile -C build
+meson install -C build --destdir=$1

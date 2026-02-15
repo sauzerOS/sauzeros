@@ -1,6 +1,6 @@
 cairo
 cmake make
-libsoup3
+libsoup
 openjpeg
 ruby
 unifdef

@@ -5,5 +5,5 @@ gpgme
 libhandy
 libpwquality
 libsecret
-libsoup3
+libsoup
 p11-kit
