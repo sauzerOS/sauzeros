@@ -7,7 +7,7 @@ cp -a * "$1/opt/$3"
 # allow firejail users to get the suid sandbox working
 chmod 4755 "$1/opt/$3/chrome-sandbox"
 
-install -Dm 0755 "$3-bin.sh" "$1/usr/bin/brave"
+install -Dm 0755 "$3.sh" "$1/usr/bin/brave"
 install -Dm 0644 -t "$1/usr/share/applications/" "brave-browser.desktop"
 pushd "$1/usr/"
 for size in 16x16 24x24 32x32 48x48 64x64 128x128 256x256; do
