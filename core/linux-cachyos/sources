@@ -1,3 +1,3 @@
-https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.19.tar.xz kernel
+https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.19.1.tar.xz kernel
 git+https://github.com/CachyOS/kernel-patches patches
 files/config.gz
