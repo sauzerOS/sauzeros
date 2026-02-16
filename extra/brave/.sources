@@ -1,3 +1,3 @@
 https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-linux-amd64.zip
-files/brave-bin.sh
+files/brave.sh
 files/brave-browser.desktop

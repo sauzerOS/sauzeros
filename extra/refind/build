@@ -17,6 +17,11 @@ patch -Np1 -i refind-0.14.2-gnu-efi-4.patch
 # We use explicit legacy ABI for ReallocatePool (arg swap) and CompareGuid (0-return)
 sed -i 's/-D__MAKEWITH_GNUEFI/-D__MAKEWITH_GNUEFI -DGNU_EFI_USE_REALLOCATEPOOL_ABI=0 -DGNU_EFI_USE_COMPAREGUID_ABI=0/g' Make.common
 
+# Fix objcopy invocation to use --output-target instead of --target
+# This ensures that the ELF input files are correctly recognized and converted to EFI applications
+# Covers efi-app, efi-bsdrv, efi-rtdrv, etc.
+sed -i 's/--target=efi/--output-target=efi/g' Make.common
+
 make
 make gptsync
 make fs
