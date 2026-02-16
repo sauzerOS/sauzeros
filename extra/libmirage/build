@@ -1,10 +1,10 @@
 #!/bin/sh -e
 
 cd libmirage
-mkdir build
-cd build
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=Release
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+cmake --build build
+DESTDIR=$1 cmake --install build
 
-make
-make DESTDIR=$1 install
