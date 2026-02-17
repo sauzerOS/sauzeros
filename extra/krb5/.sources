@@ -1,0 +1,2 @@
+https://web.mit.edu/kerberos/dist/krb5/${version-major-minor}/krb5-${version}.tar.gz
+files/mitkrb-1.22.2-upstream_fix-1.patch

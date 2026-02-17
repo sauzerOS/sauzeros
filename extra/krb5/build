@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all -std=gnu17"
+patch -Np1 -i mitkrb-1.22.2-upstream_fix-1.patch
+cd src
+./configure --prefix=/usr \
+            --sbindir=/usr/bin \
+            --sysconfdir=/etc \
+            --localstatedir=/var/lib \
+            --enable-shared \
+            --with-system-et \
+            --with-system-ss \
+            --disable-rpath \
+            --without-tcl
+make
+make DESTDIR="${1}" install

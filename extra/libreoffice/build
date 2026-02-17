@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cd RPMS
+rpm2archive *.rpm
+for file in *.tgz; do tar xvf $file -C $1/ ; done
+

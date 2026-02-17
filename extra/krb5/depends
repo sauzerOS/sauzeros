@@ -1,0 +1,6 @@
+bash
+e2fsprogs
+glibc
+keyutils
+openssl
+perl make

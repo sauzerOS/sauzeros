@@ -5,35 +5,55 @@ patch -Np1 -i nss-standalone-1.patch
 cd nss
 
 NSS_EXTRA=""
-if echo "$CPUFLAGS" | grep -q "avx2"; then
-  NSS_EXTRA="NSS_ENABLE_AVX2=1"
+if [ "$HOKUTO_ARCH" = "x86_64" ]; then
+    if echo "$CPUFLAGS" | grep -q "avx2"; then
+      NSS_EXTRA="NSS_ENABLE_AVX2=1"
+    fi
 fi
 
-make BUILD_OPT=1                     \
-  NSPR_INCLUDE_DIR=/usr/include/nspr \
-  USE_SYSTEM_ZLIB=1                  \
-  ZLIB_LIBS=-lz                      \
-  NSS_ENABLE_WERROR=0                \
-  USE_64=1                           \
-  NSS_USE_SYSTEM_SQLITE=1            \
-  $NSS_EXTRA
+USE_64=0
+if [ "$HOKUTO_ARCH" = "x86_64" ] || [ "$HOKUTO_ARCH" = "aarch64" ]; then
+    USE_64=1
+fi
+
+MAKE_ARGS="BUILD_OPT=1 \
+  NSPR_INCLUDE_DIR=$CROSS_PREFIX/include/nspr \
+  USE_SYSTEM_ZLIB=1 \
+  ZLIB_LIBS=-lz \
+  NSS_ENABLE_WERROR=0 \
+  USE_64=$USE_64 \
+  NSS_USE_SYSTEM_SQLITE=1 \
+  $NSS_EXTRA"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CC="$HOKUTO_ARCH-linux-gnu-gcc"
+    CXX="$HOKUTO_ARCH-linux-gnu-g++"
+    AR="$HOKUTO_ARCH-linux-gnu-ar"
+    RANLIB="$HOKUTO_ARCH-linux-gnu-ranlib"
+    MAKE_ARGS="$MAKE_ARGS CC=$CC CXX=$CXX CCC=$CXX RANLIB=$RANLIB OS_TEST=$HOKUTO_ARCH"
+    
+    # NSS requires AR to contain 'cr $@' for legacy reasons in coreconf
+    make $MAKE_ARGS AR="$AR cr \$@"
+else
+    make $MAKE_ARGS
+fi
 
 cd ../dist
 
-install -d $1/usr/lib/pkgconfig
-install -d $1/usr/bin
+install -d $1$CROSS_PREFIX/lib/pkgconfig
+install -d $1$CROSS_PREFIX/bin
 
-install -v -m755 Linux*/lib/*.so              $1/usr/lib
-install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1/usr/lib
+install -v -m755 Linux*/lib/*.so              $1$CROSS_PREFIX/lib
+install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1$CROSS_PREFIX/lib
 
-install -v -m755 -d                           $1/usr/include/nss
-cp -v -RL {public,private}/nss/*              $1/usr/include/nss
+install -v -m755 -d                           $1$CROSS_PREFIX/include/nss
+cp -v -RL {public,private}/nss/*              $1$CROSS_PREFIX/include/nss
 
-install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $1/usr/bin
+install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $1$CROSS_PREFIX/bin
 
-install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib/pkgconfig
+install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1$CROSS_PREFIX/lib/pkgconfig
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 cd ../nss
 find -name "Linux*.OBJ" -type d -exec rm -rf {} +
