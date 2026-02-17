@@ -4,6 +4,10 @@ cd firefox-$2
 mv ../mozconfig .
 mv ../google-api-key .
 
+# glibc 2.43 fixes
+patch -Np1 -i ../0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
+patch -Np1 -i ../0004-Fix-sandbox-to-build-with-glibc-2.43.patch
+
 # LTO
 #WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
 COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
