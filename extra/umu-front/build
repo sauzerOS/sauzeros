@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+go build
+install -Dm 755 umu-front $1/usr/bin/umu-front
+install -Dm 644 assets/umu-front.desktop $1/usr/share/applications/umu-front.desktop
