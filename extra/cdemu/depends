@@ -1,3 +1,4 @@
-libmirage
+cmake make
 cdemu-vhba-module
+libmirage
 libao
