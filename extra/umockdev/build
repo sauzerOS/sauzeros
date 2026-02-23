@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson -B build \
+meson setup build \
   --prefix=/usr
 
 meson compile -C build

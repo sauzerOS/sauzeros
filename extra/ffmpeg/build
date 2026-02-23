@@ -74,7 +74,6 @@ make distclean
             --enable-libaom                           \
             --enable-libfdk-aac                       \
             --enable-libfreetype                      \
-            --enable-libmp3lame                       \
             --enable-libopus                          \
             --enable-libvorbis                        \
             --enable-libvpx                           \
