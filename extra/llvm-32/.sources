@@ -1,0 +1,3 @@
+https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.0/llvm-project-22.1.0.src.tar.xz
+files/aarch64-linux.cmake
+files/aarch64-linux-gnu-llvm-config

@@ -9,9 +9,6 @@ cd llvm
 grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
 sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
 
-mkdir build
-cd build
-
 CC=gcc CXX=g++                                          \
 cmake -D CMAKE_INSTALL_PREFIX=/usr                      \
       -D CMAKE_C_FLAGS:STRING=-m32                      \
@@ -33,10 +30,12 @@ cmake -D CMAKE_INSTALL_PREFIX=/usr                      \
       -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang        \
       -D LLVM_ENABLE_PROJECTS="clang;lld"               \
       -D LLVM_ENABLE_RUNTIMES="compiler-rt"             \
+      -D COMPILER_RT_INCLUDE_TESTS=OFF                  \
       -D CLANG_DEFAULT_LINKER=lld                       \
-      -W no-dev -G Ninja ..
+      -W no-dev -G Ninja -B build
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
+
 install -d $1/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
