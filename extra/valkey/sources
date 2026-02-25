@@ -1,4 +1,4 @@
-https://github.com/valkey-io/valkey/archive/refs/tags/9.0.2.tar.gz
+https://github.com/valkey-io/valkey/archive/refs/tags/9.0.3.tar.gz
 files/valkey.conf.ok
 files/valkey-sentinel.service
 files/valkey.service
