@@ -1,8 +1,9 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr   \
-  --buildtype=release
+meson setup build     \
+  --prefix=/usr       \
+  --buildtype=release \
+  -D tests=false
 
-cmake --build build
-DESTDIR=$1 cmake --install build
+meson compile -C build
+meson install -C build --destdir=$1

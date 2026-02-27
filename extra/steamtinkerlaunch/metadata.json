@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/sonic2kk/steamtinkerlaunch",
+  "category": "extra",
+  "description": "Wrapper script for Steam custom launch options",
+  "info": "# add steamtinkerlaunch as steam compatibility tool:\nsteamtinkerlaunch compat add\n",
+  "license": "",
+  "tags": [
+    "cli",
+    "games",
+    "utility"
+  ]
+}

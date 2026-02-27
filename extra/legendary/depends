@@ -1,0 +1,7 @@
+python-filelock
+python-requests
+python-requests-futures
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make

@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+chmod +x Heroic-$2-linux-x86_64.AppImage
+./Heroic-$2-linux-x86_64.AppImage --appimage-extract
+cd squashfs-root
+
+install -Dm644 heroic.desktop $1/usr/share/applications/heroic.desktop
+install -Dm 755 heroic $1/usr/bin/heroic
+install -Dm 755 
+
+
+ln -s /opt/$3/heroic $1/usr/bin/heroic

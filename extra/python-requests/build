@@ -1,4 +1,9 @@
 #!/bin/sh -e
 
+# Increase chardet upper limit to 7
+git show 4bd79e397304d46dfccd76f36c07f66c0295ff82 -- src/requests/__init__.py | git apply
+sed -i '/certifi/d' setup.py
+patch -p1 -i certs.patch
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl

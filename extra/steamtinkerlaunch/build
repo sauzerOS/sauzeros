@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+
+install -Dm755 "${3}" -t "${1}/usr/bin"
+
+install -d "${1}/usr/share/${3}"
+cp -r collections eval guicfgs lang misc "${1}/usr/share/${3}"
+
+install -Dm644 "misc/${3}.desktop" -t "${1}/usr/share/applications"
+install -Dm644 "misc/${3}.svg" -t "${1}/usr/share/icons/hicolor/scalable/apps"

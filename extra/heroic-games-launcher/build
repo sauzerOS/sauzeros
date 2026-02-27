@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+mkdir -pv $1/opt/$3
+cp -r * $1/opt/$3/
+
+mkdir -pv $1/usr/bin
+ln -s /opt/$3/heroic $1/usr/bin/heroic
+
+install -Dm644 heroic.desktop $1/usr/share/applications/heroic.desktop
+install -Dm644 heroic.png $1/usr/share/icons/heroic.png
+
+rm $1/opt/$3/resources/app.asar.unpacked/build/bin/x64/linux/legendary
+ln -s /usr/bin/legendary $1/opt/$3/resources/app.asar.unpacked/build/bin/x64/linux/legendary
+

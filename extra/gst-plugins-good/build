@@ -17,6 +17,8 @@ meson setup build          \
     --cross-file=lib32     \
     --buildtype=release    \
     --wrap-mode=nodownload \
+    -D lame=disabled       \
+    -D twolame=enabled     \
     -D qt5=disabled        \
     -D qt6=disabled
 

@@ -16,6 +16,7 @@ meson setup build       \
     --libdir=/usr/lib32 \
     --cross-file=lib32  \
     --buildtype=release \
+    -D gst-plugins-good:lame=disabled \
     -D gst_debug=false
 
 meson compile -C build
