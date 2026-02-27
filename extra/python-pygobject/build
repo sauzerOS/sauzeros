@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
+meson setup build \
+  --prefix=/usr   \
+  --buildtype=release
 
-meson setup --prefix=/usr --buildtype=release ..
-ninja
-DESTDIR=$1 ninja install
+cmake --build build
+DESTDIR=$1 cmake --install build
