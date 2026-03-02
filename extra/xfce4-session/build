@@ -1,16 +1,16 @@
 #!/bin/sh -e
 
- ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --enable-x11 \
-    --enable-wayland \
-    --disable-debug \
-    --disable-legacy-sm \
-    --enable-upower-glib \
-    --enable-colord      \
-    --enable-maintainer-mode
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --enable-x11 \
+  --enable-wayland \
+  --disable-debug \
+  --disable-legacy-sm \
+  --enable-upower-glib \
+  --enable-colord      \
+  --enable-maintainer-mode
 
 make
 make DESTDIR="$1" install
