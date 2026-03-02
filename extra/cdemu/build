@@ -15,7 +15,7 @@ install -Dt "$1/usr/share/dbus-1/services" -m644 \
   service-example/net.sf.cdemu.CDEmuDaemon.service
 
 install -Dm644 /dev/stdin "$1/usr/lib/udev/rules.d/60-cdemu.rules" <<END
-ACTION=="add", KERNEL=="vhba_ctl", SUBSYSTEM=="misc", TAG+="uaccess", TAG+="seat", ENV{ID_FOR_SEAT}="seat0"
+KERNEL=="vhba_ctl", SUBSYSTEM=="misc", TAG+="uaccess", TAG+="seat", ENV{ID_FOR_SEAT}="seat0"
 END
 
 echo 'g cdemu - -' | install -Dm644 /dev/stdin "$1/usr/lib/sysusers.d/cdemu.conf"

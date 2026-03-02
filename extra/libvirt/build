@@ -6,7 +6,7 @@ meson setup build            \
   -D runstatedir=/run        \
   -D selinux=disabled        \
   -D apparmor=disabled       \
-  -D docs=disabled           \
+  -D docs=enabled            \
   -D tests=disabled          \
   -D driver_qemu=enabled     \
   -D driver_remote=enabled   \
