@@ -1,0 +1,47 @@
+#!/bin/bash
+# factorio/download
+URL="$1"
+DEST="$2"
+
+# Use credentials from Environment if set
+USERNAME="${FACTORIO_LOGIN}"
+TOKEN="${FACTORIO_TOKEN}"
+PASSWORD="${FACTORIO_PASSWORD}"
+
+# Fallback to local game config
+CONFIG_FILE="$HOME/.factorio/player-data.json"
+if [[ -z "$TOKEN" && -f "$CONFIG_FILE" ]]; then
+    USERNAME=$(jq -r '."service-username"' "$CONFIG_FILE")
+    TOKEN=$(jq -r '."service-token"' "$CONFIG_FILE")
+fi
+
+# Interactively prompt if needed (Hokuto passes TTY for custom downloaders)
+if [[ -z "$TOKEN" && -z "$PASSWORD" ]]; then
+    read -rp "Factorio Username/Email: " USERNAME
+    read -rsp "Factorio Password (leave blank if you have a token): " PASSWORD
+    echo
+    if [[ -z "$PASSWORD" ]]; then
+        read -rp "Factorio Token: " TOKEN
+    fi
+fi
+
+# If we have password but no token, perform API login
+if [[ -z "$TOKEN" && -n "$PASSWORD" ]]; then
+    echo "Logging in to Factorio Auth API"
+    RESULT=$(curl -s https://auth.factorio.com/api-login \
+        --data-urlencode username="$USERNAME" \
+        --data-urlencode password="$PASSWORD" \
+        --data-urlencode require_game_ownership=true \
+        --data-urlencode api_version=2)
+    TOKEN=$(echo "$RESULT" | jq -r '.token // empty')
+    if [[ -z "$TOKEN" ]]; then
+        echo "Login failed: $(echo "$RESULT" | jq -r '.message')"
+        exit 1
+    fi
+fi
+
+# Finally, download the game package
+curl -L -G "$URL" \
+    --data-urlencode username="$USERNAME" \
+    --data-urlencode token="$TOKEN" \
+    -o "$DEST"

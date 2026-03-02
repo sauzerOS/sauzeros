@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+install -d "${1}/usr/share/factorio"
+install -Dm 755 "bin/x64/factorio" "${1}/usr/bin/factorio"
+cp -r data/* "${1}/usr/share/factorio"
+install -Dm 644 "factorio.desktop" "${1}/usr/share/applications/factorio.desktop"
