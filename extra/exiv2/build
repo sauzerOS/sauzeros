@@ -1,15 +1,12 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
+cmake -D CMAKE_INSTALL_PREFIX=/usr  \
+      -D CMAKE_BUILD_TYPE=Release   \
+      -D EXIV2_ENABLE_VIDEO=yes     \
+      -D EXIV2_ENABLE_WEBREADY=yes  \
+      -D EXIV2_ENABLE_CURL=yes      \
+      -D EXIV2_BUILD_SAMPLES=no     \
+      -G "Unix Makefiles" -B build
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr  \
-      -DCMAKE_BUILD_TYPE=Release   \
-      -DEXIV2_ENABLE_VIDEO=yes     \
-      -DEXIV2_ENABLE_WEBREADY=yes  \
-      -DEXIV2_ENABLE_CURL=yes      \
-      -DEXIV2_BUILD_SAMPLES=no     \
-      -G "Unix Makefiles" ..
-
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
