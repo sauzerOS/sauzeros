@@ -1,2 +1,2 @@
-https://factorio.com/get-download/${version}/alpha/linux64 -> factorio_linux_${version}.tar.xz
+https://factorio.com/get-download/${version}/expansion/linux64 -> factorio_linux_${version}.tar.xz
 files/factorio.desktop
