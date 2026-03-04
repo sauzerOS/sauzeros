@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/FeralInteractive/gamemode",
+  "category": "extra",
+  "description": "A daemon/lib combo that allows games to request a set of optimisations be temporarily applied to the host OS",
+  "info": "for renice to work:\nadd user to gamemode group\nset DefaultLimitNICE=30 in /etc/systemd/user.conf\n",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "games",
+    "utility"
+  ]
+}
