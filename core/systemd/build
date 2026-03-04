@@ -41,6 +41,7 @@ meson setup build                  \
       -D blkid=enabled              \
       -D buildtype=release          \
       -D default-dnssec=no          \
+      -D default-kill-user-processes=false \
       -D default-dns-over-tls=yes   \
       -D firstboot=false            \
       -D install-tests=false        \
