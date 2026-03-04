@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/lsof-org/lsof",
+  "category": "extra",
+  "description": "Lists open files for running Unix processes",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}
