@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+### CONFIG ###
+FACTORIO_BIN="factorio"
+HUGEPAGES_2MB=4096          # 4096 * 2MB = 8GB
+MIMALLOC_PATH="$(ldconfig -p | grep libmimalloc.so | head -n1 | awk '{print $4}')"
+
+if [[ -z "$MIMALLOC_PATH" ]]; then
+    echo "libmimalloc.so not found. Install mimalloc or adjust path."
+    exit 1
+fi
+
+echo "Allocating $HUGEPAGES_2MB hugepages (2MB each)"
+echo $HUGEPAGES_2MB | run0 tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages > /dev/null
+
+echo "Verifying allocation"
+grep HugePages_Total /proc/meminfo
+
+### Cleanup function ###
+cleanup() {
+    echo "Releasing hugepages"
+    echo 0 | run0 tee /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages > /dev/null
+}
+trap cleanup EXIT
+
+### Environment ###
+export MIMALLOC_RESERVE_HUGE_OS_PAGES=4096
+export MIMALLOC_PURGE_DELAY=-1
+export MALLOC_ARENA_MAX=1
+
+echo "Launching Factorio with mimalloc + 8GB hugepages"
+gamemoderun LD_PRELOAD="$MIMALLOC_PATH" "$FACTORIO_BIN"
+

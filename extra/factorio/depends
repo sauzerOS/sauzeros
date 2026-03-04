@@ -3,3 +3,4 @@ alsa-lib
 libxrandr
 libxinerama
 mesa
+mimalloc
