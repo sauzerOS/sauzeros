@@ -104,6 +104,9 @@ for file in rust-std-1.92.0-x86_64-unknown-linux-gnu.tar.xz cargo-1.92.0-x86_64-
     fi
 done
 
+# LLVM 22.1.0 fix
+sed -i 's|llvm/Passes/PassPlugin.h|llvm/Plugins/PassPlugin.h|g' ./compiler/rustc_llvm/llvm-wrapper/PassWrapper.cpp
+
 ./x.py build
 
 echo "==> Installing to $1"
