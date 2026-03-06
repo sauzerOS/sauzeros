@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+unset CFLAGS CXXFLAGS
+
+targets=(
+    wasm32-wasip1
+    wasm32-wasip1-threads
+    wasm32-wasip2
+)
+
+cmake_options=(
+    -B build
+    -G Ninja
+    -D BUILD_SHARED=off
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_C_COMPILER=clang
+)
+
+for target in "${targets[@]}"; do
+  cmake "${cmake_options[@]}" -D TARGET_TRIPLE="${target}"
+  cmake --build build
+done
+
+install -dm755 "${1}"/usr/share
+cp -dr --preserve=mode,timestamp build/sysroot "${1}"/usr/share/wasi-sysroot

@@ -1,0 +1,4 @@
+caa4cb731c7eccf8ade3744aca7c938226a1d682e9c8bccead459f2298c2ffc0  llvm-project-22.1.0.src.tar.xz
+c16a03b460ee89d3554b82ebc41d4e12dcbee0870f5c57ecc75600c370188886  no-normalize-triple.diff
+4f9289898ffe84c591e649dcc31a9e9b05f05f8cb2cf3c54fd5a431294dd8908  WASI.cmake
+2b0945ab078ba7b79bd82da0706494fe36ea261f01503328720c13fc9795c7a6  wasi-sdk.cmake

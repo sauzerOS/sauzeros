@@ -1,0 +1,6 @@
+wasi-compiler-rt
+wasi-libc
+cmake make
+llvm make
+python make
+util-linux make

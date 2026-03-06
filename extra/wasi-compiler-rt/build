@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+# Currently, wasi-sdk requires C++ code be compiled with -fno-exceptions. libc++abi is compiled, however is is currently compiled with exception-handling support disabled.
+# https://github.com/WebAssembly/wasi-sdk/issues/52#issuecomment-530619365
+
+cd compiler-rt
+
+# 1. Query your system clang for its version/resource path
+CLANG_RES_DIR=$(clang -print-resource-dir)
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_C_COMPILER_WORKS=ON \
+  -D CMAKE_CXX_COMPILER_WORKS=ON \
+  -D CMAKE_MODULE_PATH=".."/make \
+  -D CMAKE_TOOLCHAIN_FILE=".."/wasi-sdk.cmake \
+  -D COMPILER_RT_BAREMETAL_BUILD=On \
+  -D COMPILER_RT_INCLUDE_TESTS=OFF \
+  -D COMPILER_RT_HAS_FPIC_FLAG=OFF \
+  -D COMPILER_RT_DEFAULT_TARGET_ONLY=On \
+  -D COMPILER_RT_OS_DIR=wasi \
+  -D WASI_SDK_PREFIX=/usr \
+  -D CMAKE_C_FLAGS="-fno-exceptions --sysroot=/usr/share/wasi-sysroot" \
+  -D CMAKE_INSTALL_PREFIX="${CLANG_RES_DIR}" \
+  compiler-rt-${2}.src/lib/builtins
+
+cmake --build build -v
+DESTDIR="${1}" cmake --install build -v
+
+ln -sr "${1}"/${CLANG_RES_DIR}/lib/{wasi,wasip1}
+ln -sr "${1}"/${CLANG_RES_DIR}/lib/{wasi,wasip2}
+

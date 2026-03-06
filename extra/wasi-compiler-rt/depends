@@ -1,0 +1,4 @@
+wasi-libc
+cmake make
+ninja make
+llvm make
