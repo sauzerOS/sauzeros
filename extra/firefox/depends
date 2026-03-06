@@ -36,3 +36,6 @@ wayland-protocols
 zlib-ng
 nvidia-vaapi-driver
 unzip make
+wasi-compiler-rt make
+wasi-libc make
+wasi-libc++ make

@@ -35,6 +35,9 @@ ulimit -n 4096
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 export MOZBUILD_STATE_PATH=${PWD}/mozbuild
 
+# wasi fix
+sed -i 's/split_triplet("wasm32-wasi"/split_triplet("wasm32-wasip1"/' build/moz.configure/toolchain.configure
+
 ./mach build $MAKEFLAGS --priority normal
 
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
