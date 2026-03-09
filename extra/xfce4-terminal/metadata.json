@@ -1,0 +1,12 @@
+{
+  "url": "https://docs.xfce.org/apps/terminal/start",
+  "category": "extra",
+  "description": "A modern terminal emulator primarily for the Xfce desktop environment",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "gui",
+    "terminal",
+    "xfce"
+  ]
+}

@@ -36,3 +36,4 @@ pixman
 vte3
 xfconf
 zlib-ng
+meson make
