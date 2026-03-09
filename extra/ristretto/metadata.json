@@ -1,0 +1,13 @@
+{
+  "url": "https://docs.xfce.org/apps/ristretto/start",
+  "category": "extra",
+  "description": "A fast and lightweight picture viewer for Xfce",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "graphics",
+    "gui",
+    "multimedia",
+    "xfce"
+  ]
+}
