@@ -9,3 +9,4 @@ qt5-svg
 qt5-tools
 qt5-x11extras
 minizip
+cmake make
