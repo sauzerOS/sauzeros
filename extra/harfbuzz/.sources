@@ -1,1 +1,2 @@
 https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz
+https://gitlab.archlinux.org/archlinux/packaging/packages/harfbuzz/-/raw/main/0001-util-Add-missing-chafa_dep-to-hb-raster.patch

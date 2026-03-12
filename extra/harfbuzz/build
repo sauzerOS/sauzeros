@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -Np1 -i 0001-util-Add-missing-chafa_dep-to-hb-raster.patch
+
 meson setup build         \
       --prefix=/usr       \
       --buildtype=release
