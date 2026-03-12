@@ -130,6 +130,19 @@ systemsettings
 spectacle
 xdg-desktop-portal-kde
 
+kde-apps:
+ark
+dolphin
+dolphin-plugins
+kate
+kcalc
+kio-extras
+kmix
+konsole
+kwalletmanager
+libkexiv2
+okular
+
 cosmic:
 cosmic-app-library
 cosmic-applets
