@@ -1,3 +1,4 @@
 itstool
 python-pygments
+python-parameterized
 meson make
