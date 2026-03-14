@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson setuo build          \
+meson setup build          \
       --prefix=/usr        \
       --buildtype=release  \
       -D http=false        \

@@ -8,3 +8,4 @@ libusb
 polkit
 samba
 udisks2
+meson make
