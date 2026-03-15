@@ -1,2 +1,3 @@
 boost make
+cmake make
 pkgconf make
