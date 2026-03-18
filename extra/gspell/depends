@@ -2,3 +2,4 @@ enchant
 icu
 gtk+3
 glib
+meson make
