@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-install -d $1/home/$HOKUTO_REAL_USER/.steam/steam/compatibilitytools.d/proton-cachyos-$3
-cp -a * $1/home/$HOKUTO_REAL_USER/.steam/steam/compatibilitytools.d/proton-cachyos-$3
+install -d $1/home/$HOKUTO_REAL_USER/.steam/steam/compatibilitytools.d/proton-cachyos-$2
+cp -a * $1/home/$HOKUTO_REAL_USER/.steam/steam/compatibilitytools.d/proton-cachyos-$2
