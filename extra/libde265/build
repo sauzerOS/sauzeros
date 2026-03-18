@@ -1,10 +1,8 @@
 #!/bin/sh -e
 
-sed '/tools/d' -i Makefile.am
-./autogen.sh
-./configure --prefix=/usr         \
-            --disable-sherlock265 \
-            --disable-static
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D SHERLOCK265=false
 
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
