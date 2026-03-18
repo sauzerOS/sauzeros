@@ -2,7 +2,7 @@
 
 export CXXFLAGS+=" -Wno-error=deprecated-declarations"
 
-patch -Np1 -i qt6.10-fix.patch
+#patch -Np1 -i qt6.10-fix.patch
 
 cmake -B build  \
     -D CMAKE_INSTALL_PREFIX="/usr" \
