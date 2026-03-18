@@ -1,1 +1,2 @@
 https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/${version}/pipewire-${version}.tar.bz2
+files/fix-build.patch

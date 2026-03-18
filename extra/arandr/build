@@ -1,3 +1,6 @@
 #!/bin/sh -e
 
-python setup.py install --prefix=/usr --root="$1"
+patch -Np1 -i fix-build.patch
+
+python -m build --wheel --no-isolation
+python -m installer --destdir="$1" dist/*.whl

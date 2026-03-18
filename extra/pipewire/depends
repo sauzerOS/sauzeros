@@ -3,3 +3,4 @@ gstreamer
 gst-plugins-base
 pulseaudio
 sbc
+meson make
