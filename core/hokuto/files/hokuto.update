@@ -9,4 +9,4 @@ libplasma bluedevil
 kwayland xdg-desktop-portal-kde
 libksysguard plasma-workspace powerdevil plasma-desktop
 libvirt libvirt-python
-
+cpp-utilities syncthingtray
