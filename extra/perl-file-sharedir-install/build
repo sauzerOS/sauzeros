@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+cd File-ShareDir-Install-$2
+
+perl Makefile.PL
+make
+make DESTDIR=$1 install
