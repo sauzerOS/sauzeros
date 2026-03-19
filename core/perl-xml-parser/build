@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+cd XML-Parser-$2
+
 perl Makefile.PL
 
 make
