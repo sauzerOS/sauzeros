@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+meson_options=(
+    --prefix=/usr
+    -D python=true
+    -D tools=true
+  )
+
+meson setup build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir "${1}"

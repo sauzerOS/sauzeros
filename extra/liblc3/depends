@@ -1,0 +1,3 @@
+glibc
+meson make
+python make
