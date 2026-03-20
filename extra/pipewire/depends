@@ -1,6 +1,9 @@
 bluez
+libldac
+libfreeaptx
 gstreamer
 gst-plugins-base
 pulseaudio
 sbc
+spandsp make
 meson make
