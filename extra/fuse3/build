@@ -2,19 +2,32 @@
 
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 
-meson setup build --prefix=/usr \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
     --buildtype=release
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 
 rm -rf $1/dev
 rm -rf $1/etc/init.d
 
+if [ "$CROSS_PREFIX" = "/usr" ]; then
 #fusermount needs +s to work
 chmod +s $1/usr/bin/fusermount3
+
 #symlink
 ln -s fusermount3 $1/usr/bin/fusermount
 
 #default config
 mkdir -p "$1/etc"
 echo "user_allow_other" > "$1/etc/fuse.conf"
+fi
