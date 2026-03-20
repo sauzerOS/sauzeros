@@ -30,3 +30,4 @@ xcb-util-renderutil
 xcb-util-wm
 xcb-util-xrm
 xlibre
+cmake make
