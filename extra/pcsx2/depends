@@ -5,7 +5,7 @@ libwebp
 xrandr
 sdl3
 llvm make
-qt6
+qt
 shaderc
 p7zip
 unzip

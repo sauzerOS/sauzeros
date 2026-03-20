@@ -2,7 +2,7 @@ cmake make
 fluidsynth
 hicolor-icon-theme
 openal
-qt6
+qt
 sdl2-compat
 freetype
 glib

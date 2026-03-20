@@ -2,7 +2,7 @@ boost
 cpp-utilities
 desktop-file-utils
 openssl
-qt6
+qt
 qtforkawesome
 qtutilities
 cmake make

@@ -2,6 +2,6 @@ hicolor-icon-theme
 pugixml
 sdl3
 cmake make
-qt6 make
+qt make
 vulkan-headers make
 nlohmann-json make

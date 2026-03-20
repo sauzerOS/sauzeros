@@ -3,5 +3,5 @@ flac
 pulseaudio
 mesa
 openssl
-qt6
+qt
 sdl2-compat
