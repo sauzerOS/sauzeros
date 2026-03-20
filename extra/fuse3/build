@@ -14,3 +14,7 @@ rm -rf $1/etc/init.d
 chmod +s $1/usr/bin/fusermount3
 #symlink
 ln -s fusermount3 $1/usr/bin/fusermount
+
+#default config
+mkdir -p "$1/etc"
+echo "user_allow_other" > "$1/etc/fuse.conf"
