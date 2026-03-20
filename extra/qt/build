@@ -1,37 +1,40 @@
 #!/bin/sh -e
 
-  ./configure -confirm-license -opensource -v \
-    -prefix /usr \
-    -docdir /usr/share/doc/qt \
-    -headerdir /usr/include/qt \
-    -archdatadir /usr/lib/qt \
-    -datadir /usr/share/qt \
-    -sysconfdir /etc/xdg \
-    -examplesdir /usr/share/doc/qt/examples \
-    -plugin-sql-sqlite \
-    -system-sqlite \
-    -openssl-linked \
-    -nomake examples \
-    -no-rpath \
-    -dbus-linked \
-    -system-harfbuzz \
-    -journald \
-    -no-mimetype-database \
-    -no-use-gold-linker \
-    -no-reduce-relocations \
-    -no-strip \
-    -ltcg
+cmake -S . -B build                               \
+    -D CMAKE_INSTALL_PREFIX=/usr                  \
+    -D CMAKE_BUILD_TYPE=RelWithDebInfo            \
+    -D INSTALL_BINDIR=lib/qt6/bin                 \
+    -D INSTALL_PUBLICBINDIR=usr/bin               \
+    -D INSTALL_LIBEXECDIR=lib/qt6                 \
+    -D INSTALL_DOCDIR=share/doc/qt6               \
+    -D INSTALL_ARCHDATADIR=lib/qt6                \
+    -D INSTALL_DATADIR=share/qt6                  \
+    -D INSTALL_INCLUDEDIR=include/qt6             \
+    -D INSTALL_MKSPECSDIR=lib/qt6/mkspecs         \
+    -D INSTALL_EXAMPLESDIR=share/doc/qt6/examples \
+    -D INSTALL_PRIVATE_HEADERS=ON                 \
+    -D FEATURE_journald=ON                        \
+    -D FEATURE_libproxy=OFF                       \
+    -D FEATURE_openssl_linked=ON                  \
+    -D FEATURE_system_sqlite=ON                   \
+    -D FEATURE_system_xcb_xinput=ON               \
+    -D FEATURE_no_direct_extern_access=ON         \
+    -D CMAKE_INTERPROCEDURAL_OPTIMIZATION=ON      \
+    -D QT_UNITY_BUILD=ON                          \
+    -D QT_BUILD_EXAMPLES=OFF                      \
+    -D QT_BUILD_TESTS=OFF                         \
+    -D FEATURE_qt3d=OFF                           \
+    -D FEATURE_qtquick3dphysics=OFF               \
+    -D FEATURE_qtwebengine=OFF                    \
+    -D CMAKE_AR=$(which gcc-ar)                   \
+    -D CMAKE_RANLIB=$(which gcc-ranlib)           \
+    -D CMAKE_NM=$(which gcc-nm)                   \
+    -D CMAKE_MESSAGE_LOG_LEVEL=STATUS
 
-make
-make INSTALL_ROOT="$1" install
+cmake --build build
+DESTDIR=$1 cmake --install build
 
- # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
-  find "${1}/usr/lib" -type f -name '*.prl' \
-    -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
-  # Symlinks for backwards compatibility
-  for b in "${1}"/usr/bin/*; do
-    ln -s $(basename $b) "${1}"/usr/bin/$(basename $b)-qt5
-  done
-
-install -d -m755 "$1"/usr/include/qtxcb-private
-cp -r src/plugins/platforms/xcb/*.h "$1"/usr/include/qtxcb-private/
+install -d -m755 "$1"/usr/include/qt6xcb-private/{gl_integrations,nativepainting}
+cp -r qtbase/src/plugins/platforms/xcb/*.h "$1"/usr/include/qt6xcb-private/
+cp -r qtbase/src/plugins/platforms/xcb/gl_integrations/*.h "$1"/usr/include/qt6xcb-private/gl_integrations/
+cp -r qtbase/src/plugins/platforms/xcb/nativepainting/*.h "$1"/usr/include/qt6xcb-private/nativepainting/
