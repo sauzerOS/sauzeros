@@ -18,7 +18,7 @@ fi
 make
 make DESTDIR="$1" install
 
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+if [ "$CROSS_PREFIX" != "/usr" ]; then
 rm -rf $1/usr/include
 fi
 
