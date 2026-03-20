@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+_make() {
+  make CPPFLAGS="$CPPFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" \
+    PREFIX=/usr "$@"
+}
+
+
+_make
+_make DESTDIR="${1}" install
