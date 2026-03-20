@@ -13,7 +13,7 @@ go make
 opensnitch-ebpf-module
 python-grpcio-tools make
 python-jaraco.text make
-qt6 make
+qt make
 llvm make
 libelf make
 bc make

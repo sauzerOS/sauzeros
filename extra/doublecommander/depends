@@ -3,7 +3,7 @@ ffmpegthumbnailer make
 hicolor-icon-theme
 imagemagick make
 lazarus make
-qt6
+qt
 qt6pas
 shared-mime-info
 unrar
