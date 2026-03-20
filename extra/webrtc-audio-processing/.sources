@@ -1,0 +1,2 @@
+git+https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing#v${version}
+https://gitlab.archlinux.org/archlinux/packaging/packages/webrtc-audio-processing-1/-/raw/main/0001-Fix-compilation-with-GCC-15.patch

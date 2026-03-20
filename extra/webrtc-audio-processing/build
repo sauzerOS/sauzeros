@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+patch -Np1 -i 0001-Fix-compilation-with-GCC-15.patch
+
+meson setup build \
+  --prefix=/usr   \
+  -D cpp_std=c++17
+
+meson compile -C build
+meson install -C build --destdir "${1}"
