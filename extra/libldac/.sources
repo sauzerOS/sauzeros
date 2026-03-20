@@ -1,0 +1,2 @@
+git+https://github.com/EHfive/ldacBT#v${version}
+https://gitlab.archlinux.org/archlinux/packaging/packages/libldac/-/raw/main/0001-Allow-build-with-CMake-4.0.0.patch
