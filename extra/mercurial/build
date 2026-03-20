@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+python -m build -wn
+make -C contrib/chg
+
+python -m installer -d "${1}" dist/*.whl
+
+# Do not invoke install target because it invokes a soon to be deprecated
+# `setup.py install` and screws with shebang handling in PEP517 install above
+make DESTDIR="${1}" PREFIX=/usr
+
+install -Dm644 contrib/zsh_completion "${1}/usr/share/zsh/site-functions/_hg"
+install -Dm644 contrib/bash_completion "${1}/usr/share/bash-completion/completions/hg"
+
+make -C contrib/chg DESTDIR="${1}" PREFIX=/usr install
+
+install -Dm755 contrib/hg-ssh "${1}/usr/bin"
+install -Dm755 contrib/hgk "${1}/usr/bin"
+
+
+# FS#38825 - Add certs config to package
+cat <<-EOF | install -Dm755 /dev/stdin "${1}/etc/mercurial/hgrc"
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
+EOF
