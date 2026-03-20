@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+patch -Np1 -i 0001-Allow-build-with-CMake-4.0.0.patch
+git submodule update --init
+
+cmake_options=(
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+    -D LDAC_SOFT_FLOAT=OFF
+  )
+
+cmake -B build "${cmake_options[@]}"
+cmake --build build
+DESTDIR="${1}" cmake --install build
