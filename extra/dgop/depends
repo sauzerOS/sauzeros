@@ -1,2 +1,2 @@
 glibc
-go make
+go | go-bin make
