@@ -1,1 +1,1 @@
-https://www.cpan.org/src/${version-major}.0/perl-${version}.tar.xz
+https://github.com/Perl/perl5/archive/refs/tags/v${version}.tar.gz
