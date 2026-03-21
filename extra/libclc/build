@@ -1,11 +1,10 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
+cd libclc
 
-cmake -D CMAKE_INSTALL_PREFIX=/usr \
-      -D CMAKE_BUILD_TYPE=Release  \
-      -G Ninja ..
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=Release
 
-ninja
-DESTDIR=$1 ninja install
+cmake --build build
+DESTDIR=$1 cmake --install build
