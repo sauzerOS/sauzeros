@@ -4,8 +4,8 @@ libgcrypt
 libsodium
 qrencode
 qt<6
-qt5-svg
-qt5-tools
-qt5-x11extras
+qt-svg<6
+qt-tools<6
+qt-x11extras<6
 minizip
 cmake make
