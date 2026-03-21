@@ -67,8 +67,8 @@ pixman
 protobuf
 pulseaudio
 qt<6
-qt5-svg
-qt5-x11extras
+qt-svg<6
+qt-x11extras<6
 readline
 samba
 systemd
