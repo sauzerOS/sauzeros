@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-#fix missing headers
-syncqt.pl-qt5 -version 5.15.17 -outdir .
-
 mkdir build
 cd build
 
