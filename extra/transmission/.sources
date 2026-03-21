@@ -1,3 +1,3 @@
-https://github.com/transmission/transmission/archive/refs/tags/${version}.tar.gz
+git+https://github.com/transmission/transmission#v${version}
 files/transmission.sysusers
 files/transmission.tmpfiles
