@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+patch -Np1 -i 0001-tests-Drop-check-format-test.patch
+
+meson setup build         \
+      --prefix=/usr       \
+      --buildtype=release \
+      -D admin_group=wheel
+
+meson compile -C build
+meson install -C build --destdir=$1
