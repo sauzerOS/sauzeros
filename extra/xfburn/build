@@ -5,3 +5,17 @@ meson setup build \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# fix icons location
+find "$1/usr/share/icons/hicolor" -path "*/stock/media/*" -type f | while read -r icon; do
+    # Extract the base directory (e.g., .../hicolor/48x48)
+    base_dir="${icon%/stock/media/*}"
+    # Define the new destination (e.g., .../hicolor/48x48/apps)
+    dest_dir="$base_dir/apps"
+    # Create the directory and move the file
+    mkdir -p "$dest_dir"
+    mv "$icon" "$dest_dir/"
+done
+
+find "$1/usr/share/icons/hicolor" -type d -name "media" -empty -delete
+find "$1/usr/share/icons/hicolor" -type d -name "stock" -empty -delete
