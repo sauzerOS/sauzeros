@@ -1,1 +1,1 @@
-git+https://gitlab.archlinux.org/grawlinson/pkg_resources#v${version}
+https://gitlab.archlinux.org/grawlinson/pkg_resources/-/archive/v${version}/pkg_resources-v${version}.tar.bz2

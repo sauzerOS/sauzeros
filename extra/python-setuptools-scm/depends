@@ -1,7 +1,6 @@
 python
-python-packaging make
-python-setuptools make
+python-packaging
+python-setuptools
 python-build make
 python-installer make
 python-wheel make
-python-pyproject-hooks make
