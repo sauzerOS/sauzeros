@@ -1,5 +1,6 @@
 python
 python-build make
+python-coherent.licensed make
 python-installer make
 python-setuptools-scm make
 python-wheel make
