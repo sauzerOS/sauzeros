@@ -42,6 +42,8 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
         echo "Moving files from sysroot $1$PREFIX/$HOKUTO_ARCH-linux-gnu to $1$PREFIX"
         cp -rl "$1$PREFIX/$HOKUTO_ARCH-linux-gnu/"* "$1$PREFIX/"
         rm -rf "$1$PREFIX/$HOKUTO_ARCH-linux-gnu"
+        mkdir -pv $1/usr/aarch64-linux-gnu/lib/
+        ln -s /usr/lib/libsqlite3.so $1/usr/aarch64-linux-gnu/lib/libsqlite3.so
     fi
 fi
 
