@@ -1,1 +1,11 @@
-python-build-tools make
+python
+python-blinker
+python-click
+python-itsdangerous
+python-jinja
+python-markupsafe
+python-werkzeug
+python-build make
+python-flit-core make
+python-installer make
+python-wheel make

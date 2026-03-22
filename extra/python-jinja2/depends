@@ -1,3 +1,7 @@
 python
 python-markupsafe
-python-build-tools make
+python-build make
+python-flit-core make
+python-installer make
+python-setuptools make
+python-wheel make

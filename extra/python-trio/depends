@@ -1,1 +1,11 @@
-python-build-tools make
+python
+python-attrs
+python-idna
+python-outcome
+python-sniffio
+python-sortedcontainers
+python-typing-extensions
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make
