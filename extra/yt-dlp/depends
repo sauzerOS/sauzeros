@@ -5,4 +5,6 @@ python-requests
 python-urllib3
 python-websockets
 yt-dlp-ejs
-python-build-tools make
+python-build make
+python-hatchling make
+python-installer make
