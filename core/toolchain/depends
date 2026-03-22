@@ -1,5 +1,5 @@
 rsync
-python-build-tools
+wget
 glibc rebuild
 gcc rebuild
 binutils
