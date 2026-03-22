@@ -1,1 +1,2 @@
 https://github.com/besser82/libxcrypt/releases/download/v${version}/libxcrypt-${version}.tar.xz
+https://github.com/besser82/libxcrypt/commit/174c24d6e87aeae631bc0a7bb1ba983cf8def4de.patch
