@@ -2,3 +2,4 @@ attr
 acl
 openssl
 zstd
+automake make
