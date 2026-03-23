@@ -9,7 +9,7 @@ gobject-introspection
 libepoxy
 libxkbcommon
 libxi
-meson   make
 pango
+meson   make
 pkgconf make
 python  make

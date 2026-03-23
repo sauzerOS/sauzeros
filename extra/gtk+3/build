@@ -1,16 +1,13 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
-
-meson setup ..                 \
+meson setup build              \
       --prefix=/usr            \
       --buildtype=release      \
       -D man=false             \
       -D broadway_backend=true
-ninja
-DESTDIR=$1 ninja install
 
-cd ..
+meson compile -C build
+meson install -C build --destdir=$1
+
 mkdir -p $1/etc/gtk-3.0/
 cp settings.ini $1/etc/gtk-3.0/
