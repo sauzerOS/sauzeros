@@ -1,2 +1,2 @@
-https://archive.mozilla.org/pub/security/nss/releases/NSS_3_122_RTM/src/nss-3.122.tar.gz
+hg+https://hg.mozilla.org/projects/nss#NSS_3_122_RTM nss
 https://www.linuxfromscratch.org/patches/blfs/svn/nss-standalone-1.patch
