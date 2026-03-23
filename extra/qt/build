@@ -27,4 +27,4 @@ DESTDIR=$1 cmake --install build
 install -d -m755 "$1"/usr/include/qt6xcb-private/{gl_integrations,nativepainting}
 cp -r qtbase/src/plugins/platforms/xcb/*.h "$1"/usr/include/qt6xcb-private/
 cp -r qtbase/src/plugins/platforms/xcb/gl_integrations/*.h "$1"/usr/include/qt6xcb-private/gl_integrations/
-cp -r qtbase/src/plugins/platforms/xcb/nativepainting/*.h "$1"/usr/include/qt6xcb-private/nativepainting/
+#cp -r qtbase/src/plugins/platforms/xcb/nativepainting/*.h "$1"/usr/include/qt6xcb-private/nativepainting/
