@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/AvengeMedia/dgop",
+  "category": "extra",
+  "description": "System monitoring CLI + REST API",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}
