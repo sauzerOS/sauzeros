@@ -16,4 +16,6 @@ nasm
 pango
 pulseaudio
 x264
+faad2 make
+meson make
 twolame make
