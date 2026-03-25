@@ -2,4 +2,6 @@
 #silence output
 exec 2>&1 1>/dev/null
 systemd-machine-id-setup
-systemctl preset-all
+#systemctl preset-all
+systemctl enable getty@tty1.service
+systemctl enable getty@tty2.service
