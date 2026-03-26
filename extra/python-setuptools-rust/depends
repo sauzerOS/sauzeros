@@ -1,7 +1,8 @@
 python
-python-sematinc-version
+python-semantic-version
 python-setuptools
 python-build make
 python-installer make
 python-setuptools-scm make
 python-wheel make
+git make
