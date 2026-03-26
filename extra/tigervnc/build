@@ -3,7 +3,22 @@
 cd tigervnc
 patch -Np1 -i ../tigervnc-1.16.0-configuration_fixes-1.patch
 
+# fltk fix
+sed -i "/FL_MINOR_VERSION/s/3/4/" CMakeLists.txt
+
+# nettle 4+ fix
+grep -rl _digest | xargs sed -Ei '/digest/s/([^,]*),.*,(.*)/\1,\2/'
+grep -rl _DIGEST | xargs sed -i '/DIGEST/s/, 16//'
+
 cp -r ../xorg-server/* unix/xserver/
+
+cd unix/xserver
+patch -Np1 -i ../xserver21.patch
+sed -e '/sha.h/s/sha/sha1/'                  \
+    -e '/sha1/a #include <nettle/version.h>' \
+    -e 's/ctx, 20/ctx/'                      \
+    -i os/xsha1.c
+cd ../../
 
 # build viewer
 
