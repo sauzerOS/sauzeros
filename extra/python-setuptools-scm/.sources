@@ -1,1 +1,1 @@
-https://files.pythonhosted.org/packages/source/s/setuptools_scm/setuptools_scm-${version}.tar.gz
+git+https://github.com/pypa/setuptools-scm#v${version}
