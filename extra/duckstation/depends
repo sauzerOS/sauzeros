@@ -1,6 +1,6 @@
-cmake make
-llvm make
-patchelf make
 qt
 sdl3
-
+cmake make
+llvm make
+patch make
+patchelf make
