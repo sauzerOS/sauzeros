@@ -1,24 +1,54 @@
 #!/bin/sh -e
+export CFLAGS+=' -ffat-lto-objects'
+export CXXFLAGS+=' -ffat-lto-objects'
 
-sed 's/^FLAGS.*=/FLAGS = -static /' programs/Makefile > _
-mv -f _ programs/Makefile
+cmake_options=(
+  -D CMAKE_BUILD_TYPE=Release
+  -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX
+  -D ZSTD_ZLIB_SUPPORT=ON
+  -D ZSTD_LZMA_SUPPORT=ON
+  -D ZSTD_LZ4_SUPPORT=ON
+  -D ZSTD_BUILD_CONTRIB=ON
+  -D ZSTD_BUILD_STATIC=OFF
+  -D ZSTD_BUILD_TESTS=OFF
+  -D ZSTD_PROGRAMS_LINK_SHARED=ON
+  -D CMAKE_INSTALL_LIBDIR=lib
+  -D BUILD_SHARED_LIBS=ON
+)
 
-MAKE_ARGS="prefix=$CROSS_PREFIX CC=${CC:-gcc} AR=${AR:-ar}"
-
-# Optimization logic for zstd
-if echo "$CPUFLAGS" | grep -q "avx2"; then
-    export CFLAGS="$CFLAGS -mavx2"
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cmake_options+=(
+        -D CMAKE_SYSTEM_NAME=Linux
+        -D CMAKE_SYSTEM_PROCESSOR=$HOKUTO_ARCH
+)
 fi
 
-make $MAKE_ARGS
-make prefix="$CROSS_PREFIX" DESTDIR="$1" install
+cmake -B builddir -S build/cmake "${cmake_options[@]}"
+cmake --build builddir
+DESTDIR=$1 cmake --install builddir
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
-make clean
-CC="gcc -m32" make prefix=/usr
-make prefix=/usr DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32/pkgconfig
-cp -Rv DESTDIR/usr/lib/* $1/usr/lib32/
-sed -e "/^libdir/s/lib$/lib32/" -i $1/usr/lib32/pkgconfig/libzstd.pc
+rm -rf builddir
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export ASMFLAGS="-m32"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+cmake_options=(
+  -D CMAKE_BUILD_TYPE=None
+  -D CMAKE_INSTALL_PREFIX=/usr
+  -D CMAKE_INSTALL_LIBDIR=lib32
+  -D ZSTD_BUILD_CONTRIB=ON
+  -D ZSTD_BUILD_STATIC=OFF
+  -D ZSTD_BUILD_TESTS=OFF
+  -D ZSTD_PROGRAMS_LINK_SHARED=ON
+  -D BUILD_SHARED_LIBS=ON
+)
+
+cmake -B builddir -S build/cmake "${cmake_options[@]}"
+cmake --build builddir
+DESTDIR=tmp32dir cmake --install builddir
+rm -rf tmp32dir/usr/{include,share,bin}
+cp -r tmp32dir/* $1/
 fi
