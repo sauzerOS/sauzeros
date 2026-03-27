@@ -1,1 +1,1 @@
-https://github.com/chardet/chardet/archive/refs/tags/${version}.tar.gz
+git+https://github.com/chardet/chardet#${version}
