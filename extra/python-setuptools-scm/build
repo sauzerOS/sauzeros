@@ -1,4 +1,5 @@
 #!/bin/sh -e
 
-python -m build --wheel --skip-dependency-check --no-isolation
+cd setuptools-scm
+python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
