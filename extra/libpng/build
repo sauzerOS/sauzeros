@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-patch -Np1 -i libpng-$2-apng.patch
+zcat libpng-1.6.55-apng.patch.gz | patch -Np1
 
 cmake -B build                 \
   -D CMAKE_BUILD_TYPE=Release  \
