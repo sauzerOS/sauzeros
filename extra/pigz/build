@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+make
+install -Dm755 ${3} \
+  "${1}"/usr/bin/${3}
+
+pushd "${1}"/usr/bin
+  ln -s pigz unpigz
+  ln -s pigz gzip
+  ln -s pigz gunzip
+popd
+
+install -Dm644 ${3}.1 \
+  "${1}"/usr/share/man/man1/${3}.1
