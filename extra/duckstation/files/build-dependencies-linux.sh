@@ -44,6 +44,7 @@ cd deps-build
 
 if [[ "$SKIP_DOWNLOAD" != true && ! -f "libbacktrace-$LIBBACKTRACE.tar.gz" ]]; then
 	curl -C - -L \
+                -O "https://downloads.sourceforge.net/project/libpng/libpng16/$LIBPNG/libpng-$LIBPNG.tar.gz" \
 		-O "https://github.com/nih-at/libzip/releases/download/v$LIBZIP/libzip-$LIBZIP.tar.gz" \
 		-o "libbacktrace-$LIBBACKTRACE.tar.gz" "https://github.com/ianlancetaylor/libbacktrace/archive/$LIBBACKTRACE.tar.gz" \
 		-o "cpuinfo-$CPUINFO_COMMIT.tar.gz" "https://github.com/stenzek/cpuinfo/archive/$CPUINFO_COMMIT.tar.gz" \
@@ -54,6 +55,7 @@ if [[ "$SKIP_DOWNLOAD" != true && ! -f "libbacktrace-$LIBBACKTRACE.tar.gz" ]]; t
 fi
 
 cat > SHASUMS <<EOF
+$LIBPNG_GZ_HASH  libpng-$LIBPNG.tar.gz
 $LIBZIP_GZ_HASH  libzip-$LIBZIP.tar.gz
 $LIBBACKTRACE_GZ_HASH  libbacktrace-$LIBBACKTRACE.tar.gz
 $CPUINFO_GZ_HASH  cpuinfo-$CPUINFO_COMMIT.tar.gz
@@ -86,6 +88,16 @@ cd "libbacktrace-$LIBBACKTRACE"
 ./configure --prefix="$INSTALLDIR" --with-pic
 make
 make install
+cd ..
+
+echo "Building libpng"
+rm -fr "libpng-$LIBPNG"
+tar xf "libpng-$LIBPNG.tar.gz"
+cd "libpng-$LIBPNG"
+patch -p1 < "$SCRIPTDIR/patches/libpng-1.6.54-apng.patch"
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$INSTALLDIR" -DCMAKE_INSTALL_PREFIX="$INSTALLDIR" -DBUILD_SHARED_LIBS=ON -DPNG_TESTS=OFF -DPNG_STATIC=OFF -DPNG_SHARED=ON -DPNG_TOOLS=OFF -DCMAKE_INSTALL_RPATH="\$ORIGIN" -B build -G Ninja
+cmake --build build --parallel
+ninja -C build install
 cd ..
 
 echo "Building libzip"

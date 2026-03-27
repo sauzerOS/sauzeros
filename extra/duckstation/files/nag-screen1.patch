@@ -1,0 +1,9 @@
+--- a/src/duckstation-qt/autoupdaterdialog.cpp
++++ b/src/duckstation-qt/autoupdaterdialog.cpp
+@@ -146,7 +146,7 @@
+ 
+ void AutoUpdaterDialog::warnAboutUnofficialBuild()
+ {
+-  //
++  return;
+   // To those distributing their own builds or packages of DuckStation, and seeing this message:
