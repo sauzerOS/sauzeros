@@ -1,9 +1,9 @@
 alsa-lib
-cmake make
 flatbuffers
 glew<2.3
 libglvnd
-llvm make
-opencv make
 pugixml
 vulkan-headers
+cmake make
+llvm make
+opencv make
