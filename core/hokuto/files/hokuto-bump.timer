@@ -1,0 +1,8 @@
+[Unit]
+Description=Run hokuto bump every hour
+
+[Timer]
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target
