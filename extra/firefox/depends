@@ -13,18 +13,17 @@ libdrm
 libffi
 libjpeg-turbo
 libpng
+libva
 libvpx
 libwebp
 libxcomposite
 libxdamage
-libva
-llvm make
 m4
 mesa
 nasm
-nodejs make
 nspr
 nss
+nvidia-vaapi-driver
 pango
 pixman
 pkgconf
@@ -34,7 +33,8 @@ rust make
 wayland
 wayland-protocols
 zlib-ng
-nvidia-vaapi-driver
+llvm make
+nodejs make
 unzip make
 wasi-compiler-rt make
 wasi-libc make
