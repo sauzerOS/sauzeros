@@ -1,8 +1,8 @@
 #!/bin/sh -e
-
-if hokuto check cmake; then
 export CFLAGS+=' -ffat-lto-objects'
 export CXXFLAGS+=' -ffat-lto-objects'
+
+if hokuto check cmake; then
 
 cmake_options=(
   -D CMAKE_BUILD_TYPE=Release
