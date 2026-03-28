@@ -1,4 +1,10 @@
+glibc
+openssl
+xz
+zlib-ng
+zstd
 meson make
+pkgconf make
 aarch64-gcc cross make
 aarch64-pkgconf cross make
 aarch64-xz cross make

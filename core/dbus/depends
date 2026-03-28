@@ -1,3 +1,4 @@
+expat
 meson make
 systemd optional
 aarch64-gcc cross make
