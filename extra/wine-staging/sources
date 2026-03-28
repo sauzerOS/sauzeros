@@ -1,2 +1,0 @@
-git+https://gitlab.winehq.org/wine/wine.git#wine-10.20 wine
-git+https://gitlab.winehq.org/wine/wine-staging.git#v10.20 wine-staging
