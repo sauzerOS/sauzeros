@@ -1,2 +1,6 @@
 glib
+python
+python-mako
+python-markdown
+python-setuptools
 meson make
