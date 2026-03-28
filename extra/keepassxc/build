@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-#patch -Np1 -i keepassxc-2.7.10-qt6-support-v2.patch
-
 cmake -B build \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
@@ -12,8 +10,8 @@ cmake -B build \
     -D WITH_XC_NETWORKING=OFF \
     -D WITH_XC_SSHAGENT=ON \
     -D WITH_XC_BROWSER=ON \
-    -D WITH_QT6=OFF \
-    -D WITH_QT5=ON \
+    -D WITH_QT6=ON \
+    -D WITH_QT5=OFF \
     -D WITH_TESTS=OFF \
     -D CMAKE_AR=$(which gcc-ar) \
     -D CMAKE_RANLIB=$(which gcc-ranlib) \

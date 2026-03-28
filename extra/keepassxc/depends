@@ -3,9 +3,6 @@ argon2
 libgcrypt
 libsodium
 qrencode
-qt<6
-qt-svg<6
-qt-tools<6
-qt-x11extras<6
+qt
 minizip
 cmake make
