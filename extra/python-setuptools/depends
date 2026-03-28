@@ -1,11 +1,1 @@
 python
-python-jaraco.collections
-python-jaraco.functools
-python-jaraco.text
-python-more-itertools
-python-packaging
-python-pkg_resources
-python-wheel
-python-build make
-python-installer make
-python-setuptools make
