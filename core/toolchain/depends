@@ -1,5 +1,3 @@
-rsync
-wget
 glibc rebuild
 gcc rebuild
 binutils
