@@ -1,4 +1,7 @@
-cmake make
+curl
+libedit
+perl
 python
 zlib-ng
+cmake make
 aarch64-linux-headers cross
