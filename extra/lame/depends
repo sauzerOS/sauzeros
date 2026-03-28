@@ -1,4 +1,4 @@
 glibc
-mpg123
+mpg123 optional
 ncurses
 nasm make
