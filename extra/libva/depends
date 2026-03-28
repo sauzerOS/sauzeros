@@ -1,0 +1,8 @@
+libdrm
+libglvnd
+libx11
+libxext
+libxfixes
+wayland
+mesa make
+meson make
