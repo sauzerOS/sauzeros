@@ -41,6 +41,5 @@ alsa-lib make
 cmake make
 gst-plugins-base make
 gtk+3 make
-jemalloc make
 pulseaudio make
 vulkan-headers make
