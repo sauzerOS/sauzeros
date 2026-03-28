@@ -2,10 +2,8 @@ alsa-lib
 bluez
 dbus
 gdbm
-gettext make
 glib
 libcap
-libtool make
 libsndfile
 libSM
 libxcb
@@ -13,3 +11,6 @@ libxtst
 perl-xml-parser
 sbc
 speex
+gettext make
+libtool make
+perl-file-sharedir-install make
