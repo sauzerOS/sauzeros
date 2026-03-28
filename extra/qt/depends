@@ -17,7 +17,7 @@ libinput
 libjpeg-turbo
 libpng
 libproxy
-libsm
+libSM
 liburing
 libx11
 libxkbcommon
