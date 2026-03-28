@@ -12,7 +12,7 @@ icu
 krb5
 libdrm
 libglvnd
-libice
+libICE
 libinput
 libjpeg-turbo
 libpng
