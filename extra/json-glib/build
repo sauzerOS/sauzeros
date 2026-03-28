@@ -1,10 +1,9 @@
 #!/bin/sh -e
 
-meson \
-    --prefix=/usr \
-    --libexecdir=/usr/lib \
-    -Dgtk_doc=disabled \
-    . output
+meson setup build \
+  --prefix=/usr \
+  --libexecdir=/usr/lib \
+  -D gtk_doc=disabled
 
-ninja -C output
-DESTDIR=$1 ninja -C output install
+meson compile -C build
+meson install -C build --destdir=$1
