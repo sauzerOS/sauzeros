@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+if hokuto check mpg123;
+then CONFIG_MPG123="--enable-mp3rtp"
+else
+CONFIG_MPG123="--disable-mp3rtp --disable-decoder"
+fi
+
 # Disable HTML documentation.
 sed 's/html man/man/' doc/Makefile.in > _
 mv -f _ doc/Makefile.in
@@ -8,10 +14,10 @@ mv -f _ doc/Makefile.in
 chmod +x configure
 
 export CFLAGS+=" -Wno-implicit-function-declaration -Wno-incompatible-pointer-types"
-./configure \
-  --prefix=/usr \
-  --enable-nasm \
-  --enable-mp3rtp \
+./configure      \
+  --prefix=/usr  \
+  --enable-nasm  \
+  $CONFIG_MPG123 \
   --enable-shared
 
 make
