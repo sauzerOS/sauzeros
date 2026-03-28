@@ -2,6 +2,8 @@
 export CFLAGS+=' -ffat-lto-objects'
 export CXXFLAGS+=' -ffat-lto-objects'
 
+if hokuto check cmake; then
+
 cmake_options=(
   -D CMAKE_BUILD_TYPE=Release
   -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX
@@ -51,4 +53,29 @@ cmake --build builddir
 DESTDIR=tmp32dir cmake --install builddir
 rm -rf tmp32dir/usr/{include,share,bin}
 cp -r tmp32dir/* $1/
+fi
+else
+
+sed 's/^FLAGS.*=/FLAGS = -static /' programs/Makefile > _
+mv -f _ programs/Makefile
+
+MAKE_ARGS="prefix=$CROSS_PREFIX CC=${CC:-gcc} AR=${AR:-ar}"
+
+# Optimization logic for zstd
+if echo "$CPUFLAGS" | grep -q "avx2"; then
+    export CFLAGS="$CFLAGS -mavx2"
+fi
+
+make $MAKE_ARGS
+make prefix="$CROSS_PREFIX" DESTDIR="$1" install
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32bit
+make clean
+CC="gcc -m32" make prefix=/usr
+make prefix=/usr DESTDIR=$PWD/DESTDIR install
+install -d $1/usr/lib32/pkgconfig
+cp -Rv DESTDIR/usr/lib/* $1/usr/lib32/
+sed -e "/^libdir/s/lib$/lib32/" -i $1/usr/lib32/pkgconfig/libzstd.pc
+fi
 fi
