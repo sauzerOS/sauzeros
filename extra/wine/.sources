@@ -1,1 +1,1 @@
-https://dl.winehq.org/wine/source/${version-major}.0/wine-${version}.tar.xz
+https://dl.winehq.org/wine/source/${version-major}.x/wine-${version}.tar.xz
