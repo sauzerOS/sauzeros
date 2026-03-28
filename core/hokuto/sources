@@ -8,3 +8,4 @@ files/hokuto.rebuild
 files/hokuto.update
 files/hokuto-bump.service
 files/hokuto-bump.timer
+files/hokuto-nopasswd

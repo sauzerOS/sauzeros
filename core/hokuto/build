@@ -15,5 +15,7 @@ install -Dm644 hokuto.update $1/etc/hokuto/hokuto.update
 install -Dm644 hokuto.rebuild $1/etc/hokuto/hokuto.rebuild
 
 # hokuto bump service files
-install -d $1/usr/lib/systemd/system
-install -Dm644 hokuto-bump.{service,timer} $1/usr/lib/systemd/system/
+install -d $1/etc/systemd/user/
+install -d $1/etc/sudoers.d/
+install -Dm644 hokuto-bump.{service,timer} $1/etc/systemd/user/
+
