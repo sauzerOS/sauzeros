@@ -13,4 +13,4 @@ sbc
 speex
 gettext make
 libtool make
-perl-file-sharedir-install make
+perl-file-sharedir make
