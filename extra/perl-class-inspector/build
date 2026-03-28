@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+cd Class-Inspector-$2
 perl Makefile.PL INSTALLDIRS=vendor
 make
 make DESTDIR="${1}" install
