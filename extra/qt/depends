@@ -1,33 +1,46 @@
-alsa-lib
-bluez
+brotli
 cups
+dbus
 double-conversion
+fontconfig
+freetype
+gcc
 glib
-gst-plugins-base
+glibc
 harfbuzz
 icu
-libjpeg-turbo
+krb5
+libdrm
+libglvnd
+libice
 libinput
-libmng
+libjpeg-turbo
 libpng
 libproxy
-libtiff
-libwebp
+libsm
+liburing
+libx11
 libxkbcommon
 mesa
 mtdev
-openal
-pciutils
-protobuf
-pulseaudio
-sdl2-compat
+openssl
+pcre2
+shared-mime-info
+sqlite
+systemd
 wayland
 xcb-util-cursor
-xcb-util-errors
 xcb-util-image
 xcb-util-keysyms
 xcb-util-renderutil
 xcb-util-wm
-xcb-util-xrm
-xlibre
+xdg-utils
+zlib-ng
+zstd
+alsa-lib make
 cmake make
+gst-plugins-base make
+gtk+3 make
+jemalloc make
+pulseaudio make
+vulkan-headers make
