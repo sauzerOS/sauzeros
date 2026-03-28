@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# glibc fix
+sed '/*strchr/s/cast_const_char //g' -i ftp.c
+
 ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man

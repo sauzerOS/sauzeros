@@ -1,1 +1,5 @@
+glib
+icu
+libxml2
 vala
+cmake make
