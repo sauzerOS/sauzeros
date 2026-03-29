@@ -1,5 +1,3 @@
-boost make
-cmake make
 fontconfig
 gobject-introspection
 gpgmepp
@@ -7,3 +5,5 @@ little-cms
 openjpeg
 glib
 qt
+boost make
+cmake make
