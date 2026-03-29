@@ -1,6 +1,6 @@
-autoconf-archive make
 cups
 libjpeg-turbo
 libtiff
 libusb
 poppler
+autoconf-archive make

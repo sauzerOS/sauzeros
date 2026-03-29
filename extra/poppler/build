@@ -4,9 +4,7 @@ cmake  -B build \
        -D CMAKE_BUILD_TYPE=Release   \
        -D CMAKE_INSTALL_PREFIX=/usr  \
        -D TESTDATADIR=$PWD/testfiles \
-       -D ENABLE_UNSTABLE_API_ABI_HEADERS=ON \
-       -D ENABLE_QT5=OFF \
-       -D ENABLE_QT6=ON
+       -D ENABLE_UNSTABLE_API_ABI_HEADERS=ON
 
 cmake --build build
 DESTDIR=$1 cmake --install build
