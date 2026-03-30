@@ -20,6 +20,9 @@ sed -i -e 's/\("files":{\)[^}]*/\1/' \
 sed -i -e 's/\("files":{\)[^}]*/\1/' \
   comm/third_party/rust/glslopt/.cargo-checksum.json
 
+sed -i 's/cargo:rustc-link-lib=static=glsl_optimizer/cargo:rustc-link-lib=static=glslopt/' \
+    comm/third_party/rust/glslopt/build.rs
+
 # Set BOTAN_VERSION from system-botan
 _botan_ver=$(pkg-config --modversion botan-3)
 sed -i "s|crypto_backend_version = CONFIG\[\"BOTAN_VERSION\"\]|crypto_backend_version = CONFIG[\"BOTAN_VERSION\"] or \"${_botan_ver}\"|" \
