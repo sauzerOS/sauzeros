@@ -1,6 +1,8 @@
 hicolor-icon-theme
 libnetfilter_queue
 libnfnetlink
+opensnitch-ebpf-module
+protobuf
 python-grpcio
 python-protobuf
 python-slugify
@@ -9,11 +11,10 @@ python-pyinotify
 python-notify2
 python-packaging
 python-typing-extensions
+bc make
 go make
-opensnitch-ebpf-module
+libelf make
+llvm make
 python-grpcio-tools make
 python-jaraco.text make
 qt make
-llvm make
-libelf make
-bc make
