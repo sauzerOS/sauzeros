@@ -1,5 +1,13 @@
 #!/bin/sh -e
 
+# use llvm
+CC="clang"
+CXX="clang++"
+CPP="clang-cpp"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
+
 cmake -B build                   \
     -D CMAKE_BUILD_TYPE=Release  \
     -D CMAKE_INSTALL_PREFIX=/usr \
