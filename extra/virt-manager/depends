@@ -1,5 +1,5 @@
 dnsmasq
-gtksourceview<5.0
+#gtksourceview<5.0
 gtk-vnc
 libosinfo
 libvirt-glib
