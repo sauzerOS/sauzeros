@@ -1,0 +1,7 @@
+https://archive.mozilla.org/pub/thunderbird/releases/148.0.1/source/thunderbird-148.0.1.source.tar.xz
+files/mozconfig
+files/google-api-key
+files/thunderbird.desktop
+files/0024-bgo-969412-glibc-2.43.patch
+files/clang22-wasm32-wasip1.patch
+files/missing-include.patch
