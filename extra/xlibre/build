@@ -5,6 +5,8 @@ meson setup build \
   -D xvfb=true    \
   -D xnest=true   \
   -D xephyr=true  \
+  -D systemd_logind=true \
+  -D drm=true \
   -D suid_wrapper=true
 
 meson compile -C build

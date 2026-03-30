@@ -1,5 +1,6 @@
 gnutls
 iceauth
+libdrm
 libepoxy
 libevdev
 libfontenc
