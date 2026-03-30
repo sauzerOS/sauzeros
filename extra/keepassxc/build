@@ -13,5 +13,3 @@ cmake -B build \
 
 cmake --build   build
 DESTDIR=$1 cmake --install build
-
-#install -Dm644 org.keepassxc.KeePassXC.desktop $1/usr/share/applications/
