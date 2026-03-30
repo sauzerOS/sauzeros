@@ -2,6 +2,6 @@ https://archive.mozilla.org/pub/thunderbird/releases/${version}/source/thunderbi
 files/mozconfig
 files/google-api-key
 files/thunderbird.desktop
-files/0024-bgo-969412-glibc-2.43.patch
+files/thunderbird-147.0.2-glibc-2.43.patch
 files/clang22-wasm32-wasip1.patch
 files/missing-include.patch

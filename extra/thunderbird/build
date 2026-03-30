@@ -5,7 +5,7 @@ mv ../mozconfig .
 mv ../google-api-key .
 
 # patches
-patch -Np1 -i ../0024-bgo-969412-glibc-2.43.patch
+patch -Np1 -i ../thunderbird-147.0.2-glibc-2.43.patch
 patch -Np1 -i ../clang22-wasm32-wasip1.patch
 patch -Np1 -i ../missing-include.patch
 
@@ -13,12 +13,11 @@ sed -e 's|73114a5c28472e77082ad259113ffafb418ed602c1741f26da3e10278b0bf93e|a88d6
   -i third_party/rust/mp4parse/.cargo-checksum.json
 sed -e 's|880c982df0843cbdff38b9f9c3829a2d863a224e4de2260c41c3ac69e9148ad4|239b3e4d20498f69ed5f94481ed932340bd58cb485b26c35b09517f249d20d11|' \
   -i third_party/rust/bindgen/.cargo-checksum.json
-# Clear cargo checksums for glslopt - the glibc-2.43 patch modifies files in both
-# third_party and comm/third_party copies; clearing is simpler than computing exact hashes
-sed -i -e 's/\("files":{\)[^}]*/\1/' \
-  third_party/rust/glslopt/.cargo-checksum.json
-sed -i -e 's/\("files":{\)[^}]*/\1/' \
-  comm/third_party/rust/glslopt/.cargo-checksum.json
+
+# clear cargo checksums for glslopt after patching threads_posix.h
+for f in third_party/rust/glslopt/.cargo-checksum.json comm/third_party/rust/glslopt/.cargo-checksum.json; do
+  sed -i 's/"files":{[^}]*}/"files":{}/' $f
+done
 
 # Set BOTAN_VERSION from system-botan
 _botan_ver=$(pkg-config --modversion botan-3)
@@ -27,6 +26,14 @@ comm/third_party/rnp/moz.build
 
 # Make icon transparent
 sed -i '/^<rect/d' comm/mail/branding/thunderbird/TB-symbolic.svg
+
+# use llvm
+CC="clang"
+CXX="clang++"
+CPP="clang-cpp"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
 
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 export MOZBUILD_STATE_PATH=$(pwd)/mozbuild
