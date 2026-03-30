@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cmake -B build \
+   -D QT_INSTALL_XDG_DESKTOP_ENTRIES=ON
 
-qmake ..
-make
-make INSTALL_ROOT=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
