@@ -1,4 +1,7 @@
 #!/bin/sh -e
 
+# relax cython version requirement
+sed 's/[Cc]ython==/cython>=/' -i pyproject.toml
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
