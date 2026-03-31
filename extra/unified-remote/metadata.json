@@ -1,0 +1,12 @@
+{
+  "url": "http://www.unifiedremote.com/",
+  "category": "extra",
+  "description": "Unified Remote Server",
+  "info": "Open TCP/UDP ports 9511-9512 for unified remote\n",
+  "license": "",
+  "tags": [
+    "network",
+    "utility",
+    "x11"
+  ]
+}
