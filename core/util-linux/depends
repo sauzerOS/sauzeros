@@ -1,18 +1,18 @@
-autoconf make
 coreutils
 gettext
 libcap-ng
 libxcrypt
 lzlib
-meson make
 ncurses
 pam
-python make
 readline
-sqlite make
 systemd optional
-tar make
 zlib-ng
+autoconf make
+meson make
+python make
+sqlite make
+tar make
 aarch64-file cross make
 aarch64-gcc cross make
 aarch64-libcap-ng cross make
