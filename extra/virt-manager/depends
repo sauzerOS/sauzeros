@@ -3,7 +3,6 @@ dnsmasq
 gtk-vnc
 libosinfo
 libvirt-glib
-libvirt-python
 nftables
 osinfo-db
 osinfo-db-tools
@@ -11,6 +10,7 @@ python-certifi
 python-charset-normalizer
 python-docutils
 python-idna
+python-libvirt-python
 python-pygobject
 python-requests
 python-urllib3
