@@ -1,12 +1,13 @@
-cmake make
+alsa-utils | gst-plugins-good
 libcap
 libpng
 libwebp
-xrandr
-sdl3
-llvm make
-qt
-shaderc
 p7zip
+qt
+sdl3
+shaderc
 unzip
+xrandr
+cmake make
 extra-cmake-modules make
+llvm make
