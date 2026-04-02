@@ -1,0 +1,30 @@
+#!/bin/sh -e
+
+# re3
+git checkout master
+cmake -B build-re3 \
+      -D CMAKE_C_COMPILER=clang \
+      -D CMAKE_CXX_COMPILER=clang++ \
+      -D CMAKE_BUILD_TYPE=Release \
+      -D LIBRW_PLATFORM=GL3 \
+      -D LIBRW_GL3_GFXLIB=GLFW \
+      -D RE3_AUDIO=OAL \
+      -D CMAKE_CXX_FLAGS="-std=c++11"
+
+cmake --build build-re3
+install -d $1/opt/re3
+install -Dm 0755 build-re3/src/re3 $1/opt/re3/re3
+
+# revc
+git checkout miami
+cmake -B build-vc \
+      -D CMAKE_C_COMPILER=clang \
+      -D CMAKE_CXX_COMPILER=clang++ \
+      -D CMAKE_BUILD_TYPE=Release \
+      -D LIBRW_PLATFORM=GL3 \
+      -D LIBRW_GL3_GFXLIB=GLFW \
+      -D RE3_AUDIO=OAL \
+      -D CMAKE_CXX_FLAGS="-std=c++11"
+
+cmake --build build-vc
+install -Dm 0755 build-vc/src/reVC $1/opt/re3/revc
