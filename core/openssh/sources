@@ -1,4 +1,4 @@
-https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.2p1.tar.gz
+https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.3p1.tar.gz
 files/70-openssh-restart-sshd.hook
 files/openssh.tmpfiles
 files/ssh-agent.service
