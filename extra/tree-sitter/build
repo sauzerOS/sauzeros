@@ -7,7 +7,7 @@ cmake -B build \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
-cd cli
+cd crates/cli
 cargo build --release --locked
 
 for completion in bash elvish fish nushell zsh; do
@@ -15,7 +15,7 @@ for completion in bash elvish fish nushell zsh; do
   complete --shell $completion > $completion-completions
 done
 
-install -Dt "$1"/usr/bin ../target/release/tree-sitter
+install -Dt "$1"/usr/bin ../../target/release/tree-sitter
 
 install -Dm644 bash-completions "$1"/usr/share/bash-completion/completions/tree-sitter
 install -Dm644 elvish-completions "$1"/usr/share/elvish/lib/tree-sitter.elv
