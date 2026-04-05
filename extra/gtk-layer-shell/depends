@@ -1,3 +1,4 @@
 gobject-introspection
 gtk+3
 wayland
+meson make
