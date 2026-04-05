@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+cd dolphin-emu
+for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,cubeb/cubeb,imgui/imgui,implot/implot,fmt/fmt,mGBA/mgba,minizip-ng/minizip-ng,rcheevos/rcheevos,spirv_cross/SPIRV-Cross,tinygltf/tinygltf,VulkanMemoryAllocator,watcher/watcher,zlib-ng/zlib-ng,SFML/SFML,enet/enet,fmt/fmt,hidapi/hidapi-src,miniupnpc/miniupnp,xxhash/xxHash,libspng/libspng};do
+git submodule init ${submodule}
+git config submodule.${submodule}.url ../${submodule##*/}
+git -c protocol.file.allow=always submodule update ${submodule}
+done
+cd Externals/cubeb/cubeb
+git submodule init cmake/sanitizers-cmake
+git config submodule.cmake/sanitizers-cmake.url $HOKUTO_BUILD_DIR/sanitizers-cmake
+git -c protocol.file.allow=always submodule update cmake/sanitizers-cmake
+cd ../../../
+
+git describe --tags
+#git submodule update --init --recursive
+cmake -B build \
+ -D CMAKE_BUILD_TYPE=None \
+ -D CMAKE_SKIP_RPATH=ON \
+ -D CMAKE_INSTALL_PREFIX=/usr \
+ -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
+ -D DISTRIBUTOR=sauzeros \
+ -D ENABLE_ANALYTICS=OFF \
+ -D ENABLE_AUTOUPDATE=OFF \
+ -D ENABLE_LTO=OFF \
+ -D ENABLE_TESTS=OFF \
+ -D USE_MGBA=ON \
+ -Wno-dev
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+install -Dm 644 Data/51-usb-device.rules -t "${1}"/usr/lib/udev/rules.d/
+rm -rf "${1}"/usr/{bin/dolphin-tool,include,lib/libdiscord-rpc.a}
