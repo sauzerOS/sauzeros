@@ -12,8 +12,9 @@ cmake -B build-re3 \
       -D CMAKE_CXX_FLAGS="-std=c++11"
 
 cmake --build build-re3
-install -d $1/opt/re3
-install -Dm 0755 build-re3/src/re3 $1/opt/re3/re3
+install -d $1/opt/re3/{gta3,vc}
+install -Dm 0755 build-re3/src/re3 $1/opt/re3/gta3/re3
+cp -r gamefiles $1/opt/re3/gta3/
 
 # revc
 git checkout miami
@@ -27,4 +28,5 @@ cmake -B build-vc \
       -D CMAKE_CXX_FLAGS="-std=c++11"
 
 cmake --build build-vc
-install -Dm 0755 build-vc/src/reVC $1/opt/re3/revc
+install -Dm 0755 build-vc/src/reVC $1/opt/re3/vc/revc
+cp -r gamefiles $1/opt/re3/vc/
