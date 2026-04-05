@@ -1,4 +1,4 @@
-git+https://github.com/dolphin-emu/dolphin.git#2603 dolphin-emu
+git+https://github.com/dolphin-emu/dolphin.git#2603a dolphin-emu
 git+https://github.com/mutouyun/cpp-ipc.git  cpp-ipc
 git+https://github.com/weisslj/cpp-optparse.git cpp-optparse 
 git+https://github.com/mozilla/cubeb.git cubeb 
