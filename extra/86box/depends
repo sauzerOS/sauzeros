@@ -1,4 +1,3 @@
-cmake make
 fluidsynth
 hicolor-icon-theme
 openal
@@ -12,4 +11,6 @@ libglvnd
 libpng
 libslirp
 libsndfile
+rtmidi
 wayland
+cmake make
