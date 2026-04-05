@@ -1,11 +1,13 @@
-extra-cmake-modules make
 asio
-nv-codec-headers
 mbedtls<=3.6.5
 nlohmann-json
+nv-codec-headers
+qrcodegencpp
 simde
+speexdsp
 uthash
 v4l-utils
-qrcodegencpp
 websocketpp
-speexdsp
+cmake make
+extra-cmake-modules make
+swig make
