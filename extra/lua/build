@@ -1,28 +1,43 @@
 #!/bin/sh -e
 
-CFLAGS="$CFLAGS -fno-lto"
+_majorver=${2%.*}
+cd lua
+patch -Np1 -i ../liblua.so.patch
+patch -Np1 -i ../paths.patch
+cd ..
+cp -r lua lua++
 
-sed "s/install -p/install/" Makefile > _
-mv -f _ Makefile
+sed "s/%VER%/$_majorver/g;s/%REL%/$2/g" lua.pc > lua/lua.pc
+sed "s/%VER%/$_majorver/g;s/%REL%/$2/g;s/-llua/-llua++/g" lua.pc > lua++/lua++.pc
 
-sed "s|/usr/local|/usr|g" src/luaconf.h > _
-mv -f _ src/luaconf.h
+cd lua
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+make \
+  TO_LIB="liblua.so liblua.so.$_majorver liblua.so.$2" \
+  INSTALL_DATA='cp -d' \
+  INSTALL_TOP="$1"/usr \
+  INSTALL_MAN="$1"/usr/share/man/man1 \
+  install
+ln -sf /usr/bin/lua "$1"/usr/bin/lua$_majorver
+ln -sf /usr/bin/luac "$1"/usr/bin/luac$_majorver
+ln -sf /usr/lib/liblua.so.$2 "$1"/usr/lib/liblua$_majorver.so
 
-make MYCFLAGS="$CFLAGS -fPIC" \
-     MYLDFLAGS="$LDFLAGS" \
-     linux
+install -Dm644 lua.pc "$1"/usr/lib/pkgconfig/lua55.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua5.5.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua-5.5.pc
 
-make INSTALL_TOP="$1/usr" \
-     INSTALL_MAN="$1/usr/share/man/man1" \
-     INSTALL_DATA="cp -P" \
-     install
+cd ../lua++
+make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ LUA_A=liblua++.a LUA_SO=liblua++.so linux
+make \
+  TO_LIB="liblua++.so liblua++.so.$_majorver liblua++.so.$2" \
+  INSTALL_BIN=null INSTALL_INC=null INSTALL_MAN=../null \
+  INSTALL_DATA='cp -d' \
+  INSTALL_TOP="$1"/usr \
+  install
+ln -sf /usr/lib/liblua++.so.$2 "$1"/usr/lib/liblua++$_majorver.so
 
-maj_min=${2%.*}
-maj_min_patch=$2
-
-mkdir -p "$1/usr/lib/pkgconfig"
-
-sed \
-    -e "s|%VER%|$maj_min|" \
-    -e "s|%REL%|$maj_min_patch|" \
-    lua.pc > "$1/usr/lib/pkgconfig/lua.pc"
+install -Dm644 lua++.pc "$1"/usr/lib/pkgconfig/lua++55.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++5.5.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++-5.5.pc

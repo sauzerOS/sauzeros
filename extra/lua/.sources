@@ -1,2 +1,4 @@
-https://www.lua.org/ftp/lua-${version}.tar.gz
+https://www.lua.org/ftp/lua-${version}.tar.gz lua
+files/liblua.so.patch
 files/lua.pc
+files/paths.patch
