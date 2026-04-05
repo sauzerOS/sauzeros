@@ -1,0 +1,19 @@
+flac
+libutf8proc
+portaudio
+portmidi
+sdl2-compat
+sdl2_ttf
+zlib-ng
+zstd
+asio make
+glm make
+lua make
+pulseaudio make
+libxi make
+libxinerama make
+nasm make
+pugixml make
+python make
+qt make
+rapidjson make

@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX:PATH=/usr \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
+  -D RAPIDJSON_HAS_STDSTRING=ON \
+  -D RAPIDJSON_BUILD_CXX11=ON \
+  -D RAPIDJSON_ENABLE_INSTRUMENTATION_OPT=OFF \
+  -D DOC_INSTALL_DIR=/usr/share/doc/${3} \
+
+cmake --build build
+DESTDIR=$1 cmake --install build

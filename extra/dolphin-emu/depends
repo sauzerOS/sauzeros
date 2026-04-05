@@ -1,0 +1,24 @@
+bluez
+bzip2
+gcc
+glibc
+libusb
+libx11
+libxi
+libxrandr
+lz4
+lzo
+mbedtls
+pugixml
+sdl2-compat
+speexdsp
+xz
+zstd
+alsa-lib make
+cmake make
+git make
+libevdev make
+pulseaudio make
+python make
+qt make
+vulkan-headers make

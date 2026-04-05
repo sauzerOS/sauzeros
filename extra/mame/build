@@ -1,0 +1,68 @@
+#!/bin/sh -e
+
+# Use system libraries
+sed -e 's|\# USE_SYSTEM_LIB|USE_SYSTEM_LIB|g' -i makefile
+# Use C++ LUA
+sed -e 's|ext_lib("lua")|ext_lib("lua++")|' -i scripts/src/main.lua -i scripts/src/3rdparty.lua
+# Drop hardcoded libexec
+sed -e 's|libexec/||' -i scripts/src/osd/modules.lua
+# Use bundled asio, 1.34 is too new
+export CXXFLAGS+=" -I$PWD/3rdparty/asio/include"
+
+# Fix build with LUA 5.5
+patch -p1 -i lua-5.5.patch
+
+export CXXFLAGS+="  -Wp,-U_GLIBCXX_ASSERTIONS" # FS#73202
+
+make \
+  -j10 \
+  VERBOSE=1 \
+  NOWERROR=1 \
+  OPTIMIZE=2 \
+  TOOLS=1 \
+  QT_HOME=/usr/lib/qt6 \
+  ARCHOPTS=-flifetime-dse=1 \
+  USE_WAYLAND=1
+
+
+# Install the mame script
+install -Dm755 mame.sh "$1"/usr/bin/mame
+
+# Install the binaries
+install -Dm755 mame -t "$1"/usr/lib/mame
+
+# Install the extra bits
+install -Dm644 src/osd/modules/opengl/shader/glsl*.*h -t "$1"/usr/lib/mame/shader/
+cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} "$1"/usr/lib/mame/
+
+# FS#28203
+sed -i 's|KEYCODE_2_PAD|KEYCODE_2PAD|' "$1"/usr/lib/mame/ctrlr/*.cfg
+sed -i 's|KEYCODE_4_PAD|KEYCODE_4PAD|' "$1"/usr/lib/mame/ctrlr/*.cfg
+sed -i 's|KEYCODE_6_PAD|KEYCODE_6PAD|' "$1"/usr/lib/mame/ctrlr/*.cfg
+sed -i 's|KEYCODE_8_PAD|KEYCODE_8PAD|' "$1"/usr/lib/mame/ctrlr/*.cfg
+
+# install desktop file and icon
+install -Dm644 mame.desktop -t "$1"/usr/share/applications
+install -Dm644 mame.svg -t "$1"/usr/share/icons/hicolor/scalable/apps
+
+for _i in castool \
+          chdman \
+          floptool \
+          imgtool \
+          jedutil \
+          ldresample \
+          ldverify \
+          nltool \
+          nlwav \
+          pngcmp \
+          regrep \
+          romcmp \
+          split \
+          srcclean \
+          testkeys \
+          unidasm; do
+install -Dm755 $_i -t "$1"/usr/bin
+done
+mv "$1"/usr/bin/{,mame-}split # Fix conflicts
+
+install -Dm644 docs/man/*.1* -t "$1"/usr/share/man/man1/
