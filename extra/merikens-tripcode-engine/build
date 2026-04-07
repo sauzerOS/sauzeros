@@ -4,4 +4,5 @@ export LDFLAGS="-fuse-ld=lld"
 
 cmake -B build -D ENABLE_CUDA_DES_MULTIPLE_KERNELS_MODE=ON
 cmake --build build
-install -Dm 755 build/MerikensTripcodeEngine $1/opt/meriken/MerikensTripcodeEngine
+cd build
+install -Dm 755 MerikensTripcodeEngine $1/opt/meriken/MerikensTripcodeEngine
