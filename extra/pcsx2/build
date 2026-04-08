@@ -103,3 +103,6 @@ install -Dm644 cheats.zip -t "$1/usr/share/pcsx2/resources/"
 # desktop entry
 install -Dm644 bin/resources/icons/AppIconLarge.png "$1/usr/share/pixmaps/pcsx2.png"
 install -Dm755 pcsx2.desktop "$1/usr/share/applications/pcsx2.desktop"
+
+# replace achievement unlock sound
+install -Dm644 unlock.wav "$1/usr/share/pcsx2/resources/sounds/achievements/unlock.wav"
