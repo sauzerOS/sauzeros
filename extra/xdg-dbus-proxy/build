@@ -1,10 +1,8 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+meson setup build \
+  --prefix=/usr \
+  -D man=disabled
 
-meson --prefix=/usr \
-      -Dman=disabled ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
