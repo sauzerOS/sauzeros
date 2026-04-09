@@ -1,1 +1,1 @@
-https://files.pythonhosted.org/packages/source/f/filelock/filelock-${version}.tar.gz
+https://github.com/tox-dev/filelock/archive/refs/tags/${version}.tar.gz
