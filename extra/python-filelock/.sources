@@ -1,1 +1,1 @@
-https://github.com/tox-dev/filelock/archive/refs/tags/${version}.tar.gz
+git+https://github.com/tox-dev/filelock#v${version}
