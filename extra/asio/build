@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-cd asio
 ./autogen.sh
 ./configure --prefix=/usr
 
