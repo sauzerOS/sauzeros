@@ -1,4 +1,8 @@
 #!/bin/sh
 
+export LC_CTYPE=en_US.UTF-8
+# https://github.com/lxml/lxml/pull/470
+git cherry-pick --no-commit a0a1dfe8e37836074f65f6f889bb102145951172
+
 python -m build --wheel --no-isolation
 python -m installer --destdir=$1 dist/*.whl
