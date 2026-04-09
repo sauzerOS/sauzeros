@@ -4,3 +4,4 @@ pipewire
 umockdev
 python-pytest
 python-python-dbusmock
+meson make
