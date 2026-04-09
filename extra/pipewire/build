@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i fix-build.patch
-
 meson setup build                        \
     --prefix=/usr                        \
     --buildtype=release                  \
