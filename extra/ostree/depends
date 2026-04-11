@@ -1,5 +1,4 @@
 curl
-e2fsprogs make
 glib
 gpgme
 libarchive
@@ -8,3 +7,4 @@ libgpg-error
 util-linux
 xz
 zlib-ng
+e2fsprogs make
