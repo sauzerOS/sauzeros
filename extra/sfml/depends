@@ -1,0 +1,11 @@
+libsndfile
+libxrandr
+glew
+freetype
+libx11
+libxcursor
+libxi
+mesa make
+cmake make
+systemd make
+ninja make
