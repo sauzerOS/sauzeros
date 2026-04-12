@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# directories
+mkdir -p "${1}"/opt/cake-wallet-bin/
+mkdir -p "${1}"/usr/bin/
+mkdir -p "${1}"/usr/share/applications/
+mkdir -p "${1}"/usr/share/pixmaps/
+
+# software.
+cp -r * "${1}"/opt/cake-wallet-bin/
+ln -s /opt/cake-wallet-bin/cake_wallet "${1}"/usr/bin/
+install -Dm644 data/flutter_assets/assets/images/cakewallet_logo.png "${1}"/usr/share/pixmaps/cake_wallet.png
+install -Dm644 cake-wallet-bin.desktop "${1}"/usr/share/applications/
+
