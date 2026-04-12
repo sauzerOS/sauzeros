@@ -1,0 +1,4 @@
+glibc
+zlib-ng
+git make
+meson make
