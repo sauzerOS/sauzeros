@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
-cmake -D CMAKE_INSTALL_PREFIX=/usr -B build
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_SHARED_LIBS=ON
+
 cmake --build build
 DESTDIR=$1 cmake --install build
