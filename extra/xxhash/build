@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make PREFIX=/usr DISPATCH=1
+make PREFIX=/usr DISPATCH=1 DESTDIR="${1}" install
