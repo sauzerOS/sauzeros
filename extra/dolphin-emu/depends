@@ -1,7 +1,10 @@
 bluez
 bzip2
+enet
 gcc
 glibc
+hidapi
+libspng
 libusb
 libx11
 libxi
@@ -9,9 +12,12 @@ libxrandr
 lz4
 lzo
 mbedtls
+miniupnpc
 pugixml
 sdl2-compat
 speexdsp
+sfml
+xxhash
 xz
 zstd
 alsa-lib make
