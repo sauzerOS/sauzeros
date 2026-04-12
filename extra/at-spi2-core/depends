@@ -2,3 +2,4 @@ dbus
 glib
 gobject-introspection
 libxtst
+meson make
