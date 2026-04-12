@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+export CXXFLAGS+=" -ffat-lto-objects"
+
+cmake -B build \
+  -D BUILD_SHARED_LIBS=ON \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D SFML_USE_SYSTEM_DEPS=ON \
+  -D SFML_BUILD_EXAMPLES=OFF \
+  -D SFML_BUILD_DOC=OFF \
+  -D SFML_PKGCONFIG_INSTALL_DIR=/usr/lib/pkgconfig \
+  -D SFML_INSTALL_PKGCONFIG_FILES=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
