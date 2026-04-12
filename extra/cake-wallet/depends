@@ -1,0 +1,14 @@
+at-spi2-core
+cairo
+fontconfig
+gdk-pixbuf
+glib
+gtk+3
+harfbuzz
+libepoxy
+libgcrypt
+libgpg-error
+lz4
+pango
+util-linux
+xz
