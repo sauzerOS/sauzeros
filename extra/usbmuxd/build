@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# Compatibility with libplist 2.3.0
+patch -Np1 -i libplist-2.3.0.diff
+
+
+./configure --prefix=/usr \
+  --sysconfdir=/etc       \
+  --localstatedir=/var    \
+  --sbindir=/usr/bin
+
+make
+make DESTDIR="${1}" install
+install -Dm644 usbmuxd.sysusers "${1}"/usr/lib/sysusers.d/usbmuxd.conf
