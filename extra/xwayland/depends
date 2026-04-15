@@ -9,4 +9,4 @@ libxkbfile
 pixman
 wayland
 wayland-protocols
-
+meson make
