@@ -10,3 +10,4 @@ python-urllib3
 unzip
 vulkan-tools
 webkit2gtk-4.1
+meson make
