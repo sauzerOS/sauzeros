@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-sh cuda_$2_595.45.04_linux.run     \
+sh cuda_$2_595.58.03_linux.run     \
   --target cuda_$2_linux \
   --noexec
 
