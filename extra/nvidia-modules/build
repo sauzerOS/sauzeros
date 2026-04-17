@@ -8,7 +8,7 @@ unset LDFLAGS CFLAGS CXXFLAGS
 patch -p1 -d kernel-open -i ../gpl.patch
 
 # fix for 7.0
-patch -Np1 -i 7.0.patch
+#patch -Np1 -i 7.0.patch
 
 # Build and install kernel modules
 export SYSSRC=/usr/src/linux/
