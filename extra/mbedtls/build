@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+scripts/config.py set MBEDTLS_HAVE_SSE2
+scripts/config.py set MBEDTLS_THREADING_C
+scripts/config.py set MBEDTLS_THREADING_PTHREAD
+
 export CFLAGS+=' -ffat-lto-objects'
 cmake -B build \
    -D CMAKE_BUILD_TYPE=None \
