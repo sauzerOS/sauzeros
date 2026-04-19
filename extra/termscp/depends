@@ -2,5 +2,5 @@ dbus
 openssl
 samba
 zlib-ng
-rust make
+rust | rustup make
 
