@@ -5,6 +5,7 @@ freetype
 libx11
 libxcursor
 libxi
+libssh2
 mesa make
 cmake make
 systemd make
