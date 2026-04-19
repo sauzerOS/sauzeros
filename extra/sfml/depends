@@ -6,6 +6,7 @@ libx11
 libxcursor
 libxi
 libssh2
+mbedtls
 mesa make
 cmake make
 systemd make
