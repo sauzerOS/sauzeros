@@ -1,5 +1,5 @@
 asio
-mbedtls<=3.6.5
+mbedtls<4.0
 nlohmann-json
 nv-codec-headers
 qrcodegencpp
