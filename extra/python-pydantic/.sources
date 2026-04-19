@@ -1,1 +1,1 @@
-https://files.pythonhosted.org/packages/source/p/pydantic/pydantic-${version}.tar.gz
+git+https://github.com/pydantic/pydantic#v${version}
