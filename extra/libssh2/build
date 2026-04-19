@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+./configure --prefix=/usr \
+  --disable-docker-tests
+
+make
+make DESTDIR=$1 install
