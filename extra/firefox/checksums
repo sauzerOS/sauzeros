@@ -4,5 +4,6 @@ c28dbafce6d5fc844c247b6c232a2a55ab492142ecdad976af6fdedd3ee5106e  firefox-symbol
 02221fdf8856f5d7539704dbaef07a5bc6b36ed3915d846637967088cbc5e383  mozconfig
 98fcb4cb40afa0de494f65fc20e238bf21fcfcf871b48ff1eb9dd438da7e5737  google-api-key
 4704def551c0432d7016b13d24978464f673a874ce0622f5d01980fd7585ae29  distribution.ini
-26305d2e30606fc25cb5d494f20236b11fa9719b1b0d00e47300526684a2487f  0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
-c66abbadef6172fa3998c9ac6dbd9214ab1d05d5a779b3bc23bcdc0ebfcdf377  0004-Fix-sandbox-to-build-with-glibc-2.43.patch
+c83016e0392d6828f4810c7e15d97f314f69ac3acc758df3c8aea12c5575f4e2  0002-Bug-2033279-Make-enable-rust-simd-work-with-Rust-1.9.patch
+7f25fe35c783e595c9d37051352d86f42e53cfdd7a92bc0a62d83f3f3e3202de  0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
+206e552ecec99e60f5c7315fb12d34918ec8deb0a5e26b242b4ee4fac0606a93  0004-Bug-2023597-Use-wasm32-wasip1-target-for-clang-22.1-.patch

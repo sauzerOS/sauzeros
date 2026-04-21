@@ -4,5 +4,6 @@ files/firefox-symbolic.svg
 files/mozconfig
 files/google-api-key
 files/distribution.ini
+files/0002-Bug-2033279-Make-enable-rust-simd-work-with-Rust-1.9.patch
 files/0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
-files/0004-Fix-sandbox-to-build-with-glibc-2.43.patch
+files/0004-Bug-2023597-Use-wasm32-wasip1-target-for-clang-22.1-.patch
