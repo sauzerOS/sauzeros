@@ -4,9 +4,17 @@ cd firefox-$2
 mv ../mozconfig .
 mv ../google-api-key .
 
-# glibc 2.43 fixes
+# Fix build with Rust 1.95.0
+# https://bugzilla.mozilla.org/show_bug.cgi?id=2033279
+patch -Np1 -i ../0002-Bug-2033279-Make-enable-rust-simd-work-with-Rust-1.9.patch
+
+# Fix build with glibc 2.43
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1999625
 patch -Np1 -i ../0003-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
-patch -Np1 -i ../0004-Fix-sandbox-to-build-with-glibc-2.43.patch
+
+# Fix build with Clang 22
+# https://bugzilla.mozilla.org/show_bug.cgi?id=2023597
+patch -Np1 -i ../0004-Bug-2023597-Use-wasm32-wasip1-target-for-clang-22.1-.patch
 
 # LTO
 #WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
