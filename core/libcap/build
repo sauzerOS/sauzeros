@@ -1,23 +1,36 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+SBINDIR="${PREFIX}/bin"
+LIBDIR="${PREFIX}/lib"
+PKGCONFIGDIR="${LIBDIR}/pkgconfig"
+
+# libcap Makefile doesn't strictly follow standard env vars, so we pass them explicitly
+EXTRA_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    EXTRA_OPTS="CC=${CC:-cc} AR=${AR:-ar} RANLIB=${RANLIB:-ranlib} OBJCOPY=${OBJCOPY:-objcopy} STRIP=${STRIP:-strip} PKG_CONFIG=${PKG_CONFIG:-pkg-config}"
+fi
+
 sed -i '/install -m.*STA/d' libcap/Makefile
 
 mk() {
     make \
         GOLANG=no \
-        PREFIX=/usr \
-        SBINDIR=/usr/bin \
-        LIBDIR=/usr/lib \
-        PKGCONFIGDIR=/usr/lib/pkgconfig \
+        PREFIX="$PREFIX" \
+        SBINDIR="$SBINDIR" \
+        LIBDIR="$LIBDIR" \
+        PKGCONFIGDIR="$PKGCONFIGDIR" \
         RAISE_SETFCAP=no \
         INDENT=" " \
+        $EXTRA_OPTS \
         "$@"
 }
 
 mk
 mk DESTDIR="$1" install
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit
 make distclean
 make CC="gcc -m32 -march=i686"
