@@ -4,7 +4,7 @@ libuv
 libvterm
 lpeg
 luajit
-tree-sitter<=0.25.10
+tree-sitter
 tree-sitter-bash
 unibilium
 xsel
