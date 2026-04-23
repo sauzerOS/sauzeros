@@ -1,14 +1,29 @@
 #!/bin/sh -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+# Cross-compilation configuration
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Map architecture names for CMake
+CMAKE_ARCH="$HOKUTO_ARCH"
+fi
+if [ "$CMAKE_ARCH" = "aarch64" ]; then
+CMAKE_ARCH="aarch64"
+fi
+
+CMAKE_OPTS="-D CMAKE_SYSTEM_NAME=Linux \
+            -D CMAKE_SYSTEM_PROCESSOR=$CMAKE_ARCH"
+
 cmake -B build \
-    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_PREFIX="$PREFIX" \
     -D CMAKE_INSTALL_LIBDIR=/usr/lib \
     -D CMAKE_SHARED_LIBS=True \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_AR=$(which gcc-ar) \
     -D CMAKE_RANLIB=$(which gcc-ranlib) \
     -D CMAKE_NM=$(which gcc-nm) \
-    -D WITH_JPEG8=1
+    -D WITH_JPEG8=1 \
+    $CMAKE_OPTS
 
 cmake --build   build
 DESTDIR=$1 cmake --install build
