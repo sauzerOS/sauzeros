@@ -38,7 +38,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
     fi
 fi
 
-if [ "${CROSS_PREFIX:-/usr}" = "/usr" ]; then
+if [ "${CROSS_PREFIX}" = "/usr" ]; then
 # environment file for ssh-agent
 install -vDm 644 environment "$1/etc/environment"
 
@@ -51,6 +51,10 @@ install -v -m 644 system-remote-login  "$1/etc/pam.d/system-remote-login"
 install -v -m 644 system-services      "$1/etc/pam.d/system-services"
 
 install -Dm 644 "$3.tmpfiles" "$1/usr/lib/tmpfiles.d/$3.conf"
+fi
+
+if [ "${CROSS_PREFIX}" = "/usr/aarch64-linux-gnu" ]; then
+rm -rvf $1/usr/share
 fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
