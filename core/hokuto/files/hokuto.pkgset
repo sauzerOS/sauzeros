@@ -62,7 +62,7 @@ modemmanager-qt
 networkmanager-qt
 prison
 purpose
-python-kapidox
+kapidox
 qqc2-desktop-style
 solid
 sonnet
@@ -142,7 +142,7 @@ konsole
 kwalletmanager
 libkexiv2
 okular
-qwenview
+gwenview
 
 cosmic:
 cosmic-app-library
@@ -163,7 +163,6 @@ cosmic-session
 cosmic-settings
 cosmic-settings-daemon
 cosmic-workspaces
-just
 xdg-desktop-portal-cosmic
 
 gst:
@@ -179,3 +178,4 @@ linux-headers
 linux-cachyos
 linux-live
 cpupower
+
