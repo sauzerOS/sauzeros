@@ -5,6 +5,12 @@ cd $3-$2
 # remove variable (but useless) first line in config (related to upstream VCS)
 sed '/^#.*\$.*\$$/d' -i ssh{,d}_config
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu"
+else
+    HOST_OPT=""
+fi
+
 configure_options=(
     --disable-lastlog
     --disable-strip
@@ -21,11 +27,14 @@ configure_options=(
     --with-ssl-engine
     --with-xauth=/usr/bin/xauth
     --without-zlib-version-check
-  )
+    $HOST_OPT
+)
 
 ./configure ${configure_options[@]}
 make
 make DESTDIR=$1 install
+
+if [ "$CROSS_PREFIX" = "/usr" ]; then
 
 install -vdm 755 "$1/etc/ssh/ssh_config.d"
 
@@ -47,4 +56,4 @@ install -vDm 644 ../$3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
 install -Dm755 contrib/findssl.sh -t "$1"/usr/bin/
 install -Dm755 contrib/ssh-copy-id -t "$1"/usr/bin/
 install -Dm644 contrib/ssh-copy-id.1 -t "$1"/usr/share/man/man1/
-
+fi
