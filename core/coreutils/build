@@ -3,9 +3,16 @@
 autoreconf -fv
 automake -af
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_OPT="--host=${HOKUTO_ARCH}-linux-gnu"
+else
+    HOST_OPT=""
+fi
+
 FORCE_UNSAFE_CONFIGURE=1 ./configure \
-    --prefix=/usr                    \
+    --prefix=${CROSS_PREFIX:-/usr}   \
     --with-openssl                   \
+    $HOST_OPT                        \
     --enable-no-install-program=kill,uptime
 
 make
