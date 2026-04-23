@@ -16,6 +16,7 @@ aarch64-ncurses cross make
 aarch64-openssl cross make
 aarch64-readline cross make
 aarch64-sqlite cross make
+aarch64-util-linux cross make
 aarch64-xz cross make
 aarch64-zlib-ng cross make
 aarch64-zstd cross make
