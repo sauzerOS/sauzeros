@@ -1,13 +1,29 @@
 #!/bin/sh -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Define host for cross-compilation OS/Arch detection
+HOST_OPT=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_OPT="HOST=${HOKUTO_ARCH}-linux"
+    STRIP=/bin/aarch64-linux-gnu-strip
+fi
+
 mk() {
     make \
         CC="${CC:-cc}" \
+        AR="${AR:-ar}" \
+        RANLIB="${RANLIB:-ranlib}" \
+        STRIP="${STRIP:-strip}" \
+        PKG_CONFIG="${PKG_CONFIG:-pkg-config}" \
         OPT="$CFLAGS -fPIC" \
+        LDFLAGS="$LDFLAGS" \
         ZLIB=yes \
-        PREFIX=/usr \
-        SBINDIR=/usr/bin \
-        SHAREDIR=/usr/share/hwdata \
+        PREFIX="$PREFIX" \
+        SBINDIR="$PREFIX/bin" \
+        SHAREDIR="$PREFIX/share/hwdata" \
+        $HOST_OPT \
         "$@"
 }
 
