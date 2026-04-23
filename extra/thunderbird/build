@@ -8,6 +8,7 @@ mv ../google-api-key .
 patch -Np1 -i ../thunderbird-147.0.2-glibc-2.43.patch
 patch -Np1 -i ../clang22-wasm32-wasip1.patch
 patch -Np1 -i ../missing-include.patch
+patch -Np1 -i ../encoding_rs-simd-select.patch
 
 sed -e 's|73114a5c28472e77082ad259113ffafb418ed602c1741f26da3e10278b0bf93e|a88d6cc10ec1322b53a8f4c782b5133135ace0fdfcf03d1624b768788e17be0f|' \
   -i third_party/rust/mp4parse/.cargo-checksum.json
@@ -18,6 +19,10 @@ sed -e 's|880c982df0843cbdff38b9f9c3829a2d863a224e4de2260c41c3ac69e9148ad4|239b3
 for f in third_party/rust/glslopt/.cargo-checksum.json comm/third_party/rust/glslopt/.cargo-checksum.json; do
   sed -i 's/"files":{[^}]*}/"files":{}/' $f
 done
+
+# Clear cargo checksum for encoding_rs
+sed -i -e 's/\("files":{\)[^}]*/\1/' \
+comm/third_party/rust/encoding_rs/.cargo-checksum.json
 
 # Set BOTAN_VERSION from system-botan
 _botan_ver=$(pkg-config --modversion botan-3)
