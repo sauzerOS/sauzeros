@@ -5,3 +5,4 @@ files/thunderbird.desktop
 files/thunderbird-147.0.2-glibc-2.43.patch
 files/clang22-wasm32-wasip1.patch
 files/missing-include.patch
+files/encoding_rs-simd-select.patch
