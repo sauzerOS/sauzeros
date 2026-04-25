@@ -1,4 +1,5 @@
+glew
 glfw
 libglvnd
-glew
 libxnvctrl
+meson make
