@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-cd YAML-LibYAML-v$2
-
 perl Makefile.PL
 
 make
