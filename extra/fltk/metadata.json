@@ -1,0 +1,10 @@
+{
+  "url": "https://www.fltk.org/",
+  "category": "extra",
+  "description": "Graphical user interface toolkit for X",
+  "info": "",
+  "license": "LGPL-2.0-only WITH FLTK-exception",
+  "tags": [
+    "library"
+  ]
+}
