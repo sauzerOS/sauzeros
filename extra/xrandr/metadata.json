@@ -1,0 +1,12 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Primitive command line interface to RandR extension",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "cli",
+    "utility",
+    "x11"
+  ]
+}
