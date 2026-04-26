@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/notBald/Avalonia86",
+  "category": "extra",
+  "description": "A cross-platform configuration manager for the 86Box emulator",
+  "info": "",
+  "license": "",
+  "tags": [
+    "emulator",
+    "games",
+    "gui"
+  ]
+}
