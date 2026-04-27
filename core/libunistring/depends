@@ -1,1 +1,2 @@
 sed make
+aarch64-gcc cross make
