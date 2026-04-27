@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/flightlessmango/MangoHud",
+  "category": "extra",
+  "description": "A Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more.",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "games",
+    "utility"
+  ]
+}
