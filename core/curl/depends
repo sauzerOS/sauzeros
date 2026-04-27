@@ -4,3 +4,9 @@ libidn2
 libpsl
 nghttp2 optional
 sed make
+aarch64-brotli cross make
+aarch64-gcc cross make
+aarch64-libpsl cross make
+aarch64-libidn2 cross make
+aarch64-openssl cross make
+aarch64-nghttp2 cross make
