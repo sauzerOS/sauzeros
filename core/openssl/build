@@ -6,7 +6,6 @@
     --libdir=lib \
     no-unit-test \
     shared \
-    $CONF_ARGS \
     linux-$HOKUTO_ARCH
 
 make
@@ -19,6 +18,8 @@ fi
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
+CFLAGS="-march=i686 -O2 -pipe"
+CXXFLAGS="-march=i686 -O2 -pipe"
 make distclean
 ./config --prefix=/usr         \
          --openssldir=/etc/ssl \
