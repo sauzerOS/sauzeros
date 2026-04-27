@@ -4,20 +4,53 @@ export BUILD_ZLIB=0
 export BUILD_BZIP2=0
 export LDFLAGS="$LDFLAGS -pthread"
 
-sh Configure -des                                        \
-             -D prefix=/usr                              \
-             -D vendorprefix=/usr                        \
-             -D privlib=/usr/lib/perl5/$2/core_perl      \
-             -D archlib=/usr/lib/perl5/$2/core_perl      \
-             -D sitelib=/usr/lib/perl5/$2/site_perl      \
-             -D sitearch=/usr/lib/perl5/$2/site_perl     \
-             -D vendorlib=/usr/lib/perl5/$2/vendor_perl  \
-             -D vendorarch=/usr/lib/perl5/$2/vendor_perl \
-             -D man1dir=/usr/share/man/man1              \
-             -D man3dir=/usr/share/man/man3              \
-             -D pager="/usr/bin/less -isR"               \
-             -D useshrplib                               \
-             -D usethreads
+PREFIX="${CROSS_PREFIX:-/usr}"
+DESTDIR="$1"
+VERSION="$2"
+
+# Use positional parameters to correctly handle arguments with spaces
+set -- -des \
+    -D prefix="$PREFIX" \
+    -D vendorprefix="$PREFIX" \
+    -D privlib="$PREFIX/lib/perl5/$VERSION/core_perl" \
+    -D archlib="$PREFIX/lib/perl5/$VERSION/core_perl" \
+    -D sitelib="$PREFIX/lib/perl5/$VERSION/site_perl" \
+    -D sitearch="$PREFIX/lib/perl5/$VERSION/site_perl" \
+    -D vendorlib="$PREFIX/lib/perl5/$VERSION/vendor_perl" \
+    -D vendorarch="$PREFIX/lib/perl5/$VERSION/vendor_perl" \
+    -D man1dir="$PREFIX/share/man/man1" \
+    -D man3dir="$PREFIX/share/man/man3" \
+    -D pager="$PREFIX/bin/less -isR" \
+    -D useshrplib \
+    -D usethreads
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # Fake uname for Configure to detect the target architecture
+    cat > uname <<EOF
+#!/bin/sh
+case "\$1" in
+    -m) echo "$HOKUTO_ARCH" ;;
+    -s) echo "Linux" ;;
+    *) /usr/bin/uname "\$@" ;;
+esac
+EOF
+    chmod +x uname
+    export PATH="$PWD:$PATH"
+
+    # Add cross-tools and flags to Configure
+    # We rely on QEMU user emulation (binfmt_misc) to run test programs during Configure
+    set -- "$@" \
+        -D cc="${CC:-cc}" \
+        -D ar="${AR:-ar}" \
+        -D nm="${NM:-nm}" \
+        -D ranlib="${RANLIB:-ranlib}" \
+        -D ld="${CC:-cc}" \
+        -D ccflags="$CFLAGS" \
+        -D ldflags="$LDFLAGS" \
+        -D optimize=" "
+fi
+
+sh Configure "$@"
 
 make
-make DESTDIR="$1" install
+make DESTDIR="$DESTDIR" install
