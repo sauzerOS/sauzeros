@@ -1,3 +1,2 @@
-https://cdn.kernel.org/pub/linux/kernel/v${version-major}.x/linux-${version-kernel}.tar.xz kernel
-git+https://github.com/CachyOS/kernel-patches patches
+https://github.com/CachyOS/linux/releases/download/cachyos-${version}-1/cachyos-${version}-1.tar.gz
 files/config.gz

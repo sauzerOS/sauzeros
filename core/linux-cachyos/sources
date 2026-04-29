@@ -1,3 +1,2 @@
-https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.0.2.tar.xz kernel
-git+https://github.com/CachyOS/kernel-patches patches
+https://github.com/CachyOS/linux/releases/download/cachyos-7.0.2-1/cachyos-7.0.2-1.tar.gz
 files/config.gz
