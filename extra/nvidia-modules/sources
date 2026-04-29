@@ -1,4 +1,3 @@
 https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/595.71.05.tar.gz
 files/gpl.patch
 files/nvidia.conf
-files/7.0.patch
