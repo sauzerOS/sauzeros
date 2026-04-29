@@ -8,7 +8,6 @@ fi
 
 ./configure --prefix=${CROSS_PREFIX:-/usr} \
             --sysconfdir=/etc \
-            --disable-static  \
             $HOST_OPT
 
 make
