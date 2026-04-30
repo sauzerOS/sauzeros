@@ -9,5 +9,5 @@ go build \
   -o dist/gdu \
   github.com/dundee/gdu/v5/cmd/gdu
 
-install -Dm755 dist/${3} "${1}/usr/bin/${3}"
-install -Dm644 gdu.1    "${1}/usr/share/man/man1/${3}.1"
+install -Dm755 dist/gdu "${1}/usr/bin/gdu"
+install -Dm644 gdu.1    "${1}/usr/share/man/man1/gdu.1"
