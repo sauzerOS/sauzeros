@@ -1,0 +1,27 @@
+bzip2
+freetype
+libglvnd
+libx11
+libxau
+libxdamage
+libxext
+libxfixes
+libxfont2
+libxxf86vm
+libdrm
+libepoxy
+libfontenc
+libpciaccess
+libxcb
+libxcvt
+libxkbfile
+libxshmfence
+linux-headers make
+mesa
+openssl
+pixman
+pkgconf make
+xkeyboard-config
+xtrans make
+xinput
+zlib-ng

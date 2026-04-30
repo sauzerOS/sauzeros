@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+meson setup build           \
+      --prefix=/usr         \
+      --localstatedir=/var  \
+      -D glamor=true        \
+      -D xkb_output_dir=/var/lib/xkb
+
+meson compile -C build
+meson install -C build --destdir=$1
