@@ -1,7 +1,7 @@
 https://archive.mozilla.org/pub/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz
 files/mozconfig
 files/google-api-key
-files/thunderbird.desktop
+files/org.mozilla.Thunderbird.desktop
 files/thunderbird-147.0.2-glibc-2.43.patch
 files/clang22-wasm32-wasip1.patch
 files/missing-include.patch
