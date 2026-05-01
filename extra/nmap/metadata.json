@@ -1,0 +1,12 @@
+{
+  "url": "https://nmap.org/",
+  "category": "extra",
+  "description": "Utility for network discovery and security auditing",
+  "info": "",
+  "license": "LicenseRef-Nmap-Public-Source-License-Version-0.95",
+  "tags": [
+    "cli",
+    "network",
+    "utility"
+  ]
+}
