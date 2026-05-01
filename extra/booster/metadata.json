@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/anatol/booster",
+  "category": "extra",
+  "description": "Fast and secure initramfs generator",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "boot",
+    "cli",
+    "utility"
+  ]
+}
