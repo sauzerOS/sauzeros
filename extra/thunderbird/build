@@ -58,7 +58,7 @@ CXXFLAGS="${CXXFLAGS/-fexceptions/}"
 DESTDIR=$1 ./mach install
 
 # Desktop file
-install -Dm 644 ../thunderbird.desktop $1/usr/share/applications/thunderbird.desktop
+install -Dm 644 ../org.mozilla.Thunderbird.desktop $1/usr/share/applications/org.mozilla.Thunderbird.desktop
 
 for i in 16 22 24 32 48 64 128 256; do
 install -Dm644 comm/mail/branding/thunderbird/default${i}.png \
