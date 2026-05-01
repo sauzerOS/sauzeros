@@ -1,0 +1,6 @@
+libnl
+libpcap
+libssh2
+openssl
+pcre2
+zlib-ng
