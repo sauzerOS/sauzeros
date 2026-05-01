@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+cd booster-$2
+
+cd generator
+CGO_CPPFLAGS="${CPPFLAGS}" CGO_CFLAGS="${CFLAGS}" CGO_CXXFLAGS="${CXXFLAGS}" CGO_LDFLAGS="${LDFLAGS}" \
+  go build -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-linkmode external -buildid='' -extldflags \"${LDFLAGS}\""
+
+cd ../init
+CGO_ENABLED=0 go build -trimpath -mod=readonly -modcacherw
+cd ..
+
+mkdir "${1}/etc/"
+touch "${1}/etc/booster.yaml"
+install -Dp -m755 generator/generator "${1}/usr/bin/booster"
+install -Dp -m755 init/init "${1}/usr/lib/booster/init"
+install -Dp -m755 contrib/completion/bash "${1}/usr/share/bash-completion/completions/booster"
