@@ -25,7 +25,7 @@ python-puremagic
 python-pysocks
 python-rarfile
 python-rebulk
-python-sabctools==8.2.6
+python-sabctools==9.4.0
 python-sgmllib3k
 python-six
 python-tempora
