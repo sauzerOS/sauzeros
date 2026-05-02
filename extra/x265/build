@@ -1,32 +1,32 @@
 #!/bin/sh -e
 
-#cmake fix
-sed -r '/cmake_policy.*(0025|0054)/d' -i source/CMakeLists.txt
-mkdir bld
-cd bld
+#32 bit fix
+sed -i 's/FORMAT_ELF/UNIX64 && FORMAT_ELF/' source/common/x86/cpu-a.asm
 
-cmake -D CMAKE_INSTALL_PREFIX=/usr        \
+cmake -B build \
+      -D CMAKE_INSTALL_PREFIX=/usr        \
       -D GIT_ARCHETYPE=1                  \
       -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
-      -W no-dev ../source
+      -W no-dev source
 
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
 rm -vf $1/usr/lib/libx265.a
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
-rm -rf *
+rm -rf build
 CC="gcc -m32" CXX="g++ -m32"              \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig      \
-cmake -D CMAKE_INSTALL_PREFIX=/usr        \
+cmake -B build \
+      -D CMAKE_INSTALL_PREFIX=/usr        \
       -D LIB_INSTALL_DIR=lib32            \
       -D GIT_ARCHETYPE=1                  \
       -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
-      -W no-dev ../source
+      -W no-dev source
 
-make
-make DESTDIR=$PWD/DESTDIR install
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
 install -d $1/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
 rm -vf $1/usr/lib32/libx265.a
