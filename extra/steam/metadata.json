@@ -1,0 +1,10 @@
+{
+  "url": "https://steampowered.com/",
+  "category": "extra",
+  "description": "Valve's digital software delivery system",
+  "info": "",
+  "license": "LicenseRef-steam-subscriber-agreement",
+  "tags": [
+    "games"
+  ]
+}

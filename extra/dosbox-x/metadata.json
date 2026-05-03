@@ -1,0 +1,11 @@
+{
+  "url": "http://dosbox-x.com",
+  "category": "extra",
+  "description": "x86 emulator with builtin DOS, with patches with more features",
+  "info": "",
+  "license": "",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}
