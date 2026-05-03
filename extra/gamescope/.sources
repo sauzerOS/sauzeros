@@ -1,1 +1,2 @@
 git+https://github.com/ValveSoftware/gamescope#${version}
+files/wlroots-5261.patch
