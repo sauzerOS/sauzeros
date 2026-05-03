@@ -1,0 +1,11 @@
+{
+  "url": "http://www.libretro.com/",
+  "category": "extra",
+  "description": "Reference frontend for the libretro API",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}

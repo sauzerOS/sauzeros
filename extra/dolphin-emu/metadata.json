@@ -1,0 +1,11 @@
+{
+  "url": "https://dolphin-emu.org",
+  "category": "extra",
+  "description": "A Gamecube and Wii emulator",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}

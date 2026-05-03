@@ -1,0 +1,11 @@
+{
+  "url": "https://mamedev.org/",
+  "category": "extra",
+  "description": "Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}

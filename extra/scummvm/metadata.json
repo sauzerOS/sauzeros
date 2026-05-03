@@ -1,0 +1,11 @@
+{
+  "url": "http://www.scummvm.org/",
+  "category": "extra",
+  "description": "A 'virtual machine' for several classic graphical point-and-click adventure games.",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}
