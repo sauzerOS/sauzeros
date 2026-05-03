@@ -1,3 +1,4 @@
 libdecor
 seatd
 xwayland
+meson make

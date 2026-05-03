@@ -1,6 +1,10 @@
 #!/bin/sh -e
 
 git submodule update --init
+
+# fix wlroots
+patch -Np1 -d subprojects/wlroots -i ../../wlroots-5261.patch
+
 meson setup build --prefix=/usr \
     -D pipewire=enabled \
     -D enable_openvr_support=false
