@@ -1,11 +1,7 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-      -GNinja ..
-
-ninja
-DESTDIR=$1 ninja install
-
+cmake --build build
+DESTDIR=$1 cmake --install build

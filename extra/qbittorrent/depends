@@ -1,5 +1,6 @@
-boost make
 libtorrent
 openssl
 qt
 zlib-ng
+boost make
+cmake make
