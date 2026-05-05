@@ -10,11 +10,13 @@ cp {cheats.zip,patches.zip} data/resources
 sed -i '/#ifdef __linux__/,/#endif/d' src/core/system.cpp
 mv DuckStationDependencies.cmake CMakeModules/
 sed -i 's/Qt6::Gui Qt6::Widgets/Qt6::Gui Qt6::GuiPrivate Qt6::Widgets/' src/duckstation-qt/CMakeLists.txt
+# always build qt_frontend (conditional breaks cmake script)
+sed -i '79d;90d' CMakeModules/DuckStationDependencies.cmake
 
 # only build required deps with custom script/version file
 mkdir -pv scripts/deps/patches
 cp {versions,build-dependencies-linux.sh} scripts/deps/
-cp libpng-1.6.54-apng.patch scripts/deps/patches/
+cp libpng-1.6.56-apng.patch scripts/deps/patches/
 scripts/deps/build-dependencies-linux.sh deps
 cd deps
 mv lib/* lib64/
