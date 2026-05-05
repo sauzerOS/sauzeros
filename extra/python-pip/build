@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# remove flit_core version req
+patch -Np0 -i flit-core-version.patch
+
 python -m build --wheel --no-isolation
 _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 python -m installer --destdir="${1}" dist/*.whl
