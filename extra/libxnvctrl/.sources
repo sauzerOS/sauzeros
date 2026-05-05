@@ -1,0 +1,2 @@
+https://github.com/NVIDIA/nvidia-settings/archive/refs/tags/${version}.tar.gz
+files/nvidia-settings-libxnvctrl_so.patch
