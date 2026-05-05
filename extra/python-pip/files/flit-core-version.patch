@@ -1,0 +1,18 @@
+--- pyproject.toml	2026-05-05 01:56:07.000000000 +0700
++++ /tmp/pyproject.toml	2026-05-05 12:26:42.661127263 +0700
+@@ -44,13 +44,13 @@
+ Changelog = "https://pip.pypa.io/en/stable/news/"
+ 
+ [build-system]
+-requires = ["flit-core >=3.11,<4"]
++requires = ["flit-core >=3.11"]
+ build-backend = "flit_core.buildapi"
+ 
+ [dependency-groups]
+ test = [
+     "cryptography",
+-    "flit-core >= 3.11, < 4",
++    "flit-core >= 3.11",
+     "freezegun",
+     "installer",
+     # pytest-subket requires 7.0+

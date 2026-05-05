@@ -1,1 +1,2 @@
 https://github.com/pypa/pip/archive/${version}/pip-${version}.tar.gz
+files/flit-core-version.patch
