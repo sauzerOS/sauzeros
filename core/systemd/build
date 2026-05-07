@@ -79,7 +79,7 @@ install -v -m644 20-wired.network "$1/etc/systemd/network/20-wired.network"
 install -v -m644 25-wireless.network "$1/etc/systemd/network/25-wireless.network"
 install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
 install -v -m644 dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
-install -v -m644 10-dmesg.conf "$1/usr/lib/sysctl.d/10-dmesg.conf"
+install -v -m644 10-sauzeros.conf "$1/usr/lib/sysctl.d/10-sauzeros.conf"
 fi
 
 if [ "$PREFIX" != "/usr" ]; then
