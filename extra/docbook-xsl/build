@@ -11,5 +11,4 @@ cp -v -R VERSION common eclipse epub extensions fo highlighting html \
     "$1/usr/share/xml/docbook/xsl-stylesheets-nons-${2}"
 
 ln -s VERSION "$1/usr/share/xml/docbook/xsl-stylesheets-nons-${2}/VERSION.xsl"
-
-
+ln -s xsl-stylesheets-nons-$2 "$1/usr/share/xml/docbook/xsl-stylesheets-nons"
