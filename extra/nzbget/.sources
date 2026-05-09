@@ -1,0 +1,4 @@
+https://github.com/nzbgetcom/nzbget/archive/v${version}/nzbget-${version}.tar.gz
+git+https://github.com/nzbgetcom/par2cmdline-turbo.git par2cmdline-turbo
+files/nzbget-use-par2cmdline-turbo-from-sources.patch
+files/nzbget.service

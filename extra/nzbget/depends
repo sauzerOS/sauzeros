@@ -1,0 +1,10 @@
+boost
+libxml2
+ncurses
+openssl
+p7zip
+unrar
+zlib-ng
+boost make
+cmake make
+git make
