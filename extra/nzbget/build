@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+patch -Np1 -i nzbget-use-par2cmdline-turbo-from-sources.patch
+
+cmake -B build \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CURSES_INCLUDE_PATH=/usr/lib \
+    -Wno-dev
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
+install -vDm644 -t "${1}/usr/share/doc/${3}" ./*.md
+install -vDm644 -t "${1}/usr/lib/systemd/system" ${3}.service
