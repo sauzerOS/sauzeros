@@ -6,6 +6,7 @@ meson setup build \
   -D xnest=true   \
   -D xephyr=true  \
   -D systemd_logind=true \
+  -D seatd_libseat=false \
   -D drm=true \
   -D suid_wrapper=true
 
