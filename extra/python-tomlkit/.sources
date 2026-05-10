@@ -1,1 +1,1 @@
-https://github.com/python-poetry/tomlkit/releases/download/${version}/tomlkit-${version}.tar.gz
+https://github.com/python-poetry/tomlkit/archive/refs/tags/${version}.tar.gz
