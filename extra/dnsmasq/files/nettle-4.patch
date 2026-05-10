@@ -1,0 +1,78 @@
+diff -ur a/src/crypto.c b/src/crypto.c
+--- a/src/crypto.c	2026-05-10 10:11:27.846244923 +0700
++++ b/src/crypto.c	2026-05-10 10:11:27.840244624 +0700
+@@ -94,9 +94,15 @@
+   ctx->len += length;
+ }
+  
++#if MIN_VERSION(4, 0)
++static void null_hash_digest(void *ctx, uint8_t *dst)
++#else
+ static void null_hash_digest(void *ctx, size_t length, uint8_t *dst)
++#endif
+ {
++#if !MIN_VERSION(4, 0)
+   (void)length;
++#endif
+   
+   ((struct null_hash_digest *)dst)->buff = null_hash_buff;
+   ((struct null_hash_digest *)dst)->len = ((struct null_hash_ctx *)ctx)->len;
+diff -ur a/src/dnsmasq.h b/src/dnsmasq.h
+--- a/src/dnsmasq.h	2026-05-10 10:11:27.844244823 +0700
++++ b/src/dnsmasq.h	2026-05-10 10:11:27.840244624 +0700
+@@ -163,6 +163,18 @@
+ 
+ #if defined(HAVE_DNSSEC)
+ #  include <nettle/nettle-meta.h>
++#  include <nettle/bignum.h>
++#  if !defined(NETTLE_VERSION_MAJOR)
++#    define NETTLE_VERSION_MAJOR 2
++#    define NETTLE_VERSION_MINOR 0
++#  endif
++#  define MIN_VERSION(major, minor) ((NETTLE_VERSION_MAJOR == (major) && NETTLE_VERSION_MINOR >= (minor)) || \
++				   (NETTLE_VERSION_MAJOR > (major)))
++#  if MIN_VERSION(4, 0)
++#    define NETTLE_HASH_DIGEST(hash, ctx, size, digest) (hash)->digest(ctx, digest)
++#  else
++#    define NETTLE_HASH_DIGEST(hash, ctx, size, digest) (hash)->digest(ctx, size, digest)
++#  endif
+ #endif
+ 
+ /* daemon is function in the C library.... */
+diff -ur a/src/dnssec.c b/src/dnssec.c
+--- a/src/dnssec.c	2026-05-10 10:11:27.849245073 +0700
++++ b/src/dnssec.c	2026-05-10 10:11:27.841244673 +0700
+@@ -657,7 +657,7 @@
+ 	    }
+ 	}
+      
+-      hash->digest(ctx, hash->digest_size, digest);
++      NETTLE_HASH_DIGEST(hash, ctx, hash->digest_size, digest);
+       
+       /* namebuff used for workspace above, restore to leave unchanged on exit */
+       p = (unsigned char*)(rrset[0]);
+@@ -837,7 +837,7 @@
+ 		 rather then O(keys x DSs) */
+ 	      hash->update(ctx, (unsigned int)wire_len, (unsigned char *)name);
+ 	      hash->update(ctx, (unsigned int)rdlen, psave);
+-	      hash->digest(ctx, hash->digest_size, digest);
++	      NETTLE_HASH_DIGEST(hash, ctx, hash->digest_size, digest);
+ 	      
+ 	      from_wire(name);
+ 
+@@ -1381,13 +1381,13 @@
+  
+   hash->update(ctx, to_wire(in), (unsigned char *)in);
+   hash->update(ctx, salt_len, salt);
+-  hash->digest(ctx, hash->digest_size, digest);
++  NETTLE_HASH_DIGEST(hash, ctx, hash->digest_size, digest);
+ 
+   for(i = 0; i < iterations; i++)
+     {
+       hash->update(ctx, hash->digest_size, digest);
+       hash->update(ctx, salt_len, salt);
+-      hash->digest(ctx, hash->digest_size, digest);
++      NETTLE_HASH_DIGEST(hash, ctx, hash->digest_size, digest);
+     }
+    
+   from_wire(in);

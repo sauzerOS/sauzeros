@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+patch -Np1 -i nettle-4.patch
+
 _build_copts='-DHAVE_DNSSEC -DHAVE_DBUS -DHAVE_NFTSET'
 
 make \
@@ -35,3 +38,4 @@ sed -i 's,%%PREFIX%%,/usr,' "$1"/etc/dnsmasq.conf
 install -Dm0644 "trust-anchors.conf" "$1"/usr/share/dnsmasq/trust-anchors.conf
 install -Dm0755 -t "$1"/usr/bin/ 'contrib/lease-tools/dhcp_'{release{,6},lease_time}
 install -Dm0644 -t "$1"/usr/share/man/man1 'contrib/lease-tools/dhcp_'{release{,6},lease_time}.1
+
