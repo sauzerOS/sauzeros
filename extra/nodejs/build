@@ -27,7 +27,6 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     #export CXX_host=g++
     #export AR_host=ar
     #export LINK_host=g++
-    
     # Crucial: Unset/Reset global flags to prevent target SYSROOT includes from polluting the host build.
     # The cross-compiler (CC) knows its own sysroot; we don't need explicit -I flags in CFLAGS.
     # We explicitly set clean optimization flags for both Host and Target to override the polluted env.
