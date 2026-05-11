@@ -3,7 +3,6 @@
 mkdir build
 cd build
 
-
 ../configure --prefix=/usr          \
              --with-system-readline \
              --with-system-zlib
