@@ -1,3 +1,5 @@
+coreutils
+kmod
 bc make
 libelf make
 pahole make
@@ -5,6 +7,3 @@ perl make
 python make
 tar make
 xz make
-coreutils
-kmod
-
