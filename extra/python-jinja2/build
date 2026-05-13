@@ -1,4 +1,8 @@
 #!/bin/sh -e
+
+# remove flit_core check
+sed -i 's/<4//g' pyproject.toml
+
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 PREFIX="${CROSS_PREFIX:-/usr}"
 
