@@ -44,6 +44,9 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # HOKUTO sets CC and CXX already
     #export LINK="$CXX"
 
+# fix missing include
+patch -Np0 -i climits.patch
+
     ./configure $CONF_ARGS \
         --dest-cpu="$DEST_CPU" \
         --dest-os=linux \
