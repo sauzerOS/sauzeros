@@ -1,19 +1,19 @@
 #!/bin/sh -e
 
 ./configure --prefix=/usr \
---sbindir=/usr/bin \
---sysconfdir=/etc \
---without-xmlsecurity \
---without-dnet \
---without-icu \
---without-dncp
+  --sbindir=/usr/bin      \
+  --sysconfdir=/etc       \
+  --without-xmlsec1       \
+  --without-dnet          \
+  --without-icu           \
+  --without-dncp
 
 make
 make DESTDIR="$1" install
 
 # install systemd files
-  install -D -m0644 vmtoolsd.service "$1"/usr/lib/systemd/system/vmtoolsd.service
-  install -D -m0644 vmware-vmblock-fuse.service "$1"/usr/lib/systemd/system/vmware-vmblock-fuse.service
+install -D -m0644 vmtoolsd.service "$1"/usr/lib/systemd/system/vmtoolsd.service
+install -D -m0644 vmware-vmblock-fuse.service "$1"/usr/lib/systemd/system/vmware-vmblock-fuse.service
 
 # install vmware-xdg-detect-de
-  install -D -m0755 scripts/common/vmware-xdg-detect-de "$1"/usr/bin/vmware-xdg-detect-de
+install -D -m0755 scripts/common/vmware-xdg-detect-de "$1"/usr/bin/vmware-xdg-detect-de
