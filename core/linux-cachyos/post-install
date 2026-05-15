@@ -5,7 +5,6 @@
 # We awk $1 to handle potential revision or spaces (e.g. "6.18.8 1")
 if [ -f "/var/db/hokuto/installed/linux-cachyos/version" ]; then
 version=$(head -n1 /var/db/hokuto/installed/linux-cachyos/version | awk '{print $1}')
-version=${version%-*}
 else
     echo "Error: /var/db/hokuto/installed/linux-cachyos/version not found."
     exit 1

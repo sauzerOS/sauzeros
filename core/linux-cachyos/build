@@ -1,7 +1,5 @@
 #!/bin/sh -e
-
-version=${2%-*}
-
+$
 # apply config
 zcat config.gz > .config
 make oldconfig
@@ -35,11 +33,11 @@ ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$1/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install
 
 # remove build link
-rm $1/usr/lib/modules/$version-sauzerOS_C/build
+rm $1/usr/lib/modules/$2-sauzerOS_C/build
 
 # install headers
 
-builddir=$1/usr/lib/modules/$version-sauzerOS_C/build
+builddir=$1/usr/lib/modules/$2-sauzerOS_C/build
 
 install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
   vmlinux tools/bpf/bpftool/vmlinux.h
