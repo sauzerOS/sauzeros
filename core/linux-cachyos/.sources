@@ -1,2 +1,2 @@
-https://github.com/CachyOS/linux/releases/download/cachyos-${version}-1/cachyos-${version}-1.tar.gz
+https://github.com/CachyOS/linux/releases/download/cachyos-${version}/cachyos-${version}.tar.gz
 files/config.gz
