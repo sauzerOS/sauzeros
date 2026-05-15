@@ -1,2 +1,2 @@
-git+https://github.com/psf/requests#v2.34.1
+git+https://github.com/psf/requests#v2.34.2
 files/certs.patch
