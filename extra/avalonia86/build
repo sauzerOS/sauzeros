@@ -7,7 +7,6 @@ install -d $1/opt/avalonia86
 install -d $1/usr/bin
 find . -type f -exec chmod 0644 '{}' \;
 cp -r usr/bin/* $1/opt/avalonia86/
-cp -r usr/share $1/usr/
 
 chmod 0755 $1/opt/avalonia86/Avalonia86
 ln -s /opt/avalonia86/Avalonia86 $1/usr/bin/Avalonia86
