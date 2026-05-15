@@ -1,0 +1,7 @@
+python
+cmake make
+git make
+python-build make
+python-installer make
+python-scikit-build-core make
+python-wheel make

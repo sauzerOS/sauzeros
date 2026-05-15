@@ -1,0 +1,3 @@
+git+https://github.com/wjakob/nanobind#v2.12.0
+git+https://github.com/Tessil/robin-map ext/robin_map
+https://github.com/wjakob/nanobind/pull/1312.patch

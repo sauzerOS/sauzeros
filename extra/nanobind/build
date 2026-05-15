@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+patch -Np1 -i 1312.patch
+
+python -m build --wheel --no-isolation
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D NB_TEST_STABLE_ABI=ON \
+  -D NB_TEST_SHARED_BUILD=ON \
+  -Wno-dev
+
+cmake --build build
+
+python -m installer --destdir="${1}" dist/*.whl
+
+python_version=$(python -c "import sys; print(sys.version[:4])")
+install -vdm755 "${1}/usr/include"
+ln -vs "../lib/python$python_version/site-packages/nanobind/include/nanobind" \
+  "${1}/usr/include/nanobind"
+install -dm755 "${1}/usr/lib/cmake"
+ln -vs "../../lib/python$python_version/site-packages/nanobind/cmake" \
+  "${1}/usr/lib/cmake/nanobind"
