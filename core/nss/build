@@ -31,7 +31,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     AR="$HOKUTO_ARCH-linux-gnu-ar"
     RANLIB="$HOKUTO_ARCH-linux-gnu-ranlib"
     MAKE_ARGS="$MAKE_ARGS CC=$CC CXX=$CXX CCC=$CXX RANLIB=$RANLIB OS_TEST=$HOKUTO_ARCH"
-    
+
     # NSS requires AR to contain 'cr $@' for legacy reasons in coreconf
     make $MAKE_ARGS AR="$AR cr \$@"
 else
@@ -44,7 +44,6 @@ install -d $1$CROSS_PREFIX/lib/pkgconfig
 install -d $1$CROSS_PREFIX/bin
 
 install -v -m755 Linux*/lib/*.so              $1$CROSS_PREFIX/lib
-install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1$CROSS_PREFIX/lib
 
 install -v -m755 -d                           $1$CROSS_PREFIX/include/nss
 cp -v -RL {public,private}/nss/*              $1$CROSS_PREFIX/include/nss
@@ -71,7 +70,6 @@ cd ../dist
 
 install -d $1/usr/lib32/pkgconfig
 install -v -m755 Linux*/lib/*.so              $1/usr/lib32
-install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $1/usr/lib32
 sed -i 's/lib/lib32/g' Linux*/lib/pkgconfig/nss.pc
 install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib32/pkgconfig
 fi
