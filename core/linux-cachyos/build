@@ -1,5 +1,5 @@
 #!/bin/sh -e
-$
+
 # apply config
 zcat config.gz > .config
 make oldconfig
