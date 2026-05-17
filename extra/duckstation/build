@@ -38,10 +38,10 @@ cmake -B build-release                              \
 
 cmake --build build-release
 
-# Install everything into /usr/lib/duckstation
+# install everything into /usr/lib/duckstation
 install -m 755 -d "${1}/usr/lib"
 cp -drv --no-preserve='ownership' build-release/bin "${1}/usr/lib/duckstation"
-# Install bundled libraries
+# install bundled libraries
 find "deps/lib64/" -name '*.so*' -exec cp -dv --no-preserve='ownership' '{}' "${1}/usr/lib/duckstation/" \;
 
 # patch rpath
