@@ -1,0 +1,10 @@
+freetype
+glm
+libogg
+libtheora
+libvorbis
+miniz
+sdl2-compat
+sdl2-sound
+tinyxml2
+cmake make

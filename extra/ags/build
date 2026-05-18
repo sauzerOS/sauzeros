@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=None \
+  -D AGS_TESTS=OFF \
+  -D CMAKE_CXX_STANDARD=23 \
+  -D AGS_USE_LOCAL_ALL_LIBRARIES=ON \
+  -D AGS_BUILD_TOOLS=OFF \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+cmake --build build
+DESTDIR=$1 cmake --install build
