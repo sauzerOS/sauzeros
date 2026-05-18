@@ -2,7 +2,7 @@
 
 ./configure --prefix=/usr \
     --enable-release      \
-    --disable-engines=icb \
+    --enable-all-engines  \
     --disable-debug
 
 make
