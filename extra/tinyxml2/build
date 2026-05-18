@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-meson --prefix=/usr ..
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D tinyxml2_SHARED_LIBS=ON
 
-ninja
-DESTDIR=$1 ninja install
+cmake --build build
+DESTDIR=$1 cmake --install build
