@@ -1,5 +1,5 @@
 #!/bin/sh -e
 
-meson setup --prefix=/usr --buildtype=release builddir
+meson setup builddir --prefix=/usr
 meson compile -C builddir
-DESTDIR=$1 meson install -C builddir
+meson install -C builddir --destdir=$1
