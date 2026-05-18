@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D SDLSOUND_DECODER_MIDI=TRUE \
+  -D SDLSOUND_BUILD_STATIC=FALSE
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+# handle conflict with sdl_sound
+mv "${1}"/usr/bin/playsound{,-sdl2}
