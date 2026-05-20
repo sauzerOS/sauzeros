@@ -6,3 +6,4 @@ libhandy
 libxml2
 openjpeg
 poppler
+meson make
