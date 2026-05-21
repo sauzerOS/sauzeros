@@ -4,6 +4,7 @@ files/0003-models.dat-Re-add-drivers-missing-from-3.19.1.patch
 files/0018-Allow-non-JPEG-scanning-on-the-HP-DeskJet-3520-All-i.patch
 files/0022-Add-include-cups-ppd.h-in-various-places-as-CUPS-2.2.patch
 files/0023-Fix-handling-of-unicode-filenames-in-sixext.py.patch
+files/0024-fix-hp-scanui-desktop-file.patch
 files/hplip-configure-python.patch
 files/hplip-locale-format.patch
 files/python3.diff

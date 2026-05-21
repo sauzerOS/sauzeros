@@ -12,27 +12,16 @@ patch -Np1 -i 0003-models.dat-Re-add-drivers-missing-from-3.19.1.patch
 # https://bugs.launchpad.net/hplip/+bug/1879445
 # broken scanning - https://bugs.archlinux.org/task/66704
 patch -Np1 -i hplip-configure-python.patch
-#  allow non-jpeg scanning on all-in-one devices - FS#78135
-#patch -Np1 -i 0018-Allow-non-JPEG-scanning-on-the-HP-DeskJet-3520-All-i.patch
-# hp-firmware: module 'locale' not longer provides method 'format', causing traceback #4
-patch -Np1 -i hplip-locale-format.patch
-
+# fix hp-uiscan.desktop file
+patch -Np1 -i 0024-fix-hp-scanui-desktop-file.patch
 # gcc14 fix
 patch -Np1 -i hplip-hpaio-gcc14.patch
 patch -Np1 -i hplip-pserror-gcc14.patch
 # gcc15 fix
 patch -Np1 -i hplip-gcc15-stdc23.patch
 
-#fix build error
-sed -i '815s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
-sed -i '895s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
-sed -i '1247s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
-sed -i '1467s/_fromUtf8""/_fromUtf8("")/' ui4/scandialog.py
-
-
 export AUTOMAKE='automake --foreign'
 autoreconf --force --install
-
 
 export CFLAGS+=" -Wno-deprecated-declarations -Wno-implicit-function-declaration -Wno-return-mismatch"
 
