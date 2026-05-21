@@ -1,6 +1,6 @@
 cups
+libusb
 python-pygobject
 python-pyqt5
 sane
-libusb
 xdg-utils
