@@ -1,11 +1,10 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D USE_POLKIT=TRUE \
+  -D WITH_UUID=e2fs \
+  -D CMAKE_BUILD_TYPE=RELEASE
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-      -DUSE_POLKIT=TRUE \
-      -DWITH_UUID=e2fs \
-      -DCMAKE_BUILD_TYPE=RELEASE ..
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
