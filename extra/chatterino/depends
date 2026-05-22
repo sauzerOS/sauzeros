@@ -1,1 +1,8 @@
+boost
+libnotify
+openssl
 qt
+qtkeychain
+cmake make
+git make
+rapidjson make

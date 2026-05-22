@@ -1,11 +1,35 @@
 #!/bin/sh -e
 
-chmod +x Chatterino-x86_64-Qt6.AppImage
-./Chatterino-x86_64-Qt6.AppImage --appimage-extract
+git describe --long --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+git config submodule.cmake/sanitizers-cmake.update "none"
+git config submodule.lib/rapidjson.update "none"
+git config submodule.tools/crash-handler.update "none"
+git config submodule.lib/googletest.update "none"
+git config submodule.lib/twitch-eventsub-ws/lib/date.update "none"
+git config submodule.lib/twitch-eventsub-ws/lib/fmt.update "none"
+git config submodule.lib/WinToast.update "none"
+git config submodule.lib/qtkeychain.update "none"
+git submodule init
+git config submodule.lib/libcommuni.url "libcommuni"
+git config submodule.lib/settings.url "settings"
+git config submodule.lib/signals.url "signals"
+git config submodule.lib/serialize.url "serialize"
+git config submodule.lib/miniaudio.url "miniaudio"
+git config submodule.lib/magicenum.url "magicenum"
+git config submodule.lib/sol2.url "sol2"
+git config submodule.lib/lua/src.url "lua"
+git config submodule.lib/certify.url "certify"
+git config submodule.lib/expected-lite.url "expected-lite"
+git -c protocol.file.allow=always submodule update
 
-mkdir -pv $1/opt/chatterino/usr/{bin,lib}
-mkdir -pv $1/usr/bin
-mv squashfs-root/usr/lib/libicu* $1/opt/chatterino/usr/lib
-mv squashfs-root/usr/share $1/usr/
-mv squashfs-root/usr/bin/chatterino $1/opt/chatterino/usr/bin
-ln -s /opt/chatterino/usr/bin/chatterino $1/usr/bin/chatterino
+cmake -B build                   \
+  -D CMAKE_BUILD_TYPE=Release    \
+  -D CMAKE_INSTALL_PREFIX=/usr   \
+  -D USE_SYSTEM_QTKEYCHAIN=ON    \
+  -D USE_PRECOMPILED_HEADERS=OFF \
+  -D CHATTERINO_UPDATER=OFF      \
+  -D SKIP_JSON_GENERATION=ON     \
+  -D CHATTERINO_LTO=OFF
+
+cmake --build build
+DESTDIR=$1 cmake --install build
