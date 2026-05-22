@@ -1,4 +1,4 @@
-git+https://github.com/SevenTV/chatterino7#v7.5.5
+git+https://github.com/SevenTV/chatterino7#v${version}
 git+https://github.com/Chatterino/libcommuni#branch=chatterino-cmake libcommuni
 git+https://github.com/pajlada/settings settings
 git+https://github.com/pajlada/signals signals
