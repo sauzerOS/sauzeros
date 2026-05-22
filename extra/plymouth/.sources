@@ -1,4 +1,4 @@
-git+https://gitlab.freedesktop.org/plymouth/plymouth#26.134.222
+git+https://gitlab.freedesktop.org/plymouth/plymouth#${version}
 files/sauzeros-theme.tar.xz noextract
 files/plymouth.initcpio_hook
 files/plymouth.initcpio_install
