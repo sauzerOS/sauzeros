@@ -4,7 +4,7 @@ cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=RelWithDebInfo \
   -D INSTALL_BINDIR=lib/qt6/bin \
-  -D INSTALL_PUBLICBINDIR=usr/bin \
+  -D INSTALL_PUBLICBINDIR=bin \
   -D INSTALL_LIBEXECDIR=lib/qt6 \
   -D INSTALL_DOCDIR=share/doc/qt6 \
   -D INSTALL_ARCHDATADIR=lib/qt6 \
