@@ -1,1 +1,2 @@
 https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.0/fontconfig-2.18.0.tar.xz
+files/0001-Fix-a-null-pointer-dereference-when-computing-a-patt.patch

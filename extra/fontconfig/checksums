@@ -1,1 +1,2 @@
 abdceb1cf93afd569d8174035e269286d0bb659786a4c0291578c9a13de96b1d  fontconfig-2.18.0.tar.xz
+74139727098b82b92bd50dbfeafc6ef74e4321dfb4c872ee2c04acec8b1d8bf8  0001-Fix-a-null-pointer-dereference-when-computing-a-patt.patch
