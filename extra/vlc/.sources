@@ -1,1 +1,2 @@
-https://download.videolan.org/vlc/${version}/vlc-${version}.tar.xz
+git+https://code.videolan.org/videolan/vlc.git#${version-undertomid}
+files/0003-Adjust-includes-for-build-with-gstreamer-1.28.patch

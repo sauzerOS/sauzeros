@@ -1,1 +1,2 @@
-https://download.videolan.org/vlc/3.0.23/vlc-3.0.23.tar.xz
+git+https://code.videolan.org/videolan/vlc.git#3.0.23-2
+files/0003-Adjust-includes-for-build-with-gstreamer-1.28.patch
