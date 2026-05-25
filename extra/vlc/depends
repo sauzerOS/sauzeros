@@ -55,6 +55,7 @@ libwebp
 libxcb
 libxkbcommon
 libxpm
+lua
 lz4
 ncurses
 nettle
@@ -66,9 +67,7 @@ pipewire
 pixman
 protobuf
 pulseaudio
-qt<6
-qt-svg<6
-qt-x11extras<6
+qt
 readline
 samba
 systemd
@@ -78,3 +77,4 @@ x264
 x265
 xcb-util-keysyms
 xvidcore
+git make
