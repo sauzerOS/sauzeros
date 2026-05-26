@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=Antigravity
+Name=Antigravity IDE
 GenericName=Code Editor
 Comment=Agentic development platform
-Exec=/usr/bin/antigravity %F
-TryExec=/usr/bin/antigravity
+Exec=/usr/bin/antigravity-ide %F
+TryExec=/usr/bin/antigravity-ide
 Icon=antigravity
 Terminal=false
 Categories=Development;IDE;TextEditor;

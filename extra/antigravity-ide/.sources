@@ -1,3 +1,4 @@
-https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${version}-${string}/linux-x64/Antigravity.tar.gz
-files/antigravity.desktop
+https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/${version}-${string}/linux-x64/Antigravity%20IDE.tar.gz
+files/antigravity-ide.desktop
 files/antigravity-url-handler.desktop
+files/antigravity-ide.sh
