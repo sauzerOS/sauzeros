@@ -1,2 +1,8 @@
 git+https://github.com/ValveSoftware/gamescope#${version}
-files/wlroots-5261.patch
+git+https://gitlab.freedesktop.org/emersion/libdisplay-info.git libdisplay-info
+git+https://gitlab.freedesktop.org/emersion/libliftoff.git libliftoff
+git+https://github.com/ValveSoftware/openvr.git openvr
+git+https://github.com/Joshua-Ashton/reshade.git reshade
+git+https://github.com/KhronosGroup/SPIRV-Headers.git SPIRV-Headers
+git+https://github.com/Joshua-Ashton/vkroots.git vkroots
+git+https://github.com/Joshua-Ashton/wlroots.git wlroots
