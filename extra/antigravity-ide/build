@@ -4,10 +4,10 @@ install -dm755 "$1/opt/Antigravity"
 cp -a * "$1/opt/Antigravity/"
 
 install -dm755 "$1/usr/bin"
-ln -s /opt/Antigravity/bin/antigravity "$1/usr/bin/antigravity"
+install -Dm755 antigravity-ide.sh "$1/usr/bin/antigravity-ide"
 
-install -Dm644 antigravity.desktop \
-  "$1/usr/share/applications/antigravity.desktop"
+install -Dm644 antigravity-ide.desktop \
+  "$1/usr/share/applications/antigravity-ide.desktop"
 install -Dm644 antigravity-url-handler.desktop \
   "$1/usr/share/applications/antigravity-url-handler.desktop"
 
