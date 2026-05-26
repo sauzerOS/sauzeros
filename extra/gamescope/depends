@@ -1,4 +1,6 @@
 libdecor
 seatd
 xwayland
+catch2 make
+git make
 meson make
