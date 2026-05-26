@@ -1,2 +1,2 @@
-git+https://github.com/ngodn/vmware-vmmon-vmnet-linux-6.16.x#82ef9aa35722ec94486a34a8ec3da2a9448acf06
+git+https://github.com/64kramsystem/vmware-host-modules-fork#24fe3cf
 files/vmware.conf

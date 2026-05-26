@@ -7,21 +7,14 @@ KERNEL_BUILD_DIR="/lib/modules/$latest/build"
 export CC="gcc"
 export LD="ld.lld"
 
-cd modules/17.6.4/source/vmmon-only
-# fix Makefile to use newest modules dir
-sed -i "s|VM_UNAME = \$(shell uname -r)|VM_UNAME = $latest|" Makefile
-make CC="$CC" ${LD:+LD="$LD"}
+# fix version for vmware 17.6.4
+sed -i 's/\(#define VMMON_VERSION[[:space:]]*(\)418/\1417/' vmmon-only/include/iocontrols.h
 
-cd ../vmnet-only
-# fix Makefile to use newest modules dir
-sed -i "s|VM_UNAME = \$(shell uname -r)|VM_UNAME = $latest|" Makefile
-make CC="$CC" ${LD:+LD="$LD"}
-cd ..
-
+make
 INSTALL_DIR="$1/lib/modules/$latest/misc/"
 mkdir -p INSTALL_DIR
 install -Dm644 vmmon-only/vmmon.ko "$INSTALL_DIR/vmmon.ko"
 install -Dm644 vmnet-only/vmnet.ko "$INSTALL_DIR/vmnet.ko"
 
 install -d $1/etc/modules-load.d/
-install -Dm644 ../../../vmware.conf $1/etc/modules-load.d/vmware.conf
+install -Dm644 vmware.conf $1/etc/modules-load.d/vmware.conf
