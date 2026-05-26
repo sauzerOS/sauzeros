@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/catchorg/catch2",
+  "category": "extra",
+  "description": "Modern, C++-native, header-only, test framework for unit-tests, TDD and BDD",
+  "info": "",
+  "license": "BSL-1.0",
+  "tags": [
+    "library"
+  ]
+}
