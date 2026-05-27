@@ -16,6 +16,7 @@ p11-kit
 pam
 python-jinja2
 python-pyelftools
+python-pefile
 aarch64-libxcrypt cross make
 aarch64-libgcrypt cross make
 aarch64-util-linux cross make
