@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/CachyOS/linux-cachyos",
+  "category": "base",
+  "description": "sauzerOS kernel with CachyOS patches",
+  "info": "",
+  "license": "",
+  "tags": [
+    "kernel"
+  ]
+}

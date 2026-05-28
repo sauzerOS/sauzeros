@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Get the installed kernel version
+# User confirms this file exists post-install.
+# We awk $1 to handle potential revision or spaces (e.g. "6.18.8 1")
+if [ -f "/var/db/hokuto/installed/linux/version" ]; then
+version=$(head -n1 /var/db/hokuto/installed/linux/version | awk '{print $1}')
+else
+    echo "Error: /var/db/hokuto/installed/linux/version not found."
+    exit 1
+fi
+
+if [ -z "$version" ]; then
+    echo "Error: Could not detect version."
+    exit 1
+fi
+
+# Define the expected module directory format
+# Per user: pkgver-sauzerOS
+expected_mod_dir="${version}-sauzerOS"
+
+echo "Detected Kernel Version: $version"
+echo "Target Module Directory: $expected_mod_dir"
+
+# Cleanup loop
+# We only remove directories that match the sauzerOS pattern but are NOT the current version.
+for dir in /lib/modules/*; do
+    if [ ! -d "$dir" ]; then continue; fi
+    dirname=$(basename "$dir")
+
+    if [ "$dirname" = "$expected_mod_dir" ]; then
+        echo "Keeping current modules: $dirname"
+    elif [[ "$dirname" == *"-sauzerOS" ]]; then
+        echo "Removing old modules: $dirname"
+        rm -rf "$dir"
+    else
+        echo "Skipping unrelated module directory: $dirname"
+    fi
+done
+
+# Run depmod on the new kernel modules
+if [ -d "/lib/modules/$expected_mod_dir" ]; then
+    echo "Running depmod -a $expected_mod_dir"
+    depmod -a "$expected_mod_dir"
+else
+    echo "Warning: Module directory /lib/modules/$expected_mod_dir does not exist!"
+    exit 1
+fi
