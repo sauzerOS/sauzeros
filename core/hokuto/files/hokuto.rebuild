@@ -1,1 +1,2 @@
-linux-cachyos cdemu-vhba-module xpadneo nvidia-modules vmware-modules-17
+linux-cachyos cdemu-vhba-module xpadneo nvidia-modules vmware-modules
+linux cdemu-vhba-module xpadneo nvidia-modules vmware-modules

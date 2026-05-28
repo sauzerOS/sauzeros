@@ -11,3 +11,5 @@ libksysguard plasma-workspace powerdevil plasma-desktop
 libvirt python-libvirt-python
 cpp-utilities syncthingtray
 syncthingtray qtutilities
+vulkan-headers vulkan-loader vulkan-tools
+gpgme gpgmepp
