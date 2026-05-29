@@ -7,15 +7,14 @@ PREFIX="${CROSS_PREFIX:-/usr}"
 HOST_OPT=""
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     HOST_OPT="HOST=${HOKUTO_ARCH}-linux"
-    STRIP=/bin/aarch64-linux-gnu-strip
 fi
 
 mk() {
     make \
         CC="${CC:-cc}" \
         AR="${AR:-ar}" \
+        STRIP="$PREFIX/bin/strip" \
         RANLIB="${RANLIB:-ranlib}" \
-        STRIP="${STRIP:-strip}" \
         PKG_CONFIG="${PKG_CONFIG:-pkg-config}" \
         OPT="$CFLAGS -fPIC" \
         LDFLAGS="$LDFLAGS" \
@@ -29,8 +28,10 @@ mk() {
 
 
 for shared in yes no; do (
-    cd "$shared"
 
     mk SHARED="$shared"
+    make clean
     mk SHARED="$shared" DESTDIR="$1" install install-lib
 ) done
+
+rm -rf $1/$PREFIX/share/hwdata
