@@ -1,2 +1,5 @@
+hwdata
+kmod
+systemd
 aarch64-kmod cross make
 aarch64-systemd cross make
