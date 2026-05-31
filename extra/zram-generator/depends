@@ -1,1 +1,1 @@
-rust |rust-bin make
+rust |rustup make
