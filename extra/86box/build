@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-# fix 5.3 build
-patch -Np1 -i 0092ce15de3efac108b961882f870a8c05e8c38f.patch
-
 LDFLAGS='-z now -z shstk' \
 cmake -B build \
     --preset regular \
@@ -14,7 +11,7 @@ cmake --build build
 
 DESTDIR="${1}" cmake --build build --target install
 
-for i in 48x48 64x64 72x72 96x96 128x128 192x192 256x256 512x512; do
+for i in 16x16 20x20 24x24 32x32 40x40 48x48 64x64 72x72 128x128 256x256; do
 install -Dm644 "src/unix/assets/$i/net.86box.86Box.png" -t "$1/usr/share/icons/hicolor/$i/apps"
 done
 install -Dm644 "src/unix/assets/net.86box.86Box.desktop" "$1/usr/share/applications/net.86box.86Box.desktop"

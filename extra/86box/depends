@@ -1,16 +1,16 @@
 fluidsynth
-hicolor-icon-theme
-openal
-qt
-sdl2-compat
 freetype
 glib
-libpcap
+hicolor-icon-theme
 libevdev
 libglvnd
+libpcap
 libpng
 libslirp
 libsndfile
+openal
+qt
 rtmidi
+sdl2-compat
 wayland
 cmake make
