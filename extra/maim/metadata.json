@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/naelstrof/maim",
+  "category": "extra",
+  "description": "Utility to take a screenshot using imlib2",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "utility",
+    "x11"
+  ]
+}
