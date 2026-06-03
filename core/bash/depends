@@ -1,4 +1,4 @@
 glibc
-patch make
 ncurses
 readline
+patch make
