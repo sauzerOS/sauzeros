@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-# fix bug
-patch -Np1 -i 0001-Fix-a-null-pointer-dereference-when-computing-a-patt.patch
-
 meson setup build \
   --prefix=/usr   \
   --buildtype=release
