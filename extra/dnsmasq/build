@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i nettle-4.patch
-
 _build_copts='-DHAVE_DNSSEC -DHAVE_DBUS -DHAVE_NFTSET'
 
 make \

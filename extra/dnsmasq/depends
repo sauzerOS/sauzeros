@@ -1,6 +1,5 @@
 dbus
 gmp
-nettle
 libidn2
+nettle
 nftables
-
