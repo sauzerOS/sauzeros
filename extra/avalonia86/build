@@ -10,3 +10,6 @@ cp -r usr/bin/* $1/opt/avalonia86/
 
 chmod 0755 $1/opt/avalonia86/Avalonia86
 ln -s /opt/avalonia86/Avalonia86 $1/usr/bin/Avalonia86
+
+install -Dm 0644 Avalonia86.desktop $1/usr/share/applications/Avalonia86.desktop
+install -Dm 0644 Avalonia86.png $1/usr/share/icons/Avalonia86.png
