@@ -1,9 +1,10 @@
 alsa-lib
 curl
 glew
+libevdev
 libpng
-pulseaudio
 mpg123
+pulseaudio
 dos2unix make
 giflib make
 glib make

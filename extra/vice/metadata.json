@@ -1,0 +1,11 @@
+{
+  "url": "http://vice-emu.sourceforge.net",
+  "category": "extra",
+  "description": "Versatile Commodore Emulator",
+  "info": "",
+  "license": "GPL 2.0",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}
