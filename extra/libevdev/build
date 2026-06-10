@@ -3,8 +3,7 @@
 meson setup build               \
       --prefix=/usr             \
       --buildtype=release       \
-      -D documentation=disabled \
-      -D tests=disabled
+      -D documentation=disabled
 
 meson compile -C build
 meson install -C build --destdir=$1
