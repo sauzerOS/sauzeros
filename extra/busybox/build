@@ -15,4 +15,5 @@ else
 mv config .config
 make
 fi
-install -Dm0755 busybox "$1"/usr/bin/busybox
+install -Dm6755 busybox $1/usr/bin/busybox
+ln -s busybox $1/usr/bin/ash
