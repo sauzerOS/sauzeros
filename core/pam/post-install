@@ -1,3 +1,0 @@
-#!/bin/sh
-
-chmod -v 4755 /usr/bin/unix_chkpwd
