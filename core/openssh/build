@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 cd $3-$2
-
 # remove variable (but useless) first line in config (related to upstream VCS)
 sed '/^#.*\$.*\$$/d' -i ssh{,d}_config
 
@@ -24,7 +23,6 @@ configure_options=(
     --with-pid-dir=/run
     --with-privsep-path=/usr/share/empty.sshd
     --with-privsep-user=nobody
-    --with-ssl-engine
     --with-xauth=/usr/bin/xauth
     --without-zlib-version-check
     $HOST_OPT
