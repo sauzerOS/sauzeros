@@ -1,6 +1,6 @@
 gtk+3
-cmake make
-vala make
-gobject-introspection make
-libdbusmenu
 libayatana-indicator
+libdbusmenu
+cmake make
+gobject-introspection make
+vala make
