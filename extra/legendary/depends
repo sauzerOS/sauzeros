@@ -1,4 +1,5 @@
 python-filelock
+python-pycryptodomex
 python-requests
 python-requests-futures
 python-build make
