@@ -3,4 +3,4 @@ gdk-pixbuf
 gtk+3
 gobject-introspection
 vala
-
+cmake make
