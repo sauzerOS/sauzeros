@@ -3,6 +3,9 @@
 # remove nag screen
 patch -Np1 -i nag-screen1.patch
 
+# allow to run from /usr
+sed -i 's/std::memcmp(EmuFolders::AppRoot.data(), "\/usr\/", 5) == 0/false/' src/core/core.cpp
+
 # additional content
 cp {cheats.zip,patches.zip} data/resources
 
