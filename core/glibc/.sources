@@ -1,4 +1,4 @@
-https://ftp.gnu.org/gnu/glibc/glibc-${version}.tar.xz
+git+https://sourceware.org/git/glibc.git
 files/nsswitch.conf
 files/ld.so.conf
 files/locale-gen
