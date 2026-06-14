@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-
 sed -i '/echo "Done!" || echo "Failed!!!"/a \
 ln -sf /etc/pki/tls/certs/ca-bundle.crt /etc/ssl/certs/ca-bundle.crt' make-ca
 
