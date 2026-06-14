@@ -44,7 +44,7 @@ install -vDm 600 useradd.defaults "$1/etc/default/useradd"
 install -vDm 644 shadow.timer -t "$1/usr/lib/systemd/system/"
 install -vDm 644 shadow.service -t "$1/usr/lib/systemd/system/"
 install -vdm 755 "$1/usr/lib/systemd/system/timers.target.wants"
-ln -s shadow.timer "$1/usr/lib/systemd/system/timers.target.wants/shadow.timer"
+ln -s ../shadow.timer "$1/usr/lib/systemd/system/timers.target.wants/shadow.timer"
 
 install -vDm 644 $3.sysusers "$1/usr/lib/sysusers.d/$3.conf"
 install -vDm 644 $3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
