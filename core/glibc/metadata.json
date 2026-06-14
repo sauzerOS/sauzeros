@@ -2,7 +2,7 @@
   "url": "https://www.gnu.org/software/libc",
   "category": "base",
   "description": "GNU C Library",
-  "info": "",
+  "info": "git: https://sourceware.org/git/?p=glibc.git;a=summary\n",
   "license": "GPL-2.0-or-later",
   "tags": [
     "devel",
