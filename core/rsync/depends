@@ -3,3 +3,4 @@ acl
 openssl
 zstd
 automake make
+wget make
