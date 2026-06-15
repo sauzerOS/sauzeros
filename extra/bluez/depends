@@ -1,2 +1,5 @@
 alsa-lib
-libical
+dbus
+glib
+systemd
+json-c make
