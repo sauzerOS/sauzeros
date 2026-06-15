@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+git cherry-pick --no-commit \
+    ecb6d7c59755bd952e460c857b50c3155246898d \
+    055e46a67298aa1b764dc8979e28cdddcb07cd15 \
+    ecd4b944924d7d195194eb52b2cf6d127cda920d \
+    16bf1d51b1fdc3a425e61f886140e151cb9b548f \
+    e60a4a35ca03190638f6d091728ded1b3f741ffb \
+    3946571dab2c4f0b596ff36abb230e4558498ae9 \
+    98472b800a6733a565d530dd06f42576544827b4 \
+    3dd005d7b4a26a8adce4980961661fd4196492ff \
+    4057659ae7ab2f9db1f299b773476753db8a5c77 \
+    33ae21341bd2c5d569b74813afa5cbf617f4eb5c \
+    1b95cb75aa118f5af1b379e1d9f0eb152b0d7e0
+
+patch -Np1 -i add-missing-header.patch
+patch -Np1 -i add-modern-ish-defines.patch
+
+make -f Makefile-Linux.mak
+install -vDm755 -t "${1}/usr/bin" GccUnixR/uasm
+

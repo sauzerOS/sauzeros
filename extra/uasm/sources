@@ -1,0 +1,3 @@
+git+https://github.com/Terraspace/UASM#v2.57r
+files/add-missing-header.patch
+files/add-modern-ish-defines.patch
