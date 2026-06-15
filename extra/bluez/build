@@ -4,6 +4,7 @@
             --sysconfdir=/etc     \
             --localstatedir=/var  \
             --disable-manpages    \
+            --disable-obex        \
             --enable-btpclient    \
             --enable-midi         \
             --enable-sixaxis      \
