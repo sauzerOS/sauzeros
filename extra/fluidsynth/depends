@@ -1,5 +1,5 @@
-p7zip
 pulseaudio
 pipewire
+7zip make
 cmake make
 rsync make
