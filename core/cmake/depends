@@ -4,6 +4,7 @@ expat
 xz
 zlib-ng
 zstd
+which make
 cmake cross make
 aarch64-bzip2 cross make
 aarch64-curl cross make
