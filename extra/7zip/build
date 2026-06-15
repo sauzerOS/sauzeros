@@ -1,7 +1,26 @@
 #!/bin/sh -e
 
+# fix gcc 16 bug
+sed -i 's/-Werror/-Werror -Wno-error=array-bounds/' CPP/7zip/7zip_gcc.mak
+sed -i 's/-Werror/-Werror -Wno-error=array-bounds/' CPP/Build.mak
+
+
+_platform_flags=()
+
+  case $HOKUTO_ARCH in
+    x86_64)
+      _platform_flags=(PLATFORM=x64 IS_X64=1 MY_ASM=uasm USE_ASM=1)
+      ;;
+    aarch64)
+      _platform_flags=(PLATFORM=arm64 IS_ARM64=1 USE_ASM=1)
+      ;;
+  esac
+
 (for i in Bundles/{Alone,Alone7z,Format7zF,SFXCon} UI/Console; do
-    make -C CPP/7zip/$i -f ../../cmpl_gcc.mak || exit
+    make -C CPP/7zip/$i -f ../../cmpl_gcc.mak "${_platform_flags[@]}" \
+      LFLAGS_STRIP= \
+      CC="cc $CPPFLAGS $CFLAGS $LDFLAGS" \
+      CXX="g++ $CPPFLAGS $CXXFLAGS $LDFLAGS"
 done)
 
 install -vDm755 CPP/7zip/Bundles/Alone{/b/g/7za,7z/b/g/7zr} \
