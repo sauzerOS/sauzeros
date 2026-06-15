@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+cd URI-$2
+
 perl Makefile.PL
 make
 make DESTDIR=$1 install
