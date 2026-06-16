@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# qt6: fix build against Qt 6.9+
+git cherry-pick 796053d2eebe4532aad6bd3fd80cdf3b197806ec
+
 meson setup build         \
   --prefix=/usr           \
   -D docs=false           \
