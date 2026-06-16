@@ -4,22 +4,25 @@ cd firefox-$2
 mv ../mozconfig .
 mv ../google-api-key .
 
-# Fix build with glibc 2.43
-# https://bugzilla.mozilla.org/show_bug.cgi?id=1999625
-patch -Np1 -i ../0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
+if [ "${HOKUTO_GENERIC}" = "1" ]; then
+    GCC_CPU="x86-64-v2"
+    RUST_CPU="x86-64-v2"
+else
+    GCC_CPU="native"
+    RUST_CPU="native"
+fi
 
 # LTO
-#WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
-COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+COMMON_FLAGS="-march=${GCC_CPU} -O2 -flto=thin -pipe ${WARNING_FLAGS}"
 CFLAGS="${COMMON_FLAGS}"
 CXXFLAGS="${COMMON_FLAGS}"
 FCFLAGS="${COMMON_FLAGS}"
 FFLAGS="${COMMON_FLAGS}"
 
-RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+RUSTFLAGS="-C target-cpu=${RUST_CPU} -C strip=debuginfo -C opt-level=3 \
 -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
 
-#LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld -flto=thin"
+LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld -flto=thin"
 CC="clang"
 CXX="clang++"
 CPP="clang-cpp"
@@ -34,9 +37,6 @@ ulimit -n 4096
 
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
 export MOZBUILD_STATE_PATH=${PWD}/mozbuild
-
-# wasi fix
-sed -i 's/split_triplet("wasm32-wasi"/split_triplet("wasm32-wasip1"/' build/moz.configure/toolchain.configure
 
 ./mach build $MAKEFLAGS --priority normal
 

@@ -4,4 +4,3 @@ files/firefox-symbolic.svg
 files/mozconfig
 files/google-api-key
 files/distribution.ini
-files/0002-Patch-glsl-optimizer-to-build-with-glibc-2.43.patch
