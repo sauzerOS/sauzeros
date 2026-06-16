@@ -176,7 +176,6 @@ gst-libav
 
 linux:
 linux-headers
-linux-live
 linux
 cpupower
 
