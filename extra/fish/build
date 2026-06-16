@@ -1,5 +1,13 @@
 #!/bin/sh -e
 
+if [ "${HOKUTO_GENERIC}" = "1" ]; then
+    GCC_CPU="x86-64-v2"
+    RUST_CPU="x86-64-v2"
+else
+    GCC_CPU="native"
+    RUST_CPU="native"
+fi
+
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # Cross-compilation configuration
     PREFIX="${CROSS_PREFIX:-/usr}"
@@ -8,7 +16,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CMAKE_ARCH="$HOKUTO_ARCH"
     RUST_TARGET="$HOKUTO_ARCH"
 
-    if [ "$CMAKE_ARCH" = "aarch64" ]; then 
+    if [ "$CMAKE_ARCH" = "aarch64" ]; then
         CMAKE_ARCH="aarch64"
         RUST_TARGET="aarch64-unknown-linux-gnu"
     elif [ "$CMAKE_ARCH" = "x86_64" ]; then
@@ -25,13 +33,13 @@ else
     unset CFLAGS LDFLAGS
 
     WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"
-    COMMON_FLAGS="-march=native -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+    COMMON_FLAGS="-march=${GCC_CPU} -O2 -flto=thin -pipe ${WARNING_FLAGS}"
     CFLAGS="${COMMON_FLAGS}"
     CXXFLAGS="${COMMON_FLAGS}"
     FCFLAGS="${COMMON_FLAGS}"
     FFLAGS="${COMMON_FLAGS}"
 
-    RUSTFLAGS="-C target-cpu=native -C strip=debuginfo -C opt-level=3 \
+    RUSTFLAGS="-C target-cpu=${RUST_CPU} -C strip=debuginfo -C opt-level=3 \
     -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
 
     LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld"
