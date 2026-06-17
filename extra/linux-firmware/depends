@@ -1,2 +1,1 @@
-parallel make
-rdfind make
+git make
