@@ -2,6 +2,8 @@
 
 install -d $1/usr/lib/firmware
 cp -r rtl_bt $1/usr/lib/firmware
+ln -s rtl8723bs_config.bin.xz $1/usr/lib/firmware/rtl_bt/rtl8723bs_config-OBDA0623.bin.xz
+ln -s rtl8723bs_config.bin.xz $1/usr/lib/firmware/rtl_bt/rtl8723bs_config-OBDA8723.bin.xz
 # compress firmware
 find $1/usr/lib/firmware -type f -exec xz -C crc32 -T0 "{}" \;
 
