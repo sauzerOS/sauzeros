@@ -1,6 +1,6 @@
-gettext make
 gtkmm
 json-glib
 libcanberra
 pulseaudio
-libsigc++3
+libsigc++
+gettext make
