@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+[ -x configure ] || ./autogen.sh
+[ -f Makefile ] || ./configure --prefix=/usr
+make
+make training
+make DESTDIR="${1}" install
+make DESTDIR="${1}" training-install
