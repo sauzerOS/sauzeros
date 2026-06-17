@@ -12,12 +12,13 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
-./configure \
-    --prefix="$PREFIX" \
+./configure                     \
+    --prefix="$PREFIX"          \
     --sysconfdir="$SYSCONF_DIR" \
-    --disable-manpages \
-    --with-xz \
-    --with-zlib \
+    --disable-manpages          \
+    --with-xz                   \
+    --with-zlib                 \
+    --with-zstd                 \
     --with-systemdsystemunitdir="${PREFIX}/lib/systemd/system" \
     --with-bashcompletiondir="${PREFIX}/share/bash-completion/completions" \
     --with-fishcompletiondir="${PREFIX}/share/fish/vendor_completions.d" \
@@ -25,7 +26,6 @@ fi
 
 make
 make DESTDIR="$1" install
-
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
