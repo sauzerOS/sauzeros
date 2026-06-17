@@ -1,7 +1,8 @@
 gdk-pixbuf make
 gdk-pixbuf-xlib make
 gtk+3 make
-gtkmm make
+gtkmm3 make
+libsigc++<3 make
 libmspack make
 libtirpc make
 libxi make
