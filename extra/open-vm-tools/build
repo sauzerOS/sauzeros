@@ -1,12 +1,14 @@
 #!/bin/sh -e
 
+# gcc + glib + glibc fix
+patch -Np2 -i 779.patch
+patch -Np2 -i 783.patch
+
 ./configure --prefix=/usr \
   --sbindir=/usr/bin      \
   --sysconfdir=/etc       \
-  --without-xmlsec1       \
-  --without-dnet          \
-  --without-icu           \
-  --without-dncp
+  --disable-vgauth        \
+  --without-gtk4
 
 make
 make DESTDIR="$1" install
