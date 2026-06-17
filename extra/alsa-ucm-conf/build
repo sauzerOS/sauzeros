@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+install -vdm 755 "${1}/usr/share/alsa/"
+cp -av ucm2 "${1}/usr/share/alsa/"
+install -vDm 644 README.md -t "${1}/usr/share/doc/${3}"
+install -vDm 644 ucm2/README.md -t "${1}/usr/share/doc/${3}/ucm2"
