@@ -1,0 +1,7 @@
+#!ipxe
+
+# 1. Acquire an IP address from your dnsmasq DHCP server
+dhcp
+
+# 2. Immediately chain-load your main, flexible boot script over HTTP
+chain http://192.168.1.35/boot.ipxe
