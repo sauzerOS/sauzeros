@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i 1312.patch
-
 python -m build --wheel --no-isolation
 cmake -B build \
   -D CMAKE_BUILD_TYPE=None \
