@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+./autogen.sh
+./configure --prefix=/usr \
+  --mandir=/usr/share/man \
+  --sbindir=/usr/bin      \
+  --without-tcpwrappers
+
+make
+make INSTALLROOT="${1}" install
+
+install -D -m644 "tftpd.conf" "$1/etc/conf.d/tftpd"
+install -d "${1}/srv/tftp"
+install -D -m644 "tftpd.service" "${1}/usr/lib/systemd/system/tftpd.service"
+install -D -m644 "tftpd.socket" "${1}/usr/lib/systemd/system/tftpd.socket"
+
