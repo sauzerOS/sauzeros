@@ -1,0 +1,4 @@
+https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git/snapshot/tftp-hpa-${version}.tar.gz
+files/tftpd.conf
+files/tftpd.service
+files/tftpd.socket
