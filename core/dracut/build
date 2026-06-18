@@ -9,3 +9,6 @@ make DESTDIR="$1" install
 # show copy to ram progress
 cd $1/usr/lib/dracut/modules.d/70dmsquash-live
 patch -Np0 < ../../../../../../build/show-progress.patch
+
+# fake rpcbind for nfs module to install
+touch $1/usr/bin/rpcbind
