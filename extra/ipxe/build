@@ -1,0 +1,8 @@
+#!/bin/sh -e
+export CFLAGS=""
+export CXXFLAGS=""
+export LDFLAGS=""
+
+cd src
+make bin-x86_64-efi/ipxe.efi EMBED=autoexec.ipxe
+install -Dm644 bin-x86_64-efi/ipxe.efi $1/usr/share/ipxe/ipxe.efi

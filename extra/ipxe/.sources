@@ -1,0 +1,3 @@
+git+https://github.com/ipxe/ipxe#v${version}
+files/general.h src/config
+files/autoexec.ipxe src
