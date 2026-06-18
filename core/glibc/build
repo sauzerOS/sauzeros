@@ -17,6 +17,7 @@ echo "rootsbindir=/bin" >> configparms
 export CFLAGS="-U_FORTIFY_SOURCE -mlittle-endian -O2"
 export CPPFLAGS="-U_FORTIFY_SOURCE -O2"
 unset LD_LIBRARY_PATH
+LDFLAGS="-fuse-ld=bfd -O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack"
 
 # use bootstrap tools if the cross compiler is not installed
 if ! hokuto check "${HOKUTO_ARCH}-gcc"; then
@@ -65,8 +66,6 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # During cross-build, we MUST use the target kernel headers on the host
     HEADERS_OPT="--with-headers=/usr/${TARGET_TRIPLET}/include"
 fi
-
-LDFLAGS="-fuse-ld=bfd -O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack"
 
 mkdir -v glibc-build
 cd glibc-build
