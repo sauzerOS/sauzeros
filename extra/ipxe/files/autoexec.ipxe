@@ -4,4 +4,4 @@
 dhcp
 
 # 2. Immediately chain-load your main, flexible boot script over HTTP
-chain http://192.168.1.35/boot.ipxe
+chain http://192.168.1.35:8000/boot.ipxe
