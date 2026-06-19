@@ -22,10 +22,10 @@ ln -sf /usr/bin/lua "$1"/usr/bin/lua$_majorver
 ln -sf /usr/bin/luac "$1"/usr/bin/luac$_majorver
 ln -sf /usr/lib/liblua.so.$2 "$1"/usr/lib/liblua$_majorver.so
 
-install -Dm644 lua.pc "$1"/usr/lib/pkgconfig/lua54.pc
-ln -sf lua54.pc "$1"/usr/lib/pkgconfig/lua.pc
-ln -sf lua54.pc "$1"/usr/lib/pkgconfig/lua5.4.pc
-ln -sf lua54.pc "$1"/usr/lib/pkgconfig/lua-5.4.pc
+install -Dm644 lua.pc "$1"/usr/lib/pkgconfig/lua55.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua5.5.pc
+ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua-5.5.pc
 
 cd ../lua++
 make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ LUA_A=liblua++.a LUA_SO=liblua++.so linux
@@ -37,7 +37,7 @@ make \
   install
 ln -sf /usr/lib/liblua++.so.$2 "$1"/usr/lib/liblua++$_majorver.so
 
-install -Dm644 lua++.pc "$1"/usr/lib/pkgconfig/lua++54.pc
-ln -sf lua++54.pc "$1"/usr/lib/pkgconfig/lua++.pc
-ln -sf lua++54.pc "$1"/usr/lib/pkgconfig/lua++5.4.pc
-ln -sf lua++54.pc "$1"/usr/lib/pkgconfig/lua++-5.4.pc
+install -Dm644 lua++.pc "$1"/usr/lib/pkgconfig/lua++55.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++5.5.pc
+ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++-5.5.pc
