@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-BASE_VERSION="${2%%+*}"
+BASE_VERSION="${2%.*}"
 git checkout origin/release/$BASE_VERSION/master
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
