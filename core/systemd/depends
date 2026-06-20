@@ -11,7 +11,7 @@ libelf
 libidn2
 libseccomp
 libxkbcommon
-make-ca optional
+ca-certificates optional
 p11-kit
 pam
 python-jinja2
