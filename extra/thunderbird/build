@@ -5,7 +5,6 @@ mv ../mozconfig .
 mv ../google-api-key .
 
 # patches
-patch -Np1 -i ../thunderbird-147.0.2-glibc-2.43.patch
 patch -Np1 -i ../clang22-wasm32-wasip1.patch
 patch -Np1 -i ../missing-include.patch
 
