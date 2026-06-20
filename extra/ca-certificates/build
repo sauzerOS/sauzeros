@@ -1,0 +1,425 @@
+#!/bin/bash -e
+# Refactored make-ca generator for sauzerOS
+# Expects certdata.txt in the current directory.
+# Optionally processes local certificates in ./local/
+shopt -s extglob;
+
+DESTDIR="$1"
+CERTDATA="./certdata.txt"
+LOCALDIR="./local"
+
+# Define path constants for the target environment
+PKIDIR="/etc/pki"
+SSLDIR="/etc/ssl"
+ANCHORDIR="${PKIDIR}/anchors"
+ANCHORLIST="${PKIDIR}/anchors.md5sums"
+BUNDLEDIR="${PKIDIR}/tls/certs"
+CABUNDLE="${BUNDLEDIR}/ca-bundle.crt"
+SMBUNDLE="${BUNDLEDIR}/email-ca-bundle.crt"
+CSBUNDLE="${BUNDLEDIR}/objsign-ca-bundle.crt"
+CERTDIR="${SSLDIR}/certs"
+KEYSTORE="${PKIDIR}/tls/java"
+NSSDB="${PKIDIR}/nssdb"
+
+# Tool definitions
+CERTUTIL="certutil"
+KEYTOOL="keytool"
+MD5SUM="md5sum"
+OPENSSL="openssl"
+TRUST="trust"
+
+# Detect tool availability in build environment
+WITH_NSS=0
+if command -v "${CERTUTIL}" >/dev/null 2>&1; then
+    WITH_NSS=1
+fi
+
+WITH_P12=0
+if command -v "${KEYTOOL}" >/dev/null 2>&1; then
+    WITH_P12=1
+fi
+
+WITH_CS=0
+CS_FILE="./CS.txt"
+if [ -f "${CS_FILE}" ]; then
+    WITH_CS=1
+fi
+
+# Set UTF-8 locale
+export LANG=en_US.utf8
+
+# Setup build-time temp directory
+TEMPDIR=$HOKUTO_BUILD_DIR/tmp
+trap 'rm -rf "${TEMPDIR}"' EXIT
+WORKDIR="${TEMPDIR}/work"
+
+mkdir -p "${TEMPDIR}"/{certs,pki/anchors,work}
+
+if [ "${WITH_P12}" -eq 1 ]; then
+    mkdir -p "${TEMPDIR}/ssl/java"
+fi
+
+if [ "${WITH_NSS}" -eq 1 ]; then
+    mkdir -p "${TEMPDIR}/pki/nssdb"
+    "${CERTUTIL}" -N --empty-password -d "sql:${TEMPDIR}/pki/nssdb"
+fi
+
+# Helper functions for trust conversion
+function convert_trust(){
+  case $1 in
+    CKT_NSS_TRUSTED_DELEGATOR)
+      echo "C"
+    ;;
+    CKT_NSS_NOT_TRUSTED)
+      echo "p"
+    ;;
+    CKT_NSS_MUST_VERIFY_TRUST)
+      echo ""
+    ;;
+  esac
+}
+
+function convert_moz_distrust(){
+  # SERVER
+  val=$(grep "CKA_NSS_SERVER_DISTRUST_AFTER" "${1}" | cut -d " " -f 2)
+  if [ "${val}" = "CK_BBOOL" ]; then
+    val=$(grep "CKA_NSS_SERVER_DISTRUST_AFTER" "${1}" | cut -d " " -f 3)
+    if [ "${val}" = "CK_FALSE" ]; then
+      mozsadistrust="%00"
+    else
+      mozsadistrust="UNKNOWN"
+    fi
+  elif [ "${val}" = "MULTILINE_OCTAL" ]; then
+    mozsadistrust=$(printf $(grep -A1 "CKA_NSS_SERVER_DISTRUST_AFTER" "${1}" | tail -n1))
+  else
+    mozsadistrust="UNKNOWN"
+  fi
+
+  # EMAIL
+  val=$(grep "CKA_NSS_EMAIL_DISTRUST_AFTER" "${1}" | cut -d " " -f 2)
+  if [ "${val}" = "CK_BBOOL" ]; then
+    val=$(grep "CKA_NSS_EMAIL_DISTRUST_AFTER" "${1}" | cut -d " " -f 3)
+    if [ "${val}" = "CK_FALSE" ]; then
+      mozsmdistrust="%00"
+    else
+      mozsmdistrust="UNKNOWN"
+    fi
+  elif [ "${val}" = "MULTILINE_OCTAL" ]; then
+    mozsmdistrust=$(printf $(grep -A1 "CKA_NSS_EMAIL_DISTRUST_AFTER" "${1}" | tail -n1))
+  else
+    mozsmdistrust="UNKNOWN"
+  fi
+}
+
+function get_p11_val() {
+  case $1 in
+    p11sasmcs)
+      p11value="0%2a%06%03U%1d%25%01%01%ff%04 0%1e%06%08%2b%06%01%05%05%07%03%04%06%08%2b%06%01%05%05%07%03%01%06%08%2b%06%01%05%05%07%03%03"
+    ;;
+    p11sasm)
+      p11value="0 %06%03U%1d%25%01%01%ff%04%160%14%06%08%2b%06%01%05%05%07%03%04%06%08%2b%06%01%05%05%07%03%01"
+    ;;
+    p11sacs)
+      p11value="0 %06%03U%1d%25%01%01%ff%04%160%14%06%08%2b%06%01%05%05%07%03%01%06%08%2b%06%01%05%05%07%03%03"
+    ;;
+    p11sa)
+      p11value="0%16%06%03U%1d%25%01%01%ff%04%0c0%0a%06%08%2b%06%01%05%05%07%03%01"
+    ;;
+    p11smcs)
+      p11value="0 %06%03U%1d%25%01%01%ff%04%160%14%06%08%2b%06%01%05%05%07%03%04%06%08%2b%06%01%05%05%07%03%03"
+    ;;
+    p11sm)
+      p11value="0%16%06%03U%1d%25%01%01%ff%04%0c0%0a%06%08%2b%06%01%05%05%07%03%04"
+    ;;
+    p11cs)
+      p11value="0%16%06%03U%1d%25%01%01%ff%04%0c0%0a%06%08%2b%06%01%05%05%07%03%03"
+    ;;
+    p11)
+      p11value="0%18%06%03U%1d%25%01%01%ff%04%0e0%0c%06%0a%2b%06%01%04%01%99w%06%0a%10"
+    ;;
+  esac
+}
+
+function get_p11_label() {
+  p11label=$(grep -m1 "^CKA_LABEL" "${1}" | cut -d '"' -f 2 | sed 's@"@@g')
+
+  if [ -z "${p11label}" ]; then
+    subjectline=$(grep -m1 "Subject:" "${1}" | sed -e 's@\s*=\s*@=@g' \
+                       -e "s@(@ - @g" -e "s@)@ - @g" -e 's@\\@-@g' )
+
+    p11label="$(echo "${subjectline}" | grep -o "CN=.*$" | cut -d '=' -f 2 | \
+                sed -e 's@[A-Z]*$@@g' -e 's@, $@@' -e 's@"@@g' \
+                    -e 's@,@@g' -e 's@ $@@')"
+
+    if [ -z "${p11label}" ]; then
+        p11label="$(echo "${subjectline}" | grep -o "OU=.*$" | \
+                    sed 's@OU=.*, OU=@OU=@g'| cut -d '=' -f 2 | \
+                    sed -e 's@[A-Z]*$@@' -e 's@, $@@' -e 's@"@@g' \
+                        -e 's@,@@g' -e 's@ $@@')"
+
+      if [ -z "${p11label}" ]; then
+          p11label="$(echo "${subjectline}" | grep -o "O=.*$" | \
+                      cut -d '=' -f 2 | sed -e 's@[A-Z]*$@@g' \
+                          -e 's@, $@@' -e 's@"@@g' \
+                          -e 's@,@@g' -e 's@ $@@')"
+      fi
+    fi
+  fi
+}
+
+function get_trust_values() {
+  satrust="$(convert_trust $(grep '^CKA_TRUST_SERVER_AUTH' "${1}" | cut -d " " -f 3))"
+  smtrust="$(convert_trust $(grep '^CKA_TRUST_EMAIL_PROTECTION' "${1}" | cut -d " " -f 3))"
+  cstrust="$(convert_trust $(grep '^CKA_TRUST_CODE_SIGNING' "${1}" | cut -d " " -f 3))"
+  if [ "${WITH_CS}" -eq 1 ]; then
+    if [ -z "${cstrust}" ]; then
+      cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C")
+    fi
+  fi
+  convert_moz_distrust "${1}"
+}
+
+function get_p11_trust() {
+  if [ "${satrust}" = "p" ] || [ "${smtrust}" = "p" ] || [ "${cstrust}" = "p" ]; then
+      p11trust="x-distrusted: true"
+      p11oid="1.3.6.1.4.1.3319.6.10.1"
+      p11value="0.%06%0a%2b%06%01%04%01%99w%06%0a%01%04 0%1e%06%08%2b%06%01%05%05%07%03%04%06%08%2b%06%01%05%05%07%03%01%06%08%2b%06%01%05%05%07%03%03"
+  else
+      p11trust="trusted: true"
+      p11oid="2.5.29.37"
+      trustp11="p11"
+      if [ "${satrust}" = "C" ]; then trustp11="${trustp11}sa"; fi
+      if [ "${smtrust}" = "C" ]; then trustp11="${trustp11}sm"; fi
+      if [ "${cstrust}" = "C" ]; then trustp11="${trustp11}cs"; fi
+      get_p11_val "${trustp11}"
+  fi
+}
+
+function write_anchor() {
+  {
+    echo "[p11-kit-object-v1]"
+    echo "label: \"${p11label}\""
+    echo "class: x-certificate-extension"
+    echo "object-id: ${p11oid}"
+    echo "value: \"${p11value}\""
+    echo "modifiable: false"
+    echo "${certkey}"
+    echo ""
+    echo "[p11-kit-object-v1]"
+    echo "label: \"${p11label}\""
+    echo "${p11trust}"
+    echo "nss-mozilla-ca-policy: ${moz_trust}"
+    echo "modifiable: false"
+  } >> "${anchorfile}"
+
+  if [ "${mozsadistrust}" != "UNKNOWN" ]; then
+    echo "nss-server-distrust-after: \"${mozsadistrust}\"" >> "${anchorfile}"
+  fi
+  if [ "${mozsmdistrust}" != "UNKNOWN" ]; then
+    echo "nss-email-distrust-after: \"${mozsmdistrust}\"" >> "${anchorfile}"
+  fi
+
+  {
+    echo "${certcer}"
+    echo "${certtxt}" | sed 's@^@#@'
+  } >> "${anchorfile}"
+}
+
+function write_nss_db() {
+  "${CERTUTIL}" -d "sql:${1}" -A \
+                -t "${satrust},${smtrust},${cstrust}" \
+                -n "${p11label}" -i "${2}" > /dev/null 2>&1
+}
+
+function write_java_p12() {
+  "${KEYTOOL}" -delete -noprompt -alias "${p11label}" \
+               -keystore "${1}" -storepass 'changeit' > /dev/null 2>&1
+
+  EKU=""
+  if [ "${satrust}" = "C" ]; then EKU="serverAuth"; fi
+  if [ "${smtrust}" = "C" ]; then
+    if [ -z "${EKU}" ]; then EKU="clientAuth"; else EKU="${EKU},clientAuth"; fi
+  fi
+  if [ "${cstrust}" = "C" ]; then
+    if [ -z "${EKU}" ]; then EKU="codeSigning"; else EKU="${EKU},codeSigning"; fi
+  fi
+
+  if [ -n "${EKU}" ]; then
+    "${KEYTOOL}" -importcert -file "${2}" -storetype PKCS12 \
+                 -noprompt -alias "${p11label}" -storepass 'changeit' \
+                 -keystore "${1}" -ext EKU="${EKU}" > /dev/null 2>&1
+  fi
+}
+
+# Process certdata.txt
+cp "${CERTDATA}" "${WORKDIR}/certdata.txt"
+pushd "${WORKDIR}" > /dev/null 2>&1
+
+CERTBEGINLIST=$(grep -n "^# Certificate" "${WORKDIR}/certdata.txt" | cut -d ":" -f1)
+
+for certbegin in ${CERTBEGINLIST}; do
+  tmpcrtbeg=$(mktemp "${TEMPDIR}/certs/make-ca.XXXXXX")
+  awk "NR==$certbegin,/^CKA_TRUST_STEP_UP_APPROVED/" "${WORKDIR}/certdata.txt" > "$tmpcrtbeg"
+done
+
+unset CERTBEGINLIST certbegin
+
+for tempfile in "${TEMPDIR}"/certs/make-ca.*; do
+  tempcrt="${tempfile}.pem"
+  printf $(awk '/^CKA_VALUE/{flag=1;next}/^END/{flag=0}flag{printf $0}' \
+  "${tempfile}") | "${OPENSSL}" x509 -in /dev/stdin -text -inform DER -fingerprint \
+  > "${tempcrt}"
+
+  certkey="$(${OPENSSL} x509 -in "${tempcrt}" -noout -pubkey)"
+  certcer="$(${OPENSSL} x509 -in "${tempcrt}")"
+  certtxt="$(${OPENSSL} x509 -in "${tempcrt}" -noout -text)"
+  keyhash="$(${OPENSSL} x509 -noout -in "${tempcrt}" -hash)"
+
+  get_trust_values "${tempfile}"
+  get_p11_label "${tempfile}"
+  get_p11_trust
+
+  anchorfile="${TEMPDIR}/pki/anchors/${keyhash}.p11-kit"
+  moz_trust="true"
+  write_anchor
+
+  if [ "${WITH_NSS}" -eq 1 ]; then
+    write_nss_db "${TEMPDIR}/pki/nssdb" "${tempcrt}"
+  fi
+
+  if [ "${WITH_P12}" -eq 1 ]; then
+    write_java_p12 "${TEMPDIR}/ssl/java/cacerts.p12" "${tempcrt}"
+  fi
+
+  rm -f "${tempcrt}"
+  unset tempcrt keyhash certkey certcer certtxt anchorfile
+  unset satrust smtrust cstrust catrust mozsadistrust mozsmdistrust p11label p11trust p11oid p11value
+done
+popd > /dev/null 2>&1
+
+# Install anchors to DESTDIR
+install -dm755 "${DESTDIR}${ANCHORDIR}"
+install -m644 "${TEMPDIR}"/pki/anchors/*.p11-kit "${DESTDIR}${ANCHORDIR}"
+
+# Process optional local certificates
+if [ -d "${LOCALDIR}" ]; then
+  echo "Processing local certificates"
+  for cert in $(find "${LOCALDIR}" -name "*.pem"); do
+    get_p11_label "${cert}"
+    keyhash=$("${OPENSSL}" x509 -noout -in "${cert}" -hash)
+    subject=$("${OPENSSL}" x509 -noout -in "${cert}" -subject)
+    if [ -z "${p11label}" ]; then
+      p11label=$(echo "${subject}" | grep -o "CN = .*" | sed 's@CN = @@' | cut -d "," -f 1)
+    fi
+
+    trustlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Trusted Uses")
+    satrust=""
+    smtrust=""
+    cstrust=""
+    catrust=""
+    echo "${trustlist}" | grep "TLS Web Server" > /dev/null 2>&1 && satrust="C"
+    echo "${trustlist}" | grep "E-mail Protection" > /dev/null 2>&1 && smtrust="C"
+    echo "${trustlist}" | grep "Code Signing" > /dev/null 2>&1 && cstrust="C"
+    if [ "${WITH_CS}" -eq 1 ]; then
+      if [ -z "${cstrust}" ]; then
+        cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C")
+      fi
+    fi
+    echo "${trustlist}" | grep "Client Auth" > /dev/null 2>&1 && catrust="C"
+
+    rejectlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Rejected Uses")
+    if [ -z "${satrust}" ]; then echo "${rejectlist}" | grep "TLS Web Server" > /dev/null 2>&1 && satrust="p"; fi
+    if [ -z "${smtrust}" ]; then echo "${rejectlist}" | grep "E-mail Protection" > /dev/null 2>&1 && smtrust="p"; fi
+    if [ -z "${cstrust}" ]; then echo "${rejectlist}" | grep "Code Signing" > /dev/null 2>&1 && cstrust="p"; fi
+    if [ -z "${catrust}" ]; then echo "${rejectlist}" | grep "Client Auth" > /dev/null 2>&1 && catrust="p"; fi
+
+    certkey="$(${OPENSSL} x509 -in "${cert}" -noout -pubkey)"
+    certcer="$(${OPENSSL} x509 -in "${cert}")"
+    certtxt="$(${OPENSSL} x509 -in "${cert}" -noout -text)"
+
+    get_p11_trust
+
+    anchorfile="${DESTDIR}${ANCHORDIR}/${keyhash}.p11-kit"
+    moz_trust="false"
+    mozsadistrust="UNKNOWN"
+    mozsmdistrust="UNKNOWN"
+    write_anchor
+
+    tempcert=$(mktemp "${TEMPDIR}/certs/make-ca-local-pem.XXXXXX")
+    "${OPENSSL}" x509 -in "${cert}" -text -fingerprint > "${tempcert}"
+
+    if [ "${WITH_NSS}" -eq 1 ]; then
+      write_nss_db "${DESTDIR}${NSSDB}" "${tempcert}"
+    fi
+
+    if [ "${WITH_P12}" -eq 1 ]; then
+      write_java_p12 "${DESTDIR}${KEYSTORE}/cacerts.p12" "${tempcert}"
+    fi
+
+    rm -f "${tempcert}"
+    unset tempcert keyhash certkey certcer certtxt anchorfile
+    unset satrust smtrust cstrust catrust rejectlist trustlist p11label p11trust p11oid p11value
+  done
+fi
+
+# Copy certdata.txt to final target directory
+install -dm755 "${DESTDIR}${SSLDIR}"
+install -m644 "${CERTDATA}" "${DESTDIR}${SSLDIR}/certdata.txt"
+
+# Build ANCHORLIST
+"${MD5SUM}" "${DESTDIR}${ANCHORDIR}"/* > "${DESTDIR}${ANCHORLIST}"
+
+# Setup target directory paths
+install -dm755 "${DESTDIR}${CERTDIR}" "${DESTDIR}${BUNDLEDIR}" "${DESTDIR}${KEYSTORE}"
+
+# Setup environment overrides for p11-kit to isolate extraction
+export P11_KIT_TRUST_PATHS="${DESTDIR}${ANCHORDIR}"
+export P11_KIT_SYSTEM_CONFIG="${TEMPDIR}/pkcs11"
+export P11_KIT_USER_CONFIG="${TEMPDIR}/pkcs11-user"
+mkdir -p "${P11_KIT_SYSTEM_CONFIG}" "${P11_KIT_USER_CONFIG}"
+
+# Extract target-specific certificate bundles from generated anchors
+echo "Extracting OpenSSL certificates"
+"${TRUST}" extract --filter=ca-anchors --format=openssl-directory \
+                   --overwrite --comment "${DESTDIR}${CERTDIR}"
+
+# Restore standard write permissions to the openssl directory
+chmod 755 "${DESTDIR}${CERTDIR}"
+
+echo "Extracting GNUTLS server auth certificates"
+"${TRUST}" extract --filter=ca-anchors --format=pem-bundle \
+                   --purpose server-auth --overwrite --comment "${DESTDIR}${CABUNDLE}"
+ln -sf ../../pki/tls/certs/ca-bundle.crt "${DESTDIR}${CERTDIR}/ca-bundle.crt"
+
+echo "Extracting GNUTLS S-Mime certificates"
+"${TRUST}" extract --filter=ca-anchors --format=pem-bundle \
+                   --purpose email --overwrite --comment "${DESTDIR}${SMBUNDLE}"
+
+echo "Extracting GNUTLS code signing certificates"
+"${TRUST}" extract --filter=ca-anchors --format=pem-bundle \
+                   --purpose code-signing --overwrite --comment "${DESTDIR}${CSBUNDLE}"
+
+echo "Extracting Java cacerts (JKS)"
+"${TRUST}" extract --filter=ca-anchors --format=java-cacerts \
+                   --purpose server-auth --overwrite \
+                   --comment "${DESTDIR}${KEYSTORE}/cacerts"
+
+# Write final NSS Shared DB files if generated
+if [ "${WITH_NSS}" -eq 1 ]; then
+  sed -e "s@${TEMPDIR}/pki/nssdb@${NSSDB}@"              \
+      -e 's/library=/library=libnsssysinit.so/'          \
+      -e 's/Flags=internal/Flags=internal,moduleDBOnly/' \
+      -i "${TEMPDIR}/pki/nssdb/pkcs11.txt"
+  test -d "${DESTDIR}${NSSDB}" && rm -rf "${DESTDIR}${NSSDB}"
+  install -dm755 "${DESTDIR}${NSSDB}" > /dev/null 2>&1
+  install -m644 "${TEMPDIR}"/pki/nssdb/{cert9.db,key4.db,pkcs11.txt} \
+                 "${DESTDIR}${NSSDB}"
+fi
+
+# Write Java PKCS#12 store if generated
+if [ "${WITH_P12}" -eq 1 ]; then
+  test -f "${DESTDIR}${KEYSTORE}/cacerts.p12" && rm -f "${DESTDIR}${KEYSTORE}/cacerts.p12"
+  install -m644 "${TEMPDIR}/ssl/java/cacerts.p12" "${DESTDIR}${KEYSTORE}/cacerts.p12"
+fi
+
+echo "Certificate generation complete."
