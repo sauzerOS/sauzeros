@@ -1,5 +1,6 @@
 dejavu-fonts
 brotli
+libarchive
 libversion
 popt
 postgresql
