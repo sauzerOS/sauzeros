@@ -2,7 +2,7 @@ python
 python-blinker
 python-click
 python-itsdangerous
-python-jinja
+python-jinja2
 python-markupsafe
 python-werkzeug
 python-build make
