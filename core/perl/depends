@@ -1,3 +1,5 @@
+gdbm
+glibc
 zlib-ng
 aarch64-gcc cross make
 aarch64-gdbm cross make
