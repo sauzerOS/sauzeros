@@ -1,5 +1,7 @@
+glibc
 libedit
 libxcrypt
+openssl
 pam
 shadow
 zlib-ng
