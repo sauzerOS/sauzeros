@@ -1,2 +1,3 @@
-pkgconf make
+glibc
+ncurses
 wget make
