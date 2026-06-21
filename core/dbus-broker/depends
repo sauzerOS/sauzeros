@@ -1,4 +1,6 @@
 expat
+gcc-libs
+glibc
 libcap-ng
 systemd
 meson make
