@@ -1,6 +1,7 @@
 attr
 acl
+lz4
 openssl
+zlib-ng
 zstd
-automake make
 wget make
