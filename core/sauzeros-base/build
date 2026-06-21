@@ -51,16 +51,19 @@ done
 ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
-for f in bashrc fstab group host.conf hosts issue inputrc locale.conf os-release \
-         nanorc passwd profile resolv.conf securetty shells mime.types; do
+for f in bashrc fstab group host.conf hosts issue inputrc ld.so.conf locale.conf os-release \
+         nanorc nsswitch.conf passwd profile resolv.conf securetty shells; do
     install -m 644 "$f" "$1/etc"
 done
 
-for f in crypttab ; do
+for f in crypttab gshadow shadow; do
     install -m 600 "$f" "$1/etc"
 done
 
-ln -s /proc/self/mounts "$1/etc/mtab"
+ln -s ../proc/self/mounts "$1/etc/mtab"
+
+# sysusers config
+install -Dm 644 sysusers $1/usr/lib/sysusers.d/sauzeros.conf
 
 # Setup cross-compilation directories (aarch64-linux-gnu)
 # This ensures the sysroot structure exists even if specific packages are removed.

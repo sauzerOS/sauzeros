@@ -1,52 +1,73 @@
 # /etc/profile
-#
-# System wide environment and startup programs.
 
-# Set default path
-export PATH=/usr/bin:/usr/sbin:/sbin:/bin:$HOME/.local/bin
+# Initialize Base PATH
+PATH="/usr/bin:/usr/sbin:/sbin:/bin"
 
-# Set default umask.
-umask 022
-
-# append_path DIR
-append_path() {
-  for _p in "$@"; do
-    [ -z "$_p" ] && continue
+# Append "$1" to $PATH when not already in.
+# This function API is accessible to scripts in /etc/profile.d
+append_path () {
     case ":$PATH:" in
-      *":$_p:"*) : ;;                # already present
-      *) PATH="$PATH:$_p" ;;         # append
+        *:"$1":*)
+            ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
     esac
-  done
-  export PATH
 }
 
+# Append default paths
+append_path '/usr/local/sbin'
+append_path '/usr/local/bin'
+
+# Force PATH to be environment
+export PATH
+
+# System Defaults & Security
+umask 022
+
 # Load profiles from /etc/profile.d
-for file in /etc/profile.d/*.sh; do
-    [ -r "$file" ] && . "$file"
-done
+if test -d /etc/profile.d/; then
+	for profile in /etc/profile.d/*.sh; do
+		test -r "$profile" && . "$profile"
+	done
+	unset profile
+fi
 
-unset file
+# unset GLOBSORT, before anything else is sourced
+unset -v GLOBSORT
 
-# Setup some environment variables.
+# Unload profile API functions
+unset -f append_path
+
+# Global Shell Configuration
+if [ -n "$BASH" ] && \
+   [ -n "$PS1" ] && \
+   [ -z "$POSIXLY_CORRECT" ] && \
+   [ "${0#-}" != sh ] && \
+   [ -r /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# 6. Environment Variables & Hardware Optimization
 export HISTSIZE=1000
 export HISTIGNORE="&:[bf]g:exit"
+export TERMINAL="xterm"
+export EDITOR=nano
 
-# Set some defaults for graphical systems
+# XZ multi-threading optimization from your LFS setup
+export XZ_OPT="-T0 -M 90%"
+
+# Load system locale securely if the file exists
+[ -r /etc/locale.conf ] && export $(cat /etc/locale.conf)
+
+# 7. XDG Base Directory Specification Defaults
 export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
 export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
 
-# Source bashrc in bash
-if [ -n "$BASH_VERSION" ]
-then source /etc/bashrc
-fi
+# Modernization Cleanups
+unset TERMCAP
+unset MANPATH
 
-# Set default terminal
-export TERMINAL="xterm"
-
-export XZ_OPT="-T0 -M 90%"
-export $(cat /etc/locale.conf)
-export EDITOR=nano
-alias ls='ls --color'
+# 9. Global Aliases
+alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-export KISS_PATH=/repo/no_updates:/repo/sauzeros/core:/repo/sauzeros/extra
