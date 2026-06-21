@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -Np1 -i 0001-units-Enable-statically.patch
+
 meson setup build \
   --prefix=/usr   \
   -D docs=false   \
