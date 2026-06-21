@@ -28,19 +28,19 @@ make
 make DESTDIR="$1" install
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
-mkdir build
-cd build
+#32bit split package
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
 CC="gcc -m32 -march=i686"              \
 CXX="g++ -m32 -march=i686"             \
-meson setup --prefix=/usr ..    \
-            --buildtype=release \
-            --libdir=/usr/lib32 \
-            -D manpages=false
+meson setup build         \
+      --prefix=/usr       \
+      --buildtype=release \
+      --libdir=/usr/lib32 \
+      -D manpages=false
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
-install -d $1/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
