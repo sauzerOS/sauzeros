@@ -1,6 +1,4 @@
-git+https://sourceware.org/git/glibc.git
-files/nsswitch.conf
-files/ld.so.conf
+git+https://sourceware.org/git/glibc.git#release/2.43/master
 files/locale-gen
 files/locale.gen
 files/aarch64-linux-gnu-tools.tar.xz noextract
