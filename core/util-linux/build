@@ -77,9 +77,8 @@ install -Dm0644 rfkill-block_.service \
   "${1}$PREFIX/lib/systemd/system/rfkill-block@.service"
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
-
 meson_options_32=(
     --prefix=/usr
     --libexecdir /usr/lib32
@@ -101,6 +100,7 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 meson setup build "${meson_options_32[@]}" --cross-file lib32
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
-install -d $1/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
