@@ -1,2 +1,5 @@
+glibc
+hwdata
 libusb
 systemd
+meson make
