@@ -4,56 +4,57 @@ cp -a source source32
 cd source
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    # ICU requires a host build to generate data for the target
-    mkdir build-host
-    cd build-host
-    # Unset target flags for host build to prevent "bad value for -march" errors
-    CC=cc CXX=g++ AR=ar RANLIB=ranlib \
-    CFLAGS="" CXXFLAGS="" LDFLAGS="" \
-    ../configure \
-      --prefix=/usr \
-      --enable-static
-    
-    # Also ensure make doesn't pick them up if exported
-    CFLAGS="" CXXFLAGS="" LDFLAGS="" make
-    cd ..
-    
-    # Generic triplet detection
-    TARGET_ARCH="$HOKUTO_ARCH"
-    if [ "$TARGET_ARCH" = "arm64" ]; then TARGET_ARCH="aarch64"; fi
+# ICU requires a host build to generate data for the target
+mkdir build-host
+cd build-host
+# Unset target flags for host build to prevent "bad value for -march" errors
+CC=cc CXX=g++ AR=ar RANLIB=ranlib \
+CFLAGS="" CXXFLAGS="" LDFLAGS="" \
+../configure \
+   --prefix=/usr \
+   --enable-static
 
-    mkdir build-cross
-    cd build-cross
+# Also ensure make doesn't pick them up if exported
+CFLAGS="" CXXFLAGS="" LDFLAGS="" make
+cd ..
 
-    export CC="${TARGET_ARCH}-linux-gnu-gcc"
-    export CXX="${TARGET_ARCH}-linux-gnu-g++"
-    export AR="${TARGET_ARCH}-linux-gnu-ar"
-    export RANLIB="${TARGET_ARCH}-linux-gnu-ranlib"
-    
-    ../configure --host="${TARGET_ARCH}-linux-gnu" \
-        --enable-static \
-        --prefix="$CROSS_PREFIX" \
-        --with-cross-build="$(pwd)/../build-host"
-        
-    make
-    make DESTDIR="$1" install
-    cd ..
+# Generic triplet detection
+TARGET_ARCH="$HOKUTO_ARCH"
+if [ "$TARGET_ARCH" = "arm64" ]; then TARGET_ARCH="aarch64"; fi
+
+mkdir build-cross
+cd build-cross
+
+export CC="${TARGET_ARCH}-linux-gnu-gcc"
+export CXX="${TARGET_ARCH}-linux-gnu-g++"
+export AR="${TARGET_ARCH}-linux-gnu-ar"
+export RANLIB="${TARGET_ARCH}-linux-gnu-ranlib"
+
+../configure --host="${TARGET_ARCH}-linux-gnu" \
+      --enable-static \
+      --prefix="$CROSS_PREFIX" \
+      --with-cross-build="$(pwd)/../build-host"
+
+make
+make DESTDIR="$1" install
+cd ..
 else
-    # Regular native build
-    ./configure --prefix=/usr
-    make
-    make DESTDIR="$1" install
+# Regular native build
+./configure --prefix=/usr
+make
+make DESTDIR="$1" install
 fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-    # 32-bit build for multilib support
-    cd ../source32
-    CC="gcc -m32" CXX="g++ -m32"                  \
-    PKG_CONFIG_PATH=/usr/lib32/pkgconfig          \
-    ./configure --prefix=/usr --libdir=/usr/lib32 \
-                --host=i686-pc-linux-gnu
-    make
-    make DESTDIR=$PWD/DESTDIR install
-    install -d "$1/usr/lib32"
-    cp -vr DESTDIR/usr/lib32/* "$1/usr/lib32"
+# 32-bit build for multilib support
+cd ../source32
+CC="gcc -m32" CXX="g++ -m32"                  \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig          \
+./configure --prefix=/usr --libdir=/usr/lib32 \
+            --host=i686-pc-linux-gnu
+make
+make DESTDIR=$PWD/DESTDIR install
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d "$dest_dir/usr/lib32"
+cp -vr DESTDIR/usr/lib32/* "$dest_dir/usr/lib32"
 fi
