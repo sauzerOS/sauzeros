@@ -1,0 +1,4 @@
+glibc
+readline
+lib32-readline make
+aarch64-gcc cross make
