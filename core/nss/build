@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 patch -Np1 -i nss-standalone-1.patch
-
 cd nss
 
 NSS_EXTRA=""
@@ -53,7 +52,7 @@ install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $1$CROSS_PREFIX/bin
 install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1$CROSS_PREFIX/lib/pkgconfig
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 cd ../nss
 find -name "Linux*.OBJ" -type d -exec rm -rf {} +
 rm -rf ../dist
@@ -68,8 +67,9 @@ NSPR_INCLUDE_DIR=/usr/include/nspr    \
 
 cd ../dist
 
-install -d $1/usr/lib32/pkgconfig
-install -v -m755 Linux*/lib/*.so              $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32/pkgconfig
+install -v -m755 Linux*/lib/*.so              $dest_dir/usr/lib32
 sed -i 's/lib/lib32/g' Linux*/lib/pkgconfig/nss.pc
-install -v -m644 Linux*/lib/pkgconfig/nss.pc  $1/usr/lib32/pkgconfig
+install -v -m644 Linux*/lib/pkgconfig/nss.pc  $dest_dir/usr/lib32/pkgconfig
 fi
