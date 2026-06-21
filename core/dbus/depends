@@ -1,6 +1,9 @@
 expat
-meson make
+glibc
 systemd optional
+meson make
+lib32-expat make
+lib32-systemd make
 aarch64-gcc cross make
 aarch64-expat cross make
 aarch64-libx11 cross make

@@ -39,8 +39,9 @@ meson setup build          \
 
 meson compile -C build
 meson install -C build --destdir=$(pwd)/destdir
-install -d $1/usr/lib32/pkgconfig
-cp -av $(pwd)/destdir/usr/lib32/libdbus-1.so* $1/usr/lib32/
-cp -av $(pwd)/destdir/usr/lib32/dbus-1.0 $1/usr/lib32/
-cp -v  $(pwd)/destdir/usr/lib32/pkgconfig/dbus-1.pc $1/usr/lib32/pkgconfig/
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d "$dest_dir/usr/lib32/pkgconfig"
+cp -av $(pwd)/destdir/usr/lib32/libdbus-1.so* $dest_dir/usr/lib32/
+cp -av $(pwd)/destdir/usr/lib32/dbus-1.0 $dest_dir/usr/lib32/
+cp -v  $(pwd)/destdir/usr/lib32/pkgconfig/dbus-1.pc $dest_dir/usr/lib32/pkgconfig/
 fi
