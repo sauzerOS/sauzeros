@@ -1,1 +1,4 @@
+acl
+glibc
+gettext make
 aarch64-gcc cross make
