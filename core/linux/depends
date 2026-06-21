@@ -2,8 +2,12 @@ coreutils
 kmod
 bc make
 libelf make
+openssl make
 pahole make
 perl make
 python make
 tar make
+xxhash make
 xz make
+zlib-ng make
+zstd make
