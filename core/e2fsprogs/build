@@ -25,5 +25,4 @@ fi
 
 make
 make DESTDIR=$1 install
-
 rm -fv $1/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
