@@ -54,7 +54,7 @@ cmake --build builddir
 DESTDIR=$1 cmake --install builddir
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf builddir
 export CC="gcc -m32"
 export CXX="g++ -m32"
@@ -76,7 +76,8 @@ cmake -B builddir -S build/cmake "${cmake_options[@]}"
 cmake --build builddir
 DESTDIR=tmp32dir cmake --install builddir
 rm -rf tmp32dir/usr/{include,share,bin}
-cp -r tmp32dir/* $1/
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+cp -r tmp32dir/* $dest_dir/
 fi
 else
 
@@ -94,12 +95,13 @@ make $MAKE_ARGS
 make prefix="$CROSS_PREFIX" DESTDIR="$1" install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 make clean
 CC="gcc -m32" make prefix=/usr
 make prefix=/usr DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32/pkgconfig
-cp -Rv DESTDIR/usr/lib/* $1/usr/lib32/
-sed -e "/^libdir/s/lib$/lib32/" -i $1/usr/lib32/pkgconfig/libzstd.pc
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32/pkgconfig
+cp -Rv DESTDIR/usr/lib/* $dest_dir/usr/lib32/
+sed -e "/^libdir/s/lib$/lib32/" -i $dest_dir/usr/lib32/pkgconfig/libzstd.pc
 fi
 fi
