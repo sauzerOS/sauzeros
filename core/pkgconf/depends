@@ -1,6 +1,4 @@
-autoconf
-automake
-libtool
+glibc
 zlib-ng rebuild
 bzip2 rebuild
 aarch64-linux-headers cross
