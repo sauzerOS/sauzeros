@@ -1,2 +1,2 @@
-sed make
+glibc
 aarch64-gcc cross make
