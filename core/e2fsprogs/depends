@@ -1,5 +1,7 @@
 pkgconf
 util-linux
+fuse3 make
+systemd make
 aarch64-gcc cross make
 aarch64-fuse3 cross make
 aarch64-util-linux cross make
