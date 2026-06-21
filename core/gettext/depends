@@ -1,1 +1,6 @@
+acl
+attr
+glibc
+gcc-libs
 libxml2 optional
+ncurses
