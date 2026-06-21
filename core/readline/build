@@ -14,7 +14,6 @@ CROSS_OPTS=""
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
     CROSS_OPTS="--host=$HOST_TRIPLET --build=$(gcc -dumpmachine)"
-    
     # Readline requires knowing if wcwidth is broken (can't test when cross compiling)
     export bash_cv_wcwidth_broken=no
 fi
@@ -27,7 +26,7 @@ make SHLIB_LIBS=-lncursesw
 make DESTDIR="$1" install
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 make distclean
 CC="gcc -m32" ./configure \
     --host=i686-pc-linux-gnu      \
@@ -37,6 +36,7 @@ CC="gcc -m32" ./configure \
     --with-curses
 make SHLIB_LIBS="-lncursesw"
 make SHLIB_LIBS="-lncursesw" DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
