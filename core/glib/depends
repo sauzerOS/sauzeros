@@ -1,5 +1,9 @@
+glibc
 gobject-introspection optional
+libffi
 pcre2
+util-linux
+zlib-ng
 meson make
 python make
 python-packaging make

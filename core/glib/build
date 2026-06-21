@@ -43,11 +43,9 @@ meson setup build            \
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
-install -d $1/usr/lib32
-install -d $1/usr/bin
-install -d $1/usr/share/libalpm/hooks
-cp -av DESTDIR/usr/lib32/* $1/usr/lib32/
-cp -av DESTDIR/usr/bin/gio-querymodules $1/usr/bin/gio-querymodules-32
-install -Dt $1/usr/share/libalpm/hook -m644 *.hook
-touch $1/usr/lib32/gio/modules/.keep
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d "$dest_dir/usr/{bin,lib32}"
+cp -av DESTDIR/usr/lib32/* $dest_dir/usr/lib32/
+cp -av DESTDIR/usr/bin/gio-querymodules $dest_dir/usr/bin/gio-querymodules-32
+touch $dest_dir/usr/lib32/gio/modules/.keep
 fi
