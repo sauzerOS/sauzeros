@@ -1,2 +1,3 @@
+glibc
 swig make
 aarch64-pkgconf cross make
