@@ -1,3 +1,4 @@
-openssl make
+glibc
+openssl
 aarch64-gcc cross make
 aarch64-openssl cross make
