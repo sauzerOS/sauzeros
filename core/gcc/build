@@ -165,6 +165,48 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$2/liblto_plugin.so \
         $1/usr/lib/bfd-plugins/
 }
 
+# gcc-libs split package
+libs=(
+    libasan.so*
+    libatomic.so*
+    libgcc_s_asneeded.so*
+    libgcc_s.so*
+    libgomp.so*
+    libitm.so*
+    liblsan.so*
+    libquadmath.so*
+    libstdc++.so*
+    libtsan.so*
+    libubsan.so*
+)
+dest_dir="$HOKUTO_SPLIT_DIR/gcc-libs/usr/lib"
+mkdir -p "$dest_dir"
+
+for lib in "${libs[@]}"; do
+    mv "$1/usr/lib"/$lib "$dest_dir/"
+done
+
+# lib32-gcc-libs split package
+if [ "$MULTILIB" = "1" ]; then
+libs=(
+    libasan.so*
+    libatomic.so*
+    libgcc_s_asneeded.so*
+    libgcc_s.so*
+    libgomp.so*
+    libitm.so*
+    libquadmath.so*
+    libstdc++.so*
+    libubsan.so*
+)
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-gcc-libs/usr/lib32"
+mkdir -p "$dest_dir"
+
+for lib in "${libs[@]}"; do
+    mv "$1/usr/lib32"/$lib "$dest_dir/"
+done
+fi
+
 if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
 # Remove files that conflict with host gcc package
 rm -rf "$1"/usr/share/man
