@@ -1,7 +1,3 @@
 acl
-gzip
-libcap
-lz4
-lzip
-xz
-zstd
+attr
+glibc
