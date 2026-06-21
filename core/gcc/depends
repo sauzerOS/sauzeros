@@ -1,10 +1,11 @@
-flex
+binutils
+glibc
 gmp
-isl
-mpfr
 mpc
-tar
+mpfr
 zlib-ng
+zstd
+python make
 aarch64-binutils cross
 aarch64-glibc cross
 aarch64-gmp crossnative
