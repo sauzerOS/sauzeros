@@ -1,5 +1,5 @@
-bison
 linux-headers
-m4
+sauzeros-base
+git make
 python make
 aarch64-linux-headers cross
