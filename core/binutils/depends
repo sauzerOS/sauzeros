@@ -1,4 +1,6 @@
 glibc
+libelf
+gcc-libs
 zlib-ng
-gcc make
+zstd
 aarch64-linux-headers cross
