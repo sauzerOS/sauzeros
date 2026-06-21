@@ -1,4 +1,6 @@
 glib
+glibc
+libffi
 python
 python-mako
 python-markdown
