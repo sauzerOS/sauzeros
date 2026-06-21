@@ -18,16 +18,14 @@ fi
             --enable-libdebuginfod=dummy \
             $CROSS_OPTS
 
-
 make
 make DESTDIR=$1 install
 
 mkdir -p "$1$PREFIX/lib/pkgconfig"
 cp -f config/libelf.pc "$1$PREFIX/lib/pkgconfig/libelf.pc"
 
-
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 make distclean
 CC="gcc -m32" CXX="g++ -m32" ./configure \
     --host=i686-pc-linux-gnu \
@@ -39,6 +37,7 @@ CC="gcc -m32" CXX="g++ -m32" ./configure \
 make
 make DESTDIR=$PWD/DESTDIR -C libelf install
 install -vDm644 config/libelf.pc DESTDIR/usr/lib32/pkgconfig/libelf.pc
-install -d $1/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
