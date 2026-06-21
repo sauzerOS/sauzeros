@@ -1,4 +1,7 @@
+glibc
 readline
 zlib-ng
+lib32-readline make
+lib32-zlib-ng make
 aarch64-linux-headers cross
 aarch64-gcc cross make
