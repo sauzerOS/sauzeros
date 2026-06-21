@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-LANG=C
-
 ./configure \
     --prefix=/usr
 
