@@ -13,6 +13,7 @@ fi
 ./configure --prefix="$PREFIX" \
     --disable-static           \
     --disable-documentation    \
+    --with-crypto=libgcrypt    \
     --libexecdir="$PREFIX/lib" \
     $CROSS_OPTS
 
