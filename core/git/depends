@@ -1,4 +1,8 @@
 brotli
 curl
+expat
 gettext
+openssl
 util-linux
+zlib-ng
+python make
