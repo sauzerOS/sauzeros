@@ -88,9 +88,8 @@ rm -rf $1/etc
 fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
-
 meson setup build                    \
       --cross-file lib32             \
       --prefix=/usr                  \
@@ -110,10 +109,10 @@ meson setup build                    \
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
-
-install -d $1/usr/lib32/pkgconfig
-cp -vR DESTDIR/usr/lib32/security       $1/usr/lib32
-cp -va DESTDIR/usr/lib32/libsystemd.so* $1/usr/lib32
-cp -va DESTDIR/usr/lib32/libudev.so*    $1/usr/lib32
-cp -v  DESTDIR/usr/lib32/pkgconfig/*    $1/usr/lib32/pkgconfig
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32/pkgconfig
+cp -vR DESTDIR/usr/lib32/security       $dest_dir/usr/lib32
+cp -va DESTDIR/usr/lib32/libsystemd.so* $dest_dir/usr/lib32
+cp -va DESTDIR/usr/lib32/libudev.so*    $dest_dir/usr/lib32
+cp -v  DESTDIR/usr/lib32/pkgconfig/*    $dest_dir/usr/lib32/pkgconfig
 fi
