@@ -1,1 +1,3 @@
+glibc
+gcc-libs
 aarch64-gcc cross make
