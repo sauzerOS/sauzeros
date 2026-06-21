@@ -6,6 +6,9 @@ mpfr
 zlib-ng
 zstd
 python make
+lib32-gmp make
+lib32-zlib-ng make
+lib32-zstd make
 aarch64-binutils cross
 aarch64-glibc cross
 aarch64-gmp crossnative
