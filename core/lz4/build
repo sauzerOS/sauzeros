@@ -13,13 +13,14 @@ make -C programs PREFIX="$PREFIX" CC="${CC:-gcc}" AR="${AR:-ar}" lz4 lz4c
 make install PREFIX="$PREFIX" DESTDIR="$1"
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
-    # 32-bit multilib build
-    make clean
-    make -C lib PREFIX=/usr CC="gcc -m32"
-    mkdir -p DESTDIR
-    make -C lib PREFIX=/usr DESTDIR="$PWD/DESTDIR" install
-    install -d "$1/usr/lib32/pkgconfig"
-    cp -Rv DESTDIR/usr/lib/* "$1/usr/lib32/"
-    sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i "$1/usr/lib32/pkgconfig/liblz4.pc"
+#32bit split package
+make clean
+make -C lib PREFIX=/usr CC="gcc -m32"
+mkdir -p DESTDIR
+make -C lib PREFIX=/usr DESTDIR="$PWD/DESTDIR" install
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d "$dest_dir/usr/lib32/pkgconfig"
+cp -Rv DESTDIR/usr/lib/* "$dest_dir/usr/lib32/"
+sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i "$dest_dir/usr/lib32/pkgconfig/liblz4.pc"
 fi
 
