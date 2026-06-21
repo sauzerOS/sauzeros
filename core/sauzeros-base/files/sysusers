@@ -1,0 +1,21 @@
+# default groups
+# groups first, because we have user/group id mismatch on ftp and mail
+g sys 3 - -
+g mem 8 - -
+g ftp 11 - -
+g mail 12 - -
+g log 19 - -
+g scanner 96 - -
+
+# default users
+u! bin 1 - -
+u! daemon 2 - -
+u! mail 8 - /var/spool/mail
+u! ftp 14 - /srv/ftp
+u! http 33 - /srv/http
+
+# default membership
+m bin daemon
+m bin sys
+m daemon adm
+m daemon bin
