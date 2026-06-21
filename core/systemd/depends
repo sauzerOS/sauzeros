@@ -17,6 +17,13 @@ pam
 python-jinja2
 python-pyelftools
 python-pefile
+lib32-curl make
+lib32-dbus make
+lib32-kmod make
+lib32-libelf make
+lib32-libidn2 make
+lib32-p11-kit make
+lib32-pam make
 aarch64-libxcrypt cross make
 aarch64-libgcrypt cross make
 aarch64-util-linux cross make
