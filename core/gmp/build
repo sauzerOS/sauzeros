@@ -25,7 +25,7 @@ make
 make DESTDIR=$1 install
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 make distclean
 cp -v configfsf.guess config.guess
 cp -v configfsf.sub   config.sub
@@ -43,8 +43,9 @@ PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
 sed -i 's/$(exec_prefix)\/include/$\(includedir\)/' Makefile
 make
 make DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32
-install -d $1/usr/include/m32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
-cp -Rv DESTDIR/usr/include/m32/* $1/usr/include/m32/
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+install -d $dest_dir/usr/include/m32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/include/m32/* $dest_dir/usr/include/m32/
 fi
