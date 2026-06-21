@@ -16,6 +16,5 @@ sed -i 's/def HAVE_TERMCAP_TGETENT/ 1/' telnet/telnet.c
 make
 make DESTDIR="$1" install
 
-
 chmod 755 "$1/usr/bin/ping"
 chmod 755 "$1/usr/bin/ping6"
