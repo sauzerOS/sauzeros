@@ -1,1 +1,17 @@
+bash
+btrfs-progs
+coreutils
 cpio
+cryptsetup
+e2fsprogs
+findutils
+gawk
+grep
+kmod
+pkgconf
+procps-ng
+sed
+squashfs-tools
+systemd
+util-linux
+xz
