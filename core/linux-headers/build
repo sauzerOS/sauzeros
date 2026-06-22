@@ -9,14 +9,14 @@ KARCH=$HOKUTO_ARCH
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 # If CROSS_PREFIX is not /usr, we are likely building a cross-toolchain package.
 if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$CROSS_PREFIX" != "/usr" ]; then
-    TARGET_DIR="$1$CROSS_PREFIX"
-    # Sysroot structure is now managed by sauzeros-base
-    # We just install headers to the sysroot /usr
-    make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$TARGET_DIR/usr"
+  TARGET_DIR="$1$CROSS_PREFIX"
+# Sysroot structure is now managed by sauzeros-base
+# We just install headers to the sysroot /usr
+make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$TARGET_DIR/usr"
 else
-    # Native build or cross-native (where CROSS_PREFIX defaults to /usr)
-    # Headers go directly to /usr/include
-    make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$1/usr"
+# Native build or cross-native (where CROSS_PREFIX defaults to /usr)
+# Headers go directly to /usr/include
+make ARCH=$KARCH headers_install INSTALL_HDR_PATH="$1/usr"
 fi
 
 # clean-up unnecessary files generated during install
