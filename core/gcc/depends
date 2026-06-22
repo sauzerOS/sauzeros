@@ -6,6 +6,7 @@ mpfr
 zlib-ng
 zstd
 python make
+tar make
 lib32-gmp make
 lib32-zlib-ng make
 lib32-zstd make
