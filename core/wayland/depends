@@ -1,9 +1,8 @@
 expat
-flex
+glibc
 libffi
 libxml2
-meson
-pkgconf
+meson make
 aarch64-expat cross make
 aarch64-pkgconf cross make
 aarch64-gcc cross make
