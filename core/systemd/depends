@@ -1,4 +1,5 @@
 btrfs-progs optional
+ca-certificates
 cryptsetup optional
 curl
 dbus
@@ -11,12 +12,11 @@ libelf
 libidn2
 libseccomp
 libxkbcommon
-ca-certificates optional
 p11-kit
 pam
 python-jinja2
-python-pyelftools
 python-pefile
+python-pyelftools
 lib32-curl make
 lib32-dbus make
 lib32-kmod make
