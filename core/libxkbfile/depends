@@ -1,5 +1,6 @@
+glibc
 libx11
-meson     make
-pkgconf   make
-xorgproto make
-
+xorgproto
+meson make
+xorg-util-macros make
+lib32-x11 make
