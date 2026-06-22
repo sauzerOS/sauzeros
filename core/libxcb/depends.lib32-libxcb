@@ -1,0 +1,5 @@
+libxcb
+lib32-glibc
+lib32-libxau
+lib32-libxdmcp
+

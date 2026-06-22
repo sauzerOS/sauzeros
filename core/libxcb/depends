@@ -1,8 +1,12 @@
+glibc
 libxau
-pkgconf make
-python  make
+libxdmcp
 xcb-proto
-xorg-util-macros
+python make
+xorg-util-macros make
+xorgproto make
+lib32-libxau make
+lib32-libxdmcp make
 aarch64-xcb-proto cross make
 aarch64-libxau cross make
 aarch64-xcb-proto cross make
