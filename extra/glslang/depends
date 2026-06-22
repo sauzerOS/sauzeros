@@ -1,2 +1,7 @@
-cmake make
+glibc
+gcc-libs
 spirv-tools
+cmake make
+python make
+spirv-headers make
+lib32-spirv-tools make

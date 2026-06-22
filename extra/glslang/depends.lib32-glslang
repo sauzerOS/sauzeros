@@ -1,0 +1,3 @@
+lib32-glibc
+lib32-gcc-libs
+lib32-spirv-tools
