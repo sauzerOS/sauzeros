@@ -1,2 +1,5 @@
+gcc-libs
+glibc
 libogg
 nasm make
+lib32-libogg make
