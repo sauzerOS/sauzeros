@@ -3,4 +3,4 @@ libx11
 xorgproto
 meson make
 xorg-util-macros make
-lib32-x11 make
+lib32-libx11 make
