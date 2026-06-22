@@ -1,3 +1,2 @@
 python make
-libxdmcp
 aarch64-gcc cross make
