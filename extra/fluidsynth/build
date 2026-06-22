@@ -5,19 +5,19 @@ cmake -B build -D CMAKE_BUILD_TYPE=None             \
     -D FLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth \
     -D LIB_SUFFIX=""                                \
     -D enable-ladspa=ON                             \
-    -S . -W no-dev
+    -W no-dev
 
 cmake --build build
 DESTDIR=$1 cmake --install build
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
 export CC='gcc -m32'
 export CXX='g++ -m32'
 export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
-cmake -B build -S .          \
-    -D CMAKE_BUILD_TYPE=None \
+cmake -B build                    \
+    -D CMAKE_BUILD_TYPE=None      \
     -D CMAKE_INSTALL_LIBDIR=lib32 \
     -D CMAKE_INSTALL_PREFIX=/usr  \
     -D FLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth \
@@ -25,7 +25,8 @@ cmake -B build -S .          \
 cmake --build build
 DESTDIR=tmp32dir cmake --install build
 rm -rf tmp32dir/usr/{include,share,bin}
-rsync -a tmp32dir/* $1/
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+rsync -a tmp32dir/* $dest_dir/
 fi
 
 7z x soundfonts.7z.001

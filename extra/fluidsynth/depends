@@ -1,5 +1,23 @@
-pulseaudio
+alsa-lib
+dbus
+gcc-libs
+glib
+glibc
+libsndfile
 pipewire
+pulseaudio
+readline
+sdl3
+systemd
 7zip make
 cmake make
 rsync make
+lib32-alsa-lib make
+lib32-dbus make
+lib32-glib make
+lib32-pipewire make
+lib32-pulseaudio make
+lib32-libsndfile make
+lib32-readline make
+lib32-sdl3 make
+lib32-systemd make
