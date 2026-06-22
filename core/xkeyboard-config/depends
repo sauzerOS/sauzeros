@@ -1,6 +1,5 @@
-libx11  make
-pkgconf make
-python  make
-xkbcomp
+meson make
+python make
+xkbcomp make
 aarch64-linux-headers cross
 aarch64-gcc cross make
