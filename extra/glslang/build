@@ -24,22 +24,20 @@ DESTDIR=$1 cmake --install build-static
 DESTDIR=$1 cmake --install build-shared
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
-mkdir build
-cd build
-
+#32bit split package
 CC="gcc -m32" CXX="g++ -m32"           \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig   \
-cmake -D CMAKE_INSTALL_PREFIX=/usr     \
+cmake -B build                         \
+      -D CMAKE_INSTALL_PREFIX=/usr     \
       -D CMAKE_INSTALL_LIBDIR=lib32    \
       -D CMAKE_BUILD_TYPE=Release      \
       -D ALLOW_EXTERNAL_SPIRV_TOOLS=ON \
       -D BUILD_SHARED_LIBS=ON          \
-      -D GLSLANG_TESTS=OFF             \
-      -G Ninja ..
+      -D GLSLANG_TESTS=OFF
 
-ninja
-DESTDIR=$PWD/DESTDIR ninja install
-install -d $1/usr/lib32
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
 fi
