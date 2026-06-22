@@ -1,5 +1,17 @@
 brotli
+bzip2
+glibc
 libpng
 librsvg optional
 harfbuzz optional
 which
+zlib-ng
+cairo make
+glib make
+libx11 make
+meson make
+lib32-brotli make
+lib32-bzip2 make
+lib32-libpng make
+lib32-zlib-ng make
+lib32-harfbuzz make optional
