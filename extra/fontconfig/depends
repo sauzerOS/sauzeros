@@ -1,4 +1,7 @@
 expat
 freetype
-pkgconf
+glibc
 meson make
+gperf make
+lib32-expat make
+lib32-freetype make
