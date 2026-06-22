@@ -163,4 +163,10 @@ for prog in $prog_names
         -d "Repository Package"
     
     complete -c $prog -n "__fish_seen_subcommand_from find f" -d "Search query"
+
+
+    # 19. Logic for 'chroot' (Enable directory-only completion)
+    # Allows users to type 'hk chroot /run/m<TAB>' and see matching directory paths
+    complete -c $prog -n "__fish_seen_subcommand_from chroot" \
+        -a "(__fish_complete_directories)"
 end
