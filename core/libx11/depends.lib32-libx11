@@ -1,0 +1,4 @@
+libx11
+xorgproto
+lib32-glibc
+lib32-libxcb
