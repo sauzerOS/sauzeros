@@ -1,10 +1,12 @@
-bison
-meson
-libxml2
-pkgconf
+glibc
 xkeyboard-config
-wayland
-wayland-protocols
+libxcb make
+meson make
+wayland make
+wayland-protocols make
+xorgproto make
+lib32-libxcb make
+lib32-wayland make
 aarch64-xkeyboard-config cross make
 aarch64-wayland cross make
 aarch64-wayland-protocols cross make
