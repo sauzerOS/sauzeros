@@ -1,0 +1,7 @@
+freetype
+lib32-brotli
+lib32-bzip2
+lib32-glibc
+lib32-libpng
+lib32-zlib-ng
+lib32-harfbuzz
