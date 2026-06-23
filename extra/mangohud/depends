@@ -1,5 +1,23 @@
-glew
+dbus
 glfw
+hicolor-icon-theme
 libglvnd
+libx11
+libxkbcommon
 libxnvctrl
+vulkan-icd-loader
+wayland
+appstream make
+glslang make
+libxrandr make
 meson make
+python-mako make
+vulkan-headers make
+lib32-dbus make
+lib32-glew make
+lib32-libglvnd make
+lib32-libxkbcommon make
+lib32-libxrandr make
+lib32-vulkan-icd-loader make
+lib32-wayland make
+lib32-x11 make
