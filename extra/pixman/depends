@@ -1,1 +1,4 @@
-meson
+glibc
+libpng make
+meson make
+lib32-libpng make
