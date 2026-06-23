@@ -1,0 +1,4 @@
+p11-kit
+lib32-glibc
+lib32-libffi
+lib32-libtasn1
