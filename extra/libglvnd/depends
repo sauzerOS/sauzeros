@@ -1,42 +1,10 @@
-xtrans
-libx11
 libxext
-libICE
-libSM
-libxscrnsaver
-libxt
-libxmu
-libxpm
-libxfixes
-libxcomposite
-libxrender
-libxcursor
-libxdamage
-libfontenc
-libxfont2
-libxft
-libxi
-libxinerama
-libxrandr
-libxres
-libxtst
-libxv
-libxxf86vm
-libpciaccess
-libxkbfile
-libxshmfence
-libxpresent
-libxcvt
-xcb-util
-xcb-util-image
-xcb-util-keysyms
-xcb-util-renderutil
-xcb-util-wm
-xcb-util-cursor
-libunwind
-nettle
-gnutls
-pixman
-mtdev
-libevdev
-libinput
+mesa
+libx11 make
+meson make
+python make
+xorgproto make
+lib32-libxext make
+lib32-mesa make
+lib32-libx11 make
+lib32-libxext make
