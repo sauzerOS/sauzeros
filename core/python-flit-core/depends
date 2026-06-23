@@ -1,4 +1,3 @@
 python
-git make
 python-build make
 python-installer make
