@@ -52,6 +52,7 @@ meson setup p11-build                       \
             --prefix=/usr                   \
             --buildtype=release             \
             --cross-file=lib32              \
+            --libdir=/usr/lib32             \
             -D test=false                   \
             -D trust_paths=/etc/pki/anchors
 
