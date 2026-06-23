@@ -1,6 +1,15 @@
-chafa
 cairo optional
-docbook-xsl
 freetype
 glib
-icu
+libpng
+zlib-ng
+chafa make
+gobject-introspection make
+icu make
+meson make
+lib32-cairo make optional
+lib32-freetype make
+lib32-glib make
+lib32-icu make
+lib32-libpng make
+lib32-zlib-ng make

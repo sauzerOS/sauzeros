@@ -1,0 +1,7 @@
+harfbuzz
+lib32-freetype
+lib32-gcc-libs
+lib32-glib
+lib32-glibc
+lib32-libpng
+lib32-zlib-ng
