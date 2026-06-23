@@ -1,3 +1,5 @@
+glibc
 libgpg-error
+lib32-libgpg-error make
 aarch64-libgpg-error cross make
 aarch64-gcc cross make

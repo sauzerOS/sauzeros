@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-# Missing includes...
+# Missing includes
 sed '/^#ifdef USE_JENT/a #include <fcntl.h>\n#include <limits.h>' \
     random/rndjent.c > _
 mv -f _ random/rndjent.c
@@ -24,3 +24,19 @@ fi
 make
 make DESTDIR="$1" install
 
+if [ "$MULTILIB" = "1" ]; then
+#32bit split package
+make distclean
+CC="gcc -m32" CXX="g++ -m32"   \
+PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
+./configure --prefix=/usr      \
+         --disable-static      \
+         --libdir=/usr/lib32   \
+         --enable-shared
+
+make
+make DESTDIR=$PWD/DESTDIR install
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+fi
