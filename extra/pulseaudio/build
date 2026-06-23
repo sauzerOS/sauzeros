@@ -14,12 +14,11 @@ meson install -C build --destdir=$1
 rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
 meson setup build               \
             --cross-file=lib32  \
             --prefix=/usr       \
-            --libdir=/usr/lib32 \
             --buildtype=release \
             -D database=gdbm    \
             -D doxygen=false    \
@@ -28,6 +27,7 @@ meson setup build               \
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
-install -d $1/usr/lib32
-cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
