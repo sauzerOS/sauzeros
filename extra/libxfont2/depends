@@ -1,5 +1,10 @@
 freetype
+glibc
 libfontenc
-pkgconf   make
-xorgproto make
-xtrans    make
+xorgproto
+zlib-ng
+xorg-util-macros make
+xtrans make
+lib32-freetype make
+lib32-libfontenc make
+lib32-zlib-ng make
