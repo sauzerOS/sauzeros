@@ -1,2 +1,3 @@
-pkgconf   make
+glibc
+xorg-util-macros make
 xorgproto make
