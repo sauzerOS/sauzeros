@@ -1,2 +1,4 @@
+glibc
+gcc-libs
 cmake make
-spirv-headers
+spirv-headers make
