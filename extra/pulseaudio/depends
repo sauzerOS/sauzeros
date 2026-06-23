@@ -1,16 +1,35 @@
 alsa-lib
+bash
 bluez
 dbus
+gcc-libs
 gdbm
 glib
+glibc
 libcap
+libice
+libsm
 libsndfile
-libSM
+libx11
 libxcb
 libxtst
-perl-xml-parser
 sbc
-speex
-gettext make
-libtool make
-perl-file-sharedir make
+speexdsp
+systemd
+attr make
+check make
+gst-plugins-base make
+gst-plugins-good make
+gstreamer make
+gtk+3 make
+meson make
+openssl make
+python make
+python-dbus make
+lib32-alsa-lib make
+lib32-dbus make
+lib32-glib make
+lib32-libsndfile make
+lib32-libxcb make
+lib32-systemd make
+lib32-x11 make
