@@ -12,7 +12,7 @@ cmake --build build
 DESTDIR=$1 cmake --install build
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
 export CC='gcc -m32'
 export CXX='g++ -m32'
@@ -28,5 +28,6 @@ cmake -B build -G Ninja \
 cmake --build build
 DESTDIR=tmp32dir cmake --install build
 rm -rf tmp32dir/usr/{bin,include,share}
-rsync -a tmp32dir/* $1/
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+rsync -a tmp32dir/* $dest_dir/
 fi

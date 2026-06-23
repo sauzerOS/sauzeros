@@ -1,5 +1,7 @@
 alsa-lib
+glibc
 libdecor
+libglvnd
 libusb
 libx11
 libxcursor
@@ -7,12 +9,30 @@ libxext
 libxrender
 pipewire
 pulseaudio
+sndio
 cmake make
 libxinerama make
 libxkbcommon make
 libxrandr make
 mesa make
-ninja make
+rsync make
 vulkan-headers make
 wayland make
 wayland-protocols make
+lib32-alsa-lib make
+lib32-libdecor make
+lib32-libglvnd make
+lib32-libusb make
+lib32-libx11 make
+lib32-libxcursor make
+lib32-libxext make
+lib32-libxinerama make
+lib32-libxkbcommon make
+lib32-libxrandr make
+lib32-libxrender make
+lib32-libxss make
+lib32-mesa make
+lib32-pipewire make
+lib32-pulseaudio make
+lib32-sndio make
+lib32-wayland make
