@@ -8,16 +8,16 @@ meson compile -C output
 meson install -C output --destdir=$1
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 meson setup build           \
       --cross-file=lib32    \
       --prefix=/usr         \
-      --libdir=/usr/lib32   \
       --buildtype=release   \
       -D tests=disabled
 
-ninja -C build
-DESTDIR=$PWD/DESTDIR ninja -C build install
-install -d $1/usr/lib32
-cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
