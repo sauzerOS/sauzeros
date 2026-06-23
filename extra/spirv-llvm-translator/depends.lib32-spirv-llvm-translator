@@ -1,0 +1,5 @@
+spirv-llvm-translator
+lib32-gcc-libs
+lib32-glibc
+lib32-llvm-libs
+lib32-spirv-tools
