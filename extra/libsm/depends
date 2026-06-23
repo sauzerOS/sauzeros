@@ -1,0 +1,8 @@
+glibc
+libice
+util-linux
+xorgproto
+xorg-util-macros make
+xtrans make
+lib32-libice make
+lib32-util-linux make
