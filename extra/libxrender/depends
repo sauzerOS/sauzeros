@@ -1,3 +1,4 @@
-libxext   make
-pkgconf   make
-xorgproto make
+glibc
+libx11
+xorgproto
+lib32-libx11 make
