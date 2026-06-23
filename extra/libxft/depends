@@ -1,7 +1,8 @@
-autoconf	  make
-automake	  make
-fontconfig        make
-freetype          make
-libtool		  make
-libxrender        make
-xorgproto         make
+fontconfig
+freetype
+glibc
+libx11
+libxrender
+xorgproto
+lib32-fontconfig make
+lib32-libxrender make
