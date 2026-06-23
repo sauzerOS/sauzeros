@@ -1,0 +1,5 @@
+wayland
+lib32-expat
+lib32-glibc
+lib32-libffi
+lib32-libxml2
