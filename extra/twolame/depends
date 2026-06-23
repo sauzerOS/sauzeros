@@ -1,2 +1,3 @@
 glibc
 libsndfile
+lib32-libsndfile make
