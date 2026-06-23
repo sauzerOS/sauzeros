@@ -1,5 +1,4 @@
 linux-headers
 sauzeros-base
-git make
 python make
 aarch64-linux-headers cross
