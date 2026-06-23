@@ -1,1 +1,3 @@
+glibc
 libogg
+lib32-libogg make
