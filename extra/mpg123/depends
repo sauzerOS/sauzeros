@@ -1,3 +1,6 @@
 alsa-lib
 pulseaudio
 sdl2-compat
+lib32-alsa-lib make
+lib32-pulseaudio make
+lib32-sdl2-compat make
