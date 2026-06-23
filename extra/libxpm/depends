@@ -1,0 +1,8 @@
+glibc
+libx11
+libxext
+libxt
+xorg-util-macros make
+lib32-libx11 make
+lib32-libxext make
+lib32-libxt make
