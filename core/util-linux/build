@@ -82,7 +82,7 @@ rm -rf build
 meson_options_32=(
     --prefix=/usr
     --libexecdir /usr/lib32
-    --libdir     /usr/lib32
+    --cross-file=lib32
     --auto-features disabled
     -D build-libblkid=enabled
     -D build-libuuid=enabled
@@ -93,11 +93,7 @@ meson_options_32=(
     -D ncursesw=enabled
 )
 
-export CC="gcc -m32"
-export CXX="g++ -m32"
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-
-meson setup build "${meson_options_32[@]}" --cross-file lib32
+meson setup build "${meson_options_32[@]}"
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
