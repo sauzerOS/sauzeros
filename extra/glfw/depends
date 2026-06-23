@@ -1,0 +1,12 @@
+libglvnd
+libxkbcommon
+cmake make
+extra-cmake-modules make
+libxcursor make
+libxi make
+libxinerama make
+libxrandr make
+mesa make
+vulkan-headers make
+vulkan-icd-loader make
+wayland-protocols make
