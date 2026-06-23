@@ -1,0 +1,8 @@
+libelf
+lib32-bzip2
+lib32-curl
+lib32-glibc
+lib32-json-c
+lib32-xz
+lib32-zlib-ng
+lib32-zstd
