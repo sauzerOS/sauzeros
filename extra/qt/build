@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# openssl 4 patch
+patch -Np1 -i qt-everywhere-src-6.11.1-openssl4_fix-1.patch
+
 cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=RelWithDebInfo \

@@ -12,12 +12,12 @@ icu
 krb5
 libdrm
 libglvnd
-libICE
+libice
 libinput
 libjpeg-turbo
 libpng
 libproxy
-libSM
+libsm
 liburing
 libx11
 libxkbcommon
