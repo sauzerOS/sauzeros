@@ -1,0 +1,5 @@
+glibc
+xz
+zlib-ng
+lib32-xz make
+lib32-zlib-ng make
