@@ -1,3 +1,8 @@
+glibc
+libx11
 libxext
-pkgconf make
 xorgproto
+xorg-util-macros make
+lib32-glibc make
+lib32-libx11 make
+lib32-libxext make
