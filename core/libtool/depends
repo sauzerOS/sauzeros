@@ -1,2 +1,4 @@
 glibc
 tar
+lib32-gcc-libs make
+lib32-glibc make
