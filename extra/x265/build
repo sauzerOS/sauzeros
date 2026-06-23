@@ -14,7 +14,7 @@ DESTDIR=$1 cmake --install build
 rm -vf $1/usr/lib/libx265.a
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf build
 CC="gcc -m32" CXX="g++ -m32"              \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig      \
@@ -27,7 +27,8 @@ cmake -B build \
 
 cmake --build build
 DESTDIR=$PWD/DESTDIR cmake --install build
-install -d $1/usr/lib32
-cp -vR DESTDIR/usr/lib32/* $1/usr/lib32
-rm -vf $1/usr/lib32/libx265.a
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -vR DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+rm -vf $dest_dir/usr/lib32/libx265.a
 fi
