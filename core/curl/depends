@@ -1,4 +1,4 @@
-brotli
+brotli optional
 ca-certificates
 libidn2
 libpsl
@@ -7,7 +7,7 @@ nghttp2 optional
 openssl
 zlib-ng
 zstd
-lib32-brotli make
+lib32-brotli make optional
 lib32-libidn2 make
 lib32-libpsl make
 lib32-libunistring make
