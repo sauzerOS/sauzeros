@@ -11,6 +11,9 @@ cups-config = 'cups-config'
 llvm-config = 'llvm-config'
 exe_wrapper = ''
 
+[built-in options]
+libdir = 'lib32'
+
 [properties]
 sizeof_void* = 4
 sizeof_long = 4
