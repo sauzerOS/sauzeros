@@ -1,3 +1,6 @@
-pkgconf   make
-xorgproto make
+glibc
+xorg-fonts-encodings
 zlib-ng
+xorg-util-macros make
+xorgproto make
+lib32-zlib-ng make
