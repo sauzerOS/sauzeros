@@ -1,2 +1,6 @@
+glibc
+libx11
 libxext
-xorgproto
+meson make
+xorgproto make
+lib32-libxext make
