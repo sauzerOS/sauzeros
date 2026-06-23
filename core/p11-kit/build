@@ -57,4 +57,5 @@ meson setup p11-build                       \
 meson compile -C p11-build
 meson install -C p11-build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d "$dest_dir/usr/lib32"
 cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
