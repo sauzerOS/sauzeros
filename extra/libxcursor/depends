@@ -1,4 +1,8 @@
+glibc
+libx11
 libxfixes
 libxrender
-pkgconf   make
-xorgproto make
+xorgproto
+xorg-util-macros make
+lib32-libxfixes make
+lib32-libxrender make
