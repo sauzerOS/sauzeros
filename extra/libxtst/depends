@@ -1,6 +1,9 @@
+glibc
 libx11
-libxau
 libxext
 libxi
-libxcb
-pkgconf make
+xorgproto
+xorg-util-macros make
+lib32-libxext make
+lib32-libxfixes make
+lib32-libxi make
