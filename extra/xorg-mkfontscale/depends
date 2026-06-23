@@ -1,0 +1,6 @@
+freetype
+glibc
+libfontenc
+zlib-ng
+xorg-util-macros make
+xorgproto make
