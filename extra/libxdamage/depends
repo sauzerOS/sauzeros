@@ -1,4 +1,6 @@
+glibc
 libx11
 libxfixes
-pkgconf   make
-xorgproto make
+xorgproto
+lib32-libx11 make
+lib32-libxfixes make
