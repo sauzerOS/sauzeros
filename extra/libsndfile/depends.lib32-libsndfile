@@ -1,0 +1,6 @@
+libsndfile
+lib32-flac
+lib32-glibc
+lib32-libogg
+lib32-libvorbis
+lib32-opus

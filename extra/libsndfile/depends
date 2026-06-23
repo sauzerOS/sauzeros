@@ -1,1 +1,16 @@
+alsa-lib
 flac
+glibc
+lame
+libogg
+libvorbis
+mpg123
+opus
+cmake make
+python make
+sqlite make
+lib32-flac make
+lib32-libogg make
+lib32-libvorbis make
+lib32-opus make
+lib32-sqlite make
