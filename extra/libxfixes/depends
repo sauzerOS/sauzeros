@@ -1,2 +1,5 @@
+glibc
 libx11
-pkgconf make
+xorgproto
+xorg-util-macros make
+lib32-libx11 make
