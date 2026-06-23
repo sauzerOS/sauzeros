@@ -2,7 +2,6 @@ glibc
 icu
 readline
 zlib-ng
-git make
 meson make
 lib32-icu make
 lib32-readline make
