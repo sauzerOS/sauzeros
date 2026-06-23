@@ -9,6 +9,7 @@
     --disable-specs         \
     --disable-static
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR="$1" install
 
@@ -25,8 +26,10 @@ CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
     --disable-static        \
     --libdir=/usr/lib32
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32
-cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
