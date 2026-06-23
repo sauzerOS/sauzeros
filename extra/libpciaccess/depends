@@ -1,1 +1,5 @@
+glibc
+zlib-ng
 meson make
+xorg-utils-macro make
+lib32-zlib-ng make
