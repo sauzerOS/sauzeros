@@ -1,0 +1,6 @@
+libxmu
+xorgproto
+lib32-glibc
+lib32-libx11
+lib32-libxext
+lib32-libxt
