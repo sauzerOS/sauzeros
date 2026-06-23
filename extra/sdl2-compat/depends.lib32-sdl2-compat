@@ -1,0 +1,5 @@
+sdl2-compat
+sdl3
+lib32-glibc
+lib32-sdl3
+lib32-sdl2-compat
