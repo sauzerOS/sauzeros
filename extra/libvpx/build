@@ -27,7 +27,7 @@ make
 make DESTDIR=$1 install
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32bit split package
 rm -rf *
 CC="gcc -m32" CXX="g++ -m32"          \
 PKG_CONFIG_PATH=/usr/lib32/pkgconfig  \
@@ -41,6 +41,7 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig  \
 
 make
 make DESTDIR=$PWD/DESTDIR install
-install -d $1/usr/lib32
-cp -vr DESTDIR/usr/lib32/* $1/usr/lib32
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
