@@ -1,1 +1,3 @@
-m4 make
+glibc
+gmp
+lib32-gmp make
