@@ -28,7 +28,7 @@ util-linux
 xz
 gperf make
 meson make
-shadow make
+shadow make optional
 lib32-bzip2 make
 lib32-curl make
 lib32-dbus make
