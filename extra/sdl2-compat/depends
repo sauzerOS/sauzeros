@@ -1,1 +1,5 @@
+glibc
 sdl3
+cmake make
+rsync make
+lib32-sdl3 make
