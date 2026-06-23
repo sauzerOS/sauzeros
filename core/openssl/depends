@@ -1,4 +1,4 @@
-brotli
+brotli optional
 glibc
 perl
 zlib-ng
