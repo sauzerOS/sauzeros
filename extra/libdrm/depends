@@ -1,4 +1,4 @@
+glibc
 libpciaccess
-linux-headers make
-meson         make
-pkgconf       make
+meson make
+lib32-libpciaccess make
