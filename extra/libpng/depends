@@ -1,3 +1,3 @@
-cmake make
-which
 zlib-ng
+cmake make
+lib32-zlib-ng make
