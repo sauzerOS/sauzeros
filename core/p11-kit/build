@@ -31,7 +31,7 @@ fi
 meson setup p11-build "${meson_options[@]}"
 
 meson compile -C p11-build
-DESTDIR=$1 meson install -C p11-build
+meson install -C p11-build --destdir=$1
 
 # Fix incorrect paths from cross-compilation
 if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
@@ -45,6 +45,7 @@ ln -sfv "$PREFIX/libexec/p11-kit/trust-extract-compat" \
         "$1$PREFIX/bin/update-ca-certificates"
 ln -sfv ./pkcs11/p11-kit-trust.so "$1$PREFIX/lib/libnssckbi.so"
 
+if [ "$MULTILIB" = "1" ]; then
 #32 bit split package
 rm -rf p11-build
 meson setup p11-build                       \
@@ -59,3 +60,4 @@ meson install -C p11-build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 install -d "$dest_dir/usr/lib32"
 cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+fi
