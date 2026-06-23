@@ -1,4 +1,8 @@
-libSM
+glibc
+libice
+libsm
 libx11
-pkgconf   make
-xorgproto make
+xorgproto
+xorg-util-macros make
+lib32-libsm make
+lib32-libx11 make
