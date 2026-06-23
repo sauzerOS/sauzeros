@@ -5,4 +5,3 @@ python-vcs-versioning
 python-build make
 python-installer make
 python-wheel make
-git make
