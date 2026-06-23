@@ -41,10 +41,20 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
         rm -rf "$1$PREFIX/$HOKUTO_ARCH-linux-gnu"
     fi
 fi
-
 ln -sfv "$PREFIX/libexec/p11-kit/trust-extract-compat" \
         "$1$PREFIX/bin/update-ca-certificates"
-
 ln -sfv ./pkcs11/p11-kit-trust.so "$1$PREFIX/lib/libnssckbi.so"
 
+#32 bit split package
+rm -rf p11-build
+meson setup p11-build                       \
+            --prefix=/usr                   \
+            --buildtype=release             \
+            --cross-file=lib32              \
+            -D test=false                   \
+            -D trust_paths=/etc/pki/anchors
 
+meson compile -C p11-build
+meson install -C p11-build --destdir=$PWD/DESTDIR
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
