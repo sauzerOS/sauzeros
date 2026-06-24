@@ -390,6 +390,8 @@ echo "Extracting GNUTLS server auth certificates"
 "${TRUST}" extract --filter=ca-anchors --format=pem-bundle \
                    --purpose server-auth --overwrite --comment "${DESTDIR}${CABUNDLE}"
 ln -sf ../../pki/tls/certs/ca-bundle.crt "${DESTDIR}${CERTDIR}/ca-bundle.crt"
+ln -sf ../../pki/tls/certs/ca-bundle.crt "${DESTDIR}${CERTDIR}/ca-certificates.crt"
+ln -sf pki/tls/certs/ca-bundle.crt "${DESTDIR}${SSLDIR}/cert.pem"
 
 echo "Extracting GNUTLS S-Mime certificates"
 "${TRUST}" extract --filter=ca-anchors --format=pem-bundle \
