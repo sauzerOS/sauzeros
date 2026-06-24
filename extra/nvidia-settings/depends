@@ -1,0 +1,7 @@
+gtk+3
+jansson
+libvdpau
+libxnvctrl runtime
+libxv
+nvidia-utils
+vulkan-headers make
