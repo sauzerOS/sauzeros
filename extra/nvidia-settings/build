@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+export PREFIX=/usr
+export NV_USE_BUNDLED_LIBJANSSON=0
+export OUTPUTDIR=out
+
+patch -Np1 -i nvidia-settings-libxnvctrl_so.patch
+export CFLAGS+=" -ffat-lto-objects"
+DESTDIR="${1}" make install
+
+install -D -m644 doc/nvidia-settings.desktop "${1}/usr/share/applications/nvidia-settings.desktop"
+install -D -m644 doc/nvidia-settings.png "${1}/usr/share/pixmaps/nvidia-settings.png"
+sed \
+  -e 's:__UTILS_PATH__:/usr/bin:' \
+  -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' \
+  -e 's/__NVIDIA_SETTINGS_DESKTOP_CATEGORIES__/Settings;HardwareSettings;/' \
+  -e 's/Icon=.*/Icon=nvidia-settings/' \
+  -i "${1}/usr/share/applications/nvidia-settings.desktop"
+
+# libxnvctrl split package
+pkgdir=$HOKUTO_SPLIT_DIR/libxnvctrl
+install -d "$pkgdir"
+install -Dm 644 doc/{NV-CONTROL-API.txt,FRAMELOCK.txt} -t "${pkgdir}/usr/share/doc/libxnvctrl"
+install -Dm 644 samples/{Makefile,README,*.c,*.h,*.mk} -t "${pkgdir}/usr/share/doc/libxnvctrl/samples"
+
+install -Dm 644 src/libXNVCtrl/*.h -t "${pkgdir}/usr/include/NVCtrl"
+install -d "${pkgdir}/usr/lib"
+cp -Pr src/out/libXNVCtrl.* -t "${pkgdir}/usr/lib"

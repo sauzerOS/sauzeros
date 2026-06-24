@@ -1,0 +1,8 @@
+libxext
+gtk+3 make
+jansson make
+libvdpau make
+libxext make
+libxv make
+nvidia-utils make
+vulkan-headers make
