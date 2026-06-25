@@ -1,10 +1,11 @@
 brotli
-libuv
 icu
-openssl
-ninja
+libffi
+libuv
 nghttp2
+openssl
 zlib-ng
+zstd
 procps-ng make
 python make
 aarch64-libuv cross make
