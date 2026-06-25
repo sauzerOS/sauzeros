@@ -1,4 +1,3 @@
-gettext       make
 glib
-libffi
-vala
+gobject-introspection make
+vala make
