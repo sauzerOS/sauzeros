@@ -8,6 +8,8 @@ sdl3
 shaderc
 unzip
 xrandr
+clang make
 cmake make
 extra-cmake-modules make
+lld make
 llvm make
