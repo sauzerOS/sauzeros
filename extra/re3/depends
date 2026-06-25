@@ -1,2 +1,4 @@
 cmake make
+clang make
+lld make
 llvm make
