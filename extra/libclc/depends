@@ -1,2 +1,5 @@
-spirv-llvm-translator
+clang make
 cmake make
+llvm make
+python make
+spirv-llvm-translator make
