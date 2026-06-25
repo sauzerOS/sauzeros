@@ -1,20 +1,55 @@
-autoconf
+alsa-lib
 botan
-cbindgen
+bzip2
+cairo
+dbus
 dbus-glib
+ffmpeg
+fontconfig
+freetype
+gcc-libs
+gdk-pixbuf
+glib
+glibc
+gnupg
 gtk+3
-icu
+hunspell
+json-c
+libcanberra
 libevent
+libffi
+libjpeg-turbo
+libnotify suggest
 libvpx
-llvm
+libwebp
+libx11
+libxcomposite
+libxdamage
+libxext
+libxfixes
+libxrender
 mailcap
-nasm
 nspr
 nss
-nodejs
+pango
+pixman
 pulseaudio
-startup-notification
+sqlite
+cbindgen make
+clang make
+diffutils make
+libice make
+libsm make
+lld make
+llvm make
+mesa make
+nasm make
+nodejs make
+perl make
+python make
+rust make
 unzip make
 wasi-compiler-rt make
 wasi-libc make
 wasi-libc++ make
+zip make
