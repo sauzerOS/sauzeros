@@ -1,3 +1,6 @@
-libxml2
+bash
+glibc
 libgcrypt
-pkgconf
+libxml2
+xz
+python make
