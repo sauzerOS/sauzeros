@@ -1,0 +1,8 @@
+gnutls
+lib32-brotli
+lib32-libidn2
+lib32-libtasn1
+lib32-nettle
+lib32-p11-kit
+lib32-zlib-ng
+lib32-zstd
