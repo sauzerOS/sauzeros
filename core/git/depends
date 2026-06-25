@@ -1,8 +1,10 @@
-brotli
 curl
 expat
-gettext
+grep
 openssl
-util-linux optional
+pcre2
+perl
 zlib-ng
+less suggest
+libsecret suggest
 python make
