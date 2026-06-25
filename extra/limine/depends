@@ -1,4 +1,6 @@
-llvm
-mtools
-nasm
-
+glibc
+clang make
+lld make
+llvm make
+mtools make
+nasm make
