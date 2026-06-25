@@ -1,5 +1,5 @@
 vulkan-headers
-vulkan-loader
+vulkan-icd-loader
 spirv-headers
 spirv-tools
 glslang

@@ -10,11 +10,11 @@ gst-plugins-ugly
 gstreamer
 libglvnd
 libunwind
-mesa-32
+lib32-mesa
 mingw-gcc
 pulseaudio
 sdl2-compat
 spirv-headers
 spirv-tools
 vulkan-headers
-vulkan-loader
+vulkan-icd-loader
