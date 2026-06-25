@@ -22,3 +22,6 @@ cp kernel-open/*.ko "$1/lib/modules/${KERNEL_VERSION}/kernel/drivers/video/"
 
 install -d $1/etc/modprobe.d
 cp nvidia.conf $1/etc/modprobe.d/
+
+# compress modules
+find "$1" -name '*.ko' -exec zstd --rm -19 {} +
