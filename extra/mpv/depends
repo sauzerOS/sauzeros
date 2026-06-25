@@ -1,15 +1,40 @@
 alsa-lib
+desktop-file-utils
 ffmpeg
-freetype
+glibc
+hicolor-icon-theme
+little-cms
+libarchive
 libass
-libplacebo
+ffmpeg
+libcdio
+libcdio-paranoia
 libdisplay-info
-linux-headers
+libdrm
+libglvnd
+libjpeg-turbo
+pipewire
+libplacebo
+pulseaudio
+libva
+libvdpau
+libx11
+libxext
+libxkbcommon
 libxpresent
-libxscrnsaver
+libxrandr
+libxss
+libxv
 luajit
 mesa
 mujs
-pkgconf
-python
-xrandr
+openal
+sdl2-compat
+vulkan-icd-loader
+wayland
+zlib-ng
+yt-dlp suggest
+ffnvcodec-headers make
+meson make
+vulkan-headers make
+wayland-protocols make 
