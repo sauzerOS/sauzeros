@@ -1,4 +1,19 @@
-llvm
-llvm-32 make
+bash
+clang
+curl
+gcc
+gcc-libs
+glibc
+sqlite
+lld
+llvm-libs
+openssl
+sqlite
+zlib-ng
+cmake make
+libffi make
+llvm make
+perl make
+python make
 aarch64-llvm cross make
 qemu-user-static cross make

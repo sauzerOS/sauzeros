@@ -73,7 +73,6 @@ unset LIBRARY_PATH
 fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
-# Standard T2-style pkg-config helpers
 [ ! -e /usr/include/libssh2.h ] || export LIBSSH2_SYS_USE_PKG_CONFIG=1
 [ ! -e /usr/include/sqlite3.h ] || export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 fi
@@ -127,7 +126,7 @@ install -d $1/usr/bin
     ln -sf "../../aarch64-linux-gnu/lib/rustlib/aarch64-unknown-linux-gnu" "$1/usr/lib/rustlib/aarch64-unknown-linux-gnu"
 
     # We don't need the cross-compiler binaries in the prefix since we use host rustc
-    # But we keep them for now to avoid breaking existing users of the prefix binaries, 
+    # But we keep them for now to avoid breaking existing users of the prefix binaries,
     # though they are likely broken (x86 binaries in aarch64 prefix).
     # actually, let's just trust the wrapper and host rustc.
 fi
@@ -136,3 +135,11 @@ fi
 rm -rf \
     "$1/usr/lib/rustlib/src/" \
     "$1/usr/lib/rustlib/uninstall.sh"
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit lib32-rust-libs split package
+_pick "$1" lib32-rust-libs usr/lib/rustlib/i686-unknown-linux-gnu
+cd $HOKUTO_SPLIT_DIR/lib32-rust-libs
+mkdir -pv usr/lib32
+ln -srvft usr/lib32 usr/lib/rustlib/i686-unknown-linux-gnu/lib/*.so
+fi
