@@ -1,20 +1,27 @@
+glibc
 hicolor-icon-theme
 libnetfilter_queue
 libnfnetlink
 opensnitch-ebpf-module
 protobuf
+python
 python-grpcio
-python-protobuf
-python-slugify
-python-pyqt6
-python-pyinotify
 python-notify2
 python-packaging
+python-protobuf
+python-pyinotify
+python-pyqt6
+python-slugify
 python-typing-extensions
 bc make
+clang make
 go make
 libelf make
 llvm make
+python-build make
 python-grpcio-tools make
+python-installer make
 python-jaraco.text make
+python-setuptools make
+python-wheel make
 qt make
