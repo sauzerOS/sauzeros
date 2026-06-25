@@ -168,6 +168,7 @@ install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
 ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
 
 # clang split package
+rm -rf "$1/usr/lib/clang/22/lib/i386-"*
 _pick "$1" clang usr/bin/clang*
 _pick "$1" clang usr/bin/git-clang-format
 _pick "$1" clang $libdir/libclang*
@@ -232,7 +233,8 @@ _pick "$PWD/DESTDIR" lib32-llvm-libs $libdir/LLVMgold.so
 install -d "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins"
 ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
 
-# clang split package
+# lib32-clang split package
+rm -rf "$PWD/DESTDIR/usr/lib32/clang/22/lib/x86_64-"*
 _pick "$PWD/DESTDIR" lib32-clang $libdir/libclang*
 _pick "$PWD/DESTDIR" lib32-clang $libdir/clang/*
 _pick "$PWD/DESTDIR" lib32-clang $libdir/cmake/clang/*
