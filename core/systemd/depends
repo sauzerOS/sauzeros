@@ -27,7 +27,7 @@ libxkbcommon make
 libxslt make
 linux-headers make
 meson make
-python-jinja make
+python-jinja2 make
 python-pefile make
 python-pyelftools make
 shadow make optional
