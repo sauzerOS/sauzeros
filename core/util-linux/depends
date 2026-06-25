@@ -1,5 +1,6 @@
 coreutils
-gettext
+file
+gcc-libs
 glibc
 libcap-ng
 libxcrypt
