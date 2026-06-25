@@ -1,6 +1,12 @@
+gcc-libs
+glib
+glibc
+glibmm
+gtk
 gtkmm
 json-glib
 libcanberra
-pulseaudio
 libsigc++
-gettext make
+pulseaudio
+meson make
+
