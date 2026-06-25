@@ -4,5 +4,4 @@ wayland
 cmake make
 gtk+3 make
 meson make
-ninja make
 wayland-protocols make
