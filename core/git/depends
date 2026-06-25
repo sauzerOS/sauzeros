@@ -3,6 +3,6 @@ curl
 expat
 gettext
 openssl
-util-linux
+util-linux optional
 zlib-ng
 python make
