@@ -1,0 +1,8 @@
+freeglut
+lib32-glibc
+lib32-glu
+lib32-libglvnd
+lib32-libx11
+lib32-libxi
+lib32-libxrandr
+lib32-libxxf86vm 

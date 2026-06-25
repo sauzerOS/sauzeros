@@ -1,0 +1,16 @@
+glibc
+glu
+libglvnd
+libx11
+libxi
+libxrandr
+libxxf86vm
+cmake make
+mesa make
+lib32-glu make
+lib32-libglvnd make
+lib32-libx11 make
+lib32-libxi make
+lib32-libxrandr make
+lib32-libxxf86vm make
+lib32-mesa make
