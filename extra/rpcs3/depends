@@ -1,9 +1,26 @@
 alsa-lib
+curl
+ffmpeg
 flatbuffers
 glew<2.3
+glu
+libevdev
 libglvnd
+libpng
+libx11
+libxext
+llvm-libs
+openal
 pugixml
-vulkan-headers
+pulseaudio
+qt
+sdl3
+zlib-ng
+vulkan-icd-loader
+clang make
 cmake make
+lld make
 llvm make
 opencv make
+vulkan-headers make
+
