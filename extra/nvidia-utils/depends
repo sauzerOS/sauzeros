@@ -1,0 +1,4 @@
+egl-gbm
+egl-wayland
+egl-x11
+libglvnd

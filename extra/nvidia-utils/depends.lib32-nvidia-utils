@@ -1,0 +1,4 @@
+nvidia-utils
+lib32-gcc-libs
+lib32-libglvnd
+lib32-zlib-ng
