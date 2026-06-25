@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 cd libclc
-
 cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=Release
