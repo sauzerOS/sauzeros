@@ -1,4 +1,3 @@
 libunistring
-texinfo
 lib32-libunistring make
 aarch64-gcc cross make
