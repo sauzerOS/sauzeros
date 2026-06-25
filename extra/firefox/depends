@@ -1,42 +1,49 @@
 alsa-lib
-bzip2
+at-spi2-core
+bash
 cairo
-cbindgen
-expat
+dbus
 ffmpeg
 fontconfig
 freetype
+gcc-libs
 gdk-pixbuf
 glib
+glibc
 gtk+3
-libdrm
-libffi
-libjpeg-turbo
+hicolor-icon-theme
+libnotify
 libpng
-libva
 libvpx
 libwebp
+libx11
+libxcb
 libxcomposite
 libxdamage
-m4
+libxext
+libxfixes
+libxrandr
+libxss
+libxt
 mailcap
-mesa
-nasm
 nspr
 nss
-nvidia-vaapi-driver
+nvidia-vaapi-driver suggest
 pango
-pixman
-pkgconf
+pipewire
 pulseaudio
+cbindgen make
+clang make
+diffutils make
+lld make
+llvm make
+mesa make
+nasm make
+nodejs make
 python make
 rust make
-wayland
-wayland-protocols
-zlib-ng
-llvm make
-nodejs make
 unzip make
 wasi-compiler-rt make
 wasi-libc make
 wasi-libc++ make
+zip make
