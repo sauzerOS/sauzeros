@@ -1,7 +1,7 @@
 coreutils
 glibc
 libtasn1
-libxslt
+bash-completion make
 libffi make
 meson make
 systemd make optional
