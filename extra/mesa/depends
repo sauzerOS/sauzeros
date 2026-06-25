@@ -1,30 +1,36 @@
-bison
-cbindgen
 expat
-flex
-glslang
+glibc
 libdrm
 libelf
+gcc-libs
 libglvnd
-libvdpau
+libx11
 libxcb
-libxfixes
+libxext
 libxshmfence
 libxxf86vm
-linux-headers
-llvm
-llvm-32
-m4
-meson
-pkgconf
-python
-python-mako
-python-pyyaml
-rust
-rust-bindgen
-vulkan-loader
+llvm-libs
+lm-sensors
+spirv-tools
 wayland
-wayland-protocols
 zlib-ng
-libva optional
-libclc
+zstd
+cbindgen make
+clang make
+cmake make
+glslang make
+libdisplay-info make
+libpng make
+libva make
+libxrandr make
+llvm make
+meson make
+python-mako make
+python-packaging make
+python-ply make
+python-pycparser make
+systemd make
+vulkan-icd-loader make
+wayland-protocols make
+xcb-util-keysyms make
+xorgproto make

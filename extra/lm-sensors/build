@@ -4,3 +4,15 @@ make PREFIX=/usr
 make BUILD_STATIC_LIB=0 \
     PREFIX=/usr SBINDIR=/usr/bin MANDIR=/usr/share/man DESTDIR=$1 install
 
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+make clean
+sed -i 's/CC := gcc/CC := gcc -m32/' Makefile
+make PREFIX=/usr
+make PREFIX=/usr LIBDIR=/usr/lib32 BUILD_STATIC_LIB=0 DESTDIR=$PWD/DESTDIR install
+rm -r "$PWD/DESTDIR"/etc/
+rm -r "$PWD/DESTDIR"/usr/{bin,sbin,include,man}
+rm -r "$PWD/DESTDIR"/usr/share/zsh
+
+_pick "$PWD/DESTDIR" lib32-lm-sensors *
+fi

@@ -6,15 +6,114 @@ meson setup build              \
     --mandir=/usr/share/man    \
     --localstatedir=/var       \
     --buildtype=release        \
+    --optimization 2           \
     -D platforms=x11,wayland   \
     -D egl=enabled             \
     -D valgrind=disabled       \
     -D libunwind=disabled      \
-    -D glvnd=true              \
-    -D vulkan-drivers="swrast" \
-    -D gallium-drivers="virgl,svga,softpipe,llvmpipe"  \
+    -D glvnd=enabled           \
+    -D vulkan-drivers="amd,swrast,virtio,broadcom" \
+    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
+    -D vulkan-manifest-per-architecture=false \
+    -D gallium-drivers="llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
+    -D gallium-extra-hud=true  \
+    -D gallium-mediafoundation=disabled \
+    -D intel-rt=enabled        \
+    -D intel-virtio-experimental=true \
     -D gles1=disabled          \
     -D video-codecs=all
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+libdir=usr/lib
+
+_pick vulkan-broadcom $libdir/libvulkan_broadcom.so
+_pick vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+
+_pick vulkan-radeon $libdir/libvulkan_radeon.so
+_pick vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
+_pick vulkan-radeon usr/share/vulkan/icd.d/radeon_icd.json
+
+_pick vulkan-swrast $libdir/libvulkan_lvp.so
+_pick vulkan-swrast usr/share/vulkan/icd.d/lvp_icd.json
+
+_pick vulkan-virtio $libdir/libvulkan_virtio.so
+_pick vulkan-virtio usr/share/vulkan/icd.d/virtio_icd.json
+
+_pick vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_anti_lag.so
+_pick vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
+_pick vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
+
+_pick vulkan-mesa-layers $libdir/libVkLayer_*.so
+_pick vulkan-mesa-layers usr/bin/mesa-*-control.py
+_pick vulkan-mesa-layers usr/share/vulkan/explicit_layer.d
+
+_pick mesa-gbm $libdir/libgbm.so*
+_pick mesa-gbm $libdir/pkgconfig/gbm.pc
+_pick mesa-gbm $libdir/gbm/dri_gbm.so
+_pick mesa-gbm usr/include/gbm.h
+_pick mesa-gbm usr/include/gbm_backend_abi.h
+
+# indirect rendering
+pushd $1
+ln -sr $libdir/libGLX_{mesa,indirect}.so.0
+popd
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+meson setup build              \
+      --cross-file=lib32       \
+      --prefix=/usr            \
+      --buildtype=release      \
+      --optimization 2         \
+    -D platforms=x11,wayland   \
+    -D egl=enabled             \
+    -D valgrind=disabled       \
+    -D libunwind=disabled      \
+    -D glvnd=enabled           \
+    -D vulkan-drivers="amd,swrast,virtio,broadcom" \
+    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
+    -D vulkan-manifest-per-architecture=false \
+    -D gallium-drivers="llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
+    -D gallium-extra-hud=true  \
+    -D gallium-mediafoundation=disabled \
+    -D intel-virtio-experimental=true \
+    -D gles1=disabled          \
+    -D video-codecs=all
+
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
+
+libdir=usr/lib32
+
+_pick "$PWD/DESTDIR" lib32-vulkan-broadcom $libdir/libvulkan_broadcom.so
+_pick "$PWD/DESTDIR" lib32-vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+
+_pick "$PWD/DESTDIR" lib32-vulkan-radeon $libdir/libvulkan_radeon.so
+_pick "$PWD/DESTDIR" lib32-vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
+_pick "$PWD/DESTDIR" lib32-vulkan-radeon usr/share/vulkan/icd.d/radeon_icd.json
+
+_pick "$PWD/DESTDIR" lib32-vulkan-swrast $libdir/libvulkan_lvp.so
+_pick "$PWD/DESTDIR" lib32-vulkan-swrast usr/share/vulkan/icd.d/lvp_icd.json
+
+_pick "$PWD/DESTDIR" lib32-vulkan-virtio $libdir/libvulkan_virtio.so
+_pick "$PWD/DESTDIR" lib32-vulkan-virtio usr/share/vulkan/icd.d/virtio_icd.json
+
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_anti_lag.so
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
+
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers $libdir/libVkLayer_*.so
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers usr/bin/mesa-*-control.py
+_pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers usr/share/vulkan/explicit_layer.d
+
+_pick "$PWD/DESTDIR" lib32-mesa-gbm $libdir/libgbm.so*
+_pick "$PWD/DESTDIR" lib32-mesa-gbm $libdir/pkgconfig/gbm.pc
+_pick "$PWD/DESTDIR" lib32-mesa-gbm $libdir/gbm/dri_gbm.so
+_pick "$PWD/DESTDIR" lib32-mesa-gbm usr/include/gbm.h
+_pick "$PWD/DESTDIR" lib32-mesa-gbm usr/include/gbm_backend_abi.h
+
+_pick "$PWD/DESTDIR" lib32-mesa *
+fi
