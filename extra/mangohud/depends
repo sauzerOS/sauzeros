@@ -20,4 +20,4 @@ lib32-libxkbcommon make
 lib32-libxrandr make
 lib32-vulkan-icd-loader make
 lib32-wayland make
-lib32-x11 make
+lib32-libx11 make

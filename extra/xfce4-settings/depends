@@ -12,8 +12,8 @@ gnome-icon-theme
 gtk+3
 libcanberra
 libnotify
-libICE
-libSM
+libice
+libsm
 libx11
 libxau
 libxcomposite

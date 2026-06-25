@@ -4,10 +4,10 @@ libdrm
 libepoxy
 libevdev
 libfontenc
-libICE
+libice
 libinput
 libpciaccess
-libSM
+libsm
 libunwind
 libx11
 libxcomposite
@@ -27,7 +27,7 @@ libxpresent
 libxrandr
 libxrender
 libxres
-libxscrnsaver
+libxss
 libxshmfence
 libxt
 libxtst

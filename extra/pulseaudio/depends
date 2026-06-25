@@ -32,4 +32,4 @@ lib32-glib make
 lib32-libsndfile make
 lib32-libxcb make
 lib32-systemd make
-lib32-x11 make
+lib32-libx11 make

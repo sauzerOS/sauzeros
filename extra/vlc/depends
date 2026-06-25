@@ -17,8 +17,8 @@ jansson
 keyutils
 lame
 libmpeg2
-libICE
-libSM
+libice
+libsm
 libx11
 libxau
 libxcomposite

@@ -7,6 +7,6 @@ python-lxml make
 vulkan-headers make
 wayland make
 lib32-nvidia-utils
-lib32-x11 make
+lib32-libx11 make
 lib32-libxrandr make
 lib32-wayland make

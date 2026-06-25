@@ -10,8 +10,8 @@ gdk-pixbuf
 glib
 gtk+3
 gtk-layer-shell
-libICE
-libSM
+libice
+libsm
 libx11
 libxau
 libxcomposite
