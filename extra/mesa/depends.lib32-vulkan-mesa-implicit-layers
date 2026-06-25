@@ -1,0 +1,6 @@
+vulkan-mesa-implicit-layers 
+lib32-gcc-libs
+lib32-glibc
+lib32-libdrm
+lib32-libxcb
+lib32-wayland

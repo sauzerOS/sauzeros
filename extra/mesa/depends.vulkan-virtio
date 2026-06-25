@@ -1,0 +1,15 @@
+expat
+gcc-libs
+glibc
+libdisplay-info
+libdrm
+libx11
+libxcb
+libxshmfence
+systemd
+vulkan-icd-loader
+vulkan-mesa-implicit-layers
+wayland
+xcb-util-keysyms
+zlib-ng
+zstd 
