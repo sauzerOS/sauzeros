@@ -1,1 +1,1 @@
-https://github.com/scop/bash-completion/archive/refs/tags/${version}.tar.gz
+https://github.com/scop/bash-completion/releases/download/${version}/bash-completion-${version}.tar.xz
