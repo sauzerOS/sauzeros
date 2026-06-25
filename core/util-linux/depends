@@ -9,6 +9,7 @@ pam
 readline
 systemd optional
 zlib-ng
+bash-completion make
 meson make
 python make
 sqlite make
