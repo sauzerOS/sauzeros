@@ -1,8 +1,45 @@
 #!/bin/sh -e
 
 cd llvm
-grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
-sed 's/utility/tool/' -i utils/FileCheck/CMakeLists.txt
+# Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
+# installing static libraries; inspired by Gentoo
+_get_distribution_components() {
+  local target
+  # Scrape all "install-*-stripped" targets from the unified build
+  ninja -t targets | grep -Po 'install-\K.*(?=-stripped:)' | while read -r target; do
+    case $target in
+      # 1. Global / Meta exclusions
+      llvm-libraries|clang-libraries|distribution)
+        continue
+        ;;
+      # 2. Explicit LLVM passes (Shared, TableGen, Debugging, Testing)
+      LLVM|LLVMgold|LLVMDemangle|LLVMSupport|LLVMTableGen|LLVMDebuginfod|LLVMTestingAnnotations|LLVMTestingSupport)
+        ;;
+      # 3. Exclude all other static LLVM* libraries
+      LLVM*)
+        continue
+        ;;
+      # 4. Explicit Clang passes
+      clang|clangd|clang-*)
+        ;;
+      # 5. Exclude other static/internal Clang components
+      clang*|findAllSymbols)
+        continue
+        ;;
+      # 6. Exclude explicit unneeded binaries
+      llvm-exegesis)
+        continue
+        ;;
+      # 7. Fallback: Allow anything else (this automatically captures lld, compiler-rt components, etc.)
+    esac
+    echo "$target"
+  done
+}
+# Remove CMake find module for zstd; breaks if out of sync with upstream zstd
+rm cmake/modules/Findzstd.cmake
+# Build only minimal debug info to reduce size
+CFLAGS=${CFLAGS/-g /-g1 }
+CXXFLAGS=${CXXFLAGS/-g /-g1 }
 
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
 LLVM_SRC_DIR="$HOKUTO_BUILD_DIR/llvm"  # Adjust to your actual llvm subfolder
@@ -20,28 +57,36 @@ ninja -C $HOST_BUILD_DIR llvm-tblgen llvm-config clang-tblgen
 
 echo "=== Pass 2: Building Cross-Compiled LLVM ==="
 mkdir -p $CROSS_BUILD_DIR
-cmake -G Ninja -S $LLVM_SRC_DIR -B $CROSS_BUILD_DIR \
-    -D CMAKE_TOOLCHAIN_FILE=../aarch64-linux.cmake \
-    -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX \
-    -D LLVM_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/llvm-tblgen \
-    -D CLANG_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/clang-tblgen \
-    -D LLVM_CONFIG_PATH=$(pwd)/$HOST_BUILD_DIR/build-host/bin/llvm-config \
-    -D LLVM_DEFAULT_TARGET_TRIPLE=aarch64-linux-gnu \
-    -D LLVM_TARGETS_TO_BUILD="AArch64" \
-    -D LLVM_ENABLE_PROJECTS="clang;lld" \
-    -D LLVM_ENABLE_RUNTIMES="compiler-rt" \
-    -D CMAKE_BUILD_TYPE=Release \
-    -D LLVM_BUILD_LLVM_DYLIB=ON \
-    -D LLVM_LINK_LLVM_DYLIB=ON \
-    -D LLVM_ENABLE_RTTI=ON \
-    -D LLVM_ENABLE_FFI=ON \
-    -D LLVM_INCLUDE_BENCHMARKS=OFF \
-    -D CLANG_DEFAULT_PIE_ON_LINUX=ON \
-    -D CLANG_DEFAULT_LINKER=lld \
-    -D COMPILER_RT_BUILD_SANITIZERS=OFF \
-    -D CMAKE_SKIP_INSTALL_RPATH=ON \
+cmake_args=(
+-G Ninja -S $LLVM_SRC_DIR -B $CROSS_BUILD_DIR
+    -D CMAKE_TOOLCHAIN_FILE=../aarch64-linux.cmake
+    -D CMAKE_INSTALL_PREFIX=$CROSS_PREFIX
+    -D LLVM_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/llvm-tblgen
+    -D CLANG_TABLEGEN=$(pwd)/$HOST_BUILD_DIR/bin/clang-tblgen
+    -D LLVM_CONFIG_PATH=$(pwd)/$HOST_BUILD_DIR/build-host/bin/llvm-config
+    -D LLVM_DEFAULT_TARGET_TRIPLE=aarch64-linux-gnu
+    -D LLVM_TARGETS_TO_BUILD="AArch64"
+    -D LLVM_ENABLE_PROJECTS="clang;lld"
+    -D LLVM_ENABLE_RUNTIMES="compiler-rt"
+    -D CMAKE_BUILD_TYPE=Release
+    -D LLVM_BUILD_LLVM_DYLIB=ON
+    -D LLVM_LINK_LLVM_DYLIB=ON
+    -D LLVM_ENABLE_RTTI=ON
+    -D LLVM_ENABLE_FFI=ON
+    -D LLVM_INCLUDE_BENCHMARKS=OFF
+    -D CLANG_DEFAULT_PIE_ON_LINUX=ON
+    -D CLANG_DEFAULT_LINKER=lld
+    -D COMPILER_RT_BUILD_SANITIZERS=OFF
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
     -W no-dev
-
+)
+cmake "${cmake_args[@]}"
+cd build
+distribution_components=$(_get_distribution_components | paste -sd\;)
+test -n "$distribution_components"
+cmake_args+=(-DLLVM_DISTRIBUTION_COMPONENTS="$distribution_components")
+cd ..
+cmake "${cmake_args[@]}"
 cmake --build $CROSS_BUILD_DIR
 DESTDIR=$1 cmake --install $CROSS_BUILD_DIR
 
@@ -49,26 +94,60 @@ DESTDIR=$1 cmake --install $CROSS_BUILD_DIR
 install -d $1/usr/bin
 install -Dm755 ../aarch64-linux-gnu-llvm-config $1/usr/bin/aarch64-linux-gnu-llvm-config
 
+# llvm-libs split package
+libdir=usr/lib
+_pick "$1" llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
+_pick "$1" llvm-libs $libdir/LLVMgold.so
+
+# Symlink LLVMgold.so from /usr/lib/bfd-plugins
+# https://bugs.archlinux.org/task/28479
+install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
+ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
+
+# clang split package
+_pick "$1" clang usr/bin/clang*
+_pick "$1" clang usr/bin/git-clang-format
+_pick "$1" clang $libdir/libclang*
+_pick "$1" clang etc/clang/*
+_pick "$1" clang usr/include/clang-c/*
+_pick "$1" clang usr/include/clang/*
+_pick "$1" clang $libdir/clang/*
+_pick "$1" clang $libdir/cmake/clang/*
+_pick "$1" clang $libdir/libscanbuild/clang.py
+_pick "$1" clang usr/share/clang/*
+
+# lld split package
+_pick "$1" lld usr/bin/{ld.lld,ld64.lld,lld,lld-link,wasm-ld}
+_pick "$1" lld usr/include/lld/*
+_pick "$1" lld usr/include/cmake/lld/*
+_pick "$1" lld usr/lib/liblld*
+
 else
-
-CC=gcc CXX=g++                               \
-cmake -D CMAKE_INSTALL_PREFIX=/usr           \
-      -D CMAKE_SKIP_INSTALL_RPATH=ON         \
-      -D LLVM_ENABLE_FFI=ON                  \
-      -D CMAKE_BUILD_TYPE=Release            \
-      -D LLVM_BUILD_LLVM_DYLIB=ON            \
-      -D LLVM_LINK_LLVM_DYLIB=ON             \
-      -D LLVM_ENABLE_RTTI=ON                 \
-      -D LLVM_TARGETS_TO_BUILD="AArch64;AMDGPU;ARM;BPF;NVPTX;WebAssembly;X86" \
-      -D LLVM_BINUTILS_INCDIR=/usr/include   \
-      -D LLVM_INCLUDE_BENCHMARKS=OFF         \
-      -D CLANG_DEFAULT_PIE_ON_LINUX=ON       \
-      -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang \
-      -D LLVM_ENABLE_PROJECTS="clang;lld"    \
-      -D LLVM_ENABLE_RUNTIMES="compiler-rt"  \
-      -D CLANG_DEFAULT_LINKER=lld            \
+cmake_args=(
+      -D CMAKE_INSTALL_PREFIX=/usr
+      -D CMAKE_SKIP_INSTALL_RPATH=ON
+      -D LLVM_ENABLE_FFI=ON
+      -D CMAKE_BUILD_TYPE=Release
+      -D LLVM_BUILD_LLVM_DYLIB=ON
+      -D LLVM_LINK_LLVM_DYLIB=ON
+      -D LLVM_ENABLE_RTTI=ON
+      -D LLVM_TARGETS_TO_BUILD="AArch64;AMDGPU;ARM;BPF;NVPTX;WebAssembly;X86"
+      -D LLVM_BINUTILS_INCDIR=/usr/include
+      -D LLVM_INCLUDE_BENCHMARKS=OFF
+      -D CLANG_DEFAULT_PIE_ON_LINUX=ON
+      -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang
+      -D LLVM_ENABLE_PROJECTS="clang;lld"
+      -D LLVM_ENABLE_RUNTIMES="compiler-rt"
+      -D CLANG_DEFAULT_LINKER=lld
       -W no-dev -G Ninja -B build
-
+)
+cmake "${cmake_args[@]}"
+cd build
+distribution_components=$(_get_distribution_components | paste -sd\;)
+test -n "$distribution_components"
+cmake_args+=(-DLLVM_DISTRIBUTION_COMPONENTS="$distribution_components")
+cd ..
+cmake "${cmake_args[@]}"
 cmake --build build
 DESTDIR=$1 cmake --install build
 
@@ -76,4 +155,92 @@ mkdir -pv $1/etc/clang
 for i in clang clang++; do
   echo -fstack-protector-strong > $1/etc/clang/$i.cfg
 done
+fi
+
+# llvm-libs split package
+libdir=usr/lib
+_pick "$1" llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
+_pick "$1" llvm-libs $libdir/LLVMgold.so
+
+# Symlink LLVMgold.so from /usr/lib/bfd-plugins
+# https://bugs.archlinux.org/task/28479
+install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
+ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
+
+# clang split package
+_pick "$1" clang usr/bin/clang*
+_pick "$1" clang usr/bin/git-clang-format
+_pick "$1" clang $libdir/libclang*
+_pick "$1" clang etc/clang/*
+_pick "$1" clang usr/include/clang-c/*
+_pick "$1" clang usr/include/clang/*
+_pick "$1" clang $libdir/clang/*
+_pick "$1" clang $libdir/cmake/clang/*
+_pick "$1" clang $libdir/libscanbuild/clang.py
+_pick "$1" clang usr/share/clang/*
+
+# lld split package
+_pick "$1" lld usr/bin/{ld.lld,ld64.lld,lld,lld-link,wasm-ld}
+_pick "$1" lld usr/include/lld/*
+_pick "$1" lld usr/include/cmake/lld/*
+_pick "$1" lld usr/lib/liblld*
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+cmake_args=(
+      -D CMAKE_INSTALL_PREFIX=/usr
+      -D CMAKE_C_FLAGS:STRING=-m32
+      -D CMAKE_SKIP_INSTALL_RPATH=ON
+      -D CMAKE_CXX_FLAGS:STRING=-m32
+      -D LLVM_TARGET_ARCH:STRING=i686
+      -D LLVM_LIBDIR_SUFFIX=32
+      -D LLVM_ENABLE_FFI=ON
+      -D CMAKE_BUILD_TYPE=Release
+      -D LLVM_BUILD_LLVM_DYLIB=ON
+      -D LLVM_LINK_LLVM_DYLIB=ON
+      -D LLVM_ENABLE_RTTI=ON
+      -D LLVM_DEFAULT_TARGET_TRIPLE="i686-pc-linux-gnu"
+      -D LLVM_TARGETS_TO_BUILD="BPF;X86;host;AMDGPU;NVPTX"
+      -D LLVM_HOST_TRIPLE="x86_64-pc-linux-gnu"
+      -D LLVM_BINUTILS_INCDIR=/usr/include
+      -D LLVM_INCLUDE_BENCHMARKS=OFF
+      -D CLANG_DEFAULT_PIE_ON_LINUX=ON
+      -D CLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang
+      -D LLVM_ENABLE_PROJECTS="clang;lld"
+      -D LLVM_ENABLE_RUNTIMES="compiler-rt"
+      -D COMPILER_RT_INCLUDE_TESTS=OFF
+      -D CLANG_DEFAULT_LINKER=lld
+      -W no-dev -G Ninja -B build
+)
+cmake "${cmake_args[@]}"
+cd build
+distribution_components=$(_get_distribution_components | paste -sd\;)
+test -n "$distribution_components"
+cmake_args+=(-DLLVM_DISTRIBUTION_COMPONENTS="$distribution_components")
+cd ..
+cmake "${cmake_args[@]}"
+cmake --build build
+DESTDIR=$PWD/DESTDIR cmake --install build
+# lib32-llvm-libs split package
+libdir=usr/lib32
+_pick "$PWD/DESTDIR" lib32-llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
+_pick "$PWD/DESTDIR" lib32-llvm-libs $libdir/LLVMgold.so
+
+# Symlink LLVMgold.so from /usr/lib/bfd-plugins
+# https://bugs.archlinux.org/task/28479
+install -d "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins"
+ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
+
+# clang split package
+_pick "$PWD/DESTDIR" lib32-clang $libdir/libclang*
+_pick "$PWD/DESTDIR" lib32-clang $libdir/clang/*
+_pick "$PWD/DESTDIR" lib32-clang $libdir/cmake/clang/*
+_pick "$PWD/DESTDIR" lib32-clang $libdir/libscanbuild/clang.py
+
+# lib32-llvm split package
+_pick "$PWD/DESTDIR" lib32-llvm usr/bin/llvm-config32
+_pick "$PWD/DESTDIR" lib32-llvm $libdir/cmake/llvm/*
+_pick "$PWD/DESTDIR" lib32-llvm $libdir/libLLVM*
+_pick "$PWD/DESTDIR" lib32-llvm $libdir/libllvm*
 fi

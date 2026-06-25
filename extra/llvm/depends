@@ -1,7 +1,20 @@
 curl
-libedit
+glibc
+gcc-libs
 perl
-python
-zlib-ng
 cmake make
+libedit make
+libffi make
+libxml2 make
+python-build make
+python-installer make
+python-psutil make
+python-setuptools make
+python-wheel make
+zlib-ng make
+zstd make
+lib32-libffi make
+lib32-libxml2 make
+lib32-zlib-ng make
+lib32-zstd make
 aarch64-linux-headers cross
