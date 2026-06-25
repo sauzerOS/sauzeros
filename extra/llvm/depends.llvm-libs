@@ -1,0 +1,7 @@
+gcc-libs
+glibc
+libedit
+libffi
+libxml2
+zlib-ng
+zstd
