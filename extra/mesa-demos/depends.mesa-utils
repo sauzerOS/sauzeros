@@ -1,0 +1,9 @@
+glibc
+libdecor
+libdrm
+libglvnd
+libx11
+libxcb
+libxkbcommon
+vulkan-icd-loader
+wayland

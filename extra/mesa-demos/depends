@@ -1,0 +1,14 @@
+freeglut
+glibc
+glu
+libglvnd
+libx11
+libxext
+glslang make
+libdecor make
+libxkbcommon make
+mesa make
+meson make
+vulkan-headers make
+vulkan-icd-loader make
+wayland-protocols make
