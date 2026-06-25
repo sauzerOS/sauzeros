@@ -8,8 +8,8 @@ gdk-pixbuf
 glib
 gtk+3
 iceauth
-libICE
-libSM
+libice
+libsm
 libx11
 libxau
 libxcomposite

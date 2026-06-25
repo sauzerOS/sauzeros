@@ -8,8 +8,8 @@ garcon
 gdk-pixbuf
 glib
 gtk+3
-libICE
-libSM
+libice
+libsm
 libx11
 libxau
 libxcomposite
