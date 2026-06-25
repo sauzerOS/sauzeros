@@ -1,4 +1,8 @@
+glibc
+gcc-libs
 polkit
 scx-scheds
+clang make
 llvm make
+llvm-libs make
 rust make
