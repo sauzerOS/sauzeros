@@ -1,0 +1,5 @@
+pipewire-v4l2
+lib32-glibc
+lib32-libpipewire
+lib32-pipewire
+

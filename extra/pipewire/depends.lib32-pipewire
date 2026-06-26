@@ -4,4 +4,6 @@ lib32-dbus
 lib32-gcc-libs
 lib32-glib
 lib32-glibc
+lib32-libpipewire
 lib32-systemd
+lib32-pipewire-v4l2 suggest "V4L2 interceptor"
