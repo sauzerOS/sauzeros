@@ -1,0 +1,10 @@
+bluez
+dbus
+glib
+glibc
+gst-plugins-base
+gstreamer
+libpulse
+pulseaudio
+sbc
+gst-plugins-bad suggest

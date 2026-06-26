@@ -1,22 +1,29 @@
 alsa-lib
 bash
-bluez
 dbus
 gcc-libs
-gdbm
 glib
 glibc
 libcap
 libice
+libpusle runtime
 libsm
 libsndfile
 libx11
 libxcb
 libxtst
-sbc
+orc
 speexdsp
 systemd
+webrtc-audio-processing<2.0
+pulseaudio-alsa suggest
+pulseaudio-bluetooth suggest
+pulseaudio-equalizer suggest
+pulseaudio-lirc suggest
+pulseaudio-rtp suggest
+pulseaudio-zeroconf suggest
 attr make
+bluez make
 check make
 gst-plugins-base make
 gst-plugins-good make
