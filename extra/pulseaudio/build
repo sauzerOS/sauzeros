@@ -13,6 +13,57 @@ meson install -C build --destdir=$1
 # Remove systemwide conf
 rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"
 
+# Superseded by socket activation
+sed -e '/autospawn/iautospawn = no' \
+    -i $1/etc/pulse/client.conf
+
+# Disable cork-request module, can result in e.g. media players unpausing
+# when there's a Skype call incoming
+sed -e 's|/usr/bin/pactl load-module module-x11-cork-request|#&|' \
+    -i $1/usr/bin/start-pulseaudio-x11
+
+# Required by qpaeq
+sed -e '/Load several protocols/aload-module module-dbus-protocol' \
+    -i $1/etc/pulse/default.pa
+
+# Avoid warning about nonexistent dir
+# https://gitlab.archlinux.org/archlinux/packaging/packages/pulseaudio/-/issues/3
+mkdir -p $1/etc/pulse/{default,system}.pa.d
+
+# libpulse
+_pick "$1" libpulse etc/pulse/client.conf
+_pick "$1" libpulse usr/bin/pa{cat,ctl,dsp,mon,play,rec,record}
+_pick "$1" libpulse usr/lib/libpulse{,-simple,-mainloop-glib}.so*
+_pick "$1" libpulse usr/lib/{cmake,pkgconfig}
+_pick "$1" libpulse usr/lib/pulseaudio/libpulse{dsp,common-*}.so
+_pick "$1" libpulse usr/include
+_pick "$1" libpulse usr/share/man/man1/pa{cat,ctl,dsp,mon,play,rec,record}.1
+_pick "$1" libpulse usr/share/man/man5/pulse-client.conf.5
+_pick "$1" libpulse usr/share/bash-completion/completions/pa{cat,ctl,dsp,play,rec,record}
+_pick "$1" libpulse usr/share/bash-completion/completions/pulseaudio
+_pick "$1" libpulse usr/share/vala
+_pick "$1" libpulse usr/share/zsh
+
+# pulseaudio-zeroconf
+moddir=usr/lib/pulseaudio/modules
+_pick "$1" pulseaudio-zeroconf $moddir/libavahi-wrap.so
+_pick "$1" pulseaudio-zeroconf $moddir/module-zeroconf-{publish,discover}.so
+_pick "$1" pulseaudio-zeroconf $moddir/module-raop-discover.so
+
+# pulseaudio-bluetooth
+_pick "$1" pulseaudio-bluetooth $moddir/libbluez5-util.so
+_pick "$1" pulseaudio-bluetooth $moddir/module-bluetooth-{discover,policy}.so
+_pick "$1" pulseaudio-bluetooth $moddir/module-bluez5-{discover,device}.so
+
+# pulseaudio-equalizer
+_pick "$1" pulseaudio-equalizer $moddir/module-equalizer-sink.so
+_pick "$1" pulseaudio-equalizer usr/bin/qpaeq
+
+# pulseaudio-rtp
+_pick "$1" pulseaudio-rtp $moddir/lib{rtp,raop}.so
+_pick "$1" pulseaudio-rtp $moddir/module-rtp-{send,recv}.so
+_pick "$1" pulseaudio-rtp $moddir/module-raop-sink.so
+
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
@@ -27,7 +78,7 @@ meson setup build               \
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
-dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-libpulse"
 install -d $dest_dir/usr/lib32
 cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
