@@ -1,0 +1,6 @@
+gcc-libs
+glib
+glibc
+gst-plugins-bad
+gst-plugins-base
+gstreamer

@@ -1,21 +1,104 @@
-alsa-lib
-cairo
-ffmpeg
-flac
-gdk-pixbuf
 glib
-gobject-introspection
-lame
-libcdio
-libglvnd
-libogg
-libpng
-libvorbis
-libvpx
-nasm
-pango
-pulseaudio
-x264
+glibc
+libcap
+libelf
+gcc-libs
+libunwind
+liba52 make
+alsa-lib make
+libaom make
+bash-completion make
+bluez make
+bzip2 make
+cairo make
+cdparanoia make
+curl make
 faad2 make
+ffmpeg make
+flac make
+fluidsynth make
+gdk-pixbuf make
+git make
+gobject-introspection make
+graphene make
+gtk+3 make
+hicolor-icon-theme make
+iso-codes make
+json-glib make
+lame make
+little-cms make
+libass make
+libcdio make
+libde265 make
+libdrm make
+libdvdread make
+fdk-aac make
+libfreeaptx make
+libglvnd make
+libgudev make
+libjpeg-turbo make
+libldac make
+libmpeg2 make
+libogg make
+libpng make
+libpulse make
+librsvg make
+libsndfile make
+libsoup make
+libtheora make
+libunwind make
+libusb make
+libva make
+libvorbis make
+libvpx make
+libwebp make
+libwpe make
+libx11 make
+libxcb make
+libxdamage make
+libxext make
+libxfixes make
+libxi make
+libxkbcommon make
+libxml2 make
+libxrandr make
+libxtst make
+libxv make
+mesa make
 meson make
+mpg123 make
+nasm make
+nettle make
+openal make
+openh264 make
+openjpeg make
+openssl make
+opus make
+orc make
+pango make
+python make
+python-cairo make
+python-pygobject make
+python-lxml make
+python-setuptools make
+python-typing_extensions make
+qrencode make
+qt6 make
+sbc make
+sdl2-compat make
+shaderc make
+spandsp make
+speex make
+systemd make
+taglib make
 twolame make
+v4l-utils make
+vulkan-headers make
+vulkan-icd-loader make
+wayland make
+wayland-protocols make
+webrtc-audio-processing-1 make
+x264 make
+x265 make
+zlib-ng make
+zxing-cpp make
