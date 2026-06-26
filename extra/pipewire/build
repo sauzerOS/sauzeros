@@ -1,7 +1,8 @@
 #!/bin/sh -e
+_pwname=pipewire-0.3
+_spaname=spa-0.2
 
-meson setup build                        \
-    --prefix=/usr                        \
+hokuto-meson build                       \
     --buildtype=release                  \
     -D bluez5=enabled                    \
     -D bluez5-backend-hsp-native=enabled \
@@ -12,21 +13,125 @@ meson setup build                        \
 meson compile -C build
 meson install -C build --destdir=$1
 
-install -Dm 644 $1/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf $1/etc/alsa/conf.d
+pushd "$1"
+# Replace copies with symlinks
+for _f in pipewire-{aes67,avb,pulse}; do
+    cmp usr/bin/pipewire usr/bin/$_f
+    ln -sf pipewire usr/bin/$_f
+  done
+
+# directories for overrides
+mkdir -p etc/pipewire/{client-rt,client,minimal,pipewire}.conf.d
+popd
+
+# libpipewire
+_pick "$1" libpipewire usr/include/{$_pwname,$_spaname}
+_pick "$1" libpipewire usr/lib/$_spaname/libspa.so*
+_pick "$1" libpipewire usr/lib/lib$_pwname.so*
+_pick "$1" libpipewire usr/lib/pkgconfig/lib{$_pwname,$_spaname}.pc
+
+# alsa-card-profiles
+_pick "$1" alsa-card-profiles usr/lib/udev
+_pick "$1" alsa-card-profiles usr/share/alsa-card-profile
+
+# pipewire-audio
+_pick "$1" pipewire-audio usr/bin/pipewire-{aes67,avb}
+_pick "$1" pipewire-audio usr/bin/pw-{cat,loopback,mididump,midi2play,midi2record,sysex}
+_pick "$1" pipewire-audio usr/bin/pw-{dsd,enc,midi,}play
+_pick "$1" pipewire-audio usr/bin/pw-{midi,}record
+_pick "$1" pipewire-audio usr/bin/spa-{acp-tool,resample}
+_pick "$1" pipewire-audio usr/lib/alsa-lib
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-avb.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-echo-cancel.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-fallback-sink.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-filter-chain*.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-loopback.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-netjack2*.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-parametric-equalizer.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-pipe-tunnel.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-protocol-simple.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-rtp-{sap,sink,source}.so
+_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-vban*.so
+_pick "$1" pipewire-audio usr/lib/$_spaname/{aec,alsa,audio*,avb,bluez5,filter-graph}
+_pick "$1" pipewire-audio usr/lib/systemd/user/filter-chain.service
+_pick "$1" pipewire-audio usr/share/alsa
+_pick "$1" pipewire-audio usr/share/man/man1/pw-{cat,loopback,mididump}.1
+_pick "$1" pipewire-audio usr/share/man/man1/spa-{acp-tool,resample}.1
+_pick "$1" pipewire-audio usr/share/man/man5/pipewire-filter-chain.conf.5
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-avb.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-echo-cancel.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-fallback-sink.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-filter-chain*.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-loopback.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-netjack2*.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-parametric-equalizer.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-pipe-tunnel.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-protocol-simple.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-rtp-{sap,sink,source}.7
+_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-vban*.7
+_pick "$1" pipewire-audio usr/share/pipewire/filter-chain*
+_pick "$1" pipewire-audio usr/share/pipewire/pipewire-{aes67,avb}.conf
+_pick "$1" pipewire-audio usr/share/$_spaname/bluez5
+
+mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d"
+ln -st "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d" \
+/usr/share/alsa/alsa.conf.d/50-pipewire.conf
+
+# pipewire-alsa
+pkgdir="$HOKUTO_SPLIT_DIR/pipewire-alsa"
+install -d $pkgdir
+mkdir -p "$pkgdir/etc/alsa/conf.d"
+ln -st "$pkgdir/etc/alsa/conf.d" \
+/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf
+
+install -Dm644 /dev/null \
+"$pkgdir/usr/share/pipewire/media-session.d/with-alsa"
+
+# pipewire-pulse
+_pick "$1" pipewire-pulse usr/bin/pipewire-pulse
+_pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-protocol-pulse.so
+_pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-pulse-tunnel.so
+_pick "$1" pipewire-pulse usr/lib/systemd/user/pipewire-pulse.*
+_pick "$1" pipewire-pulse usr/share/glib-2.0/schemas/org.freedesktop.pulseaudio.gschema.xml
+_pick "$1" pipewire-pulse usr/share/man/man1/pipewire-pulse.1
+_pick "$1" pipewire-pulse usr/share/man/man5/pipewire-pulse.conf.5
+_pick "$1" pipewire-pulse usr/share/man/man7/libpipewire-module-{protocol-pulse,pulse-tunnel}.7
+_pick "$1" pipewire-pulse usr/share/man/man7/pipewire-pulse*.7
+_pick "$1" pipewire-pulse usr/share/pipewire/pipewire-pulse.conf
+
+ # directory for overrides
+mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-pulse/etc/pipewire/pipewire-pulse.conf.d"
+
+install -Dm644 /dev/null \
+"$HOKUTO_SPLIT_DIR/pipewire-pulse/usr/share/pipewire/media-session.d/with-pulseaudio"
+
+# gst-plugin-pipewire
+_pick "$1" gst-plugin-pipewire usr/lib/gstreamer-1.0
+
+# pipewire-v4l2
+_pick "$1" pipewire-v4l2 usr/bin/pw-v4l2 usr/lib/$_pwname/v4l2
+_pick "$1" pipewire-v4l2 usr/share/man/man1/pw-v4l2.1
+
+# pipewire-x11-bell
+_pick "$1" pipewire-x11-bell usr/lib/$_pwname/libpipewire-module-x11-bell.so
+_pick "$1" pipewire-x11-bell usr/share/man/man7/libpipewire-module-x11-bell.7
 
 if [ "$MULTILIB" = "1" ]; then
-#32bit
+#32 bit lib32-pipewire
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 rm -rf build
-meson setup build            \
-    --cross-file=lib32       \
-    --prefix=/usr            \
-    --libdir=/usr/lib32      \
+hokuto-meson-32 build        \
     --buildtype=release      \
     -D session-managers="[]"
 
 meson compile -C build
-meson install -C build --destdir=$PWD/DESTDIR
-dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
-install -d $dest_dir/usr/lib32
-cp -vr DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+meson install -C build --destdir="$dest_dir"
+
+# lib32-libpipewire
+_pick "$dest_dir" lib32-libpipewire usr/lib32/$_spaname/libspa.so*
+_pick "$dest_dir" lib32-libpipewire usr/lib32/lib$_pwname.so*
+_pick "$dest_dir" lib32-libpipewire usr/lib32/pkgconfig/lib{$_pwname,$_spaname}.pc
+
+# lib32-pipewire-v4l2
+_pick "$dest_dir" lib32-pipewire-v4l2 usr/lib32/$_pwname/v4l2
 fi

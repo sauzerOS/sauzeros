@@ -1,0 +1,10 @@
+dbus
+dconf
+gcc-libs
+glib
+glibc
+libpipewire
+libpulse
+pipewire
+pipewire-audio
+wireplumber

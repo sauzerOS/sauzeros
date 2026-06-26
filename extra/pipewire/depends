@@ -1,29 +1,36 @@
-alsa-lib
-bluez
 dbus
-gcc-libs
 glib
 glibc
-gst-plugins-base
-gstreamer
-libcanberra
-fdk-aac
-libfreeaptx
-liblc3
-libldac
-libsndfile
+gcc-libs
 ncurses
-opus
-pulseaudio
 readline
-sbc
-spandsp
 systemd
-webrtc-audio-processing<=1.3
+gst-plugin-pipewire suggest "GStreamer plugin"
+pipewire-alsa suggest "ALSA configuration"
+pipewire-audio suggest "Audio support"
+pipewire-pulse suggest "PulseAudio replacement"
+pipewire-v4l2 suggest "V4L2 interceptor"
+pipewire-x11-bell suggest "X11 bell"
+wireplumber suggest "Session manager"
+alsa-lib make
+bluez-libs make
+fdk-aac make
+gst-plugins-base make
+libcanberra make
+libfreeaptx make
+liblc3 make
+libldac make
+libpulse make
+libsndfile make
 libusb make
 libx11 make
 libxfixes make
 meson make
+opus make
+sbc make
+sdl2-compat make
+spandsp make
+webrtc-audio-processing<2.0 make
 lib32-alsa-lib make
 lib32-dbus make
 lib32-glib make
