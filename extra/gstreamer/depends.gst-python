@@ -1,0 +1,8 @@
+glib
+glibc
+gst-plugins-base
+gstreamer
+python
+python-pygobject
+python-typing-extensions
+gst-plugins-bad suggest "GstAnalytics support"

@@ -1,0 +1,7 @@
+gcc-libs
+glib
+glibc
+gst-plugins-base
+gstreamer
+libglvnd
+qt6
