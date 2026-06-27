@@ -15,6 +15,13 @@ IP6_FILE="/var/tmp/last_cloudflare_ip6.txt"
 ID4_FILE="/var/tmp/cloudflare_record_id4.txt"
 ID6_FILE="/var/tmp/cloudflare_record_id6.txt"
 
+# IPv6 services used both to discover the public address and to verify which
+# local source address can actually reach the internet.
+IP6_SERVICES=(
+    "https://api64.ipify.org"
+    "https://ifconfig.me/ip"
+)
+
 # --- Function: Get or Fetch Record ID ---
 get_record_id() {
     local type=$1
@@ -73,6 +80,33 @@ update_record() {
     fi
 }
 
+# --- Function: Get current active IPv6 address ---
+get_current_ipv6() {
+    local address response service
+
+    while read -r address; do
+        for service in "${IP6_SERVICES[@]}"; do
+            response=$(curl -fsS -6 --connect-timeout 10 --max-time 20 --interface "$address" "$service" 2>/dev/null) || continue
+
+            if [[ "$response" == "$address" ]]; then
+                echo "$address"
+                return 0
+            fi
+        done
+    done < <(
+        ip -o -6 addr show scope global up |
+            awk '
+                / tentative | dadfailed | deprecated / { next }
+                {
+                    split($4, address, "/")
+                    print address[1]
+                }
+            '
+    )
+
+    return 1
+}
+
 # --- Main Logic ---
 
 # === IPv4 Track ===
@@ -92,7 +126,7 @@ fi
 # === IPv6 Track ===
 if [[ "$ENABLE_IPV6" = true ]]; then
     RECORD_ID6=$(get_record_id "AAAA" "$ID6_FILE")
-    CURRENT_IP6=$(curl -s -6 https://api.ipify.org || curl -s -6 https://ifconfig.me)
+    CURRENT_IP6=$(get_current_ipv6)
 
     if [[ -n "$RECORD_ID6" && -n "$CURRENT_IP6" ]]; then
         update_record "AAAA" "$RECORD_ID6" "$CURRENT_IP6" "$IP6_FILE" "$ID6_FILE"
