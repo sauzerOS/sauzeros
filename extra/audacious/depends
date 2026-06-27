@@ -1,35 +1,9 @@
 audacious-plugins optional
-brotli
-bzip2
-dbus
-fontconfig
-fribidi
+desktop-file-utils
 glib
-icu
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxdmcp
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libcap
-libepoxy
-libffi
-libglvnd
-libjpeg-turbo
-libtiff
-libwebp
-libxcb
-libxkbcommon
-pcre2
-pixman
-systemd
-util-linux
-wayland
+glibc
+hicolor-icon-theme
+gcc-libs
+qt
+unzip suggest
 meson make
