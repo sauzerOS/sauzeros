@@ -83,7 +83,7 @@ python-lxml make
 python-setuptools make
 python-typing_extensions make
 qrencode make
-qt6 make
+qt make
 sbc make
 sdl2-compat make
 shaderc make
