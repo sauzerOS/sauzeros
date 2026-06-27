@@ -16,3 +16,47 @@
 
 make
 make DESTDIR=$1 install
+
+# bluez-utils
+_pick "$1" bluez-utils usr/bin/{advtest,avinfo,avtest,bcmfw,bdaddr,bluemoon,bluetoothctl,bluetooth-player,bneptest,btattach,btconfig,btgatt-client,btgatt-server,btinfo,btiotest,btmgmt,btmon,btpclient,btpclientctl,btproxy,btsnoop,check-selftest,cltest,create-image,eddystone,gatt-service,hcieventmask,hcisecfilter,hex2hcd,hid2hci,hwdb,ibeacon,isotest,l2ping,l2test,mpris-proxy,nokfw,oobtest,rctest,rtlfw,scotest,seq2bseq,test-runner}
+_pick "$1" bluez-utils usr/lib/systemd/user/mpris-proxy.service
+_pick "$1" bluez-utils usr/share/man/man1/bluetoothctl*.1
+_pick "$1" bluez-utils usr/share/man/man1/{bdaddr,btattach,btmgmt,btmon,isotest,l2ping,rctest}.1
+_pick "$1" bluez-utils usr/share/man/man5/org.bluez.{A,B,C,D,G,I,L,M,N,P,T}*.5
+_pick "$1" bluez-utils usr/share/man/man7/{hci,l2cap,mgmt,sco,iso}.7
+_pick "$1" bluez-utils usr/share/zsh/site-functions/_bluetoothctl
+
+# bluez-libs
+_pick "$1" bluez-libs usr/include/bluetooth/
+_pick "$1" bluez-libs usr/lib/libbluetooth.so*
+_pick "$1" bluez-libs usr/lib/pkgconfig/
+
+# bluez-cups
+_pick "$1" bluez-cups usr/lib/cups/backend/bluetooth
+
+# bluez-hid2hci
+_pick "$1" bluez-hid2hci usr/lib/udev/
+_pick "$1" bluez-hid2hci usr/share/man/man1/hid2hci.1
+
+# bluez-mesh
+_pick "$1" bluez-mesh etc/bluetooth/mesh-main.conf
+_pick "$1" bluez-mesh usr/bin/{mesh-cfgclient,mesh-cfgtest}
+_pick "$1" bluez-mesh usr/lib/bluetooth/bluetooth-meshd
+_pick "$1" bluez-mesh usr/lib/systemd/system/bluetooth-mesh.service
+_pick "$1" bluez-mesh usr/share/dbus-1/system-services/org.bluez.mesh.service
+_pick "$1" bluez-mesh usr/share/dbus-1/system.d/bluetooth-mesh.conf
+_pick "$1" bluez-mesh usr/share/man/man8/bluetooth-meshd.8
+
+# make sure there are no files left to install
+rm $1/usr/lib/libbluetooth.la
+
+# bluetooth.service wants ConfigurationDirectoryMode=0555
+chmod -v 555 $1/etc/bluetooth
+
+# fix module loading errors
+install -dm755 "${1}"/usr/lib/modprobe.d
+install -Dm644 bluetooth.modprobe "${1}"/usr/lib/modprobe.d/bluetooth-usb.conf
+# load module at system start required by some functions
+# https://bugzilla.kernel.org/show_bug.cgi?id=196621
+install -dm755 "$1"/usr/lib/modules-load.d
+echo "crypto_user" > "$1"/usr/lib/modules-load.d/bluez.conf
