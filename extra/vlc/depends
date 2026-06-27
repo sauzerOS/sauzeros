@@ -1,80 +1,70 @@
-alsa-lib
-brotli
-bzip2
-dav1d
-dbus
-flac
-fluidsynth
-fontconfig
-fribidi
-glib
-gmp
-gnutls
-gst-plugins-base
-gstreamer
-icu
-jansson
-keyutils
-lame
-libmpeg2
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxdmcp
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-liba52
-libaom
-libarchive
-libass
-libcap
-libelf
-libepoxy
-libffi
-libgcrypt
-libglvnd
-libgpg-error
-libjpeg-turbo
-libogg
-libsecret
-libsndfile
-libtasn1
-libtiff
-libvdpau
-libvorbis
-libvpx
-libwebp
-libxcb
-libxkbcommon
-libxpm
-lua
-lz4
-ncurses
-nettle
-openjpeg
-opus
-p11-kit
-pcre2
-pipewire
-pixman
-protobuf
-pulseaudio
-qt
-readline
-samba
-systemd
-util-linux
-wayland
-x264
-x265
-xcb-util-keysyms
-xvidcore
+bash
+hicolor-icon-theme
+aalib make
+abseil-cpp make
+alsa-lib make
+bash make
+cairo make
+dav1d make
+dbus make
+faad2 make
+ffmpeg make
+flac make
+fluidsynth make
+fontconfig make
+freetype make
+fribidi make
+gcc-libs make
+gdk-pixbuf make
 git make
+glibc make
+glib make
+gnutls make
+gst-plugins-base make
+gtk+3 make
+harfbuzz make
+hicolor-icon-theme make
+liba52 make
+libaom make
+libarchive make
+libass make
+libglvnd make
+libjpeg-turbo make
+libmad make
+libmatroska make
+libnotify make
+libogg make
+libpng make
+libproxy make
+libpulse make
+librsvg make
+libsecret make
+libtheora make
+libva make
+libvorbis make
+libvpx make
+libx11 make
+libxcb make
+libxinerama make
+libxml2 make
+libxpm make
+lua make
+mesa make
+mpg123 make
+opus make
+pcsclite make
+protobuf make
+qt make
+sdl2-compat make
+sdl_image make
+speexdsp make
+speex make
+systemd make
+taglib make
+twolame make
+wayland make
+wayland-protocols make
+x264 make
+x265 make
+xcb-util-keysyms make
+zlib-ng make
