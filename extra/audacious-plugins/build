@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr   \
-  -D neon=false   \
+hokuto-meson build \
+  -D neon=false    \
   -D wavpack=false
 
 meson compile -C build
