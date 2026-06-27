@@ -17,6 +17,7 @@ libass
 libdrm
 libogg
 libplacebo
+libpulse
 librsvg
 libvorbis
 libvpx
@@ -28,7 +29,6 @@ openjpeg
 openssl
 opus
 pkgconf
-pulseaudio
 sndio
 speex
 v4l-utils
@@ -47,6 +47,7 @@ lib32-fdk-aac make
 lib32-freetype make
 lib32-libaom make
 lib32-libdrm make
+lib32-libpulse make
 lib32-libvdpau make
 lib32-libvorbis make
 lib32-libvpx make
