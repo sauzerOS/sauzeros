@@ -7,6 +7,6 @@ gtkmm
 json-glib
 libcanberra
 libsigc++
-pulseaudio
+libpulse
 meson make
 
