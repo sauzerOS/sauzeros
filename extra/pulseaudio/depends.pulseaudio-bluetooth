@@ -1,4 +1,5 @@
 bluez
+bluez-libs
 dbus
 glib
 glibc
