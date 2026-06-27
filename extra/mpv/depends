@@ -1,21 +1,20 @@
 alsa-lib
 desktop-file-utils
 ffmpeg
+ffmpeg
 glibc
 hicolor-icon-theme
-little-cms
 libarchive
 libass
-ffmpeg
 libcdio
 libcdio-paranoia
 libdisplay-info
 libdrm
 libglvnd
 libjpeg-turbo
-pipewire
+libpipewire
 libplacebo
-pulseaudio
+libpulse
 libva
 libvdpau
 libx11
@@ -25,6 +24,7 @@ libxpresent
 libxrandr
 libxss
 libxv
+little-cms
 luajit
 mesa
 mujs
@@ -33,7 +33,7 @@ sdl2-compat
 vulkan-icd-loader
 wayland
 zlib-ng
-yt-dlp suggest
+yt-dlp suggest "Youtube support"
 ffnvcodec-headers make
 meson make
 vulkan-headers make
