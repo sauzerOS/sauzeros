@@ -1,19 +1,30 @@
+expat
 flac
+fontconfig
+glibc
+gcc-libs
+libglvnd
+libjpeg-turbo
+libpulse
 libutf8proc
+libx11
+libxi
+lua
 portaudio
 portmidi
+pugixml
+qt6
 sdl2-compat
 sdl2_ttf
+bash
+sqlite
 zlib-ng
 zstd
 asio make
+flac make
 glm make
-lua make
-pulseaudio make
-libxi make
+libutf8proc make
 libxinerama make
 nasm make
-pugixml make
 python make
-qt make
 rapidjson make
