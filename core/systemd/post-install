@@ -1,5 +1,21 @@
 #!/bin/sh -e
 #silence output
 exec 2>&1 1>/dev/null
+sd_booted() {
+  [[ -d run/systemd/system && ! -L run/systemd/system ]]
+}
 systemd-machine-id-setup
 systemctl enable getty@.service
+
+if sd_booted; then
+# reexec systemd system instance
+systemctl --system daemon-reexec
+
+# reexec systemd user instances
+systemctl reload 'user@*.service'
+
+# mark systemd services for later restart
+for UNIT in $(services_needing_restart); do
+  systemctl set-property --runtime "${UNIT}" Markers=needs-restart
+  done
+fi

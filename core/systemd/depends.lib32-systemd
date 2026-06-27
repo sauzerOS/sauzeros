@@ -1,4 +1,4 @@
-systemd
+systemd-libs
 lib32-gcc-libs
 lib32-libgcrypt
 lib32-libxcrypt

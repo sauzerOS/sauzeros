@@ -1,0 +1,6 @@
+glibc
+gcc-libs
+ligcrypt
+lz4
+xz
+zstd

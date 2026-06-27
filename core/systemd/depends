@@ -1,7 +1,7 @@
 acl
 bash
+cryptsetup optional
 dbus
-dbus rebuild
 hwdata
 kbd
 kmod
@@ -12,15 +12,16 @@ libseccomp
 libxcrypt
 lz4
 openssl
-p11-kit
+p11-kit suggest "Support PKCS#1"
 pam
-polkit suggest
+polkit suggest "Allow administration as unprivileged user"
 pcre2
+systemd-libs runtime
+systemd-ukify suggest "Unified Kernel tool"
 util-linux
 xz
 bash-completion make
 btrfs-progs make optional
-cryptsetup make optional
 gperf make
 libarchive make
 libxkbcommon make
