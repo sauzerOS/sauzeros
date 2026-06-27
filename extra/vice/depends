@@ -1,15 +1,19 @@
 alsa-lib
-curl
+giflib
 glew
+gtk+3
 libevdev
 libpng
-mpg123
-pulseaudio
+libpulse
 dos2unix make
 giflib make
 glib make
 gtk+3 make
 libjpeg-turbo make
-libcap make
+libpcap make
+libxaw make
 python make
+sdl2-compat make
+sdl2-image make
 xa make
+xorg-mkfontscale make 
