@@ -6,6 +6,7 @@ lib32-freetype
 lib32-glibc
 lib32-libaom
 lib32-libdrm
+lib32-libpulse
 lib32-libvdpau
 lib32-libvorbis
 lib32-libvpx
