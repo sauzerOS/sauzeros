@@ -33,12 +33,12 @@ nspr
 nss
 pango
 pixman
-pulseaudio
 sqlite
 cbindgen make
 clang make
 diffutils make
 libice make
+libpulse make
 libsm make
 lld make
 llvm make
