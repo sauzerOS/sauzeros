@@ -1,5 +1,4 @@
 sdl3
-lib32-alsa-lib
 lib32-glibc
 lib32-libglvnd
 lib32-libusb
@@ -7,7 +6,12 @@ lib32-libx11
 lib32-libxcursor
 lib32-libxext
 lib32-libxrender
-lib32-pulseaudio
-lib32-pipewire
-lib32-libdecor
-lib32-nvidia-utils
+lib32-alsa-lib suggest ALSA audio driver
+lib32-libdecor suggest Wayland client decorations
+lib32-libpulse suggest PulseAudio audio driver
+lib32-pipewire suggest PipeWire audio driver
+lib32-nvidia-utils suggest vulkan renderer
+lib32-vulkan-radeon suggest vulkan renderer 
+lib32-vulkan-virtio suggest vulkan renderer
+lib32-vulkan-swrast suggest vulkan renderer
+lib32-vulkan-broadcom suggest vulkan renderer
