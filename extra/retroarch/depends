@@ -1,7 +1,38 @@
+alsa-lib
+dbus
 ffmpeg
-flac
-pulseaudio
+fontconfig
+fribidi
+glibc
+libass
+libdrm
+freetype
+gcc-libs
+libglvnd
+libpipewire
+libpulse
+gcc-libs
+systemd
+libusb
+libx11
+libxcb
+libxext
+libxinerama
+libxkbcommon
+libxrandr
+libxv
+libxxf86vm
 mesa
 openssl
 qt
 sdl2-compat
+v4l-utils
+wayland
+xz
+zlib-ng
+gamemode suggest "GameMode support"
+libdecor suggest "Wayland decorations"
+gamemode make
+libdecor make
+vulkan-icd-loader make
+wayland-protocols make
