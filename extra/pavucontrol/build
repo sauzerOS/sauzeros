@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-mkdir build
-cd    build
+hokuto-meson build \
+  -D lynx=disabled
 
-meson setup --prefix=/usr --buildtype=release -D lynx=disabled ..
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1
