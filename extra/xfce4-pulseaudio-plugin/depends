@@ -1,5 +1,5 @@
 dbus-glib
 libnotify
-pulseaudio
+libpulse
 xfce4-panel
 keybinder
