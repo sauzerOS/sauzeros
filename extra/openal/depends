@@ -1,6 +1,14 @@
-alsa-lib
-ffmpeg
-fluidsynth
-libsndfile
-pipewire
-sdl3
+glibc
+gcc-libs
+fluidsynth suggest MIDI rendering
+qt suggest alsoft-config GUI Configurator
+alsa-lib make
+cmake make
+ffmpeg make
+fluidsynth make
+libpulse make
+libsndfile make
+pipewire make
+portaudio make
+qt make
+sdl3 make
