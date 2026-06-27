@@ -1,4 +1,4 @@
+alsa-lib
+libpulse
 libvorbis
-libtool make
-pulseaudio make
-sound-theme-smooth
+sound-theme-freedesktop
