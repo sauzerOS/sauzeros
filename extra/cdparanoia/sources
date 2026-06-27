@@ -1,0 +1,4 @@
+https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz
+files/cdparanoia-10.2-format-security.patch
+files/cdparanoia-10.2-ldflags.patch
+files/cdparanoia-r15388.patch
