@@ -7,16 +7,16 @@ glu
 libevdev
 libglvnd
 libpng
+libpulse
 libx11
 libxext
 llvm-libs
 openal
 pugixml
-pulseaudio
 qt
 sdl3
-zlib-ng
 vulkan-icd-loader
+zlib-ng
 clang make
 cmake make
 lld make
