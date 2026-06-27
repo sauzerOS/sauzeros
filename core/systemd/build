@@ -49,13 +49,14 @@ meson setup build                  \
       -D firstboot=false            \
       -D install-tests=false        \
       -D ldconfig=false             \
+      -D libidn2=enabled            \
       -D sysusers=true              \
       -D b_lto=true                 \
       -D homed=disabled             \
       -D userdb=false               \
       -D dns-servers=""             \
       -D mode=release               \
-      -D man=disabled               \
+      -D man=auto                   \
       -D oomd=true                  \
       -D pamconfdir="$SYSCONF_DIR/pam.d" \
       -D bootloader=enabled         \
@@ -84,6 +85,35 @@ install -v -m755 -d "$1/etc/systemd/resolved.conf.d"
 install -v -m644 dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.conf"
 install -v -m644 10-sauzeros.conf "$1/usr/lib/sysctl.d/10-sauzeros.conf"
 fi
+
+# systemd-libs
+_pick "$1" systemd-libs usr/include/libudev.h
+_pick "$1" systemd-libs usr/include/systemd/_sd-common.h
+_pick "$1" systemd-libs usr/include/systemd/sd-*
+_pick "$1" systemd-libs usr/lib/libnss_*
+_pick "$1" systemd-libs usr/lib/libsystemd.so*
+_pick "$1" systemd-libs usr/lib/libudev.so*
+_pick "$1" systemd-libs usr/lib/pkgconfig/libsystemd.pc
+_pick "$1" systemd-libs usr/lib/pkgconfig/libudev.pc
+_pick "$1" systemd-libs usr/share/man/man3/SD_*
+_pick "$1" systemd-libs usr/share/man/man3/libsystemd.3.gz
+_pick "$1" systemd-libs usr/share/man/man3/libudev.3.gz
+_pick "$1" systemd-libs usr/share/man/man3/sd-*
+_pick "$1" systemd-libs usr/share/man/man3/sd_*
+
+# systemd-resolvconf
+pkgdir=$HOKUTO_SPLIT_DIR/systemd-resolvconf
+install -d $pkgdir
+install -d -m0755 "$pkgdir"/usr/bin
+install -d -m0755 "$pkgdir"/usr/share/man/man1
+ln -s resolvectl "$pkgdir"/usr/bin/resolvconf
+ln -s resolvectl.1.gz "$pkgdir"/usr/share/man/man1/resolvconf.1.gz
+
+# systemd-ukify
+_pick "$1" systemd-ukify usr/bin/ukify systemd-ukify/bin/
+_pick "$1" systemd-ukify usr/lib/systemd/ukify systemd-ukify/systemd/
+_pick "$1" systemd-ukify usr/share/man/man1/ukify.1 systemd-ukify/man1/
+_pick "$1" systemd-ukify usr/lib/kernel/install.d/60-ukify.install
 
 if [ "$PREFIX" != "/usr" ]; then
 # remove conflicting files

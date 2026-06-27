@@ -1,0 +1,6 @@
+binutils
+python-cryptography
+python-pefile
+systemd
+python-pillow suggest "Show the size of splash image"
+sbsigntools suggest "Sign embedded kernel"
