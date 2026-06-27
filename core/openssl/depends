@@ -1,6 +1,7 @@
 brotli optional
 glibc
-perl
 zlib-ng
 zstd
+perl suggest
+perl make
 aarch64-gcc cross make
