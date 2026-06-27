@@ -1,7 +1,28 @@
-flatpak
-libportal
+fuse3
+gcc-libs
+gdk-pixbuf
+glib
+glibc
+gst-plugins-base
+gstreamer
+json-glib
+libgudev
+libpipewire
 pipewire
-umockdev
-python-pytest
-python-python-dbusmock
+systemd
+gamemode suggest GameMode portal
+rtkit suggest Realtime portal
+flatpak make
+gamemode make
+geoclue make
+git make
+gst-plugins-good make
+libportal make
 meson make
+python-dbus make
+python-dbusmock make
+python-docutils make
+python-pygobject make
+rtkit make
+umockdev make
+xmlto make

@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr \
+hokuto-meson build \
   -D installed-tests=false \
   -D documentation=disabled \
   -D sandboxed-sound-validation=disabled \
