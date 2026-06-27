@@ -1,9 +1,17 @@
-bluez
+alsa-lib
+bluez-libs
 bzip2
+curl
 enet
-gcc
+ffmpeg
+gcc-libs
 glibc
+glslang
+hicolor-icon-theme
 hidapi
+libevdev
+libglvnd
+libpulse
 libspng
 libusb
 libx11
@@ -11,20 +19,18 @@ libxi
 libxrandr
 lz4
 lzo
-mbedtls
 miniupnpc
 pugixml
-sdl2-compat
-speexdsp
+qt
+sdl3
 sfml
+speexdsp
+systemd
 xxhash
 xz
+zlib-ng
 zstd
-alsa-lib make
+pulseaudio suggest PulseAudio backend
 cmake make
-git make
-libevdev make
-pulseaudio make
 python make
-qt make
-vulkan-headers make
+vulkan-headers make 
