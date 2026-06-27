@@ -1,8 +1,12 @@
-glib
-libtool
-intltool make
+dotconf
+libao
+libpulse
+espeak-ng suggest Speech output using ESpeak-ng
+pipewire suggest Pipewire support
+pulseaudio suggest PulseAudio support
 espeak-ng make
-dotconf make
-pulseaudio make
-pipewire make
+glib make
+intltool make
 libao make
+libpipewire make
+libpulse make
