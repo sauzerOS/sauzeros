@@ -1,1 +1,2 @@
 https://www.kernel.org/pub/linux/bluetooth/bluez-${version}.tar.xz
+files/bluetooth.modprobe

@@ -1,5 +1,8 @@
 alsa-lib
 dbus
 glib
+glibc
 systemd
+cups make
 json-c make
+libical make
