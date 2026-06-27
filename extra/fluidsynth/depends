@@ -1,22 +1,22 @@
+7zip make
 alsa-lib
+cmake make
 dbus
 gcc-libs
 glib
 glibc
+libpipewire
+libpulse
 libsndfile
-pipewire
-pulseaudio
 readline
+rsync make
 sdl3
 systemd
-7zip make
-cmake make
-rsync make
 lib32-alsa-lib make
 lib32-dbus make
 lib32-glib make
-lib32-pipewire make
-lib32-pulseaudio make
+lib32-libpipewire make
+lib32-libpulse make
 lib32-libsndfile make
 lib32-readline make
 lib32-sdl3 make
