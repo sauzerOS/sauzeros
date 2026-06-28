@@ -1,4 +1,4 @@
 libimobiledevice
-libusb
 libplist
+libusb
 systemd make
