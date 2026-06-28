@@ -4,4 +4,4 @@ glib
 glibc
 libsndfile
 libxcb
-systemd
+systemd-libs

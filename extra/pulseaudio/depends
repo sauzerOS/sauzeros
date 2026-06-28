@@ -15,6 +15,7 @@ libxtst
 orc
 speexdsp
 systemd
+systemd-libs
 rtkit
 webrtc-audio-processing<2.0
 pulseaudio-alsa suggest
