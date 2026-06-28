@@ -89,7 +89,7 @@ sdl2-compat make
 shaderc make
 spandsp make
 speex make
-systemd make
+systemd-libs make
 taglib make
 twolame make
 v4l-utils make
