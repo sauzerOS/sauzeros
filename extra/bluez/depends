@@ -2,7 +2,8 @@ alsa-lib
 dbus
 glib
 glibc
-systemd
+systemd-libs
 cups make
 json-c make
 libical make
+systemd make
