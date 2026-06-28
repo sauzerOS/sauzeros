@@ -1,0 +1,7 @@
+gcc-libs
+glib
+glibc
+nspr
+nss
+systemd-libs
+util-linux 

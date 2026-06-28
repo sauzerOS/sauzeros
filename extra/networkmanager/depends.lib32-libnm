@@ -1,0 +1,7 @@
+libnm
+lib32-gcc-libs
+lib32-glib2
+lib32-glibc
+lib32-nspr
+lib32-nss
+lib32-systemd
