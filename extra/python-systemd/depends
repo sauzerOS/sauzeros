@@ -1,0 +1,6 @@
+glibc
+gcc-libs
+python
+systemd
+systemd-libs
+meson make
