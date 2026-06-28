@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+git submodule init
+git config submodule."lib/ccan.git".url ccan
+git -c protocol.file.allow=always submodule update
+./autogen.sh
+
+configure_options=(
+  --prefix=/usr
+  --bindir=/usr/bin
+  --sbindir=/usr/bin
+  --libexecdir=/usr/lib
+  --mandir=/usr/share/man
+  --sysconfdir=/etc
+)
+
+CFLAGS="${CFLAGS} -fshort-wchar -Wno-error" \
+./configure "${configure_options[@]}"
+make
+make DESTDIR="${1}" install

@@ -1,0 +1,7 @@
+glibc
+openssl
+git make
+gnu-efi make
+help2man make
+util-linux make
+sed make
