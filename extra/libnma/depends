@@ -1,5 +1,9 @@
-gcr
-gtk+3
-gtk
-iso-codes
-networkmanager
+dconf make
+gcr make
+gtk+3 make
+gtk make
+iso-codes make
+libnm make
+meson make
+mobile-broadband-provider-info make
+vala make
