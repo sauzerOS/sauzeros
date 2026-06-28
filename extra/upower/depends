@@ -1,10 +1,14 @@
 glib
+gcc-libs
+glibc
 libgudev
 libimobiledevice
 libplist
 polkit
+usbmuxd suggest Read charge status of iOS devices
 docbook-xsl make
+git make
 gobject-introspection make
 meson make
-python make
 systemd make
+usbmuxd make 
