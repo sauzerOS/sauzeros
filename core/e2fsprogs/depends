@@ -1,4 +1,4 @@
-pkgconf
+bash
 util-linux
 fuse3 make
 systemd make
