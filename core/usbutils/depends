@@ -1,5 +1,6 @@
 glibc
 hwdata
 libusb
-systemd
+systemd-libs
 meson make
+systemd make
