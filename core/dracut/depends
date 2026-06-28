@@ -1,9 +1,7 @@
 bash
-btrfs-progs
 coreutils
 cpio
-cryptsetup
-e2fsprogs
+filesystem
 findutils
 gawk
 grep
@@ -11,7 +9,34 @@ kmod
 pkgconf
 procps-ng
 sed
-squashfs-tools
-systemd
 util-linux
-xz
+binutils suggest --uefi option support
+bluez suggest bluetooth (keyboard)
+btrfs-progs suggest scan for Btrfs on block devices
+busybox suggest allows use of busybox
+bzip2 suggest bzip2 compression
+cifs-utils suggest support CIFS
+cryptsetup suggest support for encrypted with LUKS filesystems
+dbus suggest dbus-daemon dracut module
+dbus-broker suggest dbus-broker dracut module
+e2fsprogs suggest ext2/3/4 filesystem support
+elfutils suggest strip binaries to reduce initramfs size
+f2fs-tools suggest fsfs filesystem support
+fuse3 suggest live on NTFS (dmsquash-live-ntfs module)
+gnupg2 suggest gpg for crypto operations and smartcards
+gzip suggest gzip compression
+jq suggest NVMe-oF support (nvmf module)
+lvm2 suggest support Logical Volume Manager
+networkmanager suggest networkmanager support
+nfs-utils suggest support NFS
+ntfs-3g suggest live on NTFS (dmsquash-live-ntfs module)
+openssh suggest install ssh and scp along with config files and specified keys (ssh-client module)
+plymouth suggest plymouth boot splash
+qrencode suggest systemd-bsod
+sbsigntools suggest uefi_secureboot_cert/key configuration option support
+squashfs-tools suggest support for building a squashed initramfs
+systemd suggest systemd system and service manager
+systemd-ukify suggest Unified Kernel Image
+tar suggest live tar image
+xz suggest xz compression
+bash-completion make
