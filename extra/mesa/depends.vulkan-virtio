@@ -6,7 +6,7 @@ libdrm
 libx11
 libxcb
 libxshmfence
-systemd
+systemd-libs
 vulkan-icd-loader
 vulkan-mesa-implicit-layers
 wayland

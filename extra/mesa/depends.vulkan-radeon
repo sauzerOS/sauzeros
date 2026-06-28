@@ -9,7 +9,7 @@ libxcb
 libxshmfence
 llvm-libs
 spirv-tools
-systemd
+systemd-libs
 vulkan-icd-loader
 wayland
 xcb-util-keysyms
