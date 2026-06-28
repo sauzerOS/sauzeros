@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-    ./configure \
-    --prefix=/usr \
-    --enable-fontconfig
+./configure \
+  --prefix=/usr \
+  --enable-fontconfig
 
 make
 make DESTDIR=$1 install
