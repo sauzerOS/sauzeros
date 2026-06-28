@@ -1,0 +1,31 @@
+bzip2
+cairo
+fontconfig
+freetype
+glib
+glibc
+little-cms
+libpng
+libxext
+libxml2
+xz
+zlib-ng
+djvulibre suggest DJVU support
+ghostscript suggest PS/PDF support
+libheif suggest HEIF support
+libjpeg-turbo suggest JPEG support
+libjxl suggest JPEG XL support
+librsvg suggest SVG support
+libtiff suggest TIFF support
+libwebp suggest WEBP support
+libzip suggest OpenRaster support
+pango suggest Text rendering
+djvulibre make
+ghostscript make
+glu make
+libheif make
+libjpeg-turbo make
+libjxl make
+librsvg make
+libwebp make
+libzip make
