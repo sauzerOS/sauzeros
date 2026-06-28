@@ -1,8 +1,6 @@
 #!/bin/sh -e
 
-meson setup build     \
-  --prefix=/usr       \
-  --buildtype=release \
+hokuto-meson build    \
   -D gtk_doc=false    \
   -D libnma_gtk4=true \
   -D mobile_broadband_provider_info=false
