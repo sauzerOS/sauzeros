@@ -4,6 +4,4 @@ libxcrypt
 pam
 libcap make
 libxslt make
-systemd make
-aarch64-systemd cross make
 aarch64-gcc cross make
