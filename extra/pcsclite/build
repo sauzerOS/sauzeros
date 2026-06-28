@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 meson_options=(
-     --prefix=/usr
     -D libsystemd=true
     -D libudev=true
     -D polkit=true
@@ -9,7 +8,7 @@ meson_options=(
     -D systemdunit=system
 )
 
-meson setup build "${meson_options[@]}"
+hokuto-meson build "${meson_options[@]}"
 meson compile -C build
 meson install -C build --destdir "${1}"
 
