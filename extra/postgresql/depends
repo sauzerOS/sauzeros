@@ -1,9 +1,13 @@
 bash
+gcc-libs
+glibc
 icu
+lz4
 openssl
 pam
-systemd
+systemd-libs
 util-linux
 zlib-ng
 zstd
 readline make
+systemd make
