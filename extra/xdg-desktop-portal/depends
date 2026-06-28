@@ -10,6 +10,7 @@ libgudev
 libpipewire
 pipewire
 systemd
+systemd-libs
 gamemode suggest GameMode portal
 rtkit suggest Realtime portal
 flatpak make
