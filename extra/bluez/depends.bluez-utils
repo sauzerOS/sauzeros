@@ -2,4 +2,4 @@ dbus
 glib
 glibc
 readline
-systemd
+systemd-libs
