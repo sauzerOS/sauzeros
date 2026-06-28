@@ -1,10 +1,16 @@
-bzip2
-curl
+gcc-libs
 glibc
-json-c
-xz
-zlib-ng
-zstd
+libarchive
+libelf runtime
+bash
+bzip2 make
+curl make
+json-c make
+libarchive make
+sqlite make
+xz make
+zlib-ng make
+zstd make 
 lib32-bzip2 make
 lib32-curl make
 lib32-xz make

@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Build sometimes forces -Werror.
-export CFLAGS="$CFLAGS -Wno-error"
+export CFLAGS="$CFLAGS -Wno-error -ffat-lto-objects"
 
 PREFIX="${CROSS_PREFIX:-/usr}"
 
@@ -13,16 +13,29 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
-./configure --prefix="$PREFIX"            \
+./configure --prefix="$PREFIX"           \
             --disable-debuginfod         \
             --enable-libdebuginfod=dummy \
-            $CROSS_OPTS
+            --sysconfdir=/etc            \
+            --program-prefix="eu-"       \
+           $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
 
 mkdir -p "$1$PREFIX/lib/pkgconfig"
 cp -f config/libelf.pc "$1$PREFIX/lib/pkgconfig/libelf.pc"
+
+# libelf
+_pick "$1" libelf etc/debuginfod
+_pick "$1" libelf etc/profile.d/*
+_pick "$1" libelf usr/{include,lib}
+_pick "$1" libelf usr/share/man/*/{,lib}elf*
+
+# debuginfod
+_pick "$1" debuginfod usr/bin/debuginfod*
+_pick "$1" debuginfod usr/share/fish/vendor_conf.d/debuginfod.fish
+_pick "$1" debuginfod usr/share/man/*/debuginfod*
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
@@ -37,7 +50,7 @@ CC="gcc -m32" CXX="g++ -m32" ./configure \
 make
 make DESTDIR=$PWD/DESTDIR -C libelf install
 install -vDm644 config/libelf.pc DESTDIR/usr/lib32/pkgconfig/libelf.pc
-dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-libelf"
 install -d $dest_dir/usr/lib32
 cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
