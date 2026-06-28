@@ -1,13 +1,18 @@
-libsndfile
-libxrandr
-glew
+flac
 freetype
+gcc-libs
+glew
+glibc
+harfbuzz
+libogg
+libsndfile
+libvorbis
 libx11
 libxcursor
 libxi
-libssh2
+libxrandr
 mbedtls
-mesa make
 cmake make
-systemd make
+mesa make
 ninja make
+systemd make 
