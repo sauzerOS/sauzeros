@@ -59,7 +59,7 @@ sdl2-compat make
 sdl_image make
 speexdsp make
 speex make
-systemd make
+systemd-libs make
 taglib make
 twolame make
 wayland make
