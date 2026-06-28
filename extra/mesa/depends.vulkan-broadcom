@@ -7,7 +7,7 @@ libx11
 libxcb
 libxshmfence
 spirv-tools
-systemd
+systemd-libs
 vulkan-icd-loader
 vulkan-mesa-implicit-layers
 wayland
