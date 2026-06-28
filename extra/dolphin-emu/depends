@@ -25,7 +25,7 @@ qt
 sdl3
 sfml
 speexdsp
-systemd
+systemd-libs
 xxhash
 xz
 zlib-ng
