@@ -4,9 +4,7 @@
 # -Werror -> -Wsign-compare.
 export CFLAGS="-Wno-error $CFLAGS"
 
-meson setup build         \
-  --prefix=/usr           \
-  --buildtype=plain       \
+hokuto-meson build        \
   -D default_library=both \
   -D server=enabled       \
   -D libseat-logind=systemd

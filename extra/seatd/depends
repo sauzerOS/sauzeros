@@ -1,3 +1,4 @@
+systemd-libs
 meson make
-ninja make
-systemd
+scdoc make
+systemd make
