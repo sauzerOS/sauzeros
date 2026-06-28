@@ -3,7 +3,7 @@ gcc-libs
 glibc
 libinih
 polkit
-systemd
+systemd-libs
 meson make
 lib32-dbus make
 lib32-systemd make
