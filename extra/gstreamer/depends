@@ -8,7 +8,7 @@ liba52 make
 alsa-lib make
 libaom make
 bash-completion make
-bluez make
+bluez-libs make
 bzip2 make
 cairo make
 cdparanoia make
