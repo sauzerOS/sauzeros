@@ -1,4 +1,5 @@
 dbus
+gcc-libs
 json-c
 keyutils
 liburing
