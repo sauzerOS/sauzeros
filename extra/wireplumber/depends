@@ -4,6 +4,7 @@ glib
 libpipewire
 lua
 pipewire
-systemd
+systemd-libs
 gobject-introspection make
 meson make
+systemd make
