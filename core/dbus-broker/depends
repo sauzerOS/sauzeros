@@ -2,5 +2,6 @@ expat
 gcc-libs
 glibc
 libcap-ng
-systemd
+systemd-libs
 meson make
+systemd make
