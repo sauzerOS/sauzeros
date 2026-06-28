@@ -2,6 +2,7 @@ dbus
 glibc
 libcap
 polkit
-systemd
+systemd-libs
 meson make
+systemd make
 vim make
