@@ -16,5 +16,5 @@ opus
 pipewire
 sbc
 spandsp
-systemd
+systemd-libs
 webrtc-audio-processing<2.0
