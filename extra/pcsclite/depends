@@ -1,3 +1,4 @@
 polkit
-systemd
+systemd-libs
 meson make
+systemd make
