@@ -1,0 +1,8 @@
+bash
+curl
+gcc-libs
+glib
+glibc
+jansson
+libnm
+networkmanager 

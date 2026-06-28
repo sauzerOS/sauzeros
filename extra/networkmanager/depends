@@ -1,24 +1,48 @@
 curl
+gcc-libs
 glib
+glibc
 iproute2
-iwd
 jansson
+libmm-glib
 libndp
 libnewt
+libnm runtime
 libpsl
 mobile-broadband-provider-info
-modemmanager
 nspr
 nss
 readline
+systemd-libs
+bluez suggest Bluetooth support
+dnsmasq suggest connection sharing
+iwd suggest wpa_supplicant alternative
+libnvme suggest NBFT support
+modemmanager suggest cellular network support
+nftables suggest connection sharing
+openresolv suggest alternative resolv.conf manager
+polkit suggest let non-root users control networking
+bash make
+curl make
 dnsmasq make
+glib make
+glibc make
 gobject-introspection make
 iproute2 make
+iptables make
+iwd make
+jansson make
+libmm-glib make
+libndp make
+libnewt make
 libnvme make
 libpsl make
 meson make
+modemmanager make
 nftables make
+openresolv make
+perl-yaml make
 polkit make
-readline make
+python-pygobject make
 systemd make
 vala make
