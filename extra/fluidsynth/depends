@@ -11,7 +11,7 @@ libsndfile
 readline
 rsync make
 sdl3
-systemd
+systemd-libs
 lib32-alsa-lib make
 lib32-dbus make
 lib32-glib make
