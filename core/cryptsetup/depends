@@ -1,7 +1,7 @@
-argon2
-json-c
 lvm2
-pkgconf make
+glibc
+json-c
+openssl
 popt
 util-linux
 aarch64-lvm2 cross make
