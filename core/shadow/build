@@ -1,9 +1,7 @@
 #!/bin/sh -e
 
-# apply archlinux patches
-patch -Np1 -i 0001-Disable-replaced-tools-their-man-pages-and-PAM-integ.patch
-patch -Np1 -i 0002-Adapt-login.defs-for-PAM-and-util-linux.patch
-patch -Np1 -i 0003-Add-Arch-Linux-defaults-for-login.defs.patch
+# apply archlinux patche
+zstdcat shadow-$2-arch1.patch.zst | patch -Np1
 
 autoreconf -fvi
 
