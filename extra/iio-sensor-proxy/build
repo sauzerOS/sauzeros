@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+hokuto-meson build \
+    -D systemdsystemunitdir=/usr/lib/systemd/system \
+    -D udevrulesdir=/usr/lib/udev/rules.d \
+    -D ssc-support=disabled \
+    -D sysconfdir=/usr/share
+
+meson compile -C build
+meson install -C build --destdir="${1}"

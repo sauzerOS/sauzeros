@@ -1,0 +1,7 @@
+gcc-libs
+glib
+glibc
+libgudev
+polkit
+git make
+meson make
