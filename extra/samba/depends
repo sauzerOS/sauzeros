@@ -1,10 +1,35 @@
 gnutls
-jansson
-perl-json
-libtirpc
-lmdb
-perl-parse-yapp
-rpcsvc-proto
-fuse3
 gpgme
-libtasn1
+ldb
+libcap
+libcups
+liburing
+libwbclient
+popt
+python
+smbclient runtime
+talloc
+acl make
+python-dateutil make
+dbus make
+docbook-xsl make
+gnutls make
+jansson make
+krb5 make
+libcap make
+libcups make
+libnsl make
+libtirpc make
+liburing make
+pam make
+perl-json make
+perl-parse-yapp make
+popt make
+python make
+python-dnspython make
+python-markdown make
+readline make
+rpcsvc-proto make
+systemd make
+talloc make
+tevent make 
