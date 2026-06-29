@@ -47,6 +47,3 @@ ln -s ../shadow.timer "$1/usr/lib/systemd/system/timers.target.wants/shadow.time
 
 install -vDm 644 $3.sysusers "$1/usr/lib/sysusers.d/$3.conf"
 install -vDm 644 $3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
-
-# adapt executables to match the modes used by tmpfiles.d, so that pacman does not complain:
-chmod 750 "$1/usr/bin/groupmems"
