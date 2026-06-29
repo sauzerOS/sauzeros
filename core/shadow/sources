@@ -1,7 +1,5 @@
 https://github.com/shadow-maint/shadow/releases/download/4.19.4/shadow-4.19.4.tar.xz
-files/0001-Disable-replaced-tools-their-man-pages-and-PAM-integ.patch
-files/0002-Adapt-login.defs-for-PAM-and-util-linux.patch
-files/0003-Add-Arch-Linux-defaults-for-login.defs.patch
+https://gitlab.archlinux.org/archlinux/packaging/upstream/shadow/-/releases/4.19.4-arch1/downloads/shadow-4.19.4-arch1.patch.zst
 files/shadow.service
 files/shadow.sysusers
 files/shadow.timer
