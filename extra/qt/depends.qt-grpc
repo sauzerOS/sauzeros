@@ -1,0 +1,6 @@
+abseil-cpp
+gcc-libs
+glibc
+protobuf
+qt
+qt-declarative suggest "QML bindings"
