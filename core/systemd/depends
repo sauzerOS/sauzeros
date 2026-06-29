@@ -31,7 +31,7 @@ meson make
 python-jinja2 make
 python-pefile make
 python-pyelftools make
-shadow make optional
+shadow make
 lib32-bzip2 make
 lib32-curl make
 lib32-dbus make
