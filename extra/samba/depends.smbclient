@@ -1,0 +1,12 @@
+cifs-utils
+gnutls
+icu
+jansson
+libarchive
+libcups
+libwbclient
+popt
+python
+readline
+talloc
+tevent
