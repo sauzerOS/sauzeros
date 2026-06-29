@@ -1,0 +1,8 @@
+gcc-libs
+glibc
+libglvnd
+libxkbcommon
+qt
+qt-declarative
+qt-svg
+wayland
