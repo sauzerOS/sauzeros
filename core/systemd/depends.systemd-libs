@@ -1,6 +1,6 @@
 glibc
 gcc-libs
-ligcrypt
+libgcrypt
 lz4
 xz
 zstd
