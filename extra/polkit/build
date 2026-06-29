@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr  \
-      --buildtype=release        \
+hokuto-meson build               \
       -D os_type=lfs             \
       -D man=false               \
       -D session_tracking=logind \

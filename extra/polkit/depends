@@ -1,4 +1,11 @@
 duktape
+expat
 glib
+glibc
 pam
+systemd
+systemd-libs
+dbus make
 git make
+gobject-introspection make
+meson make 
