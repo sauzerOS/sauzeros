@@ -4,5 +4,14 @@
   "description": "system and service manager",
   "info": "",
   "license": "CC0-1.0",
-  "tags": []
+  "tags": [
+    "init",
+    "library"
+  ],
+  "subpackages": [
+    "lib32-systemd",
+    "systemd-libs",
+    "systemd-resolvconf",
+    "systemd-ukify"
+  ]
 }
