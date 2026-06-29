@@ -1,5 +1,43 @@
-mesa-32
-libgpg-error
+bash
+coreutils
+curl
+dbus
+desktop-file-utils
+diffutils
+freetype
+gcc-libs
+gdk-pixbuf
+glibc
+hicolor-icon-theme
+lib32-alsa-plugins
+lib32-fontconfig
+lib32-gcc-libs
+lib32-glibc
+lib32-libglvnd
+lib32-libgpg-error
+lib32-libnm
+lib32-libva
+lib32-libx11
+lib32-libxcrypt
+lib32-libxinerama
+lib32-libxss
+lib32-nss
+lib32-nvidia-utils | lib32-vulkan-intel | lib32-vulkan-radeon | lib32-vulkan-virtio | lib32-vulkan-swrast | lib32-vulkan-broadcom
+lib32-pipewire
+lib32-systemd
+lib32-vulkan-icd-loader
+libxcrypt
+libxkbcommon
+lsof
+nss
+nvidia-utils | vulkan-intel | vulkan-radeon | vulkan-swrast | vulkan-virtio | vulkan-broadcom
+python
+steam-devices
+ttf-croscore
+usbutils
+vulkan-icd-loader
+xdg-desktop-portal-gtk | xdg-desktop-portal-kde | xdg-desktop-portal-cosmic
 xdg-user-dirs
-xdg-desktop-portal
-
+xrandr
+xz
+zenity
