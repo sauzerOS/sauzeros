@@ -27,7 +27,7 @@ openssl
 pcre2
 shared-mime-info
 sqlite
-systemd
+systemd-libs
 wayland
 xcb-util-cursor
 xcb-util-image

@@ -1,0 +1,10 @@
+ffmpeg
+gcc-libs
+glibc
+libglvnd
+libx11
+libxext
+libxrandr
+qt
+qt-declarative
+qt-multimedia

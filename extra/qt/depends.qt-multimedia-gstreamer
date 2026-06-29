@@ -1,0 +1,14 @@
+gcc-libs
+glib
+glibc
+gst-libav
+gst-plugins-bad
+gst-plugins-base
+gst-plugins-good
+gstreamer
+libglvnd
+libpulse
+qt
+qt-multimedia
+gst-plugins-bad suggest "camera support, additional plugins"
+gst-plugins-ugly suggest "additional plugins"

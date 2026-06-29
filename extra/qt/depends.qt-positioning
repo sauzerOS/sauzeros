@@ -1,0 +1,5 @@
+gcc-libs
+glibc
+qt
+qt-declarative suggest "QML bindings"
+qt-serialport suggest "NMEA plugin"
