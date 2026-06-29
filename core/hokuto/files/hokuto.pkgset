@@ -166,14 +166,6 @@ cosmic-settings-daemon
 cosmic-workspaces
 xdg-desktop-portal-cosmic
 
-gst:
-gstreamer
-gst-plugins-base
-gst-plugins-bad
-gst-plugins-good
-gst-plugins-ugly
-gst-libav
-
 linux:
 linux-headers
 linux
