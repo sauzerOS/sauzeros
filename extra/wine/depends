@@ -12,9 +12,10 @@ libglvnd
 libunwind
 lib32-mesa
 mingw-gcc
-pulseaudio
+libpulse
 sdl2-compat
 spirv-headers
 spirv-tools
 vulkan-headers
 vulkan-icd-loader
+
