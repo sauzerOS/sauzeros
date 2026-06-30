@@ -4,3 +4,4 @@ glibc
 libxml2
 git make
 meson make
+xmlto make
