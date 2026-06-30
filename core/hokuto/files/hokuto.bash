@@ -1,125 +1,221 @@
 # bash completion for hokuto/hk
 
+_hokuto_config_value()
+{
+    local key=$1 config=${HOKUTO_CONFIG:-/etc/hokuto/hokuto.conf}
+    local line value
+
+    value=${!key-}
+    if [[ -n $value ]]; then
+        printf '%s\n' "$value"
+        return 0
+    fi
+
+    [[ -f $config ]] || return 0
+    while IFS= read -r line; do
+        line=${line%%#*}
+        line=${line#"${line%%[![:space:]]*}"}
+        line=${line%"${line##*[![:space:]]}"}
+        [[ $line == "$key="* ]] || continue
+        value=${line#*=}
+        value=${value#"${value%%[![:space:]]*}"}
+        value=${value%"${value##*[![:space:]]}"}
+        value=${value%\"}
+        value=${value#\"}
+        value=${value%\'}
+        value=${value#\'}
+        printf '%s\n' "$value"
+        return 0
+    done < "$config"
+}
+
 _hokuto_get_repo_packages()
 {
-    local config_line raw_path path
-    if [[ -f /etc/hokuto/hokuto.conf ]]; then
-        config_line=$(grep '^HOKUTO_PATH=' /etc/hokuto/hokuto.conf 2>/dev/null)
-        raw_path=${config_line#HOKUTO_PATH=}
-        raw_path=${raw_path%\"}
-        raw_path=${raw_path#\"}
-        raw_path=${raw_path%\'}
-        raw_path=${raw_path#\'}
-        IFS=: read -ra _hokuto_repo_paths <<< "$raw_path"
-        for path in "${_hokuto_repo_paths[@]}"; do
-            [[ -d $path ]] || continue
-            find "$path" -mindepth 1 -maxdepth 1 -type d -not -name .git -printf '%f\n' 2>/dev/null
-        done
-    fi
+    local raw_path path
+    raw_path=$(_hokuto_config_value HOKUTO_PATH)
+    [[ -n $raw_path ]] || return 0
+
+    local IFS=:
+    for path in $raw_path; do
+        [[ -d $path ]] || continue
+        find "$path" -mindepth 1 -maxdepth 1 -type d -not -name .git -printf '%f\n' 2>/dev/null
+    done
 }
 
 _hokuto_get_installed_packages()
 {
-    local install_path=/var/db/hokuto/installed
+    local root cache_dir install_path
+    root=$(_hokuto_config_value HOKUTO_ROOT)
+    [[ -n $root ]] || root=/
+    install_path=${root%/}/var/db/hokuto/installed
     [[ -d $install_path ]] || return 0
     find "$install_path" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null
 }
 
 _hokuto_get_cached_tarballs()
 {
-    local file
-    for file in /var/cache/hokuto/bin/*.tar.zst; do
+    local cache_dir file
+    cache_dir=$(_hokuto_config_value HOKUTO_CACHE_DIR)
+    [[ -n $cache_dir ]] || cache_dir=/var/cache/hokuto
+    for file in "$cache_dir"/bin/*.tar.zst; do
         [[ -f $file ]] && printf '%s\n' "$file"
     done
 }
 
+_hokuto_comp_words()
+{
+    if declare -F _init_completion >/dev/null; then
+        _init_completion -n : || return
+    else
+        cur=${COMP_WORDS[COMP_CWORD]}
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+        words=("${COMP_WORDS[@]}")
+        cword=$COMP_CWORD
+    fi
+}
+
+_hokuto_compgen_words()
+{
+    local -a choices
+    mapfile -t choices
+    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+}
+
+_hokuto_complete_packages()
+{
+    local -a choices
+    mapfile -t choices < <(_hokuto_get_repo_packages)
+    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+}
+
+_hokuto_complete_installed()
+{
+    local -a choices
+    mapfile -t choices < <(_hokuto_get_installed_packages)
+    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+}
+
+_hokuto_complete_install_targets()
+{
+    local -a choices
+    mapfile -t choices < <(_hokuto_get_cached_tarballs; _hokuto_get_repo_packages)
+    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+}
+
+_hokuto_first_command()
+{
+    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check"
+    for ((i = 1; i < cword; i++)); do
+        word=${words[i]}
+        if [[ " $commands " == *" $word "* ]]; then
+            printf '%s\n' "$word"
+            return 0
+        fi
+    done
+    return 1
+}
+
 _hokuto_complete()
 {
-    local cur prev cmd words cword
+    local cur prev words cword cmd
     COMPREPLY=()
-    cur=${COMP_WORDS[COMP_CWORD]}
-    prev=${COMP_WORDS[COMP_CWORD-1]}
+    _hokuto_comp_words
 
     local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check"
 
-    if (( COMP_CWORD == 1 )); then
-        COMPREPLY=( $(compgen -W "$commands" -- "$cur") )
+    cmd=$(_hokuto_first_command)
+    if [[ -z $cmd ]]; then
+        COMPREPLY=($(compgen -W "$commands" -- "$cur"))
         return 0
     fi
 
-    cmd=${COMP_WORDS[1]}
     case "$cmd" in
         install|i)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "-y --yes --force --no-deps --generic -g --arm64 --x86_64 --multi --remote --no-remote --fast" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_cached_tarballs) $(_hokuto_get_repo_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "-y --yes --force --no-deps --generic -g --arm64 --x86_64 --multi --remote --no-remote --fast" -- "$cur")) ;;
+                *) _hokuto_complete_install_targets ;;
             esac
             ;;
         build|b)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "-a -i --idle -ii --superidle -v --verbose --alldeps -r --rebuilds --ordered --generic --cross --no-deps --no-devel --no-remote --wget-no-check-certificate -j --parallel --index" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_repo_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "-a -i --idle -ii --superidle -v --verbose --alldeps -r --rebuilds --ordered --generic --cross --no-deps --no-devel --no-remote --wget-no-check-certificate -j --parallel --index" -- "$cur")) ;;
+                *) _hokuto_complete_packages ;;
             esac
             ;;
         uninstall|remove|r)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "-f --force -y --yes" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_installed_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "-f --force -y --yes" -- "$cur")) ;;
+                *) _hokuto_complete_installed ;;
             esac
             ;;
         update|u)
-            COMPREPLY=( $(compgen -W "-i --idle -ii --superidle -v --verbose -j --parallel --remote -y --yes" -- "$cur") )
+            COMPREPLY=($(compgen -W "-i --idle -ii --superidle -v --verbose -j --parallel --remote -y --yes" -- "$cur"))
             ;;
         list|ls)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "--remote" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_installed_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "--remote" -- "$cur")) ;;
+                *) _hokuto_complete_installed ;;
             esac
             ;;
         checksum|c)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "-f --unpack" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_repo_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "-f --unpack" -- "$cur")) ;;
+                *) _hokuto_complete_packages ;;
             esac
             ;;
         new|n)
-            COMPREPLY=( $(compgen -W "--here --from-arch --from-aur" -- "$cur") )
+            COMPREPLY=($(compgen -W "--here --from-arch --from-aur" -- "$cur"))
             ;;
-        edit|e|cd|bump|alt|check|meta|depends)
+        edit|e)
             case "$cur" in
-                -*) COMPREPLY=( $(compgen -W "-a --auto --build --set -y --yes -e -db -r --reverse" -- "$cur") ) ;;
-                *) COMPREPLY=( $(compgen -W "$(_hokuto_get_repo_packages)" -- "$cur") ) ;;
+                -*) COMPREPLY=($(compgen -W "-a" -- "$cur")) ;;
+                *) _hokuto_complete_packages ;;
+            esac
+            ;;
+        cd|bump|alt|check)
+            _hokuto_complete_packages
+            ;;
+        meta)
+            case "$cur" in
+                -*) COMPREPLY=($(compgen -W "-e -db" -- "$cur")) ;;
+                *) _hokuto_complete_packages ;;
+            esac
+            ;;
+        depends)
+            case "$cur" in
+                -*) COMPREPLY=($(compgen -W "-r --reverse" -- "$cur")) ;;
+                *) _hokuto_complete_packages ;;
             esac
             ;;
         manifest|m|size)
-            COMPREPLY=( $(compgen -W "$(_hokuto_get_installed_packages)" -- "$cur") )
+            _hokuto_complete_installed
             ;;
         unmanaged)
-            COMPREPLY=( $(compgen -W "--checksums --backup --restore --add" -- "$cur") )
+            COMPREPLY=($(compgen -W "--checksums --backup --restore --add" -- "$cur"))
             ;;
         cleanup)
-            COMPREPLY=( $(compgen -W "--sources --bins --orphans --all" -- "$cur") )
+            COMPREPLY=($(compgen -W "--sources --bins --orphans --all" -- "$cur"))
             ;;
         upload)
-            COMPREPLY=( $(compgen -W "--cleanup --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur") )
+            COMPREPLY=($(compgen -W "--cleanup --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur"))
             ;;
         search|s)
-            COMPREPLY=( $(compgen -W "--tag --strict" -- "$cur") )
+            COMPREPLY=($(compgen -W "--tag --strict" -- "$cur"))
             ;;
         cross-sync)
-            COMPREPLY=( $(compgen -W "--native -j -i" -- "$cur") )
+            COMPREPLY=($(compgen -W "--native -j -i" -- "$cur"))
             ;;
         keys)
-            COMPREPLY=( $(compgen -W "--sync" -- "$cur") )
+            COMPREPLY=($(compgen -W "--sync" -- "$cur"))
             ;;
         sign-file)
-            COMPREPLY=( $(compgen -f -- "$cur") )
+            COMPREPLY=($(compgen -f -- "$cur"))
             ;;
         bootstrap|chroot)
-            COMPREPLY=( $(compgen -d -- "$cur") )
+            COMPREPLY=($(compgen -d -- "$cur"))
             ;;
     esac
 }
 
-complete -F _hokuto_complete hokuto
-complete -F _hokuto_complete hk
+complete -o default -o bashdefault -F _hokuto_complete hokuto
+complete -o default -o bashdefault -F _hokuto_complete hk
