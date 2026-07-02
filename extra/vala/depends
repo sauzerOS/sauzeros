@@ -1,0 +1,7 @@
+bash
+gcc
+glib
+glibc
+autoconf-archive make
+help2man make
+libxslt make
