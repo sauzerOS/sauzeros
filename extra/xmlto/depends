@@ -1,3 +1,2 @@
-docbook-xml
-docbook-xsl
 libxslt
+docbook-xsl make
