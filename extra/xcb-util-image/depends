@@ -1,4 +1,5 @@
-libxau
+glibc
 libxcb
-pkgconf make
 xcb-util
+xorg-util-macros make
+xorgproto make
