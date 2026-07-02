@@ -1,2 +1,6 @@
-meson make
+libgudev runtime
 libpcap
+systemd
+gobject-introspection make
+meson make
+vala make 
