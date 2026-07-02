@@ -1,5 +1,13 @@
-alsa-lib
-glu
+gcc-libs
+hicolor-icon-theme
+json-c
 libjpeg-turbo
-sdl2-compat
-llvm
+systemd-libs
+alsa-lib suggest for qv4l2
+qt-5compat suggest for qv4l2
+qt suggest for qv4l2 and qvidcap
+alsa-lib make
+clang make
+meson make
+qt-5compat make optional
+qt make optional
