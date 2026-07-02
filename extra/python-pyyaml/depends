@@ -1,2 +1,3 @@
-cython make
-libyaml
+python-build make
+python-installer make
+python-setuptools make 
