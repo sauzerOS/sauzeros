@@ -1,0 +1,13 @@
+{
+  "url": "https://git-scm.com/",
+  "category": "base",
+  "description": "the fast distributed version control system",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "devel",
+    "network",
+    "utility"
+  ]
+}
