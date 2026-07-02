@@ -6,7 +6,7 @@ glib
 glibc
 libcap
 libice
-libpusle runtime
+libpulse runtime
 libsm
 libsndfile
 libx11
@@ -28,12 +28,13 @@ attr make
 bluez make
 bluez-libs make
 check make
-gst-plugins-base make
-gst-plugins-good make
-gstreamer make
+gst-plugins-base make optional
+gst-plugins-good make optional
+gstreamer make optional
 gtk+3 make
 meson make
 openssl make
+perl-xml-parser make
 python make
 python-dbus make
 lib32-alsa-lib make

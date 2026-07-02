@@ -67,15 +67,35 @@ _pick "$1" pulseaudio-rtp $moddir/module-raop-sink.so
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-meson setup build               \
-            --cross-file=lib32  \
-            --prefix=/usr       \
-            --buildtype=release \
-            -D database=gdbm    \
-            -D doxygen=false    \
-            -D bluez5=disabled  \
-            -D tests=false
-
+meson_options=(
+    -D asyncns=disabled
+    -D avahi=disabled
+    -D bashcompletiondir=no
+    -D bluez5-gstreamer=disabled
+    -D bluez5=disabled
+    -D consolekit=disabled
+    -D daemon=false
+    -D doxygen=false
+    -D elogind=disabled
+    -D fftw=disabled
+    -D gstreamer=disabled
+    -D gtk=disabled
+    -D jack=disabled
+    -D lirc=disabled
+    -D man=false
+    -D orc=disabled
+    -D pulsedsp-location='/usr/\$LIB/pulseaudio'
+    -D soxr=disabled
+    -D speex=disabled
+    -D stream-restore-clear-old-devices=true
+    -D tcpwrap=disabled
+    -D tests=false
+    -D udevrulesdir=/usr/lib/udev/rules.d
+    -D valgrind=disabled
+    -D webrtc-aec=disabled
+    -D zshcompletiondir=no
+  )
+hokuto-meson-32 "${meson_options[@]}" build
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-libpulse"
