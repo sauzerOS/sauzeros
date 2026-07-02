@@ -1,3 +1,8 @@
+glib
+glibc
+libffi
+python
 gobject-introspection
-python-pycairo
 meson make
+python-pycairo make
+python-setuptools make
