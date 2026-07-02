@@ -1,0 +1,11 @@
+curl
+expat
+grep
+openssl
+pcre2
+perl
+zlib-ng
+less suggest
+libsecret suggest
+python make
+rust make
