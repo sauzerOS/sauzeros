@@ -1,2 +1,7 @@
+bash
+gcc-libs
+glibc
+zlib-ng
 cmake make
-utfcpp
+utfcpp make
+lib32-zlib-ng make
