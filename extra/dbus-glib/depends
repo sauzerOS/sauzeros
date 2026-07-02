@@ -1,2 +1,4 @@
 dbus
+expat
 glib
+glibc
