@@ -1,0 +1,9 @@
+dbus
+glib
+glibc
+python
+meson make
+python-pygobject make
+python-pyproject-metadata make
+python-tomli make
+
