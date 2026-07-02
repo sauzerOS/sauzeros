@@ -1,10 +1,23 @@
+cairo
 curl
+fontconfig
+freetype
+gdk-pixbuf
+gcc-libs
 glib
-gperf
-itstool
+glibc
+libfyaml
+librsvg
 libxml2
 libxmlb
-libxslt
+pango
+systemd-libs
+zstd
+bash-completion make
+gobject-introspection make
+gperf make
+itstool make
 meson make
-libfyaml
-qt
+qt-tools make
+vala make
+xmlto make 
