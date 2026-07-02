@@ -1,6 +1,6 @@
-expat
 fontconfig
-freetype
+fribidi
+glibc
 harfbuzz
-nasm
-pkgconf
+freetype
+nasm make 
