@@ -5,7 +5,6 @@ cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -Wno-dev
+
 cmake --build build
-
-
 DESTDIR="$1" cmake --install build
