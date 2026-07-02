@@ -21,3 +21,36 @@ CXXFLAGS+=" -DNDEBUG"
 cmake -B build "${cmake_options[@]}"
 cmake --build build
 DESTDIR=$1 cmake --install build
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+cmake_options=(
+    -D BUILD_SHARED_LIBS=ON
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_LIBDIR=/usr/lib32
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
+    -D WEBP_BUILD_CWEBP=OFF
+    -D WEBP_BUILD_DWEBP=OFF
+    -D WEBP_BUILD_EXTRAS=OFF
+    -D WEBP_BUILD_GIF2WEBP=OFF
+    -D WEBP_BUILD_IMG2WEBP=OFF
+    -D WEBP_BUILD_VWEBP=OFF
+)
+
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
+
+# Mimic autotools build without --enable-asserts
+CFLAGS+=" -DNDEBUG"
+CXXFLAGS+=" -DNDEBUG"
+
+cmake -B build "${cmake_options[@]}"
+cmake --build build
+
+DESTDIR="$pkgdir" cmake --install build
+rm -r "$pkgdir"/usr/{bin,include,share}
+fi
