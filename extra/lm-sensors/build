@@ -10,9 +10,5 @@ make clean
 sed -i 's/CC := gcc/CC := gcc -m32/' Makefile
 make PREFIX=/usr
 make PREFIX=/usr LIBDIR=/usr/lib32 BUILD_STATIC_LIB=0 DESTDIR=$PWD/DESTDIR install
-rm -r "$PWD/DESTDIR"/etc/
-rm -r "$PWD/DESTDIR"/usr/{bin,sbin,include,man}
-rm -r "$PWD/DESTDIR"/usr/share/zsh
-
-_pick "$PWD/DESTDIR" lib32-lm-sensors *
+_pick "$PWD/DESTDIR" lib32-lm-sensors usr/lib32/libsensors.so*
 fi
