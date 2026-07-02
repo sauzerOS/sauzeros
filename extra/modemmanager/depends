@@ -1,0 +1,17 @@
+bash
+gcc-libs
+glib
+glibc
+hicolor-icon-theme
+libgudev
+libmbim
+libmm-glib runtime
+libqmi
+mobile-broadband-provider-info
+polkit
+systemd-libs
+bash-completion make
+gobject-introspection make
+meson make
+systemd make
+vala make
