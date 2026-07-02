@@ -1,7 +1,13 @@
-cmake make
 brotli
+gcc-libs
 giflib
+glibc
 highway
-little-cms
 libjpeg-turbo
 libpng
+brotli make
+cmake make
+giflib make
+git make
+python make
+xdg-utils make 
