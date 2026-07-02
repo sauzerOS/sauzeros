@@ -51,10 +51,13 @@ done
 ln -s ../man "$1/usr/local/share/man"
 
 # /etc skeleton files.
-for f in bashrc fstab group host.conf hosts issue inputrc ld.so.conf locale.conf os-release \
+for f in fstab group host.conf hosts issue inputrc ld.so.conf locale.conf os-release \
          nanorc nsswitch.conf passwd profile resolv.conf securetty shells; do
     install -m 644 "$f" "$1/etc"
 done
+
+# bashrc
+install -Dm 644 bashrc "$1/etc/bash/bashrc"
 
 for f in crypttab gshadow shadow; do
     install -m 600 "$f" "$1/etc"
