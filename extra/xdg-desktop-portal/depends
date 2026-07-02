@@ -15,13 +15,12 @@ gamemode suggest GameMode portal
 rtkit suggest Realtime portal
 flatpak make
 gamemode make
-geoclue make
 git make
 gst-plugins-good make
 libportal make
 meson make
 python-dbus make
-python-dbusmock make
+python-python-dbusmock make
 python-docutils make
 python-pygobject make
 rtkit make
