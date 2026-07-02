@@ -1,9 +1,22 @@
 cairo
 fontconfig
-freetype make
-harfbuzz
+freetype
 fribidi
 glib
-gobject-introspection
-meson   make
-pkgconf make
+glibc
+harfbuzz
+libx11
+libxft
+libxrender
+gobject-introspection make
+help2man make
+meson make
+lib32-cairo make
+lib32-fontconfig make
+lib32-freetype make
+lib32-fribidi make
+lib32-glib make
+lib32-harfbuzz make
+lib32-libx11 make
+lib32-libxft make
+lib32-libxrender make

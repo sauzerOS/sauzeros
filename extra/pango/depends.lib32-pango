@@ -1,0 +1,12 @@
+pango
+lib32-cairo
+lib32-fontconfig
+lib32-freetype
+lib32-fribidi
+lib32-gcc-libs
+lib32-glib
+lib32-glibc
+lib32-harfbuzz
+lib32-libx11
+lib32-libxft
+lib32-libxrender 
