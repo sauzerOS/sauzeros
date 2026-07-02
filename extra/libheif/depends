@@ -1,2 +1,16 @@
-openh264
+gcc-libs
+glibc
+libaom
 libde265
+libwebp
+openh264
+x264
+x265
+cmake make
+dav1d make
+ffmpeg make
+libjpeg-turbo make
+libpng make
+libtiff make
+openjpeg make
+
