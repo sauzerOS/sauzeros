@@ -11,9 +11,8 @@ gcc-libs
 gdk-pixbuf
 glib
 glibc
-gnupg
+gnupg2
 gtk+3
-hunspell
 json-c
 libcanberra
 libevent
