@@ -1,5 +1,5 @@
 glib
+glibc
 gnutls
-libproxy make
+gsettings-desktop-schemas make
 meson make
-pkgconf make
