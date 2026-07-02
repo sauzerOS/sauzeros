@@ -1,10 +1,10 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr \
-    --enable-shared \
-    --enable-static \
-    --enable-mini-gmp \
+./configure            \
+    --prefix=/usr      \
+    --enable-shared    \
+    --disable-static   \
+    --enable-mini-gmp  \
     --disable-documentation
 
 make
