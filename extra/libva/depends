@@ -1,8 +1,14 @@
+glibc
 libdrm
 libglvnd
 libx11
 libxext
 libxfixes
 wayland
-mesa make
+mesa make optional
 meson make
+lib32-libdrm make
+lib32-libglvnd make
+lib32-libx11 make
+lib32-libxext make
+lib32-libxfixes make
