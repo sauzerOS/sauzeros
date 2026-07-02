@@ -1,4 +1,4 @@
+glibc
 libxcb
-m4       make
-pkgconf  make
-xcb-util make
+xorg-util-macros make
+xorgproto make
