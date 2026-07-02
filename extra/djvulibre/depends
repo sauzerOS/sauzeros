@@ -1,5 +1,6 @@
 bash
-gcc
+gcc-libs
+glibc
 hicolor-icon-theme
 libjpeg-turbo
 libtiff
