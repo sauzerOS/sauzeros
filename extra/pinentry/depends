@@ -1,3 +1,13 @@
-gcr optional
+glib
+glibc
 libassuan
-libgpg-error
+ncurses
+libsecret
+gcr suggest GNOME backend
+gtk+3 suggest GTK backend
+kguiaddons suggest Qt6 backend
+kwindowsystem suggest Qt6 backend
+gcr make
+kguiaddons make
+kwindowsystem make
+qt6-base make 
