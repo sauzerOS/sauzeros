@@ -1,1 +1,11 @@
+fontconfig
+gcc-libs
+gdk-pixbuf
+glib
+glibc
+gsettings-desktop-schemas
+gtk+3
 xdg-desktop-portal
+meson make
+python make
+python-packaging make 
