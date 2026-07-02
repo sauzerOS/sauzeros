@@ -1,0 +1,6 @@
+gcc-libs
+glibc
+llvm-libs
+zlib-ng
+zstd
+
