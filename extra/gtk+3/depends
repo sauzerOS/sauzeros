@@ -1,15 +1,36 @@
 at-spi2-core
 cairo
+dconf
+desktop-file-utils
 fontconfig
-freetype
 fribidi
 gdk-pixbuf
 glib
-gobject-introspection
+glibc
+harfbuzz
+iso-codes
+colord
+libcups
+libglvnd
 libepoxy
-libxkbcommon
+librsvg
+libx11
+libxcomposite
+libxcursor
+libxdamage
+libxext
+libxfixes
 libxi
+libxinerama
+libxkbcommon
+libxrandr
+libxrender
 pango
-meson   make
-pkgconf make
-python  make
+shared-mime-info
+wayland
+zlib-ng
+gobject-introspection make
+hicolor-icon-theme make
+meson make
+sassc make
+wayland-protocols make 
