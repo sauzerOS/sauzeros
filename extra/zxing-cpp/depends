@@ -1,5 +1,6 @@
-gcc
+gcc-libs
 glibc
 zint
 cmake make
+libpng make
 stb make
