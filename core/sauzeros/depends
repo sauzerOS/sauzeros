@@ -1,5 +1,6 @@
 bash
 bzip2
+ca-certificates
 coreutils
 file
 findutils
