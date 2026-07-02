@@ -1,8 +1,9 @@
 #!/bin/sh -e
 
 echo '#define USE_INTERP_RESULT 1' >> config.h
-sed -i "s:tcl8.4:tcl$_tclver:" Makefile.in
 ./autogen.sh
-./configure --prefix=/usr
+./configure --prefix=/usr \
+  --without-tcl
+
 make
 DESTDIR=$1 make install
