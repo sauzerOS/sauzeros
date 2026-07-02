@@ -1,4 +1,10 @@
-cython
+glibc
 libxml2
 libxslt
+python
+cython make
+git make
+python-build make
+python-installer make
 python-setuptools make
+python-wheel make 
