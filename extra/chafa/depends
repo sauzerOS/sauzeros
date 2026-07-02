@@ -1,2 +1,5 @@
-gtk-doc
-freetype
+libheif
+librsvg
+libwebp
+libxslt
+gtk-doc make
