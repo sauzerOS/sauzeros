@@ -1,0 +1,7 @@
+glib
+lib32-gcc-libs
+lib32-glibc
+lib32-libffi
+lib32-pcre2
+lib32-util-linux
+lib32-zlib-ng

@@ -7,6 +7,10 @@ zlib-ng
 meson make
 python make
 python-packaging make
+lib32-libffi make
+lib32-pcre2 make
+lib32-util-linux make
+lib32-zlib-ng make
 aarch64-pcre2 cross make
 aarch64-gcc cross make
 aarch64-util-linux cross make
