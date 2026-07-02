@@ -1,6 +1,17 @@
-cups
+bash
+cairo
+curl
+gcc-libs
+glib
+glibc
 libjpeg-turbo
+libpng
 libtiff
 libusb
+libxml2
 poppler
+systemd-libs
+v4l-utils
 autoconf-archive make
+python make
+systemd make
