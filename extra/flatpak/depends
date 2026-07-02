@@ -1,20 +1,33 @@
 appstream
+bash
 bubblewrap
 curl
+dbus
+dconf
 fuse3
 gdk-pixbuf
+gcc-libs
 glib
+glibc
 gpgme
 json-glib
 libarchive
-libassuan
-libgpg-error
 libseccomp
+libxau
 libxml2
 ostree
 polkit
-python make
-python-pyparsing
-socat
+python
+python-pygobject
+systemd
+systemd-libs
+wayland
 xdg-dbus-proxy
+xdg-desktop-portal runtime
+xdg-utils
+zstd
+gobject-introspection make
 meson make
+python-packaging make
+python-pyparsing make
+wayland-protocols make

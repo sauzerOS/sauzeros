@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-meson setup build            \
-  --prefix=/usr              \
+hokuto-meson build           \
+  -D tests=false             \
   -D selinux_module=disabled \
   -D system_bubblewrap=bwrap \
   -D seccomp=disabled        \
