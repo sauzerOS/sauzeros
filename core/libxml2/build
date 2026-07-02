@@ -1,11 +1,15 @@
 #!/bin/sh -e
 
+# remove git requirement
+sed -i "/'git'/,+3d" meson.build
+
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 MESON_OPTS=(
     --prefix="$PREFIX"
     -D icu=enabled
     -D legacy=enabled
+    -D history=enabled
     -D docs=disabled
 )
 
