@@ -1,24 +1,24 @@
 #!/bin/sh -e
 
-  CXXFLAGS+=" -ffat-lto-objects"
-  cmake \
-    -B build-static \
-    -G Ninja \
-    -D CMAKE_INSTALL_PREFIX='/usr' \
-    -D CMAKE_BUILD_TYPE='None' \
-    -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
-    -D BUILD_SHARED_LIBS='OFF'
-  cmake --build build-static
+CXXFLAGS+=" -ffat-lto-objects"
+cmake \
+  -B build-static \
+  -G Ninja \
+  -D CMAKE_INSTALL_PREFIX='/usr' \
+  -D CMAKE_BUILD_TYPE='None' \
+  -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
+  -D BUILD_SHARED_LIBS='OFF'
+cmake --build build-static
 
-  cmake \
-    -B build-shared \
-    -G Ninja \
-    -D CMAKE_INSTALL_PREFIX='/usr' \
-    -D CMAKE_BUILD_TYPE='None' \
-    -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
-    -D BUILD_SHARED_LIBS='ON' \
-    -D GLSLANG_TESTS='ON'
-  cmake --build build-shared
+cmake \
+  -B build-shared \
+  -G Ninja \
+  -D CMAKE_INSTALL_PREFIX='/usr' \
+  -D CMAKE_BUILD_TYPE='None' \
+  -D ALLOW_EXTERNAL_SPIRV_TOOLS='ON' \
+  -D BUILD_SHARED_LIBS='ON' \
+  -D GLSLANG_TESTS='ON'
+cmake --build build-shared
 
 DESTDIR=$1 cmake --install build-static
 DESTDIR=$1 cmake --install build-shared
@@ -39,5 +39,5 @@ cmake --build build
 DESTDIR=$PWD/DESTDIR cmake --install build
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 install -d $dest_dir/usr/lib32
-cp -Rv DESTDIR/usr/lib32/* $1/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
