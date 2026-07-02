@@ -30,6 +30,7 @@ python-mako make
 python-packaging make
 python-ply make
 python-pycparser make
+python-pyyaml make
 systemd-libs make
 vulkan-icd-loader make
 wayland-protocols make
@@ -37,7 +38,6 @@ xcb-util-keysyms make
 xorgproto make
 lib32-clang make
 lib32-expat make
-lib32-freeglut make
 lib32-gcc-libs make
 lib32-glibc make
 lib32-libdisplay-info make
@@ -57,7 +57,6 @@ lib32-llvm-libs make
 lib32-llvm make
 lib32-lm-sensors make
 lib32-rust-libs make
-lib32-sdl3 make
 lib32-spirv-llvm-translator make
 lib32-spirv-tools make
 lib32-systemd make
