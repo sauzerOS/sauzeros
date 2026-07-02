@@ -1,8 +1,19 @@
-gobject-introspection
+dbus
+dconf
+gcc-libs
+glib
+glibc
+little-cms
 libgudev
 libgusb
-little-cms
 polkit
-sane optional
+shared-mime-info
 sqlite
-vala
+systemd-libs
+bash-completion make
+docbook-xsl make
+gobject-introspection make
+meson make
+sane make optional
+systemd make
+vala make 
