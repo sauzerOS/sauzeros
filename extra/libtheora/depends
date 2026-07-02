@@ -1,2 +1,5 @@
+glibc
 libogg
-libvorbis
+libpng make
+libvorbis make
+lib32-libogg make
