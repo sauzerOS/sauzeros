@@ -1,4 +1,5 @@
-egl-gbm
-egl-wayland
-egl-x11
-libglvnd
+egl-gbm runtime 
+egl-wayland runtime
+egl-x11 runtime
+libglvnd runtime
+nvidia-settings suggest "configuration tool"
