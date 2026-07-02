@@ -1,0 +1,9 @@
+bash
+gcc-libs
+glib
+glibc
+bash-completion make
+dbus make
+meson make
+systemd make
+vala make
