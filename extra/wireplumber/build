@@ -1,7 +1,10 @@
 #!/bin/sh -e
 
 hokuto-meson build    \
-  --buildtype=release \
+  -D elogind=disabled \
+  -D doc=disabled     \
+  -D tests=false      \
+  -D dbus-tests=false \
   -D system-lua=true
 
 meson compile -C build
