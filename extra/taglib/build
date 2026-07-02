@@ -7,3 +7,22 @@ cmake -B build                     \
 
 cmake --build build
 DESTDIR=$1 cmake --install build
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+export CC='gcc -m32'
+export CXX='g++ -m32'
+export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib32 \
+  -D BUILD_SHARED_LIBS=ON
+cmake --build build
+DESTDIR="${pkgdir}" cmake --install build
+cd "$pkgdir/usr"
+rm -rf {include,share}/
+mv bin/taglib-config{,-32}
+fi
