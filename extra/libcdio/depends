@@ -1,3 +1,4 @@
 gcc-libs
 glibc
 ncurses
+help2man make
