@@ -1,10 +1,8 @@
-cups
-glib
-ghostscript
-libexif
-little-cms
-mupdf
-poppler
-qpdf
-libcupsfilters
-libppd
+bash
+glibc
+libcups runtime
+ghostscript suggest for non-PDF printers (preferred)
+mupdf suggest for non-PDF printers
+poppler suggest for non-PDF printers
+ghostscript make
+mupdf make 
