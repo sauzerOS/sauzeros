@@ -1,5 +1,7 @@
-dbus
+glibc
 gmp
+dbus
 libidn2
+libnetfilter_conntrack
 nettle
 nftables
