@@ -1,1 +1,7 @@
+glibc
 python
+python-pygments
+python-setuptools
+python-build make
+python-installer make
+python-wheel make 
