@@ -15,6 +15,7 @@ make prefix="$1"/usr MANDIR="$1"/usr/share/man install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
+make distclean
 dest_dir=$HOKUTO_SPLIT_DIR/lib32-cdparanoia
 install -d $dest_dir
 export CC='gcc -m32'
@@ -23,8 +24,8 @@ export CFLAGS+=' -Wno-format-security'
 export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
 autoreconf -fiv
 ./configure \
-    --prefix=/usr \
-    --libdir=/usr/lib32
+  --prefix=$dest_dir/usr \
+  --libdir=$dest_dir/usr/lib32
 
 make -j1
 make DESTDIR=$dest_dir install
