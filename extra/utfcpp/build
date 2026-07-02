@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-
 cmake -B build                  \
     -D CMAKE_INSTALL_PREFIX=/usr
 
