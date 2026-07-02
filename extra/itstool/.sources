@@ -1,0 +1,2 @@
+https://github.com/itstool/itstool/archive/${version}/itstool-${version}.tar.gz
+https://www.linuxfromscratch.org/patches/blfs/svn/itstool-${version}-lxml-1.patch
