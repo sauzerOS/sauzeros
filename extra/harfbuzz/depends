@@ -3,7 +3,7 @@ freetype
 glib
 libpng
 zlib-ng
-chafa make
+chafa make optional
 gobject-introspection make
 icu make
 meson make
