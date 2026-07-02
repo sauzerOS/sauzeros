@@ -72,4 +72,5 @@ dest_dir=$HOKUTO_SPLIT_DIR/lib32-libnm
 hokuto-meson-32 build "${meson_options[@]}"
 meson compile -C build
 meson install -C build --destdir $dest_dir
-rm -r $dest_dir/{etc,usr/{bin,include,lib,lib32/NetworkManager,share},var}
+rm -rf $dest_dir/{etc,usr/{bin,include,lib,lib32/NetworkManager,share},var}
+fi

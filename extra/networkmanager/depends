@@ -29,7 +29,6 @@ glib make
 glibc make
 gobject-introspection make
 iproute2 make
-iptables make
 iwd make
 jansson make
 libmm-glib make
