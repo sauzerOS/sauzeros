@@ -7,3 +7,31 @@ cd sndio-$2
 
 make
 make DESTDIR=$1 install
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+export CFLAGS+=' -m32'
+export LDFLAGS+=' -m32'
+export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+make distclean
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+install -d $pkgdir
+
+./configure \
+  --prefix='/usr' \
+  --libdir='/usr/lib32' \
+  --includedir='/usr/include/sndio32' \
+  --enable-alsa \
+  --without-libbsd
+make
+make DESTDIR="$pkgdir" install
+install -D -m644 "contrib/default.sndiod" "${pkgdir}/etc/default/sndiod32"
+install -D -m644 "contrib/sndiod.service" "${pkgdir}/usr/lib/systemd/system/sndiod32.service"
+rm -r "${pkgdir}/usr/share/man"
+
+_bin=""
+  while read -r -d '' _bin
+  do
+  mv "$_bin"{,32}
+done < <(find "${pkgdir}/usr/bin" -type f -executable -print0)
+fi
