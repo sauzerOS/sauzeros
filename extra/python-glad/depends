@@ -1,3 +1,7 @@
 python
 python-jinja2
 python-lxml
+python-setuptools
+python-build make
+python-installer make
+python-wheel make 
