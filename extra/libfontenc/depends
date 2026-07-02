@@ -1,5 +1,5 @@
 glibc
-xorg-fonts-encodings
+xorg-fonts-encodings runtime
 zlib-ng
 xorg-util-macros make
 xorgproto make
