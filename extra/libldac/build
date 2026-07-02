@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-patch -Np1 -i 0001-Allow-build-with-CMake-4.0.0.patch
 git submodule update --init
 
 cmake_options=(

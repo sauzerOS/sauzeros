@@ -1,4 +1,3 @@
 glibc
 cmake make
 git make
-ninja make
