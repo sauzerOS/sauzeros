@@ -1,4 +1,11 @@
-libedit
+glibc
+gmp
+jansson
 libmnl
 libnftnl
-
+readline
+python make
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
