@@ -1,2 +1,7 @@
+gcc-libs
 gdk-pixbuf
-gtk
+glib
+glibc
+gobject-introspection make
+gtk make
+meson make
