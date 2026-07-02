@@ -1,1 +1,21 @@
-glu
+desktop-file-utils
+glibc
+libx11
+libxext
+brotli make
+clang make
+curl make
+freeglut make
+freetype make
+glu make
+harfbuzz make
+leptonica make
+libjpeg-turbo make
+mesa make
+openjpeg make
+openssl make
+python make
+swig make
+tesseract make
+zlib-ng make
+zxing-cpp make 
