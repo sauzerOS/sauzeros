@@ -1,8 +1,12 @@
+brotli
+glib
 glib-networking
-gobject-introspection
+glibc
 libpsl
 libxml2
 nghttp2
 sqlite
-vala
+zlib-ng
+gobject-introspection make
 meson make
+vala make
