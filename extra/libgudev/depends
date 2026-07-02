@@ -1,1 +1,11 @@
+gcc-libs
+glib
+glibc
+systemd-libs
+gobject-introspection make
 meson make
+systemd make
+umockdev make
+vala make
+lib32-glib make
+lib32-systemd make
