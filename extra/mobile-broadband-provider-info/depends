@@ -1,2 +1,2 @@
-meson make
 libxslt make
+meson make
