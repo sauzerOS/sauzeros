@@ -26,12 +26,13 @@ libxrandr make
 libxss make
 mesa make
 ninja make
-pipewire make
+pipewire make optional
 sndio make
 vulkan-headers make
 wayland make
 wayland-protocols make 
 lib32-alsa-lib make
+lib32-ffmpeg make
 lib32-libdecor make
 lib32-libglvnd make
 lib32-libusb make
@@ -44,7 +45,7 @@ lib32-libxrandr make
 lib32-libxrender make
 lib32-libxss make
 lib32-mesa make
-lib32-pipewire make
+lib32-pipewire make optional
 lib32-libpulse make
 lib32-sndio make
 lib32-wayland make
