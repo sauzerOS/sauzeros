@@ -1,3 +1,3 @@
+glibc
 libx11
-libxmu
-pkgconf make
+xorg-util-macros make
