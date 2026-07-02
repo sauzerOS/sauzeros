@@ -1,4 +1,4 @@
 glibc
+libpng
 cmake make
 git make
-qt make
