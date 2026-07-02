@@ -1,2 +1,3 @@
 docbook-xml
-python-lxml
+libxml2
+python
