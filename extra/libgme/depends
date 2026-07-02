@@ -1,0 +1,5 @@
+gcc-libs
+glibc
+zlib-ng
+cmake make
+sdl2-compat make
