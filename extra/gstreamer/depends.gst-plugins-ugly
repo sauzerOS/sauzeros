@@ -1,0 +1,8 @@
+glib
+glibc
+gst-plugins-base
+gstreamer
+liba52
+libcdio
+libmpeg2
+x264 

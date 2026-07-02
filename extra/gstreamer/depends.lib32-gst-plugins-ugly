@@ -1,0 +1,6 @@
+gst-plugins-ugly
+lib32-glib
+lib32-glibc
+lib32-gst-plugins-base
+lib32-gstreamer
+lib32-x264

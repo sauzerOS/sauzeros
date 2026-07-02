@@ -4,9 +4,7 @@ libcap
 libelf
 gcc-libs
 libunwind
-liba52 make
 alsa-lib make
-libaom make
 bash-completion make
 bluez-libs make
 bzip2 make
@@ -14,6 +12,7 @@ cairo make
 cdparanoia make
 curl make
 faad2 make
+fdk-aac make
 ffmpeg make
 flac make
 fluidsynth make
@@ -27,18 +26,20 @@ iso-codes make
 json-glib make
 lame make
 little-cms make
+liba52 make
+libaom make
 libass make
 libcdio make
 libde265 make
 libdrm make
-libdvdread make
-fdk-aac make
 libfreeaptx make
 libglvnd make
+libgme make
 libgudev make
 libjpeg-turbo make
 libldac make
 libmpeg2 make
+libmodplug make
 libogg make
 libpng make
 libpulse make
@@ -52,7 +53,6 @@ libva make
 libvorbis make
 libvpx make
 libwebp make
-libwpe make
 libx11 make
 libxcb make
 libxdamage make
@@ -77,13 +77,17 @@ opus make
 orc make
 pango make
 python make
-python-cairo make
+python-pycairo make
 python-pygobject make
 python-lxml make
 python-setuptools make
-python-typing_extensions make
+python-typing-extensions make
 qrencode make
-qt make
+qt make optional
+qt-declarative make optional
+qt-shadertools make optional
+qt-tools make optional
+rust make
 sbc make
 sdl2-compat make
 shaderc make
@@ -102,3 +106,48 @@ x264 make
 x265 make
 zlib-ng make
 zxing-cpp make
+lib32-alsa-lib make
+lib32-bzip2 make
+lib32-cairo make
+lib32-cdparanoia make
+lib32-flac make
+lib32-fluidsynth make
+lib32-glib make
+lib32-libaom make
+lib32-libcap make
+lib32-libdrm make
+lib32-libelf make
+lib32-libglvnd make
+lib32-libgudev make
+lib32-libjpeg-turbo make
+lib32-libogg make
+lib32-libpng make
+lib32-libpulse make
+lib32-libtheora make
+lib32-libunwind make
+lib32-libvorbis make
+lib32-libvpx make
+lib32-libwebp make
+lib32-libx11 make
+lib32-libxcb make
+lib32-libxdamage make
+lib32-libxext make
+lib32-libxfixes make
+lib32-libxi make
+lib32-libxml2 make
+lib32-libxtst make
+lib32-libxv make
+lib32-mesa make
+lib32-mpg123 make
+lib32-nettle make
+lib32-openssl make
+lib32-opus make
+lib32-pango make
+lib32-rust-libs make
+lib32-speex make
+lib32-taglib make
+lib32-twolame make
+lib32-wayland make
+lib32-x264 make
+lib32-x265 make
+lib32-zlib-ng make
