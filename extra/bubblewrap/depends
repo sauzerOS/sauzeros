@@ -1,2 +1,6 @@
+gcc-libs
+glibc
 libcap
+bash-completion make
+libxslt make
 meson make
