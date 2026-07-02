@@ -1,4 +1,12 @@
+gcc-libs
+glibc
 libevdev
-meson         make
+libwacom
 mtdev
-pkgconf       make
+systemd-libs
+check make
+libx11 make
+meson make
+python make
+wayland make
+wayland-protocols make
