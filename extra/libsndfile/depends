@@ -4,7 +4,7 @@ glibc
 lame
 libogg
 libvorbis
-mpg123
+mpg123 runtime
 opus
 cmake make
 python make
