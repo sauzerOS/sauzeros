@@ -6,7 +6,7 @@ librsvg optional
 harfbuzz optional
 which
 zlib-ng
-cairo make
+cairo make optional
 glib make
 libx11 make
 meson make
