@@ -1,6 +1,19 @@
+bash
+bzip2
+glibc
+gnutls
 libassuan
 libgcrypt
 libgpg-error
 libksba
+libusb
 npth
-pinentry
+pinentry suggest "entry"
+readline
+sqlite
+zlib-ng
+libassuan make
+librsvg make
+npth make
+pcsclite make
+readline make
