@@ -18,7 +18,6 @@ cp -f \
 
 cp -f \
     libbz2.so.$2 \
-    libbz2.a \
     "$1/$CROSS_PREFIX/lib"
 
 cp -f bzip2.1 "$1/$CROSS_PREFIX/share/man/man1"
@@ -38,13 +37,11 @@ if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 make clean
 sed -e "s/^CC=.*/CC=gcc -m32/" -i Makefile{,-libbz2_so}
 make -f Makefile-libbz2_so
-make libbz2.a
-
+.
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 install -d "$dest_dir/usr/lib32"
 install -Dm755 libbz2.so.$2 $dest_dir/usr/lib32/libbz2.so.$2
 ln -sf libbz2.so.$2 $dest_dir/usr/lib32/libbz2.so
 ln -sf libbz2.so.$2 $dest_dir/usr/lib32/libbz2.so.1
 ln -sf libbz2.so.$2 $dest_dir/usr/lib32/libbz2.so.1.0
-install -Dm644 libbz2.a $dest_dir/usr/lib32/libbz2.a
 fi
