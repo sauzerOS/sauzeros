@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+# gcc 16 fix
+patch -Np1 -i 2900.patch
+
+export CFLAGS="${CFLAGS//-O2/}"
+export CXXFLAGS="${CXXFLAGS//-O2/}"
+
+./configure \
+  --enable-prof \
+  --enable-autogen \
+  --disable-static \
+  --prefix=/usr
+make
+make DESTDIR="${1}" install
