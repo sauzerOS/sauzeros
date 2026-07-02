@@ -1,1 +1,2 @@
-imagemagick make
+glibc
+imagemagick make optional
