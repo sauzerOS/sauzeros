@@ -1,0 +1,11 @@
+bash
+gcc-libs
+glib
+glibc
+libgudev
+libmbim
+bash-completion make
+git make
+gobject-introspection make
+help2man make
+meson make 
