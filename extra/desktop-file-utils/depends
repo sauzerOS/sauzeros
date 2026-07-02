@@ -1,1 +1,3 @@
 glib
+glibc
+meson make
