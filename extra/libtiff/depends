@@ -1,0 +1,12 @@
+gcc-libs
+glibc
+libjpeg-turbo
+libwebp
+xz
+zlib-ng
+zstd
+freeglut suggest for using tiffgt
+cmake make
+freeglut make
+glu make
+mesa make 
