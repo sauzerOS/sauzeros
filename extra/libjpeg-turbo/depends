@@ -1,2 +1,4 @@
+glibc
 cmake make
 nasm make
+lib32-expat make
