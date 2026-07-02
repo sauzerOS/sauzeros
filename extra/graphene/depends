@@ -1,0 +1,4 @@
+glib
+glibc
+gobject-introspection make
+meson make
