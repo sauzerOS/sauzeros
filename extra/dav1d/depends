@@ -1,0 +1,4 @@
+glibc
+meson make
+nasm make
+xxhash make
