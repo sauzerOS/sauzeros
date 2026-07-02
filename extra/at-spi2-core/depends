@@ -1,5 +1,15 @@
+bash
 dbus
+gcc-libs
 glib
-gobject-introspection
+glibc
+gsettings-desktop-schemas
+libx11
+libxi
 libxtst
+systemd-libs
+xprop
+dbus-broker make
+gobject-introspection make
+libxml2 make
 meson make
