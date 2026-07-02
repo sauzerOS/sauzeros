@@ -1,2 +1,5 @@
-gcc make
+gcc-libs
+glibc
 readline
+dbus make
+systemd make
