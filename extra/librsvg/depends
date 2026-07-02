@@ -1,6 +1,17 @@
 cairo
-cargo-c
+dav1d
+fontconfig
+freetype
 gdk-pixbuf
+glib
+glibc
+harfbuzz
+gcc-libs
+libxml2
 pango
-rust make
+cargo-c make
+gobject-introspection make
+llvm make
 meson make
+rust make
+vala make 
