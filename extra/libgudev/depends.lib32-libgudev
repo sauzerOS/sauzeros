@@ -1,0 +1,5 @@
+libgudev
+lib32-gcc-libs
+lib32-glib
+lib32-glibc
+lib32-systemd
