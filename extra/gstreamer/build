@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+if hokuto check qt; then
+    qt_opt=enabled
+else
+    qt_opt=disabled
+fi
+
 meson_options=(
     -D benchmarks=disabled
     -D examples=disabled
@@ -44,6 +50,7 @@ meson_options=(
     -D gst-plugins-good:dv1394=disabled
     -D gst-plugins-good:libcaca=disabled
     -D gst-plugins-good:qt5=disabled
+    -D gst-plugins-good:qt6=$qt_opt
     -D gst-plugins-good:rpicamsrc=disabled
     -D gst-plugins-good:shout2=disabled
     -D gst-plugins-good:wavpack=disabled
@@ -53,12 +60,10 @@ meson_options=(
     -D gst-plugins-bad:dc1394=disabled
     -D gst-plugins-bad:dts=disabled
     -D gst-plugins-bad:faac=disabled
-    -D gst-plugins-bad:gme=disabled
     -D gst-plugins-bad:gsm=disabled
     -D gst-plugins-bad:ladspa=disabled
     -D gst-plugins-bad:lv2=disabled
     -D gst-plugins-bad:microdns=disabled
-    -D gst-plugins-bad:modplug=disabled
     -D gst-plugins-bad:mpeg2enc=disabled
     -D gst-plugins-bad:mplex=disabled
     -D gst-plugins-bad:msdk=disabled
@@ -81,6 +86,7 @@ meson_options=(
     -D gst-plugins-bad:wildmidi=disabled
     -D gst-plugins-bad:wpe2=disabled
     -D gst-plugins-bad:zbar=disabled
+    -D gst-plugins-ugly:dvdread=disabled
     -D gst-plugins-ugly:sidplay=disabled
     -D gstreamer:dbghelp=disabled
     -D gstreamer:ptp-helper-permissions=capabilities
@@ -89,6 +95,19 @@ meson_options=(
     -D package-name="sauzerOS GStreamer $2"
     -D package-origin="https://sauzerOS.github.io/"
   )
+
+pick_lib32_files() {
+    split_name="$1"
+    shift
+
+    for path in "$@"; do
+        case "$path" in
+            usr/lib/*)
+                _pick "$PWD/DESTDIR" "lib32-$split_name" "usr/lib32/${path#usr/lib/}"
+                ;;
+        esac
+    done
+}
 
 hokuto-meson build "${meson_options[@]}"
 meson compile -C build
@@ -258,6 +277,7 @@ files=(
     usr/bin/gst-transcoder-1.0
 )
 _pick "$1" gst-plugins-bad "${files[@]}"
+gst_plugins_bad_files=("${files[@]}")
 
 # gst-plugins-base
 files=(
@@ -307,6 +327,7 @@ files=(
     usr/share/gst-plugins-base
 )
 _pick "$1" gst-plugins-base "${files[@]}"
+gst_plugins_base_files=("${files[@]}")
 
 # gst-plugins-good
 files=(
@@ -390,6 +411,7 @@ files=(
     usr/share/locale/*/LC_MESSAGES/gst-plugins-good-1.0.mo
 )
 _pick "$1" gst-plugins-good "${files[@]}"
+gst_plugins_good_files=("${files[@]}")
 
 # gst-plugins-ugly
 files=(
@@ -406,6 +428,7 @@ files=(
     usr/share/locale/*/LC_MESSAGES/gst-plugins-ugly-1.0.mo
 )
 _pick "$1" gst-plugins-ugly "${files[@]}"
+gst_plugins_ugly_files=("${files[@]}")
 
 # gst-libav
 _pick "$1" gst-libav usr/lib/gstreamer-1.0/libgstlibav.so
@@ -448,3 +471,122 @@ _pick "$1" gst-rtsp-server "${files[@]}"
 # gst-python
 _pick "$1" gst-python usr/lib/gstreamer-1.0/libgstpython.so
 _pick "$1" gst-python usr/lib/python*/site-packages/gi/overrides
+
+if [ "$MULTILIB" = "1" ]; then
+# 32bit split packages
+meson32_options=(
+    -D benchmarks=disabled
+    -D examples=disabled
+    -D devtools=disabled
+    -D ges=disabled
+    -D glib_debug=disabled
+    -D gpl=enabled
+    -D gst-examples=disabled
+    -D gst-plugins-base:gl-graphene=disabled
+    -D gst-plugins-bad:aja=disabled
+    -D gst-plugins-bad:amfcodec=disabled
+    -D gst-plugins-bad:androidmedia=disabled
+    -D gst-plugins-bad:cuda-nvmm=disabled
+    -D gst-plugins-bad:directfb=disabled
+    -D gst-plugins-bad:directshow=disabled
+    -D gst-plugins-bad:flite=disabled
+    -D gst-plugins-bad:gs=disabled
+    -D gst-plugins-bad:iqa=disabled
+    -D gst-plugins-bad:isac=disabled
+    -D gst-plugins-bad:lcevcdecoder=disabled
+    -D gst-plugins-bad:lcevcencoder=disabled
+    -D gst-plugins-bad:magicleap=disabled
+    -D gst-plugins-bad:mfx_api=oneVPL
+    -D gst-plugins-bad:mpeghdec=disabled
+    -D gst-plugins-bad:nvcomp=disabled
+    -D gst-plugins-bad:nvdswrapper=disabled
+    -D gst-plugins-bad:openni2=disabled
+    -D gst-plugins-bad:opensles=disabled
+    -D gst-plugins-bad:qt6d3d11=disabled
+    -D gst-plugins-bad:svtjpegxs=disabled
+    -D gst-plugins-bad:tflite=disabled
+    -D gst-plugins-bad:tinyalsa=disabled
+    -D gst-plugins-bad:voaacenc=disabled
+    -D gst-plugins-bad:voamrwbenc=disabled
+    -D gst-plugins-bad:wasapi2=disabled
+    -D gst-plugins-bad:wasapi=disabled
+    -D gst-plugins-base:libvisual=disabled
+    -D gst-plugins-base:tremor=disabled
+    -D gst-plugins-good:aalib=disabled
+    -D gst-plugins-good:amrnb=disabled
+    -D gst-plugins-good:amrwbdec=disabled
+    -D gst-plugins-good:dv=disabled
+    -D gst-plugins-good:dv1394=disabled
+    -D gst-plugins-good:gdk-pixbuf=disabled
+    -D gst-plugins-good:gtk3=disabled
+    -D gst-plugins-good:lame=disabled
+    -D gst-plugins-good:libcaca=disabled
+    -D gst-plugins-good:qt5=disabled
+    -D gst-plugins-good:qt6=disabled
+    -D gst-plugins-good:rpicamsrc=disabled
+    -D gst-plugins-good:shout2=disabled
+    -D gst-plugins-good:v4l2=disabled
+    -D gst-plugins-good:wavpack=disabled
+    -D gst-plugins-bad:assrender=disabled
+    -D gst-plugins-bad:avtp=disabled
+    -D gst-plugins-bad:bs2b=disabled
+    -D gst-plugins-bad:bluez=disabled
+    -D gst-plugins-bad:chromaprint=disabled
+    -D gst-plugins-bad:codec2json=disabled
+    -D gst-plugins-bad:colormanagement=disabled
+    -D gst-plugins-bad:curl-ssh2=disabled
+    -D gst-plugins-bad:dc1394=disabled
+    -D gst-plugins-bad:dts=disabled
+    -D gst-plugins-bad:faac=disabled
+    -D gst-plugins-bad:faad=disabled
+    -D gst-plugins-bad:gme=disabled
+    -D gst-plugins-bad:gsm=disabled
+    -D gst-plugins-bad:ladspa=disabled
+    -D gst-plugins-bad:lv2=disabled
+    -D gst-plugins-bad:microdns=disabled
+    -D gst-plugins-bad:modplug=disabled
+    -D gst-plugins-bad:mpeg2enc=disabled
+    -D gst-plugins-bad:mplex=disabled
+    -D gst-plugins-bad:msdk=disabled
+    -D gst-plugins-bad:musepack=disabled
+    -D gst-plugins-bad:neon=disabled
+    -D gst-plugins-bad:onnx=disabled
+    -D gst-plugins-bad:opencv=disabled
+    -D gst-plugins-bad:openexr=disabled
+    -D gst-plugins-bad:openmpt=disabled
+    -D gst-plugins-bad:resindvd=disabled
+    -D gst-plugins-bad:rtmp=disabled
+    -D gst-plugins-bad:soundtouch=disabled
+    -D gst-plugins-bad:srt=disabled
+    -D gst-plugins-bad:srtp=disabled
+    -D gst-plugins-bad:svtav1=disabled
+    -D gst-plugins-bad:svthevcenc=disabled
+    -D gst-plugins-bad:teletext=disabled
+    -D gst-plugins-bad:vmaf=disabled
+    -D gst-plugins-bad:webrtc=disabled
+    -D gst-plugins-bad:wildmidi=disabled
+    -D gst-plugins-bad:wpe2=disabled
+    -D gst-plugins-bad:zbar=disabled
+    -D gst-plugins-ugly:dvdread=disabled
+    -D gst-plugins-ugly:sidplay=disabled
+    -D gstreamer:dbghelp=disabled
+    -D gstreamer:ptp-helper-permissions=capabilities
+    -D libnice=disabled
+    -D orc=disabled
+    -D introspection=disabled
+    -D python=disabled
+    -D package-name="sauzerOS GStreamer $2"
+    -D package-origin="https://sauzerOS.github.io/"
+  )
+rm -rf build
+hokuto-meson-32 build "${meson32_options[@]}"
+meson compile -C build
+meson install -C build --destdir="$PWD/DESTDIR"
+
+pick_lib32_files gst-plugins-bad "${gst_plugins_bad_files[@]}"
+pick_lib32_files gst-plugins-base "${gst_plugins_base_files[@]}"
+pick_lib32_files gst-plugins-good "${gst_plugins_good_files[@]}"
+pick_lib32_files gst-plugins-ugly "${gst_plugins_ugly_files[@]}"
+
+_pick "$PWD/DESTDIR" lib32-gstreamer 'usr/lib32/*'
+fi
