@@ -1,2 +1,8 @@
+glib
 json-glib
 libusb
+gobject-introspection make
+meson make
+python-setuptools make
+umockdev make
+vala make 
