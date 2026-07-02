@@ -5,3 +5,8 @@ cmake make
 gtk+3 make
 meson make
 wayland-protocols make
+lib32-cairo make
+lib32-dbus make
+lib32-glib make
+lib32-pango make
+lib32-wayland make

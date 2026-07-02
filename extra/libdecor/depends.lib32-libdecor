@@ -1,0 +1,7 @@
+libdecor
+lib32-cairo
+lib32-dbus
+lib32-glib
+lib32-glibc
+lib32-pango
+lib32-wayland

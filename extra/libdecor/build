@@ -4,3 +4,15 @@ hokuto-meson build \
   -D demo=false
 meson compile -C build
 meson install -C build --destdir=$1
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+hokuto-meson-32 build \
+  -D demo=false \
+  -D gtk=disabled
+meson compile -C build
+meson install -C build --destdir=$pkgdir
+rm -fr "$pkgdir"/usr/include
+fi
