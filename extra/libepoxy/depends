@@ -1,2 +1,6 @@
-mesa   make
-meson  make
+glibc
+libglvnd
+libx11
+mesa make
+meson make
+systemd make

@@ -1,14 +1,8 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
+hokuto-meson build \
+    -D egl=yes \
+    -D tests=false
 
-meson \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    -Degl=yes \
-    -Dtests=false \
-    . output
-
-ninja -C output
-DESTDIR=$1 ninja -C output install
+meson compile -C build
+meson install -C build --destdir=$1
