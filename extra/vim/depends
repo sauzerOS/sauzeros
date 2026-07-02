@@ -2,6 +2,5 @@ acl
 libgcrypt
 gawk make
 git make
-libcanberra make
 libxt make
 zlib-ng make
