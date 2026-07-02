@@ -1,3 +1,7 @@
+gcc-libs
+glibc
 glslang
-spirv-headers
 spirv-tools
+cmake make
+python make
+spirv-headers make
