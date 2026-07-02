@@ -2,8 +2,8 @@
 _pwname=pipewire-0.3
 _spaname=spa-0.2
 
-hokuto-meson build                       \
-    --buildtype=release                  \
+meson setup build                        \
+    --prefix=/usr                        \
     -D bluez5=enabled                    \
     -D bluez5-backend-hsp-native=enabled \
     -D bluez5-backend-hfp-native=enabled \
@@ -120,8 +120,10 @@ if [ "$MULTILIB" = "1" ]; then
 #32 bit lib32-pipewire
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 rm -rf build
-hokuto-meson-32 build        \
+meson setup build            \
+    --prefix=/usr            \
     --buildtype=release      \
+    --cross-file=lib32       \
     -D session-managers="[]"
 
 meson compile -C build

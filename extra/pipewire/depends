@@ -16,7 +16,7 @@ wireplumber suggest "Session manager"
 alsa-lib make
 bluez-libs make
 fdk-aac make
-gst-plugins-base make
+gst-plugins-base make optional
 libcanberra make
 libfreeaptx make
 liblc3 make
