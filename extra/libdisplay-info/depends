@@ -1,1 +1,3 @@
-hwdata
+glibc
+hwdata make
+meson make
