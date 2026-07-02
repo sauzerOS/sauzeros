@@ -1,2 +1,5 @@
-sdl2-compat
+gcc-libs
+glibc
+sdl2-compat suggest "for decoder tool"
 cmake make
+sdl2-compat make
