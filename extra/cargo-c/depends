@@ -1,3 +1,7 @@
-rust
+rust | rustup
+curl
+gcc-libs
+glibc
+libssh2
 openssl
-zlib-ng
+sqlite
