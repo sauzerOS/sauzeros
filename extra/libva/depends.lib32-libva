@@ -1,0 +1,7 @@
+libva
+lib32-libdrm
+lib32-libglvnd
+lib32-libx11
+lib32-libxext
+lib32-libfixes
+lib32-wayland

@@ -1,5 +1,15 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr --buildtype=release
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+hokuto-meson-32 build
+meson compile -C build
+meson install -C build --destdir=$PWD/DESTDIR
+_pick "$PWD/DESTDIR" lib32-$3 usr/lib32/libva*
+_pick "$PWD/DESTDIR" lib32-$3 usr/lib32/pkgconfig/
+fi
