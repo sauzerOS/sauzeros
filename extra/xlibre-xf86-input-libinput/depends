@@ -1,3 +1,7 @@
+glibc
 libinput
 xlibre
+libx11 make
+libxi make
 meson make
+xorgproto make
