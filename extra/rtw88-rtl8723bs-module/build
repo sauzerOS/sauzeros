@@ -1,5 +1,16 @@
 #!/bin/sh -e
 
-make KDIR=/usr/src/linux
-make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
-rm -rf $1/lib/modules/*/modules*
+# Kernel modules
+kver=$(make -s -C /usr/src/linux kernelrelease)
+make KSRC=/usr/src/linux KVER="$kver"
+install -dm755 "$1/lib/modules/$kver/kernel/drivers/net/wireless/realtek/rtw88"
+install -m644 *.ko "$1/lib/modules/$kver/kernel/drivers/net/wireless/realtek/rtw88/"
+
+find "$1/lib/modules/$kver" -name '*.ko' -print0 | xargs -0 -P "$(nproc)" -n1 xz -f -C crc32
+
+# Firmware
+install -dm755 "$1/lib/firmware/rtw88"
+install -m644 firmware/*.bin "$1/lib/firmware/rtw88/"
+
+# Modprobe config
+install -Dm644 rtw88.conf "$1/etc/modprobe.d/rtw88.conf"
