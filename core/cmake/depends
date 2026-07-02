@@ -3,6 +3,7 @@ curl
 expat
 gcc-libs
 glibc
+ninja runtime
 xz
 zlib-ng
 zstd
