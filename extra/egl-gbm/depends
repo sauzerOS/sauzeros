@@ -1,0 +1,5 @@
+eglexternalplatform
+glibc
+libdrm
+mesa
+meson make 
