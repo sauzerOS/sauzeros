@@ -1,0 +1,7 @@
+gcc-libs
+glib
+glibc
+libevdev
+libgudev
+libxml2 make
+meson make

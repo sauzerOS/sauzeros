@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+hokuto-meson build \
+      -D tests=disabled
+
+meson compile -C build
+meson install -C build --destdir=$1
