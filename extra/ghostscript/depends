@@ -1,16 +1,21 @@
-at-spi2-core
+bash
 cairo
-cups
 fontconfig
-freetype
 gdk-pixbuf
-gobject-introspection
-gtk+3
-harfbuzz
+glib
+glibc
+little-cms
+libcups
+libidn2
 libjpeg-turbo
 libpng
 libtiff
-little-cms
+libx11
+libxt
 openjpeg
-pango
+poppler
 zlib-ng
+gtk+3 suggest needed for gsx
+freeglut make
+glu make
+gtk+3 make 
