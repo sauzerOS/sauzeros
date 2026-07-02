@@ -1,4 +1,8 @@
+python
+python-editables
+python-packaging
 python-pathspec
 python-pluggy
 python-trove-classifiers
-python-editables
+python-build make
+python-installer make 
