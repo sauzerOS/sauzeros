@@ -1,10 +1,20 @@
+bash
 curl
+fuse3
 glib
+glibc
 gpgme
 libarchive
-libassuan
 libgpg-error
+systemd-libs
 util-linux
+which
 xz
 zlib-ng
 e2fsprogs make
+gobject-introspection make
+libsoup make
+libxslt make
+openssl make
+python make
+systemd make
