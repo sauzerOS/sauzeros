@@ -15,6 +15,7 @@ lame
 libaom
 libass
 libdrm
+libmodplug
 libogg
 libplacebo
 libpulse

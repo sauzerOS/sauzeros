@@ -28,12 +28,15 @@ esac
     --enable-libfribidi \
     --enable-libglslang \
     --enable-libharfbuzz \
+    --enable-libjxl \
+    --enable-libmodplug \
     --enable-libmp3lame \
     --enable-libopenjpeg \
     --enable-libopus \
     --enable-librsvg \
     --enable-libvorbis \
     --enable-libpulse \
+    --enable-libv4l2 \
     --enable-libvpx \
     --enable-libwebp \
     --enable-libx264 \
@@ -78,8 +81,6 @@ make distclean
             --enable-libvpx                           \
             --enable-libx264                          \
             --enable-libx265                          \
-            --enable-nvenc                            \
-            --enable-nvdec                            \
             --enable-vulkan                           \
             --enable-cuda-llvm                        \
             --enable-opengl                           \
