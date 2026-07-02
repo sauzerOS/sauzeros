@@ -1,1 +1,5 @@
-python
+bzip2 make
+icu make
+python make
+zlib-ng make
+zstd make
