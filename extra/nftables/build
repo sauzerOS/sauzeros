@@ -1,10 +1,18 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr    \
-            --disable-debug
+./configure --prefix=/usr \
+  --disable-debug         \
+  --with-json             \
+  --with-cli=readline     \
+  --disable-python
 
 make
+
+cd py
+python -m build --wheel --no-isolation
+cd ..
 make DESTDIR=$1 install
+python -m installer --destdir="$1" py/dist/*.whl
 
 # basic safe firewall config
 install -Dm644 nftables.conf "$1/etc/nftables.conf"
