@@ -2,3 +2,4 @@ alsa-lib
 libpulse
 libvorbis
 sound-theme-freedesktop
+gtk+3 make
