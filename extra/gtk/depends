@@ -1,16 +1,49 @@
-colord
+at-spi2-core
+bash
+cairo
+dconf
+desktop-file-utils
+fontconfig
 fribidi
 gdk-pixbuf
+gcc-libs
+glib
+glibc
 graphene
-gstreamer
-gst-plugins-base
 gst-plugins-bad
+gst-plugins-base
+gstreamer
+harfbuzz
 iso-codes
+colord
+libcups
+libglvnd
 libepoxy
+libjpeg-turbo
+libpng
+librsvg
 libtiff
+libx11
+libxcursor
+libxdamage
+libxext
+libxfixes
+libxi
+libxinerama
 libxkbcommon
+libxrandr
+libxrender
 pango
-python-pygobject
-shaderc
 shared-mime-info
-wayland-protocols
+vulkan-icd-loader
+wayland
+xdg-desktop-portal-gtk
+evince suggest Default print preview command
+gobject-introspection make
+hicolor-icon-theme make
+meson make
+python-pygobject make
+sassc make
+shaderc make
+vulkan-headers make
+wayland-protocols make 

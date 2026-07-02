@@ -1,9 +1,8 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr        \
-            --buildtype=release        \
-           -D broadway-backend=true    \
-           -D colord=enabled           \
+hokuto-meson build		    \
+           -D broadway-backend=true \
+           -D colord=enabled        \
            -D introspection=enabled
 
 meson compile -C build
