@@ -1,6 +1,13 @@
+brotli
 bzip2
+glibc
 libevent
 openssl
 xz
 zlib-ng
 zstd
+libjpeg-turbo make
+libpng (ake
+libtiff make
+libwebp make
+libx11 make 
