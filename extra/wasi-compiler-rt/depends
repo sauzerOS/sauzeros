@@ -1,4 +1,6 @@
 wasi-libc
+clang make
 cmake make
-ninja make
+lld make
 llvm make
+python make
