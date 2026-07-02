@@ -1,2 +1,6 @@
 python
-python-hatchling
+python-build make
+python-hatchling make
+python-installer make
+python-setuptools make
+python-wheel make 
