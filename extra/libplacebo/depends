@@ -1,5 +1,18 @@
+gcc-libs
+glibc
 glslang
-python-glad
+libunwind
 little-cms
 shaderc
-vulkan-headers
+vulkan-icd-loader
+xxhash
+libglvnd make
+meson make
+ninja make
+python make
+python-glad make
+python-jinja2 make
+python-mako make
+python-markupsafe make
+python-setuptools make
+vulkan-headers make 
