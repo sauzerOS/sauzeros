@@ -10,5 +10,5 @@ libpulse make
 libsndfile make
 pipewire make
 portaudio make
-qt make
+qt make optional
 sdl3 make
