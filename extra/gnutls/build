@@ -4,8 +4,9 @@
     --prefix=/usr             \
     --with-included-unistring \
     --disable-doc             \
-    --enable-static
+    --disable-static
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR="$1" install
 
