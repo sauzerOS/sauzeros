@@ -1,53 +1,40 @@
-gnutls
-iceauth
-libdrm
+bash
+dbus
+glibc
 libepoxy
-libevdev
-libfontenc
-libice
-libinput
+libglvnd
 libpciaccess
-libsm
+libtirpc
 libunwind
-libx11
-libxcomposite
-libxcursor
+libxau
 libxcvt
-libxdamage
-libxext
-libxfixes
+libxdmcp
 libxfont2
-libxft
-libxi
-libxinerama
-libxkbfile
-libxmu
-libxpm
-libxpresent
-libxrandr
-libxrender
-libxres
-libxss
 libxshmfence
-libxt
-libxtst
-libxv
-libxxf86vm
-mtdev
 nettle
 pixman
-setxkbmap
-unicode-fonts
-xauth
-xbitmaps
-xcb-util
-xcb-util-cursor
-xcb-util-image
-xcb-util-keysyms
-xcb-util-renderutil
-xcb-util-wm
-xinit
-xkbcomp
-xrandr
-xtrans
-xlibre-xf86-input-libinput optional
+systemd-libs
+xlibre-xf86-input-libinput runtime
+font-util make
+libx11 make
+libxi make
+libxkbfile make
+libxmu make
+libxrender make
+libxres make
+libxtst make
+libxv make
+mesa make
+meson make
+pixman make
+systemd make
+xcb-util make
+xcb-util-image make
+xcb-util-keysyms make
+xcb-util-renderutil make
+xcb-util-wm make
+xkbcomp make
+xorg-util-macros make
+xorgproto make
+
+
