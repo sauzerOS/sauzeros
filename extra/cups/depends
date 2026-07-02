@@ -1,3 +1,18 @@
+acl
+cups-filters runtime
+dbus
+gcc-libs
+glibc
 gnutls
-libusb
+hicolor-icon-theme
+libcups runtime
 pam
+systemd
+systemd-libs
+colord suggest for ICC color profile support
+libusb suggest for usb printer backend
+xdg-utils suggest xdg .desktop file support
+colord make optional
+libusb make
+pam make
+systemd make 
