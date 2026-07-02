@@ -1,3 +1,7 @@
+gcc-libs
 glib
-meson make
+glibc
 xz
+zstd
+gobject-introspection make
+meson make 
