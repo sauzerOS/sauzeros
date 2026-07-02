@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+hokuto-meson build       \
+    -D polkit=permissive \
+    -D qrtr=false
+
+meson compile -C build
+meson install -C build --destdir=$1
+
+# libmm-glib
+
+_pick "$1" libmm-glib usr/include
+_pick "$1" libmm-glib usr/lib/girepository-1.0
+_pick "$1" libmm-glib usr/lib/libmm-glib.so*
+_pick "$1" libmm-glib usr/lib/pkgconfig
+_pick "$1" libmm-glib usr/share/gir-1.0
+_pick "$1" libmm-glib usr/share/vala
