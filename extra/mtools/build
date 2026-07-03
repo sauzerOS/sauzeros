@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+# comment entry in default config
+sed -e '/^SAMPLE FILE$/s:^:# :' -i mtools.conf
+
 ./configure --prefix=/usr
 make
 make DESTDIR=$1 install
+install -vDm 644 mtools.conf -t "$1/etc/"
