@@ -1,6 +1,9 @@
+gcc-libs
 glib
+glibc
 gtk
-libsecret
+libnm
 libnma
-networkmanager
-openvpn
+libsecret
+openvpn make
+python make 

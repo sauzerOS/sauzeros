@@ -5,7 +5,18 @@ autoreconf -fvi
     --sysconfdir=/etc     \
     --localstatedir=/var  \
     --libexecdir=/usr/lib \
+    --with-gtk4           \
     --disable-static
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR=$1 install install dbusservicedir=/usr/share/dbus-1/system.d
+
+# networkmanager-vpn-plugin-openvpn
+
+_pick "$1" networkmanager-vpn-plugin-openvpn usr/lib/NetworkManager/VPN
+_pick "$1" networkmanager-vpn-plugin-openvpn usr/lib/NetworkManager/libnm-vpn-plugin-openvpn.so
+_pick "$1" networkmanager-vpn-plugin-openvpn usr/lib/nm-openvpn-service*
+_pick "$1" networkmanager-vpn-plugin-openvpn usr/lib/sysusers.d
+_pick "$1" networkmanager-vpn-plugin-openvpn plugin usr/lib/tmpfiles.d
+_pick "$1" networkmanager-vpn-plugin-openvpn plugin usr/share/dbus-1
