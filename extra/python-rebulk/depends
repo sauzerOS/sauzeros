@@ -1,3 +1,4 @@
 python
 python-build make
 python-installer make
+python-uv-build make
