@@ -2,6 +2,7 @@
 
 sip-build \
    --confirm-license \
+   --qmake-setting 'CONFIG += c++17' \
    --no-make \
    --qmake=/usr/lib/qt6/bin/qmake6 \
    --api-dir /usr/share/qt6/qsci/api/python \
