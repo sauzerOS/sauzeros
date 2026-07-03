@@ -1,4 +1,5 @@
 brotli
+c-ares
 icu
 libffi
 libuv

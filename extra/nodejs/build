@@ -14,11 +14,14 @@ esac
 
 # Common configure arguments
 CONF_ARGS="--prefix=$CROSS_PREFIX \
-           --shared-libuv \
+           --shared-libuv   \
            --shared-nghttp2 \
-           --shared-zlib \
+           --shared-zlib    \
            --shared-openssl \
-           --shared-brotli \
+           --shared-brotli  \
+           --shared-cares   \
+           --shared-zstd    \
+           --shared-ffi     \
            --with-intl=system-icu"
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
