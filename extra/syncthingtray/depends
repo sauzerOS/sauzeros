@@ -1,10 +1,12 @@
-boost
+boost-libs
 cpp-utilities
 desktop-file-utils
 openssl
-qt
+qt-declarative
+qt-svg
 qtforkawesome
 qtutilities
+boost make
 cmake make
 extra-cmake-modules make
 libplasma make
