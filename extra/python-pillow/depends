@@ -1,2 +1,16 @@
-python-pybind11
-libjpeg-turbo make
+freetype
+glibc
+little-cms
+libjpeg-turbo
+libtiff
+libxcb
+openjpeg
+python
+python-packaging
+zlib-ng
+libwebp make
+python-build make
+python-installer make
+python-pybind11 make
+python-setuptools make
+python-wheel make
