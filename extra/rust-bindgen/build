@@ -1,6 +1,16 @@
 #!/bin/sh -e
 
-cargo build --release
-
-mkdir -pv $1/usr/bin
-install -v -m755 target/release/bindgen $1/usr/bin
+_pkgname=bindgen
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+cargo fetch --locked --target host-tuple
+mkdir -p completions
+cargo build --release --frozen
+_completion="target/release/$_pkgname --generate-shell-completions"
+$_completion bash >"completions/$_pkgname"
+$_completion fish >"completions/$_pkgname.fish"
+$_completion zsh >"completions/_$_pkgname"
+install -Dm755 "target/release/$_pkgname" "$1"/usr/bin/bindgen
+install -Dm664 "completions/$_pkgname" -t "$1/usr/share/bash-completion/completions/"
+install -Dm664 "completions/$_pkgname.fish" -t "$1/usr/share/fish/vendor_completions.d/"
+install -Dm664 "completions/_$_pkgname" -t "$1/usr/share/zsh/site-functions/"
