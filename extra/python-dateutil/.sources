@@ -1,0 +1,2 @@
+git+https://github.com/dateutil/dateutil#${version-last-only}
+files/0001-fix-many-deprecation-errors.patch
