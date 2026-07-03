@@ -1,4 +1,13 @@
+gcc-libs
+glibc
 openssl
-python-maturin make
+python
 python-cffi
-python-pycparser make
+clang make
+lld make
+llvm make
+python-build make
+python-installer make
+python-maturin make
+python-setuptools make
+python-wheel make 
