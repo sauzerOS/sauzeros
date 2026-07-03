@@ -1,12 +1,9 @@
 #!/bin/sh -e
 
-# don't treat warnings as errors
-sed -i 's/-Werror//' libdbusmenu-*/Makefile.{am,in}
-
 export HAVE_VALGRIND_TRUE='#'
 export HAVE_VALGRIND_FALSE=''
 
-
+NOCONFIGURE=1 ./autogen.sh
 ./configure --prefix=/usr \
 	    --with-gtk=3 \
 	    --disable-dumper \
