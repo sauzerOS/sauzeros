@@ -1,4 +1,14 @@
 #!/bin/sh -e
 
-make
-make prefix=/usr DESTDIR=$1 install
+cmake_options=(
+    -B build
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_SHARED_LIBS=ON
+    -D RE2_BUILD_TESTING=OFF
+)
+
+cmake "${cmake_options[@]}"
+cmake --build build
+DESTDIR="$1" cmake --install build
