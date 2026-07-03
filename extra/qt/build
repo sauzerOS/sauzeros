@@ -955,7 +955,13 @@ _pick "$1" qt-imageformats usr/lib/cmake/Qt6Gui/Qt6QTga*
 _pick "$1" qt-imageformats usr/lib/cmake/Qt6Gui/Qt6QTiff*
 _pick "$1" qt-imageformats usr/lib/cmake/Qt6Gui/Qt6QWbmp*
 _pick "$1" qt-imageformats usr/lib/cmake/Qt6Gui/Qt6QWebp*
-_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqicns.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqjp2.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqmng.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqtga.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqtiff.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqwbmp.so*
+_pick "$1" qt-imageformats usr/lib/qt6/plugins/imageformats/libqwebp.so*
 _pick "$1" qt-imageformats usr/lib/qt6/sbom/qtimageformats*
 
 # qt-languageserver
@@ -1802,7 +1808,8 @@ _pick "$1" qt-wayland usr/lib/qt6/modules/WaylandCompositorXdgShell.json
 _pick "$1" qt-wayland usr/lib/qt6/modules/WaylandEglCompositorHwIntegrationPrivate.json
 _pick "$1" qt-wayland usr/lib/qt6/plugins/wayland-decoration-client/libadwaita.so
 _pick "$1" qt-wayland usr/lib/qt6/plugins/wayland-graphics-integration-server/
-_pick "$1" qt-wayland usr/lib/qt6/plugins/wayland-shell-integration/
+_pick "$1" qt-wayland usr/lib/qt6/plugins/wayland-shell-integration/libivi-shell.so*
+_pick "$1" qt-wayland usr/lib/qt6/plugins/wayland-shell-integration/libqt-shell.so*
 _pick "$1" qt-wayland usr/lib/qt6/qml/QtWayland/
 _pick "$1" qt-wayland usr/lib/qt6/sbom/qtwayland-*
 

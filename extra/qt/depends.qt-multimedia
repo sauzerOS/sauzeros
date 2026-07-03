@@ -5,4 +5,4 @@ pipewire
 qt
 qt-declarative suggest "QML bindings"
 qt-quick3d suggest "QtQuick3DAudio"
-qt-multimedia-ffmpeg | qt-multimedia-gstreamer
+qt-multimedia-ffmpeg | qt-multimedia-gstreamer runtime
