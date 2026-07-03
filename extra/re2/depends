@@ -1,1 +1,4 @@
-abseil-cpp make
+abseil-cpp
+gcc-libs
+glibc
+cmake make
