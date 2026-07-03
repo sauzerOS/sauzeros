@@ -1,0 +1,10 @@
+bzip2
+gcc-libs
+glibc
+jemalloc
+zstd
+rust | rustup make
+cmake make
+python-maturin make
+python-installer make
+xz make
