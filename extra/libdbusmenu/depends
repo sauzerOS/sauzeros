@@ -1,3 +1,10 @@
+at-spi2-core
+gdk-pixbuf
+glib
+glibc
 gtk+3
+pango
+gnome-common make
+gobject-introspection make
 intltool make
-vala
+vala make  
