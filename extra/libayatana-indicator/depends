@@ -1,6 +1,10 @@
 ayatana-ido
+gcc-libs
 gdk-pixbuf
+glib
+glibc
 gtk+3
-gobject-introspection
-vala
 cmake make
+gobject-introspection make
+vala make
+
