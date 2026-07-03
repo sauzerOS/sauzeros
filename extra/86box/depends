@@ -1,6 +1,8 @@
 fluidsynth
 freetype
+gcc-libs
 glib
+glibc
 hicolor-icon-theme
 libevdev
 libglvnd
@@ -8,9 +10,17 @@ libpcap
 libpng
 libslirp
 libsndfile
+libx11
+libxcb
+libxkbcommon
 openal
 qt
 rtmidi
 sdl2-compat
 wayland
+zlib-ng
 cmake make
+extra-cmake-modules make
+qt-tools make
+qt-wayland make
+vulkan-headers make
