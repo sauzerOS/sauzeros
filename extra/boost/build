@@ -2,6 +2,7 @@
 
 ./bootstrap.sh \
     --prefix="$1/usr" \
+    --with-icu \
     --with-python=/usr/bin/python3
 
 for action in stage install; do
@@ -11,6 +12,7 @@ for action in stage install; do
         threading=multi
 done
 
-# https://github.com/boostorg/python/issues/203#issuecomment-391477685
-#ln -s "$1/usr/lib/libboost_python39.so" "$1/usr/lib/libboost_python3.so"
-#ln -s "$1/usr/lib/libboost_numpy39.so"  "$1/usr/lib/libboost_numpy3.so"
+
+# boost-libs
+_pick "$1" boost-libs usr/lib/libboost_*
+_pick "$1" boost-libs usr/lib/python*/site-packages/boost/
