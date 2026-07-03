@@ -10,5 +10,8 @@
     --disable-nls \
     --with-curses=ncursesw
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
 make
 make DESTDIR=$1 install
+install -vDm 644 $3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
