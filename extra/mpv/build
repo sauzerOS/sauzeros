@@ -2,10 +2,8 @@
 
 sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
 
-meson setup build     \
-  --buildtype=release \
-  --prefix=/usr       \
-  -D x11=enabled      \
+hokuto-meson build \
+  -D x11=enabled   \
   -D drm=enabled
 
 meson compile -C build
