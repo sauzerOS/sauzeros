@@ -1,5 +1,16 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr --without-gnutls
+patch -Np1 -i nettle-4.patch
+
+./configure --prefix=/usr \
+  --enable-libaria2       \
+  --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
+
 make
 make DESTDIR=$1 install
+
+# add bash completion
+install -d "$1"/usr/share/bash-completion/completions
+install -m644 "$1"/usr/share/doc/aria2/bash_completion/aria2c \
+"$1"/usr/share/bash-completion/completions
+rm -rf "$1"/usr/share/doc/aria2/bash_completion
