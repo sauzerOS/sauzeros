@@ -1,6 +1,4 @@
 #!/bin/sh -e
 
-#patch -p1 -i certs.patch
-
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
