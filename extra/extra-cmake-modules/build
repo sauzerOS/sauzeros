@@ -2,7 +2,9 @@
 
 cmake -B build                 \
   -D CMAKE_INSTALL_PREFIX=/usr \
-  -D BUILD_WITH_QT6=ON
+  -D BUILD_HTML_DOCS=ON        \
+  -D BUILD_QTHELP_DOCS=ON      \
+  -D BUILD_TESTING=OFF
 
 cmake --build build
 DESTDIR=$1 cmake --install build
