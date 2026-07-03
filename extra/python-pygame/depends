@@ -1,0 +1,13 @@
+glibc
+libpng
+python
+sdl2-compat
+sdl2-mixer
+sdl2-ttf
+sdl2-image
+portmidi
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make
+sdl2-compat make

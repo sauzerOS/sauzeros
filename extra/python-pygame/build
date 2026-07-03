@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+patch -Np1 -i 0001-Use-importlib-instead-of-pkg_resources-on-recent-pyt.patch
+python -m build --wheel --no-isolation
+python -m installer --destdir="${1}" dist/*.whl
