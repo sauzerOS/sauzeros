@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+install -D -m0755 easyrsa3/easyrsa "${1}"/usr/bin/easyrsa
+
+install -D -m0644 easyrsa3/openssl-easyrsa.cnf "${1}"/etc/easy-rsa/openssl-easyrsa.cnf
+install -D -m0644 easyrsa3/vars.example "${1}"/etc/easy-rsa/vars
+install -d -m0755 "${1}"/etc/easy-rsa/x509-types/
+install -m0644 easyrsa3/x509-types/* "${1}"/etc/easy-rsa/x509-types/
+
+install -d -m0755  "${1}"/usr/share/doc/easy-rsa/
+install -m0644 doc/* ChangeLog "${1}"/usr/share/doc/easy-rsa/
