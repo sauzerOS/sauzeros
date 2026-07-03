@@ -1,1 +1,5 @@
-python-poetry-core
+python
+python-setuptools
+python-build make
+python-installer make
+python-poetry-core make 
