@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+cmake_options=(
+    -B build
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+    -W no-dev
+)
+
+cmake "${cmake_options[@]}"
+cmake --build build
+DESTDIR="${1}" cmake --install build
