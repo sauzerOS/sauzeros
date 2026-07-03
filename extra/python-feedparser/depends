@@ -1,0 +1,8 @@
+libxml2
+python-requests
+python-sgmllib3k
+python-chardet suggest for character encoding auto-detection
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
