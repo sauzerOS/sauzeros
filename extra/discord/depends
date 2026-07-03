@@ -1,0 +1,9 @@
+gtk+3
+libnotify
+libxss
+nspr
+nss
+hicolor-icon-theme
+libpulse suggest "PulseAudio support"
+libappindicator "Systray indicator support"
+xdg-utils "Open URLs and files"

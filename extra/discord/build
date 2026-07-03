@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
-mkdir -pv $1/opt/discord
-cp -a * $1/opt/discord/
-install -D -m 644 "discord.desktop"  "$1/usr/share/applications/discord.desktop"
+install -Dm755 $3 "$1"/usr/bin/$3
+install -Dm755 updater_bootstrap "$1"/usr/share/$3/updater_bootstrap
+install -Dm644 $3.desktop "$1"/usr/share/applications/$3.desktop
+install -Dm644 $3.png "$1"/usr/share/icons/hicolor/256x256/apps/$3.png
