@@ -1,2 +1,7 @@
+python
 python-packaging
 python-sip
+python-build make
+python-installer make
+python-setuptools-scm make
+python-wheel make 
