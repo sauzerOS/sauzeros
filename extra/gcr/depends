@@ -1,9 +1,12 @@
 glib
-gnupg2
-gtk+3
-gtk
-libgcrypt
+glibc
+gnutls
 libsecret
 openssh
 p11-kit
-vala
+systemd-libs
+gobject-introspection make
+gtk make
+meson make
+systemd make
+vala make
