@@ -1,3 +1,5 @@
 abseil-cpp
+gcc-libs
+glibc
 zlib-ng
 cmake make
