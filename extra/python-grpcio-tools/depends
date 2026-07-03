@@ -1,5 +1,16 @@
+gcc-libs
+glibc
+protobuf
 python
 python-protobuf
 python-setuptools
 abseil-cpp make
+cmake make
 cython make
+openssl make
+protobuf make
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make
+re2 make 
