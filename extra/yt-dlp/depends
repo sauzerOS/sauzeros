@@ -1,10 +1,14 @@
-ffmpeg
 python
 python-certifi
 python-requests
 python-urllib3
-python-websockets
 yt-dlp-ejs
+aria2 suggest for using aria2 as external downloader
+ffmpeg suggest for video post-processing
+python-brotli suggest brotli content encoding support
+python-pycryptodome suggest for decrypting AES-128 HLS streams and various other data
+python-pycryptodomex suggest for decrypting AES-128 HLS streams and various other data
+python-websockets suggest for downloading over websocket
 python-build make
 python-hatchling make
-python-installer make
+python-installer make 
