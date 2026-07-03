@@ -1,1 +1,6 @@
-python-hatch-vcs
+python
+python-build make
+python-hatch-vcs make
+python-hatchling make
+python-installer make
+python-wheel make 
