@@ -1,8 +1,9 @@
+ca-certificates
 python
+python-certifi
 python-charset-normalizer
 python-idna
 python-urllib3
-git make
 python-build make
 python-installer make
 python-setuptools make
