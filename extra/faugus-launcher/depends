@@ -1,7 +1,13 @@
-python-pygobject
-python-requests
-python-pillow
-python-vdf
-python-psutil
+icoextract
 imagemagick
 libayatana-appindicator
+libcanberra
+python
+python-pillow
+python-psutil
+python-pycairo
+python-pygame
+python-pygobject
+python-requests
+python-vdf
+meson make
