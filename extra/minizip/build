@@ -1,15 +1,13 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+cmake -B build                 \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D MZ_BUILD_TESTS=ON         \
+  -D BUILD_SHARED_LIBS=ON      \
+  -D CMAKE_BUILD_TYPE=Release
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr \
-      -DMZ_BUILD_TESTS=ON         \
-      -DBUILD_SHARED_LIBS=ON     \
-      -DCMAKE_BUILD_TYPE=Release  \
-      ..
-make
-make DESTDIR=$1 install
+cmake --build build
+DESTDIR=$1 cmake --install build
 
 # symlink for zip compat
 ln -s /usr/bin/minizip $1/usr/bin/zip
