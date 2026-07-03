@@ -1,2 +1,17 @@
+abseil-cpp
+gcc-libs
+glibc
+openssl
 python
+python-grpcio-tools
+python-typing-extensions
+re2
+zlib-ng
+c-ares make
+cmake make
 cython make
+protobuf make
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make
