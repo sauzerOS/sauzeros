@@ -1,3 +1,23 @@
-qt
+gcc-libs
+glibc
+python
 python-pyqt6-sip
-pyqt-builder
+qt
+python-dbus make
+pyqt-builder make
+python-sip make 
+qt-connectivity make
+qt-declarative make
+qt-multimedia make
+qt-positioning make
+qt-quick3d make
+qt-remoteobjects make
+qt-scxml make
+qt-sensors make
+qt-serialport make
+qt-shadertools make
+qt-speech make
+qt-svg make
+qt-tools make
+qt-webchannel make
+qt-websockets make
