@@ -3,6 +3,5 @@ python-babelfish
 python-dateutil
 python-rebulk
 python-build make
+python-hatchling make
 python-installer make
-python-setuptools make
-python-wheel make
