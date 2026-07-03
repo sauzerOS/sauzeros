@@ -1,1 +1,4 @@
 libxfce4util
+glib make
+gobject-introspection make
+vala make
