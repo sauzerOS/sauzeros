@@ -1,5 +1,5 @@
+bash
 dosfstools
 efibootmgr
-gnu-efi
-python
+gnu-efi make
 
