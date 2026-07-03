@@ -1,12 +1,15 @@
-python-attrs
 python-certifi
 python-isodate
 python-lxml
 python-pycountry
+python-pycryptodome
 python-pysocks
 python-requests
 python-trio
-python-pycryptodome
-python-sortedcontainers
-python-sniffio
-python-outcome
+python-trio-websocket
+python-websocket-client
+ffmpeg suggest Required to play streams that are made up of separate audio and video streams, eg. YouTube 1080p+
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
