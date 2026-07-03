@@ -1,2 +1,9 @@
-python-hatchling
-python-hatch-vcs
+cmake
+ninja
+python
+python-packaging
+python-pathspec
+python-build make
+python-hatch-vcs make
+python-hatchling make
+python-installer make 
