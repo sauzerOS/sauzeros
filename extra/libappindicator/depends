@@ -1,6 +1,8 @@
 glib
+glibc
 gtk+3
 libdbusmenu
-gnome-common
-gobject-introspection
-gtk-doc
+dbus-glib make
+gnome-common make
+gobject-introspection make
+vala make
