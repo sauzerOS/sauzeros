@@ -1,9 +1,12 @@
-botan
 argon2
-libgcrypt
-libsodium
-qrencode
-qt
+botan
+hicolor-icon-theme
+libusb
+libxtst
 minizip
 pcsclite
+qrencode
+qt-svg
 cmake make
+git make
+qt-tools make 
