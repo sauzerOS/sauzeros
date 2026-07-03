@@ -1,8 +1,15 @@
-gcc
-git make
+dbus
+gcc-libs
+little-cms
+libffi
+wayland
+zlib-ng
+zstd
+clang make
+cmake make
+lld make
+nodejs make
+protobuf make
 python make
 rust make
-nodejs make
-ninja make
-cmake make
-protobuf make
+rust-bindgen make 
