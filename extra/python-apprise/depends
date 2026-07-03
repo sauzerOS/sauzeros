@@ -1,1 +1,11 @@
-python-babel
+python-certifi
+python-click
+python-markdown
+python-pyyaml
+python-dbus suggest for Linux DBus Notifications
+python-pygobject suggest for Linux DBus Notifications
+python-babel make
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
