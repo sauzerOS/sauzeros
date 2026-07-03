@@ -1,0 +1,35 @@
+#!/bin/sh -e
+
+cargo fetch --locked --target "$(rustc --print host-tuple)"
+mkdir -p completions
+
+tripple="$(rustc --print host-tuple)"
+
+export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
+
+# Note: do not use --all-features as in enables a self-updater
+maturin build --locked --release --target "$tripple" --strip --compatibility linux
+maturin build --locked --release --target "$tripple" --strip --compatibility linux -m crates/uv-build/Cargo.toml
+compgen="target/$tripple/release/uv --generate-shell-completion"
+$compgen bash > "completions/$3"
+$compgen elvish > "completions/$3.elv"
+$compgen fish > "completions/$3.fish"
+$compgen zsh > "completions/_$3"
+
+_target="target/$(rustc --print host-tuple)/release/uv"
+  install -Dm0755 -t "$1/usr/bin/" "$_target"
+  install -Dm0755 -t "$1/usr/bin/" "${_target}x"
+  install -Dm 644 "completions/$3" -t "$1/usr/share/bash-completion/completions/"
+  install -Dm 644 "completions/$3.elv" -t "$1/usr/share/elvish/lib/"
+  install -Dm 644 "completions/$3.fish" -t "$1/usr/share/fish/vendor_completions.d/"
+  install -Dm 644 "completions/_$3" -t "$1/usr/share/zsh/site-functions/"
+
+# python-uv
+pkgdir=$HOKUTO_SPLIT_DIR/python-$3
+python -m installer -d "$pkgdir" target/wheels/uv-$2-*.whl
+rm -rf "$pkgdir/usr/bin"
+
+# python-uv-build
+pkgdir=$HOKUTO_SPLIT_DIR/python-$3-build
+python -m installer -d "$pkgdir" target/wheels/uv_build-$2-*.whl
