@@ -1,5 +1,5 @@
 #!/bin/sh -e
 
-meson setup --prefix=/usr build
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
