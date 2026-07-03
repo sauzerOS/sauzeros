@@ -34,7 +34,7 @@ vulkan-icd-loader
 wayland
 zlib-ng
 yt-dlp suggest "Youtube support"
-ffnvcodec-headers make
+nv-codec-headers make
 meson make
 vulkan-headers make
 wayland-protocols make 
