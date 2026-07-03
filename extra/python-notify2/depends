@@ -1,1 +1,6 @@
-dbus-python
+python
+python-dbus
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
