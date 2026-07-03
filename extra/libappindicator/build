@@ -8,7 +8,7 @@ NOCONFIGURE=1 ./autogen.sh
     --sysconfdir=/etc     \
     --localstatedir=/var  \
     --with-gtk=3          \
-    --enable-gtk-doc
+    --disable-gtk-doc
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
