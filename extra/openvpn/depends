@@ -1,3 +1,10 @@
 libcap-ng
+libnl
+lz4
 lzo
+openssl
+systemd-libs
+easy-rsa suggest easy CA and certificate handling
+pam suggest authenticate via PAM
 python-docutils make
+systemd make
