@@ -1,4 +1,38 @@
+glibc
+chafa suggest Image output as ascii art
+dbus suggest Bluetooth, Player & Media detection
+dconf suggest Needed for values that are only stored in DConf + Fallback for GSettings
+glib suggest Output for values that are only stored in GSettings
+hwdata suggest GPU output
+imagemagick suggest Image output using sixel or kitty graphics protocol
+libdrm suggest Displays detection
+libelf suggest st term font detection and fast path of systemd version detection
+libglvnd suggest OpenGL module
+libpulse suggest Sound detection
+libva suggest Primary backend of hardware-accelerated video codec detection
+libvdpau suggest Fallback backend of hardware-accelerated video codec detection
+libxrandr suggest Multi monitor support
+lua suggest Lua scripting in format section of JSON config
+python suggest Needed for zsh and fish completions
+sqlite suggest Needed for Sqlite integration and Soar packages count
+vulkan-icd-loader suggest Vulkan module & fallback for GPU output
+zlib-ng suggest Faster image output when using kitty graphics protocol
+chafa make
 cmake make
-chafa
-imagemagick
+dbus make
+dconf make
+imagemagick make
+libglvnd make
+libpulse make
+libva make
+libvdpau make
+libxcb make
+libxrandr make
+lua make
+sqlite make
+vulkan-headers make
+vulkan-icd-loader make
+wayland make
+xfconf make
+zlib-ng make 
 aarch64-imagemagick cross make
