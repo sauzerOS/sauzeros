@@ -1,2 +1,4 @@
 python
-python-flit-core
+python-build make
+python-flit-core make
+python-installer make
