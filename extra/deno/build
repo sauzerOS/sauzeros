@@ -1,6 +1,14 @@
 #!/bin/sh -e
 
-cargo build --release
+export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+export CC=clang CXX=clang++ AR=ar NM=nm
+export LCMS2_LIB_DIR=/usr/lib
+export ZSTD_SYS_USE_PKG_CONFIG=1
+export CARGO_FEATURE_SYSTEM=1 # Use system-provided libffi
+
+cargo fetch --target host-tuple
+cargo build --frozen --release
 
 # Install phase
 install -Dm755 target/release/deno "${1}"/usr/bin/deno
