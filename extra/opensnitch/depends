@@ -2,7 +2,7 @@ glibc
 hicolor-icon-theme
 libnetfilter_queue
 libnfnetlink
-opensnitch-ebpf-module
+opensnitch-ebpf-module suggest "ebpf module"
 protobuf
 python
 python-grpcio
@@ -24,4 +24,4 @@ python-installer make
 python-jaraco.text make
 python-setuptools make
 python-wheel make
-qt make
+qt-tools make
