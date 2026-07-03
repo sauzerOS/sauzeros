@@ -1,2 +1,9 @@
 alsa-lib
+bash
+gcc-libs
+glibc
 ncurses
+pciutils
+psmisc
+ncurses make
+systemd make
