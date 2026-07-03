@@ -1,12 +1,23 @@
-egl-wayland
-font-util
-libxfont2
-libxcvt
+glibc
+libdecor
+libdrm
 libepoxy
-libxdmcp
+libglvnd
 libtirpc
-libxkbfile
+libxau
+libxcvt
+libxfont2
+libxshmfence
+mesa
+nettle
 pixman
 wayland
-wayland-protocols
+xlibre
+dbus make
+font-util make
+libxkbfile make
 meson make
+systemd make
+wayland-protocols make
+xorgproto make
+xtrans make 
