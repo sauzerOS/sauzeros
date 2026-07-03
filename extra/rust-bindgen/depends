@@ -1,2 +1,4 @@
-llvm
+clang
+gcc-libs
+glibc
 rust | rustup make
