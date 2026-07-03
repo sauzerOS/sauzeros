@@ -1,0 +1,14 @@
+alsa-lib
+ffmpeg
+fluidsynth
+gcc-libs
+glibc
+libglvnd
+libpcap
+libslirp
+libx11
+libxkbfile
+libxrandr
+sdl2-compat
+zlib-ng
+glu make
