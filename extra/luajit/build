@@ -3,5 +3,4 @@
 CFLAGS="$CFLAGS -fno-lto"
 
 make amalg PREFIX=/usr
-
 make install DESTDIR="$1" PREFIX=/usr

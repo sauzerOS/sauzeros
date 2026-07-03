@@ -1,1 +1,1 @@
-https://anduin.linuxfromscratch.org/BLFS/luajit/luajit-20250816.tar.xz
+git+https://github.com/LuaJIT/LuaJIT#a2bde60
