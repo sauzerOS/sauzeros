@@ -1,12 +1,8 @@
 #!/bin/sh -e
 
-mkdir bld
-cd bld
+hokuto-meson build     \
+      -D gtk_doc=false \
+      -D manpage=false
 
-meson --prefix=/usr \
-      --buildtype=release \
-      -Dgtk_doc=false \
-      -Dmanpage=false ..
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1

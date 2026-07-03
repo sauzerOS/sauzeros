@@ -1,1 +1,7 @@
 glib
+glibc
+libgcrypt
+bash-completion make
+gobject-introspection make
+meson make
+vala make
