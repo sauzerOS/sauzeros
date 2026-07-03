@@ -1,6 +1,9 @@
-gdk-pixbuf
 cairo
+gdk-pixbuf
+glib
+glibc
 gtk+3
 pango
-gobject-introspection
-vala
+cmake make
+gobject-introspection make
+vala make 
