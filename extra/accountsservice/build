@@ -2,9 +2,7 @@
 
 patch -Np1 -i 0001-tests-Drop-check-format-test.patch
 
-meson setup build         \
-      --prefix=/usr       \
-      --buildtype=release \
+hokuto-meson build \
       -D admin_group=wheel
 
 meson compile -C build

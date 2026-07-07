@@ -1,3 +1,11 @@
-polkit
 glib
-vala
+glibc
+json-c
+libgcc
+libxcrypt
+polkit
+shadow
+systemd
+gobject-introspection make
+meson make
+vala make 
