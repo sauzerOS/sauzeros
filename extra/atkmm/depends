@@ -1,2 +1,8 @@
-at-spi2-core make
-glibmm make
+at-spi2-core
+glib
+glibc
+glibmm
+libgcc
+libsigc++
+libstdc++
+meson make
