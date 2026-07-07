@@ -1,4 +1,3 @@
-cmake make
 breeze-icons
 karchive 
 kcodecs 
@@ -14,3 +13,4 @@ kitemviews
 kwidgetsaddons 
 kxmlgui 
 qt
+cmake make
