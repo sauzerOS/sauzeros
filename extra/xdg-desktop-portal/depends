@@ -1,11 +1,11 @@
 fuse3
-gcc-libs
 gdk-pixbuf
 glib
 glibc
 gst-plugins-base
 gstreamer
 json-glib
+libgcc
 libgudev
 libpipewire
 pipewire
