@@ -1,10 +1,10 @@
 desktop-file-utils
-libburn
-libisofs
-libxfce4ui
 exo
 gst-plugins-base
-libgudev
 gtk+3
+libburn
+libgudev
+libisofs
+libxfce4ui
 meson make
-xfce4-dev-tools make
+xfce4-dev-tools make 
