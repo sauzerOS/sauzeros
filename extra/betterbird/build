@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-mkdir -pv $1/opt/betterbird
-cp -a * $1/opt/betterbird
-
-install -Dm644 betterbird.desktop $1/usr/share/applications/betterbird.desktop
