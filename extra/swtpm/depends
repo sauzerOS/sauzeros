@@ -1,7 +1,15 @@
-expect make
+fuse2
+glib
+glibc
+gmp
 gnutls
-libtpms
 json-glib
+libgcc
 libseccomp
+libtasn1
+libtpms
 openssl
-socat make
+expect make
+iproute2 make
+python make
+socat make 
