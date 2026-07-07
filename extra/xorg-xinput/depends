@@ -1,0 +1,7 @@
+libx11
+libxi
+libxinerama
+xorg-xrandr
+libxfixes make
+xorg-util-macros make
+xorgproto make
