@@ -1,7 +1,7 @@
 dbus
-gcc-libs
 little-cms
 libffi
+libgcc
 wayland
 zlib-ng
 zstd
