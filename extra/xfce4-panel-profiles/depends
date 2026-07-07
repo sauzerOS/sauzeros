@@ -1,3 +1,6 @@
-xfce4-panel
+python
 python-pygobject
 python-psutil
+xfce4-panel
+meson make
+xfce4-dev-tools make 
