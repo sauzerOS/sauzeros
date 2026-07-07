@@ -1,0 +1,51 @@
+#!/bin/sh -e
+
+patch -Np1 -i cyrus-sasl-2.1.28-gcc15_fixes-1.patch
+autoreconf -fiv
+sed '/saslint/a #include <time.h>'       -i lib/saslutil.c
+sed '/plugin_common/a #include <time.h>' -i plugins/cram.c
+
+configure_options=(
+  --disable-krb4
+  --disable-macos-framework
+  --disable-otp
+  --disable-passdss
+  --disable-srp
+  --disable-srp-setpass
+  --disable-static
+  --enable-alwaystrue
+  --enable-anon
+  --enable-auth-sasldb
+  --enable-checkapop
+  --enable-cram
+  --enable-digest
+  --enable-gssapi
+  --enable-login
+  --enable-ntlm
+  --enable-plain
+  --enable-shared
+  --infodir=/usr/share/info
+  --mandir=/usr/share/man
+  --prefix=/usr
+  --sbin=/usr/bin
+  --sysconfdir=/etc
+  --with-dblib=gdbm
+  --with-devrandom=/dev/urandom
+  --with-configdir=/etc/sasl2:/etc/sasl:/usr/lib/sasl2
+  --with-pam
+  --with-pgsql=/usr/lib
+  --with-saslauthd=/var/run/saslauthd
+  --with-sqlite3=/usr/lib
+)
+
+./configure "${configure_options[@]}"
+# prevent excessive overlinking by libtool
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+make -j1
+make DESTDIR="${1}" install-pkgconfigDATA
+for _target in include lib sasldb plugins utils; do
+make DESTDIR="${1}" install
+done
+# remove files provided by extra/cyrus-sasl
+rm -fv "${1}"/usr/lib/sasl2/lib{gs2,gssapiv2,ldapdb,sql}.so*
