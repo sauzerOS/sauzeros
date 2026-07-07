@@ -33,3 +33,28 @@ make DESTDIR="$1" install_systemd_units
 if [ "$PREFIX" != "/usr" ]; then
 rm -rf $1/etc
 fi
+
+# device-mapper split package
+_pick "$1" device-mapper usr/bin/blkdeactivate
+_pick "$1" device-mapper usr/bin/dmeventd
+_pick "$1" device-mapper usr/bin/dmsetup
+_pick "$1" device-mapper usr/bin/dmstats
+_pick "$1" device-mapper usr/bin/dmvdostats
+_pick "$1" device-mapper usr/include/libdevmapper-event.h
+_pick "$1" device-mapper usr/include/libdevmapper.h
+_pick "$1" device-mapper usr/lib/libdevmapper-event.so
+_pick "$1" device-mapper usr/lib/libdevmapper-event.so*
+_pick "$1" device-mapper usr/lib/libdevmapper.so*
+_pick "$1" device-mapper usr/lib/pkgconfig/devmapper-event.pc
+_pick "$1" device-mapper usr/lib/pkgconfig/devmapper.pc
+_pick "$1" device-mapper usr/lib/systemd/system/dm-event.service
+_pick "$1" device-mapper usr/lib/systemd/system/dm-event.socket
+_pick "$1" device-mapper usr/lib/systemd/system/sockets.target.wants/dm-event.socket
+_pick "$1" device-mapper usr/lib/udev/rules.d/10-dm.rules
+_pick "$1" device-mapper usr/lib/udev/rules.d/13-dm-disk.rules
+_pick "$1" device-mapper usr/lib/udev/rules.d/95-dm-notify.rules
+_pick "$1" device-mapper usr/share/man/man8/blkdeactivate.8.gz
+_pick "$1" device-mapper usr/share/man/man8/dmeventd.8.gz
+_pick "$1" device-mapper usr/share/man/man8/dmsetup.8.gz
+_pick "$1" device-mapper usr/share/man/man8/dmstats.8.gz
+_pick "$1" device-mapper usr/share/man/man8/dmvdostats.8.gz
