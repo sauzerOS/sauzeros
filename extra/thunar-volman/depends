@@ -1,3 +1,4 @@
-exo
-gvfs
-libgudev
+hicolor-icon-theme
+libxfce4ui
+thunar
+xfce4-dev-tools make 
