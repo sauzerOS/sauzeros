@@ -1,0 +1,4 @@
+hicolor-icon-theme
+librsvg make
+meson make
+xorg-xcursorgen make
