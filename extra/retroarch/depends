@@ -4,14 +4,14 @@ ffmpeg
 fontconfig
 freetype
 fribidi
-gcc-libs
-gcc-libs
 glibc
 libass
 libdrm
+libgcc
 libglvnd
 libpipewire
 libpulse
+libstdc++
 libusb
 libx11
 libxcb
