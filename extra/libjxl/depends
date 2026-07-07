@@ -1,10 +1,11 @@
 brotli
-gcc-libs
 giflib
 glibc
 highway
+libgcc
 libjpeg-turbo
 libpng
+libstdc++
 brotli make
 cmake make
 giflib make
