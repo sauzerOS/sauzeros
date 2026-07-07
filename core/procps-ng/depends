@@ -1,3 +1,4 @@
 glibc
 ncurses
+systemd make
 wget make
