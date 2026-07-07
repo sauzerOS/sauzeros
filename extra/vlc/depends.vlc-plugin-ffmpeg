@@ -1,0 +1,7 @@
+ffmpeg
+glibc
+libva
+libvlc
+libx11
+vlc-plugins-base
+vlc-pluins-video-output

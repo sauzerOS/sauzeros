@@ -1,0 +1,7 @@
+gdk-pixbuf
+glib
+glibc
+gtk+3
+libnotify
+libvlc
+vlc-plugins-base

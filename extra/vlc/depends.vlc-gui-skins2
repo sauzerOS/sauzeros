@@ -1,0 +1,13 @@
+bash
+freetype
+fribidi
+glibc
+libgcc
+libstdc++
+libvlc
+libx11
+libxext
+libxinerama
+libxpm
+vlc-cli
+vlc-gui-qt

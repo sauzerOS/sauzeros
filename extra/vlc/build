@@ -5,5 +5,345 @@ patch -Np1 -i 0003-Adjust-includes-for-build-with-gstreamer-1.28.patch
 autoreconf -fvi
 BUILDCC=gcc ./configure --prefix=/usr
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
 make
 make DESTDIR=$1 install
+
+_pick "$1" vlc-plugin-srt usr/lib/vlc/plugins/access/libaccess_srt_plugin.so
+_pick "$1" vlc-plugin-srt usr/lib/vlc/plugins/access_output/libaccess_output_srt_plugin.so
+
+_pick "$1" vlc-plugin-svg usr/lib/vlc/plugins/codec/libsvgdec_plugin.so
+_pick "$1" vlc-plugin-svg usr/lib/vlc/plugins/text_renderer/libsvg_plugin.so
+
+_pick "$1" vlc-plugin-tag usr/lib/vlc/plugins/meta_engine/libtaglib_plugin.so
+
+_pick "$1" vlc-plugin-theora usr/lib/vlc/plugins/codec/libtheora_plugin.so
+
+_pick "$1" vlc-plugin-twolame usr/lib/vlc/plugins/codec/libtwolame_plugin.so
+
+_pick "$1" vlc-plugin-udev usr/lib/vlc/plugins/services_discovery/libudev_plugin.so
+
+_pick "$1" vlc-plugin-vorbis usr/lib/vlc/plugins/codec/libvorbis_plugin.so
+
+_pick "$1" vlc-plugin-vpx usr/lib/vlc/plugins/codec/libvpx_plugin.so
+
+_pick "$1" vlc-plugin-x264 usr/lib/vlc/plugins/codec/libx26410b_plugin.so
+_pick "$1" vlc-plugin-x264 usr/lib/vlc/plugins/codec/libx264_plugin.so
+
+_pick "$1" vlc-plugin-x265 usr/lib/vlc/plugins/codec/libx265_plugin.so
+
+_pick "$1" vlc-plugin-xml usr/lib/vlc/plugins/misc/libxml_plugin.so
+
+
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/libvlc_vdpau.so*
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/libvlc_xcb_events.so*
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/control/libxcb_hotkeys_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/services_discovery/libxcb_apps_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vaapi/libvaapi_filters_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vdpau/libvdpau_adjust_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vdpau/libvdpau_chroma_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vdpau/libvdpau_deinterlace_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vdpau/libvdpau_display_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/vdpau/libvdpau_sharpen_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libegl_wl_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libegl_x11_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libflaschen_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libgl_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libglconv_vaapi_drm_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libglconv_vaapi_wl_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libglconv_vaapi_x11_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libglconv_vdpau_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libglx_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libwl_shell_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libwl_shm_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libxcb_window_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libxcb_x11_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libxcb_xv_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_output/libxdg_shell_plugin.so
+_pick "$1" vlc-plugins-video-output usr/lib/vlc/plugins/video_splitter/
+
+_pick "$1" vlc-plugins-visualization usr/lib/vlc/plugins/visualization/
+
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libaccess_concat_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libaccess_imem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libaccess_mms_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libaccess_realrtsp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libattachment_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libdtv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libfilesystem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libftp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libhttp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libhttps_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libidummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libimem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/librist_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/librtp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libsatip_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libsdp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libshm_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libtcp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libtimecode_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libudp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libvcd_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access/libvdr_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access_output/libaccess_output_dummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access_output/libaccess_output_file_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access_output/libaccess_output_http_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access_output/libaccess_output_rist_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/access_output/libaccess_output_udp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libaudio_format_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libaudiobargraph_a_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libchorus_flanger_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libcompressor_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libdolby_surround_decoder_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libequalizer_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libgain_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libheadphone_channel_mixer_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libkaraoke_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libmono_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libnormvol_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libparam_eq_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libremap_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libscaletempo_pitch_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libscaletempo_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libsimple_channel_mixer_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libspatializer_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libstereo_widen_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libtospdif_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libtrivial_channel_mixer_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_filter/libugly_resampler_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_mixer/
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_output/libadummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_output/libafile_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/audio_output/libamem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libadpcm_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libaes3_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libaraw_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libcc_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libcdg_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libcvdsub_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libddummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libdvbsub_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libedummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libg711_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/liblpcm_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/liboggspots_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/librawvideo_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/librtpvideo_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libscte18_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libscte27_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libspdif_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libspudec_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libstl_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libsubsdec_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libsubstx3g_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libsubsusf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libsvcdsub_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libt140_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libtelx_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libtextst_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libttml_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libuleaddvaudio_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libwebvtt_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/codec/libxwd_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/libdummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/libgestures_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/libhotkeys_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/libmotion_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/libnetsync_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/control/liboldrc_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libadaptive_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libaiff_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libasf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libau_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libavi_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libcaf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdemux_cdg_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdemux_chromecast_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdemux_stl_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdemuxdump_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdmxmus_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdiracsys_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libdirectory_demux_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libes_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libflacsys_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libh26x_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libimage_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libmjpeg_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libmp4_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libmpgv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libnoseek_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libnsc_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libnsv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libnuv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libplaylist_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libps_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libpva_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/librawaud_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/librawdv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/librawvid_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libreal_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libsmf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libsubtitle_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libtta_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libty_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libvc1_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libvobsub_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libvoc_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libwav_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/demux/libxa_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/keystore/libfile_keystore_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/keystore/libmemory_keystore_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/logger/libconsole_logger_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/logger/libfile_logger_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/logger/libsyslog_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/meta_engine/libfolder_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libaddonsfsstorage_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libaddonsvorepository_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libaudioscrobbler_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libexport_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libfingerprinter_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/liblogger_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libstats_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libvod_rtsp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/misc/libxdg_screensaver_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_asf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_avi_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_dummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_mp4_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_mpjpeg_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_ps_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/mux/libmux_wav_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_a52_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_av1_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_copy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_dirac_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_dts_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_flac_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_h264_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_hevc_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mlp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mpeg4audio_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mpeg4video_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mpegaudio_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mpegvideo_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_vc1_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/services_discovery/libmediadirs_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/services_discovery/libpodcast_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/services_discovery/libsap_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/libaudiobargraph_v_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/libdynamicoverlay_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/liblogo_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/libmarq_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/libmosaic_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/librss_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/spu/libsubsdelay_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libadf_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libcache_block_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libcache_read_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libdecomp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libhds_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libprefetch_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/librecord_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_filter/libskiptags_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_autodel_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_bridge_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_cycle_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_delay_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_description_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_display_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_dummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_duplicate_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_es_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_gather_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_mosaic_bridge_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_record_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_rtp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_setid_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_smem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_standard_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_stats_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/stream_out/libstream_out_transcode_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/text_renderer/libtdummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libchain_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libgrey_yuv_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_10_p010_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_nv12_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_rgb_mmx_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_rgb_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_rgb_sse2_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_yuy2_mmx_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_yuy2_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi420_yuy2_sse2_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi422_i420_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi422_yuy2_mmx_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi422_yuy2_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libi422_yuy2_sse2_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/librv32_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libyuvp_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libyuy2_i420_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_chroma/libyuy2_i422_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libadjust_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libalphamask_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libanaglyph_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libantiflicker_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libball_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libblend_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libblendbench_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libbluescreen_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libcanvas_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libcolorthres_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libcroppadd_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libdeinterlace_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libedgedetection_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/liberase_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libextract_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libfps_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libfreeze_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libgaussianblur_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libgradfun_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libgradient_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libgrain_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libhqdn3d_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libinvert_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libmagnify_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libmirror_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libmotionblur_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libmotiondetect_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/liboldmovie_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libposterize_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libpsychedelic_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libpuzzle_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libripple_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/librotate_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libscale_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libscene_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libsepia_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libsharpen_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libtransform_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libvhs_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_filter/libwave_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_output/libfb_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_output/libvdummy_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_output/libvmem_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/video_output/libyuv_plugin.so
+
+_pick "$1" vlc-plugins-extra usr/lib/vlc/plugins/access/liblinsys_hdsdi_plugin.so
+_pick "$1" vlc-plugins-extra usr/lib/vlc/plugins/access/libxcb_screen_plugin.so
+
+# remove utils script that is incompatible with gnome >= 3
+rm -v "$1/usr/share/vlc/utils/gnome-vlc-default.sh"
+
+# remove unneeded/compiled-in images
+rm -v "$1/usr/share/vlc/vlc.ico"
+find "$1/usr/share/icons/hicolor/" -type f ! -iname "vlc.png" -delete
+
+# delete plugin registry, we will create it dynamically with an ALPM hook as part of the libvlc package
+#rm -v "$1/usr/lib/vlc/plugins/plugins.dat"
+
+# delete empty plugin directories
+rmdir -v "$1/usr/lib/vlc/plugins/"{access{,_output},audio_{filter,output},codec,control,demux,gui,keystore,logger,meta_engine,misc,mux,notify,packetizer,services_discovery,spu,stream_{extractor,filter,out},text_renderer,vaapi,vdpau,video_{chroma,filter,output}}
+
+# vlc-plugins-all meta package
+install -d $HOKUTO_SPLIT_DIR/vlc-plugins-all/var/db/hokuto/installed/vlc-plugins-all/
+touch $HOKUTO_SPLIT_DIR/vlc-plugins-all/var/db/hokuto/installed/vlc-plugins-all/.touch

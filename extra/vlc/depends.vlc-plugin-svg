@@ -1,0 +1,6 @@
+cairo
+glib
+glibc
+librsvg
+libvlc
+vlc-plugins-base

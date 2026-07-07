@@ -1,8 +1,43 @@
 bash
 hicolor-icon-theme
-aalib make
+vlc-gui-qt
+vlc-gui-ncurses suggest for ncurses TUI
+vlc-gui-skins2 suggest for Skins2 GUI
+vlc-plugin-aom suggest for AOM AV1 codec support
+vlc-plugin-ass suggest for SSA/ASS subtitle codec support
+vlc-plugin-dca suggest for DTS Coherent Acoustics codec support
+vlc-plugin-ffmpeg suggest for FFMPEG based access, codec, demux, packetizer, VDPAU, video chroma and video filter support
+vlc-plugin-fluidsynth suggest for FluidSynth codec support
+vlc-plugin-freetype suggest for subtitle and on screen display text rendering support
+vlc-plugin-gme suggest for Game Music Emulation demux support
+vlc-plugin-gstreamer suggest for GStreamer codec support
+vlc-plugin-jack suggest for JACK access and audio output support
+vlc-plugin-libsecret suggest for libsecret keystore support
+vlc-plugin-mad suggest for MPEG Audio Decoder audio filter support
+vlc-plugin-mdns suggest for mDNS services discovery support
+vlc-plugin-modplug suggest for MOD demux support
+vlc-plugin-mpeg2 suggest for MPEG2 codec support
+vlc-plugin-mtp suggest for MTP device access and discovery support
+vlc-plugin-nfs suggest for NFS access support
+vlc-plugin-notify suggest for notification support
+vlc-plugin-samplerate suggest for samplerate audio filter support
+vlc-plugin-sdl suggest for SDL codec support
+vlc-plugin-sftp suggest for SFTP access support
+vlc-plugin-smb suggest for SMB access support
+vlc-plugin-soxr suggest for SoX Resampler audio filter support
+vlc-plugin-srt suggest for SRT subtitle file support
+vlc-plugin-svg suggest for SVG codec and text renderer support
+vlc-plugin-udev suggest for ALSA services discovery support using udev
+vlc-plugin-upnp suggest for UPnP services discovery support
+vlc-plugin-x264 suggest for H264/AVC encoding support
+vlc-plugin-x265 suggest for H265/HEVC encoding support
+vlc-plugins-all suggest for all plugins
+vlc-plugins-extra suggest for extra plugins
+vlc-plugins-visualization suggest for visualization plugins
+liba52 make
 abseil-cpp make
 alsa-lib make
+libaom make
 bash make
 cairo make
 dav1d make
@@ -14,31 +49,38 @@ fluidsynth make
 fontconfig make
 freetype make
 fribidi make
-gcc-libs make
 gdk-pixbuf make
 git make
-glibc make
 glib make
+glibc make
 gnutls make
 gst-plugins-base make
 gtk+3 make
 harfbuzz make
-hicolor-icon-theme make
-liba52 make
-libaom make
 libarchive make
 libass make
+libdca make
+libgcc make
 libglvnd make
+libgme make
 libjpeg-turbo make
 libmad make
 libmatroska make
+libmodplug make
+libmpeg2 make
+libmtp make
+libnfs make
 libnotify make
 libogg make
 libpng make
 libproxy make
 libpulse make
 librsvg make
+libsamplerate make
 libsecret make
+libsoxr make
+libssh2 make
+libstdc++ make
 libtheora make
 libva make
 libvorbis make
@@ -48,17 +90,19 @@ libxcb make
 libxinerama make
 libxml2 make
 libxpm make
-lua make
 mesa make
 mpg123 make
 opus make
 pcsclite make
 protobuf make
 qt make
+qt-svg make
 sdl2-compat make
-sdl_image make
-speexdsp make
+sdl-image make
+smbclient make
 speex make
+speexdsp make
+srt make
 systemd-libs make
 taglib make
 twolame make
