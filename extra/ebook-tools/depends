@@ -1,4 +1,6 @@
+bash
 convertlit
+glibc
 libxml2
 libzip
 cmake make
