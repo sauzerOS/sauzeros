@@ -1,0 +1,5 @@
+brotli
+glibc
+libgcc
+libstdc++
+cmake make
