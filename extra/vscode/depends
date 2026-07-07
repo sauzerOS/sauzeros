@@ -1,7 +1,14 @@
-lsof
-nss
+alsa-lib
+glibc
+gnupg2
 gtk+3
+libgcc
 libnotify
 libsecret
 libxkbfile
+libxss
+lsof
+nss
+ripgrep
 shared-mime-info
+xdg-utils
