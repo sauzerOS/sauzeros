@@ -33,6 +33,5 @@ sqlite make
 vulkan-headers make
 vulkan-icd-loader make
 wayland make
-xfconf make
 zlib-ng make 
 aarch64-imagemagick cross make
