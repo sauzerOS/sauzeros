@@ -1,2 +1,2 @@
-patch make
-gcc make
+glibc
+cmake make
