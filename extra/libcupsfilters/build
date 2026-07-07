@@ -1,7 +1,11 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-            --disable-mutool
+./configure --prefix=/usr  \
+  --sysconfdir=/etc \
+  --sbindir=/usr/bin \
+  --localstatedir=/var \
+  --disable-mutool
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
-make DESTDIR=$1 install
+make DESTDIR="${1}/" install
