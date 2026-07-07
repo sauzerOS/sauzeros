@@ -1,5 +1,6 @@
-cython make
+glibc
 llhttp
+python
 python-aiohappyeyeballs
 python-aiosignal
 python-attrs
@@ -7,4 +8,10 @@ python-frozenlist
 python-multidict
 python-propcache
 python-yarl
+cython make
+#npm make
+python-build make
+python-installer make
 python-pkgconfig make
+python-setuptools make
+python-wheel make 
