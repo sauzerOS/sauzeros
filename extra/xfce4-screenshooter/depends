@@ -1,0 +1,5 @@
+hicolor-icon-theme
+xfce4-panel
+meson make
+wayland-protocols make
+xfce4-dev-tools make 
