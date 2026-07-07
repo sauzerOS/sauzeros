@@ -1,1 +1,2 @@
 http://www.dest-unreach.org/socat/download/socat-${version}.tar.bz2
+files/openssl4.patch
