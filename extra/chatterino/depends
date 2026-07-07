@@ -1,8 +1,14 @@
-boost
+boost-libs
 libnotify
 openssl
 qt
+qt-imageformats
+qt-svg
+qt-tools
 qtkeychain
+qt-wayland suggest "Wayland support"
+streamlink suggest "open streams in video player"
+boost make
 cmake make
 git make
 rapidjson make
