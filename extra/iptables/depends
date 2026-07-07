@@ -1,1 +1,9 @@
+bash
+glibc
+libmnl
+libnetfilter_conntrack
+libnfnetlink
+libnftnl
+libpcap
 nftables
+linux-headers make 
