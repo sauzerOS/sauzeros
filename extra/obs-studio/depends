@@ -1,13 +1,30 @@
-asio
-mbedtls<4.0
-nlohmann-json
-nv-codec-headers
+curl
+ffmpeg
+gtk-update-icon-cache
+jansson
+libxcomposite
+libxinerama
+libxkbcommon
+mbedtls<4
+pciutils
+pipewire
+python
 qrcodegencpp
+qt-svg
+rnnoise
 simde
-speexdsp
 uthash
-v4l-utils
-websocketpp
+droidcam-obs-plugin suggest DroidCam support
+obs-pipewire-audio-capture suggest PipeWire audio capture
+sndio suggest Sndio input client
+asio make
 cmake make
 extra-cmake-modules make
+fdk-aac make
+luajit make
+nlohmann-json make
+nv-codec-headers make
+sndio make
 swig make
+websocketpp make
+x264 make 
