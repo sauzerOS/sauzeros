@@ -1,2 +1,9 @@
+glib
+libjpeg-turbo
+libsasl
+lz4
+opus
+pixman
 spice-protocol
-cyrus-sasl
+meson make
+python-pyparsing make 

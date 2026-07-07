@@ -3,7 +3,9 @@
 sed -i "s/if not version_info.contains('git')/if version_info.length() >= 4/" server/meson.build
 sed -i "/meson-dist/d" meson.build
 
-meson setup build --prefix=/usr \
-      -D gstreamer=no
+hokuto-meson build \
+  -D gstreamer=no  \
+  -D tests=false
+
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1
