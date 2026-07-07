@@ -1,0 +1,6 @@
+glibc
+gst-plugins-bad
+libglvnd
+nv-codec-headers
+libva make
+meson make
