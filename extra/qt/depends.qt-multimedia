@@ -1,6 +1,7 @@
-gcc-libs
 glibc
+libgcc
 libpulse
+libstdc++
 pipewire
 qt
 qt-declarative suggest "QML bindings"

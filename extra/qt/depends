@@ -1,16 +1,16 @@
 brotli
-cups
 dbus
 double-conversion
 fontconfig
 freetype
-gcc
 glib
 glibc
 harfbuzz
 icu
 krb5
+libcups
 libdrm
+libgcc
 libglvnd
 libice
 libinput
@@ -18,6 +18,7 @@ libjpeg-turbo
 libpng
 libproxy
 libsm
+libstdc++
 liburing
 libx11
 libxkbcommon
@@ -39,7 +40,9 @@ zlib-ng
 zstd
 alsa-lib make
 cmake make
+cups make
 gst-plugins-base make
 gtk+3 make
+jemalloc make
 libpulse make
 vulkan-headers make

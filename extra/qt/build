@@ -35,6 +35,16 @@ install -d -m755 "$1"/usr/include/qt6xcb-private/gl_integrations
 cp -r qtbase/src/plugins/platforms/xcb/*.h "$1"/usr/include/qt6xcb-private/
 cp -r qtbase/src/plugins/platforms/xcb/gl_integrations/*.h "$1"/usr/include/qt6xcb-private/gl_integrations/
 
+# remove qml examples module
+rm -rf "$1"/usr/include/qt6/QtQmlAssetDownloader
+rm -rf "$1"/usr/lib/cmake/Qt6QmlAssetDownloaderPrivate
+rm -f  "$1"/usr/lib/cmake/Qt6Qml/QmlPlugins/*AssetDownloader*
+rm -f  "$1"/usr/lib/libQt6QmlAssetDownloader.{a,prl}
+rm -f  "$1"/usr/lib/qt6/metatypes/qt6qmlassetdownloaderprivate_metatypes.json
+rm -f  "$1"/usr/lib/qt6/mkspecs/modules/qt_lib_qmlassetdownloader_private.pri
+rm -f  "$1"/usr/lib/qt6/modules/QmlAssetDownloaderPrivate.json
+rm -rf "$1"/usr/lib/qt6/qml/Qt/labs/assetdownloader
+
 # qt-5compat
 _pick "$1" qt-5compat usr/include/qt6/QtCore5Compat/
 _pick "$1" qt-5compat usr/lib/cmake/Qt6/FindWrapIconv.cmake
@@ -688,6 +698,7 @@ _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlWorkerScript/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlWorkerScriptPrivate/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlXmlListModel/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlXmlListModelPrivate/
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2Basic/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2BasicPrivate/
@@ -1081,7 +1092,7 @@ _pick "$1" qt-multimedia usr/lib/qt6/modules/Multimedia*
 _pick "$1" qt-multimedia usr/lib/qt6/modules/Quick3DSpatialAudioPrivate.json
 _pick "$1" qt-multimedia usr/lib/qt6/modules/SpatialAudio.json
 _pick "$1" qt-multimedia usr/lib/qt6/qml/QtMultimedia/
-_pick "$1" qt-multimedia usr/lib/qt6/qml/QtQuick3D/
+_pick "$1" qt-multimedia usr/lib/qt6/qml/QtQuick3D/SpatialAudio/
 _pick "$1" qt-multimedia usr/lib/qt6/sbom/qtmultimedia*
 
 # qt-multimedia-ffmpeg

@@ -1,6 +1,7 @@
 abseil-cpp
-gcc-libs
 glibc
+libgcc
+libstdc++
 protobuf
 qt
 qt-declarative suggest "QML bindings"

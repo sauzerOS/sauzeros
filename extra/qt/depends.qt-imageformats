@@ -1,6 +1,7 @@
-gcc-libs
 glibc
+jasper
 libmng
+libstdc++
 libtiff
 libwebp
 qt

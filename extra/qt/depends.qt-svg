@@ -1,4 +1,4 @@
-gcc-libs
 glibc
+libstdc++
 qt
 zlib-ng

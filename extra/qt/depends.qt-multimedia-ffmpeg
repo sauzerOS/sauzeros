@@ -1,7 +1,8 @@
 ffmpeg
-gcc-libs
 glibc
+libgcc
 libglvnd
+libstdc++
 libx11
 libxext
 libxrandr
