@@ -1,6 +1,7 @@
 bzip2
-gcc-libs
 glibc
+libgcc
+libstdc++
 sqlite
 xz
 zlib-ng
