@@ -1,8 +1,9 @@
 expat
-gcc-libs
 glibc
 libdisplay-info
 libdrm
+libgcc
+libstdc++
 libx11
 libxcb
 libxshmfence
@@ -12,4 +13,4 @@ vulkan-mesa-implicit-layers
 wayland
 xcb-util-keysyms
 zlib-ng
-zstd 
+zstd

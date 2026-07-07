@@ -1,4 +1,5 @@
-gcc-libs
 glibc
+libgcc
 libpng
+libstdc++
 python
