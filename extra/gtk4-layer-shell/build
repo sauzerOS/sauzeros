@@ -1,15 +1,12 @@
 #!/bin/sh -e
 
-meson setup \
-      --prefix=/usr \
-      --wrap-mode=nofallback \
-      --buildtype=plain \
-      -Dtests=false \
-      -Ddocs=false \
-      -Dintrospection=true \
-      -Dvapi=true \
-      -Dexamples=false \
-      -Dsmoke-tests=false \
-      build
+hokuto-meson build      \
+  -D tests=false        \
+  -D docs=false         \
+  -D introspection=true \
+  -D vapi=true          \
+  -D examples=false     \
+  -D smoke-tests=false
 
-DESTDIR=$1 meson install -C build
+meson compile -C build
+meson install -C build --destdir=$1

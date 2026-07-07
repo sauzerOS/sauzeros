@@ -1,2 +1,8 @@
 gtk
 wayland
+gobject-introspection make
+luajit make
+meson make
+python make
+vala make
+wayland-protocols make 
