@@ -1,5 +1,6 @@
 glibc
 libcap optional
+libnsl
 libtirpc
 libxcrypt
 libxslt make
