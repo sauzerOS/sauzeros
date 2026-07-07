@@ -1,0 +1,4 @@
+glib
+glibc
+libusb
+meson make
