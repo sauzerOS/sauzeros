@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build                 \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D ENABLE_DOCUMENTATION=OFF  \
+  -D ENABLE_UTILS=ON           \
+  -D ENABLE_MULTITHREADING=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
