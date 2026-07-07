@@ -1,2 +1,5 @@
-python-pillow
-python-poetry-core
+python
+python-build make
+python-installer make
+python-poetry-core make
+python-wheel make 
