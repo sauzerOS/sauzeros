@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/corecode/dma",
+  "category": "extra",
+  "description": "DragonFly BSD mail transport agent",
+  "info": "",
+  "license": "",
+  "tags": [
+    "mail",
+    "server"
+  ]
+}
