@@ -1,3 +1,4 @@
+curl
 faad2
 flac
 fluidsynth
@@ -6,12 +7,18 @@ giflib
 glew
 glu
 gtk+3
+hicolor-icon-theme
+liba52
+libglvnd
 libjpeg-turbo
 libmad
 libmpeg2
 libpng
+libstdc++
 libtheora
 libvorbis
 sdl2-compat
 sndio
 speech-dispatcher
+zlib-ng
+mesa make
