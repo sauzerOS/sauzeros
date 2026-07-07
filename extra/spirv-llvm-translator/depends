@@ -1,5 +1,5 @@
 glibc
-gcc-libs
+libstdc++
 llvm-libs
 spirv-tools
 cmake make
