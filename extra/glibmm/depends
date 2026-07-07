@@ -1,2 +1,6 @@
 glib
+glibc
+libgcc
 libsigc++
+libstdc++
+meson make

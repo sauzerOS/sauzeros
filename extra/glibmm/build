@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-meson setup bld --prefix=/usr    \
-    -D build-documentation=false \
-    -D build-examples=false
+hokuto-meson build \
+  -D build-documentation=false \
+  -D build-examples=false
 
-meson compile -C bld
-meson install -C bld --destdir=$1
+meson compile -C build
+meson install -C build --destdir=$1
