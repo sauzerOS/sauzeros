@@ -1,1 +1,8 @@
+bash
+glibc
+iproute2
 libgcrypt
+openssl
+perl
+which
+openresolv suggest Let vpnc manage resolv.conf
