@@ -1,13 +1,9 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
+hokuto-meson build   \
+  -D appindicator=no \
+  -D wwan=false	     \
+  -D selinux=false
 
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Dappindicator=no   \
-      -Dwwan=false	  \
-      -Dselinux=false
-
-ninja
-DESTDIR=$1 ninja install
+meson compile -C build
+meson install -C build --destdir=$1

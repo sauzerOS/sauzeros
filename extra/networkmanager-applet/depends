@@ -1,4 +1,7 @@
-gtk+3
+libappindicator
+libmm-glib
 libnma
-libgudev
 libsecret
+networkmanager
+gobject-introspection make
+meson make 
