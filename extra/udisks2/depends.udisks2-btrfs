@@ -1,0 +1,12 @@
+acl
+btrfs-progs
+glib
+glibc
+libblockdev
+libblockdev-btrfs
+libgcc
+libgudev
+polkit
+systemd-libs
+udisks2
+util-linux-libs 

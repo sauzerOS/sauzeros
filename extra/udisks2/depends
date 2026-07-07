@@ -1,5 +1,39 @@
-libatasmart
+acl
+dbus
+glib
+glibc
 libblockdev
+libgcc
 libgudev
-libxslt
 polkit
+systemd-libs
+util-linux-libs
+btrfs-progs suggest for BTRFS support in libblockdev-fs
+dosfstools suggest for FAT support in libblockdev-fs
+e2fsprogs suggest for Ext2/3/4 support in libblockdev-fs
+exfatprogs suggest for exFAT support in libblockdev-fs
+f2fs-tools suggest for F2FS support in libblockdev-fs
+udftools suggest for UDF support in libblockdev-fs
+udisks2-btrfs suggest for BTRFS module
+udisks2-lvm2 suggest for LVM2 module
+xfsprogs suggest for XFS support in libblockdev-fs
+acl make
+autoconf-archive make
+git make
+gobject-introspection make
+libblockdev make
+libblockdev-btrfs make
+libblockdev-crypto make
+libblockdev-fs make
+libblockdev-loop make
+libblockdev-lvm make
+libblockdev-mdraid make
+libblockdev-nvme make
+libblockdev-part make
+libblockdev-smart make
+libblockdev-swap make
+libgudev make
+lvm2 make
+polkit make
+systemd-libs make
+util-linux-libs make 

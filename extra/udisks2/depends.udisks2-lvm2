@@ -1,0 +1,12 @@
+acl
+glib
+glibc
+libblockdev
+libblockdev-lvm
+libgcc
+libgudev
+lvm2
+polkit
+systemd-libs
+udisks2
+util-linux-libs 
