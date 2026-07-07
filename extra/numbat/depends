@@ -1,0 +1,4 @@
+glibc
+hicolor-icon-theme
+libgcc
+rust | rustup make
