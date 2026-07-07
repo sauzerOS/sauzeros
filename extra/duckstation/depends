@@ -1,6 +1,12 @@
 qt
 sdl3
+clang make
 cmake make
+extra-cmake-modules make
+lld make
 llvm make
-patch make
 patchelf make
+python make
+qt-tools make
+qt-wayland make
+spirv-headers make
