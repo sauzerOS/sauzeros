@@ -1,0 +1,5 @@
+glib
+glibc
+libxau
+gobject-introspection make
+gtk-doc make
