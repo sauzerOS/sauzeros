@@ -1,3 +1,5 @@
+glibc
+libgcc
 libluv
 libutf8proc
 libuv
@@ -7,6 +9,5 @@ luajit
 tree-sitter
 tree-sitter-bash
 unibilium
-xsel
+xsel suggest "X11 clipboard support"
 cmake make
-git make
