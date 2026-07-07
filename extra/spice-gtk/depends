@@ -1,1 +1,32 @@
+acl
+cairo
+gdk-pixbuf
+glib
+gst-plugins-base
+gst-plugins-good
+gstreamer
+gtk+3
+json-glib
+libcap-ng
+libepoxy
+libjpeg-turbo
+libsasl
+libsoup
+libusb
+libx11
+lz4
+openssl
+opus
+pixman
+polkit
 spice-protocol
+usbredir
+wayland
+zlib-ng
+gobject-introspection make
+meson make
+python-pyparsing make
+python-six make
+usbutils make
+vala make
+wayland-protocols make 
