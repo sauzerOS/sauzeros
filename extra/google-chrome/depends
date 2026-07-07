@@ -1,8 +1,7 @@
 alsa-lib
-at-spi2-core
-cups
 gtk+3
-libxcomposite
-libxkbcommon
+libcups
+libxss
+libxtst
 nss
-pango
+xdg-utils
