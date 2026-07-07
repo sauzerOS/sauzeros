@@ -1,3 +1,7 @@
-glm
 glew
-glu
+libx11
+libxext
+libxrender
+mesa
+cmake make
+glm make 
