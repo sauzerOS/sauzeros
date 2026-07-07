@@ -1,4 +1,4 @@
 glibc
-gcc-libs
+libstdc++
 cmake make
 spirv-headers make
