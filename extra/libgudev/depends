@@ -1,6 +1,6 @@
-gcc-libs
 glib
 glibc
+libgcc
 systemd-libs
 gobject-introspection make
 meson make
