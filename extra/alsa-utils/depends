@@ -1,7 +1,8 @@
 alsa-lib
 bash
-gcc-libs
 glibc
+libsamplerate
+libgcc
 ncurses
 pciutils
 psmisc
