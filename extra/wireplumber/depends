@@ -1,6 +1,6 @@
 glibc
-gcc-libs
 glib
+libgcc
 libpipewire
 lua
 pipewire
