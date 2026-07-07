@@ -1,43 +1,14 @@
-cairo
 colord
+elementary-icon-theme
 exo
-expat
-fontconfig
-freetype
-fribidi
 garcon
-gdk-pixbuf
-glib
-gnome-icon-theme
-gtk+3
+gnome-themes-extra
 libcanberra
 libnotify
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxklavier
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxcb
 libxfce4ui
-libxfce4util
-libxshmfence
-mesa
-pango
-pixman
-setxkbmap
+libxklavier
 xfconf
-upower
+cups suggest for printers support in xfce4-color-settings
+sane suggest for scanners support in xfce4-color-settings
+xlibre-xf86-input-libinput | xf86-input-libinput make
+xfce4-dev-tools make
