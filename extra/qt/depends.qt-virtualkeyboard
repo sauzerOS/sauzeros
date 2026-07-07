@@ -1,6 +1,6 @@
-gcc-libs
 glibc
 hunspell
+libstdc++
 qt
 qt-declarative
 qt-multimedia

@@ -1,4 +1,3 @@
-gcc-libs
 glib
 glibc
 gst-libav
@@ -8,6 +7,7 @@ gst-plugins-good
 gstreamer
 libglvnd
 libpulse
+libstdc++
 qt
 qt-multimedia
 gst-plugins-bad suggest "camera support, additional plugins"

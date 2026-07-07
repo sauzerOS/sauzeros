@@ -1,4 +1,5 @@
-gcc-libs
 glibc
+libgcc
+libstdc++
 qt
 qt-svg suggest "QtQuickVectorImage and svgtoqml"

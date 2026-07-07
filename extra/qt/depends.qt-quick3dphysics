@@ -1,5 +1,5 @@
-gcc-libs
 glibc
+libstdc++
 qt
 qt-declarative
 qt-quick3d

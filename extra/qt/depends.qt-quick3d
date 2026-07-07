@@ -1,5 +1,7 @@
-gcc-libs
 glibc
+libgcc
+libglvnd
+libstdc++
 qt
 qt-declarative
 qt-quicktimeline
