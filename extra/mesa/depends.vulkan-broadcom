@@ -1,8 +1,9 @@
 expat
 glibc
-gcc-libs
 libdisplay-info
 libdrm
+libgcc
+libstdc++
 libx11
 libxcb
 libxshmfence

@@ -2,8 +2,9 @@ expat
 glibc
 libdrm
 libelf
-gcc-libs
+libgcc
 libglvnd
+libstdc++
 libx11
 libxcb
 libxext
