@@ -1,6 +1,6 @@
-gcc-libs
 glib
 glibc
+libgcc
 libgudev
 polkit
 git make
