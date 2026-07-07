@@ -1,3 +1,4 @@
 glibc
-gcc-libs
+libgcc
+libstdc++
 python make
