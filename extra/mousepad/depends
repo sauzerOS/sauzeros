@@ -1,35 +1,10 @@
-bzip2
-cairo
-expat
-fontconfig
-freetype
-fribidi
-gdk-pixbuf
-glib
-gtk+3
-gtksourceview<5.0
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxcb
-libxml2
-libxshmfence
-mesa
-pango
-pixman
-xfconf
-xz
-zlib-ng
+desktop-file-utils
+hicolor-icon-theme
+gtksourceview
+gspell suggest spell checking plugin
+libxfce4ui suggest shortcuts editor plugin
+gspell make
+libxfce4ui make
+meson make
+polkit make
+xfce4-dev-tools make 
