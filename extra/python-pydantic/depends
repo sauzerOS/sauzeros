@@ -1,7 +1,13 @@
+glibc
+libgcc
 python
 python-annotated-types
 python-typing-extensions
 python-typing-inspection
 cython make
-python-hatchling make
+python-build make
 python-hatch-fancy-pypi-readme make
+python-hatchling make
+python-installer make
+python-maturin make
+python-wheel make
