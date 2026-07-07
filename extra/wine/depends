@@ -1,21 +1,60 @@
-dbus
+desktop-file-utils
 fontconfig
 freetype
-glslang
-gnutls
-gst-plugins-bad
-gst-plugins-base
-gst-plugins-good
-gst-plugins-ugly
-gstreamer
-libglvnd
+gettext
+glib
+glibc
+libgcc
+libpcap
 libunwind
-lib32-mesa
-mingw-gcc
-libpulse
-sdl2-compat
-spirv-headers
-spirv-tools
-vulkan-headers
-vulkan-icd-loader
-
+libx11
+libxcursor
+libxext
+libxi
+libxkbcommon
+libxrandr
+systemd-libs
+wayland
+alsa-lib suggest
+alsa-plugins suggest
+cups suggest
+dosbox suggest
+ffmpeg suggest
+gnutls suggest
+gst-plugins-bad suggest
+gst-plugins-base suggest
+gst-plugins-base-libs suggest
+gst-plugins-good suggest
+gst-plugins-ugly suggest
+gstreamer suggest
+libpulse suggest
+libusb suggest
+libxcomposite suggest
+libxinerama suggest
+pcsclite suggest
+perl suggest
+samba suggest
+sane suggest
+sdl2-compat suggest
+v4l-utils suggest
+wine-gecko suggest
+wine-mono suggest
+alsa-lib make
+ffmpeg make
+gnutls make
+gst-plugins-base make
+libcups make
+libpulse make
+libxcomposite make
+libxinerama make
+libxxf86vm make
+mesa make
+mingw-gcc make
+pcsclite make
+perl make
+samba make
+sane make
+sdl2-compat make
+v4l-utils make
+vulkan-headers make
+vulkan-icd-loader make 
