@@ -2,6 +2,8 @@
 
 cmake -B builddir                 \
     -D WITH_AUDIT=OFF             \
+    -D WITH_DBUS=OFF              \
+    -D ENABLE_TESTSUITE=OFF       \
     -D WITH_SELINUX=OFF           \
     -D WITH_SEQUOIA=OFF           \
     -D WITH_FAPOLICYD=OFF         \
