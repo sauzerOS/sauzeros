@@ -3,11 +3,11 @@ alsa-lib
 bluez-libs
 dbus
 fdk-aac
-gcc-libs
 glib
 glibc
 libcl3
 libfreeaptx
+libgcc
 libldac
 libpipewire
 libsndfile

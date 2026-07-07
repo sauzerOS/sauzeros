@@ -118,7 +118,7 @@ _pick "$1" pipewire-x11-bell usr/share/man/man7/libpipewire-module-x11-bell.7
 
 if [ "$MULTILIB" = "1" ]; then
 #32 bit lib32-pipewire
-dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+dest_dir=$HOKUTO_SPLIT_DIR/lib32-$3
 rm -rf build
 meson setup build            \
     --prefix=/usr            \
@@ -128,6 +128,7 @@ meson setup build            \
 
 meson compile -C build
 meson install -C build --destdir="$dest_dir"
+rm -r $dest_dir/usr/{bin,include,lib,share}
 
 # lib32-libpipewire
 _pick "$dest_dir" lib32-libpipewire usr/lib32/$_spaname/libspa.so*
