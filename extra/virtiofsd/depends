@@ -1,2 +1,5 @@
+gcc-libs
+glibc
 libcap-ng
 libseccomp
+rust | rustup make
