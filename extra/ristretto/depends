@@ -1,3 +1,9 @@
-gtk+3
+exo
+file
 libexif
+libxfce4ui
+tumbler
+xfconf
 meson make
+python make
+xfce4-dev-tools make
