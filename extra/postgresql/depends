@@ -1,13 +1,16 @@
 bash
-gcc-libs
 glibc
+libgcc
+libstdc++
+liburing
 icu
 lz4
 openssl
 pam
 systemd-libs
-util-linux
+util-linux-libs
 zlib-ng
 zstd
 readline make
 systemd make
+util-linux make
