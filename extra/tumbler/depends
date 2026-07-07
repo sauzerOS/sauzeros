@@ -1,38 +1,10 @@
-cairo
-exo
-expat
-fontconfig
-freetype
-fribidi
-garcon
 gdk-pixbuf
-glib
-gtk+3
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libwnck
-libxcb
-libxfce4ui
 libxfce4util
-libxshmfence
-mesa
-pango
-pixman
-shared-mime-info
-xfconf
+ffmpegthumbnailer suggest video thumbnails
+freetype suggest font thumbnails
+poppler suggest PDF thumbnails
+ffmpegthumbnailer make
+freetype make
+poppler make
+python make
+xfce4-dev-tools make 
