@@ -11,11 +11,7 @@ libdecor suggest Wayland client decorations
 libpulse suggest PulseAudio audio driver
 pipewire suggest PipeWire audio driver
 sndio suggest sndio audio driver
-nvidia-utils suggest vulkan renderer 
-vulkan-radeon suggest vulkan renderer
-vulkan-virtio suggest vulkan renderer
-vulkan-swrast suggest vulkan renderer
-vulkan-broadcom suggest vulkan renderer
+nvidia-utils | vulkan-radeon | vulkan-virtio | vulkan-swrast vulkan-broadcom suggest vulkan renderer 
 alsa-lib make
 cmake make
 libdecor make
