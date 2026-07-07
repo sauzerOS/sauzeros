@@ -1,2 +1,10 @@
+bash
+expat
+glibc
 gnutls
+hicolor-icon-theme
+libidn2
+libstdc++
+ncurses
 readline
+zlib-ng 
