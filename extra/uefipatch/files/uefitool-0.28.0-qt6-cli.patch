@@ -1,0 +1,405 @@
+diff --git a/UEFIPatch/uefipatch.cpp b/UEFIPatch/uefipatch.cpp
+index 8a5edb1..c995524 100644
+--- a/UEFIPatch/uefipatch.cpp
++++ b/UEFIPatch/uefipatch.cpp
+@@ -141,7 +141,7 @@ UINT8 UEFIPatch::patchFromArg(const QString & path, const QString & patch, const
+     if (result)
+         return result;
+ 
+-    if (patch != NULL && !patch.isEmpty()) {
++    if (!patch.isEmpty()) {
+         QByteArray line = patch.toUtf8();
+ 
+         QList<QByteArray> list = line.split(' ');
+@@ -217,7 +217,7 @@ UINT8 UEFIPatch::patchFile(const QModelIndex & index, const QByteArray & fileGui
+ 
+     if (model->rowCount(index) > 0) {
+         for (int i = 0; i < model->rowCount(index); i++) {
+-            UINT8 result = patchFile(index.child(i, 0), fileGuid, sectionType, patches);
++            UINT8 result = patchFile(model->index(i, 0, index), fileGuid, sectionType, patches);
+             if (!result)
+                 break;
+             else if (result != ERR_NOTHING_TO_PATCH)
+diff --git a/UEFIReplace/uefireplace.cpp b/UEFIReplace/uefireplace.cpp
+index d4ba092..10f3813 100644
+--- a/UEFIReplace/uefireplace.cpp
++++ b/UEFIReplace/uefireplace.cpp
+@@ -107,7 +107,7 @@ UINT8 UEFIReplace::replaceInFile(const QModelIndex & index, const QByteArray & g
+ 
+     if (model->rowCount(index) > 0) {
+         for (int i = 0; i < model->rowCount(index); i++) {
+-            UINT8 result = replaceInFile(index.child(i, 0), guid, sectionType, newData, mode, replaceOnce);
++            UINT8 result = replaceInFile(model->index(i, 0, index), guid, sectionType, newData, mode, replaceOnce);
+             if (result == ERR_SUCCESS) {
+                 patched = true;
+                 if (replaceOnce)
+diff --git a/ffsengine.cpp b/ffsengine.cpp
+index 230b922..ec0a870 100644
+--- a/ffsengine.cpp
++++ b/ffsengine.cpp
+@@ -12,6 +12,10 @@ WITHWARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+ 
+ #include <math.h>
+ 
++#include <algorithm>
++
++#include <QRegularExpression>
++
+ #include "ffsengine.h"
+ #include "types.h"
+ #include "treemodel.h"
+@@ -29,6 +33,13 @@ WITHWARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+ #include <iostream>
+ #endif
+ 
++namespace {
++QModelIndex modelChildIndex(const QAbstractItemModel *model, const QModelIndex &parent, int row, int column = 0)
++{
++    return model->index(row, column, parent);
++}
++}
++
+ QString errorMessage(UINT8 errorCode)
+ {
+     switch (errorCode) {
+@@ -566,7 +577,7 @@ UINT8 FfsEngine::parseIntelImage(const QByteArray & intelImage, QModelIndex & in
+     model->addItem(Types::Region, Subtypes::DescriptorRegion, COMPRESSION_ALGORITHM_NONE, name, "", info, QByteArray(), body, index);
+ 
+     // Sort regions in ascending order
+-    qSort(offsets);
++    std::sort(offsets.begin(), offsets.end());
+ 
+     // Parse regions
+     UINT8 result = 0;
+@@ -2480,13 +2491,13 @@ void FfsEngine::rebasePeiFiles(const QModelIndex & index)
+     // Rebase all PE32 and TE sections in PEI-files after modified file
+     for (int i = index.row(); i < model->rowCount(index.parent()); i++) {
+         // PEI-file
+-        QModelIndex currentFileIndex = index.parent().child(i, 0);
++        QModelIndex currentFileIndex = modelChildIndex(model, index.parent(), i, 0);
+         if (model->subtype(currentFileIndex) == EFI_FV_FILETYPE_PEI_CORE ||
+             model->subtype(currentFileIndex) == EFI_FV_FILETYPE_PEIM ||
+             model->subtype(currentFileIndex) == EFI_FV_FILETYPE_COMBINED_PEIM_DRIVER) {
+             for (int j = 0; j < model->rowCount(currentFileIndex); j++) {
+                 // Section in that file
+-                QModelIndex currentSectionIndex = currentFileIndex.child(j, 0);
++                QModelIndex currentSectionIndex = modelChildIndex(model, currentFileIndex, j, 0);
+                 // If section stores PE32 or TE image
+                 if (model->subtype(currentSectionIndex) == EFI_SECTION_PE32 || model->subtype(currentSectionIndex) == EFI_SECTION_TE)
+                     // Set rebase action
+@@ -2504,13 +2515,13 @@ void FfsEngine::rebasePeiFiles(const QModelIndex & index)
+         QModelIndex volumeContainer = parent.parent();
+         // Iterate over volumes starting from the one after.
+         for (int i = parent.row() + 1; i < model->rowCount(volumeContainer); i++) {
+-            QModelIndex currentVolumeIndex = volumeContainer.child(i, 0);
++            QModelIndex currentVolumeIndex = modelChildIndex(model, volumeContainer, i, 0);
+             // Iterate over files within each volume after the current one.
+             for (int j = 0; j < model->rowCount(currentVolumeIndex); j++) {
+-                QModelIndex currentFileIndex = currentVolumeIndex.child(j, 0);
++                QModelIndex currentFileIndex = modelChildIndex(model, currentVolumeIndex, j, 0);
+                 if (model->header(currentFileIndex).left(sizeof(EFI_GUID)) == EFI_FFS_VOLUME_TOP_FILE_GUID) {
+                     for (int k = 0; k < model->rowCount(currentFileIndex); k++) {
+-                        QModelIndex currentSectionIndex = currentFileIndex.child(k, 0);
++                        QModelIndex currentSectionIndex = modelChildIndex(model, currentFileIndex, k, 0);
+                         // If section stores PE32 or TE image
+                         if (model->subtype(currentSectionIndex) == EFI_SECTION_PE32 || model->subtype(currentSectionIndex) == EFI_SECTION_TE)
+                             // Set rebase action
+@@ -2703,7 +2714,7 @@ UINT8 FfsEngine::remove(const QModelIndex & index)
+     QModelIndex fileIndex;
+ 
+     if (model->type(index) == Types::Volume && model->rowCount(index) > 0)
+-        fileIndex = index.child(0, 0);
++        fileIndex = modelChildIndex(model, index, 0, 0);
+     else if (model->type(index) == Types::File)
+         fileIndex = index;
+     else if (model->type(index) == Types::Section)
+@@ -2728,7 +2739,7 @@ UINT8 FfsEngine::rebuild(const QModelIndex & index)
+     QModelIndex fileIndex;
+ 
+     if (model->type(index) == Types::Volume && model->rowCount(index) > 0)
+-        fileIndex = index.child(0, 0);
++        fileIndex = modelChildIndex(model, index, 0, 0);
+     else if (model->type(index) == Types::File)
+         fileIndex = index;
+     else if (model->type(index) == Types::Section)
+@@ -3065,7 +3076,7 @@ UINT8 FfsEngine::reconstructIntelImage(const QModelIndex& index, QByteArray& rec
+         reconstructed.clear();
+         // First child will always be descriptor for this type of image
+         QByteArray descriptor;
+-        result = reconstructRegion(index.child(0, 0), descriptor);
++        result = reconstructRegion(modelChildIndex(model, index, 0, 0), descriptor);
+         if (result)
+             return result;
+         reconstructed.append(descriptor);
+@@ -3150,18 +3161,18 @@ UINT8 FfsEngine::reconstructIntelImage(const QModelIndex& index, QByteArray& rec
+             QByteArray region;
+ 
+             // Padding after the end of all Intel regions
+-            if (model->type(index.child(i, 0)) == Types::Padding) {
+-                region = model->body(index.child(i, 0));
++            if (model->type(modelChildIndex(model, index, i, 0)) == Types::Padding) {
++                region = model->body(modelChildIndex(model, index, i, 0));
+                 reconstructed.append(region);
+                 offset += region.size();
+                 continue;
+             }
+ 
+-            result = reconstructRegion(index.child(i, 0), region);
++            result = reconstructRegion(modelChildIndex(model, index, i, 0), region);
+             if (result)
+                 return result;
+ 
+-            switch (model->subtype(index.child(i, 0)))
++            switch (model->subtype(modelChildIndex(model, index, i, 0)))
+             {
+             case Subtypes::GbeRegion:
+                 gbe = region;
+@@ -3257,7 +3268,7 @@ UINT8 FfsEngine::reconstructRegion(const QModelIndex& index, QByteArray& reconst
+             // Reconstruct children
+             for (int i = 0; i < model->rowCount(index); i++) {
+                 QByteArray child;
+-                result = reconstruct(index.child(i, 0), child);
++                result = reconstruct(modelChildIndex(model, index, i, 0), child);
+                 if (result)
+                     return result;
+                 reconstructed.append(child);
+@@ -3385,7 +3396,7 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+ 
+             // Search for VTF
+             for (int i = 0; i < model->rowCount(index); i++) {
+-                file = model->header(index.child(i, 0));
++                file = model->header(modelChildIndex(model, index, i, 0));
+                 // VTF found
+                 if (file.left(sizeof(EFI_GUID)) == EFI_FFS_VOLUME_TOP_FILE_GUID) {
+                     baseFound = true;
+@@ -3411,17 +3422,17 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                 // Search for first PEI-file and use it as base source
+                 UINT32 fileOffset = header.size();
+                 for (int i = 0; i < model->rowCount(index); i++) {
+-                    if ((model->subtype(index.child(i, 0)) == EFI_FV_FILETYPE_PEI_CORE ||
+-                        model->subtype(index.child(i, 0)) == EFI_FV_FILETYPE_PEIM ||
+-                        model->subtype(index.child(i, 0)) == EFI_FV_FILETYPE_COMBINED_PEIM_DRIVER)){
+-                        QModelIndex peiFile = index.child(i, 0);
++                    if ((model->subtype(modelChildIndex(model, index, i, 0)) == EFI_FV_FILETYPE_PEI_CORE ||
++                        model->subtype(modelChildIndex(model, index, i, 0)) == EFI_FV_FILETYPE_PEIM ||
++                        model->subtype(modelChildIndex(model, index, i, 0)) == EFI_FV_FILETYPE_COMBINED_PEIM_DRIVER)){
++                        QModelIndex peiFile = modelChildIndex(model, index, i, 0);
+                         UINT32 sectionOffset = sizeof(EFI_FFS_FILE_HEADER);
+                         // BUGBUG: this parsing is bad and doesn't support large files, but it needs to be performed only for very old images with uncompressed DXE volumes, so whatever
+                         // Search for PE32 or TE section
+                         for (int j = 0; j < model->rowCount(peiFile); j++) {
+-                            if (model->subtype(peiFile.child(j, 0)) == EFI_SECTION_PE32 ||
+-                                model->subtype(peiFile.child(j, 0)) == EFI_SECTION_TE) {
+-                                QModelIndex image = peiFile.child(j, 0);
++                            if (model->subtype(modelChildIndex(model, peiFile, j, 0)) == EFI_SECTION_PE32 ||
++                                model->subtype(modelChildIndex(model, peiFile, j, 0)) == EFI_SECTION_TE) {
++                                QModelIndex image = modelChildIndex(model, peiFile, j, 0);
+                                 // Check for correct action
+                                 if (model->action(image) == Actions::Remove || model->action(image) == Actions::Insert)
+                                     continue;
+@@ -3437,11 +3448,11 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                                     goto out;
+                                 }
+                             }
+-                            sectionOffset += model->header(peiFile.child(j, 0)).size() + model->body(peiFile.child(j, 0)).size();
++                            sectionOffset += model->header(modelChildIndex(model, peiFile, j, 0)).size() + model->body(modelChildIndex(model, peiFile, j, 0)).size();
+                             sectionOffset = ALIGN4(sectionOffset);
+                         }
+                     }
+-                    fileOffset += model->header(index.child(i, 0)).size() + model->body(index.child(i, 0)).size();
++                    fileOffset += model->header(modelChildIndex(model, index, i, 0)).size() + model->body(modelChildIndex(model, index, i, 0)).size();
+                     fileOffset = ALIGN8(fileOffset);
+                 }
+             }
+@@ -3459,7 +3470,7 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+             QByteArray nonUefiData;
+             for (int i = 0; i < model->rowCount(index); i++) {
+                 // Inside a volume can be files, free space or padding with non-UEFI data
+-                if (model->type(index.child(i, 0)) == Types::File) { // Next item is a file
++                if (model->type(modelChildIndex(model, index, i, 0)) == Types::File) { // Next item is a file
+ 
+                     // Align to 8 byte boundary
+                     UINT32 alignment = offset % 8;
+@@ -3473,7 +3484,7 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                     UINT32 fileBase = volumeBase ? volumeBase + header.size() + offset : 0;
+ 
+                     // Reconstruct file
+-                    result = reconstructFile(index.child(i, 0), volumeHeader->Revision, polarity, fileBase, file);
++                    result = reconstructFile(modelChildIndex(model, index, i, 0), volumeHeader->Revision, polarity, fileBase, file);
+                     if (result)
+                         return result;
+ 
+@@ -3490,11 +3501,11 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                     if (fileHeader->Type == EFI_FV_FILETYPE_PAD) {
+                         padFileGuid = file.left(sizeof(EFI_GUID));
+ 
+-                        if (model->action(index.child(i, 0)) == Actions::DoNotRebuild) {
++                        if (model->action(modelChildIndex(model, index, i, 0)) == Actions::DoNotRebuild) {
+                             // User asked not to touch this file, do nothing here
+                         }
+                         // Parse non-empty pad file
+-                        else if (model->rowCount(index.child(i, 0))) {
++                        else if (model->rowCount(modelChildIndex(model, index, i, 0))) {
+                             // TODO: handle this special case
+                             continue;
+                         }
+@@ -3507,7 +3518,7 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                     // Volume Top File
+                     if (file.left(sizeof(EFI_GUID)) == EFI_FFS_VOLUME_TOP_FILE_GUID) {
+                         vtf = file;
+-                        vtfIndex = index.child(i, 0);
++                        vtfIndex = modelChildIndex(model, index, i, 0);
+                         continue;
+                     }
+ 
+@@ -3540,11 +3551,11 @@ UINT8 FfsEngine::reconstructVolume(const QModelIndex & index, QByteArray & recon
+                     // Change current file offset
+                     offset += file.size();
+                 }
+-                else if (model->type(index.child(i, 0)) == Types::FreeSpace) { //Next item is a free space
++                else if (model->type(modelChildIndex(model, index, i, 0)) == Types::FreeSpace) { //Next item is a free space
+                     // Some data are located beyond free space
+-                    if (offset + (UINT32)model->body(index.child(i, 0)).size() < (UINT32)model->body(index).size()) {
++                    if (offset + (UINT32)model->body(modelChildIndex(model, index, i, 0)).size() < (UINT32)model->body(index).size()) {
+                         // Get non-UEFI data and it's offset
+-                        nonUefiData = model->body(index.child(i + 1, 0));
++                        nonUefiData = model->body(modelChildIndex(model, index, i + 1, 0));
+                         nonUefiDataOffset = body.size() - nonUefiData.size();
+                         break;
+                     }
+@@ -3829,7 +3840,7 @@ UINT8 FfsEngine::reconstructFile(const QModelIndex& index, const UINT8 revision,
+                     
+                     // Reconstruct section
+                     QByteArray section;
+-                    result = reconstructSection(index.child(i, 0), sectionBase, section);
++                    result = reconstructSection(modelChildIndex(model, index, i, 0), sectionBase, section);
+                     if (result)
+                         return result;
+ 
+@@ -3945,7 +3956,7 @@ UINT8 FfsEngine::reconstructSection(const QModelIndex& index, const UINT32 base,
+ 
+                 // Reconstruct subsections
+                 QByteArray section;
+-                result = reconstruct(index.child(i, 0), section);
++                result = reconstruct(modelChildIndex(model, index, i, 0), section);
+                 if (result)
+                     return result;
+ 
+@@ -4231,7 +4242,7 @@ UINT8 FfsEngine::findHexPattern(const QModelIndex & index, const QByteArray & he
+ 
+     bool hasChildren = (model->rowCount(index) > 0);
+     for (int i = 0; i < model->rowCount(index); i++) {
+-        findHexPattern(index.child(i, index.column()), hexPattern, mode);
++        findHexPattern(modelChildIndex(model, index, i, index.column()), hexPattern, mode);
+     }
+ 
+     QByteArray data;
+@@ -4249,8 +4260,8 @@ UINT8 FfsEngine::findHexPattern(const QModelIndex & index, const QByteArray & he
+     }
+ 
+     QString hexBody = QString(data.toHex());
+-    QRegExp regexp = QRegExp(QString(hexPattern), Qt::CaseInsensitive);
+-    INT32 offset = regexp.indexIn(hexBody);
++    QRegularExpression regexp(QString(hexPattern), QRegularExpression::CaseInsensitiveOption);
++    INT32 offset = regexp.match(hexBody).capturedStart();
+     while (offset >= 0) {
+         if (offset % 2 == 0) {
+             msg(tr("Hex pattern \"%1\" found as \"%2\" in %3 at %4-offset %5h")
+@@ -4261,7 +4272,7 @@ UINT8 FfsEngine::findHexPattern(const QModelIndex & index, const QByteArray & he
+                 .hexarg(offset / 2),
+                 index);
+         }
+-        offset = regexp.indexIn(hexBody, offset + 1);
++        offset = regexp.match(hexBody, offset + 1).capturedStart();
+     }
+ 
+     return ERR_SUCCESS;
+@@ -4277,7 +4288,7 @@ UINT8 FfsEngine::findGuidPattern(const QModelIndex & index, const QByteArray & g
+ 
+     bool hasChildren = (model->rowCount(index) > 0);
+     for (int i = 0; i < model->rowCount(index); i++) {
+-        findGuidPattern(index.child(i, index.column()), guidPattern, mode);
++        findGuidPattern(modelChildIndex(model, index, i, index.column()), guidPattern, mode);
+     }
+ 
+     QByteArray data;
+@@ -4318,8 +4329,8 @@ UINT8 FfsEngine::findGuidPattern(const QModelIndex & index, const QByteArray & g
+     if (hexPattern.count('.') == hexPattern.length())
+         return ERR_SUCCESS;
+ 
+-    QRegExp regexp = QRegExp(QString(hexPattern), Qt::CaseInsensitive);
+-    INT32 offset = regexp.indexIn(hexBody);
++    QRegularExpression regexp(QString(hexPattern), QRegularExpression::CaseInsensitiveOption);
++    INT32 offset = regexp.match(hexBody).capturedStart();
+     while (offset >= 0) {
+         if (offset % 2 == 0) {
+             msg(tr("GUID pattern \"%1\" found as \"%2\" in %3 at %4-offset %5h")
+@@ -4330,7 +4341,7 @@ UINT8 FfsEngine::findGuidPattern(const QModelIndex & index, const QByteArray & g
+                 .hexarg(offset / 2),
+                 index);
+         }
+-        offset = regexp.indexIn(hexBody, offset + 1);
++        offset = regexp.match(hexBody, offset + 1).capturedStart();
+     }
+ 
+     return ERR_SUCCESS;
+@@ -4346,7 +4357,7 @@ UINT8 FfsEngine::findTextPattern(const QModelIndex & index, const QString & patt
+ 
+     bool hasChildren = (model->rowCount(index) > 0);
+     for (int i = 0; i < model->rowCount(index); i++) {
+-        findTextPattern(index.child(i, index.column()), pattern, unicode, caseSensitive);
++        findTextPattern(modelChildIndex(model, index, i, index.column()), pattern, unicode, caseSensitive);
+     }
+ 
+     if (hasChildren)
+@@ -4769,7 +4780,7 @@ UINT8 FfsEngine::recursiveDump(const QModelIndex & index, const QString & path,
+ 
+     UINT8 result;
+     for (int i = 0; i < model->rowCount(index); i++) {
+-        QModelIndex childIndex = index.child(i, 0);
++        QModelIndex childIndex = modelChildIndex(model, index, i, 0);
+         QString childPath = QString("%1/%2 %3").arg(path).arg(i).arg(model->text(childIndex).isEmpty() ? model->name(childIndex) : model->text(childIndex));
+         result = recursiveDump(childIndex, childPath, guid);
+         if (result)
+@@ -4888,18 +4899,17 @@ UINT8 FfsEngine::patchViaPattern(QByteArray & data, const QByteArray & hexFindPa
+ 
+     // Convert file body to hex;
+     QString hexBody = QString(body.toHex());
+-    QRegExp regexp = QRegExp(QString(hexFindPattern), Qt::CaseInsensitive);
+-    INT32 offset = regexp.indexIn(hexBody);
++    QRegularExpression regexp(QString(hexFindPattern), QRegularExpression::CaseInsensitiveOption);
++    INT32 offset = regexp.match(hexBody).capturedStart();
+     while (offset >= 0) {
+         if (offset % 2 == 0) {
+             UINT8 result = patchViaOffset(body, offset / 2, hexReplacePattern);
+             if (result)
+                 return result;
+         }
+-        offset = regexp.indexIn(hexBody, offset + 1);
++        offset = regexp.match(hexBody, offset + 1).capturedStart();
+     }
+ 
+     data = body;
+     return ERR_SUCCESS;
+ }
+-
+diff --git a/treemodel.cpp b/treemodel.cpp
+index 94a0df2..e26d8a8 100644
+--- a/treemodel.cpp
++++ b/treemodel.cpp
+@@ -52,7 +52,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
+ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
+ {
+     if (!index.isValid())
+-        return 0;
++        return Qt::NoItemFlags;
+ 
+     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+ }
+@@ -352,4 +352,4 @@ QModelIndex TreeModel::findParentOfType(const QModelIndex& index, UINT8 type) co
+         return parent;
+ 
+     return QModelIndex();
+-}
+\ No newline at end of file
++}
