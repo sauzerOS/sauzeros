@@ -1,15 +1,59 @@
+at-spi2-core
+bubblewrap
 cairo
+enchant
+expat
+fontconfig
+freetype
+gdk-pixbuf
+glib
+glibc
 gst-plugins-bad
 gst-plugins-base
 gstreamer
 gtk+3
+harfbuzz
+icu
+libatomic
+libatomic
+libdrm
+libepoxy
+libgcc
+libgcrypt
+libglvnd
+libjpeg-turbo
+libjxl
+libpng
+libseccomp
+libsecret
 libsoup
+libstdc++
+libtasn1
+libwebp
+libx11
+libxml2
+libxslt
 little-cms
+mesa
 openjpeg
-ruby
-unifdef
-which
+pango
+sqlite
+systemd-libs
+wayland
 woff2
 xdg-dbus-proxy
+zlib-ng
+gst-libav suggest nonfree media decoding
+gst-plugins-bad suggest media decoding
+gst-plugins-good suggest media decoding
+clang make
 cmake make
-llvm make
+gobject-introspection make
+gperf make
+gst-plugins-bad make
+lld make
+ninja make
+python make
+systemd make
+unifdef make
+wayland-protocols make 
