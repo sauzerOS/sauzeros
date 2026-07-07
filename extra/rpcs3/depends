@@ -19,6 +19,7 @@ vulkan-icd-loader
 zlib-ng
 clang make
 cmake make
+git make
 lld make
 llvm make
 opencv make
