@@ -4,8 +4,14 @@ patch -Np1 -i 256.patch
 patch -Np1 -i 251.patch
 patch -Np1 -i 242.patch
 
-./configure \
-    -p /usr
+cmake_options=(
+  -B build
+  -D CMAKE_BUILD_TYPE=None
+  -D CMAKE_INSTALL_PREFIX=/usr
+  -W no-dev
+)
 
-make -j1
-make DESTDIR="$1" install
+export CFLAGS+=" -ffat-lto-objects"
+cmake "${cmake_options[@]}"
+cmake --build build
+DESTDIR="$1" cmake --install build
