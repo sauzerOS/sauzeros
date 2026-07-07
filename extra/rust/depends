@@ -2,8 +2,9 @@ bash
 clang
 curl
 gcc
-gcc-libs
 glibc
+libgcc
+libstdc++
 sqlite
 lld
 llvm-libs
