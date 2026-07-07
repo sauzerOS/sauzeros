@@ -1,8 +1,10 @@
 bzip2
 curl
 expat
-gcc-libs
 glibc
+jsoncpp
+libgcc
+libstdc++
 ninja runtime
 xz
 zlib-ng
