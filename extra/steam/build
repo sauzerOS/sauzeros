@@ -5,7 +5,7 @@ ln -sf /usr/bin/true $1/usr/bin/steamdeps
 
 # steam-devices
 pkgdir=$HOKUTO_SPLIT_DIR/steam-devices
-cd steam-launcher/subprojects/steam-devices
+cd subprojects/steam-devices
 install -Dm 644 60-steam-input.rules \
     "${pkgdir}/usr/lib/udev/rules.d/60-steam-input.rules"
 install -Dm 644 60-steam-vr.rules \

@@ -5,7 +5,6 @@ dbus
 desktop-file-utils
 diffutils
 freetype
-gcc-libs
 gdk-pixbuf
 glibc
 hicolor-icon-theme
@@ -26,18 +25,18 @@ lib32-nvidia-utils | lib32-vulkan-intel | lib32-vulkan-radeon | lib32-vulkan-vir
 lib32-pipewire
 lib32-systemd
 lib32-vulkan-icd-loader
+libgcc
 libxcrypt
 libxkbcommon
 lsof
 nss
 nvidia-utils | vulkan-intel | vulkan-radeon | vulkan-swrast | vulkan-virtio | vulkan-broadcom
 python
-steam-devices
-ttf-croscore
+steam-devices runtime
 usbutils
 vulkan-icd-loader
 xdg-desktop-portal-gtk | xdg-desktop-portal-kde | xdg-desktop-portal-cosmic
 xdg-user-dirs
-xrandr
+xorg-xrandr
 xz
 zenity
