@@ -11,3 +11,4 @@ python-transitions
 python-typeguard
 python-watchdog
 refind
+python-setuptools make
