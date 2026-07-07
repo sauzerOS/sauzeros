@@ -1,2 +1,5 @@
 python
 postgresql make
+python-build make
+python-installer make
+python-setuptools make
