@@ -1,2 +1,10 @@
+brotli
+curl
+expat
+gettext
+glibc
+libgcc
 libinih
+libstdc++
+zlib-ng
 cmake make
