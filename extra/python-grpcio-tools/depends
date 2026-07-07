@@ -1,5 +1,6 @@
-gcc-libs
 glibc
+libgcc
+libstdc++
 protobuf
 python
 python-protobuf
