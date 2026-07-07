@@ -1,6 +1,21 @@
-cups
-libusb
+dbus
+ghostscript
+glibc
+libcups
+libgcc
+libjpeg-turbo
+libstdc++
+python
+python-dbus
 python-pygobject
-python-pyqt5
-sane
 xdg-utils
+zlib-ng
+cups suggest Printing support
+libusb suggest Advanced usb support
+python-pillow suggest Commandline scanning support
+sane suggest Scanner support
+wget suggest Network support
+cups make
+libusb make
+python-setuptools make
+sane make 
