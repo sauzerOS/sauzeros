@@ -1,4 +1,5 @@
 bash
-gcc-libs
 glibc
+libgcc
+libstdc++
 uasm make
