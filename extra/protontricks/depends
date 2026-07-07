@@ -1,2 +1,11 @@
+python
+python-pillow
 python-vdf
-python-setuptools-scm
+winetricks
+yad suggest GUI for game selection
+zenity suggest GUI for winetricks
+python-build make
+python-installer make
+python-setuptools make
+python-setuptools-scm make
+python-wheel make
