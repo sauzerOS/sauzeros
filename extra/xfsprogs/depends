@@ -1,2 +1,7 @@
+bash
+device-mapper
+libedit
 libinih
 liburcu
+util-linux-libs
+icu make 
