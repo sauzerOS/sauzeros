@@ -1,1 +1,9 @@
+curl
+libevent
+miniupnpc
+qt
+qt-svg
+systemd
 cmake make
+git make
+qt-tools make
