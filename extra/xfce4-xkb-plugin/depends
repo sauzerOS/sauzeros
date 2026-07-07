@@ -1,1 +1,8 @@
+libnotify
 librsvg
+libwnck
+libxklavier
+xfce4-panel
+xfce4-notifyd suggest show notifications on layout change
+meson make
+xfce4-dev-tools make 
