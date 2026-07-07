@@ -1,3 +1,4 @@
 alsa-lib
-gcc-libs
 glibc
+libgcc
+libstdc++
