@@ -6,12 +6,12 @@ dbus
 dconf
 fuse3
 gdk-pixbuf
-gcc-libs
 glib
 glibc
 gpgme
 json-glib
 libarchive
+libgcc
 libseccomp
 libxau
 libxml2
