@@ -1,40 +1,16 @@
-cairo
+desktop-file-utils
 exo
-expat
-ffmpegthumbnailer
-fontconfig
-freetype
-fribidi
-gdk-pixbuf
-glib
-gtk+3
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxcb
-libxfce4ui
-libxfce4util
-libxshmfence
+hicolor-icon-theme
+libexif
 libgudev
 libnotify
+libxfce4ui
+libxfce4util
 pcre2
-mesa
-pango
-pixman
-tumbler
-xfconf
+gvfs suggest trash support, mounting with udisk and remote filesystems
+thunar-archive-plugin suggest archive creation and extraction
+thunar-volman suggest removable device management
+tumbler suggest thumbnail previews
+gobject-introspection make
+xfce4-dev-tools make
+xfce4-panel make 
