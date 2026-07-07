@@ -1,2 +1,12 @@
+bzip2
+glib
+glibc
+libgcrypt
+libsamplerate
+libsndfile
+xz
+zlib-ng
 cmake make
+gobject-introspection make
 intltool make
+vala make 
