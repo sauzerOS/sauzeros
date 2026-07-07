@@ -1,13 +1,22 @@
 #!/bin/sh -e
 
-meson setup build              \
-      --prefix=/usr            \
-      --buildtype=release      \
-      -D man=false             \
-      -D broadway_backend=true
+hokuto-meson build \
+  -D man=false     \
+  -D broadway_backend=true
 
 meson compile -C build
 meson install -C build --destdir=$1
 
 mkdir -p $1/etc/gtk-3.0/
 cp settings.ini $1/etc/gtk-3.0/
+
+# Built by GTK 4, shared with GTK 3
+rm $1/usr/bin/gtk-update-icon-cache
+rm $1/usr/share/man/man1/gtk-update-icon-cache.1
+
+# gtk+3-demos
+_pick "$1" gtk+3-demos usr/bin/gtk3-{demo,demo-application,icon-browser,widget-factory}
+_pick "$1" gtk+3-demos usr/share/applications/gtk3-{demo,icon-browser,widget-factory}.desktop
+_pick "$1" gtk+3-demos usr/share/glib-2.0/schemas/org.gtk.{Demo,exampleapp}.gschema.xml
+_pick "$1" gtk+3-demos usr/share/icons/hicolor/*/apps/gtk3-{demo,widget-factory}[-.]*
+_pick "$1" gtk+3-demos usr/share/man/man1/gtk3-{demo,demo-application,icon-browser,widget-factory}.1

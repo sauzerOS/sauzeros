@@ -1,0 +1,11 @@
+at-spi2-core
+cairo
+dconf
+gdk-pixbuf
+glib
+glibc
+gtk+3
+harfbuzz
+hicolor-icon-theme
+libepoxy
+pango
