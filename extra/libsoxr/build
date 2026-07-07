@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+cmake -B build                 \
+  -D CMAKE_BUILD_TYPE=None     \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_EXAMPLES=OFF        \
+  -D BUILD_SHARED_LIBS=ON      \
+  -D WITH_AVFFT=ON             \
+  -D WITH_LSR_BINDINGS=ON      \
+  -D WITH_OPENMP=ON            \
+  -D WITH_PFFFT=ON             \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+cmake --build build
+DESTDIR="${1}" cmake --install build

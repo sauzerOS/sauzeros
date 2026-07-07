@@ -1,0 +1,4 @@
+glibc
+libgcc
+libgomp
+cmake make
