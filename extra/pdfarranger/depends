@@ -3,8 +3,13 @@ glib
 gtk+3
 pango
 poppler
+python
 python-pycairo
 python-dateutil
 python-pygobject
 python-packaging
 python-pikepdf
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
