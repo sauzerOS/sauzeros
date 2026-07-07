@@ -1,0 +1,5 @@
+bash
+glibc
+libvlc
+vlc-plugins-base
+vlc-plugin-lua suggest Lua scripting plugins

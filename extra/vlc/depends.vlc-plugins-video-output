@@ -1,0 +1,11 @@
+glibc
+libgcc
+libglvnd
+libva
+libvlc
+libx11
+libxcb
+wayland
+xcb-util-keysyms
+libva-intel-driver suggest "Intel VA-API drivers"
+libva-mesa-driver suggest "mesa VA-API drivers"

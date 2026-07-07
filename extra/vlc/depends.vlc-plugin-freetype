@@ -1,0 +1,7 @@
+fontconfig
+freetype
+fribidi
+glibc
+harfbuzz
+libvlc
+vlc-plugins-base
