@@ -1,0 +1,12 @@
+alsa-lib
+glibc
+alsa-lib make
+dbus make
+ffmpeg make
+libpulse make
+libsamplerate make
+speexdsp make 
+lib32-alsa-lib make
+lib32-dbus make
+lib32-libpulse make
+lib32-speexdsp make 
