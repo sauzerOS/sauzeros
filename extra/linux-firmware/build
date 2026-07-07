@@ -3,10 +3,7 @@
 mkdir -p kernel/x86/microcode
 cat amd-ucode/microcode_amd*.bin > kernel/x86/microcode/AuthenticAMD.bin
 
-make DESTDIR="$1" FIRMWAREDIR=/usr/lib/firmware install
-
-echo "compressing firmware"
-find $1/usr/lib/firmware -type f -exec xz -C crc32 -T0 "{}" \;
+ZSTD_CLEVEL=19 make DESTDIR="$1" FIRMWAREDIR=/usr/lib/firmware install-zst
 
 # Trigger a microcode reload for configurations not using early updates
 echo 'w /sys/devices/system/cpu/microcode/reload - - - - 1' |
@@ -15,3 +12,86 @@ install -Dm644 /dev/stdin "$1/usr/lib/tmpfiles.d/linux-firmware.conf"
 #AMD microcode
 cat amd-ucode/microcode_amd*.bin > amd-ucode.img
 install -Dt "$1/boot" -m644 amd-ucode.img
+
+_pick "$1" amd-ucode \
+    boot/amd-ucode.img \
+    usr/lib/firmware/amd-ucode
+
+_pick "$1" linux-firmware-amdgpu \
+    usr/lib/firmware/amdgpu
+
+_pick "$1" linux-firmware-atheros \
+    usr/lib/firmware/ar[0-9]* \
+    usr/lib/firmware/ath* \
+    usr/lib/firmware/carl9170* \
+    usr/lib/firmware/htc_* \
+    usr/lib/firmware/qca \
+    usr/lib/firmware/wil6210*
+
+_pick "$1" linux-firmware-broadcom \
+    usr/lib/firmware/bnx2* \
+    usr/lib/firmware/brcm \
+    usr/lib/firmware/cypress \
+    usr/lib/firmware/tigon
+
+_pick "$1" linux-firmware-cirrus \
+    usr/lib/firmware/cirrus \
+    usr/lib/firmware/cs42l43*
+
+_pick "$1" linux-firmware-intel \
+    usr/lib/firmware/e100 \
+    usr/lib/firmware/hfi1_* \
+    usr/lib/firmware/i915 \
+    usr/lib/firmware/intel \
+    usr/lib/firmware/isci \
+    usr/lib/firmware/iwlwifi* \
+    usr/lib/firmware/ixp4xx \
+    usr/lib/firmware/qat_* \
+    usr/lib/firmware/xe
+
+_pick "$1" linux-firmware-liquidio \
+    usr/lib/firmware/liquidio
+
+_pick "$1" linux-firmware-marvell \
+    usr/lib/firmware/libertas \
+    usr/lib/firmware/mrvl \
+    usr/lib/firmware/mwl8k \
+    usr/lib/firmware/mwlwifi
+
+_pick "$1" linux-firmware-mediatek \
+    usr/lib/firmware/mediatek \
+    usr/lib/firmware/mt7* \
+    usr/lib/firmware/rt[237]*
+
+_pick "$1" linux-firmware-mellanox \
+    usr/lib/firmware/mellanox
+
+_pick "$1" linux-firmware-nfp \
+    usr/lib/firmware/netronome
+
+_pick "$1" linux-firmware-nvidia \
+    usr/lib/firmware/nvidia
+
+_pick "$1" linux-firmware-qcom \
+    usr/lib/firmware/a300_* \
+    usr/lib/firmware/qcom
+
+_pick "$1" linux-firmware-qlogic \
+    usr/lib/firmware/cbfw-* \
+    usr/lib/firmware/ct2fw-* \
+    usr/lib/firmware/ctfw-* \
+    usr/lib/firmware/qed \
+    usr/lib/firmware/ql2???_* \
+    usr/lib/firmware/qlogic
+
+_pick "$1" linux-firmware-radeon \
+    usr/lib/firmware/radeon
+
+_pick "$1" linux-firmware-realtek \
+    usr/lib/firmware/realtek \
+    usr/lib/firmware/rtl_* \
+    usr/lib/firmware/rtlwifi \
+    usr/lib/firmware/rtw8*
+
+_pick "$1" linux-firmware-other \
+    usr/lib/firmware
