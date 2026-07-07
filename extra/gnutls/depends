@@ -1,8 +1,9 @@
 brotli
-gcc-libs
 glibc
 gmp
+libgcc
 libidn2
+libstdc++
 libtasn1
 libunistring
 nettle
