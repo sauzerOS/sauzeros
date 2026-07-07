@@ -4,7 +4,6 @@ curl
 faad2
 fdk-aac
 fluidsynth
-gcc-libs
 glib
 glibc
 gst-plugins-bad
@@ -13,14 +12,17 @@ gstreamer
 json-glib
 libaom
 libass
+libdca
 libde265
 libfreeaptx
+libgcc
 libgme
 liblc3
 libldac
 libmodplug
 librsvg
 libsndfile
+libstdc++
 libwebp
 libxml2
 little-cms
@@ -34,6 +36,7 @@ pango
 qrencode
 sbc
 spandsp
+srt
 webrtc-audio-processing<2.0
 x265
 zxing-cpp
