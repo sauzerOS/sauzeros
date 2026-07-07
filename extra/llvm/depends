@@ -1,6 +1,7 @@
 curl
 glibc
-gcc-libs
+libgcc
+libstdc++
 perl
 cmake make
 libedit make
