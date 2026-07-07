@@ -1,6 +1,6 @@
 dbus
+gcc-libs
 openssl
-samba
+smbclient
 zlib-ng
 rust | rustup make
-
