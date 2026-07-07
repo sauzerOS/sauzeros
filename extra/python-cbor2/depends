@@ -1,0 +1,10 @@
+glibc
+libgcc
+python
+python-build make
+python-installer make
+python-setuptools make
+python-setuptools-rust make
+python-setuptools-scm make
+python-toml make
+python-wheel make
