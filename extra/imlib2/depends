@@ -1,0 +1,14 @@
+bzip2
+freetype
+giflib
+libjpeg-turbo
+libpng
+libtiff
+libxext
+xz
+highway make
+libheif make
+libjxl make
+librsvg make
+libwebp make
+openjpeg make 
