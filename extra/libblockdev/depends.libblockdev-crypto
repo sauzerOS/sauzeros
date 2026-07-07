@@ -1,0 +1,9 @@
+cryptsetup
+glib
+glibc
+keyutils
+libblockdev
+libgcc
+nss
+util-linux-libs
+volume_key 

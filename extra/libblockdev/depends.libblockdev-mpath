@@ -1,0 +1,4 @@
+device-mapper
+glib
+glibc
+libblockdev

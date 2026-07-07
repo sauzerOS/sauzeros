@@ -1,0 +1,8 @@
+device-mapper
+glib
+glibc
+json-glib
+libblockdev
+libbytesize
+libgcc
+libyaml
