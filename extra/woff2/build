@@ -3,12 +3,12 @@
 #gcc 15 fix
 sed -i '/output.h/i #include <cstdint>' src/woff2_out.cc
 
-mkdir out
-cd out
 
-cmake -D CMAKE_INSTALL_PREFIX=/usr        \
+cmake -B build                            \
+      -D CMAKE_INSTALL_PREFIX=/usr        \
       -D CMAKE_BUILD_TYPE=Release         \
       -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
-      -D CMAKE_SKIP_INSTALL_RPATH=ON ..
-make
-make DESTDIR=$1 install
+      -D CMAKE_SKIP_INSTALL_RPATH=ON
+
+cmake --build build
+DESTDIR=$1 cmake --install build
