@@ -1,11 +1,12 @@
-7zip
 fs-uae
 hicolor-icon-theme
 python
 python-idna
-python-lhafile
-python-pyopengl
 python-pillow
+python-pyopengl
 python-pyqt6
 python-requests
 python-setuptools
+7zip suggest "7z file support"
+python-bottle suggest "net play support"
+python-lhafile suggest "lha file support"
