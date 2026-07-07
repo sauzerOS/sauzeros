@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./autogen.sh
+./configure \
+  --prefix=/usr \
+  --sbindir=/usr/bin \
+  --libexecdir=/usr/lib/${3}
+
+make
+make DESTDIR="${1}" install
+install -Dm644 -t "${1}"/usr/share/man/man8 */*.8
