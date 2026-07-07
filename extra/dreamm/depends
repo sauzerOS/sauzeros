@@ -1,0 +1,12 @@
+alsa-lib
+curl
+glibc
+libidn2
+libpsl
+libunistring
+openssl
+sdl2-compat
+util-linux
+zlib-ng
+zstd
+
