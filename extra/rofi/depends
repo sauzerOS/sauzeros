@@ -1,1 +1,18 @@
+bash
+cairo
+gdk-pixbuf
+glib
+glibc
+hicolor-icon-theme
+libxcb
+libxkbcommon
+pango
 startup-notification
+wayland
+xcb-util
+xcb-util-cursor
+xcb-util-keysyms
+xcb-util-wm
+check make
+meson make
+wayland-protocols make 

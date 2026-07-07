@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-mkdir build
-cd build
-
-meson --prefix=/usr -Dxcb=enabled ..
-
-ninja
-DESTDIR=$1 ninja install
+hokuto-meson build
+meson compile -C build
+meson install -C build --destdir=$1
