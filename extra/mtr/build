@@ -3,7 +3,6 @@
 autoreconf -fiv
 ./configure \
   --prefix=/usr \
-  --without-gtk \
   --sbindir=/usr/bin
 
 make
