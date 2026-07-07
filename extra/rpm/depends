@@ -1,5 +1,8 @@
+elfutils
 file
 libarchive
-lua==5.4.8
+libcap
+lua
 popt
+cmake make
 scdoc make
