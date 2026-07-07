@@ -1,4 +1,5 @@
 cairo
+enchant
 gcr<4.0
 gdk-pixbuf
 glib
@@ -7,6 +8,11 @@ gnutls
 gspell
 gtk+3
 hicolor-icon-theme
+libgcc
 libnotify
 libsecret
+libstdc++
 pango
+zlib-ng
+cmake make
+itstool make
