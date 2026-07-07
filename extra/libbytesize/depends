@@ -1,2 +1,5 @@
+glibc
+gmp
+mpfr
 pcre2
-python-pygments
+python make 
