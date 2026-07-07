@@ -1,14 +1,18 @@
 alsa-lib
 dbus
-gcc-libs
 glib
 glibc
+libgcc
+libgomp
 libpipewire
 libpulse
 libsndfile
+libstdc++
 readline
 sdl3
 systemd-libs
+fluidsynth-soundfont-fatboy suggest "default fatboy soundfont"
+fluidsynth-soundfont-fluid suggest "fluidr3 soundfont"
 7zip make
 cmake make
 rsync make
