@@ -1,9 +1,12 @@
-audacious-plugins optional
+audacious-plugins runtime
 desktop-file-utils
 glib
 glibc
 hicolor-icon-theme
-gcc-libs
+libgcc
+libstdc++
 qt
+qt-imageformats
+qt-svg
 unzip suggest
 meson make
