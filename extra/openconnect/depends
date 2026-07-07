@@ -1,5 +1,11 @@
+gnutls
+krb5
+libproxy
 libxml2
 lz4
-gnutls
+p11-kit
+pcsclite
 vpnc
-
+xdg-utils
+intltool make
+python make 
