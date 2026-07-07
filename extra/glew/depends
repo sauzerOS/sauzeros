@@ -1,1 +1,7 @@
-mesa
+glibc
+glu
+libglvnd
+libx11
+lib32-glu make
+lib32-libxi make
+lib32-libxmu make
