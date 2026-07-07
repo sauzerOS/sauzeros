@@ -165,26 +165,45 @@ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$2/liblto_plugin.so \
         $1/usr/lib/bfd-plugins/
 }
 
-# gcc-libs split package
-libs=(
-    libasan.so*
-    libatomic.so*
-    libgcc_s_asneeded.so*
-    libgcc_s.so*
-    libgomp.so*
-    libitm.so*
-    liblsan.so*
-    libquadmath.so*
-    libstdc++.so*
-    libtsan.so*
-    libubsan.so*
-)
-dest_dir="$HOKUTO_SPLIT_DIR/gcc-libs/usr/lib"
-mkdir -p "$dest_dir"
+# libasan split package
+_pick "$1" libasan usr/lib/libasan.so*
 
-for lib in "${libs[@]}"; do
-    mv "$1/usr/lib"/$lib "$dest_dir/"
-done
+# libatomic split package
+_pick "$1" libatomic usr/lib/libatomic.so*
+
+# libgcc split package
+_pick "$1" libgcc usr/lib/libgcc_s.so*
+_pick "$1" libgcc usr/lib/libgcc_s_asneeded.so*
+
+# libgomp split package
+_pick "$1" libgomp usr/lib/libgomp.so*
+_pick "$1" libgomp usr/share/info/libgomp.info.gz
+
+# libhwasan split package
+_pick "$1" libhwasan usr/lib/libhwasan.so*
+
+# libitm split package
+_pick "$1" libitm usr/lib/libitm.so*
+_pick "$1" libitm usr/share/info/libitm.info.gz
+
+# liblsan split package
+_pick "$1" liblsan usr/lib/liblsan.so*
+
+# libquadmath split package
+_pick "$1" libquadmath usr/lib/libquadmath.so*
+_pick "$1" libquadmath usr/share/info/libquadmath.info.gz
+
+# libstdc++ split package
+_pick "$1" libstdc++ usr/lib/libstdc++.so*
+
+# libtsan split package
+_pick "$1" libtsan usr/lib/libtsan.so*
+
+# libubsan split package
+_pick "$1" libubsan usr/lib/libubsan.so*
+
+# lto-dump split package
+_pick "$1" lto-dump usr/bin/lto-dump
 
 # lib32-gcc-libs split package
 if [ "$MULTILIB" = "1" ]; then
