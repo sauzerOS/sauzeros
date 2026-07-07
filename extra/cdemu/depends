@@ -1,4 +1,14 @@
-cmake make
-cdemu-vhba-module
-libmirage
+dbus
+glib
+glib
+glibc
 libao
+libmirage
+python
+python-pygobject
+vhba-module runtime
+alsa-lib suggest enable the ALSA audio driver
+pipewire-pulse suggest enable the PA audio driver
+bash-completion make
+cmake make
+intltool make
