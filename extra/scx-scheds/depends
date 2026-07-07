@@ -1,4 +1,13 @@
+bash
+glibc
 jq
-protobuf
+libelf
+libgcc
 libseccomp
+protobuf
+zlib-ng
+clang make
+llvm make
+llvm-libs make
+python make 
 rust | rustup make
