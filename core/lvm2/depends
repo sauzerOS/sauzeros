@@ -3,7 +3,7 @@ glibc
 libaio
 readline
 systemd-libs
-util-linux
+util-linux-libs
 systemd make
 aarch64-gcc cross make
 aarch64-libaio cross make
