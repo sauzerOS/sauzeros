@@ -1,4 +1,10 @@
 #!/bin/sh -e
 
-install -d $1/bin
-cp lazyssh $1/bin/
+export CGO_CPPFLAGS="${CPPFLAGS}"
+export CGO_CFLAGS="${CFLAGS}"
+export CGO_CXXFLAGS="${CXXFLAGS}"
+export CGO_LDFLAGS="${LDFLAGS}"
+export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+
+go build -o build/$3 -ldflags "-X main.version=$2" ./cmd/
+install -Dm755 "build/$3" "$1/usr/bin/$3"
