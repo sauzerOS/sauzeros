@@ -1,6 +1,8 @@
 bash
 glibc
 libcups runtime
+libcupsfilters
+libppd
 ghostscript suggest for non-PDF printers (preferred)
 mupdf suggest for non-PDF printers
 poppler suggest for non-PDF printers
