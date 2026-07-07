@@ -1,34 +1,4 @@
-bzip2
-cairo
-expat
-fontconfig
-freetype
-fribidi
-gdk-pixbuf
-glib
-gtk+3
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxcb
 libxfce4ui
-libxfce4util
-libxshmfence
-mesa
-pango
-pixman
+gobject-introspection make
+python make
+xfce4-dev-tools make 
