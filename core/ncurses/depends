@@ -1,3 +1,4 @@
 glibc
-gcc-libs
+libgcc
+libstdc++
 aarch64-gcc cross make

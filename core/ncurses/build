@@ -34,6 +34,7 @@ for lib in ncurses form panel menu; do
     rm -f "$1$PREFIX/lib/lib${lib}.so"
     printf '%s\n' "INPUT(-l${lib}w)" > "$1$PREFIX/lib/lib${lib}.so"
     chmod 755 "$1$PREFIX/lib/lib${lib}.so"
+    ln -sf "lib${lib}w.a" "$1$PREFIX/lib/lib${lib}.a"
 done
 
 # Some packages look for libcurses instead of libncurses when building.
