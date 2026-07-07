@@ -1,9 +1,7 @@
 #!/bin/sh -e
 
-meson setup build         \
-      --prefix=/usr       \
-      --buildtype=release \
-      -D ssh-agent=true
+hokuto-meson build \
+  -D ssh-agent=true
 
 meson compile -C build
 meson install -C build --destdir=$1
