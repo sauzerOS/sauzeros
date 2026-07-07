@@ -1,1 +1,12 @@
-vala make
+at-spi2-core
+cairo
+fribidi
+gcc-libs
+gdk-pixbuf
+glib
+glibc
+gtk+3
+pango
+gobject-introspection make
+meson make
+vala make 
