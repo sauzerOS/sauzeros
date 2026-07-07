@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-hokuto-meson build \
-  -D lynx=disabled
-
-meson compile -C build
-meson install -C build --destdir=$1
