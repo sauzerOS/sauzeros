@@ -1,2 +1,2 @@
-https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-0.2.7.tar.xz
+https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-${version}.tar.xz
 files/49-allow-passwordless-printer-admin.rules

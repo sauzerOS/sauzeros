@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr
+hokuto-meson build
 meson compile -C build
-DESTDIR=$1 meson install -C build
+meson install -C build --destdir=$1
 
 install -Dm644 49-allow-passwordless-printer-admin.rules $1/etc/polkit-1/rules.d/49-allow-passwordless-printer-admin.rules

@@ -1,2 +1,5 @@
-cups
+glib
+glibc
+libcups
 polkit
+meson make 
