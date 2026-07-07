@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/xev",
+  "category": "extra",
+  "description": "Print contents of X events",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility",
+    "x11"
+  ]
+}
