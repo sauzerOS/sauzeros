@@ -1,1 +1,7 @@
+fontconfig
+fribidi
 imlib2
+libxft
+libxinerama
+libxpm
+libxrandr
