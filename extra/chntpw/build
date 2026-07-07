@@ -4,6 +4,6 @@ cd $3-$2
 
 sed -i 's/^CFLAGS= \(.*\) -m32 $/CFLAGS= \1 -Wno-incompatible-pointer-types/' Makefile
 make
-  install -Dm0755 chntpw "$1/usr/bin/chntpw"
-  install -Dm0755 reged "$1/usr/bin/reged"
-  install -Dm0755 cpnt "$1/usr/bin/cpnt"
+install -Dm0755 chntpw "$1/usr/bin/chntpw"
+install -Dm0755 reged "$1/usr/bin/reged"
+install -Dm0755 cpnt "$1/usr/bin/cpnt"
