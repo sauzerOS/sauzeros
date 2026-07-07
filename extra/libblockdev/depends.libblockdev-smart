@@ -1,0 +1,6 @@
+glib
+glibc
+json-glib
+libatasmart
+libblockdev
+smartmontools suggest "smartmontools-based plugin"

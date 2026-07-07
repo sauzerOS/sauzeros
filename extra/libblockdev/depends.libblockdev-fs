@@ -1,0 +1,8 @@
+e2fsprogs
+glib
+glibc
+libblockdev
+libbytesize
+libgcc
+parted
+util-linux-libs

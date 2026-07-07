@@ -2,9 +2,53 @@
 
 ./configure --prefix=/usr     \
             --sysconfdir=/etc \
-            --with-python3    \
             --without-gtk-doc \
             --without-nvdimm
 
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtoolsed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR=$1 install
+
+# split packages
+_pick "$1" libblockdev-btrfs usr/include/blockdev/btrfs.h
+_pick "$1" libblockdev-btrfs usr/lib/libbd_btrfs.*
+
+_pick "$1" libblockdev-crypto usr/include/blockdev/crypto.h
+_pick "$1" libblockdev-crypto usr/lib/libbd_crypto.*
+
+_pick "$1" libblockdev-dm usr/include/blockdev/dm.h
+_pick "$1" libblockdev-dm usr/lib/libbd_dm.*
+
+_pick "$1" libblockdev-fs usr/bin/vfat-resize  # the libbd_fs.so library calls this executable
+_pick "$1" libblockdev-fs usr/include/blockdev/fs.h
+_pick "$1" libblockdev-fs usr/include/blockdev/fs/*.h
+_pick "$1" libblockdev-fs usr/lib/libbd_fs.*
+
+_pick "$1" libblockdev-loop usr/include/blockdev/loop.h
+_pick "$1" libblockdev-loop usr/lib/libbd_loop.*
+
+_pick "$1" libblockdev-lvm etc/libblockdev/3/conf.d/10-lvm-dbus.cfg
+_pick "$1" libblockdev-lvm usr/bin/lvm-cache-stats
+_pick "$1" libblockdev-lvm usr/include/blockdev/lvm.h
+_pick "$1" libblockdev-lvm usr/lib/libbd_lvm.*
+_pick "$1" libblockdev-lvm usr/lib/libbd_lvm-dbus.*
+
+_pick "$1" libblockdev-mdraid usr/include/blockdev/mdraid.h
+_pick "$1" libblockdev-mdraid usr/lib/libbd_mdraid.*
+
+_pick "$1" libblockdev-mpath usr/include/blockdev/mpath.h
+_pick "$1" libblockdev-mpath usr/lib/libbd_mpath.*
+
+_pick "$1" libblockdev-nvme usr/include/blockdev/nvme.h
+_pick "$1" libblockdev-nvme usr/lib/libbd_nvme.*
+
+_pick "$1" libblockdev-part usr/include/blockdev/part.h
+_pick "$1" libblockdev-part usr/lib/libbd_part.*
+
+_pick "$1" libblockdev-smart usr/include/blockdev/smart.h
+_pick "$1" libblockdev-smart usr/lib/libbd_smart*
+
+_pick "$1" libblockdev-swap usr/include/blockdev/swap.h
+_pick "$1" libblockdev-swap usr/lib/libbd_swap.*
+
+_pick "$1" python-libblockdev usr/lib/python*

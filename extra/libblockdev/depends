@@ -1,9 +1,40 @@
-json-glib
-keyutils
-libbytesize
-libnvme
-libyaml
-lvm2
-parted
-smartmontools
-volume-key
+glib
+glibc
+kmod
+systemd-libs
+libblockdev-btrfs suggest for BTRFS support
+libblockdev-crypto suggest for crypto support
+libblockdev-dm suggest for device-mapper support
+libblockdev-fs suggest for filesystem support
+libblockdev-loop suggest for loop device support
+libblockdev-lvm suggest for LVM support
+libblockdev-mdraid suggest for MDRAID support
+libblockdev-mpath suggest for multipath support
+libblockdev-nvme suggest for NVME support
+libblockdev-part suggest for partitioning support
+libblockdev-smart suggest for S.M.A.R.T. support
+libblockdev-swap suggest for swap support
+python-libblockdev suggest for Python support
+autoconf-archive make
+btrfs-progs make
+cryptsetup make
+dosfstools make
+e2fsprogs make
+exfatprogs make
+glibc make
+gobject-introspection make
+json-glib make
+keyutils make
+libatasmart make
+libbytesize make
+libnvme make
+libyaml make
+lvm2 make
+mdadm make
+nss make
+parted make
+python make
+systemd-libs make
+util-linux make
+util-linux-libs make
+volume_key make 
