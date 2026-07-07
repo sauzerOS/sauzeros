@@ -9,10 +9,12 @@ python-grpcio
 python-notify2
 python-packaging
 python-protobuf
+python-pyasn
 python-pyinotify
 python-pyqt6
 python-slugify
 python-typing-extensions
+python-qt-material suggest "Material theme"
 bc make
 clang make
 go make
