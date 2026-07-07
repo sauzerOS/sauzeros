@@ -1,2 +1,19 @@
 bash
-meson
+binutils
+coreutils
+diffutils
+findutils
+gawk
+grep
+gzip
+kmod
+libarchive
+systemd
+util-linux
+zstd
+bzip2 suggest Use bzip2 compression for the initramfs image
+lz4 suggest Use lz4 compression for the initramfs image
+lzop suggest Use lzo compression for the initramfs image
+systemd-ukify suggest alternative UKI generator
+xz suggest Use lzma or xz compression for the initramfs image
+meson make

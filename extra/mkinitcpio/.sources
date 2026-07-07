@@ -1,2 +1,2 @@
-https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/archive/v40/mkinitcpio-v40.tar.bz2
+https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/archive/v${version}/mkinitcpio-v${version}.tar.bz2
 files/busybox
