@@ -1,4 +1,4 @@
 glibc
-gcc-libs
+libgcc
 pcre2
 rust make
