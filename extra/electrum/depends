@@ -1,10 +1,8 @@
 hicolor-icon-theme
 python
-python-aiohappyeyeballs
 python-aiohttp
 python-aiohttp-socks
 python-aiorpcx
-python-aiosignal
 python-attrs
 python-certifi
 python-cryptography
@@ -15,10 +13,11 @@ python-jsonpatch
 python-jsonpointer
 python-pillow
 python-protobuf
-python-multidict
+python-pyaes
 python-pyqt6
 python-qrcode
-python-yarl
-libsecp256k1
-python-expandvars
-python-frozenlist
+qt-declarative
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
