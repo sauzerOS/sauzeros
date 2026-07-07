@@ -1,3 +1,11 @@
+glibc
+python
+python-idna
 python-multidict
-python-expandvars
 python-propcache
+cython make
+python-build make
+python-expandvars make
+python-installer make
+python-setuptools make
+python-wheel make 
