@@ -1,8 +1,10 @@
 #!/bin/sh -e
 
 ./autogen.sh
-./configure \
-    --prefix=/usr
+./configure        \
+    --prefix=/usr  \
+    --enable-sixel \
+    --enable-systemd
 
 make
 make DESTDIR="$1" install
