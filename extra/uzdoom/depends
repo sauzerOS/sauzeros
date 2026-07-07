@@ -1,7 +1,13 @@
+bzip2
 gtk+3
 hicolor-icon-theme
+libglvnd
 libvpx
+nvidia-utils | vulkan-intel | vulkan-radeon | vulkan-swrast | vulkan-virtio | vulkan-broadcom
 openal
 sdl2-compat
+vulkan-icd-loader
 zmusic
 cmake make
+desktop-file-utils make
+python make
