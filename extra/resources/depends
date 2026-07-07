@@ -1,0 +1,13 @@
+cairo
+dconf
+glib
+glibc
+graphene
+gtk
+hicolor-icon-theme
+libadwaita
+libgcc
+polkit
+appstream make
+meson make
+rust | rustup make 
