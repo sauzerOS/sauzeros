@@ -2,7 +2,7 @@ glibc
 libgcrypt
 lzo
 systemd-libs
-util-linux
+util-linux-libs
 zlib-ng
 zstd
 e2fsprogs suggest btrfs-convert
