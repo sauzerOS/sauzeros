@@ -1,6 +1,14 @@
 binutils
 glibc
 gmp
+isl
+libasan
+libgcc
+libhwasan
+liblsan
+libstdc++
+libtsan
+libubsan
 mpc
 mpfr
 zlib-ng
