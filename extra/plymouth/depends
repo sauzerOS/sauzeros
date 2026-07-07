@@ -1,13 +1,20 @@
+adwaita-fonts
 bash
 cairo
-docbook-xsl
+filesystem
 fontconfig
 freetype
 glib
-gtk+3
+glibc
 libdrm
 libevdev
 libpng
+libx11
 libxkbcommon
 pango
+systemd-libs
 xkeyboard-config
+gtk+3 suggest x11 renderer
+git make
+gtk+3 make
+meson make 
