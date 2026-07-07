@@ -1,6 +1,20 @@
-libnl
+glibc
+libgcc
 libpcap
 libssh2
+libstdc++
 openssl
 pcre2
 zlib-ng
+gdk-pixbuf make
+glib make
+gtk+3 make
+libpcap make
+pango make
+python make
+python-build make
+python-pycairo make
+python-pygobject make
+python-installer make
+python-setuptools make
+python-wheel make
