@@ -1,0 +1,6 @@
+bash
+glibc
+libyaml
+meson make
+python-setuptools-scm make
+swig make
