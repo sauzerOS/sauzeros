@@ -1,4 +1,6 @@
-gobject-introspection
 gtk+3
 wayland
+gobject-introspection make
+gtk-doc make
 meson make
+wayland-protocols make 
