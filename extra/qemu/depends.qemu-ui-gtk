@@ -1,0 +1,11 @@
+cairo
+gdk-pixbuf
+glib
+glibc
+gtk+3
+libepoxy
+libx11
+pixman
+qemu
+qemu-ui-opengl
+vte3

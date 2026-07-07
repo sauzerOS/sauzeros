@@ -1,0 +1,9 @@
+capstone
+glib
+glibc
+gnutls
+libelf
+libgcc
+liburing
+qemu
+zlib-ng

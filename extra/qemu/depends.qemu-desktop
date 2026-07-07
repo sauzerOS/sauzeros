@@ -1,0 +1,33 @@
+qemu-base
+qemu-audio-alsa suggest ALSA audio driver
+qemu-audio-dbus suggest D-Bus audio driver
+qemu-audio-oss suggest OSS audio driver
+qemu-audio-pa suggest PulseAudio audio driver
+qemu-audio-pipewire suggest PipeWire audio driver
+qemu-audio-sdl suggest SDL audio driver
+qemu-audio-spice suggest spice audio driver
+qemu-block-curl suggest curl block driver
+qemu-block-dmg suggest DMG block driver
+qemu-block-nfs suggest NFS block driver
+qemu-chardev-spice suggest the spice chardev driver
+qemu-hw-display-qxl suggest the QXL display device
+qemu-hw-display-virtio-vga suggest the virtio-vga display device
+qemu-hw-display-virtio-vga-gl suggest the virtio-vga-gl display device
+qemu-hw-display-virtio-gpu suggest the virtio-gpu display device
+qemu-hw-display-virtio-gpu-gl suggest the virtio-gpu-gl display device
+qemu-hw-display-virtio-gpu-pci suggest the virtio-gpu-pci display device
+qemu-hw-display-virtio-gpu-pci-gl suggest the virtio-gpu-pci-gl display device
+qemu-hw-uefi-vars suggest UEFI variable support
+qemu-hw-usb-host suggest host USB support
+qemu-hw-usb-redirect suggest USB redirect support
+qemu-ui-curses suggest ncurses UI driver
+qemu-ui-dbus suggest D-Bus UI driver
+qemu-ui-egl-headless suggest EGL headless UI driver
+qemu-ui-gtk suggest GTK UI driver
+qemu-ui-opengl suggest OpenGL UI driver
+qemu-ui-sdl suggest SDL UI driver
+qemu-ui-spice-app suggest spice app UI driver
+qemu-ui-spice-core suggest spice core UI driver
+qemu-user suggest user mode emulation of QEMU targets
+qemu-vhost-user-gpu suggest vhost-user-gpu display device
+qemu-vmsr-helper suggest Running Average Power Limit (RAPL) MSR

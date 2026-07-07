@@ -1,0 +1,8 @@
+glib
+glibc
+libx11
+pixman
+libepoxy
+qemu
+sdl2-image
+sdl2-compat

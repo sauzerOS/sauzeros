@@ -1,0 +1,7 @@
+curl
+glib
+glibc
+libgcc
+libxkbcommon
+python
+qemu

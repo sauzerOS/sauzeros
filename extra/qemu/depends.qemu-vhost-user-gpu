@@ -1,0 +1,8 @@
+glib
+glibc
+libgcc
+pixman
+libepoxy
+mesa
+qemu
+virglrenderer
