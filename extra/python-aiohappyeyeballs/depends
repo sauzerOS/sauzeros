@@ -1,1 +1,4 @@
 python
+python-build make
+python-installer make
+python-poetry-core make python
