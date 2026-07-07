@@ -1,13 +1,9 @@
-at-spi2-core
-cairo
 cups
-fontconfig
-freetype
-gdk-pixbuf
-gobject-introspection
-harfbuzz
-libusb
-ncurses
-pango
+cups-filters
+glib
+glibc
 readline
 zlib-ng
+libusb 
+cups make
+ghostscript make
