@@ -7,3 +7,18 @@ hokuto-meson build		    \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# gtk-demos
+_pick "$1" gtk-demos usr/bin/gtk4-{demo,demo-application,node-editor,print-editor,widget-factory,icon-editor}
+_pick "$1" gtk-demos usr/share/applications/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}.desktop
+_pick "$1" gtk-demos usr/share/glib-2.0/schemas/org.gtk.Demo4.gschema.xml
+_pick "$1" gtk-demos usr/share/icons/hicolor/*/apps/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}[-.]*
+_pick "$1" gtk-demos usr/share/man/man1/gtk4-{demo,demo-application,node-editor,widget-factory}.1
+_pick "$1" gtk-demos usr/share/metainfo/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor}.appdata.xml
+
+# gtk-update-icon-cache
+_pick "$1" gtk-update-icon-cache usr/bin/gtk4-update-icon-cache
+_pick "$1" gtk-update-icon-cache usr/share/man/man1/gtk4-update-icon-cache.1
+pkgdir=$HOKUTO_SPLIT_DIR/gtk-update-icon-cache
+ln -sr "$pkgdir"/usr/bin/gtk{4,}-update-icon-cache
+ln -sr "$pkgdir"/usr/share/man/man1/gtk{4,}-update-icon-cache.1
