@@ -1,5 +1,9 @@
 alsa-lib
-openssl
+glibc
+hicolor-icon-theme
+libgcc
 libxcb
-rust
+openssl
+sqlite
+rust | rustup make
 
