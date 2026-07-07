@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# openssl 4
+patch -Np1 -i 538764bb6ac3e1a3410acf4f708c25b4b44f8d2d.patch
+
 ./configure \
   --prefix=/usr \
   --with-libpcap=/usr \
