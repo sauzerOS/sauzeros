@@ -1,0 +1,5 @@
+glibc
+alsa-lib make
+cmake make
+libsndfile make
+opus make
