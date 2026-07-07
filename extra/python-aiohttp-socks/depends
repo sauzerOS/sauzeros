@@ -1,2 +1,7 @@
+python
 python-aiohttp
 python-python-socks
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
