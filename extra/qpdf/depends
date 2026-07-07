@@ -1,2 +1,8 @@
-cmake make
+glibc
+gnutls
+libgcc
 libjpeg-turbo
+libstdc++
+openssl
+zlib-ng
+cmake make
