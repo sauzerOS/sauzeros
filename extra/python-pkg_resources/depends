@@ -1,8 +1,9 @@
 python
-python-packaging
 python-jaraco.text
+python-packaging
+python-platformdirs
 python-typing-extensions
 python-build make
 python-installer make
 python-setuptools make
-python-wheel make
+python-wheel make 
