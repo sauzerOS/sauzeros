@@ -1,4 +1,0 @@
-gcc-libs
-glibc
-jemalloc
-rust | rustup make
