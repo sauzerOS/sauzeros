@@ -1,4 +1,11 @@
 appstream
-libsass
+fribidi
+glib
+glibc
+graphene
 gtk
-sassc
+pango
+gobject-introspection make
+meson make
+sassc make
+vala make 
