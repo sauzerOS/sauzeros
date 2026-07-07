@@ -1,2 +1,5 @@
+glibc
+clang make
 cmake make
+gcc-libs make
 rust make
