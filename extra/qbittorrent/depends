@@ -1,6 +1,14 @@
+glibc
+hicolor-icon-theme
+libgcc
+libstdc++
 libtorrent
 openssl
 qt
+qt-svg
 zlib-ng
+python suggest "needed for torrent search tab"
 boost make
 cmake make
+qt-svg make
+qt-tools make 
