@@ -1,2 +1,7 @@
+bash
+cabextract
+perl
+unzip
 wine
-zenity
+kdialog suggest "GUI for KDE desktop"
+zenity suggest "GUI for GNOME desktop"
