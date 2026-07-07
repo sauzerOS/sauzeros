@@ -1,3 +1,4 @@
 glib
 libxfce4ui
 polkit
+meson make
