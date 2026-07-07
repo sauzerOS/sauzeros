@@ -1,28 +1,14 @@
-expat
-fontconfig
-freetype
-fribidi
+at-spi2-core
+cairo
 gdk-pixbuf
 glib
+glibc
 gtk+3
 libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
 libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxshmfence
-mesa
-meson
+libxres
 pango
-pixman
+startup-notification
+git make
+gobject-introspection make
+meson make 
