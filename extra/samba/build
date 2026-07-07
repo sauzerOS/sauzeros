@@ -209,6 +209,6 @@ _pick "$1" smbclient usr/share/man/man8/smbspool.8.gz
 
 # libwbclient split package
 
-pick "$1" libwbclient usr/include/samba-4.0/wbclient.h
-pick "$1" libwbclient usr/lib/libwbclient.*
-pick "$1" libwbclient usr/lib/pkgconfig/wbclient.pc
+_pick "$1" libwbclient usr/include/samba-4.0/wbclient.h
+_pick "$1" libwbclient usr/lib/libwbclient.*
+_pick "$1" libwbclient usr/lib/pkgconfig/wbclient.pc

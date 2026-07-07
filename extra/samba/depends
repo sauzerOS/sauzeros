@@ -1,10 +1,9 @@
 gnutls
 gpgme
-ldb
 libcap
 libcups
 liburing
-libwbclient
+libwblcient runtime
 popt
 python
 smbclient runtime
@@ -32,4 +31,3 @@ readline make
 rpcsvc-proto make
 systemd make
 talloc make
-tevent make 
