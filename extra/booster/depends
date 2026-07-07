@@ -1,2 +1,5 @@
 bash
-go make
+binutils suggest "strip kernel modules"
+busybox suggest "emergency shell"
+systemd-ukify "UKIs generation"
+go | go-bin make
