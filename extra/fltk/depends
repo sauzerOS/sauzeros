@@ -1,3 +1,25 @@
+alsa-lib
+bash
+cairo
+dbus
+glib
+glibc
+glu
 hicolor-icon-theme
+libdecor
+libgcc
+libglvnd
 libjpeg-turbo
 libpng
+libstdc++
+libx11
+libxcursor
+libxfixes
+libxinerama
+libxkbcommon
+pango
+wayland
+zlib-ng
+cmake make
+mesa make
+wayland-protocols make 
