@@ -1,1 +1,6 @@
+gtk+3
 lightdm
+exo make
+gobject-introspection make
+intltool make
+xfce4-dev-tools make 
