@@ -1,0 +1,24 @@
+[sauzeros]
+description = "sauzerOS minimal install"
+depends = [
+"bash",
+"bzip2",
+"coreutils",
+"file",
+"findutils",
+"gawk",
+"glibc",
+"grep",
+"gzip",
+"hokuto",
+"iproute2",
+"libgcc",
+"libstdc++",
+"nano",
+"procps-ng",
+"psmisc",
+"sauzeros-base",
+"shadow",
+"systemd-libs",
+"util-linux-libs",
+]
