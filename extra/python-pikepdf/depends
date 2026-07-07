@@ -1,6 +1,13 @@
+glibc
+libgcc
+libstdc++
 python
 python-lxml
 python-packaging
 python-pillow
 qpdf
 nanobind make
+python-pybind11 make
+python-build make
+python-installer make
+python-scikit-build-core make 
