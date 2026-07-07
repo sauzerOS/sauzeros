@@ -1,3 +1,10 @@
+bash
 e2fsprogs
+glib
+glibc
+libssh2
 slang
-
+which
+libx11 make
+libxt make
+unzip make 
