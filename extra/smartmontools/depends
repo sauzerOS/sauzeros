@@ -1,0 +1,6 @@
+bash
+libcap-ng
+libgcc
+libstdc++
+systemd-libs
+systemd make
