@@ -1,1 +1,6 @@
+glibc
 python
+xxhash
+python-build make
+python-installer make
+python-setuptools-scm make 
