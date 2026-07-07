@@ -1,0 +1,6 @@
+bash
+glibc
+libgcc
+libstdc++
+openssl
+cmake make
