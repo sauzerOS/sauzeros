@@ -1,0 +1,12 @@
+glibc
+libx11
+libxcb
+libxcomposite
+libxext
+libxi
+libxinerama
+libxrender
+libxtst
+libxxf86vm
+xorg-util-macros make
+xorgproto make 
