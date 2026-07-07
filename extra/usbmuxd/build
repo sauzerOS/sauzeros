@@ -3,7 +3,6 @@
 # Compatibility with libplist 2.3.0
 patch -Np1 -i libplist-2.3.0.diff
 
-
 ./configure --prefix=/usr \
   --sysconfdir=/etc       \
   --localstatedir=/var    \
