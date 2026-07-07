@@ -1,9 +1,9 @@
 bubblewrap
 cairo
 fontconfig
-gcc-libs
 glib
 glibc
+libgcc
 little-cms
 libjxl
 libheif
