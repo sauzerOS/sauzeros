@@ -1,1 +1,6 @@
+glib
+glibc
 libvirt
+gobject-introspection make
+meson make
+vala make

@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr   \
-  --buildtype=plain
+hokuto-meson build \
+  -D docs=disabled
 
 meson compile -C build
 meson install -C build --destdir=$1
