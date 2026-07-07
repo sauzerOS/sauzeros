@@ -1,2 +1,7 @@
-cups
+glibc
+libcups
 libcupsfilters
+libgcc
+libstdc++
+zlib-ng
+ghostscript make 
