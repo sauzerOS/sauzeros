@@ -35,3 +35,4 @@ for shared in yes no; do (
 ) done
 
 rm -rf $1/$PREFIX/share/hwdata
+rm -rf $1/$PREFIX/bin/strip
