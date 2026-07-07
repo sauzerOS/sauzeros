@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+autoreconf -isf
+./configure --prefix=/usr \
+  --enable-x86-rtcd
+
+make
+make DESTDIR="${1}/" install
