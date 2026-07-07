@@ -1,33 +1,15 @@
-bzip2
 cairo
-expat
 fontconfig
-freetype
 fribidi
 gdk-pixbuf
 glib
-gtk+3
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
-libxcb
+glibc
+graphene
+gtk
+hicolor-icon-theme
 libxml2
-libxshmfence
-mesa
 pango
-pixman
-xz
-zlib-ng
+pcre2
+gobject-introspection make
+meson make
+vala make 
