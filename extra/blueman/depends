@@ -1,3 +1,11 @@
-cython
-iproute2
+bluez
+bluez-libs
+gtk+3
+libnm
+python-pycairo
 python-pygobject
+pulseaudio-bluetooth suggest audio devices support
+cython make
+meson make
+intltool make
+iproute2 make 
