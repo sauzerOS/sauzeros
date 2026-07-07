@@ -1,5 +1,6 @@
-gcc-libs
 glibc
+libgcc
+libstdc++
 python
 python-pyqt6-sip
 qt
