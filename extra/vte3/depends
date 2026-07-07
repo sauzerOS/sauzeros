@@ -1,8 +1,25 @@
-gtk+3
-libxml2
-pcre2
-icu
-lz4
-gnutls
+at-spi2-core
+cairo
+fribidi
 glib
-vala
+glibc
+gnutls
+gtk+3
+icu
+libgcc
+libstdc++
+lz4
+pango
+pcre2
+simdutf
+systemd
+systemd-libs
+at-spi2-core make
+fast_float make
+fmt make
+gobject-introspection make
+gperf make
+graphene make
+gtk+3 make
+meson make
+vala make 

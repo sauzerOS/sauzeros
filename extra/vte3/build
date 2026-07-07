@@ -1,13 +1,11 @@
 #!/bin/sh -e
 
-meson setup build \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    -D docs=false \
-    -D gtk4=false \
-    -D gnutls=true \
-    -D vapi=false
+hokuto-meson build        \
+  --sysconfdir=/etc       \
+  --mandir=/usr/share/man \
+  -D b_ndebug=false       \
+  -D docs=false           \
+  -D gtk4=false
 
 meson compile -C build
 meson install -C build --destdir=$1
