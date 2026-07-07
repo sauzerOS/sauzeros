@@ -1,0 +1,8 @@
+binutils
+glibc
+libcap
+libelf
+llvm-libs
+readline
+zlib-ng
+zstd 

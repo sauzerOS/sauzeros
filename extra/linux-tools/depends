@@ -1,0 +1,32 @@
+bootconfig suggest "Apply, delete or show boot config to initrd"
+bpf suggest "BPF tools"
+cpupower suggest "Linux kernel tool to examine and tune power saving related features of your processor"
+hyperv suggest "Hyper-V tools"
+intel-speed-select suggest "Intel Speed Select"
+kcpuid suggest "Kernel tool for various cpu debug outputs"
+tmon suggest "Monitoring and Testing Tool for Linux kernel thermal subsystem"
+turbostat suggest "Report processor frequency and idle statistics"
+usbip suggest "An USB device sharing system over IP network"
+x86_energy_perf_policy suggest "Read or write MSR_IA32_ENERGY_PERF_BIAS"
+clang make
+elfutils make
+git make
+glib make
+libcap make
+libelf make
+libnl make
+libunwind make
+llvm make
+ncurses make
+openssl make
+pciutils make
+perl make
+python make
+python-docutils make
+python-setuptools make
+readline make
+slang make
+systemd make
+xmlto make
+zlib-ng make
+zstd make 
