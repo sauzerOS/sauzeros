@@ -1,3 +1,2 @@
-cmake make
-git make
-rust make
+cmake
+rust
