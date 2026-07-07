@@ -1,9 +1,25 @@
-adwaita-icon-theme
+at-spi2-core
+cairo
+dconf
+djvulibre
+gdk-pixbuf
+glib
+glibc
 gsettings-desktop-schemas
+gspell
+gst-plugins-base
+gstreamer
 gtk+3
-itstool
+hicolor-icon-theme
+libarchive
+libgcc
 libhandy
+libsecret
+libspectre
+libtiff
 libxml2
-openjpeg
+pango
 poppler
+appstream make
+gobject-introspection make
 meson make
