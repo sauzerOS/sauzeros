@@ -6,8 +6,8 @@ gdk-pixbuf
 glib
 glibc
 harfbuzz
-gcc-libs
 libxml2
+libgcc
 pango
 cargo-c make
 gobject-introspection make

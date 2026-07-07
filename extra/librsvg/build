@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr \
-    --buildtype=release
+hokuto-meson build \
+  -D pixbuf-loader=disabled
 
 meson compile -C build
 meson install -C build --destdir=$1
