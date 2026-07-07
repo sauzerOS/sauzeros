@@ -7,7 +7,6 @@ dbus-glib
 ffmpeg
 fontconfig
 freetype
-gcc-libs
 gdk-pixbuf
 glib
 glibc
@@ -17,8 +16,10 @@ json-c
 libcanberra
 libevent
 libffi
+libgcc
 libjpeg-turbo
 libnotify suggest
+libstdc++
 libvpx
 libwebp
 libx11
