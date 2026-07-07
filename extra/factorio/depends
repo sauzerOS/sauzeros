@@ -1,6 +1,6 @@
-libxcursor
 alsa-lib
-libxrandr
+libxcursor
 libxinerama
+libxrandr
 mesa
 mimalloc
