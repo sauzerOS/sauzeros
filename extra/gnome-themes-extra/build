@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+autoreconf -fvi
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --disable-gtk2-engine
+
+make
+make DESTDIR="${1}" install
+make -C themes/HighContrast/gtk-2.0 DESTDIR="${1}" uninstall
