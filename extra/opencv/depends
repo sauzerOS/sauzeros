@@ -1,6 +1,27 @@
-cmake make
-libarchive
+abseil-cpp
 ffmpeg
+freetype
+glib
+glibc
 gst-plugins-base
-gtk+3
-
+gstreamer
+harfbuzz
+libgcc
+libglvnd
+libjpeg-turbo
+libjxl
+libpng
+libstdc++
+libtiff
+libwebp
+openjpeg
+protobuf
+zlib-ng
+cmake make
+fast_float make
+fmt make
+glew make
+mesa make
+nlohmann-json make
+pugixml make
+python-setuptools make
