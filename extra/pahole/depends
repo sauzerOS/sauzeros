@@ -1,1 +1,7 @@
+bash
+glibc
+libelf
+zlib-ng
 cmake make
+git make
+python make
