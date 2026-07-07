@@ -1,1 +1,1 @@
-https://dev.lovelyhq.com/libburnia/libisofs/archive/release-${version-libburnia}.tar.gz
+git+https://dev.lovelyhq.com/libburnia/libisofs#${version-libburnia}
