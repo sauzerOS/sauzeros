@@ -1,3 +1,11 @@
+glibc
 jansson
 libcap
 ncurses
+bash-completion suggest bash completion support
+gdk-pixbuf make
+glibc make
+gtk+3 make
+jansson make
+libcap make
+ncurses make
