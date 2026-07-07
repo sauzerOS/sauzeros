@@ -1,5 +1,5 @@
 bzip2
-gcc-libs
 glibc
+libgcc
 python
 xz 
