@@ -6,9 +6,7 @@ libevdev
 libpng
 libpulse
 dos2unix make
-giflib make
 glib make
-gtk+3 make
 libjpeg-turbo make
 libpcap make
 libxaw make
