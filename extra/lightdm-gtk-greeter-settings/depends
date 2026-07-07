@@ -1,8 +1,14 @@
+bash
 gdk-pixbuf
 glib
 gtk+3
+hicolor-icon-theme
 lightdm-gtk-greeter
 pango
 python
 python-pygobject
+python-build make
 python-distutils-extra make
+python-installer make
+python-setuptools make
+python-wheel make
