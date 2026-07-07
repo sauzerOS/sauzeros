@@ -1,8 +1,9 @@
-gcc-libs
+bash
 glibc
 libarchive
 libelf runtime
-bash
+libgcc
+libstdc++
 bzip2 make
 curl make
 json-c make
