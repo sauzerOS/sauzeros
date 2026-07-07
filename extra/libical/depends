@@ -1,7 +1,8 @@
-gcc-libs
 glib
 glibc
 icu
+libgcc
+libstdc++
 libxml2
 cmake make
 gobject-introspection make
