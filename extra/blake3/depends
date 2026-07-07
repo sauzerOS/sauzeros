@@ -1,2 +1,5 @@
+glibc
+libgcc
+cmake make
 rust make
 aarch64-rust cross make
