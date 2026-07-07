@@ -1,6 +1,7 @@
-gcc
 glibc
 icu
+libgcc
+libstdc++
 libunwind
 openssl
 zlib-ng
