@@ -1,3 +1,10 @@
 glib
+glibc
 iso-codes
+libx11
+libxi
+libxkbfile
 libxml2
+xkeyboard-config
+xorg-xkbcomp
+gobject-introspection make
