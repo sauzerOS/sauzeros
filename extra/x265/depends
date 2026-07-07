@@ -1,4 +1,5 @@
 glibc
-gcc-libs
+libgcc
+libstdc++
 cmake make
 nasm  make
