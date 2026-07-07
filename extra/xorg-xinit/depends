@@ -1,0 +1,7 @@
+bash
+glibc
+libx11
+xorg-xauth
+xorg-xmodmap
+xorg-xrdb
+xorg-util-macros make
