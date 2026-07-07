@@ -1,4 +1,12 @@
-dbus
+dconf
 gcr
+glib
+glibc
+libcap-ng
+libgcc
+libgcrypt
 pam
-openssh
+systemd-libs
+meson make
+p11-kit make
+python make 
