@@ -1,2 +1,3 @@
-glibc
-libxslt make
+glib
+gtk-doc
+meson make
