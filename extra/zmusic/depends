@@ -1,2 +1,4 @@
 alsa-lib
 libsndfile
+mpg123
+cmake make
