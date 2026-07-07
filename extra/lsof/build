@@ -1,7 +1,11 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-  --disable-static
+autoreconf -fvi
+./configure --prefix=/usr   \
+  --disable-static          \
+  --enable-security         \
+  --enable-no-sock-security \
+  --with-libtirpc
 
 make
 make DESTDIR=$1 install
