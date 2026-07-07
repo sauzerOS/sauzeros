@@ -1,7 +1,7 @@
-gcc-libs
 glib
 glibc
 libevdev
+libgcc
 libgudev
 libxml2 make
 meson make
