@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr \
+hokuto-meson build \
   -D docs=disabled \
   -D session-manager=systemd
 
