@@ -1,10 +1,13 @@
-cups
-qpdf
-poppler
+dbus
+fontconfig
+glibc
 libexif
+libgcc
 libjpeg-turbo
 libpng
+libstdc++
 libtiff
 little-cms
-fontconfig
-ghostscript
+poppler
+qpdf
+ghostscript make 
