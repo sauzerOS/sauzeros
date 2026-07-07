@@ -1,2 +1,2 @@
 lib32-glibc
-lib32-nvidia-utils
+lib32-nvidia-utils suggest "vulkan driver"

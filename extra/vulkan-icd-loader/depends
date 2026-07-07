@@ -1,12 +1,12 @@
 glibc
-nvidia-utils
+nvidia-utils suggest "vulkan driver"
 cmake make
 libx11 make
 libxrandr make
 python-lxml make
 vulkan-headers make
 wayland make
-lib32-nvidia-utils
+lib32-nvidia-utils make
 lib32-libx11 make
 lib32-libxrandr make
 lib32-wayland make
