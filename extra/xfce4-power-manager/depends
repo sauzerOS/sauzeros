@@ -1,4 +1,8 @@
+hicolor-icon-theme
 libnotify
 libxfce4ui
-xfce4-notifyd
 upower
+xfce4-notifyd
+wayland-protocols make
+xfce4-dev-tools make
+xfce4-panel make
