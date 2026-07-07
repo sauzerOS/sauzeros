@@ -1,2 +1,12 @@
+glib
+glibc
 hwdata
-osinfo-db-tools
+libsoup
+libgcc
+libxml2
+libxslt
+osinfo-db
+git make
+gobject-introspection make
+meson make
+vala make 

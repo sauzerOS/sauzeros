@@ -1,11 +1,14 @@
 #!/bin/sh -e
 
-meson setup build -Dprefix=/usr \
-                  -Dsysconfdir=/etc \
-                  -Dlocalstatedir=/var \
-                  -Denable-gtk-doc=false \
-                  -Dwith-usb-ids-path=/usr/share/hwdata/usb.ids \
-                  -Dwith-pci-ids-path=/usr/share/hwdata/pci.ids
+sed -i "s/'-Werror'//" meson.build
 
-ninja -C build
-DESTDIR=$1 ninja -C build install
+# fix for newer libxml2
+git cherry-pick -n 0adf38535637ec668e658d43f04f60f11f51574f
+
+hokuto-meson build \
+ -D enable-gtk-doc=false \
+ -D with-usb-ids-path=/usr/share/hwdata/usb.ids \
+ -D with-pci-ids-path=/usr/share/hwdata/pci.ids
+
+meson compile -C build
+meson install -C build --destdir=$1
