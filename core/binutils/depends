@@ -1,6 +1,7 @@
 glibc
 libelf
-gcc-libs
+libgcc
+libstdc++
 zlib-ng
 zstd
 aarch64-linux-headers cross
