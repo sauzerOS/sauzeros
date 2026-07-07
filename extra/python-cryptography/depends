@@ -1,5 +1,5 @@
-gcc-libs
 glibc
+libgcc
 openssl
 python
 python-cffi
