@@ -9,8 +9,12 @@ autoreconf -fiv
             --enable-imap                            \
             --enable-hcache                          \
             --enable-sidebar
+
 make
 make DESTDIR=$1 install
 
 chown root:mail $1/usr/bin/mutt_dotlock
 chmod -v 2755 $1/usr/bin/mutt_dotlock
+
+# conflicts with mailcap
+rm -rf $1/etc/mime.types

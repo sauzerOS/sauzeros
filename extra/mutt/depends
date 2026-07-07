@@ -1,1 +1,14 @@
+gdbm
+glibc
+gpgme
+krb5
+libgpg-error
+libidn2
+libsasl
 mailcap
+ncurses
+openssl
+sqlite
+zlib-ng
+libxslt make
+links make
