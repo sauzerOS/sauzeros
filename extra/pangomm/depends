@@ -1,3 +1,8 @@
-pango
+glib
+glibc
 glibmm
 libcairomm1
+libgcc
+libsigc++
+pango
+meson make
