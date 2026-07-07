@@ -1,9 +1,9 @@
-gcc-libs
 glib
 glibc
 gtk+3
 libayatana-indicator
 libdbusmenu
+libgcc
 cmake make
 gobject-introspection make
 vala make 
