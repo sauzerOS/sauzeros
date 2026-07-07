@@ -1,0 +1,4 @@
+glibc
+libx11
+libxrandr
+xorg-util-macros make
