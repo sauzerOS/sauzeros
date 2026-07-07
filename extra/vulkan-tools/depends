@@ -1,0 +1,14 @@
+glibc
+libgcc
+libstdc++
+libx11
+libxcb
+vulkan-icd-loader
+wayland
+cmake make
+glslang make
+libxrandr make
+python make
+spirv-tools make
+vulkan-headers make
+wayland-protocols make 
