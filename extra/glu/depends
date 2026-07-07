@@ -1,5 +1,5 @@
 glibc
-gcc-libs
+libgcc
 libglvnd
 meson make
 lib32-libglvnd make
