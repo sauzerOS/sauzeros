@@ -1,2 +1,5 @@
-nodejs make 
+glibc
+libgcc
+openssl
+npm make 
 rust | rustup make
