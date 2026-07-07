@@ -1,4 +1,14 @@
+cairo
+gdk-pixbuf
+glib
+glibc
+gmp
 gnutls
-gobject-introspection
 gtk+3
-libgcrypt
+libpulse
+libsasl
+libx11
+zlib-ng
+gobject-introspection make
+meson make
+vala make 
