@@ -12,12 +12,12 @@ mesa
 nettle
 pixman
 wayland
-xlibre
+xlibre | xorg-server
 dbus make
-font-util make
 libxkbfile make
 meson make
 systemd make
 wayland-protocols make
+xorg-font-util make
 xorgproto make
 xtrans make 
