@@ -1,4 +1,3 @@
-libxau
 libxcb
-pkgconf make
-xcb-util
+python make
+xorgproto make 
