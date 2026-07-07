@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-meson setup build            \
-  --prefix=/usr              \
+hokuto-meson build           \
   --libexecdir=lib/libvirt   \
   -D runstatedir=/run        \
   -D selinux=disabled        \
@@ -17,7 +16,6 @@ meson setup build            \
 
 meson compile -C build
 meson install -C build --destdir=$1
-
 
 mkdir -p "${1}"/usr/lib/{sysusers,tmpfiles}.d
 echo 'g libvirt - -' > "${1}"/usr/lib/sysusers.d/libvirt-qemu.conf
