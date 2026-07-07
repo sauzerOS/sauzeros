@@ -1,2 +1,5 @@
-file-roller
+hicolor-icon-theme
 thunar
+file-roller suggest "archive manager"
+meson make
+xfce4-dev-tools make 

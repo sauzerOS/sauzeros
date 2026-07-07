@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-meson setup build \
-    --localstatedir=/var \
-    --libexecdir=/usr/lib/xfce4
+hokuto-meson build     \
+  --localstatedir=/var \
+  --libexecdir=/usr/lib/xfce4
 
 meson compile -C build
 meson install -C build --destdir "$1"
