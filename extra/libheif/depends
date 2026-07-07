@@ -1,7 +1,8 @@
-gcc-libs
 glibc
 libaom
 libde265
+libgcc
+libstdc++
 libwebp
 openh264
 x264
