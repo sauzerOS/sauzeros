@@ -1,3 +1,4 @@
 libxft
+libxss
 tcl>=9.0.0
 minizip
