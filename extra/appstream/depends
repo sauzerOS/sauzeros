@@ -3,10 +3,10 @@ curl
 fontconfig
 freetype
 gdk-pixbuf
-gcc-libs
 glib
 glibc
 libfyaml
+libgcc
 librsvg
 libxml2
 libxmlb
