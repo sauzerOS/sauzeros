@@ -1,1 +1,29 @@
-python-six
+bash
+boost-libs
+expat
+glibc
+gmp
+libelf
+libgcc
+libstdc++
+mpfr
+ncurses
+python
+readline
+xxhash
+xz
+zstd
+bash make
+boost make
+expat make
+glibc make
+gmp make
+libgcc make
+mpfr make
+ncurses make
+python make
+readline make
+texinfo make
+xxhash make
+xz make
+zstd make 
