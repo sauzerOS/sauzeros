@@ -1,5 +1,5 @@
 glibc
-gcc-libs
+libgcc
 libgcrypt
 lz4
 xz
