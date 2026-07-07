@@ -1,3 +1,6 @@
+keyutils
+krb5
 libcap-ng
+libwbclient
 pam
 talloc
