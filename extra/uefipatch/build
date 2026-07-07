@@ -1,10 +1,13 @@
 #!/bin/sh -e
 
+# fix build with qt6
+patch -Np1 -i uefitool-0.28.0-qt6-cli.patch
+
 _tools=(UEFIPatch UEFIReplace)
 
 for _tool in "${_tools[@]}"; do
 cd "${_tool}"
-qmake
+qmake6
 make
 cd ..
 done
