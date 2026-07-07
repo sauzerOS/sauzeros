@@ -1,2 +1,12 @@
-libepoxy make
+glibc
+libdrm
+libepoxy
+libgcc
+libva
+libx11
+mesa
+check make
 meson make
+python make
+python-pyyaml make
+vulkan-headers make 
