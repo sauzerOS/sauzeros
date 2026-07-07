@@ -1,4 +1,8 @@
 cryptsetup
 glib
+glibc
 gpgme
+nspr
 nss
+util-linux-libs
+swig make
