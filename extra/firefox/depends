@@ -6,15 +6,16 @@ dbus
 ffmpeg
 fontconfig
 freetype
-gcc-libs
 gdk-pixbuf
 glib
 glibc
 gtk+3
 hicolor-icon-theme
+libgcc
 libnotify
 libpng
 libpulse
+libstdc++
 libvpx
 libwebp
 libx11
@@ -29,8 +30,8 @@ libxt
 mailcap
 nspr
 nss
-nvidia-vaapi-driver suggest
 pango
+nvidia-vaapi-driver suggest
 cbindgen make
 clang make
 diffutils make
