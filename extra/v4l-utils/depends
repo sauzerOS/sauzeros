@@ -1,6 +1,6 @@
-gcc-libs
 hicolor-icon-theme
 json-c
+libgcc
 libjpeg-turbo
 systemd-libs
 alsa-lib suggest for qv4l2

@@ -1,9 +1,7 @@
 #!/bin/sh -e
 
-meson setup build       \
-    --prefix=/usr       \
-    --buildtype=release \
-    -D gconv=disabled   \
+hokuto-meson build    \
+    -D gconv=disabled \
     -D doxygen-doc=disabled
 
 meson compile -C build
