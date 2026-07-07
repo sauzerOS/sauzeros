@@ -12,3 +12,13 @@ make DESTDIR=$1 install
 
 install -Dm644 mount_options.conf $1/etc/udisks2/
 install -Dm755 mount.ntfs $1/usr/bin/
+
+# udisks2-btrfs
+_pick "$1" udisks2-btrfs usr/lib/udisks2/modules/libudisks2_btrfs.so
+_pick "$1" udisks2-btrfs usr/lib/pkgconfig/udisks2-btrfs.pc
+_pick "$1" udisks2-btrfs usr/share/polkit-1/actions/org.freedesktop.UDisks2.btrfs.policy
+
+# udisks2-lvm2
+_pick "$1" udisks2-lvm2 usr/lib/udisks2/modules/libudisks2_lvm2.so
+_pick "$1" udisks2-lvm2 usr/lib/pkgconfig/udisks2-lvm2.pc
+_pick "$1" udisks2-lvm2 usr/share/polkit-1/actions/org.freedesktop.UDisks2.lvm2.policy
