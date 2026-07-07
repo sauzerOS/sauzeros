@@ -1,6 +1,6 @@
-gcc-libs
 glib
 glibc
+libgcc
 xz
 zstd
 gobject-introspection make
