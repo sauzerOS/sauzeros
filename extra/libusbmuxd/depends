@@ -1,2 +1,4 @@
-libplist
+glibc
+libgcc
 libimobiledevice-glue
+libplist
