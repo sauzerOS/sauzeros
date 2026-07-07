@@ -1,0 +1,7 @@
+freeglut
+glibc
+glu
+libglvnd
+libjpeg-turbo
+cmake make
+libxmu make
