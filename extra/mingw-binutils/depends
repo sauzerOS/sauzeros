@@ -1,1 +1,4 @@
+glibc
+zlib-ng
+zstd
 mingw-headers make
