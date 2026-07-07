@@ -1,4 +1,6 @@
-perl-yaml-libyaml make
-qtutilities make
 qt
+clang make
 cmake make
+perl-yaml-libyaml make
+qt-declarative make
+qtutilities make
