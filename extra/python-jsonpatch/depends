@@ -1,1 +1,5 @@
 python-jsonpointer
+python-build make
+python-installer make
+python-setuptools make
+python-wheel make 
