@@ -1,8 +1,8 @@
 glib
 glibc
 libcap
+libgcc
 libelf
-gcc-libs
 libunwind
 alsa-lib make
 bash-completion make
@@ -30,6 +30,7 @@ liba52 make
 libaom make
 libass make
 libcdio make
+libdca make
 libde265 make
 libdrm make
 libfreeaptx make
@@ -93,6 +94,7 @@ sdl2-compat make
 shaderc make
 spandsp make
 speex make
+srt make
 systemd-libs make
 taglib make
 twolame make

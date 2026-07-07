@@ -1,7 +1,8 @@
-gcc-libs
 glib
 glibc
 gst-plugins-base
 gstreamer
+libgcc
 libglvnd
+libstdc++
 qt

@@ -76,7 +76,6 @@ meson_options=(
     -D gst-plugins-bad:resindvd=disabled
     -D gst-plugins-bad:rtmp=disabled
     -D gst-plugins-bad:soundtouch=disabled
-    -D gst-plugins-bad:srt=disabled
     -D gst-plugins-bad:srtp=disabled
     -D gst-plugins-bad:svtav1=disabled
     -D gst-plugins-bad:svthevcenc=disabled
