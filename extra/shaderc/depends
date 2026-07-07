@@ -1,6 +1,7 @@
-gcc-libs
 glibc
 glslang
+libgcc
+libstdc++
 spirv-tools
 cmake make
 python make
