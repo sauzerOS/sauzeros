@@ -1,1 +1,7 @@
+glib
+glibc
+json-glib
+libarchive
+libgcc
 libsoup
+meson make 
