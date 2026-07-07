@@ -1,6 +1,6 @@
 glibc
 libice
-util-linux
+util-linux-libs
 xorgproto
 xorg-util-macros make
 xtrans make
