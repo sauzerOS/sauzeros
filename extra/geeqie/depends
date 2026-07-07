@@ -1,10 +1,30 @@
+bash
 cairo
+djvulibre
 exiv2
 ffmpegthumbnailer
 gdk-pixbuf
 glib
+glibc
+gspell
 gtk+3
+hicolor-icon-theme
 little-cms
+libarchive
+libgcc
+libheif
+libjpeg-turbo
+libjxl
+libstdc++
+libtiff
+libunwind
+libwebp
+lua
+openjpeg
 pango
 poppler
+imagemagick make
+intltool make
+librsvg make
 meson make
+python make
