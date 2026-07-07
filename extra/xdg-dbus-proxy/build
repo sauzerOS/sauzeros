@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr \
+hokuto-meson build \
   -D man=disabled
 
 meson compile -C build
