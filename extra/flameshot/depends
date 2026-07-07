@@ -1,4 +1,7 @@
-qt
 hicolor-icon-theme
 kguiaddons
+qt
+qt-imageformats suggest "Additional export formats (tiff, webp..)
+qt-svg
 cmake make
+qt-tools make
