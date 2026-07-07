@@ -1,7 +1,7 @@
 rust | rustup
 curl
-gcc-libs
 glibc
+libgcc
 libssh2
 openssl
 sqlite
