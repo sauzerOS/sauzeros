@@ -1,8 +1,8 @@
 dbus
 dconf
-gcc-libs
 glib
 glibc
+libgcc
 libpipewire
 libpulse
 pipewire
