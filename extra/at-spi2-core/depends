@@ -1,14 +1,14 @@
 bash
 dbus
-gcc-libs
 glib
 glibc
 gsettings-desktop-schemas
+libgcc
 libx11
 libxi
 libxtst
 systemd-libs
-xprop
+xorg-xprop
 dbus-broker make
 gobject-introspection make
 libxml2 make
