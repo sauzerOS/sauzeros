@@ -1,19 +1,16 @@
-dnsmasq
-#gtksourceview<5.0
+cpio
+gtk-update-icon-cache
 gtk-vnc
+libisoburn
 libosinfo
 libvirt-glib
-nftables
-osinfo-db
-osinfo-db-tools
-python-certifi
-python-charset-normalizer
-python-docutils
-python-idna
 python-libvirt-python
+python-pycairo
 python-pygobject
 python-requests
-python-urllib3
-qemu
 spice-gtk
 vte3
+libayatana-appindicator suggest tray icon
+git make
+meson make
+python-docutils make 

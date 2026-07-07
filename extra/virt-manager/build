@@ -2,8 +2,7 @@
 
 patch -Np1 -i 983.patch
 
-meson setup build     \
-  --prefix=/usr       \
+hokuto-meson build    \
   -D default-hvs=qemu \
   -D tests=disabled
 
