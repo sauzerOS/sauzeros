@@ -1,4 +1,10 @@
+gtk-layer-shell
+hicolor-icon-theme
 libcanberra
 libnotify
 libxfce4ui
-xfce4-panel
+libxfce4util
+sqlite
+xfconf
+xfce4-dev-tools make
+xfce4-panel make 
