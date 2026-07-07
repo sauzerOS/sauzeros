@@ -25,7 +25,6 @@ meson install -C build --destdir=$1
 if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
-
 CFLAGS+=" -mstackrealign"
 CXXFLAGS+=" -mstackrealign"
 meson setup build            \

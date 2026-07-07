@@ -2,11 +2,12 @@ glibc
 gobject-introspection optional
 libffi
 pcre2
-util-linux
+util-linux-libs
 zlib-ng
 meson make
 python make
 python-packaging make
+util-linux make
 lib32-libffi make
 lib32-pcre2 make
 lib32-util-linux make
