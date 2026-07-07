@@ -1,1 +1,13 @@
+gdbm
+glibc
+gmp
+libffi
+libgcc
+libxcrypt
 libyaml
+openssl
+readline
+rubygems
+zlib-ng
+rust | rustup make
+tk make
