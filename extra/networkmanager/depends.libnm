@@ -1,6 +1,6 @@
-gcc-libs
 glib
 glibc
+libgcc
 nspr
 nss
 systemd-libs

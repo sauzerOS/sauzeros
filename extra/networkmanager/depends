@@ -1,9 +1,9 @@
 curl
-gcc-libs
 glib
 glibc
 iproute2
 jansson
+libgcc
 libmm-glib
 libndp
 libnewt
@@ -24,6 +24,7 @@ openresolv suggest alternative resolv.conf manager
 polkit suggest let non-root users control networking
 bash make
 curl make
+docbook-xsl make
 dnsmasq make
 glib make
 glibc make

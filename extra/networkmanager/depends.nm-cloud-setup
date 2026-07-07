@@ -1,8 +1,8 @@
 bash
 curl
-gcc-libs
 glib
 glibc
 jansson
+libgcc
 libnm
 networkmanager 
