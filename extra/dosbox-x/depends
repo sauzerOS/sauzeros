@@ -1,11 +1,12 @@
 alsa-lib
 ffmpeg
 fluidsynth
-gcc-libs
 glibc
+libgcc
 libglvnd
 libpcap
 libslirp
+libstdc++
 libx11
 libxkbfile
 libxrandr
