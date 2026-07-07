@@ -1,2 +1,6 @@
-libxfce4ui 
+libwnck
+libxfce4ui
+libxmu
 xfconf
+meson make
+xfce4-dev-tools make 
