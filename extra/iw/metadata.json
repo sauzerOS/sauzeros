@@ -1,0 +1,12 @@
+{
+  "url": "https://wireless.wiki.kernel.org/en/users/documentation/iw",
+  "category": "base",
+  "description": "nl80211 based CLI configuration utility for wireless devices",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "network",
+    "utility"
+  ]
+}
