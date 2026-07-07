@@ -1,3 +1,13 @@
+cairo
+cairomm
+gdk-pixbuf
+glib
+glibc
+glibmm
+graphene
 gtk
+libgcc
+libstdc++
 pangomm
+vulkan-icd-loader
 meson make
