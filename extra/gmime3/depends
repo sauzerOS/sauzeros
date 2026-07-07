@@ -1,3 +1,7 @@
 glib
-libgpg-error
+glibc
 gpgme
+libidn2
+zlib-ng
+gobject-introspection make
+vala make 
