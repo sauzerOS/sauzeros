@@ -1,6 +1,11 @@
 #!/bin/sh -e
 
+patch -Np1 -i 01-move-from-lib-to-usr-lib.patch
+patch -Np1 -i 02-correct-iptables-location.patch
+patch -Np1 -i 03-tcp-selective-acks.patch
+
 python3 setup.py install --root="$1"
 
+install -Dm644 shell-completion/bash "$1/usr/share/bash-completion/completions/ufw"
 install -Dm644 service "$1/usr/lib/systemd/system/ufw.service"
 chmod 644 "$1/etc/ufw/"*.rules
