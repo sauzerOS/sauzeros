@@ -1,3 +1,6 @@
-cmake make
+accountsservice
+garcon
 gtk-layer-shell
-xcape
+gtk+3
+xfce4-panel
+meson make
