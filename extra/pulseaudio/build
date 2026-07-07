@@ -1,10 +1,8 @@
 #!/bin/sh -e
 
-meson setup build         \
-      --prefix=/usr       \
-      --buildtype=release \
-      -D database=gdbm    \
-      -D doxygen=false    \
+hokuto-meson build     \
+      -D database=gdbm \
+      -D doxygen=false \
       -D tests=false
 
 meson compile -C build

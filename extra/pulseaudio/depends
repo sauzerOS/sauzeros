@@ -9,6 +9,7 @@ libice
 libpulse runtime
 libsm
 libsndfile
+libsoxr
 libx11
 libxcb
 libxtst
