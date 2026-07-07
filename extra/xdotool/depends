@@ -1,3 +1,5 @@
-libxtst
+glibc
+libx11
 libxinerama
 libxkbcommon
+libxtst 
