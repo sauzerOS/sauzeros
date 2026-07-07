@@ -1,1 +1,7 @@
+cryptsetup
+libpwquality
+libsecret
+libxkbcommon
+qt
+util-linux
 cmake make
