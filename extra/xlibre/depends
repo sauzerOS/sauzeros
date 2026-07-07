@@ -15,7 +15,6 @@ nettle
 pixman
 systemd-libs
 xlibre-xf86-input-libinput runtime
-font-util make
 libx11 make
 libxi make
 libxkbfile make
@@ -28,13 +27,13 @@ mesa make
 meson make
 pixman make
 systemd make
-xcb-util make
 xcb-util-image make
 xcb-util-keysyms make
+xcb-util make
 xcb-util-renderutil make
 xcb-util-wm make
 xkbcomp make
-xorg-util-macros make
+xorg-font-util make
 xorgproto make
-
+xorg-util-macros make
 
