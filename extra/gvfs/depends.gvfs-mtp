@@ -1,0 +1,7 @@
+gvfs
+glib
+glibc
+libgcc
+libgudev
+libmtp
+libusb

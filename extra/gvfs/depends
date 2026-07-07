@@ -1,11 +1,32 @@
-dbus
+dconf
+fuse3
+gcr
 glib
+glibc
 gsettings-desktop-schemas
 libarchive
+libcdio
 libcdio-paranoia
+libgcc
+libgcrypt
 libgudev
-libusb
+libsecret
+libsoup
 polkit
-samba
+procps-ng
+systemd
+systemd-libs
 udisks2
+gvfs-afc suggest AFC support (Apple mobile devices)
+gvfs-mtp suggest MTP support (Android, media player)
+gvfs-nfs suggest NFS support
+gvfs-smb suggest SMB/CIFS support (Windows file sharing)
+dbus make
+libimobiledevice make
+libmtp make
+libnfs make
+libxml2 make
 meson make
+openssh make
+python make
+smbclient make

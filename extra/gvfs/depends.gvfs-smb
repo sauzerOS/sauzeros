@@ -1,0 +1,6 @@
+gvfs
+dconf
+glib
+glibc
+libgcc
+smbclient
