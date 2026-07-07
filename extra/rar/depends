@@ -1,1 +1,3 @@
-gcc
+glibc
+libgcc
+libstdc++
