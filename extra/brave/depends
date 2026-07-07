@@ -1,6 +1,5 @@
 alsa-lib
-cups
 gtk+3
 libnotify
+libxss
 nss
-unicode-fonts
