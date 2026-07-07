@@ -1,11 +1,12 @@
 acl
 cups-filters runtime
 dbus
-gcc-libs
 glibc
 gnutls
 hicolor-icon-theme
 libcups runtime
+libgcc
+libstdc++
 pam
 systemd
 systemd-libs
