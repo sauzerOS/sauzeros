@@ -1,0 +1,8 @@
+gdbm
+glibc
+openssl
+git make
+krb5 make
+openssl make
+postgresql make
+sqlite make
