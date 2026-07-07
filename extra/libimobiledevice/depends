@@ -1,6 +1,9 @@
+glibc
 libimobiledevice-glue
 libplist
 libtatsu
 libusbmuxd
 openssl
 readline
+cython make
+python-setuptools make 
