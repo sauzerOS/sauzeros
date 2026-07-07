@@ -7,3 +7,15 @@ sed -i -e '/glew.lib.static:/d' \
        -e 's/glew.lib.static//' Makefile
 make
 make DESTDIR=$1 install.all
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+make distclean
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+sed -i 's|CC = cc|CC = gcc -m32|' config/Makefile.linux
+sed -i 's|LD = cc|LD = gcc -m32|' config/Makefile.linux
+
+make
+make DESTDIR="${pkgdir}" LIBDIR=/usr/lib32 PKGDIR=/usr/lib32/pkgconfig install
+rm -rf "${pkgdir}"/usr/{include,bin}
+fi
