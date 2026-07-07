@@ -1,0 +1,10 @@
+cairo
+gdk-pixbuf
+glib
+glibc
+gtk+3
+icu
+pango
+pcre2
+itstool make
+meson make
