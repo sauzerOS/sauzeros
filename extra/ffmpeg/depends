@@ -20,6 +20,7 @@ libogg
 libplacebo
 libpulse
 librsvg
+libsoxr
 libvorbis
 libvpx
 libwebp
@@ -32,6 +33,7 @@ opus
 pkgconf
 sndio
 speex
+srt
 v4l-utils
 vulkan-icd-loader
 x264

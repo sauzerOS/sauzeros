@@ -37,6 +37,8 @@ esac
     --enable-libvorbis \
     --enable-libpulse \
     --enable-libv4l2 \
+    --enable-libsoxr \
+    --enable-libsrt \
     --enable-libvpx \
     --enable-libwebp \
     --enable-libx264 \
