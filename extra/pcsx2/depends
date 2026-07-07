@@ -1,15 +1,41 @@
-7zip
 alsa-utils | gst-plugins-good
+curl
+dbus
+ffmpeg
+freetype
+glibc
 libcap
+libgcc
+libjpeg-turbo
+libpcap
 libpng
+libstdc++
 libwebp
+libx11
+libxi
+libxrandr
+lz4
 qt
+qt-svg
 sdl3
 shaderc
-unzip
-xrandr
+systemd-libs
+zlib-ng
+zstd
+7zip make
+alsa-lib make
 clang make
 cmake make
 extra-cmake-modules make
+libpulse make
 lld make
 llvm make
+patchelf make
+qt-declarative make
+qt-quick3d make
+qt-quick3dphysics make
+qt-lottie make
+qt-tools make
+sndio make
+speexdsp make
+vulkan-headers make
