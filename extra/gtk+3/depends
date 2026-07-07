@@ -1,3 +1,4 @@
+adwaita-icon-theme
 at-spi2-core
 cairo
 dconf
@@ -7,6 +8,7 @@ fribidi
 gdk-pixbuf
 glib
 glibc
+gtk-update-icon-cache runtime
 harfbuzz
 iso-codes
 colord
