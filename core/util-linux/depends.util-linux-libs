@@ -1,0 +1,3 @@
+glibc
+sqlite
+python suggest "libmount python bindings"

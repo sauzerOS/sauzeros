@@ -1,13 +1,14 @@
 coreutils
 file
-gcc-libs
 glibc
 libcap-ng
+libgcc
 libxcrypt
 ncurses
 pam
 readline
 systemd-libs runtime
+util-linux-libs runtime
 zlib-ng
 bash-completion make
 meson make
