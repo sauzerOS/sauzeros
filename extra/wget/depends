@@ -1,1 +1,11 @@
-tar
+brotli
+bzip2
+ca-certificates
+libidn2
+libpsl
+lzip
+nghttp2
+pcre2
+xz
+zlib-ng
+zstd
