@@ -1,40 +1,13 @@
-bzip2
-cairo
+desktop-file-utils
 exo
-expat
-fontconfig
-freetype
-fribidi
 garcon
-gdk-pixbuf
-glib
-gtk+3
 gtk-layer-shell
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
-libepoxy
-libffi
-libpng
+hicolor-icon-theme
+libdbusmenu
 libwnck
-libxcb
 libxfce4ui
-libxfce4util
-libxshmfence
-mesa
-pango
-pixman
-xfconf
 libxfce4windowing
+xfconf
+gobject-introspection make
+vala make
+xfce4-dev-tools make 
