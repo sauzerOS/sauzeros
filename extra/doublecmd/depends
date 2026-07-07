@@ -1,9 +1,14 @@
 desktop-file-utils
-ffmpegthumbnailer make
 hicolor-icon-theme
-imagemagick make
-lazarus make
-qt
 qt6pas
 shared-mime-info
-unrar
+ffmpegthumbnailer suggest preview video files
+imagemagick (optional) - preview xcf files
+unrar suggest support for rar archives
+7zip suggest support for 7zip archives
+unzip suggest support extracting zip archives
+zip suggest suport packing zip archives
+ffmpegthumbnailer make
+imagemagick make
+lazarus make
+qt6pas make 
