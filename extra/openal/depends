@@ -1,5 +1,6 @@
 glibc
-gcc-libs
+libgcc
+libstdc++
 fluidsynth suggest MIDI rendering
 qt suggest alsoft-config GUI Configurator
 alsa-lib make
