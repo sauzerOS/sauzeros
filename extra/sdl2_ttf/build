@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-./configure --disable-static \
-  --disable-freetype-builtin \
-  --disable-harfbuzz-builtin \
-  --prefix=/usr
-
-make
-make DESTDIR="${1}/" install
