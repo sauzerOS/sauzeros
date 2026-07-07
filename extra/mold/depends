@@ -1,1 +1,6 @@
+glibc
+libblake3
+libstdc++
+zlib-ng
+zstd
 cmake make
