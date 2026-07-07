@@ -1,2 +1,5 @@
+glib
 gtk+3
+libx11
 vte3
+cmake make 
