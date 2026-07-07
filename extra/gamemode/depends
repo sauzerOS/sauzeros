@@ -1,6 +1,6 @@
 dbus
-gcc-libs
 glibc
+libgcc
 libinih
 polkit
 systemd-libs
