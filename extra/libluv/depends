@@ -1,3 +1,4 @@
 libuv
+luajit
 cmake make
 lua make
