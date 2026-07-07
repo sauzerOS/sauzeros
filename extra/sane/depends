@@ -1,11 +1,12 @@
 bash
 cairo
 curl
-gcc-libs
 glib
 glibc
+libgcc
 libjpeg-turbo
 libpng
+libstdc++
 libtiff
 libusb
 libxml2
