@@ -1,11 +1,14 @@
+asio make
+bash
 expat
 flac
 fontconfig
 glibc
-gcc-libs
+libgcc
 libglvnd
 libjpeg-turbo
 libpulse
+libstdc++
 libutf8proc
 libx11
 libxi
@@ -13,17 +16,13 @@ lua
 portaudio
 portmidi
 pugixml
-qt6
+qt
 sdl2-compat
-sdl2_ttf
-bash
+sdl2-ttf
 sqlite
 zlib-ng
 zstd
-asio make
-flac make
 glm make
-libutf8proc make
 libxinerama make
 nasm make
 python make
