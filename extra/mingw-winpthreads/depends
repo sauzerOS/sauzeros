@@ -1,1 +1,3 @@
 mingw
+mingw-binutils make
+mingw-gcc make
