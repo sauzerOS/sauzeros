@@ -1,6 +1,7 @@
 bash
-gcc-libs
 glibc
+libgcc
+libstdc++
 zlib-ng
 cmake make
 utfcpp make
