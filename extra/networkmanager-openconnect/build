@@ -1,15 +1,26 @@
 #!/bin/sh -e
 
+intltoolize --automake --copy
 autoreconf -fvi
-./configure             \
-  --prefix=/usr         \
-  --sysconfdir=/etc     \
-  --localstatedir=/var  \
-  --libexecdir=/usr/lib \
-  --disable-static      \
-  --with-gtk4
+configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --localstatedir=/var
+    --libexecdir=/usr/lib
+    --disable-static
+    --with-gtk4
+)
+
+./configure "${configure_options[@]}"
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 make
 make DESTDIR="$1" install dbusservicedir=/usr/share/dbus-1/system.d
-
 install -Dm 644 networkmanager-openconnect.sysusers "$1/usr/lib/sysusers.d/networkmanager-openconnect.conf"
+
+# networkmanager-vpn-plugin-openconnect
+_pick "$1" networkmanager-vpn-plugin-openconnect usr/lib/sysusers.d/networkmanager-openconnect.conf
+_pick "$1" networkmanager-vpn-plugin-openconnect usr/lib/NetworkManager/VPN
+_pick "$1" networkmanager-vpn-plugin-openconnect usr/lib/NetworkManager/libnm-vpn-plugin-openconnect.so
+_pick "$1" networkmanager-vpn-plugin-openconnect usr/lib/nm-openconnect-service*
+_pick "$1" networkmanager-vpn-plugin-openconnect usr/share/dbus-1

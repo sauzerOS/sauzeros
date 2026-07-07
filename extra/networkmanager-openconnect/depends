@@ -1,5 +1,14 @@
-gnome-keyring
+gcr
+glib
+glibc
+gtk+3
+libnm
+libnma
 libsecret
-networkmanager
+libsoup
+libxml2
+networkmanager-vpn-plugin-openconnect runtime
 openconnect
 webkit2gtk-4.1
+intltool make
+python make 
