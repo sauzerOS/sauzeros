@@ -1,12 +1,27 @@
-adwaita-icon-theme
+bash
+glib
+glibc
+libgcc
 libgcrypt
-exo
+libx11
 libxcb
+libxdmcp
 libxklavier
 pam
 polkit
-xlibre
-|gobject-introspection make
+xlibre | xorg-server
+xorg-xmodmap
+xorg-xrdb
+accountsservice suggest Enhanced user accounts handling
+lightdm-gtk-greeter suggest GTK greeter
+gobject-introspection make
+intltool make
 itstool make
 libgcrypt make
+libx11 make
+libxcb make
+libxdmcp make
+libxklavier make
+pam make
+polkit make
 vala make
