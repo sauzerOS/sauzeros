@@ -1,2 +1,7 @@
+binutils
+expat
+make
+ncurses
+zlib-ng
 fpc-bin | fpc  make
 
