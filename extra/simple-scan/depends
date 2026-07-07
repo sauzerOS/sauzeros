@@ -1,7 +1,9 @@
 cairo
 colord
+dconf
 gdk-pixbuf
 glib
+glibc
 gtk
 hicolor-icon-theme
 libadwaita
@@ -10,4 +12,6 @@ libwebp
 sane
 zlib-ng
 meson make
+itstool make
+python-lxml make
 vala make
