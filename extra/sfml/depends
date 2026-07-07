@@ -1,11 +1,12 @@
 flac
 freetype
-gcc-libs
 glew
 glibc
 harfbuzz
+libgcc
 libogg
 libsndfile
+libstdc++
 libvorbis
 libx11
 libxcursor
