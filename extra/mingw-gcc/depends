@@ -1,3 +1,14 @@
-mingw-binutils
+bash
+glibc
+gmp
+libgcc
+libisl
 mingw
+mingw-binutils
+mingw-headers
 mingw-winpthreads
+mpc
+mpfr
+python
+zlib-ng
+zstd
