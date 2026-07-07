@@ -1,8 +1,147 @@
 #!/bin/sh -e
 
-./configure --prefix=/usr \
-            --enable-bpf-compiler \
-            --enable-libipq
+patch -Np1 -i 0001-fix-iptables-apply-FS-75401.patch
+autoreconf -fvi
 
+configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --sbindir=/usr/bin
+    --libexecdir=/usr/lib
+    --enable-bpf-compiler
+    --enable-devel
+    --enable-libipq
+    --enable-shared
+)
+
+./configure "${configure_options[@]}"
+sed -e 's/ -shared / -Wl,-O1,--as-needed\0/g' -i libtool
 make
-make DESTDIR=$1 install
+pkgdir=$HOKUTO_BUILD_DIR/tempdir
+make DESTDIR=$pkgdir install
+
+# Create the symlinks directly to the nft multi-binary
+for x in {arp,eb,ip,ip6}tables{,-restore,-save} iptables-xml; do
+  ln -sf xtables-nft-multi "$pkgdir/usr/bin/$x"
+done
+
+# Install the systemd service files
+install -Dt "$pkgdir/usr/lib/systemd/system" -m644 {arp,eb}tables.service
+install -Dt "$pkgdir/usr/lib/systemd/system" -m644 {ip,ip6}tables.service
+
+# Install the nft-specific flush script
+install -D iptables-nft-flush "$pkgdir/usr/lib/systemd/scripts/iptables-flush"
+
+# Install default empty rule sets
+install -Dm644 empty.rules "$pkgdir/etc/iptables/iptables.rules"
+install -Dm644 empty.rules "$pkgdir/etc/iptables/ip6tables.rules"
+
+# Install shareable rules and create the symlinks
+install -Dt "$pkgdir/usr/share/iptables" -m644 *.rules
+ln -srt "$pkgdir/etc/iptables" "$pkgdir"/usr/share/iptables/{empty,simple_firewall}.rules
+
+# Create blank configuration files for arp and ebtables
+touch "$pkgdir"/etc/{arp,eb}tables.conf
+
+files=(
+etc/arptables.conf
+etc/ebtables.conf
+etc/ethertypes
+etc/iptables/empty.rules
+etc/iptables/ip6tables.rules
+etc/iptables/iptables.rules
+etc/iptables/simple_firewall.rules
+usr/bin/arptables
+usr/bin/arptables-nft
+usr/bin/arptables-nft-restore
+usr/bin/arptables-nft-save
+usr/bin/arptables-restore
+usr/bin/arptables-save
+usr/bin/arptables-translate
+usr/bin/ebtables
+usr/bin/ebtables-nft
+usr/bin/ebtables-nft-restore
+usr/bin/ebtables-nft-save
+usr/bin/ebtables-restore
+usr/bin/ebtables-save
+usr/bin/ebtables-translate
+usr/bin/ip6tables
+usr/bin/ip6tables-apply
+usr/bin/ip6tables-legacy
+usr/bin/ip6tables-legacy-restore
+usr/bin/ip6tables-legacy-save
+usr/bin/ip6tables-nft
+usr/bin/ip6tables-nft-restore
+usr/bin/ip6tables-nft-save
+usr/bin/ip6tables-restore
+usr/bin/ip6tables-restore-translate
+usr/bin/ip6tables-save
+usr/bin/ip6tables-translate
+usr/bin/iptables
+usr/bin/iptables-apply
+usr/bin/iptables-legacy
+usr/bin/iptables-legacy-restore
+usr/bin/iptables-legacy-save
+usr/bin/iptables-nft
+usr/bin/iptables-nft-restore
+usr/bin/iptables-nft-save
+usr/bin/iptables-restore
+usr/bin/iptables-restore-translate
+usr/bin/iptables-save
+usr/bin/iptables-translate
+usr/bin/iptables-xml
+usr/bin/nfbpf_compile
+usr/bin/nfnl_osf
+usr/bin/xtables-legacy-multi
+usr/bin/xtables-monitor
+usr/bin/xtables-nft-multi
+usr/include/libipq.h
+usr/include/libiptc/ipt_kernel_headers.h
+usr/include/libiptc/libip6tc.h
+usr/include/libiptc/libiptc.h
+usr/include/libiptc/libxtc.h
+usr/include/libiptc/xtcshared.h
+usr/include/xtables-version.h
+usr/include/xtables.h
+usr/lib/libip4tc.so*
+usr/lib/libip6tc.so*
+usr/lib/libipq.so*
+usr/lib/libxtables.so*
+usr/lib/pkgconfig/libip4tc.pc
+usr/lib/pkgconfig/libip6tc.pc
+usr/lib/pkgconfig/libipq.pc
+usr/lib/pkgconfig/libiptc.pc
+usr/lib/pkgconfig/xtables.pc
+usr/lib/systemd/scripts/iptables-flush
+usr/lib/systemd/system/arptables.service
+usr/lib/systemd/system/ebtables.service
+usr/lib/systemd/system/ip6tables.service
+usr/lib/systemd/system/iptables.service
+usr/lib/xtables/libarpt_mangle.so
+usr/lib/xtables/libebt_*
+usr/lib/xtables/libip6t_*
+usr/lib/xtables/libipt_*
+usr/lib/xtables/libxt_*
+usr/share/iptables/empty-filter.rules
+usr/share/iptables/empty-mangle.rules
+usr/share/iptables/empty-nat.rules
+usr/share/iptables/empty-raw.rules
+usr/share/iptables/empty-security.rules
+usr/share/iptables/empty.rules
+usr/share/iptables/simple_firewall.rules
+usr/share/man/man1/iptables-xml.1.gz
+usr/share/man/man3/ipq_*
+usr/share/man/man3/libipq.3.gz
+usr/share/man/man8/arptables-*
+usr/share/man/man8/ebtables-*
+usr/share/man/man8/ip6tables*
+usr/share/man/man8/iptables*
+usr/share/man/man8/nfbpf_compile.8.gz
+usr/share/man/man8/nfnl_osf.8.gz
+usr/share/man/man8/xtables-*
+usr/share/xtables/iptables.xslt
+usr/share/xtables/pf.os
+)
+_pick $pkgdir temp "${files[@]}"
+cp -r $HOKUTO_SPLIT_DIR/temp/* $1/
+rm -rf $HOKUTO_SPLIT_DIR/temp

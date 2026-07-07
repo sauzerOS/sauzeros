@@ -1,1 +1,8 @@
 https://www.netfilter.org/projects/iptables/files/iptables-${version}.tar.xz
+files/0001-fix-iptables-apply-FS-75401.patch
+files/arptables.service
+files/ebtables.service
+files/empty.rules
+files/ip6tables.service
+files/iptables.service
+files/iptables-nft-flush
