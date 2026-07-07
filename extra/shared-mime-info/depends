@@ -1,6 +1,7 @@
-gcc-libs
 glib
 glibc
+libgcc
+libstdc++
 libxml2
 git make
 meson make

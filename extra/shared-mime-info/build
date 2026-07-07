@@ -1,8 +1,7 @@
 #!/bin/sh -e
 
-meson setup build --prefix=/usr \
-    --buildtype=release         \
-    -Dupdate-mimedb=false
+hokuto-meson build \
+    -D update-mimedb=false
 
 meson compile -C build
 meson install -C build --destdir=$1
