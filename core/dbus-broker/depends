@@ -1,7 +1,7 @@
 expat
-gcc-libs
 glibc
 libcap-ng
+libgcc
 systemd-libs
 meson make
 systemd make
