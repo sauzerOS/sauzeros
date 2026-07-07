@@ -1,4 +1,5 @@
+bash
+glibc
 libburn
 libisofs
-ncurses
-zlib-ng
+readline
