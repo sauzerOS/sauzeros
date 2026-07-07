@@ -1,2 +1,12 @@
+gdk-pixbuf
+glib
 gtk+3
 libdisplay-info
+libwnck
+libx11
+wayland
+gobject-introspection make
+meson make
+vala make
+wayland-protocols make
+xfce4-dev-tools make 
