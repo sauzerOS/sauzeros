@@ -1,2 +1,4 @@
 libevent
 ncurses
+systemd-libs
+systemd make
