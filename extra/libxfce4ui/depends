@@ -1,34 +1,12 @@
-cairo
-expat
-fontconfig
-freetype
-fribidi
-gdk-pixbuf
-glib
 gtk+3
-libice
-libsm
-libx11
-libxau
-libxcomposite
-libxcursor
-libxdamage
-libxext
-libxfixes
-libxi
-libxinerama
-libxrandr
-libxrender
-libxxf86vm
-libdrm
+hicolor-icon-theme
 libepoxy
-libffi
-libpng
-libxcb
+libgtop
+libgudev
+libsm
 libxfce4util
-libxshmfence
-mesa
-pango
-pixman
 startup-notification
 xfconf
+gobject-introspection make
+vala make
+xfce4-dev-tools make 
