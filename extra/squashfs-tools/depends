@@ -1,5 +1,8 @@
+glibc
+libgcc
 lz4
 lzo
 xz
 zlib-ng
 zstd
+help2man make 
