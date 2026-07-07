@@ -1,4 +1,7 @@
 cpp-utilities
 libx11
 qt
+clang make
 cmake make
+qt-declarative make
+qt-tools make
