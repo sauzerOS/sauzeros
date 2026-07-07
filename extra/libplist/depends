@@ -1,0 +1,5 @@
+glibc
+libgcc
+libstdc++
+cython make
+python-setuptools make
