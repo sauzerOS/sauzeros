@@ -1,5 +1,17 @@
-blueprint-compiler make
+bzip2
+fontconfig
+freetype2
+glib
+glibc
 gtk
 gtk4-layer-shell
+harfbuzz
 libadwaita
-zig-bin==0.14.0 make
+libpng
+libx11
+oniguruma
+pixman
+wayland
+zlib
+blueprint-compiler make
+zig-bin make 
