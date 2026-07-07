@@ -1,2 +1,4 @@
-aspell-dicts optional
-which
+glibc
+libstdc++
+ncurses
+aspell-dicts suggest "Dictionaries"
