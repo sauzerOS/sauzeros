@@ -1,0 +1,2 @@
+https://www.unifiedremote.com/static/builds/server/linux-x64/${version-last-only}/urserver-${version}.deb
+files/urserver.service
