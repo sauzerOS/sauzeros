@@ -1,4 +1,9 @@
-libxklavier
-libwnck
+dbus-glib
 garcon
+libwnck
+libxklavier
+libxss
+python
+python-pygobject
 meson make
+xfce4-dev-tools make
