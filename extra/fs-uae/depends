@@ -1,4 +1,14 @@
+glib
+glibc
+hicolor-icon-theme
+libgcc
 libmpeg2
+libpng
+libstdc++
+libx11
 openal
 sdl2-compat
-zip
+zlib-ng
+fs-uae-launcher suggest "graphical user interface"
+libxi make
+zip make 

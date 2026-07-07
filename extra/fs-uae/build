@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+sed -i \
+  -e 's/static const char \*numbers/static const char *td_numbers/' \
+  -e 's/numptr = numbers +/numptr = td_numbers +/' \
+  src/statusline.cpp
+
 ./configure --prefix=/usr
 
 make
