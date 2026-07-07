@@ -1,6 +1,6 @@
-gcc-libs
 glib
 glibc
+libgcc
 xdg-desktop-portal suggest Portal service
 git make
 gobject-introspection make
