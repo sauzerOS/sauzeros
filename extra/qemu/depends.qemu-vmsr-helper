@@ -1,0 +1,8 @@
+glib
+glibc
+gnutls
+libcap-ng
+libgcc
+liburing
+pam
+qemu

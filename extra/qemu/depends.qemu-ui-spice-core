@@ -1,0 +1,6 @@
+glibc
+libgcc
+pixman
+qemu
+qemu-ui-opengl
+spice

@@ -1,0 +1,10 @@
+fuse3
+glib
+glibc
+gnutls
+libaio
+libgcc
+liburing
+pam
+zlib-ng
+zstd

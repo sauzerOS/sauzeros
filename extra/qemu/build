@@ -1,55 +1,327 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr \
-    --localstatedir=/var \
-    --sysconfdir=/etc \
-    --libexecdir=/usr/lib/qemu \
-    --disable-werror \
-    --disable-tcg-interpreter \
-    --enable-pie \
-    --audio-drv-list=alsa,pa,pipewire,sdl \
-    --enable-bzip2 \
-    --enable-curl \
-    --enable-curses \
-    --disable-docs \
-    --enable-kvm \
-    --enable-libudev \
-    --enable-libusb \
-    --disable-linux-aio \
-    --enable-linux-io-uring \
-    --enable-opengl \
-    --enable-png \
-    --enable-sdl \
-    --enable-slirp \
-    --disable-sdl-image \
-    --enable-virglrenderer \
-    --disable-vnc-jpeg \
-    --enable-xkbcommon \
-    --enable-zstd \
-    --enable-system \
-    --enable-linux-user \
-    --disable-debug-info
+# install qemu-pr-helper.socket and qemu-vmsr-helper.socket to sockets.target
+sed -e 's/multi-user.target/sockets.target/g' -i contrib/systemd/*.socket
 
-meson compile -C build
-meson install -C build --destdir=$1
+mkdir -vp build
+mkdir -vp build-static
+
+common_configure_options=(
+  --prefix=/usr
+  --sysconfdir=/etc
+  --libexecdir=/usr/lib/qemu
+  --localstatedir=/var
+  --docdir=/usr/share/doc/qemu
+)
+
+configure_options=(
+  "${common_configure_options[@]}"
+  --enable-modules
+  --enable-sdl
+  --enable-slirp
+  --enable-tpm
+  --smbd=/usr/bin/smbd
+  --with-coroutine=ucontext
+)
+configure_static_options=(
+  "${common_configure_options[@]}"
+  --enable-attr
+  --enable-linux-user
+  --enable-tcg
+  --disable-bpf
+  --disable-bsd-user
+  --disable-capstone
+  --disable-docs
+  --disable-fdt
+  --disable-gcrypt
+  --disable-glusterfs
+  --disable-gnutls
+  --disable-gtk
+  --disable-install-blobs
+  --disable-kvm
+  --disable-libiscsi
+  --disable-libnfs
+  --disable-libssh
+  --disable-linux-io-uring
+  --disable-nettle
+  --disable-opengl
+  --disable-qom-cast-debug
+  --disable-sdl
+  --disable-system
+  --disable-tools
+  --disable-tpm
+  --disable-vde
+  --disable-vhost-crypto
+  --disable-vhost-kernel
+  --disable-vhost-net
+  --disable-vhost-user
+  --disable-vnc
+  --disable-werror
+  --disable-xen
+  --disable-zstd
+  --static
+)
+
+cd build-static
+../configure "${configure_static_options[@]}"
+ninja
+cd ..
+
+cd build
+../configure "${configure_options[@]}"
+ninja
+cd ..
+
+binfmt_conf_options=(
+    --systemd ALL
+    --exportdir "$1/usr/lib/binfmt.d/"
+    --qemu-path "/usr/bin"
+    --persistent yes
+    --preserve-argv0 yes
+)
+
+# install static binaries
+meson install -C build-static --destdir "$1"
+install -vdm 755 "$1/usr/lib/binfmt.d/"
+scripts/qemu-binfmt-conf.sh "${binfmt_conf_options[@]}"
+
+# rename static binaries to prevent name conflicts
+for _src in "$1/usr/bin/qemu-"*; do
+  mv -v "$_src" "$1/usr/bin/$(basename "$_src")-static"
+done
+# modify and rename binfmt.d configs to prevent name conflicts
+for _conf in "$1/usr/lib/binfmt.d/"*; do
+    _exe_name="$(basename "${_conf/.conf/}")"
+    _new_exe_name="${_exe_name}-static"
+    _new_conf_name="${_conf/.conf/-static.conf}"
+  sed -e "s|usr/bin/${_exe_name}|usr/bin/${_new_exe_name}|" "$_conf" > "${_new_conf_name}"
+done
+
+# install default binaries
+meson install -C build --destdir "$1"
 
 install -vdm 755 "$1/usr/lib/binfmt.d/"
-scripts/qemu-binfmt-conf.sh          \
-  --systemd ALL                      \
-  --exportdir "$1/usr/lib/binfmt.d/" \
-  --qemu-path "/usr/bin"             \
-  --persistent yes                   \
-  --preserve-argv0 yes
-
-# disable dynamic conf (default to qemu-user-static package)
-for f in "$1"/usr/lib/binfmt.d/*.conf; do
-    [ -e "$f" ] || continue
-    mv -v "$f" "$f.bak"
-done
+scripts/qemu-binfmt-conf.sh "${binfmt_conf_options[@]}"
 
 install -vDm 644 bridge.conf -t "$1/etc/qemu/"
 install -vDm 644 qemu.sasl "$1/etc/sasl2/qemu.conf"
 install -vDm 644 qemu-sysusers.conf "$1/usr/lib/sysusers.d/qemu.conf"
-install -vDm 644 99-qemu-guest-agent.rules -t "$1/usr/lib/udev/rules.d/"
-install -vDm 644 qemu-ga.conf -t "$1/etc/qemu/"
+
+
+# bridge_helper needs suid: https://bugs.archlinux.org/task/32565
+chmod u+s "$1/usr/lib/qemu/qemu-bridge-helper"
+
+# remove invalid directory
+rm -frv "$1/var"
+
+# remove unneeded files
+find "$1" -name .buildinfo -delete
+
+# WE DONT BUILD DOCS OR MANPAGES
+# create man page symlinks for all system emulators
+#cd "$1/usr/share/man/man1"
+#  for _name in qemu-system-{aarch64,alpha,arm,avr,hppa,i386,loongarch64,m68k,microblaze,mips{,64,64el,el},or1k,ppc{,64},riscv{32,64},rx,s390x,sh4{,eb},sparc{,64},tricore,x86_64,xtensa{,eb}}; do
+#  ln -sv qemu.1.gz "$1/usr/share/man/man1/$_name.1.gz"
+#done
+
+# pick files for all split packages
+
+_pick "$1" qemu-guest-agent usr/bin/qemu-ga
+_pick "$1" qemu-guest-agent usr/share/man/man8/qemu-ga.8*
+
+install -vDm 644 contrib/systemd/qemu-guest-agent.service -t "$HOKUTO_SPLIT_DIR/qemu-guest-agent/usr/lib/systemd/system/"
+install -vDm 644 99-qemu-guest-agent.rules -t "$HOKUTO_SPLIT_DIR/qemu-guest-agent/usr/lib/udev/rules.d/"
+install -vDm 644 qemu-ga.conf -t "$HOKUTO_SPLIT_DIR/qemu-guest-agent/etc/qemu/"
+install -vDm 755 scripts/qemu-guest-agent/fsfreeze-hook -t "$HOKUTO_SPLIT_DIR/qemu-guest-agent/etc/qemu/"
+install -vdm 755 "$HOKUTO_SPLIT_DIR/qemu-guest-agent/etc/qemu/fsfreeze-hook.d"
+
+_pick "$1" qemu-audio-alsa usr/lib/qemu/audio-alsa.so
+_pick "$1" qemu-audio-dbus usr/lib/qemu/audio-dbus.so
+#_pick "$1" qemu-audio-jack usr/lib/qemu/audio-jack.so
+_pick "$1" qemu-audio-oss usr/lib/qemu/audio-oss.so
+_pick "$1" qemu-audio-pa usr/lib/qemu/audio-pa.so
+_pick "$1" qemu-audio-pipewire usr/lib/qemu/audio-pipewire.so
+_pick "$1" qemu-audio-sdl usr/lib/qemu/audio-sdl.so
+_pick "$1" qemu-audio-spice usr/lib/qemu/audio-spice.so
+
+_pick "$1" qemu-block-curl usr/lib/qemu/block-curl.so
+_pick "$1" qemu-block-dmg usr/lib/qemu/block-dmg*.so
+#_pick "$1" qemu-block-gluster usr/lib/qemu/block-gluster.so
+#_pick "$1" qemu-block-iscsi usr/lib/qemu/block-iscsi.so
+_pick "$1" qemu-block-nfs usr/lib/qemu/block-nfs.so
+#_pick "$1" qemu-block-ssh usr/lib/qemu/block-ssh.so
+
+_pick "$1" qemu-chardev-baum usr/lib/qemu/chardev-baum.so
+_pick "$1" qemu-chardev-spice usr/lib/qemu/chardev-spice.so
+
+_pick "$1" qemu-hw-display-qxl usr/lib/qemu/hw-display-qxl.so
+_pick "$1" qemu-hw-display-virtio-gpu usr/lib/qemu/hw-display-virtio-gpu.so
+_pick "$1" qemu-hw-display-virtio-gpu-gl usr/lib/qemu/hw-display-virtio-gpu-gl.so
+#_pick "$1" qemu-hw-display-virtio-gpu-rutabaga usr/lib/qemu/hw-display-virtio-gpu-rutabaga.so
+_pick "$1" qemu-hw-display-virtio-gpu-pci usr/lib/qemu/hw-display-virtio-gpu-pci.so
+_pick "$1" qemu-hw-display-virtio-gpu-pci-gl usr/lib/qemu/hw-display-virtio-gpu-pci-gl.so
+#_pick "$1" qemu-hw-display-virtio-gpu-pci-rutabaga usr/lib/qemu/hw-display-virtio-gpu-pci-rutabaga.so
+_pick "$1" qemu-hw-display-virtio-vga usr/lib/qemu/hw-display-virtio-vga.so
+_pick "$1" qemu-hw-display-virtio-vga-gl usr/lib/qemu/hw-display-virtio-vga-gl.so
+#_pick "$1" qemu-hw-display-virtio-vga-rutabaga usr/lib/qemu/hw-display-virtio-vga-rutabaga.so
+
+_pick "$1" qemu-hw-usb-host usr/lib/qemu/hw-usb-host.so
+_pick "$1" qemu-hw-usb-redirect usr/lib/qemu/hw-usb-redirect.so
+#_pick "$1" qemu-hw-usb-smartcard usr/lib/qemu/hw-usb-smartcard.so
+
+_pick "$1" qemu-hw-uefi-vars usr/lib/qemu/hw-uefi-vars.so
+
+_pick "$1" qemu-img usr/bin/qemu-{img,io,nbd,storage-daemon}
+_pick "$1" qemu-img usr/share/man/man1/qemu-{img,storage-daemon}.1*
+_pick "$1" qemu-img usr/share/man/man7/qemu-storage-daemon-qmp-ref.7*
+_pick "$1" qemu-img usr/share/man/man8/qemu-nbd.8*
+
+_pick "$1" qemu-pr-helper usr/bin/qemu-pr-helper
+_pick "$1" qemu-pr-helper usr/share/man/man8/qemu-pr-helper.8*
+
+install -vDm 644 contrib/systemd/qemu-pr-helper.{service,socket} -t "$HOKUTO_SPLIT_DIR/qemu-pr-helper/usr/lib/systemd/system/"
+
+_pick "$1" qemu-hw-s390x-virtio-gpu-ccw usr/lib/qemu/hw-s390x-virtio-gpu-ccw.so
+
+_pick "$1" qemu-system-aarch64 usr/bin/qemu-system-aarch64
+_pick "$1" qemu-system-aarch64 usr/share/man/man1/qemu-system-aarch64.1*
+
+_pick "$1" qemu-system-aarch64-firmware usr/share/qemu/firmware/60-edk2-aarch64.json
+_pick "$1" qemu-system-aarch64-firmware usr/share/qemu/edk2-aarch64-code.fd
+
+_pick "$1" qemu-system-alpha usr/bin/qemu-system-alpha
+_pick "$1" qemu-system-alpha usr/share/man/man1/qemu-system-alpha.1*
+
+_pick "$1" qemu-system-alpha-firmware usr/share/qemu/palcode-clipper
+
+_pick "$1" qemu-system-arm usr/bin/qemu-system-arm
+_pick "$1" qemu-system-arm usr/share/man/man1/qemu-system-arm.1*
+
+_pick "$1" qemu-system-arm-firmware usr/share/qemu/{ast27x0,npcm{7,8}xx}_bootrom.bin
+# NOTE: These used to belong to edk2-arm, but upstream edk2 removed support for 32bit ARM.
+# We will track them here for as long as QEMU upstream provides them prebuilt.
+_pick "$1" qemu-system-arm-firmware usr/share/qemu/edk2-arm-{code,vars}.fd
+_pick "$1" qemu-system-arm-firmware usr/share/qemu/firmware/60-edk2-arm.json
+
+_pick "$1" qemu-system-avr usr/bin/qemu-system-avr
+_pick "$1" qemu-system-avr usr/share/man/man1/qemu-system-avr.1*
+
+_pick "$1" qemu-system-hppa usr/bin/qemu-system-hppa
+_pick "$1" qemu-system-hppa usr/share/man/man1/qemu-system-hppa.1*
+
+_pick "$1" qemu-system-hppa-firmware usr/share/qemu/hppa-firmware*.img
+
+_pick "$1" qemu-system-loongarch64 usr/bin/qemu-system-loongarch64
+_pick "$1" qemu-system-loongarch64 usr/share/man/man1/qemu-system-loongarch64.1*
+
+_pick "$1" qemu-system-loongarch64-firmware usr/share/qemu/firmware/60-edk2-loongarch64.json
+_pick "$1" qemu-system-loongarch64-firmware usr/share/qemu/edk2-loongarch64-{code,vars}.fd
+
+_pick "$1" qemu-system-m68k usr/bin/qemu-system-m68k
+_pick "$1" qemu-system-m68k usr/share/man/man1/qemu-system-m68k.1*
+
+_pick "$1" qemu-system-microblaze usr/bin/qemu-system-microblaze
+_pick "$1" qemu-system-microblaze usr/share/man/man1/qemu-system-microblaze.1*
+
+_pick "$1" qemu-system-microblaze-firmware usr/share/qemu/dtb/petalogix-*.dtb
+
+_pick "$1" qemu-system-mips usr/bin/qemu-system-mips{,64,64el,el}
+_pick "$1" qemu-system-mips usr/share/man/man1/qemu-system-mips{,64,64el,el}.1*
+
+_pick "$1" qemu-system-or1k usr/bin/qemu-system-or1k
+_pick "$1" qemu-system-or1k usr/share/man/man1/qemu-system-or1k.1*
+
+_pick "$1" qemu-system-ppc usr/bin/qemu-system-ppc{,64}
+_pick "$1" qemu-system-ppc usr/share/man/man1/qemu-system-ppc{,64}.1*
+
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/dtb/{bamboo,canyonlands,pegasos{1,2}}.dtb
+# NOTE: needs to be replaced by openbios
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/openbios-ppc
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/pnv-pnor.bin
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/qemu_vga.ndrv
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/skiboot.lid
+# NOTE: needs to be replaced by slof
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/slof.bin
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/u-boot.e500
+_pick "$1" qemu-system-ppc-firmware usr/share/qemu/u-boot-sam460.bin
+
+_pick "$1" qemu-system-riscv usr/bin/qemu-system-riscv{32,64}
+_pick "$1" qemu-system-riscv usr/share/man/man1/qemu-system-riscv{32,64}.1*
+
+_pick "$1" qemu-system-riscv-firmware usr/share/qemu/opensbi-riscv{32,64}*.bin
+_pick "$1" qemu-system-riscv-firmware usr/share/qemu/firmware/60-edk2-riscv64.json
+_pick "$1" qemu-system-riscv-firmware usr/share/qemu/edk2-riscv-{code,vars}.fd
+
+_pick "$1" qemu-system-rx usr/bin/qemu-system-rx
+_pick "$1" qemu-system-rx usr/share/man/man1/qemu-system-rx.1*
+
+_pick "$1" qemu-system-s390x usr/bin/qemu-system-s390x
+_pick "$1" qemu-system-s390x usr/share/man/man1/qemu-system-s390x.1*
+
+_pick "$1" qemu-system-s390x-firmware usr/share/qemu/s390-ccw.img
+
+_pick "$1" qemu-system-sh4 usr/bin/qemu-system-sh4{,eb}
+_pick "$1" qemu-system-sh4 usr/share/man/man1/qemu-system-sh4{,eb}.1*
+
+_pick "$1" qemu-system-sparc usr/bin/qemu-system-sparc{,64}
+_pick "$1" qemu-system-sparc usr/share/man/man1/qemu-system-sparc{,64}.1*
+
+# NOTE: needs to be replaced by openbios
+_pick "$1" qemu-system-sparc-firmware usr/share/qemu/openbios-sparc{32,64}
+_pick "$1" qemu-system-sparc-firmware usr/share/qemu/QEMU,{cgthree,tcx}.bin
+
+_pick "$1" qemu-system-tricore usr/bin/qemu-system-tricore
+_pick "$1" qemu-system-tricore usr/share/man/man1/qemu-system-tricore.1*
+
+_pick "$1" qemu-system-x86 usr/bin/qemu-system-{i386,x86_64}
+_pick "$1" qemu-system-x86 usr/share/man/man1/qemu-system-{i386,x86_64}.1*
+
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/{kvmvapic,{linuxboot,multiboot}_dma,pvh}.bin
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/qboot.rom
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/edk2-i386*
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/edk2-x86_64*
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/firmware/50-edk2-i386-secure.json
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/firmware/60-edk2-i386.json
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/firmware/50-edk2-x86_64-secure.json
+_pick "$1" qemu-system-x86-firmware usr/share/qemu/firmware/60-edk2-x86_64.json
+
+_pick "$1" qemu-system-xtensa usr/bin/qemu-system-xtensa{,eb}
+_pick "$1" qemu-system-xtensa usr/share/man/man1/qemu-system-xtensa{,eb}.1*
+
+_pick "$1" qemu-tests usr/lib/qemu/accel-qtest.so
+
+_pick "$1" qemu-tools usr/bin/{elf2dmp,qemu-{edid,keymap}}
+_pick "$1" qemu-tools usr/share/qemu/trace-events-all
+
+install -vDm 644 scripts/dump-guest-memory.py -t "$HOKUTO_SPLIT_DIR/qemu-tools/usr/share/qemu/"
+install -vDm 755 scripts/simpletrace.py -t "$HOKUTO_SPLIT_DIR/qemu-tools/usr/share/qemu/"
+install -vDm 644 scripts/tracetool/*.py -t "$HOKUTO_SPLIT_DIR/qemu-tools/usr/share/qemu/tracetool/"
+install -vDm 644 scripts/tracetool/backend/*.py -t "$HOKUTO_SPLIT_DIR/qemu-tools/usr/share/qemu/tracetool/backend/"
+install -vDm 644 scripts/tracetool/format/*.py -t "$HOKUTO_SPLIT_DIR/qemu-tools/usr/share/qemu/tracetool/format/"
+
+_pick "$1" qemu-ui-curses usr/lib/qemu/ui-curses.so
+_pick "$1" qemu-ui-dbus usr/lib/qemu/ui-dbus.so
+_pick "$1" qemu-ui-egl-headless usr/lib/qemu/ui-egl-headless.so
+_pick "$1" qemu-ui-gtk usr/lib/qemu/ui-gtk.so
+_pick "$1" qemu-ui-opengl usr/lib/qemu/ui-opengl.so
+_pick "$1" qemu-ui-sdl usr/lib/qemu/ui-sdl.so
+_pick "$1" qemu-ui-spice-app usr/lib/qemu/ui-spice-app.so
+_pick "$1" qemu-ui-spice-core usr/lib/qemu/ui-spice-core.so
+
+_pick "$1" qemu-user-static usr/bin/qemu-*-static
+_pick "$1" qemu-user-static-binfmt usr/lib/binfmt.d/*-static.conf
+
+_pick "$1" qemu-user usr/bin/qemu-{aarch64{,_be},alpha,arm{,eb},hexagon,hppa,i386,loongarch64,m68k,microblaze{,el},mips{,64,64el,el,n32,n32el},or1k,ppc{,64,64le},riscv{32,64},s390x,sh4{,eb},sparc{,32plus,64},x86_64,xtensa{,eb}}
+_pick "$1" qemu-user-binfmt usr/lib/binfmt.d/*.conf
+
+_pick "$1" qemu-vhost-user-gpu usr/lib/qemu/vhost-user-gpu
+_pick "$1" qemu-vhost-user-gpu usr/share/qemu/vhost-user/50-qemu-gpu.json
+
+if [[ -e usr/bin/qemu-vmsr-helper ]]; then
+  _pick "$1" qemu-vmsr-helper usr/bin/qemu-vmsr-helper
+  install -vDm 644 contrib/systemd/qemu-vmsr-helper.{service,socket} -t "$HOKUTO_SPLIT_DIR/qemu-vmsr-helper/usr/lib/systemd/system/"
+fi
+install -d $HOKUTO_SPLIT_DIR/qemu-base/var/db/hokuto/installed/qemu-base/
+touch $HOKUTO_SPLIT_DIR/qemu-base/var/db/hokuto/installed/qemu-base/.touch
+install -d $HOKUTO_SPLIT_DIR/qemu-desktop/var/db/hokuto/installed/qemu-desktop/
+touch $HOKUTO_SPLIT_DIR/qemu-desktop/var/db/hokuto/installed/qemu-desktop/.touch

@@ -1,0 +1,5 @@
+glib
+glibc
+qemu
+qemu-chardev-spice
+qemu-ui-spice-core

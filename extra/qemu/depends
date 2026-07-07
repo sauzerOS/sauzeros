@@ -1,25 +1,52 @@
-alsa-lib
-bzip2
-curl
 glib
-libepoxy
-libpng
-libslirp
-libtasn1
-liburing
-libusb
-libxkbcommon
-mesa
-meson
-ncurses
-perl make
-pixman
-pkgconf
-python
-make
-sdl2-compat
-spice
-virglrenderer
-zlib-ng
-zstd
+glibc
+hicolor-icon-theme
+libcap-ng
+libgcc
+qemu-base runtime
+alsa-lib make
+bzip2 make
+cairo make
+capstone make
+curl make
+dtc make
+fuse3 make
+gdk-pixbuf make
+glib make
+gnutls make
+gtk+3 make
+keyutils make
+libaio make
+libcap-ng make
+libepoxy make
+libnfs make
+libpipewire make
+libpng make
+libpulse make
+libsasl make
+libseccomp make
+libslirp make
+liburing make
+libusb make
+libx11 make
+libxkbcommon make
+libxml2 make
+lzo make
+mesa make
+meson make
+ncurses make
+pam make
+pcre2 make
+python make
 python-pip make
+python-setuptools make
+sdl2-compat make
+sdl2-image make
+spice make
+spice-protocol make
+systemd make
+usbredir make
+virglrenderer make
+vte3 make
+zlib-ng make
+zstd make 
