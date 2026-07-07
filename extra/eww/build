@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-cargo build --release --no-default-features --features wayland
-
-install -vd "$1/etc/xdg/eww/"
-cp -vr examples/eww-bar "$1/etc/xdg/eww/"
-install -vDm755 target/release/eww -t "$1/usr/bin/"
