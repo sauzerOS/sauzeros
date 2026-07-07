@@ -1,3 +1,9 @@
+boost-libs
+glibc
+libgcc
+libstdc++
+openssl
 boost make
 cmake make
-pkgconf make
+python make
+python-setuptools make 
