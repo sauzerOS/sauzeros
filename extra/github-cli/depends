@@ -1,3 +1,3 @@
+glibc
 mailcap
-go
-git
+go | go-bin make
