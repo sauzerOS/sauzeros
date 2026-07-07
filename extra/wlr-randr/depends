@@ -1,1 +1,4 @@
+glibc
+wayland
 meson make
+scdoc make
