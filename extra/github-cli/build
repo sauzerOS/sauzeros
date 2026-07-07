@@ -6,7 +6,6 @@ rm pkg/cmd/auth/login/login_test.go
 rm pkg/cmd/search/shared/shared_test.go \
    internal/codespaces/rpc/invoker_test.go
 
-
 export CGO_CPPFLAGS="${CPPFLAGS}"
 export CGO_CFLAGS="${CFLAGS}"
 export CGO_CXXFLAGS="${CXXFLAGS}"
