@@ -1,5 +1,8 @@
 enchant
-icu
-gtk+3
 glib
+glibc
+gtk+3
+icu
+gobject-introspection make
 meson make
+vala make
