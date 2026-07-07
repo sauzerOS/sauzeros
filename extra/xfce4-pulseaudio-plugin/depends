@@ -1,5 +1,8 @@
-dbus-glib
+libcanberra
+libkeybinder3
 libnotify
 libpulse
 xfce4-panel
-keybinder
+pwvucontrol suggest "PipeWire volume manager"
+meson make
+xfce4-dev-tools make 
