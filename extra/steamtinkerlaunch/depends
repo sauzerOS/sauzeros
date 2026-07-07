@@ -1,11 +1,16 @@
 bash
-git
+gawk
+jq
+libnotify
 procps-ng
 unzip
 vim
 wget
+xdg-utils
 xdotool
-xprop
-xrandr
 xorg-xwininfo
+xorg-xprop
+xorg-xrandr
 yad
+git make
+
