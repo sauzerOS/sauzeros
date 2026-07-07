@@ -1,6 +1,37 @@
+acl
+bash
+curl
+device-mapper
 fuse3
+glib
+glibc
+gnutls
+json-c
+libcap-ng
+libgcc
+libnl
+libpcap
+libpciaccess
+libsasl
+libssh2
 libtirpc
+libxml2
+parted
+polkit
+readline
+systemd-libs
+util-linux-libs
+dmidecode suggest DMI system info support
+dnsmasq suggest required for default NAT/DHCP for guests
+gettext suggest required for libvirt-guests.service
+iptables suggest required for default NAT networking
+lvm2 suggest Logical Volume Manager support
+qemu-base suggest QEMU/KVM support
+qemu-desktop suggest QEMU/KVM desktop support
+swtpm suggest TPM emulator support
+bash-completion make
+git make
+libxslt make
+meson make
 python-docutils make
-rpcsvc-proto
-yajl
-virtiofsd
+systemd make 
