@@ -1,6 +1,16 @@
 #!/bin/sh -e
 
-make ZT_SSO_SUPPORTED=0
+rm -rf ext/miniupnpc/
+patch -Np1 -i 0001-miniupnpc.patch
+
+sed \
+  -e 's/sbin/bin/' \
+  -e 's/LDFLAGS=/LDFLAGS?=/' \
+  -e 's/RUSTFLAGS=/RUSTFLAGS?=/' \
+  -e 's/cargo build $(RUSTFLAGS)/cargo build --release/' \
+  -i make-linux.mk debian/zerotier-one.service
+
+make V=1 ZT_NONFREE=1
 make DESTDIR="$1" install
 
 install -Dm644 zerotier-one.service "$1/usr/lib/systemd/system/zerotier-one.service"

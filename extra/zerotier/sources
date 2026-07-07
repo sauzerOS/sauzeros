@@ -1,3 +1,4 @@
 https://github.com/zerotier/ZeroTierOne/archive/refs/tags/1.16.2.tar.gz
 files/zerotier-one.service
 files/zerotier-one.sysusers
+files/0001-miniupnpc.patch
