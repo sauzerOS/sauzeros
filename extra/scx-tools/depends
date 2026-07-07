@@ -1,8 +1,8 @@
 glibc
-gcc-libs
+libgcc
 polkit
 scx-scheds
 clang make
 llvm make
 llvm-libs make
-rust make
+rust | rustup make
