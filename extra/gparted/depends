@@ -1,17 +1,19 @@
 atkmm
 bash
-cairomm
-gcc-libs
 glib
 glibc
 glibmm
 gtk+3
 gtkmm3
 hicolor-icon-theme
+libcairomm1
+libgcc
+libsigc++
+libstdc++
 ntfs-3g suggest
 pangomm
 parted
-util-linux
+util-linux-libs
 btrfs-progs suggest
 dosfstools suggest
 f2fs-tools suggest
