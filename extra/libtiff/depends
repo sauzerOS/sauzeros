@@ -1,6 +1,6 @@
-gcc-libs
 glibc
 libjpeg-turbo
+libstdc++
 libwebp
 xz
 zlib-ng
