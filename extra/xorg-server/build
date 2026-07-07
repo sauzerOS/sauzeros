@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-meson setup build           \
-      --prefix=/usr         \
+hokuto-meson build          \
       --localstatedir=/var  \
       -D glamor=true        \
       -D xkb_output_dir=/var/lib/xkb

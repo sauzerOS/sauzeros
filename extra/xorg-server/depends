@@ -1,27 +1,41 @@
-bzip2
-freetype
-libglvnd
-libx11
-libxau
-libxdamage
-libxext
-libxfixes
-libxfont2
-libxxf86vm
+bash
+dbus
+glibc
 libdrm
 libepoxy
-libfontenc
+libglvnd
 libpciaccess
-libxcb
+libtirpc
+libunwind
+libxau
 libxcvt
-libxkbfile
+libxdmcp
+libxfont2
 libxshmfence
-linux-headers make
-mesa
-openssl
+nettle
 pixman
-pkgconf make
-xkeyboard-config
+systemd-libs
+xf86-input-libinput runtime
+libx11 make
+libxaw make
+libxi make
+libxkbfile make
+libxmu make
+libxrender make
+libxres make
+libxtst make
+libxv make
+mesa make
+meson make
+pixman make
+systemd make
+xcb-util make
+xcb-util-image make
+xcb-util-keysyms make
+xcb-util-renderutil make
+xcb-util-wm make
+xorg-font-util make
+xorg-util-macros make
+xkbcomp make
+xorgproto make
 xtrans make
-xinput
-zlib-ng
