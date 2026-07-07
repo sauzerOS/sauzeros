@@ -1,1 +1,1 @@
-https://github.com/stefanberger/libtpms/archive/refs/tags/v${version}.tar.gz
+git+https://github.com/stefanberger/libtpms#${version-last-only}
