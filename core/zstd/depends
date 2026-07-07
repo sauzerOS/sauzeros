@@ -1,8 +1,10 @@
 glibc
-gcc-libs
+libgcc
+libstdc++
 lz4
 xz
 zlib-ng
+cmake make
 lib32-lz4 make
 lib32-xz make
 lib32-zlib-ng make
