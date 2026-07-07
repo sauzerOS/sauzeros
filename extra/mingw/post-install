@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+# fix libs
+for lib in /usr/i686-w64-mingw32/lib/*.a; do
+    i686-w64-mingw32-ranlib "$lib"
+done
+
