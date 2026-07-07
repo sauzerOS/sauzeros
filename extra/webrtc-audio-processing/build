@@ -1,8 +1,14 @@
 #!/bin/sh -e
 
-meson setup build \
-  --prefix=/usr   \
-  -D cpp_std=c++17
+# Fix compilation with gcc 15
+git cherry-pick -n e9c78dc4712fa6362b0c839ad57b6b46dce1ba83
+
+# Fix compilation with abseil-cpp 20250814.0
+patch -Np1 -i 0001-Fix-build-with-abseil-cpp-202508.patch
+
+hokuto-meson build \
+  -D cpp_std=c++17 \
+  -D neon=disabled
 
 meson compile -C build
 meson install -C build --destdir "${1}"
