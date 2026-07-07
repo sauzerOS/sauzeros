@@ -1,9 +1,17 @@
+device-mapper
+e2fsprogs
+glibc
+keyutils
+krb5
+libcap
 libevent
-sqlite
-rpcsvc-proto
+libgcc
 libnl
 libtirpc
-keyutils
+readline
+util-linux-libs
+rpcsvc-proto make
+sqlite make
 aarch64-gcc cross make
 aarch64-libnl cross make
 aarch64-libevent cross make
