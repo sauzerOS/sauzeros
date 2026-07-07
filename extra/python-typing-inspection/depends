@@ -1,5 +1,8 @@
+python
 python-typing-extensions
+python-build make
 python-hatchling make
+python-installer make
 python-setuptools make
 python-setuptools-scm make
 python-wheel make
