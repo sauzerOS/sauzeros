@@ -1,0 +1,9 @@
+python
+python-aiohttp
+python-aiohttp-socks
+python-aiorpcx
+python-cryptography
+python-electrum-ecc
+python-build make
+python-installer make
+python-setuptools make 
