@@ -9,3 +9,6 @@ cd unix
 
 make
 make DESTDIR=$1 INSTALL_ROOT="$1" install install-private-headers install-libraries
+
+# delete duplicate file with perl
+rm -rf $1/usr/share/man/man3/Thread.3
