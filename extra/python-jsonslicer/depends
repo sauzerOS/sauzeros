@@ -1,1 +1,5 @@
+python
 yajl
+python-build make
+python-installer make
+python-setuptools make
