@@ -1,3 +1,8 @@
-libwireplumber-4.0-compat
-pipewire
+glib
+gtk
+libadwaita
+wireplumber
+blueprint-compiler make
+clang make
 meson make
+rust | rustup make
