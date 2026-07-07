@@ -1,5 +1,5 @@
-dejavu-fonts
 brotli
+dejavu-fonts
 libarchive
 libversion
 popt
@@ -7,9 +7,10 @@ postgresql
 postgresql-libversion
 python-blinker
 python-brotli
-python-charset-normalizer
 python-certifi
+python-charset-normalizer
 python-click
+python-expandvars
 python-flask
 python-idna
 python-itsdangerous
@@ -35,4 +36,3 @@ python-zstandard
 rpm
 rsync
 yajl
-python-expandvars
