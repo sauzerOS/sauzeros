@@ -1,1 +1,6 @@
+python-six
+python-build make
+python-installer make
 python-pkg_resources make
+python-setuptools-scm make
+python-wheel make 
