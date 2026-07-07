@@ -1,4 +1,5 @@
 #!/bin/sh -e
+
 ./configure \
     --prefix=/usr \
     --localstatedir=/var \
