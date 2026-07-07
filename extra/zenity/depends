@@ -1,3 +1,10 @@
+glib
+glibc
 gtk
+hicolor-icon-theme
 libadwaita
+libgcc
 pango
+itstool make
+meson make
+util-linux make
