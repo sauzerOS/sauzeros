@@ -3,5 +3,9 @@
 git submodule init
 git submodule update
 
-./configure.sh --prefix=/usr --use-system-urllib --use-system-pyzstd
+./configure.sh --prefix=/usr \
+  --use-system-urllib        \
+  --use-system-pyzstd
+
+make
 make DESTDIR=$1 install
