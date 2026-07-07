@@ -1,10 +1,8 @@
 {
-  "url": "https://sauzeros.github.io",
+  "url": "https://sauzerOS.github.io",
   "category": "base",
-  "description": "sauzerOS base system meta package",
+  "description": "sauzerOS base layout + files",
   "info": "",
   "license": "",
-  "tags": [
-    "meta"
-  ]
+  "tags": []
 }
