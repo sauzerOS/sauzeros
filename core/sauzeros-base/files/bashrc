@@ -7,7 +7,3 @@ if [[ $EUID == 0 ]] ; then
 else
   PS1="$GREEN\u [ $NORMAL\w$GREEN ]\$ $NORMAL"
 fi
-
-if [ -r /usr/share/bash-completion/bash_completion ]; then
-  . /usr/share/bash-completion/bash_completion
-fi
