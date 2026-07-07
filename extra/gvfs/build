@@ -1,22 +1,45 @@
 #!/bin/sh -e
 
-meson setup build          \
-      --prefix=/usr        \
-      --buildtype=release  \
+hokuto-meson build         \
       -D http=false        \
       -D fuse=true         \
       -D gphoto2=false     \
-      -D afc=false         \
+      -D afc=true          \
       -D bluray=false      \
-      -D nfs=false         \
-      -D mtp=false         \
+      -D nfs=true          \
+      -D mtp=true          \
       -D smb=true          \
       -D dnssd=false       \
       -D goa=false         \
-      -D gcr=false         \
+      -D gcr=true          \
       -D keyring=false     \
       -D onedrive=false    \
       -D google=false
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# gvfs-avc
+_pick "$1" gvfs-avc usr/lib/gvfs{-afc-volume-monitor,d-afc} \
+_pick "$1" gvfs-avc usr/lib/systemd/user/gvfs-afc-volume-monitor.service \
+_pick "$1" gvfs-avc usr/share/dbus-1/services/org.gtk.vfs.AfcVolumeMonitor.service \
+_pick "$1" gvfs-avc usr/share/gvfs/mounts/afc.mount \
+_pick "$1" gvfs-avc usr/share/gvfs/remote-volume-monitors/afc.monitor
+
+# gvfs-mtp
+_pick "$1" gvfs-mtp usr/lib/gvfs{-mtp-volume-monitor,d-mtp} \
+_pick "$1" gvfs-mtp usr/lib/systemd/user/gvfs-mtp-volume-monitor.service \
+_pick "$1" gvfs-mtp usr/share/dbus-1/services/org.gtk.vfs.MTPVolumeMonitor.service \
+_pick "$1" gvfs-mtp usr/share/gvfs/mounts/mtp.mount \
+_pick "$1" gvfs-mtp usr/share/gvfs/remote-volume-monitors/mtp.monitor
+
+# gvfs-nfs
+_pick "$1" gvfs-nfs usr/lib/gvfsd-nfs \
+_pick "$1" gvfs-nfs usr/share/gvfs/mounts/nfs.mount
+setcap 'cap_net_bind_service=+ep' $HOKUTO_SPLIT_DIR/gvfs-nfs/usr/lib/gvfsd-nfs
+
+# gvfs-smb
+_pick "$1" gvfs-smb usr/lib/gvfsd-smb{,-browse} \
+_pick "$1" gvfs-smb usr/share/GConf/gsettings/gvfs-smb.convert \
+_pick "$1" gvfs-smb usr/share/glib-2.0/schemas/org.gnome.system.smb.gschema.xml \
+_pick "$1" gvfs-smb usr/share/gvfs/mounts/smb{,-browse}.mount
