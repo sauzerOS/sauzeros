@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+make CXFLAGS="$CFLAGS" BINDIR=/usr/bin UDEVDIR=/usr/lib/udev everything
+make INSTALL=/usr/bin/install BINDIR=/usr/bin DESTDIR="${1}" UDEVDIR=/usr/lib/udev install
+make SYSTEMD_DIR=/usr/lib/systemd/system BINDIR=/usr/bin DESTDIR="${1}" install-systemd
+
+install -D -m644 mdadm.conf "${1}"/etc/mdadm.conf
+install -Dm 644 raid6check.8 "${1}"/usr/share/man/man8/raid6check.8
+install -Dm 755 raid6check "${1}"/usr/bin/raid6check
