@@ -1,2 +1,2 @@
 cmake make
-git make
+python make
