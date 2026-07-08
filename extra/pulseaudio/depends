@@ -36,8 +36,8 @@ gtk+3 make
 meson make
 openssl make
 perl-xml-parser make
+dbus-python make
 python make
-python-dbus make
 lib32-alsa-lib make
 lib32-dbus make
 lib32-glib make

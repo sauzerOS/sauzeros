@@ -4,7 +4,7 @@ libstdc++
 python
 python-pyqt6-sip
 qt
-python-dbus make
+dbus-python make
 pyqt-builder make
 python-sip make 
 qt-connectivity make

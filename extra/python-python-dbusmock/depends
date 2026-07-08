@@ -1,6 +1,6 @@
+dbus-python
 glib
 python
-python-dbus
 python-pygobject
 python-build make
 python-installer make

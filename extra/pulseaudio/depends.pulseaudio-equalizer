@@ -1,5 +1,5 @@
 dbus
+dbus-python
 glibc
 pulseaudio
 python
-python-dbus
