@@ -1,5 +1,5 @@
-git suggest "use git instead of internal fallback"
 blake3 suggest "faster b3sum"
+git suggest "use git instead of internal fallback"
 lzip
 rsync
 tar
