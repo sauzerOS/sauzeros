@@ -9,7 +9,7 @@ libplasma bluedevil
 kwayland xdg-desktop-portal-kde
 libksysguard plasma-workspace powerdevil plasma-desktop
 libvirt python-libvirt-python
-cpp-utilities syncthingtray
+c++utilities syncthingtray
 syncthingtray qtutilities
 vulkan-headers vulkan-loader vulkan-tools
 gpgme gpgmepp
