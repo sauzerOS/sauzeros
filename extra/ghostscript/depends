@@ -4,7 +4,7 @@ fontconfig
 gdk-pixbuf
 glib
 glibc
-little-cms
+lcms2
 libcups
 libidn2
 libjpeg-turbo

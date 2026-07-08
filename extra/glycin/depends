@@ -4,7 +4,7 @@ fontconfig
 glib
 glibc
 libgcc
-little-cms
+lcms2
 libjxl
 libheif
 librsvg

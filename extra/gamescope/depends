@@ -20,7 +20,7 @@ libxrender
 libxres
 libxtst
 libxxf86vm
-little-cms
+lcms2
 luajit
 pixman
 sdl2-compat

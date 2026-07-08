@@ -3,7 +3,7 @@ glslang
 libgcc
 libstdc++
 libunwind
-little-cms
+lcms2
 shaderc
 vulkan-icd-loader
 xxhash

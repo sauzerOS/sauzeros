@@ -1,6 +1,6 @@
 freetype
 glibc
-little-cms
+lcms2
 libjpeg-turbo
 libtiff
 libxcb

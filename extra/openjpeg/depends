@@ -1,5 +1,5 @@
 glibc
-little-cms
+lcms2
 libpng
 libtiff
 cmake make

@@ -24,7 +24,7 @@ libxpresent
 libxrandr
 libxss
 libxv
-little-cms
+lcms2
 luajit
 mesa
 mujs
