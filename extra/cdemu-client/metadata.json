@@ -1,0 +1,13 @@
+{
+  "url": "https://cdemu.sourceforge.io/",
+  "category": "extra",
+  "description": "Simple command-line client for controlling cdemu-daemon",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "disk-tools",
+    "gui",
+    "utility"
+  ]
+}
