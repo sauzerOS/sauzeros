@@ -4,9 +4,9 @@ gmp
 libgcc
 libisl
 mingw
-mingw-binutils
-mingw-headers
-mingw-winpthreads
+mingw-w64-binutils
+mingw-w64-headers
+mingw-w64-winpthreads
 mpc
 mpfr
 python

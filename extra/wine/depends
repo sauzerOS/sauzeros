@@ -49,7 +49,7 @@ libxcomposite make
 libxinerama make
 libxxf86vm make
 mesa make
-mingw-gcc make
+mingw-w64-gcc make
 pcsclite make
 perl make
 samba make
