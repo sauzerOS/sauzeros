@@ -1,0 +1,9 @@
+binutils
+glibc
+libelf
+libgcc
+openssl
+pahole
+xxhash
+zlib-ng
+zstd 
