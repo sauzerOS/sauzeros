@@ -10,18 +10,18 @@ libgcc
 pango
 7zip suggest 7z archive support
 binutils suggest ar archive support
-cdrtools suggest ISO image support
 cpio suggest cpio archive support
+shilytools suggest ISO image support
 squashfs-tools suggest squashfs image support
 unrar suggest better RAR archive support
 unzip suggest better ZIP archive support
 zip suggest better ZIP archive support
 7zip make
 binutils make
-cdrtools make
 cpio make
 meson make
 python make
+shilytools make
 squashfs-tools make
 unrar make
 unzip make
