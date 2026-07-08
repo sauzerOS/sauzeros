@@ -2,7 +2,7 @@
 
 sed 's|/opt/droidcam-icon.png|/usr/share/pixmaps/droidcam.png|' -i src/droidcam.c
 sed -e 's|/usr/local/bin/||' -e 's|/opt/droidcam-icon.png|droidcam|' -i droidcam.desktop
-make JPEG_DIR='/usr/lib' JPEG_INCLUDE='/usr/include' USBMUXD='-lusbmuxd-2.0'
+make USBMUXD='-lusbmuxd-2.0'
 install -Dm755 "droidcam" "droidcam-cli" -t "${1}/usr/bin"
 install -Dm644 icon2.png "${1}/usr/share/pixmaps/droidcam.png"
 install -Dm644 "droidcam.desktop" -t "${1}/usr/share/applications"
