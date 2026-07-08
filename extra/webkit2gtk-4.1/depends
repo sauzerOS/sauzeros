@@ -33,7 +33,7 @@ libwebp
 libx11
 libxml2
 libxslt
-little-cms
+lcms2
 mesa
 openjpeg
 pango

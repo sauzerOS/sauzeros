@@ -9,7 +9,7 @@ glibc
 gspell
 gtk+3
 hicolor-icon-theme
-little-cms
+lcms2
 libarchive
 libgcc
 libheif

@@ -25,7 +25,7 @@ hicolor-icon-theme make
 iso-codes make
 json-glib make
 lame make
-little-cms make
+lcms2 make
 liba52 make
 libaom make
 libass make

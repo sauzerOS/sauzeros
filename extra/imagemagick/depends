@@ -4,7 +4,7 @@ fontconfig
 freetype
 glib
 glibc
-little-cms
+lcms2
 libpng
 libxext
 libxml2

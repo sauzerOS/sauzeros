@@ -3,7 +3,7 @@ dconf
 gcc-libs
 glib
 glibc
-little-cms
+lcms2
 libgudev
 libgusb
 polkit
