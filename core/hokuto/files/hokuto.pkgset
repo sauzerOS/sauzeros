@@ -167,7 +167,5 @@ cosmic-workspaces
 xdg-desktop-portal-cosmic
 
 linux:
-linux-headers
 linux
-cpupower
-
+linux-tools
