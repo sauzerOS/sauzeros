@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # openssl 4 patch
 patch -Np1 -d qtbase -i ../qt-everywhere-src-6.11.1-openssl4_fix-1.patch

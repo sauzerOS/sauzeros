@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cp -R cmake/{cmake,CMakeLists.txt} .
 

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 local cmake_options=(
     -D CMAKE_INSTALL_PREFIX=/usr

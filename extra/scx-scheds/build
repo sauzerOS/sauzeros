@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 export RUSTUP_TOOLCHAIN=stable
 export CARGO_TARGET_DIR=target

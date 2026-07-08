@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 rm -rf src/lib/{liblame,libx264,libffmpeg}
 sed -i 's/lib64/lib/g' configure.ac

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 ar x $3-linux-x64-$2.deb
 tar xvf data.tar.xz -C $1/

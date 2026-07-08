@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 scripts/config.py set MBEDTLS_HAVE_SSE2
 scripts/config.py set MBEDTLS_THREADING_C

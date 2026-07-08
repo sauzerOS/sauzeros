@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -p2 -i crash-fix.patch # https://sourceforge.net/p/ebook-tools/bugs/8/
 

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if hokuto check qt; then
     qt_opt=enabled

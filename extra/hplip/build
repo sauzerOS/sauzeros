@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # add missing 'include <cups/ppd.h>' at various places
 patch -Np1 -i 0022-Add-include-cups-ppd.h-in-various-places-as-CUPS-2.2.patch

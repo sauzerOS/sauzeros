@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 _vers=(4.{2..5})
 
 mkdir -p "${1}/etc/xml"

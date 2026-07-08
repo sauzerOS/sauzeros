@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #fix for gcc15
 sed -i 's/constexpr/unifdef_&/g' unifdef.c

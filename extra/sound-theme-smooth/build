@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -dm755 "${1}/usr/share/sounds/Smooth"
 install -dm755 "${1}/usr/share/sounds/Smooth/stereo"

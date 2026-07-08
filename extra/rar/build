@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -Dm755 rar          "${1}/usr/bin/rar"
 install -Dm755 default.sfx  "${1}/usr/lib/default.sfx"

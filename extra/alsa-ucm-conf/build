@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -vdm 755 "${1}/usr/share/alsa/"
 cp -av ucm2 "${1}/usr/share/alsa/"

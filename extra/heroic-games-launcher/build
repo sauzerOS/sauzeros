@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 mkdir -pv $1/opt/$3
 cp -r * $1/opt/$3/

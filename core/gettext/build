@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 #doesn't build if gettext is not available on host system
 
 #fix bug with libxml2 >2.12

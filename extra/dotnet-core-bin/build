@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 version=$2
 runtimever="${value%%.*sdk*}"
 

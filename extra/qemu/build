@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # install qemu-pr-helper.socket and qemu-vmsr-helper.socket to sockets.target
 sed -e 's/multi-user.target/sockets.target/g' -i contrib/systemd/*.socket

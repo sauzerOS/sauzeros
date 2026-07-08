@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i 0001-Use-importlib-instead-of-pkg_resources-on-recent-pyt.patch
 python -m build --wheel --no-isolation

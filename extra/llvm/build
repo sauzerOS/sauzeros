@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cd llvm
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid

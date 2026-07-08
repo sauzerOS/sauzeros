@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -i "s/TODAY = .*/TODAY = $2/" Makefile
 make

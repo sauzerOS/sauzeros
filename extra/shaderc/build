@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # de-vendor libs and disable git versioning
 sed '/examples/d;/third_party/d' -i CMakeLists.txt

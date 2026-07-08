@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i 01-move-from-lib-to-usr-lib.patch
 patch -Np1 -i 02-correct-iptables-location.patch

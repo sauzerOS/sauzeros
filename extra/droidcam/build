@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed 's|/opt/droidcam-icon.png|/usr/share/pixmaps/droidcam.png|' -i src/droidcam.c
 sed -e 's|/usr/local/bin/||' -e 's|/opt/droidcam-icon.png|droidcam|' -i droidcam.desktop

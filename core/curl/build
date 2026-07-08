@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 CONFIGURE_ARGS=(
     --prefix="$CROSS_PREFIX"

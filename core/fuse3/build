@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 

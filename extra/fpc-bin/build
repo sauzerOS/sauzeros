@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 rpm2archive fpc-$2-1.x86_64.rpm
 tar xvf fpc-$2-1.x86_64.rpm.tgz -C $1/

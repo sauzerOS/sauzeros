@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # remove flit core version check
 sed -i 's/, <4//g' pyproject.toml

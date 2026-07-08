@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # fix gcc 16 bug
 sed -i 's/-Werror/-Werror -Wno-error=array-bounds/' CPP/7zip/7zip_gcc.mak

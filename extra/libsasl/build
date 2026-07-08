@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i cyrus-sasl-2.1.28-gcc15_fixes-1.patch
 autoreconf -fiv

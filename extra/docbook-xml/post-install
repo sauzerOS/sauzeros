@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
  if [ -e /etc/xml/catalog.preserve ]; then
     mv /etc/xml/catalog.preserve /etc/xml/catalog

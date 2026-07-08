@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # install module in vendor directories.
 PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor

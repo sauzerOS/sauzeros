@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 _extractedimages=(windows)
 _isoimages=(linux linuxPreGlibc25 netware solaris winPre2k winPreVista winVistaSP1 winVistaSP2)

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make OPTTARGET=none LIBRARY_REL='lib'
 make OPTTARGET=none LIBRARY_REL='lib' DESTDIR="$1" install

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cargo fetch --locked --target "$(rustc --print host-tuple)"
 mkdir -p completions

@@ -1,3 +1,3 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make DESTDIR=$1 install

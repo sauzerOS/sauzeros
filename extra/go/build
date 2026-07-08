@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [ "$HOKUTO_ARCH" = "aarch64" ]; then
 export GOARCH=arm64

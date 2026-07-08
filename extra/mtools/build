@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # comment entry in default config
 sed -e '/^SAMPLE FILE$/s:^:# :' -i mtools.conf

@@ -169,3 +169,8 @@ xdg-desktop-portal-cosmic
 linux:
 linux
 linux-tools
+
+nvidia:
+nvidia-open
+nvidia-settings
+nvidia-utils

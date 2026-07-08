@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 _pkgname=bindgen
 # Use LTO

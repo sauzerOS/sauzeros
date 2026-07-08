@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # get newest modules dir
 latest=$(ls -1 /lib/modules | sort -V | tail -n 1)

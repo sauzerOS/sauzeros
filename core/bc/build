@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 CC='gcc -std=c99' ./configure --prefix=/usr -G -O3 -r
 

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 git apply 0001-fix-many-deprecation-errors.patch
 python -m build -wn

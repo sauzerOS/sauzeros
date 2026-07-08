@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make -j1 OPT='-gl -gw -Crtoi' LCL_PLATFORM=qt6 bigide
 

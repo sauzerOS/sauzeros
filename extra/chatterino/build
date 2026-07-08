@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 git describe --long --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 git config submodule.cmake/sanitizers-cmake.update "none"

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #gcc 15 fix
 sed '/typedef enum/,/bool ;/d' -i \

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i docbook-xsl-nons-$2-stack_fix-1.patch
 

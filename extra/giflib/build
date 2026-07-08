@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cp pic/gifgrid.gif doc/giflib-logo.gif
 

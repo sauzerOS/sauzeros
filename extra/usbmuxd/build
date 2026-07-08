@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Compatibility with libplist 2.3.0
 patch -Np1 -i libplist-2.3.0.diff

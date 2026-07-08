@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sh cuda_$2_610.43.02_linux.run     \
   --target cuda_$2_linux \

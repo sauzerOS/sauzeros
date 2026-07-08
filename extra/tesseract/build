@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 [ -x configure ] || ./autogen.sh
 [ -f Makefile ] || ./configure --prefix=/usr

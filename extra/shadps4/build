@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 git rm -r externals/MoltenVK
 git rm -r externals/date

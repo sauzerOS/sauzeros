@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cargo fetch --target "$(rustc --print host-tuple)"
 export VERGEN_GIT_BRANCH=main

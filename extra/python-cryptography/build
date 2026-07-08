@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 CC=clang RUSTFLAGS+=" -Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" \
 python -m build --wheel --no-isolation --skip-dependency-check

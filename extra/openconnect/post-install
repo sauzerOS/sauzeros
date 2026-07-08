@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Disable DNSoverTLS for tun network interface if VPN DNS is not working"
 echo "resolvectl dnsovertls tun0 opportunistic"

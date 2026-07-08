@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 zcat libpng-1.6.55-apng.patch.gz | patch -Np1
 

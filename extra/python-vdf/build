@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export AIOHTTP_USE_SYSTEM_DEPS=1
 make cythonize

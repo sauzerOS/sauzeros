@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -Dm0644 --target-directory "$1/usr/share/pixmaps" "img/zerotier-gui.png"
 install -Dm0644 --target-directory "$1/usr/share/applications" "zerotier-gui.desktop"

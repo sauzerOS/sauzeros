@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Disable tests and examples
 echo "all:" > examples/Makefile

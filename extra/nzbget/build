@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i nzbget-use-par2cmdline-turbo-from-sources.patch
 

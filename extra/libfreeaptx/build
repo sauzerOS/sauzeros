@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 _make() {
   make CPPFLAGS="$CPPFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" \

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # gcc 16 fix
 patch -Np1 -i 2900.patch

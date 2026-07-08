@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 touch README
 [ -x configure ] && ./configure --prefix=/usr || ./autogen.sh --prefix=/usr

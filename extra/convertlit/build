@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Fix OOB array access
   sed -e 's|\(dir_program\[MAX_PATH\)\(] = \)|\1-1\2|' -i clit18/clit.c

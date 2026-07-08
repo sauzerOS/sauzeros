@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 patch -Np1 -i electrum-remove-runtime-aiorpcx-version-check.patch
 

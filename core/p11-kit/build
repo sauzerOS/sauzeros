@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed '20,$ d' -i trust/trust-extract-compat
 

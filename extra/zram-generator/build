@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #don't compile man pages
 sed -i.bak -e '26,28d;65,68d' Makefile

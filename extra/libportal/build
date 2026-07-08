@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # qt6: fix build against Qt 6.9+
 git cherry-pick -n 796053d2eebe4532aad6bd3fd80cdf3b197806ec

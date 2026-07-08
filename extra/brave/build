@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 chmod 0755 brave
 install -d "$1/opt/$3"

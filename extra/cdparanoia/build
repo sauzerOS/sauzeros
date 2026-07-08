@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Fix for 'private' becoming a reserved keyword as of GCC 4.3+
 patch -p0 -i cdparanoia-r15388.patch

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Remove usage of /usr/bin/env to avoid PATH manipulation attacks
 sed --in-place 's/env //' samples/swtpm-create-tpmca samples/swtpm-create-user-config-files.in

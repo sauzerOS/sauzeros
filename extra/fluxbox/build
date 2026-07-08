@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -i '/text_prop.value > 0/s/>/!=/' util/fluxbox-remote.cc
 

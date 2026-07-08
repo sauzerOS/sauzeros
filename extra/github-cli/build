@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # TODO: These tests invoke the TTY and our container *really* does not like that
 rm pkg/cmd/auth/login/login_test.go

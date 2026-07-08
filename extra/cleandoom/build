@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 7z e CleanDoom_v1.1.0_Linux.7z
 install -Dm755 CleanDoom.x86_64 $1/usr/bin/cleandoom

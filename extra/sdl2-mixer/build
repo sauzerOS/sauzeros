@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Fix https://bugs.archlinux.org/task/38428
 sed -i "s|/etc/timidity.cfg|/etc/timidity/timidity.cfg|g" src/codecs/music_timidity.c
