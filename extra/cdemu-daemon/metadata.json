@@ -1,0 +1,11 @@
+{
+  "url": "https://cdemu.sourceforge.io/",
+  "category": "extra",
+  "description": "CD/DVD-ROM device emulator daemon",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "daemon",
+    "utility"
+  ]
+}
