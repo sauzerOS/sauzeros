@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 export HAVE_VALGRIND_TRUE='#'
 export HAVE_VALGRIND_FALSE=''

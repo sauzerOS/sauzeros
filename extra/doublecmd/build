@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 mkdir -p lazarus
 find /usr/lib/lazarus -mindepth 1 -maxdepth 1 ! -name ".cache" -exec cp -a {} lazarus/ \;

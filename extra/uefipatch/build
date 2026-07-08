@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # fix build with qt6
 patch -Np1 -i uefitool-0.28.0-qt6-cli.patch

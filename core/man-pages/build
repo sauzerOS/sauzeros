@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 rm -v man3/crypt*
 make -R prefix=/usr DESTDIR=$1 install

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 _pwname=pipewire-0.3
 _spaname=spa-0.2
 

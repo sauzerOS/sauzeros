@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cd $3-$2
 # remove variable (but useless) first line in config (related to upstream VCS)

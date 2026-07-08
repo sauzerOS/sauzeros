@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 echo '#define USE_INTERP_RESULT 1' >> config.h
 ./autogen.sh

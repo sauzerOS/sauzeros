@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Add Xfce pluggable support
 # Manual implementation of the --xfce-integration flag logic which is not compatible with PEP517

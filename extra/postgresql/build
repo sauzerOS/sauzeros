@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # fix a typo in a sgml file:
 sed -e 's/"app-pgchecksums "/"app-pgchecksums"/' \

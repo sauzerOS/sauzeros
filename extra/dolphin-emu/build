@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cd dolphin-emu
 for submodule in Externals/{cpp-ipc/cpp-ipc,cpp-optparse/cpp-optparse,cubeb/cubeb,imgui/imgui,implot/implot,fmt/fmt,mGBA/mgba,minizip-ng/minizip-ng,rcheevos/rcheevos,spirv_cross/SPIRV-Cross,tinygltf/tinygltf,VulkanMemoryAllocator,watcher/watcher,zlib-ng/zlib-ng,SFML/SFML,enet/enet,fmt/fmt,hidapi/hidapi-src,miniupnpc/miniupnp,xxhash/xxHash,libspng/libspng};do

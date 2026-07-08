@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Setup base directories.
 for d in boot dev etc home mnt repo usr var opt run swap; do

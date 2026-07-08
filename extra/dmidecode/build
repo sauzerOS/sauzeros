@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -i "s:sbin:bin:g" Makefile
 make prefix=/usr CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"

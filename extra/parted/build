@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #gcc 15 fix
 sed -i 's/do_version ()/do_version (PedDevice** dev, PedDisk** diskp)/' parted/parted.c

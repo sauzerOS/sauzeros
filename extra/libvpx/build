@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -i 's/cp -p/cp/' build/make/Makefile
 

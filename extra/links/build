@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # glibc fix
 sed '/*strchr/s/cast_const_char //g' -i ftp.c

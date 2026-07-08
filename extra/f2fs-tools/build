@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 _backports=(
   # f2fs-tools: fix build error on lz4-1.9.4

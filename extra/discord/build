@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -Dm755 $3 "$1"/usr/bin/$3
 install -Dm755 updater_bootstrap "$1"/usr/share/$3/updater_bootstrap

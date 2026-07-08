@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cmake -B build                           \
       -D CMAKE_BUILD_TYPE=RelWithDebInfo \

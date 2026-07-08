@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #gcc 15 fix
 sed -e "/^extern int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \

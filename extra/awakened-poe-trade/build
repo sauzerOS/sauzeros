@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 chmod +x Awakened-PoE-Trade-$2.AppImage
 ./Awakened-PoE-Trade-$2.AppImage --appimage-extract

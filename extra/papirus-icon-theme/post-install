@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 gtk-update-icon-cache -f /usr/share/icons/Papirus
 gtk-update-icon-cache -f /usr/share/icons/Papirus-Dark

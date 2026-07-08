@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #gcc 15 fix
 sed -i '/typedef int bool;/d' src/encoder.h

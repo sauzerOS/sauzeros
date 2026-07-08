@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed '/BufferSize < TagSize/,+1 s/goto Error/TagSize = BufferSize/' \
     -i src/cmsio0.c

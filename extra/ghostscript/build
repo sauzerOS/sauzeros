@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 rm -rf freetype lcms2mt jpeg libpng openjpeg zlib
 

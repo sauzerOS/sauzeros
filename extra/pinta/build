@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 for file in *.md *.txt; do
   basename=$(tr '[:lower:]' '[:upper:]' <<< "${file%.*}")

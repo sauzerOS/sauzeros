@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Fix compilation with gcc 15
 git cherry-pick -n e9c78dc4712fa6362b0c839ad57b6b46dce1ba83

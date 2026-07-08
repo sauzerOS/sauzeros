@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 mkdir -pv "$1/usr/lib/systemd/system"
 mkdir -pv "$1/etc/vpnc/"

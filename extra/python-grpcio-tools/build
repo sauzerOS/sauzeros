@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # relax cython version requirement
 sed 's/[Cc]ython==/cython>=/' -i pyproject.toml

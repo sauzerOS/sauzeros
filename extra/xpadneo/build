@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cd hid-xpadneo
 make KERNEL_SOURCE_DIR=/usr/src/linux

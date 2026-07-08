@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Get the installed kernel version
 # User confirms this file exists post-install.

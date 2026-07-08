@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make PREFIX=/usr PARSER_URL=https://github.com/tree-sitter/tree-sitter-bash
 

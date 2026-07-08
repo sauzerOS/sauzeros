@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 mkdir -p $1/usr/bin
 install -Dm755 update-repology $1/usr/bin/update-repology
 rm update-repology

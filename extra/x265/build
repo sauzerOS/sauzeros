@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #32 bit fix
 sed -i 's/FORMAT_ELF/UNIX64 && FORMAT_ELF/' source/common/x86/cpu-a.asm

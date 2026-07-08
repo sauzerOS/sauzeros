@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 mkdir -p kernel/x86/microcode
 cat amd-ucode/microcode_amd*.bin > kernel/x86/microcode/AuthenticAMD.bin

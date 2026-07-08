@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 chmod +x Avalonia-86-for-Linux-x64-$2.AppImage
 ./Avalonia-86-for-Linux-x64-$2.AppImage --appimage-extract

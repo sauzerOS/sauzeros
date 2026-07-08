@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -Dm644 eden.xml "$1/usr/share/mime/packages/eden.xml"
 install -Dm755 Eden-Linux-v$2-amd64-clang-pgo.AppImage "$1/opt/eden/eden.AppImage"

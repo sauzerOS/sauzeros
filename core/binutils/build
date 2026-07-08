@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
 TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"

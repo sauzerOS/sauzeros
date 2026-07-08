@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i 010-fs-uae-launcher-fix-install-path.patch
 patch -Np1 -i 020-fs-uae-launcher-remove-python2.patch

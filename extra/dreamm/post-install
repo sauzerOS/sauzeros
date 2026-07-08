@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 echo "Roland MT Roms are installed in /usr/share/dreamm"
 echo "Import them a soundfont from /usr/share/sounds/sf2 in DREAMM"

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg
 

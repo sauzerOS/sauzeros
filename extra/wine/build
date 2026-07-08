@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Apply flags for cross-compilation
 export CROSSCFLAGS="-O2 -pipe -g"

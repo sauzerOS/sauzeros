@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cargo build --release --no-default-features --features reqwest-rustls-tls --features no-self-update --bin rustup-init
 

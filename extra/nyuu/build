@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [ "$HOKUTO_ARCH" = "aarch64" ]; then
 install -Dm755 aarch64/nyuu "$1/usr/bin/nyuu"

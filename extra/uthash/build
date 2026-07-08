@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # create directory for header files
 install -dm755 "${1}"/usr/include/

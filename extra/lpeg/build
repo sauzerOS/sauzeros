@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make
 install -d $1/usr/lib/lua/5.1/

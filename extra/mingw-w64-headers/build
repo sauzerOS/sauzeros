@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 mkdir build-x86_64-headers
 cd    build-x86_64-headers
 

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 ./build-sdl2
 make DESTDIR=$1 install

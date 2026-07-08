@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Remove deprecated entries.
 sed -i -r 's:"(/system):"/org/gnome\1:g' schemas/*.in

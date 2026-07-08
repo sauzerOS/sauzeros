@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 ./autogen.sh
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then

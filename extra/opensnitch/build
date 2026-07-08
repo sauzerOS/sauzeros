@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # * prefer scaled SVG instead of pixellated 48x48 PNG
 patch -p1 -i "fix-setup.py.patch"

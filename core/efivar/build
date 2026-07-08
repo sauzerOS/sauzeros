@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Disable test program 'thread-test' as it causes build failures when using
 # parallel make (due to missing dependency on libefivar.so). Other workarounds

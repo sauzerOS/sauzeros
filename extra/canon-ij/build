@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Common files
 ar -x packages/cnijfilter-common_4.10-1_amd64.deb data.tar.gz

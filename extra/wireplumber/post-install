@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "enabling pipewire services"
 systemctl enable --global pipewire.socket

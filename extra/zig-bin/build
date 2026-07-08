@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -d $1/{bin,lib}
 install -d $1/lib/zig

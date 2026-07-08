@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i 0003-Adjust-includes-for-build-with-gstreamer-1.28.patch
 

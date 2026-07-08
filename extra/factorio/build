@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -d "${1}/usr/share/factorio"
 install -Dm 755 "bin/x64/factorio" "${1}/usr/bin/factorio"

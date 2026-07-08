@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 meson subprojects download
 for submodule in src/reshade subprojects/{libdisplay-info,libliftoff,openvr,vkroots,wlroots} thirdparty/SPIRV-Headers; do

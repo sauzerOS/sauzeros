@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cat <<EOF
 The flatpak repository can be enabled by running the following command:

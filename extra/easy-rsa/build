@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 install -D -m0755 easyrsa3/easyrsa "${1}"/usr/bin/easyrsa
 

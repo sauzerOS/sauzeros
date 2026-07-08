@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cd  lcl/interfaces/qt6/cbindings
 /usr/lib/qt6/bin/qmake6

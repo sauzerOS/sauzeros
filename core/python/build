@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # openssl 4 compat
 patch -Np1 -i Python-3.14.6-openssl_4-1.patch

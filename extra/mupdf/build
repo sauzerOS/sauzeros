@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 cat > user.make << EOF &&
 USE_SYSTEM_FREETYPE := yes

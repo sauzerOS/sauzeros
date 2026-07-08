@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -p1 -i mesa-demos-system-data.patch
 

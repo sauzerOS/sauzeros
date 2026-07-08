@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 #gcc 15 fix
 sed -i '/output.h/i #include <cstdint>' src/woff2_out.cc

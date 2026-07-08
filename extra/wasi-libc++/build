@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Don't normalize the target triple - causes wrong multiarch dir
 # (also see getMultiarchTriple in clang/lib/Driver/ToolChains/WebAssembly.cpp)

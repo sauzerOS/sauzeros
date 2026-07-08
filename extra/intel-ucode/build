@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 rm -f intel-ucode{,-with-caveats}/list
 mkdir -p kernel/x86/microcode

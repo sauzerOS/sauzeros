@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 export CFLAGS+=' -ffat-lto-objects'
 export CXXFLAGS+=' -ffat-lto-objects'
 
