@@ -7,25 +7,25 @@ headersdir=$HOKUTO_SPLIT_DIR/linux-headers
 
 # apply config
 zcat config.gz > .config
-make oldconfig
+make olddefconfig
 
-while true; do
-    read -p "Save updated kernel config to repo package? [yes/no]: " answer
-    case "${answer,,}" in
-        yes)
-            gzip -c .config > "/repo/sauzeros/core/$pkgname/files/config.gz"
-            echo "Kernel config saved to repo package."
-            break
-            ;;
-        no)
-            echo "Skipping kernel config save."
-            break
-            ;;
-        *)
-            echo "Please type 'yes' or 'no'."
-            ;;
-    esac
-done
+#while true; do
+#    read -p "Save updated kernel config to repo package? [yes/no]: " answer
+#    case "${answer,,}" in
+#        yes)
+#           gzip -c .config > "/repo/sauzeros/core/$pkgname/files/config.gz"
+#            echo "Kernel config saved to repo package."
+#            break
+#            ;;
+#        no)
+#            echo "Skipping kernel config save."
+#            break
+#            ;;
+#        *)
+#            echo "Please type 'yes' or 'no'."
+#            ;;
+#    esac
+#done
 
 make all
 make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
