@@ -11,7 +11,7 @@ pango
 7zip suggest 7z archive support
 binutils suggest ar archive support
 cpio suggest cpio archive support
-shilytools suggest ISO image support
+schilytools suggest ISO image support
 squashfs-tools suggest squashfs image support
 unrar suggest better RAR archive support
 unzip suggest better ZIP archive support
@@ -21,7 +21,7 @@ binutils make
 cpio make
 meson make
 python make
-shilytools make
+schilytools make
 squashfs-tools make
 unrar make
 unzip make
