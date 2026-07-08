@@ -43,8 +43,8 @@ if [ -n "$BASH" ] && \
    [ -n "$PS1" ] && \
    [ -z "$POSIXLY_CORRECT" ] && \
    [ "${0#-}" != sh ] && \
-   [ -r /etc/bashrc ]; then
-    . /etc/bashrc
+   [ -r /etc/bash/bashrc ]; then
+    . /etc/bash/bashrc
 fi
 
 # 6. Environment Variables & Hardware Optimization
