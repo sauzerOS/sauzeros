@@ -228,11 +228,6 @@ libdir=usr/lib32
 _pick "$PWD/DESTDIR" lib32-llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
 _pick "$PWD/DESTDIR" lib32-llvm-libs $libdir/LLVMgold.so
 
-# Symlink LLVMgold.so from /usr/lib/bfd-plugins
-# https://bugs.archlinux.org/task/28479
-install -d "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins"
-ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/lib32-llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
-
 # lib32-clang split package
 rm -rf "$PWD/DESTDIR/usr/lib32/clang/22/lib/x86_64-"*
 _pick "$PWD/DESTDIR" lib32-clang $libdir/libclang*
