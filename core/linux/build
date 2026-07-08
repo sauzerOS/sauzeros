@@ -1,4 +1,9 @@
-#!/bin/sh -e
+#!/bin/bash -e
+
+destdir=$1
+pkgver=$2
+pkgname=$3
+headersdir=$HOKUTO_SPLIT_DIR/linux-headers
 
 # apply config
 zcat config.gz > .config
@@ -6,9 +11,9 @@ make oldconfig
 
 while true; do
     read -p "Save updated kernel config to repo package? [yes/no]: " answer
-    case "${answer,,}" in   # ,, lowercases the input (bashism)
+    case "${answer,,}" in
         yes)
-            gzip -c .config > /repo/sauzeros/core/$3/files/config.gz
+            gzip -c .config > "/repo/sauzeros/core/$pkgname/files/config.gz"
             echo "Kernel config saved to repo package."
             break
             ;;
@@ -21,23 +26,29 @@ while true; do
             ;;
     esac
 done
+
 make all
 make -C tools/bpf/bpftool vmlinux.h feature-clang-bpf-co-re=1
 
-# install kernel
-install -d $1/boot
-cp arch/x86/boot/bzImage $1/boot/vmlinuz-sauzeros
+krel=$(make -s kernelrelease)
+echo "Kernel release: $krel"
+
+# install kernel with versioned boot artifacts so multiple kernels can coexist
+install -d "$destdir/boot"
+install -Dm644 arch/x86/boot/bzImage "$destdir/boot/vmlinuz-$krel"
+install -Dm644 System.map "$destdir/boot/System.map-$krel"
+install -Dm644 .config "$destdir/boot/config-$krel"
 
 # install modules
-ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$1/usr" INSTALL_MOD_STRIP=1 \
+ZSTD_CLEVEL=19 make INSTALL_MOD_PATH="$destdir/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install
 
-# remove build link
-rm $1/usr/lib/modules/$2-sauzerOS/build
+# remove build link from the kernel package; linux-headers owns the build tree
+rm -f "$destdir/usr/lib/modules/$krel/build"
 
-# install headers
-
-builddir=$1/usr/lib/modules/$2-sauzerOS/build
+# install headers into split package
+builddir="$headersdir/usr/lib/modules/$krel/build"
+install -d "$builddir"
 
 install -Dt "$builddir" -m644 .config Makefile Module.symvers System.map \
   vmlinux tools/bpf/bpftool/vmlinux.h
@@ -79,8 +90,7 @@ install -Dt "$builddir/rust" -m644 rust/*.rmeta || true
 install -Dt "$builddir/rust" rust/*.so || true
 
 echo "Installing unstripped VDSO"
-make INSTALL_MOD_PATH="$1/usr" vdso_install \
-link=  # Suppress build-id symlinks
+make INSTALL_MOD_PATH="$headersdir/usr" vdso_install link=
 
 echo "Removing unneeded architectures"
 for arch in "$builddir"/arch/*/; do
@@ -90,7 +100,7 @@ for arch in "$builddir"/arch/*/; do
 done
 
 echo "Removing documentation"
-rm -r "$builddir/Documentation"
+rm -rf "$builddir/Documentation"
 
 echo "Removing broken symlinks"
 find -L "$builddir" -type l -printf 'Removing %P\n' -delete
@@ -99,20 +109,15 @@ echo "Removing loose objects"
 find "$builddir" -type f -name '*.o' -printf 'Removing %P\n' -delete
 
 echo "Stripping build tools"
-  while read -rd '' file; do
+while IFS= read -r -d '' file; do
     case "$(file -Sib "$file")" in
-      application/x-sharedlib\;*)      # Libraries (.so)
-        strip -v $STRIP_SHARED "$file" ;;
-      application/x-archive\;*)        # Libraries (.a)
-        strip -v $STRIP_STATIC "$file" ;;
-      application/x-executable\;*)     # Binaries
-        strip -v $STRIP_BINARIES "$file" ;;
-      application/x-pie-executable\;*) # Relocatable binaries
-        strip -v $STRIP_SHARED "$file" ;;
+      application/x-sharedlib\;*)      strip -v $STRIP_SHARED "$file" ;;
+      application/x-archive\;*)        strip -v $STRIP_STATIC "$file" ;;
+      application/x-executable\;*)     strip -v $STRIP_BINARIES "$file" ;;
+      application/x-pie-executable\;*) strip -v $STRIP_SHARED "$file" ;;
     esac
 done < <(find "$builddir" -type f -perm -u+x ! -name vmlinux -print0)
 
-
-echo "Adding symlink"
-mkdir -p "$1/usr/src"
-  ln -sr "$builddir" "$1/usr/src/linux"
+echo "Adding linux headers symlink"
+mkdir -p "$headersdir/usr/src"
+ln -sr "$builddir" "$headersdir/usr/src/linux"

@@ -1,48 +1,97 @@
 #!/bin/sh
 
-# Get the installed kernel version
-# User confirms this file exists post-install.
-# We awk $1 to handle potential revision or spaces (e.g. "6.18.8 1")
-if [ -f "/var/db/hokuto/installed/linux/version" ]; then
-version=$(head -n1 /var/db/hokuto/installed/linux/version | awk '{print $1}')
-else
-    echo "Error: /var/db/hokuto/installed/linux/version not found."
+set -e
+
+kernel_pkg=linux
+version_file="/var/db/hokuto/installed/$kernel_pkg/version"
+if [ ! -f "$version_file" ]; then
+    echo "Error: $version_file not found."
     exit 1
 fi
 
-if [ -z "$version" ]; then
-    echo "Error: Could not detect version."
+pkgver=$(head -n1 "$version_file" | awk '{print $1}')
+krel=$(find /usr/lib/modules /lib/modules -maxdepth 1 -type d -name "${pkgver}-sauzerOS" 2>/dev/null | sed 's|.*/||' | sort -V | tail -n 1)
+if [ -z "$krel" ]; then
+    echo "Error: could not detect installed sauzerOS kernel release for $pkgver."
     exit 1
 fi
 
-# Define the expected module directory format
-# Per user: pkgver-sauzerOS
-expected_mod_dir="${version}-sauzerOS"
+echo "Detected Kernel Release: $krel"
 
-echo "Detected Kernel Version: $version"
-echo "Target Module Directory: $expected_mod_dir"
+echo "Running depmod -a $krel"
+depmod -a "$krel"
 
-# Cleanup loop
-# We only remove directories that match the sauzerOS pattern but are NOT the current version.
-for dir in /lib/modules/*; do
-    if [ ! -d "$dir" ]; then continue; fi
-    dirname=$(basename "$dir")
-
-    if [ "$dirname" = "$expected_mod_dir" ]; then
-        echo "Keeping current modules: $dirname"
-    elif [[ "$dirname" == *"-sauzerOS" ]]; then
-        echo "Removing old modules: $dirname"
-        rm -rf "$dir"
-    else
-        echo "Skipping unrelated module directory: $dirname"
-    fi
-done
-
-# Run depmod on the new kernel modules
-if [ -d "/lib/modules/$expected_mod_dir" ]; then
-    echo "Running depmod -a $expected_mod_dir"
-    depmod -a "$expected_mod_dir"
-else
-    echo "Warning: Module directory /lib/modules/$expected_mod_dir does not exist!"
-    exit 1
+if command -v dracut >/dev/null 2>&1; then
+    echo "Generating initramfs for $krel"
+    dracut --force "/boot/initramfs-$krel.img" "$krel"
 fi
+
+rootflags="rw"
+if [ -f /etc/kernel/cmdline ]; then
+    rootflags=$(cat /etc/kernel/cmdline)
+elif [ -f /proc/cmdline ]; then
+    rootflags=$(cat /proc/cmdline)
+fi
+
+safe_krel=$(printf '%s' "$krel" | tr -c 'A-Za-z0-9_.-' '-')
+
+if [ -d /boot/loader/entries ]; then
+    echo "Updating systemd-boot entry for $krel"
+    cat > "/boot/loader/entries/sauzeros-$safe_krel.conf" <<EOF
+title   sauzerOS Linux $krel
+linux   /vmlinuz-$krel
+initrd  /initramfs-$krel.img
+options $rootflags
+EOF
+fi
+
+update_marked_block() {
+    file=$1
+    body=$2
+    [ -f "$file" ] || return 0
+    start="# hokuto kernel $krel begin"
+    end="# hokuto kernel $krel end"
+    tmp=$(mktemp)
+    awk -v start="$start" -v end="$end" '
+        $0 == start { skip=1; next }
+        $0 == end { skip=0; next }
+        !skip { print }
+    ' "$file" > "$tmp"
+    {
+        cat "$tmp"
+        printf "\n%s\n%s\n%s\n" "$start" "$body" "$end"
+    } > "$file"
+    rm -f "$tmp"
+}
+
+if [ -f /boot/limine.conf ]; then
+    echo "Updating Limine entry for $krel"
+    update_marked_block /boot/limine.conf "$(cat <<EOF
+:sauzerOS Linux $krel
+    PROTOCOL=linux
+    KERNEL_PATH=boot:///vmlinuz-$krel
+    MODULE_PATH=boot:///initramfs-$krel.img
+    CMDLINE=$rootflags
+EOF
+)"
+fi
+
+if [ -f /boot/EFI/BOOT/limine.conf ]; then
+    echo "Updating Limine entry for $krel"
+    update_marked_block /boot/EFI/BOOT/limine.conf "$(cat <<EOF
+:sauzerOS Linux $krel
+    PROTOCOL=linux
+    KERNEL_PATH=boot:///vmlinuz-$krel
+    MODULE_PATH=boot:///initramfs-$krel.img
+    CMDLINE=$rootflags
+EOF
+)"
+fi
+
+if [ -f /boot/refind_linux.conf ]; then
+    echo "Updating rEFInd entry for $krel"
+    update_marked_block /boot/refind_linux.conf "\"Boot with standard options\" \"$rootflags initrd=/boot/initramfs-$krel.img\""
+fi
+
+mkdir -p /etc/hokuto
+touch /etc/hokuto/kernel-modules
