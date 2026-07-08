@@ -48,3 +48,10 @@ cmake -B build \
 cmake --build build
 install -Dm755 build/shadps4 "$1/usr/bin/shadps4"
 
+# shadps4-pkg-extract
+install -d $HOKUTO_SPLIT_DIR/shadps4-pkg-extractor/usr/bin
+cd extractor
+cmake -S extractor/ -B build/extractor
+cmake --build build/extractor/
+install -Dm755 build/extractor/pkg_extractor $HOKUTO_SPLIT_DIR/shadps4-pkg-extractor/usr/bin/pkg-extractor
+

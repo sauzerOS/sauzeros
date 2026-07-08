@@ -7,5 +7,19 @@
   "tags": [
     "emulator",
     "games"
-  ]
+  ],
+  "subpackages": [
+    "shadps4-pkg-extractor"
+  ],
+  "split_metadata": {
+    "shadps4-pkg-extractor": {
+      "description": "PS4 ISO PKG extaction tool",
+      "tags": [
+        "cli",
+        "emulator",
+        "games",
+        "utility"
+      ]
+    }
+  }
 }
