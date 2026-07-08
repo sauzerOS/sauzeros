@@ -1,1 +1,2 @@
 git+https://github.com/shadps4-emu/shadPS4#${version}
+files/shadps4-pkg-extractor.tar.xz extractor
