@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+cd cdemu-client
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=Release
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+
+cd ../gcdemu
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=Release
+
+cmake --build build
+DESTDIR=$1 cmake --install build
+

@@ -1,0 +1,7 @@
+cdemu-daemon runtime
+glib
+python
+python-pygobject
+bash-completion make
+cmake make
+intltool make

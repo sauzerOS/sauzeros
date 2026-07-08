@@ -4,7 +4,7 @@ cd cdemu-daemon
 
 cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr \
-  -D CMAKE_BUILD_TYPE=Release
+  -D CMAKE_BUILD_TYPE=None
 
 cmake --build build
 DESTDIR=$1 cmake --install build
@@ -20,23 +20,3 @@ END
 
 echo 'g cdemu - -' | install -Dm644 /dev/stdin "$1/usr/lib/sysusers.d/cdemu.conf"
 echo vhba | install -Dm644 /dev/stdin "$1/usr/lib/modules-load.d/cdemu.conf"
-
-
-cd ../cdemu-client
-
-cmake -B build \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D CMAKE_BUILD_TYPE=Release
-
-cmake --build build
-DESTDIR=$1 cmake --install build
-
-cd ../gcdemu
-
-cmake -B build \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D CMAKE_BUILD_TYPE=Release
-
-cmake --build build
-DESTDIR=$1 cmake --install build
-
