@@ -1,0 +1,4 @@
+glibc
+zlib-ng
+zstd
+mingw-w64-headers make
