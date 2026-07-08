@@ -5,6 +5,7 @@ cairo
 dbus
 dbus-glib
 ffmpeg
+fonts-croscore
 fontconfig
 freetype
 gdk-pixbuf

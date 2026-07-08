@@ -3,8 +3,8 @@ curl
 dbus
 desktop-file-utils
 diffutils
+fonts-croscore
 freetype
-gcc-libs
 gdk-pixbuf
 glibc
 hicolor-icon-theme

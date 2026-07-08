@@ -1,5 +1,4 @@
 dbus
-gcc-libs
 openssl
 smbclient
 zlib-ng

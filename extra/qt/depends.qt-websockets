@@ -1,4 +1,3 @@
-gcc-libs
 glibc
 qt
 qt-declarative suggest "QML bindings"
