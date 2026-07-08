@@ -1,6 +1,7 @@
 curl
-gcc-libs
 leptonica
 libarchive
+libgcc
+libstdc++
 icu make
 pango make

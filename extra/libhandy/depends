@@ -1,7 +1,6 @@
 at-spi2-core
 cairo
 fribidi
-gcc-libs
 gdk-pixbuf
 glib
 glibc

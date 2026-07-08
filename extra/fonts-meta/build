@@ -7,9 +7,9 @@ install -d $destdir/usr/share/fonts/TTF/
 install -Dm644 *.ttf -t "$destdir"/usr/share/fonts/TTF/
 popd
 
-# fonts-crosscore
+# fonts-croscore
 pushd noto-fonts
-destdir=$HOKUTO_SPLIT_DIR/fonts-crosscore
+destdir=$HOKUTO_SPLIT_DIR/fonts-croscore
 install -d $destdir/usr/share/fonts/TTF/
 install -Dm644 Arimo* -t "$destdir"/usr/share/fonts/TTF/
 install -Dm644 Cousine* -t "$destdir"/usr/share/fonts/TTF/

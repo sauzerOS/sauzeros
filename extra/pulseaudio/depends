@@ -1,7 +1,6 @@
 alsa-lib
 bash
 dbus
-gcc-libs
 glib
 glibc
 libcap

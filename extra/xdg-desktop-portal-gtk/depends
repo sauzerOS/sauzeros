@@ -1,5 +1,4 @@
 fontconfig
-gcc-libs
 gdk-pixbuf
 glib
 glibc

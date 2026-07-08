@@ -1,15 +1,16 @@
 fluidsynth
 freetype
-gcc-libs
 glib
 glibc
 hicolor-icon-theme
 libevdev
+libgcc
 libglvnd
 libpcap
 libpng
 libslirp
 libsndfile
+libstdc++
 libx11
 libxcb
 libxkbcommon

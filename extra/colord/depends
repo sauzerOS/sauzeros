@@ -1,6 +1,5 @@
 dbus
 dconf
-gcc-libs
 glib
 glibc
 lcms2

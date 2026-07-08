@@ -4,6 +4,7 @@ curl
 dbus
 desktop-file-utils
 diffutils
+fonts-croscore
 freetype
 gdk-pixbuf
 glibc

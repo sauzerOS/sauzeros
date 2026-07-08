@@ -1,6 +1,5 @@
 #!/bin/bash -e
 
 hokuto-meson build
-
 meson compile -C build
 meson install -C build --destdir=$1

@@ -1,5 +1,4 @@
 bash
-gcc-libs
 glib
 glibc
 hicolor-icon-theme
