@@ -13,13 +13,13 @@ systemd
 systemd-libs
 gamemode suggest GameMode portal
 rtkit suggest Realtime portal
+dbus-python make
 flatpak make
 gamemode make
 git make
 gst-plugins-good make
 libportal make
 meson make
-python-dbus make
 python-python-dbusmock make
 python-docutils make
 python-pygobject make

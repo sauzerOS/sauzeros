@@ -2,7 +2,7 @@ python-certifi
 python-click
 python-markdown
 python-pyyaml
-python-dbus suggest for Linux DBus Notifications
+dbus-python suggest for Linux DBus Notifications
 python-pygobject suggest for Linux DBus Notifications
 python-babel make
 python-build make
