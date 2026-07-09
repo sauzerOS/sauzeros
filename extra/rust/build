@@ -4,15 +4,6 @@ set -e
 # Assuming $2 is version and $1 is DESTDIR
 cd "rustc-$2-src"
 
-# openssl 4 fix
-tar xf ../rust-openssl-0.10.78.tar.gz
-
-cat >> src/tools/cargo/Cargo.toml << EOF
-[patch.crates-io]
-openssl = { path = "../../../rust-openssl-0.10.78/openssl" }
-openssl-sys = { path = "../../../rust-openssl-0.10.78/openssl-sys" }
-EOF
-
 sed -ri src/tools/cargo/Cargo.lock \
     -e '/name = "openssl-sys"/,/^$/{/source|checksum/d;s/0.9.112/0.9.114/}' \
     -e '/name = "openssl"/,/^$/{/source|checksum/d;s/0.10.76/0.10.78/}'     \
@@ -99,9 +90,9 @@ unset CFLAGS CXXFLAGS LDFLAGS
 echo "==> Starting x.py build"
 
 # Pre-populate bootstrap cache to prevent redownload
-# Extract date from src/stage0.json to ensure correct cache directory
+# Extract date from src/stage0 to ensure correct cache directory
 # JSON format: "date": "YYYY-MM-DD"
-STAGE0_DATE=$(grep -oP '"date": "\K[0-9]{4}-[0-9]{2}-[0-9]{2}' src/stage0.json || echo "2026-04-16")
+STAGE0_DATE=$(grep -oP '"date": "\K[0-9]{4}-[0-9]{2}-[0-9]{2}' src/stage0 || echo "2026-04-16")
 
 echo "==> Stage0 date detected: $STAGE0_DATE"
 CACHE_DIR="build/cache/$STAGE0_DATE"
