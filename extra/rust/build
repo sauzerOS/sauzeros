@@ -86,8 +86,12 @@ echo "==> Starting x.py build"
 
 # Pre-populate bootstrap cache to prevent redownload
 # Extract date from src/stage0 to ensure the cache directory matches Rust bootstrap metadata.
-# JSON format: "date": "YYYY-MM-DD"
-STAGE0_DATE=$(sed -n 's/.*"date": *"\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)".*/\1/p' src/stage0 | head -n1)
+# Current format: compiler_date=YYYY-MM-DD
+# Older format: "date": "YYYY-MM-DD"
+STAGE0_DATE=$(sed -n 's/^compiler_date=\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)$/\1/p' src/stage0 | head -n1)
+if [ -z "$STAGE0_DATE" ]; then
+    STAGE0_DATE=$(sed -n 's/.*"date": *"\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)".*/\1/p' src/stage0 | head -n1)
+fi
 if [ -z "$STAGE0_DATE" ]; then
     echo "error: could not determine stage0 date from src/stage0" >&2
     exit 1
