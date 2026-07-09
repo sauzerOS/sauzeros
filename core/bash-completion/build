@@ -2,17 +2,9 @@
 
 ./configure --prefix=/usr \
   --sysconfdir=/etc
+
 make
 make DESTDIR=$1 install
 
 # bash-completion is sourced in /etc/bash.bashrc so that non-bash shell don't source it
 rm "${1}/etc/profile.d/bash_completion.sh"
-
-# remove Slackware's makepkg completion
-rm "${1}/usr/share/bash-completion/completions/makepkg"
-
-# checksec 3.1.0-2 ships its own
-rm "${1}/usr/share/bash-completion/completions/checksec"
-
-# patchutils 0.4.4-1 ships its own
-rm "${1}/usr/share/bash-completion/completions/interdiff"
