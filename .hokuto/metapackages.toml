@@ -6,6 +6,7 @@ depends = [
 "file",
 "findutils",
 "glibc",
+"gzip",
 "hokuto",
 "iproute2",
 "libgcc",
