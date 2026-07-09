@@ -1,8 +1,7 @@
-40a30e8f0865efabc0396083ffa0574e52fbddcd3c8df2b5f45665ed86e77f4a  rustc-1.96.1-src.tar.xz
-bcbe45dc74ff3f5d50881a9f1476f9362d385ed179e4ff7db3a0ec5b4d340624  rust-std-1.95.0-x86_64-unknown-linux-gnu.tar.xz
-ef32bbf1510229c5d071dba28c2eeadce1b87b39f231ff564a38fdc60eb44b70  rustc-1.95.0-x86_64-unknown-linux-gnu.tar.xz
-24169b4b6d63f482e0289870b8d7dcbde65a5b2242d43e5fed70bd1c3199bf17  cargo-1.95.0-x86_64-unknown-linux-gnu.tar.xz
-8ea99af167badaf31e26cbdd2c8d8cdb4165abf5d13875f12a2c94e6597f409c  rust-openssl-0.10.78.tar.gz
+769e8582f095f19ca6829201169258267927f55d15a3b7e40aedbd0211ce2a86  rustc-1.97.0-src.tar.xz
+4371393c71ba2ef108bad8e426abc8f900f8c23261c268519cb5de2b6dcf0741  rust-std-1.96.0-x86_64-unknown-linux-gnu.tar.xz
+a386d0f75a16c09278cd72622f3161c15b455d9a1e3a2b3278818d2e3b11bb1e  rustc-1.96.0-x86_64-unknown-linux-gnu.tar.xz
+cdd34b47c82d12fa227668a528302f909e0db6f95550a9b11b9f5a399e710caa  cargo-1.96.0-x86_64-unknown-linux-gnu.tar.xz
 1ba4b5dba9a4b74fa4a3b11d95ad123793198fc61d1291890b7996d5088e3a5c  bootstrap-amd64-multi.toml
 83877a0321f0b6cbe841cd2c41ab5f8639b34daa67b8930f083f3dcf27e61840  bootstrap-amd64.toml
 31cac9150312cee14e7cc47eb4ae5fbf498a8c688c525df03802e25423a93046  bootstrap-arm64.toml
