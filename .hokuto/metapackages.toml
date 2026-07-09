@@ -22,3 +22,27 @@ depends = [
 "systemd-libs",
 "util-linux-libs",
 ]
+[base-devel]
+description = "base devel packages"
+depends = [
+"autoconf",
+"automake",
+"binutils",
+"bison",
+"file",
+"findutils",
+"flex",
+"gawk",
+"gcc",
+"gettext",
+"grep",
+"gzip",
+"libtool",
+"m4",
+"make",
+"patch",
+"pkgconf",
+"sed",
+"texinfo",
+"which",
+]
