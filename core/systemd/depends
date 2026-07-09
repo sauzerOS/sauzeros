@@ -18,7 +18,7 @@ polkit suggest "Allow administration as unprivileged user"
 pcre2
 systemd-libs runtime
 systemd-ukify suggest "Unified Kernel tool"
-util-linux optional
+util-linux
 xz
 bash-completion make
 btrfs-progs make optional
