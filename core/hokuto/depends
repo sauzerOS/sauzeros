@@ -1,7 +1,7 @@
-blake3 suggest "faster b3sum"
-git suggest "use git instead of internal fallback"
+blake3 suggest "external b3sum"
+git suggest "external git"
 lzip
-rsync
-tar
-wget
+rsync 
+tar 
+wget 
 zstd
