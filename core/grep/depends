@@ -1,3 +1,4 @@
 glibc
 pcre2
 gperf make
+perl make
