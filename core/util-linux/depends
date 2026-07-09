@@ -14,7 +14,7 @@ bash-completion make
 meson make
 python make
 sqlite make
-systemd make optional
+systemd make
 tar make
 lib32-libxcrypt make
 lib32-ncurses make
