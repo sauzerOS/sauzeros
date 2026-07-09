@@ -208,15 +208,17 @@ _pick "$1" lto-dump usr/bin/lto-dump
 # lib32-gcc-libs split package
 if [ "$MULTILIB" = "1" ]; then
 libs=(
-    libasan.so*
-    libatomic.so*
-    libgcc_s_asneeded.so*
-    libgcc_s.so*
-    libgomp.so*
-    libitm.so*
-    libquadmath.so*
-    libstdc++.so*
-    libubsan.so*
+    libasan*
+    libatomic*
+    libgcc*
+    libgomp*
+    libitm*
+    libquadmath*
+    libsanitizer*
+    libssp*
+    libstdc++*
+    libsupc*
+    libubsan*
 )
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-gcc-libs/usr/lib32"
 mkdir -p "$dest_dir"
