@@ -14,6 +14,7 @@ lib32-libx11
 lib32-libxcb
 lib32-libxext
 lib32-libxv
+lib32-mesa
 lib32-openssl
 lib32-opus
 lib32-x264
