@@ -6,4 +6,4 @@ libblockdev
 libgcc
 nss
 util-linux-libs
-volume_key 
+volume-key 
