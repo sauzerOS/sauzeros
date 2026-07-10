@@ -4,7 +4,6 @@ llvm-libs
 spirv-tools
 cmake make
 llvm make
-spirv-headers make
 lib32-llvm-libs make
 lib32-llvm make
 lib32-spirv-tools make
