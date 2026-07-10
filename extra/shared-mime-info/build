@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
-hokuto-meson build \
-    -D update-mimedb=false
+hokuto-meson build         \
+    -D update-mimedb=false \
+    -D build-tests=false
 
 meson compile -C build
 meson install -C build --destdir=$1
