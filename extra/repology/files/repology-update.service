@@ -1,0 +1,15 @@
+[Unit]
+Description=Update Repology Data
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=dbz
+# Change to the directory where your updater lives
+WorkingDirectory=/opt/repology/updater/
+# Path to your shell script or the direct command
+ExecStart=/bin/sh -c "./repology-update.py -f -p -d"
+
+[Install]
+WantedBy=multi-user.target

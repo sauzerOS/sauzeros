@@ -1,0 +1,27 @@
+[Unit]
+Description=Repology Web Application Server
+# Ensure the network is up before starting
+After=network.target
+
+[Service]
+# Recommended: Run as your 'dbz' user instead of root for security
+User=caddy
+Group=caddy
+
+# Absolute path to the executable and your specific port argument
+ExecStart=/bin/repology-webapp -l localhost:5002
+
+# Restart logic: if it crashes, wait 5 seconds and try again
+Restart=always
+RestartSec=5
+
+# Environment variables can be added here if needed (e.g., for database connection)
+# Environment=DATABASE_URL=postgres://...
+
+# Security hardening (optional but recommended on RPi4)
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+# This tells systemd to start the app when the system boots normally
+WantedBy=multi-user.target

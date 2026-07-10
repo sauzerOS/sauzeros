@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Repology Update every 2 hours
+
+[Timer]
+# First run: 10 minutes after the RPi4 boots up
+OnBootSec=10min
+# Subsequent runs: Every 8 hours after the service last finished
+OnUnitInactiveSec=2h
+# Ensure it runs if the RPi4 was powered off during a scheduled slot
+Persistent=true
+
+[Install]
+WantedBy=timers.target

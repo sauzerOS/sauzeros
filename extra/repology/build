@@ -13,3 +13,9 @@ sed -i "s/\['tar', '-x', '-z', '-f', tarpath, '-C', statedir.get_path()\]/['bsdt
 cp -r * $1/opt/repology/updater/
 chown -R root:wheel $1/opt/repology
 chmod -R g+rw $1/opt/repology
+
+install -Dm644 \
+    repology-update.service \
+    repology-update.timer   \
+    repology-webapp.service \
+    -t "$1/etc/systemd/system/"

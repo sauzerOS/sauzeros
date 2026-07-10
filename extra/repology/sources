@@ -1,5 +1,8 @@
 git+https://github.com/repology/repology-updater#3966c7d
 git+https://github.com/repology/repology-rules rules.d
+files/repology-update.service
+files/repology-update.timer
+files/repology-webapp.service
 files/repos.tar.xz repos
-files/update-repology
 files/sauzeros.py repology/parsers/parsers/
+files/update-repology
