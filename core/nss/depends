@@ -1,6 +1,7 @@
 glibc
 nspr
 sqlite
+zlib-ng
 mercurial make
 perl make
 python make
