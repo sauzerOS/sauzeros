@@ -5,7 +5,6 @@ cmake -B build                                       \
       -D CMAKE_BUILD_TYPE=Release                    \
       -D BUILD_SHARED_LIBS=ON                        \
       -D CMAKE_SKIP_INSTALL_RPATH=ON                 \
-      -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr \
       -G Ninja
 
 cmake --build build
@@ -22,7 +21,6 @@ cmake -B build                                       \
       -D CMAKE_BUILD_TYPE=Release                    \
       -D CMAKE_SKIP_INSTALL_RPATH=ON                 \
       -D BUILD_SHARED_LIBS=ON                        \
-      -D LLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr \
       -G Ninja
 
 cmake --build build
