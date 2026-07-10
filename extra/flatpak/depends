@@ -26,6 +26,7 @@ xdg-dbus-proxy
 xdg-desktop-portal runtime
 xdg-utils
 zstd
+docbook-xsl make
 gobject-introspection make
 meson make
 python-packaging make
