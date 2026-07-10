@@ -1,7 +1,7 @@
 glibc
 libjpeg-turbo
 libstdc++
-libwebp
+libwebp optional
 xz
 zlib-ng
 zstd

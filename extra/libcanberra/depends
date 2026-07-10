@@ -1,5 +1,5 @@
 alsa-lib
-libpulse
+libpulse runtime
 libvorbis
 sound-theme-freedesktop
 gtk+3 make
