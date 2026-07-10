@@ -1,0 +1,6 @@
+nss
+lib32-glibc
+lib32-nspr
+lib32-p11-kit
+lib32-sqlite
+lib32-zlib-ng 
