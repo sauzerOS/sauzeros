@@ -39,7 +39,7 @@ pango
 shared-mime-info
 vulkan-icd-loader
 wayland
-xdg-desktop-portal-gtk
+xdg-desktop-portal-gtk suggest native file picker and portal integration
 evince suggest Default print preview command
 gobject-introspection make
 hicolor-icon-theme make
