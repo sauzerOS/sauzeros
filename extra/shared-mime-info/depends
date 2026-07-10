@@ -3,6 +3,7 @@ glibc
 libgcc
 libstdc++
 libxml2
+docbook-xsl make
 git make
 meson make
 xmlto make
