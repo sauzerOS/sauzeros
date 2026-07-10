@@ -25,9 +25,10 @@ pulseaudio-lirc suggest
 pulseaudio-rtp suggest
 pulseaudio-zeroconf suggest
 attr make
-bluez make
 bluez-libs make
+bluez make
 check make
+dbus-python make
 gst-plugins-base make optional
 gst-plugins-good make optional
 gstreamer make optional
@@ -35,8 +36,8 @@ gtk+3 make
 meson make
 openssl make
 perl-xml-parser make
-dbus-python make
 python make
+sbc make
 lib32-alsa-lib make
 lib32-dbus make
 lib32-glib make
