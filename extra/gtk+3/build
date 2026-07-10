@@ -12,7 +12,6 @@ cp settings.ini $1/etc/gtk-3.0/
 
 # Built by GTK 4, shared with GTK 3
 rm $1/usr/bin/gtk-update-icon-cache
-rm $1/usr/share/man/man1/gtk-update-icon-cache.1
 
 # gtk+3-demos
 _pick "$1" gtk+3-demos usr/bin/gtk3-{demo,demo-application,icon-browser,widget-factory}
