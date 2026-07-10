@@ -1,5 +1,13 @@
 #!/bin/bash -e
 
+# Update symlinks to use compressed man pages
+sed -i '/DESTDIR/ s/\.1/.1.gz/g' src/Makefile.am
+
+# Update symlinks to use compressed man pages
+sed -i '/DESTDIR/ s/\.1/.1.gz/g' src/Makefile.am
+
+autoreconf -fiv
+
 ./configure \
   --prefix=/usr \
   --sysconfdir=/etc \
