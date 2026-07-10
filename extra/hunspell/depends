@@ -1,0 +1,6 @@
+bash
+glibc
+libgcc
+libstdc++
+ncurses
+readline
