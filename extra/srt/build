@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-local cmake_options=(
+cmake_options=(
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
     -D ENABLE_STATIC=OFF
