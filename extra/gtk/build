@@ -18,7 +18,5 @@ _pick "$1" gtk-demos usr/share/metainfo/org.gtk.{Demo4,PrintEditor4,WidgetFactor
 
 # gtk-update-icon-cache
 _pick "$1" gtk-update-icon-cache usr/bin/gtk4-update-icon-cache
-_pick "$1" gtk-update-icon-cache usr/share/man/man1/gtk4-update-icon-cache.1
 pkgdir=$HOKUTO_SPLIT_DIR/gtk-update-icon-cache
 ln -sr "$pkgdir"/usr/bin/gtk{4,}-update-icon-cache
-ln -sr "$pkgdir"/usr/share/man/man1/gtk{4,}-update-icon-cache.1
