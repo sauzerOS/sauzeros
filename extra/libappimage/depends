@@ -1,0 +1,16 @@
+boost-libs
+cairo
+glib
+glibc
+libarchive
+libgcc
+librsvg
+libstdc++
+squashfuse
+boost make
+cmake make
+desktop-file-utils make
+git make
+vim make
+wget make
+xdg-utils-cxx make
