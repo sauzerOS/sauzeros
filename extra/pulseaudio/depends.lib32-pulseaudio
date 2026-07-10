@@ -1,8 +1,0 @@
-pulseaudio
-lib32-dbus
-lib32-gcc-libs
-lib32-glib
-lib32-glibc
-lib32-libsndfile
-lib32-libxcb
-lib32-systemd
