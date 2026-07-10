@@ -4,9 +4,9 @@ lib32-dbus
 lib32-gcc-libs
 lib32-glib
 lib32-glibc
-lib32-pipewire
-lib32-pulseaudio
+lib32-libpulse
 lib32-libsndfile
+lib32-pipewire
 lib32-readline
 lib32-sdl3
 lib32-systemd
