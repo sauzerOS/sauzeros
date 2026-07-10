@@ -1,0 +1,5 @@
+glibc
+libx11
+libxaw
+libxt
+xorg-util-macros make
