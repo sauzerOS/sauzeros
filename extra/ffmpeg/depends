@@ -60,6 +60,7 @@ lib32-libx11 make
 lib32-libxcb make
 lib32-libxext make
 lib32-libxv make
+lib32-mesa make
 lib32-openssl make
 lib32-opus make
 lib32-x264 make
