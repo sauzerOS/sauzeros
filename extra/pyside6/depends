@@ -35,6 +35,8 @@ git make
 llvm make
 ninja make
 #python-numpy make
+python-build make
+python-installer make
 python-setuptools make
 #qt-3d make
 qt-canvaspainter make
