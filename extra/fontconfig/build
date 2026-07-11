@@ -1,21 +1,14 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr   \
-  --buildtype=release
-
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-meson setup build               \
-            --prefix=/usr       \
-            --libdir=/usr/lib32 \
-            --cross-file=lib32  \
-            --buildtype=release \
 
+hokuto-meson-32 build
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
