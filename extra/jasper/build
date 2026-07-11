@@ -7,6 +7,7 @@ cmake -B build                                 \
   -D JAS_ENABLE_LIBJPEG=ON                     \
   -D JAS_ENABLE_AUTOMATIC_DEPENDENCIES=OFF     \
   -D CMAKE_SKIP_RPATH=ON                       \
+  -D ALLOW_IN_SOURCE_BUILD=ON                  \
   -D JAS_ENABLE_SHARED=ON
 
 cmake --build build
