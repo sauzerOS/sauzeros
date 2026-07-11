@@ -698,7 +698,16 @@ _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlWorkerScript/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlWorkerScriptPrivate/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlXmlListModel/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QmlXmlListModelPrivate/
-_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickAdditionalTargetInfo.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickConfigVersion.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickConfigVersionImpl.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickDependencies.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickPlugins.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickTargets-relwithdebinfo.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickTargetsPrecheck.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickVersionlessAliasTargets.cmake
+_pick "$1" qt-declarative usr/lib/cmake/Qt6Quick/Qt6QuickVersionlessTargets.cmake
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2Basic/
 _pick "$1" qt-declarative usr/lib/cmake/Qt6QuickControls2BasicPrivate/
