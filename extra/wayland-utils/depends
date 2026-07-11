@@ -1,0 +1,5 @@
+glibc
+libdrm
+wayland
+meson make
+wayland-protocols make
