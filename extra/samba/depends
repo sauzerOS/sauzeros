@@ -3,7 +3,7 @@ gpgme
 libcap
 libcups
 liburing
-libwblcient runtime
+libwbclient runtime
 popt
 python
 smbclient runtime
