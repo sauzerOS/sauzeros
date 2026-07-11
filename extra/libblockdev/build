@@ -5,7 +5,7 @@
             --without-gtk-doc \
             --without-nvdimm
 
-sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtoolsed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtools
 make
 make DESTDIR=$1 install
 
