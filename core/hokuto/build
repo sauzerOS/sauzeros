@@ -11,6 +11,8 @@ install -Dm644 hokuto.fish $1/usr/share/fish/vendor_completions.d/hokuto.fish
 ln -s hokuto.fish $1/usr/share/fish/vendor_completions.d/hk.fish
 install -Dm644 hokuto.bash $1/usr/share/bash-completion/completions/hokuto
 ln -s hokuto $1/usr/share/bash-completion/completions/hk
+install -Dm644 hokuto.zsh $1/usr/share/zsh/site-functions/_hokuto
+ln -s _hokuto $1/usr/share/zsh/site-functions/_hk
 install -d $1/etc/hokuto
 install -Dm644 hokuto.pkgset $1/etc/hokuto/hokuto.pkgset
 install -Dm644 hokuto.update $1/etc/hokuto/hokuto.update

@@ -151,9 +151,9 @@ _hokuto_complete()
         update|u)
             COMPREPLY=($(compgen -W "-i --idle -ii --superidle -v --verbose -j --parallel --remote -y --yes" -- "$cur"))
             ;;
-        list|ls)
-            case "$cur" in
-                -*) COMPREPLY=($(compgen -W "--remote" -- "$cur")) ;;
+		list|ls)
+			case "$cur" in
+				-*) COMPREPLY=($(compgen -W "--remote --check-integrity" -- "$cur")) ;;
                 *) _hokuto_complete_installed ;;
             esac
             ;;
@@ -193,8 +193,8 @@ _hokuto_complete()
         unmanaged)
             COMPREPLY=($(compgen -W "--checksums --backup --restore --add" -- "$cur"))
             ;;
-        cleanup)
-            COMPREPLY=($(compgen -W "--sources --bins --orphans --all" -- "$cur"))
+		cleanup)
+			COMPREPLY=($(compgen -W "--sources --bins --orphans --tmp --all" -- "$cur"))
             ;;
         upload)
             COMPREPLY=($(compgen -W "--cleanup --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur"))
