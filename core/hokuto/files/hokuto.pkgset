@@ -4,6 +4,7 @@ baloo
 bluez-qt
 breeze-icons
 frameworkintegration
+kapidox
 karchive
 kauth
 kbookmarks
@@ -63,7 +64,6 @@ modemmanager-qt
 networkmanager-qt
 prison
 purpose
-kapidox
 qqc2-desktop-style
 solid
 sonnet
