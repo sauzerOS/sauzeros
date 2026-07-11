@@ -32,8 +32,15 @@ install -Dm 644 no-cache.conf "$1/etc/NetworkManager/dnsmasq.d/no-cache.conf"
  _pick "$1" libnm usr/share/vala/vapi/libnm.*
 
 # nm-cloud-setup
- _pick "$1" nm-cloud-setup usr/lib/**/*nm-cloud-setup*
- _pick "$1" nm-cloudsetup usr/share/man/*/nm-cloud-setup*
+_pick "$1" nm-cloud-setup usr/lib/NetworkManager/dispatcher.d/90-nm-cloud-setup.sh
+_pick "$1" nm-cloud-setup usr/lib/NetworkManager/dispatcher.d/no-wait.d/
+_pick "$1" nm-cloud-setup usr/lib/NetworkManager/dispatcher.d/no-wait.d/90-nm-cloud-setup.sh
+_pick "$1" nm-cloud-setup usr/lib/NetworkManager/dispatcher.d/pre-up.d/
+_pick "$1" nm-cloud-setup usr/lib/NetworkManager/dispatcher.d/pre-up.d/90-nm-cloud-setup.sh
+_pick "$1" nm-cloud-setup usr/lib/nm-cloud-setup
+_pick "$1" nm-cloud-setup usr/lib/systemd/system/nm-cloud-setup.service
+_pick "$1" nm-cloud-setup usr/lib/systemd/system/nm-cloud-setup.timer
+_pick "$1" nm-cloud-setup usr/share/man/man8/nm-cloud-setup.8.gz
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
