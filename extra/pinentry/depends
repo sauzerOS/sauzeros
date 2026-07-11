@@ -10,4 +10,4 @@ kwindowsystem suggest Qt6 backend
 gcr make
 kguiaddons make
 kwindowsystem make
-qt6-base make 
+qt make 
