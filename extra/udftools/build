@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+sed -i 's|/lib/|$(libdir)/|' pktsetup/Makefile.am
+autoreconf -fi
+
+./configure \
+  --prefix=/usr \
+  --mandir=/usr/share/man \
+  --sbindir=/usr/bin
+make
+make DESTDIR="${1}" install
