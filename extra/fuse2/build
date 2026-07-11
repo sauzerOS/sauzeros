@@ -14,4 +14,5 @@ make DESTDIR="$1" install
 # remove useless files
 rm -rf "$1/etc/init.d"
 rm -rf "$1/dev"
+install -d $1/usr/bin
 mv $1/bin/fusermount $1/usr/bin/fusermount2
