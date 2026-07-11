@@ -1,0 +1,5 @@
+pam 
+lib32-libnsl
+lib32-libtirpc
+lib32-libxcrypt
+lib32-systemd
