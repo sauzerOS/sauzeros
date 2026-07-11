@@ -103,7 +103,7 @@ vulkan-headers make
 vulkan-icd-loader make
 wayland make
 wayland-protocols make
-webrtc-audio-processing-1 make
+webrtc-audio-processing<2.0 make
 x264 make
 x265 make
 zlib-ng make
