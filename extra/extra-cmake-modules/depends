@@ -1,2 +1,2 @@
-cmake make
+cmake
 qt-tools make
