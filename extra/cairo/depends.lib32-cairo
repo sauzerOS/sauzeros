@@ -1,0 +1,12 @@
+cairo
+lib32-fontconfig
+lib32-freetype
+lib32-glib
+lib32-glibc
+lib32-libpng
+lib32-libx11
+lib32-libxcb
+lib32-libxext
+lib32-libxrender
+lib32-pixman
+lib32-zlib-ng 
