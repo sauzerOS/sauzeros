@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+
+hokuto-meson build \
+  -D documentation=disabled
+
+meson compile -C build
+meson install -C build --destdir=$1

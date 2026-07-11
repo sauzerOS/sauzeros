@@ -1,0 +1,7 @@
+libgcc
+glibc
+libevdev
+systemd-libs
+libxkbcommon make
+meson make
+systemd make
