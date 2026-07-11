@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/waywardgeek/sonic",
+  "category": "extra",
+  "description": "Simple library to speed up or slow down speech",
+  "info": "",
+  "license": "Apache",
+  "tags": [
+    "library"
+  ]
+}
