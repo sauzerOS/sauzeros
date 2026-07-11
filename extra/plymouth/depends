@@ -1,6 +1,5 @@
 bash
 cairo
-filesystem
 fontconfig
 freetype
 glib
