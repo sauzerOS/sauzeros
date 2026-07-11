@@ -66,15 +66,32 @@ _hokuto() {
             '--check-integrity[Check installed manifests for missing files]' \
             '*:installed package:_hokuto_installed_packages'
           ;;
-        cleanup)
+		cleanup)
           _arguments \
             '--sources[Remove cached sources]' \
             '--bins[Remove built binary packages]' \
             '--orphans[Check and remove orphan packages]' \
             '--tmp[Remove temporary build files]' \
-            '--all[Clean sources, binaries, temporary files, and orphans]'
+			'--all[Clean sources, binaries, temporary files, and orphans]'
+			;;
+		update|u)
+			_arguments \
+			  '(-i --idle)'{-i,--idle}'[Use idle build priority]' \
+			  '(-ii --superidle)'{-ii,--superidle}'[Use super-idle build priority]' \
+			  '(-v --verbose)'{-v,--verbose}'[Enable verbose output]' \
+			  '(-j --parallel)'{-j,--parallel}'[Number of parallel jobs]:jobs:' \
+			  '--remote[Check the remote binary mirror only]' \
+			  '--build-missing-binaries[Build repository packages missing current binaries]' \
+			  '(-y --yes)'{-y,--yes}'[Assume yes]'
+			;;
+        uninstall|remove|r)
+          _arguments \
+            '(-f --force)'{-f,--force}'[Force uninstallation]' \
+            '(-y --yes)'{-y,--yes}'[Assume yes]' \
+            '--list[Select installed packages interactively]' \
+            '*:installed package:_hokuto_installed_packages'
           ;;
-        uninstall|remove|r|manifest|m|size)
+        manifest|m|size)
           _hokuto_installed_packages
           ;;
         build|b|checksum|c|install|i|edit|e|bump|check)

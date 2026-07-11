@@ -144,12 +144,12 @@ _hokuto_complete()
             ;;
         uninstall|remove|r)
             case "$cur" in
-                -*) COMPREPLY=($(compgen -W "-f --force -y --yes" -- "$cur")) ;;
+                -*) COMPREPLY=($(compgen -W "-f --force -y --yes --list" -- "$cur")) ;;
                 *) _hokuto_complete_installed ;;
             esac
             ;;
-        update|u)
-            COMPREPLY=($(compgen -W "-i --idle -ii --superidle -v --verbose -j --parallel --remote -y --yes" -- "$cur"))
+		update|u)
+			COMPREPLY=($(compgen -W "-i --idle -ii --superidle -v --verbose -j --parallel --remote --build-missing-binaries -y --yes" -- "$cur"))
             ;;
 		list|ls)
 			case "$cur" in

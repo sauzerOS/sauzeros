@@ -76,6 +76,7 @@ for prog in $prog_names
 
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -s f -l force -d "Force uninstallation"
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -s y -l yes -d "Assume yes"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -l list -d "Select installed packages interactively"
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s i -l idle -d "Idle build during update"
@@ -83,6 +84,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s v -l verbose -d "Enable verbose output"
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s j -l parallel -d "Number of parallel jobs"
     complete -c $prog -n "__fish_seen_subcommand_from update u" -l remote -d "Check remote mirror only"
+    complete -c $prog -n "__fish_seen_subcommand_from update u" -l build-missing-binaries -d "Build repository packages missing current binaries"
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s y -l yes -d "Assume yes"
 
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l remote -d "List remote packages"
