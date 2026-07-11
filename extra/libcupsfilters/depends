@@ -10,4 +10,5 @@ libtiff
 lcms2
 poppler
 qpdf
+cups make
 ghostscript make 
