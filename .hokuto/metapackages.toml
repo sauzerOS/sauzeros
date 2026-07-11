@@ -89,7 +89,6 @@ depends = [
 "plasma-nm",
 "plasma-pa",
 "plasma-systemmonitor",
-"plasma-thunderbolt",
 "plasma-vault",
 "plasma-welcome",
 "plasma-workspace",
