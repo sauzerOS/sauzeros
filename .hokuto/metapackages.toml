@@ -62,7 +62,6 @@ depends = [
 "kmenuedit",
 "knighttime",
 "kpipewire",
-"krdp",
 "kscreen",
 "kscreenlocker",
 "ksshaskpass",
