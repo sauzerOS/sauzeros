@@ -1,0 +1,9 @@
+glib
+glibc
+gst-plugins-base
+gstreamer
+libgcc
+libpipewire
+pipewire
+pipewire-audio
+wireplumber
