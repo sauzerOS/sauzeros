@@ -86,6 +86,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s y -l yes -d "Assume yes"
 
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l remote -d "List remote packages"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls" -l check-integrity -d "Check installed manifests for missing files"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from checksum c" -s f -d "Force sources download"
@@ -109,6 +110,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l sources -d "Remove cached sources"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l bins -d "Remove built binary packages"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l orphans -d "Check and remove orphans"
+    complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l tmp -d "Remove temporary build files"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l all -d "Clean sources, bins and orphans"
 
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l cleanup -d "Remove older versions on remote"
