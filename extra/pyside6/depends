@@ -1,0 +1,63 @@
+glibc
+libgcc
+libstdc++
+python
+qt
+qt-declarative
+shiboken6 runtime
+qt-3d suggest "Qt3D bindings"
+qt-canvaspainter suggest "QtCanvasPainter bindings"
+qt-charts suggest "QtCharts bindings"
+qt-connectivity suggest "QtBluetooth and QtNfc bindings"
+qt-datavis3d suggest "QtDataVisualization bindings"
+qt-graphs suggest "QtGraphs bindings"
+qt-httpserver suggest "QtHttpServer bindings"
+qt-location suggest "QtLocation bindings"
+qt-multimedia suggest "QtMultimedia bindings"
+qt-networkauth suggest "QtNetworkAuth bindings"
+qt-positioning suggest "QtPositioning bindings"
+qt-quick3d suggest "QtQuick3D bindings"
+qt-remoteobjects suggest "QtRemoteObjects bindings"
+qt-scxml suggest "QtScxml bindings"
+qt-sensors suggest "QtSensors bindings"
+qt-serialbus suggest "QtSerialBus bindings"
+qt-serialport suggest "QtSerialPort bindings"
+qt-speech suggest "QtTextToSpeech bindings"
+qt-svg suggest "QtSvg bindings"
+qt-tools suggest "QtHelp and QtUiTools bindings"
+qt-webchannel suggest "QtWebChannel bindings"
+#qt-webengine suggest "QtWebEngine bindings"
+qt-websockets suggest "QtWebSockets bindings"
+qt-webview suggest "QtWebView bindings"
+clang make
+cmake make
+git make
+llvm make
+ninja make
+python-numpy make
+python-setuptools make
+qt-3d make
+qt-canvaspainter make
+qt-charts make
+qt-connectivity make
+qt-datavis3d make
+qt-graphs make
+qt-httpserver make
+qt-location make
+qt-multimedia make
+qt-networkauth make
+qt-positioning make
+qt-quick3d make
+qt-remoteobjects make
+qt-scxml make
+qt-sensors make
+qt-serialbus make
+qt-serialport make
+qt-shadertools make
+qt-speech make
+qt-svg make
+qt-tools make
+qt-webchannel make
+#qt-webengine make
+qt-websockets make
+qt-webview make
