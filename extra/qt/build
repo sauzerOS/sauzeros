@@ -1322,6 +1322,7 @@ _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6/FindWrapBundledPhysXConfigExtra.c
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6BuildInternals/StandaloneTests/QtQuick3DPhysicsTestsConfig.cmake
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6BundledPhysX/
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6Qml/QmlPlugins/Qt6qquick3dphysics*
+_pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6Qml/QmlPlugins/Qt6qtquick3dphysics*
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6Quick3DPhysics/
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6Quick3DPhysicsHelpers/
 _pick "$1" qt-quick3dphysics usr/lib/cmake/Qt6Quick3DPhysicsHelpersPrivate/
