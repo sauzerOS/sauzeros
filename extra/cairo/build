@@ -1,17 +1,13 @@
 #!/bin/bash -e
 
-meson setup build --prefix=/usr
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit
 rm -rf build
-meson setup build           \
-      --cross-file=lib32    \
-      --prefix=/usr         \
-      --libdir=/usr/lib32   \
-      --buildtype=release   \
+hokuto-meson-32 build \
       -D tests=disabled
 
 meson compile -C build
