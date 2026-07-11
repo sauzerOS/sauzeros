@@ -42,6 +42,8 @@ alsa-lib make
 cmake make
 cups make
 gst-plugins-base make
+gst-plugins-good make
+gst-plugins-bad make
 gtk+3 make
 jemalloc make
 libpulse make
