@@ -90,7 +90,6 @@ depends = [
 "plasma-pa",
 "plasma-systemmonitor",
 "plasma-vault",
-"plasma-welcome",
 "plasma-workspace",
 "polkit-kde-agent",
 "powerdevil",
