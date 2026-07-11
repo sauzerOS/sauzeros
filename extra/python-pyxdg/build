@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+# Python compatibility fixes
+# https://gitlab.freedesktop.org/xdg/pyxdg/-/commit/275865e620471c194560824232be632c9cb61600
+patch -Np1 -i pyxdg-python3.12.patch
+# https://gitlab.freedesktop.org/xdg/pyxdg/-/commit/9291d419017263c922869d79ac1fe8d423e5f929
+patch -Np1 -i pyxdg-python3.14.patch
+# https://gitlab.freedesktop.org/xdg/pyxdg/-/commit/63033ac306aa26d32e1439417e59ae8f8a4c9820
+patch -Np1 -i pyxdg-python3.15.patch
+
+python setup.py build
+python setup.py install --prefix=/usr --root="${1}" --skip-build --optimize=1

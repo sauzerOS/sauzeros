@@ -1,0 +1,4 @@
+https://files.pythonhosted.org/packages/source/p/pyxdg/pyxdg-${version}.tar.gz
+files/pyxdg-python3.12.patch
+files/pyxdg-python3.14.patch
+files/pyxdg-python3.15.patch
