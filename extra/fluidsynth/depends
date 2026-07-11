@@ -12,7 +12,7 @@ readline
 sdl3
 systemd-libs
 fluidsynth-soundfont-fatboy suggest "default fatboy soundfont"
-fluidsynth-soundfont-fluid suggest "fluidr3 soundfont"
+fluidsynth-soundfont-fluidr3 suggest "fluidr3 soundfont"
 7zip make
 cmake make
 rsync make
