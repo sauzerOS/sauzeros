@@ -45,4 +45,5 @@ gst-plugins-base make
 gtk+3 make
 jemalloc make
 libpulse make
+python make
 vulkan-headers make
