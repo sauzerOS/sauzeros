@@ -5,7 +5,7 @@ python
 qt
 qt-declarative
 shiboken6 runtime
-qt-3d suggest "Qt3D bindings"
+#qt-3d suggest "Qt3D bindings"
 qt-canvaspainter suggest "QtCanvasPainter bindings"
 qt-charts suggest "QtCharts bindings"
 qt-connectivity suggest "QtBluetooth and QtNfc bindings"
@@ -28,15 +28,15 @@ qt-tools suggest "QtHelp and QtUiTools bindings"
 qt-webchannel suggest "QtWebChannel bindings"
 #qt-webengine suggest "QtWebEngine bindings"
 qt-websockets suggest "QtWebSockets bindings"
-qt-webview suggest "QtWebView bindings"
+#qt-webview suggest "QtWebView bindings"
 clang make
 cmake make
 git make
 llvm make
 ninja make
-python-numpy make
+#python-numpy make
 python-setuptools make
-qt-3d make
+#qt-3d make
 qt-canvaspainter make
 qt-charts make
 qt-connectivity make
@@ -60,4 +60,4 @@ qt-tools make
 qt-webchannel make
 #qt-webengine make
 qt-websockets make
-qt-webview make
+#qt-webview make
