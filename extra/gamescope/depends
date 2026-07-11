@@ -1,7 +1,9 @@
 glibc
+lcms2
 libcap
 libdecor
 libdrm
+libei
 libgcc
 libinput
 libpipewire
@@ -20,7 +22,6 @@ libxrender
 libxres
 libxtst
 libxxf86vm
-lcms2
 luajit
 pixman
 sdl2-compat

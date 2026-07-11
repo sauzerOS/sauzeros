@@ -1,6 +1,7 @@
 glibc
 libdecor
 libdrm
+libei
 libepoxy
 libglvnd
 libtirpc
