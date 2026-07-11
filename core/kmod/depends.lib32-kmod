@@ -1,0 +1,5 @@
+kmod
+lib32-glibc
+lib32-openssl
+lib32-xz
+lib32-zstd
