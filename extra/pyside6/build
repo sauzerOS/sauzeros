@@ -1,0 +1,56 @@
+#!/bin/bash -e
+
+git cherry-pick -n \
+  d252378a3980c99e23340e6b722631182814d8bb \
+  71c4d1750463c99ab9cbff7e1d7162210506f225
+
+cmake -B build -G Ninja \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_BUILD_TYPE=None \
+  -D SHIBOKEN_PYTHON_LIBRARIES="$(pkgconf python3-embed --libs)" \
+  -D BUILD_TESTS=OFF \
+  -D FORCE_LIMITED_API=no \
+  -D NO_QT_TOOLS=yes \
+  -D NUMPY_INCLUDE_DIR="$(numpy-config --cflags | sed -e 's|-I||')"
+
+PYTHONPATH="$PWD/build/sources" cmake --build build
+
+# shiboken6
+shiboken_pkgdir="$HOKUTO_SPLIT_DIR/shiboken6"
+DESTDIR="$shiboken_pkgdir" cmake --install build/sources/shiboken6
+
+export PATH="/usr/lib/qt6/bin:$PATH"
+python setup.py egg_info --build-type=shiboken6
+pythonpath="$(python -c "from sysconfig import get_path; print(get_path('platlib'))")"
+install -d "$shiboken_pkgdir/$pythonpath"
+cp -r shiboken6.egg-info "$shiboken_pkgdir/$pythonpath/"
+
+# shiboken6-generator
+generator_pkgdir="$HOKUTO_SPLIT_DIR/shiboken6-generator"
+DESTDIR="$generator_pkgdir" cmake --install build/sources/shiboken6_generator
+
+python setup.py egg_info --build-type=shiboken6-generator
+install -d "$generator_pkgdir/$pythonpath"
+cp -r shiboken6_generator.egg-info "$generator_pkgdir/$pythonpath/"
+
+# pyside6 (main package)
+DESTDIR="$1" cmake --install build/sources/pyside6
+
+python setup.py egg_info --build-type=pyside6
+install -d "$1/$pythonpath"
+cp -r PySide6.egg-info "$1/$pythonpath/"
+
+# pyside6-tools
+tools_pkgdir="$HOKUTO_SPLIT_DIR/pyside6-tools"
+DESTDIR="$tools_pkgdir" cmake --install build/sources/pyside-tools
+
+# Entry points in /usr/bin are not installed by the CMake build. This wrapper
+# is the only one that does more than invoke the matching Qt executable.
+python_library="$(python -c "from sysconfig import get_config_var; print(get_config_var('LDLIBRARY'))")"
+install -d "$tools_pkgdir/usr/bin"
+cat > "$tools_pkgdir/usr/bin/pyside6-designer" <<EOF
+#!/bin/sh
+export LD_PRELOAD="$python_library"
+exec designer6 "\$@"
+EOF
+chmod 755 "$tools_pkgdir/usr/bin/pyside6-designer"
