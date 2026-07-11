@@ -50,7 +50,6 @@ depends = [
 "bluedevil",
 "breeze",
 "breeze-gtk",
-"discover",
 "drkonqi",
 "flatpak-kcm",
 "kactivitymanagerd",
