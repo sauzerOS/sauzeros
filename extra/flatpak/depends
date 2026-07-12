@@ -15,6 +15,7 @@ libgcc
 libseccomp
 libxau
 libxml2
+libxmlb
 ostree
 polkit
 python
