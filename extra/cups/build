@@ -66,6 +66,6 @@ sed -i -e 's:PageLogFormat:#PageLogFormat:' $1/etc/cups/cupsd.conf*
 rm -rf $1/etc/xinetd.d
 
 # libcups split package
-_pick "$1" libcups usr/bin/cups-configusr/bin/cups-config
+_pick "$1" libcups usr/bin/cups-config
 _pick "$1" libcups usr/include/cups/
 _pick "$1" libcups usr/lib/libcups.so*
