@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# openssl 4 fix
+patch -Np1 -i sbsigntools-0.9.5-openssl4.patch
+
 git submodule init
 git config submodule."lib/ccan.git".url ccan
 git -c protocol.file.allow=always submodule update
