@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+autoreconf -fi
+./bootstrap.sh
+./configure --prefix=/usr \
+  --localstatedir=/var    \
+  --disable-lynx
+
+make
+make DESTDIR="${1}" install
