@@ -1,4 +1,4 @@
-linux-headers
+linux-api-headers
 sauzeros-base
 python make
-aarch64-linux-headers cross
+aarch64-linux-api-headers cross
