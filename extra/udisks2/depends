@@ -19,6 +19,7 @@ udisks2-lvm2 suggest for LVM2 module
 xfsprogs suggest for XFS support in libblockdev-fs
 acl make
 autoconf-archive make
+btrfs-progs make
 git make
 gobject-introspection make
 libblockdev make
