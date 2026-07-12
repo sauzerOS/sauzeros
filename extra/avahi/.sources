@@ -1,0 +1,2 @@
+git+https://github.com/avahi/avahi#v${version}
+files/0001-HACK-Install-fixes.patch

@@ -1,0 +1,16 @@
+bash
+dbus
+expat
+gdbm
+glib
+glibc
+libcap
+libdaemon
+systemd-libs
+git make
+gobject-introspection make
+gtk+3 make
+libevent make
+python-dbus make
+python-pygobject make
+systemd make
