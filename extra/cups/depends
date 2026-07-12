@@ -1,4 +1,5 @@
 acl
+avahi
 cups-filters runtime
 dbus
 glibc
