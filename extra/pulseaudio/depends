@@ -23,6 +23,7 @@ pulseaudio-bluetooth suggest
 pulseaudio-rtp suggest
 pulseaudio-zeroconf suggest
 attr make
+avahi make
 bluez-libs make
 bluez make
 check make
