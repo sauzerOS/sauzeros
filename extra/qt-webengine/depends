@@ -1,0 +1,56 @@
+alsa-lib
+dbus
+expat
+ffmpeg
+fontconfig
+freetype
+glib
+glibc
+harfbuzz
+icu
+lcms2
+libgcc
+libglvnd
+libjpeg-turbo
+libpng
+libstdc++
+libtiff
+libwebp
+libx11
+libxcb
+libxcomposite
+libxfixes
+libxkbcommon
+libxkbfile
+libxdamage
+libxext
+libxml2
+libxrandr
+libxslt
+libxtst
+mesa
+minizip
+nspr
+nss
+openh264
+openjpeg
+opus
+qt
+qt-declarative
+qt-positioning
+qt-webchannel
+re2
+systemd-libs
+zlib-ng
+cmake make
+git make
+gperf make
+jsoncpp make
+libepoxy make
+libpulse make
+libva make
+libxcursor make
+nodejs make
+pipewire make
+qt-tools make
+qt-websockets make
