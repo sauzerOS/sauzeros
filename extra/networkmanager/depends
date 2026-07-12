@@ -16,7 +16,7 @@ readline
 systemd-libs
 bluez suggest Bluetooth support
 dnsmasq suggest connection sharing
-iwd suggest wpa_supplicant alternative
+iwd suggest wifi support
 libnvme suggest NBFT support
 modemmanager suggest cellular network support
 nftables suggest connection sharing
