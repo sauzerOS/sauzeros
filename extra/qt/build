@@ -1073,7 +1073,7 @@ _pick "$1" qt-multimedia usr/lib/cmake/Qt6/FindWrapBundledResonanceAudioConfigEx
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6/FindWrapPulseAudio.cmake
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6BundledResonanceAudio/
-_pick "$1" qt-multimedia usr/lib/cmake/Qt6Multimedia/
+_pick "$1" qt-multimedia usr/lib/cmake/Qt6Multimedia/Qt6Multimedia*
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6MultimediaPrivate/
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6MultimediaQuickPrivate/
 _pick "$1" qt-multimedia usr/lib/cmake/Qt6MultimediaTestLibPrivate/
