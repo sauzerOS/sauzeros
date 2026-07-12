@@ -118,6 +118,9 @@ while IFS= read -r -d '' file; do
     esac
 done < <(find "$builddir" -type f -perm -u+x ! -name vmlinux -print0)
 
+echo "Stripping vmlinux"
+strip -v $STRIP_STATIC "$builddir/vmlinux"
+
 echo "Adding linux headers symlink"
 mkdir -p "$headersdir/usr/src"
 ln -sr "$builddir" "$headersdir/usr/src/linux"
