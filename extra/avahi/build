@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+# https://bugs.archlinux.org/task/47822
+git apply -3 ../0001-HACK-Install-fixes.patch
+
+NOCONFIGURE=1 ./autogen.sh
+
+configure_options=(
+  --prefix=/usr
+  --sysconfdir=/etc
+  --localstatedir=/var
+  --sbindir=/usr/bin
+  --runstatedir=/run
+  --disable-man
+  --disable-mono
+  --disable-qt5
+  --enable-compat-libdns_sd
+  --with-autoipd-group=avahi
+  --with-autoipd-user=avahi
+  --with-avahi-priv-access-group=network
+  --with-distro=archlinux
+  --with-systemdsystemunitdir=/usr/lib/systemd/system
+  with_dbus_sys=/usr/share/dbus-1/system.d
+)
+
+./configure "${configure_options[@]}"
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+make
+make DESTDIR="${1}" install
+echo 'u avahi - "Avahi mDNS/DNS-SD daemon"' |
+  install -Dm644 /dev/stdin "${1}/usr/lib/sysusers.d/avahi.conf"
