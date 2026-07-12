@@ -53,10 +53,6 @@ _pick "$1" pulseaudio-bluetooth $moddir/libbluez5-util.so
 _pick "$1" pulseaudio-bluetooth $moddir/module-bluetooth-{discover,policy}.so
 _pick "$1" pulseaudio-bluetooth $moddir/module-bluez5-{discover,device}.so
 
-# pulseaudio-equalizer
-_pick "$1" pulseaudio-equalizer $moddir/module-equalizer-sink.so
-_pick "$1" pulseaudio-equalizer usr/bin/qpaeq
-
 # pulseaudio-rtp
 _pick "$1" pulseaudio-rtp $moddir/lib{rtp,raop}.so
 _pick "$1" pulseaudio-rtp $moddir/module-rtp-{send,recv}.so

@@ -20,7 +20,6 @@ rtkit
 webrtc-audio-processing<2.0
 pulseaudio-alsa suggest
 pulseaudio-bluetooth suggest
-pulseaudio-equalizer suggest
 pulseaudio-rtp suggest
 pulseaudio-zeroconf suggest
 attr make
