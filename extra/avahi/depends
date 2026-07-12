@@ -11,6 +11,6 @@ git make
 gobject-introspection make
 gtk+3 make
 libevent make
-python-dbus make
+dbus-python make
 python-pygobject make
 systemd make
