@@ -14,6 +14,7 @@ pipewire-x11-bell suggest "X11 bell"
 rtkit suggest "realtime privilege"
 wireplumber suggest "Session manager"
 alsa-lib make
+avahi make
 bluez-libs make
 fdk-aac make
 gst-plugins-base make optional

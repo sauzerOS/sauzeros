@@ -1,11 +1,8 @@
 avahi
-dbus
-dconf
-glib
 glibc
 libgcc
 libpipewire
-libpulse
+openssl
+opus
 pipewire
 pipewire-audio
-wireplumber

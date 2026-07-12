@@ -116,6 +116,14 @@ _pick "$1" pipewire-v4l2 usr/share/man/man1/pw-v4l2.1
 _pick "$1" pipewire-x11-bell usr/lib/$_pwname/libpipewire-module-x11-bell.so
 _pick "$1" pipewire-x11-bell usr/share/man/man7/libpipewire-module-x11-bell.7
 
+# pipewire-zeroconf
+_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-{raop,zeroconf}-*.so
+_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-rtp-session.so
+_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-snapcast-discover.so
+_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-{raop,zeroconf}-*.7
+_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-rtp-session.7
+_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-snapcast-discover.7
+
 if [ "$MULTILIB" = "1" ]; then
 #32 bit lib32-pipewire
 dest_dir=$HOKUTO_SPLIT_DIR/lib32-$3
