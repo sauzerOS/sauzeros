@@ -10,3 +10,4 @@ intltool make
 libao make
 libpipewire make
 libpulse make
+python-pyxdg make
