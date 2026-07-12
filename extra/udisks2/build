@@ -3,9 +3,12 @@
 ./configure --prefix=/usr        \
             --sysconfdir=/etc    \
             --localstatedir=/var \
+            --sbindir=/usr/bin   \
+            --enable-btrfs       \
             --enable-lvm2        \
             --disable-man        \
-            --disable-static
+            --disable-static     \
+            --with-systemdsystemunitdir=/usr/lib/systemd/system
 
 make
 make DESTDIR=$1 install
