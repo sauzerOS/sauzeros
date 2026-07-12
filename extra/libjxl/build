@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+export CFLAGS+=' -DNDEBUG -ffat-lto-objects'
+export CXXFLAGS+=' -DNDEBUG -ffat-lto-objects'
+
 cmake -B build -D CMAKE_INSTALL_PREFIX=/usr          \
       -D CMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
       -D CMAKE_BUILD_TYPE=Release                    \
