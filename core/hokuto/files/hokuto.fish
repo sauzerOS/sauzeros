@@ -116,6 +116,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l all -d "Clean sources, bins and orphans"
 
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l cleanup -d "Remove older versions on remote"
+    complete -c $prog -n "__fish_seen_subcommand_from upload" -l cleanup-all -d "Remove all older versions on remote without prompting"
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l reindex -d "Regenerate remote index"
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l sync -d "Upload all missing local files"
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l prompt -d "Prompt for each file"

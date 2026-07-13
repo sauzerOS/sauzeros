@@ -53,6 +53,7 @@ _hokuto() {
         'e:Edit a package recipe'
         'bump:Bump package versions'
         'cleanup:Clean caches and temporary files'
+        'upload:Upload local binaries to the remote mirror'
         'check:Check whether a package is installed'
       )
       _describe 'command' commands
@@ -83,6 +84,17 @@ _hokuto() {
 			  '--remote[Check the remote binary mirror only]' \
 			  '--build-missing-binaries[Build repository packages missing current binaries]' \
 			  '(-y --yes)'{-y,--yes}'[Assume yes]'
+			;;
+		upload)
+			_arguments \
+			  '--cleanup[Prompt to remove older versions on remote]' \
+			  '--cleanup-all[Remove all older versions on remote without prompting]' \
+			  '--reindex[Regenerate the remote index]' \
+			  '--sync[Upload all missing local files without prompting]' \
+			  '--prompt[Prompt for each missing local file]' \
+			  '--syncdb[Upload only the global package database]' \
+			  '--delete=-[Delete remote files]:package name:' \
+			  '--copy-from-r2[Copy all files from Cloudflare R2]'
 			;;
         uninstall|remove|r)
           _arguments \
