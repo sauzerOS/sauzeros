@@ -1,0 +1,3 @@
+git+https://invent.kde.org/qt/qt/qtbase#19+kde+r96
+files/qmake-cflags.patch
+files/qmake-config.patch

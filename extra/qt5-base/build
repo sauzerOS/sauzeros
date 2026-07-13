@@ -1,0 +1,48 @@
+#!/bin/sh -e
+
+patch -p1 < qmake-cflags.patch # Use system CFLAGS in qmake
+patch -p1 < qmake-config.patch # Don't strip binaries with qmake and use -ltcg, cf. QTBUG-73834
+
+./configure -confirm-license -opensource -v \
+  -prefix /usr \
+  -docdir /usr/share/doc/qt \
+  -headerdir /usr/include/qt \
+  -archdatadir /usr/lib/qt \
+  -datadir /usr/share/qt \
+  -sysconfdir /etc/xdg \
+  -examplesdir /usr/share/doc/qt/examples \
+  -plugin-sql-{psql,mysql,sqlite,odbc} \
+  -system-sqlite \
+  -openssl-linked \
+  -nomake examples \
+  -no-rpath \
+  -dbus-linked \
+  -system-harfbuzz \
+  -journald \
+  -libproxy \
+  -no-mimetype-database \
+  -no-use-gold-linker \
+  -no-reduce-relocations \
+  -no-strip \
+  -ltcg
+# No configure flag for fat static libs with lto
+bin/qmake CONFIG+=fat-static-lto -- -redo
+make
+make INSTALL_ROOT="${1}" install
+
+# Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+find "${1}/usr/lib" -type f -name '*.prl' \
+  -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+# Fix wrong qmake path in pri file
+sed -i "s|qtbase|/usr|" \
+  "${1}"/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri
+
+# Symlinks for backwards compatibility
+for b in "${1}"/usr/bin/*; do
+  ln -s $(basename $b) "${1}"/usr/bin/$(basename $b)-qt5
+done
+
+# Split install phase: qt5-xcb-private-headers
+install -d -m755 "${HOKUTO_SPLIT_DIR}/qt5-xcb-private-headers"/usr/include/qtxcb-private
+cp -r src/plugins/platforms/xcb/*.h "${HOKUTO_SPLIT_DIR}/qt5-xcb-private-headers"/usr/include/qtxcb-private/
