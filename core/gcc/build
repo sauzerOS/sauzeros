@@ -226,13 +226,15 @@ libs=(
     libsupc*
     libubsan*
 )
+
+rm -f "$1"/usr/lib32/libstdc++.so*-gdb.py
+
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-gcc-libs/usr/lib32"
 mkdir -p "$dest_dir"
 
 for lib in "${libs[@]}"; do
     mv "$1/usr/lib32"/$lib "$dest_dir/"
 done
-rm -f "$dest_dir"/libstdc++.so*-gdb.py
 fi
 
 if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
