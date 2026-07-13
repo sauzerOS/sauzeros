@@ -1,4 +1,4 @@
-#!/bin/bash -e
+	#!/bin/bash -e
 
 # Determine target triplet for cross-compilation
 TARGET_TRIPLET=""
@@ -24,10 +24,11 @@ cargo build --release --target "$TARGET_TRIPLET"
 install -Dt "$1"/usr/bin target/$TARGET_TRIPLET/release/b3sum
 
 # libblake3 split package
-cd ..
+cd ../c
+destdir=$HOKUTO_SPLIT_DIR/libblake3
 cmake_options=(
     -B build
-    -W no-dev
+    -W no-author
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D BUILD_SHARED_LIBS=ON
@@ -35,4 +36,4 @@ cmake_options=(
 
 cmake "${cmake_options[@]}"
 cmake --build build
-DESTDIR="$1" cmake --install build
+DESTDIR="$destdir" cmake --install build
