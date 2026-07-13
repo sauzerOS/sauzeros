@@ -197,7 +197,7 @@ _hokuto_complete()
 			COMPREPLY=($(compgen -W "--sources --bins --orphans --tmp --all" -- "$cur"))
             ;;
         upload)
-            COMPREPLY=($(compgen -W "--cleanup --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur"))
+            COMPREPLY=($(compgen -W "--cleanup --cleanup-all --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur"))
             ;;
         search|s)
             COMPREPLY=($(compgen -W "--tag --strict" -- "$cur"))
