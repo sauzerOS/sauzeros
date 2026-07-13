@@ -5,6 +5,7 @@ freetype
 gdk-pixbuf
 glib
 glibc
+libblake3
 libfyaml
 libgcc
 librsvg
