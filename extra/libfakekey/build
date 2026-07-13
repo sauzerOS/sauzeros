@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+./autogen.sh
+./configure --prefix=/usr \
+  --sysconfdir=/etc       \
+  --localstatedir=/var    \
+  --disable-static
+
+make AM_LDFLAGS=-lX11
+make DESTDIR="${1}" install
