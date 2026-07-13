@@ -195,6 +195,9 @@ _pick "$1" libquadmath usr/share/info/libquadmath.info.gz
 
 # libstdc++ split package
 _pick "$1" libstdc++ usr/lib/libstdc++.so*
+install -d "$1/usr/share/gdb/auto-load/usr/lib" # move debug script to gcc package
+mv "$HOKUTO_SPLIT_DIR/libstdc++/usr/lib/libstdc*-gdb.py" \
+"$1/usr/share/gdb/auto-load/usr/lib/"
 
 # libtsan split package
 _pick "$1" libtsan usr/lib/libtsan.so*
@@ -226,6 +229,7 @@ mkdir -p "$dest_dir"
 for lib in "${libs[@]}"; do
     mv "$1/usr/lib32"/$lib "$dest_dir/"
 done
+rm "$dest_dir/libstdc++.so*-gdb.py"
 fi
 
 if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
