@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-# apply archlinux patche
+# apply archlinux patches
 zstdcat shadow-$2-arch1.patch.zst | patch -Np1
 
 autoreconf -fvi
