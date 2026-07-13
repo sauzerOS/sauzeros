@@ -1,1 +1,1 @@
-svn+https://svn.code.sf.net/p/lame/svn/trunk/lame#revision=${version}
+https://sourceforge.net/projects/lame/files/lame/${version}/lame-${version}.tar.gz
