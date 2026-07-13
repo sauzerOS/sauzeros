@@ -195,9 +195,12 @@ _pick "$1" libquadmath usr/share/info/libquadmath.info.gz
 
 # libstdc++ split package
 _pick "$1" libstdc++ usr/lib/libstdc++.so*
-install -d "$1/usr/share/gdb/auto-load/usr/lib" # move debug script to gcc package
-mv "$HOKUTO_SPLIT_DIR/libstdc++/usr/lib/libstdc*-gdb.py" \
-"$1/usr/share/gdb/auto-load/usr/lib/"
+# move debug script to gcc package
+gdb_scripts=("$HOKUTO_SPLIT_DIR"/libstdc++/usr/lib/libstdc*-gdb.py) # expand the glob safely into an array
+if [ -e "${gdb_scripts[0]}" ]; then
+    install -d "$1/usr/share/gdb/auto-load/usr/lib"
+    mv "${gdb_scripts[@]}" "$1/usr/share/gdb/auto-load/usr/lib/"
+fi
 
 # libtsan split package
 _pick "$1" libtsan usr/lib/libtsan.so*
