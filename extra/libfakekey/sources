@@ -1,1 +1,1 @@
-https://git.yoctoproject.org/cgit/cgit.cgi/libfakekey/snapshot/libfakekey-0.3.tar.gz
+git+https://git.yoctoproject.org/libfakekey#0.3
