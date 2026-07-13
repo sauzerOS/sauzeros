@@ -2,6 +2,7 @@ coreutils
 kmod
 bc make
 libelf make
+libgcc make
 openssl make
 pahole make
 perl make
