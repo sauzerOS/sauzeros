@@ -232,7 +232,7 @@ mkdir -p "$dest_dir"
 for lib in "${libs[@]}"; do
     mv "$1/usr/lib32"/$lib "$dest_dir/"
 done
-rm "$dest_dir/libstdc++.so*-gdb.py"
+rm -f "$dest_dir"/libstdc++.so*-gdb.py
 fi
 
 if [ "$CROSS_PREFIX" = "/usr/${TARGET_TRIPLET}" ]; then
