@@ -34,8 +34,11 @@ if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     export ac_cv_file__dev_ptmx=yes
     export ac_cv_file__dev_ptc=no
 else
-    CROSS_OPTS="--enable-optimizations"
+    CROSS_OPTS="--enable-optimizations --with-lto"
 fi
+
+# use system expat
+rm -r Modules/expat
 
 ./configure \
     --prefix="$PREFIX" \
@@ -61,3 +64,6 @@ for pip_bin in "$1$PREFIX/bin/pip"*; do
         sed -i "1s|^#!.*python.*|#!$PREFIX/bin/python3|" "$pip_bin"
     fi
 done
+
+# remove tests
+rm -rf $1/usr/lib/python*/{test,idlelib/idle_test}
