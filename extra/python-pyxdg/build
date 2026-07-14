@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # Python compatibility fixes
 # https://gitlab.freedesktop.org/xdg/pyxdg/-/commit/275865e620471c194560824232be632c9cb61600

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Sets DISPLAY/XAUTHORITY/WAYLAND_DISPLAY for user systemd
 
 # Import display variables into user systemd instance

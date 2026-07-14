@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 [ -r /etc/locale.gen ] || {
     printf "%s: error, cannot read '/etc/locale.gen\n" "$0" >&2

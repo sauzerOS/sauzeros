@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 make mrproper
 make INSTALL_HDR_PATH="${1}/usr" headers_install

@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # tell x.py to not keep printing an annoying warning
 change-id = "ignore"

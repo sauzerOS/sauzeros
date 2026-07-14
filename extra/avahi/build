@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 # https://bugs.archlinux.org/task/47822
 patch -Np1 -i 0001-HACK-Install-fixes.patch

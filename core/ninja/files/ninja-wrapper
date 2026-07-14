@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Wrapper for ninja that conditionally limits CPU cores and sets niceness.
 # It is activated by the HOKUTO_BUILD_PRIORITY environment variable.

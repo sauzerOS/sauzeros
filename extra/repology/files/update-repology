@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd /opt/repology/updater/
 ./repology-update.py -ifpdo

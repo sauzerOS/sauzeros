@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 mame=/usr/lib/mame/mame
 
 mame_first_run() {
