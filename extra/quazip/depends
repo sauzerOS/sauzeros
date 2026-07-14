@@ -1,0 +1,8 @@
+bzip2
+glibc
+libgcc
+libstdc++
+qt
+qt-5compat
+zlib-ng
+cmake make
