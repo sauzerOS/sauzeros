@@ -1,1 +1,13 @@
 ca-certificates
+freetype
+giflib
+glibc
+harfbuzz
+lcms2
+libgcc
+libjpeg-turbo
+libpng
+libstdc++
+nss
+alsa-lib suggest Basic sound support
+gtk+3 suggest Gtk+ 3 look and feel - desktop usage
