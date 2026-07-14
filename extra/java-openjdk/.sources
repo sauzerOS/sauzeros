@@ -1,0 +1,4 @@
+https://github.com/openjdk/jdk26u/archive/refs/tags/jdk-${version}.tar.gz
+files/freedesktop-java.desktop
+files/freedesktop-jconsole.desktop
+files/freedesktop-jshell.desktop

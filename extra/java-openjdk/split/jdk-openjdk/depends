@@ -1,0 +1,17 @@
+${_commondeps[@]}
+java-environment-common=3
+ca-certificates-utils
+freetype2
+harfbuzz
+hicolor-icon-theme
+lcms2
+libelf
+libfreetype.so
+libgif.so
+libharfbuzz.so
+libjpeg.so
+libjpeg-turbo
+liblcms2.so
+libnet
+libpng
+nss
