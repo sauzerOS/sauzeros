@@ -11,5 +11,5 @@ pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
 hokuto-meson-32 build
 meson compile -C build
 meson install -C build --destdir=$pkgdir
-rm -r "$pkgdir"/usr/{bin,include}
+rm -r "$pkgdir"/usr/{bin,include,share}
 fi
