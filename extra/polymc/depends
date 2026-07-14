@@ -1,0 +1,12 @@
+hicolor-icon-theme
+libglvnd
+microsoft-jdk-25 | microsoft-jdk-21 | microsoft-jdk-17
+qt
+qt-5compat
+qt-charts
+qt-imageformats
+qt-svg
+quazip
+zlib-ng
+cmake make
+extra-cmake-modules make

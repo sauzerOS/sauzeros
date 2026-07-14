@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+patch -Np1 -i PolyMC-7.1-offline-no-account.patch
+
+cmake -B build                          \
+  -D Launcher_BUILD_PLATFORM='sauzerOS' \
+  -D Launcher_QT_VERSION_MAJOR='6'      \
+  -D CMAKE_BUILD_TYPE='None'            \
+  -D CMAKE_INSTALL_PREFIX='/usr'        \
+  -W no-dev
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
