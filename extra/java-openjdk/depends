@@ -1,4 +1,4 @@
-java-openjdk-jre==17* runtime
+java-openjdk-jre==21* runtime
 alsa-lib make
 bash make
 cpio make
@@ -6,7 +6,7 @@ freetype make
 giflib make
 glibc make
 harfbuzz make
-java-openjdk==17* make
+java-openjdk==21* make
 lcms2 make
 libcups make
 libelf make
