@@ -1,8 +1,8 @@
 at-spi2-core
 glib
 glibc
-glibmm<2.7
+glibmm
 libgcc
-libsigc++<3
+libsigc++
 libstdc++
 meson make
