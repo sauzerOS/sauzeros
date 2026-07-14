@@ -1,3 +1,0 @@
-git+https://invent.kde.org/qt/qt/qtbase#${version-last-only}
-files/qmake-cflags.patch
-files/qmake-config.patch
