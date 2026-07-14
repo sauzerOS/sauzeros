@@ -137,6 +137,7 @@ meson setup build            \
 meson compile -C build
 meson install -C build --destdir="$dest_dir"
 rm -r $dest_dir/usr/{bin,include,lib,share}
+rm -rf $dest_dir/etc
 
 # lib32-libpipewire
 _pick "$dest_dir" lib32-libpipewire usr/lib32/$_spaname/libspa.so*
