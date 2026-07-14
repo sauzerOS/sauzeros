@@ -14,6 +14,12 @@ _hokuto_repository_packages() {
   _describe 'package' packages
 }
 
+_hokuto_install_packages() {
+  local -a packages
+  packages=("${(@f)$(command $words[1] __complete install 2>/dev/null)}")
+  _describe 'available package' packages
+}
+
 _hokuto() {
   local context state line command
   typeset -A opt_args
@@ -124,7 +130,10 @@ _hokuto() {
             fi
           fi
           ;;
-        build|b|checksum|c|install|i|edit|e|bump|check)
+        install|i)
+          _hokuto_install_packages
+          ;;
+        build|b|checksum|c|edit|e|bump|check)
           _hokuto_repository_packages
           ;;
       esac

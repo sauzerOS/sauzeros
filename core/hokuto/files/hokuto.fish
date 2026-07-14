@@ -27,6 +27,11 @@ function __hokuto_get_installed_packages
     end
 end
 
+function __hokuto_get_install_packages
+    set -l executable (commandline -opc)[1]
+    command $executable __complete install 2>/dev/null
+end
+
 function __hokuto_alt_needs_provider
     set -l tokens (commandline -opc)
     test (count $tokens) -gt 0; or return 1
@@ -63,7 +68,7 @@ for prog in $prog_names
             end
         end
     )'
-    complete -c $prog -n "__fish_seen_subcommand_from install i" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
+    complete -c $prog -n "__fish_seen_subcommand_from install i" -a "(__hokuto_get_install_packages)" -d "Available Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from build b" -s a -d "Automatically install after build"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -s i -d "Idle build"
