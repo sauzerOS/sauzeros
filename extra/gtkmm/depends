@@ -1,5 +1,5 @@
 cairo
-cairomm
+libcairomm1
 gdk-pixbuf
 glib
 glibc
