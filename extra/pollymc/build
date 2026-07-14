@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-install -d $1/usr
-cp -r * $1/usr/
