@@ -47,7 +47,8 @@ bash configure \
   --with-zlib=system \
   --with-harfbuzz=system \
   --with-jvm-features="${jvm_features}" \
-  --with-native-debug-symbols=internal \
+  --with-native-debug-symbols=none \
+  --with-debug-level=release \
   --enable-unlimited-crypto \
   --disable-warnings-as-errors \
   --with-vendor-name="sauzerOS"
