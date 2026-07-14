@@ -1,0 +1,82 @@
+diff --git a/launcher/LaunchController.cpp b/launcher/LaunchController.cpp
+index 2c5d8567..99a33d1d 100644
+--- a/launcher/LaunchController.cpp
++++ b/launcher/LaunchController.cpp
+@@ -52,6 +52,7 @@
+ #include <QList>
+ #include <QHostAddress>
+ #include <QPushButton>
++#include <QRegularExpression>
+ 
+ #include "BuildConfig.h"
+ #include "JavaCommon.h"
+@@ -63,6 +64,45 @@ LaunchController::LaunchController(QObject *parent) : Task(parent)
+ {
+ }
+ 
++bool LaunchController::createOfflineAccountForLaunch()
++{
++    bool ok = false;
++    auto message = m_demo ? tr("Choose your demo mode player name.") : tr("Choose your offline mode player name.");
++    auto lastOfflinePlayerName = APPLICATION->settings()->get("LastOfflinePlayerName").toString();
++    auto usedName = lastOfflinePlayerName.isEmpty() ? QString("Player") : lastOfflinePlayerName;
++    QRegularExpression playerNameRegex("^[a-zA-Z0-9_]{2,16}$");
++
++    while (true) {
++        auto name = QInputDialog::getText(
++            m_parentWidget,
++            tr("Player name"),
++            message,
++            QLineEdit::Normal,
++            usedName,
++            &ok
++        );
++        if (!ok) {
++            return false;
++        }
++        if (!name.isEmpty()) {
++            usedName = name;
++        }
++        if (playerNameRegex.match(usedName).hasMatch()) {
++            break;
++        }
++
++        QMessageBox::warning(
++            m_parentWidget,
++            tr("Invalid player name"),
++            tr("Player names must be 2 to 16 characters long and may only contain letters, numbers, and underscores.")
++        );
++    }
++
++    APPLICATION->settings()->set("LastOfflinePlayerName", usedName);
++    m_accountToUse = MinecraftAccount::createOffline(usedName);
++    return true;
++}
++
+ void LaunchController::executeTask()
+ {
+     if (!m_instance)
+@@ -89,6 +129,11 @@ void LaunchController::decideAccount()
+     auto accounts = APPLICATION->accounts();
+     if (accounts->count() <= 0)
+     {
++        if(!m_online && accounts->drmCheck()) {
++            createOfflineAccountForLaunch();
++            return;
++        }
++
+         // Tell the user they need to log in at least one account in order to play.
+         auto reply = CustomMessageBox::selectable(
+             m_parentWidget,
+diff --git a/launcher/LaunchController.h b/launcher/LaunchController.h
+index af6c98d1..e9cfa2bd 100644
+--- a/launcher/LaunchController.h
++++ b/launcher/LaunchController.h
+@@ -94,6 +94,7 @@ private:
+     void login();
+     void launchInstance();
+     void decideAccount();
++    bool createOfflineAccountForLaunch();
+ 
+ private slots:
+     void readyForLaunch();
