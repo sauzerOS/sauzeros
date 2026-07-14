@@ -1,7 +1,7 @@
 at-spi2-core
 glib
 glibc
-glibmm<2.7
+glibmm==2.66*
 libgcc
 libsigc++<3
 libstdc++
