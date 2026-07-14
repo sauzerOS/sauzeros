@@ -52,6 +52,7 @@ _hokuto() {
         'edit:Edit a package recipe'
         'e:Edit a package recipe'
         'bump:Bump package versions'
+        'alt:List or switch package alternatives'
         'cleanup:Clean caches and temporary files'
         'upload:Upload local binaries to the remote mirror'
         'check:Check whether a package is installed'
@@ -105,6 +106,23 @@ _hokuto() {
           ;;
         manifest|m|size)
           _hokuto_installed_packages
+          ;;
+        alt)
+          if [[ ${words[2]} == -ls || ${words[2]} == --list ]]; then
+            local -a providers
+            providers=(unmanaged /var/db/hokuto/installed/*(/N:t))
+            _describe 'alternative owner' providers
+          else
+            _arguments \
+              '(-h --help)'{-h,--help}'[Show alternatives help]' \
+              '(-ls --list)'{-ls,--list}'[List files provided by an owner]:owner:(unmanaged)' \
+              '1:alternative action or package:->alt_target'
+            if [[ $state == alt_target ]]; then
+              local -a alt_targets
+              alt_targets=(discard-unmanaged /var/db/hokuto/installed/*(/N:t))
+              _describe 'alternative action or package' alt_targets
+            fi
+          fi
           ;;
         build|b|checksum|c|install|i|edit|e|bump|check)
           _hokuto_repository_packages
