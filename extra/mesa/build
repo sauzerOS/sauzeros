@@ -98,5 +98,6 @@ _pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers $libdir/libVkLayer_*.so
 _pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers usr/bin/mesa-*-control.py
 _pick "$PWD/DESTDIR" lib32-vulkan-mesa-layers usr/share/vulkan/explicit_layer.d
 
+rm -rf "$PWD/DESTDIR"/usr/{include,share}
 _pick "$PWD/DESTDIR" lib32-mesa '*'
 fi
