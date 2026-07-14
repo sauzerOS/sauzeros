@@ -49,7 +49,7 @@ DESTDIR="$tools_pkgdir" cmake --install build/sources/pyside-tools
 python_library="$(python -c "from sysconfig import get_config_var; print(get_config_var('LDLIBRARY'))")"
 install -d "$tools_pkgdir/usr/bin"
 cat > "$tools_pkgdir/usr/bin/pyside6-designer" <<EOF
-#!/bin/sh
+#!/bin/bash
 export LD_PRELOAD="$python_library"
 exec designer6 "\$@"
 EOF

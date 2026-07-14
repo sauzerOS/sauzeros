@@ -32,7 +32,6 @@ install -vm755 CPP/7zip/Bundles/SFXCon/b/g/7zCon \
                $1/usr/lib/7zip/7zCon.sfx
 
  for _prog in 7za 7zr 7z; do
-printf '#!/bin/sh\nexec /usr/lib/7zip/%s "$@"\n' "$_prog" \
+printf '#!/bin/bash\nexec /usr/lib/7zip/%s "$@"\n' "$_prog" \
 | install -D /dev/stdin "$1/usr/bin/$_prog"
 done
-

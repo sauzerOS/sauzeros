@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # converts the <rules>.xml file to the old format <rules>.lst file
 # Usage: xml2lst < filename.xml > filename.lst
 

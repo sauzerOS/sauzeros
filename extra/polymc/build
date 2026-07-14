@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 patch -Np1 -i PolyMC-7.1-offline-no-account.patch
 
