@@ -18,7 +18,7 @@ freetype make
 giflib make
 glibc make
 harfbuzz make
-java-openjdk>=25 make
+java-openjdk==24* make
 lcms2 make
 libcups make
 libelf make
