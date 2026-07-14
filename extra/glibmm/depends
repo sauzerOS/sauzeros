@@ -1,6 +1,6 @@
 glib
 glibc
 libgcc
-libsigc++
+libsigc++<3
 libstdc++
 meson make
