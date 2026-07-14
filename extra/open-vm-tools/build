@@ -4,6 +4,9 @@
 patch -Np2 -i 779.patch
 patch -Np2 -i 783.patch
 
+# prioritize quoted VMware headers before configuring
+export CPPFLAGS="-iquote$PWD/lib/include ${CPPFLAGS:-}"
+
 ./configure --prefix=/usr \
   --sbindir=/usr/bin      \
   --sysconfdir=/etc       \
