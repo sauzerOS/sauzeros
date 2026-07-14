@@ -172,8 +172,27 @@ _hokuto_complete()
                 *) _hokuto_complete_packages ;;
             esac
             ;;
-        cd|bump|alt|check)
+        cd|bump|check)
             _hokuto_complete_packages
+            ;;
+        alt)
+            case "$prev" in
+                -ls|--list)
+                    local -a choices
+                    mapfile -t choices < <(printf '%s\n' unmanaged; _hokuto_get_installed_packages)
+                    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+                    ;;
+                *)
+                    case "$cur" in
+                        -*) COMPREPLY=($(compgen -W "-h --help -ls --list" -- "$cur")) ;;
+                        *)
+                            local -a choices
+                            mapfile -t choices < <(printf '%s\n' discard-unmanaged; _hokuto_get_installed_packages)
+                            COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+                            ;;
+                    esac
+                    ;;
+            esac
             ;;
         meta)
             case "$cur" in

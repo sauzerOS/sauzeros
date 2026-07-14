@@ -27,6 +27,16 @@ function __hokuto_get_installed_packages
     end
 end
 
+function __hokuto_alt_needs_provider
+    set -l tokens (commandline -opc)
+    test (count $tokens) -gt 0; or return 1
+    contains -- $tokens[-1] -ls --list
+end
+
+function __hokuto_alt_accepts_target
+    not __hokuto_alt_needs_provider
+end
+
 set -l prog_names hk hokuto
 set -l hokuto_commands version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check
 
@@ -100,7 +110,13 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from new n" -l from-aur -d "Import from AUR"
 
     complete -c $prog -n "__fish_seen_subcommand_from edit e" -s a -d "Open all build files"
-    complete -c $prog -n "__fish_seen_subcommand_from edit e cd bump alt check" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
+    complete -c $prog -n "__fish_seen_subcommand_from edit e cd bump check" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
+
+    complete -c $prog -n "__fish_seen_subcommand_from alt; and __hokuto_alt_accepts_target" -a "discard-unmanaged" -d "Remove unmanaged alternatives"
+    complete -c $prog -n "__fish_seen_subcommand_from alt; and __hokuto_alt_accepts_target" -s h -l help -d "Show alternatives help"
+    complete -c $prog -n "__fish_seen_subcommand_from alt; and __hokuto_alt_accepts_target" -o ls -l list -d "List files provided by an owner"
+    complete -c $prog -n "__fish_seen_subcommand_from alt; and __hokuto_alt_accepts_target" -a "(__hokuto_get_installed_packages)" -d "Alternative Package"
+    complete -c $prog -n "__fish_seen_subcommand_from alt; and __hokuto_alt_needs_provider" -a "unmanaged (__hokuto_get_installed_packages)" -d "Alternative Owner"
 
     complete -c $prog -n "__fish_seen_subcommand_from manifest m size" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
