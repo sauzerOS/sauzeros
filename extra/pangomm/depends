@@ -1,8 +1,8 @@
 glib
 glibc
-glibmm==2.66*
-libcairomm1==1.14*
+glibmm
+libcairomm1
 libgcc
-libsigc++<3
+libsigc++
 pango
 meson make
