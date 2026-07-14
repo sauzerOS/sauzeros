@@ -1,6 +1,6 @@
 cairo
 glibc
 libgcc
-libsigc++<3
+libsigc++
 libstdc++
 meson make
