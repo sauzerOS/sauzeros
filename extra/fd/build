@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
+cargo build --release --locked --offline
+install -Dm755 target/release/fd "${1}"/usr/bin/fd
+
+make completions
+install -Dm644 autocomplete/fd.bash "${1}"/usr/share/bash-completion/completions/fd
+install -Dm644 autocomplete/fd.fish "${1}"/usr/share/fish/vendor_completions.d/fd.fish
+install -Dm644 autocomplete/_fd "${1}"/usr/share/zsh/site-functions/_fd
+install -Dm644 doc/fd.1 "${1}"/usr/share/man/man1/fd.1
