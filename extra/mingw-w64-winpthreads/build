@@ -45,3 +45,10 @@ make DESTDIR=$1 install
 # remove headers already provided by mingw-w64
 rm -f "$1"/usr/i686-w64-mingw32/include/pthread_{signal,time,unistd}.h
 fi
+#!/bin/bash -e
+
+# fix libs
+for lib in "$1"/usr/i686-w64-mingw32/lib/*.a; do
+    i686-w64-mingw32-ranlib "$lib"
+done
+
