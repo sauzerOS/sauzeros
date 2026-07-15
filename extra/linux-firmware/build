@@ -95,3 +95,9 @@ _pick "$1" linux-firmware-realtek \
 
 _pick "$1" linux-firmware-other \
     usr/lib/firmware
+
+# Replace duplicate firmware files with links within each split package.
+for pkgdir in "$1" "$HOKUTO_SPLIT_DIR"/*; do
+    [ -d "$pkgdir/usr/lib/firmware" ] || continue
+    make FIRMWAREDIR="$pkgdir/usr/lib/firmware" dedup
+done
