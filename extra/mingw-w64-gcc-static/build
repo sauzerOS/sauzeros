@@ -8,6 +8,7 @@ cd    build-x86_64-mingw-w64-static
 ../configure --prefix=/usr               \
              --target=x86_64-w64-mingw32 \
              --with-sysroot=/usr/x86_64-w64-mingw32 \
+             --with-native-system-header-dir=/include \
              --disable-shared            \
              --disable-multilib          \
              --disable-threads           \
@@ -25,6 +26,7 @@ cd    build-i686-mingw-w64-static
 ../configure --prefix=/usr             \
              --target=i686-w64-mingw32 \
              --with-sysroot=/usr/i686-w64-mingw32 \
+             --with-native-system-header-dir=/include \
              --disable-shared          \
              --disable-multilib        \
              --disable-threads         \
