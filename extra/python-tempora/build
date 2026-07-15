@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-# remove flit core version check
-sed -i 's/,<4,//g' pyproject.toml
-
-python -m build --wheel --no-isolation
+export SETUPTOOLS_SCM_PRETEND_VERSION="$2"
+python -m build --wheel --no-isolation --skip-dependency-check
 python -m installer --destdir="$1" dist/*.whl
