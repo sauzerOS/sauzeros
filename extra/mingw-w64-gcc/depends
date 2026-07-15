@@ -3,7 +3,7 @@ glibc
 gmp
 isl
 libgcc
-mingw
+mingw-w64
 mingw-w64-binutils
 mingw-w64-headers
 mingw-w64-winpthreads
