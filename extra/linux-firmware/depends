@@ -1,1 +1,2 @@
 git make
+parallel make
