@@ -1,2 +1,2 @@
 https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz
-
+files/mingw-quote-symbols-intel-syntax.patch
