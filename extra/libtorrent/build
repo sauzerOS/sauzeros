@@ -1,6 +1,19 @@
 #!/bin/bash -e
 
 git submodule init
+git config --local submodule.simulation/libsimulator.url "$PWD/libsimulator"
+git config --local submodule.deps/try_signal.url "$PWD/try_signal"
+git config --local submodule.deps/asio-gnutls.url "$PWD/boost-asio-gnutls"
+git config --local submodule.deps/libdatachannel.url "$PWD/libdatachannel"
+git -c protocol.file.allow=always submodule update
+
+git -C deps/libdatachannel submodule init
+git -C deps/libdatachannel config --local submodule.deps/plog.url "$PWD/plog"
+git -C deps/libdatachannel config --local submodule.deps/usrsctp.url "$PWD/usrsctp"
+git -C deps/libdatachannel config --local submodule.deps/libjuice.url "$PWD/libjuice"
+git -C deps/libdatachannel config --local submodule.deps/json.url "$PWD/json"
+git -C deps/libdatachannel config --local submodule.deps/libsrtp.url "$PWD/libsrtp"
+git -C deps/libdatachannel -c protocol.file.allow=always submodule update
 
 cmake -B build \
   -D CMAKE_BUILD_TYPE=Release \
