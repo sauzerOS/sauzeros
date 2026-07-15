@@ -1,10 +1,13 @@
 #!/bin/bash -e
+
+patch -Np1 -i libcody-cxx20-char8_t.patch
+
 mkdir build-x86_64-mingw-w64-static
 cd    build-x86_64-mingw-w64-static
 
 ../configure --prefix=/usr               \
              --target=x86_64-w64-mingw32 \
-             --with-sysriit=/usr/x86_64-w64-mingw32 \
+             --with-sysroot=/usr/x86_64-w64-mingw32 \
              --disable-shared            \
              --disable-multilib          \
              --disable-threads           \
@@ -33,4 +36,3 @@ fi
 
 # remove gcc duplicates
 rm -rf $1/usr/share/{locale,info,man}
-
