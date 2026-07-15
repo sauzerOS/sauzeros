@@ -9,6 +9,6 @@ libsoup
 libxml2
 networkmanager-vpn-plugin-openconnect runtime
 openconnect
-webkit2gtk-4.1
+webkit2gtk
 intltool make
 python make 
