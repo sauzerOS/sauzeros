@@ -1,3 +1,3 @@
 mingw-w64-binutils make
 mingw-w64-headers make
-mingw-w64-gcc-static make
+mingw-w64-gcc | mingw-w64-gcc-static make

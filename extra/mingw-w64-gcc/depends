@@ -12,3 +12,4 @@ mpfr
 python
 zlib-ng
 zstd
+mingw-w64-gcc | mingw-w64-gcc-static make
