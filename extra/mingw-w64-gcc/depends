@@ -1,8 +1,8 @@
 bash
 glibc
 gmp
+isl
 libgcc
-libisl
 mingw
 mingw-w64-binutils
 mingw-w64-headers
