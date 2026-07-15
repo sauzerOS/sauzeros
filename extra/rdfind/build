@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr
+CXXFLAGS="${CXXFLAGS} -std=gnu++17" ./configure --prefix=/usr
 
 make
 make DESTDIR=$1 install
