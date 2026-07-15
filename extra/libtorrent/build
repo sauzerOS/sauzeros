@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-git submodules init
+git submodule init
 
 cmake -B build \
   -D CMAKE_BUILD_TYPE=Release \
