@@ -1,10 +1,17 @@
 #!/bin/bash -e
 
+# xfsprogs' install-sh prepends DESTDIR internally, but libtool checks the
+# unprefixed healer directory before invoking install-sh.  Point libtool at
+# the staged directory and prevent install-sh from applying DESTDIR twice.
+sed -i \
+    's|$(LTINSTALL) -m 755 $(BUILD_TARGETS) $(PKG_LIBEXEC_DIR)|DIST_ROOT= DESTDIR= $(LTINSTALL) -m 755 $(BUILD_TARGETS) $(DESTDIR)$(PKG_LIBEXEC_DIR)|' \
+    healer/Makefile
+
 make DEBUG=-DNDEBUG     \
      INSTALL_USER=root  \
      INSTALL_GROUP=root \
      LOCAL_CONFIGURE_OPTIONS="--localstatedir=/var"
 
-make DESTDIR=$1 install
+make DESTDIR="$1" install
 
-rm -rfv $1/usr/lib/libhandle.{a,la}
+rm -rfv "$1"/usr/lib/libhandle.{a,la}
