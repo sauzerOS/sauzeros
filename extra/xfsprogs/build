@@ -13,5 +13,3 @@ make DEBUG=-DNDEBUG     \
      LOCAL_CONFIGURE_OPTIONS="--localstatedir=/var"
 
 make DESTDIR="$1" install
-
-rm -rfv "$1"/usr/lib/libhandle.{a,la}
