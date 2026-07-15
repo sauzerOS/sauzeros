@@ -34,3 +34,8 @@ cd    build-i686
 make
 make DESTDIR=$1 install
 fi
+
+# fix libs
+for lib in "$1"/usr/i686-w64-mingw32/lib/*.a; do
+    i686-w64-mingw32-ranlib "$lib"
+done
