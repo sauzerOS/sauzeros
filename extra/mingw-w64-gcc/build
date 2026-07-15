@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+patch -Np1 -i mingw-quote-symbols-intel-syntax.patch
+
 mkdir build-x86_64-mingw-w64
 cd    build-x86_64-mingw-w64
 
