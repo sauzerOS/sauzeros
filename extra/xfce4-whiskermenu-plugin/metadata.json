@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/panel-plugins/xfce4-whiskermenu-plugin/start",
+  "category": "extra",
+  "description": "Menu for Xfce4",
+  "info": "For Win key to open the menu:\nautostart /usr/bin/xcape -e 'Super_L=Alt_L|F1;Super_R=Alt_L|F1'\nthen set xfce4-popup-whiskermenu shortcut to Alt+F1\n",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

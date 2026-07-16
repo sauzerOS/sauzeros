@@ -1,0 +1,11 @@
+{
+  "url": "https://flatpak.org",
+  "category": "extra",
+  "description": "Linux application sandboxing and distribution framework (formerly xdg-app)",
+  "info": "The flatpak repository can be enabled by running the following command:\nflatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo\n",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

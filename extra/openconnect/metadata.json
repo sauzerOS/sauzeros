@@ -1,0 +1,10 @@
+{
+  "url": "https://www.infradead.org/openconnect/",
+  "category": "extra",
+  "description": "Open client for Cisco AnyConnect VPN",
+  "info": "Disable DNSoverTLS for tun network interface if VPN DNS is not working:\nresolvectl dnsovertls tun0 opportunistic\n",
+  "license": "LGPL2.1",
+  "tags": [
+    "vpn"
+  ]
+}
