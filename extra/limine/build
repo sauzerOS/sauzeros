@@ -15,4 +15,4 @@ xz -d shellm.efi.xz shell_full.efi.xz splash.jpg.xz
 install -Dm 755 shellm.efi $1/boot/EFI/tools/shellm.efi
 install -Dm 755 shell_full.efi $1/boot/EFI/tools/shell.efi
 install -Dm 755 limine.conf $1/boot/EFI/limine/limine.conf
-install -Dm 755 splash.png $1/boot/EFI/limine/splash.jpg
+install -Dm 755 splash.jpg $1/boot/EFI/limine/splash.jpg
