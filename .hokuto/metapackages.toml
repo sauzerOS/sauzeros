@@ -21,6 +21,12 @@ depends = [
 "systemd-libs",
 "util-linux-libs",
 ]
+suggests = [
+"linux suggest mainline kernel",
+"limine suggest Limine bootloader",
+"systemd suggest SystemD init",
+"dbus-broker suggest Dbus replacement",
+]
 [base-devel]
 description = "base devel packages"
 depends = [
