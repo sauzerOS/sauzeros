@@ -26,6 +26,7 @@ suggests = [
 "limine suggest Limine bootloader",
 "systemd suggest SystemD init",
 "dbus-broker suggest Dbus replacement",
+"tzdata suggest timezone data",
 ]
 [base-devel]
 description = "base devel packages"
