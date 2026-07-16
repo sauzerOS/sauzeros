@@ -1,3 +1,4 @@
 glibc
 ncurses
 readline
+bash-completion suggest completion support
