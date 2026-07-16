@@ -3,6 +3,14 @@ dbus
 glib
 glibc
 libblockdev
+libblockdev-crypto
+libblockdev-fs
+libblockdev-loop
+libblockdev-mdraid
+libblockdev-nvme
+libblockdev-part
+libblockdev-smart
+libblockdev-swap
 libgcc
 libgudev
 polkit
@@ -22,17 +30,8 @@ autoconf-archive make
 btrfs-progs make
 git make
 gobject-introspection make
-libblockdev make
 libblockdev-btrfs make
-libblockdev-crypto make
-libblockdev-fs make
-libblockdev-loop make
 libblockdev-lvm make
-libblockdev-mdraid make
-libblockdev-nvme make
-libblockdev-part make
-libblockdev-smart make
-libblockdev-swap make
 libgudev make
 lvm2 make
 polkit make
