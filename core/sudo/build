@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# openssl 4 fix
+sed -e 's/\([->.a-zA-Z_]*\)->length/ASN1_STRING_length(\1)/' \
+    -i lib/iolog/hostcheck.c
+
 ./configure                  \
   --prefix=/usr              \
   --sbindir=/usr/bin         \
@@ -13,6 +17,7 @@
   --without-sendmail         \
   --with-ignore-dot          \
   --with-all-insults         \
+  --with-env-editor          \
   --with-logfac=auth         \
   --enable-tmpfiles.d        \
  --with-passprompt="[sudo] password for %p: "
