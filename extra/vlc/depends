@@ -1,6 +1,6 @@
 bash
 hicolor-icon-theme
-vlc-gui-qt
+vlc-gui-qt runtime
 vlc-gui-ncurses suggest for ncurses TUI
 vlc-gui-skins2 suggest for Skins2 GUI
 vlc-plugin-aom suggest for AOM AV1 codec support
