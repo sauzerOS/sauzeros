@@ -1,4 +1,5 @@
 coreutils
+gawk
 kmod
 bc make
 libelf make
