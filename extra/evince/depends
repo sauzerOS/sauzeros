@@ -21,5 +21,6 @@ libxml2
 pango
 poppler
 appstream make
+aspell make
 gobject-introspection make
 meson make
