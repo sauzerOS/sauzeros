@@ -1,7 +1,0 @@
-bash
-e2fsprogs
-glibc
-keyutils
-lmdb
-openssl
-perl make
