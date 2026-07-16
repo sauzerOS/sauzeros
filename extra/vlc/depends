@@ -34,10 +34,9 @@ vlc-plugin-x265 suggest for H265/HEVC encoding support
 vlc-plugins-all suggest for all plugins
 vlc-plugins-extra suggest for extra plugins
 vlc-plugins-visualization suggest for visualization plugins
-liba52 make
 abseil-cpp make
 alsa-lib make
-libaom make
+avahi make
 bash make
 cairo make
 dav1d make
@@ -51,12 +50,14 @@ freetype make
 fribidi make
 gdk-pixbuf make
 git make
-glib make
 glibc make
+glib make
 gnutls make
 gst-plugins-base make
 gtk+3 make
 harfbuzz make
+liba52 make
+libaom make
 libarchive make
 libass make
 libdca make
@@ -100,8 +101,8 @@ qt-svg make
 sdl2-compat make
 sdl-image make
 smbclient make
-speex make
 speexdsp make
+speex make
 srt make
 systemd-libs make
 taglib make
