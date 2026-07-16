@@ -36,7 +36,6 @@ _pick "$1" gvfs-mtp usr/share/gvfs/remote-volume-monitors/mtp.monitor
 # gvfs-nfs
 _pick "$1" gvfs-nfs usr/lib/gvfsd-nfs \
 _pick "$1" gvfs-nfs usr/share/gvfs/mounts/nfs.mount
-setcap 'cap_net_bind_service=+ep' $HOKUTO_SPLIT_DIR/gvfs-nfs/usr/lib/gvfsd-nfs
 
 # gvfs-smb
 _pick "$1" gvfs-smb usr/lib/gvfsd-smb{,-browse} \
