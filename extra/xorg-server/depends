@@ -16,6 +16,7 @@ nettle
 pixman
 systemd-libs
 xf86-input-libinput runtime
+xorg-xkbcomp
 libx11 make
 libxaw make
 libxi make
@@ -36,6 +37,5 @@ xcb-util-renderutil make
 xcb-util-wm make
 xorg-font-util make
 xorg-util-macros make
-xkbcomp make
 xorgproto make
 xtrans make

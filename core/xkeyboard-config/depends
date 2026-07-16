@@ -1,5 +1,5 @@
 meson make
 python make
-xkbcomp make
+xorg-xkbcomp make
 aarch64-linux-headers cross
 aarch64-gcc cross make
