@@ -130,15 +130,20 @@ _hokuto_complete()
     fi
 
     case "$cmd" in
+        log)
+            local -a choices
+            mapfile -t choices < <(command "${COMP_WORDS[0]}" __complete log 2>/dev/null)
+            COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+            ;;
         install|i)
             case "$cur" in
-                -*) COMPREPLY=($(compgen -W "-y --yes --force --no-deps --generic -g --arm64 --x86_64 --multi --remote --no-remote --fast" -- "$cur")) ;;
+                -*) COMPREPLY=($(compgen -W "-y --yes --force --no-deps --generic -g --arm64 --x86_64 --multi --remote --no-remote --ask --debug" -- "$cur")) ;;
                 *) _hokuto_complete_install_targets ;;
             esac
             ;;
         build|b)
             case "$cur" in
-                -*) COMPREPLY=($(compgen -W "-a -i --idle -ii --superidle -v --verbose --alldeps -r --rebuilds --ordered --generic --cross --no-deps --no-devel --no-remote --wget-no-check-certificate -j --parallel --index" -- "$cur")) ;;
+                -*) COMPREPLY=($(compgen -W "-a -i --idle -ii --superidle -v --verbose --debug --alldeps -r --rebuilds --ordered --generic --cross --no-deps --no-devel --no-remote --wget-no-check-certificate -j --parallel --index" -- "$cur")) ;;
                 *) _hokuto_complete_packages ;;
             esac
             ;;

@@ -49,6 +49,8 @@ for prog in $prog_names
     complete -c $prog -f
     complete -c $prog -n "not __fish_seen_subcommand_from $hokuto_commands" -a "$hokuto_commands"
 
+    complete -c $prog -n "__fish_seen_subcommand_from log" -a "(command $prog __complete log 2>/dev/null)" -d "Available Package Log"
+
     complete -c $prog -n "__fish_seen_subcommand_from install i" -s y -l yes -d "Assume yes to all prompts"
     complete -c $prog -n "__fish_seen_subcommand_from install i" -l force -d "Install even if already installed"
     complete -c $prog -n "__fish_seen_subcommand_from install i" -l no-deps -d "Ignore dependencies"
@@ -59,7 +61,8 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from install i" -l multi -d "Install multilib variants"
     complete -c $prog -n "__fish_seen_subcommand_from install i" -l remote -d "Install from remote mirror"
     complete -c $prog -n "__fish_seen_subcommand_from install i" -l no-remote -d "Use local package sources and cached files only"
-    complete -c $prog -n "__fish_seen_subcommand_from install i" -l fast -d "Enable fast install mode"
+    complete -c $prog -n "__fish_seen_subcommand_from install i" -l ask -d "Show the install plan and ask before installing"
+    complete -c $prog -n "__fish_seen_subcommand_from install i" -l debug -d "Enable debug output and detailed install mode"
     complete -c $prog -n "__fish_seen_subcommand_from install i" -a '(
         set -l cache_root "/var/cache/hokuto/bin/"
         for file in $cache_root*.tar.zst
@@ -76,6 +79,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from build b" -o ii -d "Super-idle build"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -l superidle -d "Super-idle build"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -s v -l verbose -d "Enable verbose output"
+    complete -c $prog -n "__fish_seen_subcommand_from build b" -l debug -d "Enable debug output"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -l alldeps -d "Force rebuild of all dependencies"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -s r -l rebuilds -d "Enable post-build rebuilds"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -l ordered -d "Force ordered build"

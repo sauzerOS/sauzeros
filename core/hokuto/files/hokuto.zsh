@@ -20,6 +20,12 @@ _hokuto_install_packages() {
   _describe 'available package' packages
 }
 
+_hokuto_log_packages() {
+  local -a packages
+  packages=("${(@f)$(command $words[1] __complete log 2>/dev/null)}")
+  _describe 'available package log' packages
+}
+
 _hokuto() {
   local context state line command
   typeset -A opt_args
@@ -68,6 +74,9 @@ _hokuto() {
     args)
       command=${line[1]}
       case $command in
+        log)
+          _hokuto_log_packages
+          ;;
         list|ls)
           _arguments \
             '--remote[List packages from the remote repository]' \
@@ -131,9 +140,41 @@ _hokuto() {
           fi
           ;;
         install|i)
-          _hokuto_install_packages
+          _arguments \
+            '(-y --yes)'{-y,--yes}'[Assume yes to all prompts]' \
+            '--force[Install even if already installed]' \
+            '--no-deps[Ignore dependencies]' \
+            '(-g --generic)'{-g,--generic}'[Install generic variant]' \
+            '--arm64[Install arm64 variant]' \
+            '--x86_64[Install x86_64 variant]' \
+            '--multi[Install multilib variants]' \
+            '--remote[Install from remote mirror]' \
+            '--no-remote[Use local sources and cached packages only]' \
+            '--ask[Show the install plan and ask before installing]' \
+            '--debug[Enable debug output and detailed install mode]' \
+            '*:package:_hokuto_install_packages'
           ;;
-        build|b|checksum|c|edit|e|bump|check)
+        build|b)
+          _arguments \
+            '-a[Automatically install after build]' \
+            '-i[Use idle build priority]' \
+            '-ii[Use super-idle build priority]' \
+            '(-v --verbose)'{-v,--verbose}'[Enable verbose output]' \
+            '--debug[Enable debug output]' \
+            '--alldeps[Force rebuild all dependencies]' \
+            '(-r --rebuilds)'{-r,--rebuilds}'[Enable post-build rebuilds]' \
+            '--ordered[Force ordered build]' \
+            '--generic[Build generic variant]' \
+            '--cross[Cross-compile for target architecture]:architecture:' \
+            '--no-deps[Skip dependency checking]' \
+            '--no-devel[Skip automatic base-devel installation]' \
+            '--no-remote[Do not use the remote binary mirror]' \
+            '--wget-no-check-certificate[Disable certificate verification for wget fallback]' \
+            '(-j --parallel)'{-j,--parallel}'[Number of parallel jobs]:jobs:' \
+            '--index[Update the github.io status table]' \
+            '*:package:_hokuto_repository_packages'
+          ;;
+        checksum|c|edit|e|bump|check)
           _hokuto_repository_packages
           ;;
       esac
