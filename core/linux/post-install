@@ -64,26 +64,26 @@ update_marked_block() {
     rm -f "$tmp"
 }
 
-if [ -f /boot/limine.conf ]; then
-    echo "Updating Limine entry for $krel"
-    update_marked_block /boot/limine.conf "$(cat <<EOF
-:sauzerOS Linux $krel
-    PROTOCOL=linux
-    KERNEL_PATH=boot:///vmlinuz-$krel
-    MODULE_PATH=boot:///initramfs-$krel.img
-    CMDLINE=$rootflags
-EOF
-)"
-fi
+limine_config=/boot/EFI/limine/limine.conf
+if [ -f "$limine_config" ]; then
+    limine_cmdline=$(awk '
+        /^[[:space:]]*[Cc][Mm][Dd][Ll][Ii][Nn][Ee][[:space:]]*:/ {
+            sub(/^[[:space:]]*[Cc][Mm][Dd][Ll][Ii][Nn][Ee][[:space:]]*:[[:space:]]*/, "")
+            print
+            exit
+        }
+    ' "$limine_config")
+    if [ -z "$limine_cmdline" ]; then
+        limine_cmdline=$rootflags
+    fi
 
-if [ -f /boot/EFI/BOOT/limine.conf ]; then
     echo "Updating Limine entry for $krel"
-    update_marked_block /boot/EFI/BOOT/limine.conf "$(cat <<EOF
-:sauzerOS Linux $krel
-    PROTOCOL=linux
-    KERNEL_PATH=boot:///vmlinuz-$krel
-    MODULE_PATH=boot:///initramfs-$krel.img
-    CMDLINE=$rootflags
+    update_marked_block "$limine_config" "$(cat <<EOF
+/sauzerOS Linux $krel
+    protocol: linux
+    path: boot():/vmlinuz-$krel
+    module_path: boot():/initramfs-$krel.img
+    cmdline: $limine_cmdline
 EOF
 )"
 fi
