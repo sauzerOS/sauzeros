@@ -9,6 +9,9 @@ headersdir=$HOKUTO_SPLIT_DIR/linux-headers
 zcat config.gz > .config
 make olddefconfig
 
+# patch umip default value
+patch -Np1 -i umip-dummy-limit.patch
+
 #while true; do
 #    read -p "Save updated kernel config to repo package? [yes/no]: " answer
 #    case "${answer,,}" in
