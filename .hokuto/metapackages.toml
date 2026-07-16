@@ -8,6 +8,7 @@ depends = [
 "glibc",
 "gzip",
 "hokuto",
+"iana-etc",
 "inetutils",
 "iproute2",
 "libgcc",
@@ -107,4 +108,6 @@ suggests = [
 "plasma-x11-session suggest Plasma X11 session",
 "plymouth-kcm suggest Configure Plymouth from systemsettings",
 "sddm-kcm suggest SDDM configuration module",
+"konsole suggest Konsole terminal emulator",
+"dolphin suggest Dolphin file manager",
 ]
