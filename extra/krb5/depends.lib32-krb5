@@ -1,6 +1,0 @@
-krb5
-lib32-e2fsprogs
-lib32-gcc-libs
-lib32-glibc
-lib32-keyutils
-lib32-openssl 
