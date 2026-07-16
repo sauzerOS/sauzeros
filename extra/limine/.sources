@@ -1,1 +1,5 @@
 https://github.com/limine-bootloader/limine/releases/download/v${version}/limine-${version}.tar.xz
+files/limine.conf
+files/shell_full.efi.xz
+files/shellm.efi.xz
+files/splash.jpg.xz
