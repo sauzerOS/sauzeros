@@ -8,6 +8,7 @@ depends = [
 "glibc",
 "gzip",
 "hokuto",
+"inetutils",
 "iproute2",
 "libgcc",
 "libstdc++",
