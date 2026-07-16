@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+version=${HOKUTO_VERSION:?HOKUTO_VERSION is not set by hokuto}
+
 if [[ -f "/etc/xml/catalog" ]] ; then
 
 sed -i '/rewrite/d' /etc/xml/catalog
@@ -12,31 +14,31 @@ fi
 xmlcatalog --noout --create /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteSystem" \
-           "https://cdn.docbook.org/release/xsl-nons/1.79.2" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "https://cdn.docbook.org/release/xsl-nons/${version}" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteURI" \
-           "https://cdn.docbook.org/release/xsl-nons/1.79.2" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "https://cdn.docbook.org/release/xsl-nons/${version}" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteSystem" \
            "https://cdn.docbook.org/release/xsl-nons/current" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteURI" \
            "https://cdn.docbook.org/release/xsl-nons/current" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteSystem" \
            "http://docbook.sourceforge.net/release/xsl/current" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog
 
 xmlcatalog --noout --add "rewriteURI" \
            "http://docbook.sourceforge.net/release/xsl/current" \
-           "/usr/share/xml/docbook/xsl-stylesheets-nons-1.79.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-nons-${version}" \
     /etc/xml/catalog

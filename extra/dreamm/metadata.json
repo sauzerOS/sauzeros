@@ -1,0 +1,11 @@
+{
+  "url": "https://dreamm.aarongiles.com/",
+  "category": "extra",
+  "description": "Emulator for LucasArts, LucasFilm games",
+  "info": "Roland MT Roms are installed in /usr/share/dreamm\nImport them a soundfont from /usr/share/sounds/sf2 in DREAMM\n",
+  "license": "Copyright ASG HC1 LLC",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}
