@@ -1,24 +1,27 @@
 #!/bin/bash -e
 
-./configure \
-    --prefix=/usr \
-    --sbindir=/usr/bin \
-    --libexecdir=/usr/lib \
-    --disable-pam-session \
-    --disable-root-mailer \
-    --disable-openssl \
-    --disable-python \
-    --enable-pie \
-    --without-pam \
-    --without-sendmail \
-    --with-ignore-dot \
-    --with-insults=disabled \
-    --with-logfac=auth \
-    --with-passprompt="[sudo] password for %p: "
+./configure                  \
+  --prefix=/usr              \
+  --sbindir=/usr/bin         \
+  --libexecdir=/usr/lib      \
+  --with-rundir=/run/sudo    \
+  --with-vardir=/var/db/sudo \
+  --with-pam                 \
+  --disable-root-mailer      \
+  --disable-python           \
+  --enable-pie               \
+  --without-sendmail         \
+  --with-ignore-dot          \
+  --with-all-insults         \
+  --with-logfac=auth         \
+  --enable-tmpfiles.d        \
+ --with-passprompt="[sudo] password for %p: "
 
 make
-make \
-    DESTDIR="$1" \
-    install_uid="$(id -u)" \
-    install_gid="$(id -g)" \
-    install
+make DESTDIR=$1 install
+
+# Remove /run/sudo directory; we create it using systemd-tmpfiles
+rmdir "$1/run/sudo"
+rmdir "$1/run"
+
+install -Dm644 "sudo.pam" "$1/etc/pam.d/sudo"
