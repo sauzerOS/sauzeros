@@ -1,9 +1,111 @@
 #!/bin/bash -e
 
 patch -Np1 -i 0003-Adjust-includes-for-build-with-gstreamer-1.28.patch
-
 autoreconf -fvi
-BUILDCC=gcc ./configure --prefix=/usr
+
+configure_options=(
+  --disable-chromaprint
+  --disable-fdkaac
+  --disable-kwallet
+  --disable-libgcrypt
+  --disable-libplacebo
+  --disable-opencv
+  --disable-rpath
+  --disable-schroedinger
+  --disable-sndio
+  --disable-update-check
+  --enable-a52
+  --enable-aa
+  --enable-alsa
+  --enable-aom
+  --enable-archive
+  --enable-aribsub
+  --enable-aribcam
+  --enable-avahi
+  --enable-avcodec
+  --enable-avformat
+  --enable-bluray
+  --enable-caca
+  --enable-chromecast
+  --enable-dav1d
+  --enable-dc1394
+  --enable-dca
+  --enable-dv1394
+  --enable-dvbpsi
+  --enable-dvdnav
+  --enable-dvdread
+  --enable-faad
+  --enable-flac
+  --enable-fluidsynth
+  --enable-fontconfig
+  --enable-freetype
+  --enable-fribidi
+  --enable-gnutls
+  --enable-gme
+  --enable-goom
+  --enable-gst-decode
+  --enable-harfbuzz
+  --enable-jack
+  --enable-jpeg
+  --enable-kate
+  --enable-libass
+  --enable-libcddb
+  --enable-libmpeg2
+  --enable-libva
+  --enable-libxml2
+  --enable-lirc
+  --enable-live555
+  --enable-mad
+  --enable-matroska
+  --enable-mod
+  --enable-mpc
+  --enable-mpg123
+  --enable-microdns
+  --enable-mtp
+  --enable-ncurses
+  --enable-nfs
+  --enable-nls
+  --enable-notify
+  --enable-ogg
+  --enable-oggspots
+  --enable-opus
+  --enable-png
+  --enable-postproc
+  --enable-projectm
+  --enable-pulse
+  --enable-qt
+  --enable-realrtsp
+  --enable-samplerate
+  --enable-sdl-image
+  --enable-secret
+  --enable-sftp
+  --enable-shout
+  --enable-skins2
+  --enable-smbclient
+  --enable-soxr
+  --enable-speex
+  --enable-srt
+  --enable-svg
+  --enable-svgdec
+  --enable-taglib
+  --enable-tiger
+  --enable-twolame
+  --enable-upnp
+  --enable-vcd
+  --enable-vdpau
+  --enable-vlc
+  --enable-vorbis
+  --enable-vpx
+  --enable-wayland
+  --enable-x264
+  --enable-x265
+  --enable-zvbi
+  --prefix=/usr
+  --sysconfdir=/etc
+  --with-kde-solid=/usr/share/solid/actions/
+)
+
+./configure "${configure_options[@]}"
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 make
