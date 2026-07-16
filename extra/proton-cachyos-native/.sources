@@ -1,0 +1,6 @@
+git+https://github.com/CachyOS/proton-cachyos.git#tag=cachyos-11.0-20260702-native -> proton-cachyos
+https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86{,_64}.tar.xz
+https://github.com/madewokherd/wine-mono/releases/download/wine-mono-11.2.0/wine-mono-11.2.0-x86.tar.xz
+https://github.com/madewokherd/xalia/releases/download/xalia-0.4.9/xalia-0.4.9-net48-mono.zip
+files/compatibilitytool.vdf.template
+files/ntsync.conf
