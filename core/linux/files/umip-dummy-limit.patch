@@ -1,0 +1,11 @@
+--- arch/x86/kernel/umip.c	2026-07-04 18:45:09.000000000 +0700
++++ /home/sauzeros/umip.c	2026-07-16 13:18:47.814658057 +0700
+@@ -229,7 +229,7 @@
+ 	 */
+ 	if (umip_inst == UMIP_INST_SGDT || umip_inst == UMIP_INST_SIDT) {
+ 		u64 dummy_base_addr;
+-		u16 dummy_limit = 0;
++		u16 dummy_limit = 0x7f;
+ 
+ 		/* SGDT and SIDT do not use registers operands. */
+ 		if (X86_MODRM_MOD(insn->modrm.value) == 3)
