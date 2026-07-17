@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+patch -Np1 -i pulse-sysdefault.diff
+autoreconf -fiv
+
 configure_options=(
     --prefix=/usr
     --sysconfdir=/etc
