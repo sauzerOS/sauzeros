@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/libuv/libuv",
+  "category": "extra",
+  "description": "Multi-platform support library with a focus on asynchronous I/O",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "library",
+    "sync"
+  ]
+}

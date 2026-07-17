@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/PolyMC/PolyMC",
+  "category": "extra",
+  "description": "Minecraft launcher with the ability to manage multiple instances",
+  "info": "",
+  "license": "[\n  \"GPL3\"\n]",
+  "tags": []
+}

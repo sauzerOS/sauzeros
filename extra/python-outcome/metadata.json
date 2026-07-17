@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/python-trio/outcome",
+  "category": "extra",
+  "description": "Capture the outcome of Python function calls",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/astral-sh/uv",
+  "category": "extra",
+  "description": "An extremely fast Python package installer and resolver written in Rust",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

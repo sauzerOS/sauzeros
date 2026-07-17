@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Display information utility for X",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility"
+  ]
+}

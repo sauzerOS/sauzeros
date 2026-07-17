@@ -1,0 +1,11 @@
+{
+  "url": "https://www.freepascal.org/",
+  "category": "extra",
+  "description": "Sources for the FreePascal compiler (required by the Lazarus IDE)",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "compiler",
+    "ide"
+  ]
+}

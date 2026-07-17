@@ -1,0 +1,10 @@
+{
+  "url": "https://syncthing.net/",
+  "category": "extra",
+  "description": "Open Source Continuous Replication / Cluster Synchronization Thing",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "sync"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://netfilter.org/projects/libnftnl/",
+  "category": "base",
+  "description": "Netfilter library providing interface to the nf_tables subsystem",
+  "info": "",
+  "license": "GPL2",
+  "tags": [
+    "library"
+  ]
+}

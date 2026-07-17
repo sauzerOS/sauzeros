@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/apps/mousepad/start",
+  "category": "extra",
+  "description": "Simple text editor for Xfce",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "editor",
+    "xfce"
+  ]
+}

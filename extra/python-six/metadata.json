@@ -1,0 +1,11 @@
+{
+  "url": "https://pypi.python.org/pypi/six/",
+  "category": "extra",
+  "description": "Python 2 and 3 compatibility utilities",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python",
+    "utility"
+  ]
+}

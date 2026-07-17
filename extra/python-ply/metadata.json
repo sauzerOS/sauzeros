@@ -1,0 +1,10 @@
+{
+  "url": "https://www.dabeaz.com/ply/",
+  "category": "extra",
+  "description": "Implementation of lex and yacc parsing tools",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

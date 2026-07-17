@@ -1,0 +1,8 @@
+{
+  "url": "https://gnupg.org/software/gpgme/index.html",
+  "category": "extra",
+  "description": "C++ bindings for GPGME",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": []
+}

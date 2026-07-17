@@ -1,0 +1,10 @@
+{
+  "url": "https://www.speex.org/",
+  "category": "extra",
+  "description": "DSP library derived from Speex",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library"
+  ]
+}

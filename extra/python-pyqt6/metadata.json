@@ -1,0 +1,10 @@
+{
+  "url": "https://riverbankcomputing.com/software/pyqt/intro",
+  "category": "extra",
+  "description": "A set of Python bindings for the Qt6 toolkit",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "python"
+  ]
+}

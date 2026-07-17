@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/apps/xfburn/start",
+  "category": "extra",
+  "description": "A simple CD/DVD burning tool based on libburnia libraries",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "optical-tools"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/libexif/libexif",
+  "category": "extra",
+  "description": "Library to parse an EXIF file and read the data from those tags",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "library"
+  ]
+}

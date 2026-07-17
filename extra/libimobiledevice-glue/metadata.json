@@ -1,0 +1,10 @@
+{
+  "url": "https://libimobiledevice.org/",
+  "category": "extra",
+  "description": "A library with common code used by libraries and tools around the libimobiledevice project",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

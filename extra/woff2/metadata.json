@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/google/woff2",
+  "category": "extra",
+  "description": "Web Open Font Format 2 reference implementation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "fonts"
+  ]
+}

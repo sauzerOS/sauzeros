@@ -1,0 +1,13 @@
+{
+  "url": "https://wiki.gnome.org/Projects/libsoup",
+  "category": "extra",
+  "description": "HTTP client/server library for GNOME",
+  "info": "",
+  "license": "[\n  \"LGPL-2.0-or-later\"\n]",
+  "tags": [
+    "cli",
+    "gnome",
+    "library",
+    "network"
+  ]
+}

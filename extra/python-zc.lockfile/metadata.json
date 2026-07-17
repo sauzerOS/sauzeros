@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/zopefoundation/zc.lockfile",
+  "category": "extra",
+  "description": "Zope testing frameworks",
+  "info": "",
+  "license": "ZPL-2.1",
+  "tags": [
+    "python"
+  ]
+}

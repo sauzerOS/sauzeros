@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/storaged-project/libbytesize",
+  "category": "extra",
+  "description": "A tiny library providing a C \"class\" for working with arbitrary big sizes in bytes",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

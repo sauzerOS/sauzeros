@@ -1,0 +1,10 @@
+{
+  "url": "https://itsdangerous.palletsprojects.com",
+  "category": "extra",
+  "description": "Various helpers to pass trusted data to untrusted environments",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

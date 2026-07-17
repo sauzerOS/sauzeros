@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "combined X.Org X11 Protocol headers",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "x11"
+  ]
+}

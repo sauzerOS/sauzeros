@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pyparsing/pyparsing/",
+  "category": "extra",
+  "description": "General parsing module for Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

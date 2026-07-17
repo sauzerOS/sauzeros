@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/libcdio/",
+  "category": "extra",
+  "description": "GNU Compact Disc Input and Control Library",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

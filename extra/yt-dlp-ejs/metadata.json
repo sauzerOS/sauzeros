@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/yt-dlp/ejs",
+  "category": "extra",
+  "description": "External JavaScript for yt-dlp supporting many runtimes",
+  "info": "",
+  "license": "Unlicense",
+  "tags": [
+    "library"
+  ]
+}

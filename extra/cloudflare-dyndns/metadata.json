@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/sauzerOS/sauzeros/tree/master/extra/cloudflare-dyndns",
+  "category": "extra",
+  "description": "cloudflare dyndns",
+  "info": "",
+  "license": "",
+  "tags": [
+    "network"
+  ]
+}

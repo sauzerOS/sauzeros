@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "a library that exposes a event API on top of Linux futexes",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "library"
+  ]
+}

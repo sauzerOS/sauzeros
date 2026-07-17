@@ -1,0 +1,8 @@
+{
+  "url": "https://pinta-project.com",
+  "category": "extra",
+  "description": "Drawing/editing program modeled after Paint.NET. It's goal is to provide a simplified alternative to GIMP for casual users",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": []
+}

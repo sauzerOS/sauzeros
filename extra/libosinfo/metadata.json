@@ -1,0 +1,11 @@
+{
+  "url": "https://libosinfo.org/",
+  "category": "extra",
+  "description": "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support",
+  "info": "",
+  "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+  "tags": [
+    "library",
+    "virtual-machine"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://click.palletsprojects.com/",
+  "category": "extra",
+  "description": "Simple wrapper around optparse for powerful command line utilities",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "python",
+    "utility"
+  ]
+}

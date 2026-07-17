@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/VDPAU/",
+  "category": "extra",
+  "description": "Nvidia VDPAU library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

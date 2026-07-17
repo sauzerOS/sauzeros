@@ -1,0 +1,11 @@
+{
+  "url": "https://libsndfile.github.io/libsndfile/",
+  "category": "extra",
+  "description": "A C library for reading and writing files containing sampled audio data",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

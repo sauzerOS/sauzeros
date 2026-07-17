@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/thkukuk/rpcsvc-proto",
+  "category": "extra",
+  "description": "rpcsvc protocol definitions from glibc",
+  "info": "",
+  "license": "BSD",
+  "tags": []
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://libosinfo.org/",
+  "category": "extra",
+  "description": "Osinfo database of information about operating systems for virtualization provisioning tools",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "database",
+    "virtual-machine"
+  ]
+}

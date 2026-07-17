@@ -1,0 +1,10 @@
+{
+  "url": "https://libvirt.org/",
+  "category": "extra",
+  "description": "API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "virtual-machine"
+  ]
+}

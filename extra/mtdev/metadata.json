@@ -1,0 +1,10 @@
+{
+  "url": "https://bitmath.org/code/mtdev/",
+  "category": "extra",
+  "description": "A stand-alone library which transforms all variants of kernel MT events to the slotted type B protocol",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

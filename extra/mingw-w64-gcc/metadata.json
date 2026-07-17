@@ -1,0 +1,10 @@
+{
+  "url": "https://gcc.gnu.org",
+  "category": "extra",
+  "description": "Cross GCC for the MinGW-w64 cross-compiler",
+  "info": "",
+  "license": "GFDL-1.3-or-later",
+  "tags": [
+    "compiler"
+  ]
+}

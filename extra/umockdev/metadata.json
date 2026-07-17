@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/martinpitt/umockdev/",
+  "category": "extra",
+  "description": "Record/mock hardware devices for bug reports and regression tests",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

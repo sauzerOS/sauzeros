@@ -1,0 +1,10 @@
+{
+  "url": "https://metacpan.org/dist/File-ShareDir",
+  "category": "extra",
+  "description": "Locate per-dist and per-module shared files",
+  "info": "",
+  "license": "Artistic-1.0-Perl OR GPL-1.0-or-later",
+  "tags": [
+    "perl"
+  ]
+}

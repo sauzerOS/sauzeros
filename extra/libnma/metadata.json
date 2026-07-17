@@ -1,0 +1,13 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libnma",
+  "category": "extra",
+  "description": "NetworkManager GUI client library (GTK3)",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "gui",
+    "library",
+    "network"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://gnome.pages.gitlab.gnome.org/blueprint-compiler/",
+  "category": "extra",
+  "description": "Markup language and compiler for GTK 4 user interfaces",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "compiler"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/thom311/libnl/",
+  "category": "base",
+  "description": "Library for applications dealing with netlink sockets",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library",
+    "network"
+  ]
+}

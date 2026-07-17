@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/d9pouces/RubyMarshal",
+  "category": "extra",
+  "description": "Read and write Ruby-Marshalled data",
+  "info": "",
+  "license": "[\n  \"custom:WTFPL\"\n]",
+  "tags": [
+    "python"
+  ]
+}

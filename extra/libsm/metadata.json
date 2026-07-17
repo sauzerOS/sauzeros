@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X11 Session Management library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

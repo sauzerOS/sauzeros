@@ -1,0 +1,10 @@
+{
+  "url": "https://sndio.org",
+  "category": "extra",
+  "description": "A small audio and MIDI framework",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "multimedia"
+  ]
+}

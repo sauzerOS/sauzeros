@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/annotated-types/annotated-types",
+  "category": "extra",
+  "description": "Reusable constraint types to use with typing.Annotated",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

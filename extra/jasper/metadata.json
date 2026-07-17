@@ -1,0 +1,10 @@
+{
+  "url": "https://www.ece.uvic.ca/~frodo/jasper/",
+  "category": "extra",
+  "description": "Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard",
+  "info": "",
+  "license": "LicenseRef-JasPer2.0",
+  "tags": [
+    "multimedia"
+  ]
+}

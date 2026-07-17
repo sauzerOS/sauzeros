@@ -1,0 +1,8 @@
+{
+  "url": "http://aspell.net/",
+  "category": "extra",
+  "description": "A spell checker designed to eventually replace Ispell",
+  "info": "",
+  "license": "LGPL-2.0-or-later AND LGPL-2.1-only AND GPL-2.0-or-later AND BSD-2-Clause",
+  "tags": []
+}

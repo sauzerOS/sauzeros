@@ -1,0 +1,11 @@
+{
+  "url": "https://www.antlr.org/",
+  "category": "extra",
+  "description": "ANTLR4 runtime for Python",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

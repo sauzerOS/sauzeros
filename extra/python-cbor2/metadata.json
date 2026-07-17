@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/agronholm/cbor2",
+  "category": "extra",
+  "description": "Pure Python CBOR (de)serializer with extensive tag support",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

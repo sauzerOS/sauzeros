@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/google/liblc3",
+  "category": "extra",
+  "description": "Low Complexity Communication Codec library and tools",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

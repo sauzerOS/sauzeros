@@ -1,0 +1,10 @@
+{
+  "url": "https://www.nvidia.com/",
+  "category": "extra",
+  "description": "NVIDIA drivers utilities",
+  "info": "",
+  "license": "LicenseRef-NVIDIA-Driver-License-Agreement",
+  "tags": [
+    "utility"
+  ]
+}

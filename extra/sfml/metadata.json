@@ -1,0 +1,10 @@
+{
+  "url": "http://www.sfml-dev.org/",
+  "category": "extra",
+  "description": "A simple, fast, cross-platform, and object-oriented multimedia API",
+  "info": "",
+  "license": "Zlib",
+  "tags": [
+    "multimedia"
+  ]
+}

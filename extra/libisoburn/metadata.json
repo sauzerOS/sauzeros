@@ -1,0 +1,10 @@
+{
+  "url": "https://dev.lovelyhq.com/libburnia/libisoburn",
+  "category": "extra",
+  "description": "Frontend for libraries libburn & libisofs",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

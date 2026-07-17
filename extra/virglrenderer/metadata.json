@@ -1,0 +1,11 @@
+{
+  "url": "https://virgil3d.github.io/",
+  "category": "extra",
+  "description": "A virtual 3D GPU library, that allows the guest operating system to use the host GPU to accelerate 3D rendering",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

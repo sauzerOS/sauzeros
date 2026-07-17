@@ -1,0 +1,10 @@
+{
+  "url": "https://www.libssh2.org/",
+  "category": "base",
+  "description": "A library implementing the SSH2 protocol as defined by Internet Drafts",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}

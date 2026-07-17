@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnupg.org/related_software/libksba/",
+  "category": "base",
+  "description": "Library for working with X.509 certificates, CMS data and related objects",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "library"
+  ]
+}

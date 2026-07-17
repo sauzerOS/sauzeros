@@ -1,0 +1,10 @@
+{
+  "url": "https://www.soft-switch.org/",
+  "category": "extra",
+  "description": "Low-level signal processing library that modulates and demodulates signals commonly used in telephony",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

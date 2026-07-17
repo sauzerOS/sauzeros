@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/sayanarijit/expandvars",
+  "category": "extra",
+  "description": "Expand system variables Unix-style",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

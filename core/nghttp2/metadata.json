@@ -1,0 +1,12 @@
+{
+  "url": "https://nghttp2.org/",
+  "category": "extra",
+  "description": "Client, server and proxy programs from the nghttp2 library",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": [
+    "cli",
+    "library",
+    "server"
+  ]
+}

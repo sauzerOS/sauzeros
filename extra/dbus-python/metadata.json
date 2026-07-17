@@ -1,0 +1,10 @@
+{
+  "url": "https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.4.0.tar.xz",
+  "category": "extra",
+  "description": "dbus python",
+  "info": "",
+  "license": "",
+  "tags": [
+    "python"
+  ]
+}

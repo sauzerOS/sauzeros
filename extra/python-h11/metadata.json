@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/python-hyper/h11",
+  "category": "extra",
+  "description": "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

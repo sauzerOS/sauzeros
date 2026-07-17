@@ -1,0 +1,10 @@
+{
+  "url": "https://nixos.org/patchelf.html",
+  "category": "extra",
+  "description": "Small utility to modify the dynamic linker and RPATH of ELF executables",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

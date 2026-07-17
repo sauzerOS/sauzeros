@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/AyatanaIndicators/libayatana-appindicator",
+  "category": "extra",
+  "description": "Ayatana Application Indicators shared library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

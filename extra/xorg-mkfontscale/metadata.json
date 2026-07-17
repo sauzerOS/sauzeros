@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/mkfontscale",
+  "category": "extra",
+  "description": "Create an index of scalable font files for X",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "fonts"
+  ]
+}

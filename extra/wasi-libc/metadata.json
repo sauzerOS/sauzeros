@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/WebAssembly/wasi-libc",
+  "category": "extra",
+  "description": "WASI libc implementation for WebAssembly",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT",
+  "tags": []
+}

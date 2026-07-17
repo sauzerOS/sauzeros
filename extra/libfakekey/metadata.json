@@ -1,0 +1,10 @@
+{
+  "url": "https://git.yoctoproject.org/libfakekey/",
+  "category": "extra",
+  "description": "X virtual keyboard library.",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://libimobiledevice.org/",
+  "category": "extra",
+  "description": "Library to communicate with services on iOS devices using native protocols",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

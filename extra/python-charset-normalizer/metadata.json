@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Ousret/charset_normalizer",
+  "category": "extra",
+  "description": "Encoding and language detection alternative to chardet",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

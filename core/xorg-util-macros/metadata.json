@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X.Org Autotools macros",
+  "info": "",
+  "license": "HPND-sell-variant AND MIT",
+  "tags": [
+    "x11"
+  ]
+}

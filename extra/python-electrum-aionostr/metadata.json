@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/spesmilo/electrum-aionostr",
+  "category": "extra",
+  "description": "Asyncio nostr client for Python",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "python"
+  ]
+}

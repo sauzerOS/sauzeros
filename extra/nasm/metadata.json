@@ -1,0 +1,10 @@
+{
+  "url": "https://www.nasm.us",
+  "category": "extra",
+  "description": "80x86 assembler designed for portability and modularity",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "compiler"
+  ]
+}

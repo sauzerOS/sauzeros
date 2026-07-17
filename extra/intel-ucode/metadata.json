@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files",
+  "category": "extra",
+  "description": "Microcode update files for Intel CPUs",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "firmware"
+  ]
+}

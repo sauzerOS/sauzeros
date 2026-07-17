@@ -1,0 +1,10 @@
+{
+  "url": "https://www.busybox.net",
+  "category": "extra",
+  "description": "Utilities for rescue and embedded systems",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "utility"
+  ]
+}

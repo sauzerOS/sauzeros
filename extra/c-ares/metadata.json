@@ -1,0 +1,12 @@
+{
+  "url": "https://c-ares.org/",
+  "category": "extra",
+  "description": "A C library for asynchronous DNS requests",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "network",
+    "sync"
+  ]
+}

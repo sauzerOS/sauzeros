@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/python-pyproject-metadata",
+  "category": "extra",
+  "description": "PEP 621 metadata parsing",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://xfs.wiki.kernel.org",
+  "category": "base",
+  "description": "XFS filesystem utilities",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "disk-tools",
+    "utility"
+  ]
+}

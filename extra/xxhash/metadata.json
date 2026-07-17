@@ -1,0 +1,10 @@
+{
+  "url": "https://cyan4973.github.io/xxHash/",
+  "category": "extra",
+  "description": "Extremely fast non-cryptographic hash algorithm",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "crypto"
+  ]
+}

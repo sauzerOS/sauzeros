@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.archlinux.org/grawlinson/pkg_resources",
+  "category": "extra",
+  "description": "Temporary stub of pkg_resources for Arch Linux",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

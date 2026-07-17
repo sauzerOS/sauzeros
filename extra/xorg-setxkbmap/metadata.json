@@ -1,0 +1,8 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Set the keyboard using the X Keyboard Extension",
+  "info": "",
+  "license": "HPND",
+  "tags": []
+}

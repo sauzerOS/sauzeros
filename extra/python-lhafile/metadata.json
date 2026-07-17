@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/FrodeSolheim/python-lhafile/",
+  "category": "extra",
+  "description": "LHA archive support for Python",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "archive",
+    "python"
+  ]
+}

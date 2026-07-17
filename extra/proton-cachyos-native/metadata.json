@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/CachyOS/proton-cachyos",
+  "category": "extra",
+  "description": "A compatibility tool for Steam Play based on Wine and additional components, experimental branch with extra CachyOS flavour (native build)",
+  "info": "",
+  "license": "[\n  \"custom\"\n]",
+  "tags": [
+    "utility",
+    "wine"
+  ]
+}

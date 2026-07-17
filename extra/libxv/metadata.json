@@ -1,0 +1,12 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X11 Video extension library",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "library",
+    "multimedia",
+    "x11"
+  ]
+}

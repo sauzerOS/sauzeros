@@ -1,0 +1,11 @@
+{
+  "url": "https://dev.lovelyhq.com/libburnia/libburn",
+  "category": "extra",
+  "description": "Library for reading, mastering and writing optical discs",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "optical-tools"
+  ]
+}

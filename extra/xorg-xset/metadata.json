@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "User preference utility for X",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "utility"
+  ]
+}

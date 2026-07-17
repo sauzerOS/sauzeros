@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gcr",
+  "category": "extra",
+  "description": "A library for bits of crypto UI and parsing",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

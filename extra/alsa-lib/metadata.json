@@ -1,0 +1,8 @@
+{
+  "url": "https://www.alsa-project.org",
+  "category": "extra",
+  "description": "An alternative implementation of Linux sound support",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

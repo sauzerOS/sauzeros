@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Airblader/xcb-util-xrm",
+  "category": "extra",
+  "description": "XCB utility functions for the X resource manager",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/XML-Simple/",
+  "category": "extra",
+  "description": "Simple XML parser for perl",
+  "info": "",
+  "license": "PerlArtistic",
+  "tags": [
+    "perl"
+  ]
+}

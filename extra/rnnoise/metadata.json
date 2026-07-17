@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.xiph.org/xiph/rnnoise",
+  "category": "extra",
+  "description": "A noise suppression library based on a recurrent neural network",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library",
+    "network"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://mpv.io/",
+  "category": "extra",
+  "description": "a free, open source, and cross-platform media player",
+  "info": "",
+  "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+  "tags": [
+    "multimedia"
+  ]
+}

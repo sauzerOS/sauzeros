@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/fastfloat/fast_float",
+  "category": "extra",
+  "description": "Fast and exact implementation of the C++ from_chars functions for float and double types",
+  "info": "",
+  "license": "Apache-2.0 OR BSL-1.0 OR MIT",
+  "tags": []
+}

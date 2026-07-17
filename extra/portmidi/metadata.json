@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/portmidi/portmidi",
+  "category": "extra",
+  "description": "Cross platform library for interfacing with OS MIDI I/O APIs",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

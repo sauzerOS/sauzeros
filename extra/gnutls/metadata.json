@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnutls.org/",
+  "category": "base",
+  "description": "A library which provides a secure layer over a reliable transport layer",
+  "info": "",
+  "license": "GPL-3.0-or-later AND LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

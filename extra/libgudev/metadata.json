@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libgudev",
+  "category": "extra",
+  "description": "GObject bindings for libudev",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

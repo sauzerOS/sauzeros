@@ -1,0 +1,11 @@
+{
+  "url": "https://pillow.readthedocs.io",
+  "category": "extra",
+  "description": "Python Imaging Library (PIL) fork",
+  "info": "",
+  "license": "MIT-CMU",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://xcb.freedesktop.org",
+  "category": "extra",
+  "description": "Utility libraries for XC Binding - Port of Xlib's XImage and XShmImage functions",
+  "info": "",
+  "license": "X11-distribute-modifications-variant",
+  "tags": [
+    "graphics",
+    "library",
+    "utility"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/wmww/gtk4-layer-shell",
+  "category": "extra",
+  "description": "Library to create panels and other desktop components for Wayland",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "wayland"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/stefanberger/swtpm",
+  "category": "extra",
+  "description": "Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "emulator",
+    "network"
+  ]
+}

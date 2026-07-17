@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libgtop",
+  "category": "extra",
+  "description": "Library for collecting system monitoring data",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

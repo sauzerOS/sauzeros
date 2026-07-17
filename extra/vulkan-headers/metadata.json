@@ -1,0 +1,11 @@
+{
+  "url": "https://www.vulkan.org/",
+  "category": "extra",
+  "description": "Vulkan header files and API registry",
+  "info": "",
+  "license": "Apache-2.0 OR MIT",
+  "tags": [
+    "devel",
+    "graphics"
+  ]
+}

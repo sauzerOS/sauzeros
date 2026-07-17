@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/EHfive/ldacBT",
+  "category": "extra",
+  "description": "LDAC Bluetooth encoder library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "bluetooth",
+    "library"
+  ]
+}

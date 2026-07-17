@@ -1,0 +1,10 @@
+{
+  "url": "https://sourceforge.net/projects/ebook-tools/",
+  "category": "extra",
+  "description": "Tools for accessing and converting various ebook file formats",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility"
+  ]
+}

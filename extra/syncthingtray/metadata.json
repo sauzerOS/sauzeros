@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/Martchus/syncthingtray",
+  "category": "extra",
+  "description": "Tray application for Syncthing",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-or-later\"\n]",
+  "tags": []
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://dri.freedesktop.org/",
+  "category": "extra",
+  "description": "Userspace interface to kernel DRM services",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

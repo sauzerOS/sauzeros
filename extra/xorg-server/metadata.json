@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org",
+  "category": "extra",
+  "description": "Xorg X server",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "server",
+    "x11"
+  ]
+}

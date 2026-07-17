@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/panel-plugins/xfce4-netload-plugin/start",
+  "category": "extra",
+  "description": "A netload plugin for the Xfce panel",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

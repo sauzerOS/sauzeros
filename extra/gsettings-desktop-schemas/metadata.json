@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas",
+  "category": "extra",
+  "description": "GSettings schemas for GNOME desktop components",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "gnome"
+  ]
+}

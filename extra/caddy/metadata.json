@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/caddyserver/caddy",
+  "category": "extra",
+  "description": "Fast web server with automatic HTTPS",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "server"
+  ]
+}

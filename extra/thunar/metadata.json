@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/xfce/thunar/start",
+  "category": "extra",
+  "description": "Modern, fast and easy-to-use file manager for Xfce",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "file-manager",
+    "xfce"
+  ]
+}

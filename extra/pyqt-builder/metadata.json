@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.org/project/PyQt-builder/",
+  "category": "extra",
+  "description": "The PEP 517 compliant PyQt build system",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "devel"
+  ]
+}

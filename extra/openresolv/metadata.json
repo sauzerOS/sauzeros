@@ -1,0 +1,8 @@
+{
+  "url": "https://roy.marples.name/projects/openresolv",
+  "category": "extra",
+  "description": "resolv.conf management framework (resolvconf)",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": []
+}

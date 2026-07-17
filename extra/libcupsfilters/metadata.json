@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/OpenPrinting/libcupsfilters",
+  "category": "extra",
+  "description": "OpenPrinting CUPS Filters - contains all the code of the filters of the former cups-filters package as library functions",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "library",
+    "print"
+  ]
+}

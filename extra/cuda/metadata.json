@@ -1,0 +1,8 @@
+{
+  "url": "https://developer.nvidia.com/cuda-zone",
+  "category": "extra",
+  "description": "NVIDIA's GPU programming toolkit",
+  "info": "",
+  "license": "LicenseRef-NVIDIA-CUDA",
+  "tags": []
+}

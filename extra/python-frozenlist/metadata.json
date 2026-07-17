@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/aio-libs/frozenlist",
+  "category": "extra",
+  "description": "FrozenList is a list-like structure which can be made immutable",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

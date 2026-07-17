@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/flatpak/xdg-dbus-proxy",
+  "category": "extra",
+  "description": "Filtering proxy for D-Bus connections",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

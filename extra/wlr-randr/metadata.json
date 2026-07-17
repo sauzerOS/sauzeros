@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/emersion/wlr-randr",
+  "category": "extra",
+  "description": "Utility to manage outputs of a Wayland compositor",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility",
+    "wayland"
+  ]
+}

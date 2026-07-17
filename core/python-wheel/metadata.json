@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.python.org/pypi/wheel",
+  "category": "extra",
+  "description": "A built-package format for Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

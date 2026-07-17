@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/xfce/exo/start",
+  "category": "extra",
+  "description": "Application library for the Xfce desktop environment",
+  "info": "",
+  "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+  "tags": [
+    "library",
+    "xfce"
+  ]
+}

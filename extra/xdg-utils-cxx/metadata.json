@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/azubieta/xdg-utils-cxx",
+  "category": "extra",
+  "description": "Implementation of the FreeDesktop specifications to be used in C++ projects",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

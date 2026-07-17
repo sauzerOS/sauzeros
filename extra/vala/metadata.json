@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.gnome.org/Projects/Vala",
+  "category": "extra",
+  "description": "Compiler for the GObject type system",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "compiler"
+  ]
+}

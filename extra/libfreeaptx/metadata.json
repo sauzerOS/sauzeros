@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/regularhunter/libfreeaptx",
+  "category": "extra",
+  "description": "Open Source aptX codec library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

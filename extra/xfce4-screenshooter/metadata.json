@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/apps/xfce4-screenshooter/start",
+  "category": "extra",
+  "description": "An application to take screenshots",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

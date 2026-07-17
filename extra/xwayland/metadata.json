@@ -1,0 +1,10 @@
+{
+  "url": "https://www.x.org/pub/individual/xserver/xwayland-24.1.13.tar.xz",
+  "category": "extra",
+  "description": "xwayland",
+  "info": "",
+  "license": "",
+  "tags": [
+    "wayland"
+  ]
+}

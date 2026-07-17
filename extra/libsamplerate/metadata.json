@@ -1,0 +1,11 @@
+{
+  "url": "https://libsndfile.github.io/libsamplerate/",
+  "category": "extra",
+  "description": "An audio sample rate conversion library",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

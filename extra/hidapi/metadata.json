@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/libusb/hidapi",
+  "category": "extra",
+  "description": "Simple library for communicating with USB and Bluetooth HID devices",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "bluetooth",
+    "library"
+  ]
+}

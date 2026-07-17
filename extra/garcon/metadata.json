@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/garcon/start",
+  "category": "extra",
+  "description": "Freedesktop.org compliant menu library",
+  "info": "",
+  "license": "LGPL-2.0-only",
+  "tags": [
+    "library"
+  ]
+}

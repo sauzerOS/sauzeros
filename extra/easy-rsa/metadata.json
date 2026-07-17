@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/OpenVPN/easy-rsa",
+  "category": "extra",
+  "description": "Simple shell based CA utility",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "shell",
+    "utility"
+  ]
+}

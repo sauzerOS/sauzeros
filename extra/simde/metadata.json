@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/simd-everywhere/simde",
+  "category": "extra",
+  "description": "Implementations of SIMD instruction sets",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

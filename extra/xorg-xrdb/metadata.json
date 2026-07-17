@@ -1,0 +1,13 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X server resource database utility",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "database",
+    "server",
+    "utility",
+    "x11"
+  ]
+}

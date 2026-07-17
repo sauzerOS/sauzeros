@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ghostty-org/ghostty",
+  "category": "extra",
+  "description": "Fast, native, feature-rich terminal emulator pushing modern features",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "emulator"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://appimage.org/",
+  "category": "extra",
+  "description": "Reference implementation of the AppImage specification",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics"
+  ]
+}

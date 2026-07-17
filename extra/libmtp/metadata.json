@@ -1,0 +1,10 @@
+{
+  "url": "http://libmtp.sourceforge.net",
+  "category": "extra",
+  "description": "Library implementation of the Media Transfer Protocol",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/elFarto/nvidia-vaapi-driver/",
+  "category": "extra",
+  "description": "VA-API implementation that uses NVDEC as a backend",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

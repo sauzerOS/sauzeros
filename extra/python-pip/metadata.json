@@ -1,0 +1,11 @@
+{
+  "url": "https://pip.pypa.io/",
+  "category": "extra",
+  "description": "The PyPA recommended tool for installing Python packages",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python",
+    "utility"
+  ]
+}

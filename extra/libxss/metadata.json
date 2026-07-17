@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver",
+  "category": "extra",
+  "description": "X11 Screen Saver extension library",
+  "info": "",
+  "license": "X11",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

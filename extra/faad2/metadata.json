@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/knik0/faad2",
+  "category": "extra",
+  "description": "Freeware Advanced Audio (AAC) Decoder",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "multimedia"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "http://www.factorio.com/",
+  "category": "extra",
+  "description": "A 2D game about building and maintaining factories (stable branch).",
+  "info": "",
+  "license": "[\n  \"custom: commercial\"\n]",
+  "tags": [
+    "games"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pali/udftools",
+  "category": "extra",
+  "description": "Linux tools for UDF filesystems and DVD/CD-R(W) drives",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "disk-tools",
+    "utility"
+  ]
+}

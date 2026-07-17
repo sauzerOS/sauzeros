@@ -1,0 +1,10 @@
+{
+  "url": "https://www.webmproject.org/",
+  "category": "extra",
+  "description": "VP8 and VP9 codec",
+  "info": "",
+  "license": "custom:BSD",
+  "tags": [
+    "multimedia"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://libjpeg-turbo.org/",
+  "category": "extra",
+  "description": "JPEG image codec with accelerated baseline compression and decompression",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "compression",
+    "graphics",
+    "multimedia"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "http://www.nongnu.org/lzip/lzlib.html",
+  "category": "extra",
+  "description": "A library providing in-memory LZMA compression and decompression functions",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "compression",
+    "library"
+  ]
+}

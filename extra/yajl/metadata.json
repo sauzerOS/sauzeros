@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/lloyd/yajl",
+  "category": "extra",
+  "description": "Yet Another JSON Library",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "library"
+  ]
+}

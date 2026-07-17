@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/libgme/game-music-emu",
+  "category": "extra",
+  "description": "Video game music file emulation/playback library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "emulator",
+    "games",
+    "library",
+    "multimedia"
+  ]
+}

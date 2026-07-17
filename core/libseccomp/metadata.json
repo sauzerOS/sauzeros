@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/seccomp/libseccomp",
+  "category": "base",
+  "description": "Enhanced seccomp library",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

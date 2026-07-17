@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/vasi/squashfuse",
+  "category": "extra",
+  "description": "FUSE filesystem to mount squashfs archives",
+  "info": "",
+  "license": "LicenseRef-squashfuse",
+  "tags": [
+    "archive",
+    "disk-tools"
+  ]
+}

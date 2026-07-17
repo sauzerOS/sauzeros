@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.com/freepascal.org/lazarus/lazarus/-/tree/main/lcl/interfaces/qt6/cbindings",
+  "category": "extra",
+  "description": "Free Pascal Qt6 binding library updated by lazarus IDE",
+  "info": "",
+  "license": "LGPL3",
+  "tags": [
+    "ide",
+    "library"
+  ]
+}

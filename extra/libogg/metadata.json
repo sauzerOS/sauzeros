@@ -1,0 +1,10 @@
+{
+  "url": "https://www.xiph.org/ogg/",
+  "category": "extra",
+  "description": "Ogg bitstream and framing library",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org",
+  "category": "extra",
+  "description": "X11 Resource extension library",
+  "info": "",
+  "license": "X11",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

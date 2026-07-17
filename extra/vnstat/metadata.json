@@ -1,0 +1,10 @@
+{
+  "url": "https://humdi.net/vnstat/",
+  "category": "extra",
+  "description": "A console-based network traffic monitor",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "network"
+  ]
+}

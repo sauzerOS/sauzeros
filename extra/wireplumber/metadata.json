@@ -1,0 +1,8 @@
+{
+  "url": "https://pipewire.pages.freedesktop.org/wireplumber/",
+  "category": "extra",
+  "description": "Session / policy manager implementation for PipeWire",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/setuptools-scm",
+  "category": "extra",
+  "description": "the blessed package to manage your versions by vcs metadata",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

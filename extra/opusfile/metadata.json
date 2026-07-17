@@ -1,0 +1,10 @@
+{
+  "url": "https://opus-codec.org/",
+  "category": "extra",
+  "description": "Library for opening, seeking, and decoding .opus files",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library"
+  ]
+}

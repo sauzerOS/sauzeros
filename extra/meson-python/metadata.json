@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/mesonbuild/meson-python",
+  "category": "extra",
+  "description": "Meson PEP 517 Python build backend",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

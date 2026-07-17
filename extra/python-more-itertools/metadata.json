@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/more-itertools/more-itertools",
+  "category": "extra",
+  "description": "More routines for operating on iterables, beyond itertools",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

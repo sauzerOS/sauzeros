@@ -1,0 +1,10 @@
+{
+  "url": "https://marcansoft.com/blog/iphonelinux/usbmuxd/",
+  "category": "extra",
+  "description": "USB Multiplex Daemon",
+  "info": "",
+  "license": "GPL2",
+  "tags": [
+    "server"
+  ]
+}

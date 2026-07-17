@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/rust-lang/rustup.rs",
+  "category": "extra",
+  "description": "The Rust toolchain installer",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "compiler"
+  ]
+}

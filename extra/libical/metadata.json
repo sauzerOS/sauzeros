@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/libical/libical",
+  "category": "extra",
+  "description": "An open source reference implementation of the icalendar data type and serialization format",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": []
+}

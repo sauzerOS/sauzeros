@@ -1,0 +1,10 @@
+{
+  "url": "https://0pointer.de/blog/projects/being-smart.html",
+  "category": "extra",
+  "description": "ATA S.M.A.R.T. reader and parser library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

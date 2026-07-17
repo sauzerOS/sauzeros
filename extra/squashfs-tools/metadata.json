@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/plougher/squashfs-tools",
+  "category": "extra",
+  "description": "Tools for squashfs, a highly compressed read-only filesystem for Linux",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "compression",
+    "disk-tools",
+    "utility"
+  ]
+}

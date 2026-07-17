@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pydantic/pydantic",
+  "category": "extra",
+  "description": "Data parsing and validation using Python type hints",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

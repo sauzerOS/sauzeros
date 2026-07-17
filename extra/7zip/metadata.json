@@ -1,0 +1,11 @@
+{
+  "url": "https://www.7-zip.org",
+  "category": "extra",
+  "description": "File archiver for extremely high compression",
+  "info": "",
+  "license": "LGPL-2.1-or-later AND LicenseRef-UnRAR AND BSD-3-Clause AND BSD-2-Clause",
+  "tags": [
+    "archive",
+    "compression"
+  ]
+}

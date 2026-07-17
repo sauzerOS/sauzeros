@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.freedesktop.org/accountsservice/accountsservice",
+  "category": "extra",
+  "description": "D-Bus interface for user account query and manipulation",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": []
+}

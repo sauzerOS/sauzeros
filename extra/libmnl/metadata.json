@@ -1,0 +1,10 @@
+{
+  "url": "https://www.netfilter.org/projects/libmnl/",
+  "category": "base",
+  "description": "Minimalistic user-space library oriented to Netlink developers.",
+  "info": "",
+  "license": "LGPL2.1",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://wayland.freedesktop.org/libinput/doc/latest/",
+  "category": "extra",
+  "description": "Input device management and event handling library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

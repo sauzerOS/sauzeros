@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxtst",
+  "category": "extra",
+  "description": "library for XTEST & RECORD extensions",
+  "info": "",
+  "license": "HPND-doc",
+  "tags": [
+    "library"
+  ]
+}

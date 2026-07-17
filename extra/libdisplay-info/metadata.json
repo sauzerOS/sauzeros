@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/emersion/libdisplay-info",
+  "category": "extra",
+  "description": "EDID and DisplayID library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

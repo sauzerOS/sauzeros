@@ -1,0 +1,10 @@
+{
+  "url": "https://riverbankcomputing.com/software/pyqt/intro",
+  "category": "extra",
+  "description": "The sip module support for PyQt6",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

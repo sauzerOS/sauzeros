@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.freedesktop.org/libdecor/libdecor",
+  "category": "extra",
+  "description": "Client-side decorations library for Wayland clients",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "library",
+    "wayland"
+  ]
+}

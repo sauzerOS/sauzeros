@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libnotify",
+  "category": "extra",
+  "description": "Library for sending desktop notifications",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

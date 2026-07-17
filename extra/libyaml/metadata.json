@@ -1,0 +1,10 @@
+{
+  "url": "https://pyyaml.org/wiki/LibYAML",
+  "category": "extra",
+  "description": "YAML 1.1 library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

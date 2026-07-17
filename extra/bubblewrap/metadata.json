@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/containers/bubblewrap",
+  "category": "extra",
+  "description": "Unprivileged sandboxing tool",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": []
+}

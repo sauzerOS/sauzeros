@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jstedfast/gmime",
+  "category": "extra",
+  "description": "A C/C++ MIME creation and parser library with support for S/MIME, PGP, and Unix mbox spools",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

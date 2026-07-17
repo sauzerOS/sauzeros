@@ -1,0 +1,11 @@
+{
+  "url": "https://aria2.github.io",
+  "category": "extra",
+  "description": "Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "torrent",
+    "utility"
+  ]
+}

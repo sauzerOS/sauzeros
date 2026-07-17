@@ -1,0 +1,11 @@
+{
+  "url": "https://flask.palletsprojects.com/",
+  "category": "extra",
+  "description": "Micro webdevelopment framework for Python",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "devel",
+    "python"
+  ]
+}

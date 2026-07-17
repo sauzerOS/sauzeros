@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/cherrypy/cheroot",
+  "category": "extra",
+  "description": "Highly-optimized, pure-python HTTP server",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "network",
+    "python",
+    "server"
+  ]
+}

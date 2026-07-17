@@ -1,0 +1,11 @@
+{
+  "url": "https://launchpad.net/python-distutils-extra",
+  "category": "extra",
+  "description": "Enhancements to the Python build system",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "devel",
+    "python"
+  ]
+}

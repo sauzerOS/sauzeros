@@ -1,0 +1,10 @@
+{
+  "url": "https://jqlang.github.io/jq/",
+  "category": "extra",
+  "description": "Command-line JSON processor",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli"
+  ]
+}

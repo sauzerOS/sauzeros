@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gtk-doc",
+  "category": "extra",
+  "description": "Documentation tool for public library API",
+  "info": "",
+  "license": "GFDL-1.1-or-later",
+  "tags": [
+    "library",
+    "utility"
+  ]
+}

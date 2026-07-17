@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/scikit-build/scikit-build-core",
+  "category": "extra",
+  "description": "Next generation Python CMake adaptor and Python API for plugins",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

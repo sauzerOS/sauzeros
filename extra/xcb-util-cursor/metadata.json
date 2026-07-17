@@ -1,0 +1,10 @@
+{
+  "url": "https://cgit.freedesktop.org/xcb/util-cursor",
+  "category": "extra",
+  "description": "XCB cursor library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

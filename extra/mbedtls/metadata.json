@@ -1,0 +1,11 @@
+{
+  "url": "https://tls.mbed.org",
+  "category": "extra",
+  "description": "An open source, portable, easy to use, readable and flexible TLS library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "crypto",
+    "library"
+  ]
+}

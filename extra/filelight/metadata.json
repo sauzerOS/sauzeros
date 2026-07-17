@@ -1,0 +1,10 @@
+{
+  "url": "https://apps.kde.org/filelight/",
+  "category": "extra",
+  "description": "View disk usage information",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "disk-tools"
+  ]
+}

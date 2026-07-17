@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/exfatprogs/exfatprogs",
+  "category": "extra",
+  "description": "exFAT filesystem userspace utilities for the Linux Kernel exfat driver",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "disk-tools",
+    "kernel",
+    "utility"
+  ]
+}

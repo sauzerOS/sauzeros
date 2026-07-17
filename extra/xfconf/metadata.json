@@ -1,0 +1,8 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfconf/start",
+  "category": "extra",
+  "description": "D-Bus-based configuration storage system",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

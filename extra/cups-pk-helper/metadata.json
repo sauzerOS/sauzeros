@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/software/cups-pk-helper/releases/",
+  "category": "extra",
+  "description": "A helper that makes system-config-printer use PolicyKit",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "print"
+  ]
+}

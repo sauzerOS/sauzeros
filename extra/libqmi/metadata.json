@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/libqmi/",
+  "category": "extra",
+  "description": "QMI modem protocol helper library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

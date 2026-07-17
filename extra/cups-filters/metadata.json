@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.linuxfoundation.org/openprinting/cups-filters",
+  "category": "extra",
+  "description": "OpenPrinting CUPS Filters",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "print"
+  ]
+}

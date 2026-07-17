@@ -1,0 +1,11 @@
+{
+  "url": "https://fs-uae.net/",
+  "category": "extra",
+  "description": "An Amiga emulator based on UAE/WinUAE with a focus on emulating games",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "emulator",
+    "games"
+  ]
+}

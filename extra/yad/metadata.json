@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/v1cont/yad",
+  "category": "extra",
+  "description": "A fork of zenity - display graphical dialogs from shell scripts or command line",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli",
+    "graphics",
+    "gui",
+    "shell"
+  ]
+}

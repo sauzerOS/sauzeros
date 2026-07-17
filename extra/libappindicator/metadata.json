@@ -1,0 +1,8 @@
+{
+  "url": "https://launchpad.net/libappindicator",
+  "category": "extra",
+  "description": "Allow applications to extend a menu via Ayatana indicators in Unity, KDE or Systray",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": []
+}

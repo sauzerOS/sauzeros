@@ -1,0 +1,10 @@
+{
+  "url": "https://intel.github.io/libva/",
+  "category": "extra",
+  "description": "Video Acceleration (VA) API for Linux",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "multimedia"
+  ]
+}

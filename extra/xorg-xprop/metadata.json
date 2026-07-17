@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/xprop",
+  "category": "extra",
+  "description": "Property displayer for X",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.org/project/libversion",
+  "category": "extra",
+  "description": "Python bindings for libversion",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": [
+    "python"
+  ]
+}

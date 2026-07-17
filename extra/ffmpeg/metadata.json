@@ -1,0 +1,10 @@
+{
+  "url": "https://ffmpeg.org",
+  "category": "extra",
+  "description": "Complete solution to record, convert and stream audio and video",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "multimedia"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://cdemu.sourceforge.io/",
+  "category": "extra",
+  "description": "CD-ROM image (B6T/C2D/CCD/CDI/CIF/CUE/ISO/MDS/MDX/NRG/TOC) access library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

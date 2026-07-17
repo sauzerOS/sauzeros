@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/start",
+  "category": "extra",
+  "description": "Pulseaudio plugin for the Xfce4 panel",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "multimedia",
+    "xfce"
+  ]
+}

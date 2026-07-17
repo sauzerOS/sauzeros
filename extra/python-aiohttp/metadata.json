@@ -1,0 +1,12 @@
+{
+  "url": "https://aiohttp.readthedocs.io",
+  "category": "extra",
+  "description": "HTTP client/server for asyncio",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "network",
+    "python"
+  ]
+}

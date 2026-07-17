@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/trove-classifiers",
+  "category": "extra",
+  "description": "Canonical source for classifiers on PyPI (pypi.org)",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

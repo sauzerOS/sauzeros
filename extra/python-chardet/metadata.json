@@ -1,0 +1,10 @@
+{
+  "url": "https://chardet.readthedocs.io/",
+  "category": "extra",
+  "description": "Universal encoding detector for Python",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "python"
+  ]
+}

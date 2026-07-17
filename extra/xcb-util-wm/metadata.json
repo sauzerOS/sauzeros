@@ -1,0 +1,12 @@
+{
+  "url": "https://xcb.freedesktop.org",
+  "category": "extra",
+  "description": "Utility libraries for XC Binding - client and window-manager helpers for ICCCM",
+  "info": "",
+  "license": "X11-distribute-modifications-variant",
+  "tags": [
+    "cli",
+    "library",
+    "utility"
+  ]
+}

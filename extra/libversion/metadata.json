@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/repology/libversion",
+  "category": "extra",
+  "description": "Advanced version string comparison library",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": [
+    "library"
+  ]
+}

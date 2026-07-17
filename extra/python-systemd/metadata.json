@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/systemd/python-systemd",
+  "category": "extra",
+  "description": "Python bindings for systemd",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "python"
+  ]
+}

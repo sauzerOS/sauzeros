@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/richgel999/miniz",
+  "category": "extra",
+  "description": "Compression library implementing zlib (RFC 1950) & deflate (RFC 1951) specifications",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "compression",
+    "library"
+  ]
+}

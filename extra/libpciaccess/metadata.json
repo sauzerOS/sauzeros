@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libpciaccess",
+  "category": "extra",
+  "description": "X11 PCI access library",
+  "info": "",
+  "license": "LicenseRef-libpciaccess",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

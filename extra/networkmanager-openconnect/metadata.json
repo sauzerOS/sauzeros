@@ -1,0 +1,11 @@
+{
+  "url": "https://networkmanager.dev/docs/vpn/",
+  "category": "extra",
+  "description": "NetworkManager VPN plugin for OpenConnect (with GUI)",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "network",
+    "vpn"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnupg.org/related_software/gpgme/",
+  "category": "base",
+  "description": "C wrapper library for GnuPG",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

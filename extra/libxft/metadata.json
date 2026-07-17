@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "FreeType-based font drawing library for X",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "fonts",
+    "library"
+  ]
+}

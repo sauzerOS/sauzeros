@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxaw",
+  "category": "extra",
+  "description": "X11 Athena Widget library",
+  "info": "",
+  "license": "HPND",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

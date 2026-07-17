@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Matroska-Org/libmatroska",
+  "category": "extra",
+  "description": "Matroska library",
+  "info": "",
+  "license": "LGPL2.1",
+  "tags": [
+    "library"
+  ]
+}

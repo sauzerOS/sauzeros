@@ -1,0 +1,8 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Small commandline tool to configure devices",
+  "info": "",
+  "license": "custom",
+  "tags": []
+}

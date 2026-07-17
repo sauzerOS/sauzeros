@@ -1,0 +1,8 @@
+{
+  "url": "http://www.sabnzbd.org",
+  "category": "extra",
+  "description": "A web-interface based binary newsgrabber with NZB file support",
+  "info": "",
+  "license": "[\n  \"GPL\"\n]",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.gnome.org/Projects/dconf",
+  "category": "extra",
+  "description": "Configuration database system",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "database"
+  ]
+}

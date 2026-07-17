@@ -1,0 +1,10 @@
+{
+  "url": "https://www.khronos.org/spirv/",
+  "category": "extra",
+  "description": "LLVM <-> SPIR-V converter for compilers targeting SPIR-V",
+  "info": "",
+  "license": "NCSA",
+  "tags": [
+    "compiler"
+  ]
+}

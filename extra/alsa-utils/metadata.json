@@ -1,0 +1,10 @@
+{
+  "url": "https://www.alsa-project.org",
+  "category": "extra",
+  "description": "Advanced Linux Sound Architecture - Utilities",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

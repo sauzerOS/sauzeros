@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/guessit-io/guessit",
+  "category": "extra",
+  "description": "A Python module that extracts as much information as possible from a video filename",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "multimedia",
+    "python"
+  ]
+}

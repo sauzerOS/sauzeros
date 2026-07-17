@@ -1,0 +1,11 @@
+{
+  "url": "https://werkzeug.palletsprojects.com/",
+  "category": "extra",
+  "description": "Swiss Army knife of Python web development",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "devel",
+    "python"
+  ]
+}

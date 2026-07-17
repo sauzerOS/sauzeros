@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/engla/keybinder/tree/keybinder-3.0",
+  "category": "extra",
+  "description": "A library for registering global keyboard shortcuts",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

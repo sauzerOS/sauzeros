@@ -1,0 +1,10 @@
+{
+  "url": "https://zint.org.uk/",
+  "category": "extra",
+  "description": "Barcode encoding library supporting over 50 symbologies",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

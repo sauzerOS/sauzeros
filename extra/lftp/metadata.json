@@ -1,0 +1,10 @@
+{
+  "url": "https://lftp.yar.ru/",
+  "category": "extra",
+  "description": "Sophisticated command line based FTP client",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "cli"
+  ]
+}

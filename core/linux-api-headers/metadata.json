@@ -1,0 +1,8 @@
+{
+  "url": "https://www.gnu.org/software/libc",
+  "category": "base",
+  "description": "Kernel headers sanitized for use in userspace",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}

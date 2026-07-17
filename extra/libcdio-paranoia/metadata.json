@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnu.org/software/libcdio/",
+  "category": "extra",
+  "description": "Compact Disc Digital Audio (CDDA) extraction tool using libcdio for CDROM access",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "multimedia"
+  ]
+}

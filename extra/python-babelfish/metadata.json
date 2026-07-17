@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Diaoul/babelfish",
+  "category": "extra",
+  "description": "A Python module to work with countries & languages",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

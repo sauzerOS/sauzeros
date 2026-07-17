@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/Parse-Yapp",
+  "category": "extra",
+  "description": "Perl/CPAN Module Parse::Yapp : Generates OO LALR parser modules",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

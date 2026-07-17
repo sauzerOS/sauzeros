@@ -1,0 +1,8 @@
+{
+  "url": "https://libdmtx.sourceforge.net/",
+  "category": "extra",
+  "description": "A software for reading and writing Data Matrix 2D barcodes",
+  "info": "",
+  "license": "LicenseRef-libdmtx",
+  "tags": []
+}

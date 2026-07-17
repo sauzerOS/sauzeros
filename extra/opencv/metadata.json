@@ -1,0 +1,10 @@
+{
+  "url": "https://opencv.org/",
+  "category": "extra",
+  "description": "Open Source Computer Vision Library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

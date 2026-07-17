@@ -1,0 +1,10 @@
+{
+  "url": "https://www.rodsbooks.com/refind/",
+  "category": "extra",
+  "description": "An EFI boot manager",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "boot"
+  ]
+}

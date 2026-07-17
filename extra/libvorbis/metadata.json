@@ -1,0 +1,10 @@
+{
+  "url": "https://www.xiph.org/vorbis/",
+  "category": "extra",
+  "description": "Reference implementation of the Ogg Vorbis audio format",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "multimedia"
+  ]
+}

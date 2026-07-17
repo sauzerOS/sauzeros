@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jaraco/jaraco.functools",
+  "category": "extra",
+  "description": "Functools like those found in stdlib",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

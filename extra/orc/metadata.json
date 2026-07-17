@@ -1,0 +1,11 @@
+{
+  "url": "https://gstreamer.freedesktop.org/modules/orc.html",
+  "category": "extra",
+  "description": "Optimized Inner Loop Runtime Compiler",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "compiler",
+    "library"
+  ]
+}

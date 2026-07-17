@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/wmww/gtk-layer-shell",
+  "category": "extra",
+  "description": "Library to create Wayland desktop components using the Layer Shell protocol",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "library",
+    "shell",
+    "wayland"
+  ]
+}

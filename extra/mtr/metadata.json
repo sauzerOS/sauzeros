@@ -1,0 +1,8 @@
+{
+  "url": "https://www.bitwizard.nl/mtr/",
+  "category": "extra",
+  "description": "Combines the functionality of traceroute and ping into one tool (CLI version)",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}

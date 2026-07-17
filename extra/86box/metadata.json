@@ -1,0 +1,10 @@
+{
+  "url": "https://86box.net/",
+  "category": "extra",
+  "description": "An emulator for classic IBM PC clones",
+  "info": "",
+  "license": "[\n  \"CC-BY-4.0\",\n  \"GPL-2.0-or-later\"\n]",
+  "tags": [
+    "emulator"
+  ]
+}

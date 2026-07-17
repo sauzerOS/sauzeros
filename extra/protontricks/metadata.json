@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/Matoking/protontricks",
+  "category": "extra",
+  "description": "Run Winetricks commands for Steam Play/Proton games among other common Wine features",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "games",
+    "wine"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/xdg-user-dirs",
+  "category": "extra",
+  "description": "Manage user directories like ~/Desktop and ~/Music",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

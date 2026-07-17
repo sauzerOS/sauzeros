@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/fribidi/fribidi",
+  "category": "extra",
+  "description": "A Free Implementation of the Unicode Bidirectional Algorithm",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

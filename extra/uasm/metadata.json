@@ -1,0 +1,10 @@
+{
+  "url": "http://www.terraspace.co.uk/uasm.html",
+  "category": "extra",
+  "description": "A MASM-compatible assembler",
+  "info": "",
+  "license": "CC-BY-SA-3.0",
+  "tags": [
+    "compiler"
+  ]
+}

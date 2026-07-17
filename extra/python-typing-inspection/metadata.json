@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pydantic/typing-inspection",
+  "category": "extra",
+  "description": "Runtime typing introspection tools",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

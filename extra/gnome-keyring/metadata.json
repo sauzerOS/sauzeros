@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gnome-keyring",
+  "category": "extra",
+  "description": "Stores passwords and encryption keys",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "encryption",
+    "gnome"
+  ]
+}

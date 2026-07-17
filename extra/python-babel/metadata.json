@@ -1,0 +1,11 @@
+{
+  "url": "http://babel.pocoo.org/",
+  "category": "extra",
+  "description": "A collection of tools for internationalizing Python applications",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python",
+    "utility"
+  ]
+}

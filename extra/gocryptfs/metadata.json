@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/rfjakob/gocryptfs",
+  "category": "extra",
+  "description": "Encrypted overlay filesystem written in Go.",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "disk-tools",
+    "encryption"
+  ]
+}

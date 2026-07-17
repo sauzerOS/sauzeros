@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/streambinder/vpnc",
+  "category": "extra",
+  "description": "VPN client for cisco3000 VPN Concentrators",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "cli",
+    "vpn"
+  ]
+}

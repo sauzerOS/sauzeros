@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/naelstrof/slop",
+  "category": "extra",
+  "description": "Utility to query the user for a selection and print the region to stdout",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "utility"
+  ]
+}

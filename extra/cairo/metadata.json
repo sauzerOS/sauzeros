@@ -1,0 +1,11 @@
+{
+  "url": "https://cairographics.org/",
+  "category": "extra",
+  "description": "2D graphics library with support for multiple output devices",
+  "info": "",
+  "license": "LGPL-2.1-only OR MPL-1.1",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

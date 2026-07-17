@@ -1,0 +1,10 @@
+{
+  "url": "https://www.floodgap.com/retrotech/xa",
+  "category": "extra",
+  "description": "Cross-assembler for the 6502 microprocessor",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "compiler"
+  ]
+}

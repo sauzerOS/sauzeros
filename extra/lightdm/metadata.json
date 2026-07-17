@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/canonical/lightdm",
+  "category": "extra",
+  "description": "A lightweight display manager",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": []
+}

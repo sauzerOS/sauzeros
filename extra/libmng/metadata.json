@@ -1,0 +1,10 @@
+{
+  "url": "https://www.libmng.com/",
+  "category": "extra",
+  "description": "A collection of routines used to create and manipulate MNG format graphics files",
+  "info": "",
+  "license": "LicenseRef-libmng",
+  "tags": [
+    "graphics"
+  ]
+}

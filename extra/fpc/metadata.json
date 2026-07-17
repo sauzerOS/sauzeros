@@ -1,0 +1,10 @@
+{
+  "url": "http://www.freepascal.org/",
+  "category": "extra",
+  "description": "Free Pascal Compiler, Turbo Pascal 7.0 and Delphi compatible.",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "compiler"
+  ]
+}

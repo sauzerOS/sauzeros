@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnupg.org/related_software/libassuan/",
+  "category": "base",
+  "description": "IPC library used by some GnuPG related software",
+  "info": "",
+  "license": "FSFULLR",
+  "tags": [
+    "library"
+  ]
+}

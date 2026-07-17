@@ -1,0 +1,10 @@
+{
+  "url": "https://www.netfilter.org/projects/libnetfilter_conntrack/",
+  "category": "base",
+  "description": "Library providing an API to the in-kernel connection tracking state table",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

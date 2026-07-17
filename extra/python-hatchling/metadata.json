@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/hatch/tree/master/backend",
+  "category": "extra",
+  "description": "Extensible, standards compliant build backend used by Hatch",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

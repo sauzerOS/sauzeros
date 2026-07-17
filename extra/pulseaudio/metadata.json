@@ -1,0 +1,11 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/PulseAudio/",
+  "category": "extra",
+  "description": "A featureful, general-purpose sound server",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "multimedia",
+    "server"
+  ]
+}

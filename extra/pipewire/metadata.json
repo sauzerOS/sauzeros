@@ -1,0 +1,10 @@
+{
+  "url": "https://pipewire.org",
+  "category": "extra",
+  "description": "Low-latency audio/video router and processor",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "multimedia"
+  ]
+}

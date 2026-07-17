@@ -1,0 +1,11 @@
+{
+  "url": "https://libimobiledevice.org/",
+  "category": "extra",
+  "description": "Client library to multiplex connections from and to iOS devices",
+  "info": "",
+  "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

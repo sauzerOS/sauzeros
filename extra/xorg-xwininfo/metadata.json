@@ -1,0 +1,13 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Command-line utility to print information about windows on an X server",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "cli",
+    "server",
+    "utility",
+    "x11"
+  ]
+}

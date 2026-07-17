@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/kcat/openal-soft",
+  "category": "extra",
+  "description": "Cross-platform 3D audio library, software implementation",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

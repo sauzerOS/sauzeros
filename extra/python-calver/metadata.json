@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/di/calver",
+  "category": "extra",
+  "description": "Setuptools extension for CalVer package versions",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

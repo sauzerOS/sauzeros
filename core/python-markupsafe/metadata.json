@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.python.org/pypi/MarkupSafe",
+  "category": "extra",
+  "description": "Implements a XML/HTML/XHTML Markup safe string for Python",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

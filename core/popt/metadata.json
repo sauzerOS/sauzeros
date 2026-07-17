@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/rpm-software-management/popt",
+  "category": "base",
+  "description": "A commandline option parser",
+  "info": "",
+  "license": "custom",
+  "tags": []
+}

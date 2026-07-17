@@ -1,0 +1,10 @@
+{
+  "url": "https://blinker.readthedocs.io",
+  "category": "extra",
+  "description": "Fast, simple object-to-object and broadcast signaling",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

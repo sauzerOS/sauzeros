@@ -1,0 +1,10 @@
+{
+  "url": "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/about/",
+  "category": "extra",
+  "description": "Tools for Flash-Friendly File System (F2FS)",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "utility"
+  ]
+}

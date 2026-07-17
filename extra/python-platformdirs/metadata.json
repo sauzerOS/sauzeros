@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/tox-dev/platformdirs",
+  "category": "extra",
+  "description": "A library to determine platform-specific system directories",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

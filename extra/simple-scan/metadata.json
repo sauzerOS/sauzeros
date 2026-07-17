@@ -1,0 +1,11 @@
+{
+  "url": "https://apps.gnome.org/SimpleScan/",
+  "category": "extra",
+  "description": "Simple scanning utility",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "scan",
+    "utility"
+  ]
+}

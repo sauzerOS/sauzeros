@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.com/virtio-fs/virtiofsd",
+  "category": "extra",
+  "description": "Vhost-user virtio-fs device backend written in Rust",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": []
+}

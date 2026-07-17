@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/eliben/pycparser",
+  "category": "extra",
+  "description": "C parser and AST generator written in Python",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

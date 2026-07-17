@@ -1,0 +1,8 @@
+{
+  "url": "https://src.fedoraproject.org/rpms/ca-certificates",
+  "category": "base",
+  "description": "Common CA certificates - default providers",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

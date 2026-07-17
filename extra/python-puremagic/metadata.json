@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/cdgriffith/puremagic",
+  "category": "extra",
+  "description": "A Python module that will identify a file based off it's magic numbers",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "ide",
+    "python"
+  ]
+}

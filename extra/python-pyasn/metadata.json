@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/hadiasghari/pyasn",
+  "category": "extra",
+  "description": "Python IP address to Autonomous System Number lookup module",
+  "info": "",
+  "license": "BSD-4-Clause",
+  "tags": [
+    "python"
+  ]
+}

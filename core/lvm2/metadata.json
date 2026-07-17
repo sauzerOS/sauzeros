@@ -1,0 +1,10 @@
+{
+  "url": "https://sourceware.org/lvm2/",
+  "category": "base",
+  "description": "Logical Volume Manager 2 utilities",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "utility"
+  ]
+}

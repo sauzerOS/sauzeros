@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/corrosion-rs/corrosion",
+  "category": "extra",
+  "description": "Tool for integrating Rust into an existing CMake project",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility"
+  ]
+}

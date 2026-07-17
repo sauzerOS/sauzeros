@@ -1,0 +1,10 @@
+{
+  "url": "https://www.imagemagick.org/",
+  "category": "extra",
+  "description": "An image viewing/manipulation program",
+  "info": "",
+  "license": "ImageMagick",
+  "tags": [
+    "graphics"
+  ]
+}

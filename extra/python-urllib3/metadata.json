@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/urllib3/urllib3",
+  "category": "extra",
+  "description": "HTTP library with thread-safe connection pooling and file post support",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "network",
+    "python"
+  ]
+}

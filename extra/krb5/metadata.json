@@ -1,0 +1,10 @@
+{
+  "url": "https://web.mit.edu/kerberos/",
+  "category": "base",
+  "description": "The Kerberos network authentication system",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "network"
+  ]
+}

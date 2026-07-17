@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/linuxwacom/libwacom/wiki",
+  "category": "extra",
+  "description": "Library to identify Wacom tablets and their features",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "ide",
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://libimobiledevice.org/",
+  "category": "extra",
+  "description": "Library to handle Apple Property List files",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

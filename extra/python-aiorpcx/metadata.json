@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/kyuupichan/aiorpcX",
+  "category": "extra",
+  "description": "A generic asyncio library implementation of RPC suitable for an application that is a client, server or both",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "library",
+    "python",
+    "server"
+  ]
+}

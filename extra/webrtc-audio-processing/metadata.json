@@ -1,0 +1,11 @@
+{
+  "url": "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/",
+  "category": "extra",
+  "description": "AudioProcessing library based on Google's implementation of WebRTC",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

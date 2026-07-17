@@ -1,0 +1,11 @@
+{
+  "url": "https://xiph.org/ao/",
+  "category": "extra",
+  "description": "Cross-platform audio output library and plugins",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

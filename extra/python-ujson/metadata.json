@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ultrajson/ultrajson",
+  "category": "extra",
+  "description": "Ultra fast JSON encoder and decoder for Python",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "python"
+  ]
+}

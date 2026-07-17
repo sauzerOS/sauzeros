@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/apps/notifyd/start",
+  "category": "extra",
+  "description": "Notification daemon for the Xfce desktop",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "server",
+    "xfce"
+  ]
+}

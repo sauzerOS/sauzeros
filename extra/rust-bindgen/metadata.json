@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/rust-lang/rust-bindgen",
+  "category": "extra",
+  "description": "Automatically generates Rust FFI bindings to C (and some C++) libraries",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}

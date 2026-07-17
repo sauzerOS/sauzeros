@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ifduyue/python-xxhash",
+  "category": "extra",
+  "description": "Python binding for xxHash",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

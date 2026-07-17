@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/stefankoegl/python-json-patch",
+  "category": "extra",
+  "description": "An implementation of the JSON Patch format",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

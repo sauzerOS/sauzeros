@@ -1,0 +1,10 @@
+{
+  "url": "https://gnome.pages.gitlab.gnome.org/libadwaita/",
+  "category": "extra",
+  "description": "Building blocks for modern adaptive GNOME applications",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "gnome"
+  ]
+}

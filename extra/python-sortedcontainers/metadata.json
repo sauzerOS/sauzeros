@@ -1,0 +1,10 @@
+{
+  "url": "http://www.grantjenks.com/docs/sortedcontainers/",
+  "category": "extra",
+  "description": "Python Sorted Container Types: SortedList, SortedDict, and SortedSet",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

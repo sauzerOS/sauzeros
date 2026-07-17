@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/xkbcomp",
+  "category": "extra",
+  "description": "X Keyboard description compiler",
+  "info": "",
+  "license": "LicenseRef-xkbcomp",
+  "tags": [
+    "compiler"
+  ]
+}

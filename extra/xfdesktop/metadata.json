@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfdesktop/start",
+  "category": "extra",
+  "description": "Xfce's desktop manager",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

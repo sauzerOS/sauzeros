@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Martchus/qtutilities",
+  "category": "extra",
+  "description": "Common Qt related C++ classes and routines used by my applications such as dialogs, widgets and models",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-or-later\"\n]",
+  "tags": [
+    "utility"
+  ]
+}

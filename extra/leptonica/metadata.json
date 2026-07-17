@@ -1,0 +1,10 @@
+{
+  "url": "http://www.leptonica.com",
+  "category": "extra",
+  "description": "Software that is broadly useful for image processing and image analysis applications",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "graphics"
+  ]
+}

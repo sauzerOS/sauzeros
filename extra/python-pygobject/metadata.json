@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/GNOME/pygobject/archive/refs/tags/3.56.3.tar.gz",
+  "category": "extra",
+  "description": "python pygobject",
+  "info": "",
+  "license": "",
+  "tags": [
+    "python"
+  ]
+}

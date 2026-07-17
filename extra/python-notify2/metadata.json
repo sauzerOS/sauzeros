@@ -1,0 +1,10 @@
+{
+  "url": "https://bitbucket.org/takluyver/pynotify2",
+  "category": "extra",
+  "description": "Python interface to DBus notifications",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

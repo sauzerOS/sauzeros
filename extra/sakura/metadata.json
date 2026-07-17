@@ -1,0 +1,10 @@
+{
+  "url": "https://launchpad.net/sakura",
+  "category": "extra",
+  "description": "A terminal emulator based on GTK and VTE",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "emulator"
+  ]
+}

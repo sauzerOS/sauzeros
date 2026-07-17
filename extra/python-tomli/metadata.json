@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/hukkin/tomli",
+  "category": "extra",
+  "description": "A lil' TOML parser",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://libproxy.github.io/libproxy/",
+  "category": "extra",
+  "description": "Automatic proxy configuration management library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

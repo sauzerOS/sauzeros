@@ -1,0 +1,11 @@
+{
+  "url": "https://requests.readthedocs.io/",
+  "category": "extra",
+  "description": "Python HTTP for Humans",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "network",
+    "python"
+  ]
+}

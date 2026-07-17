@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/bitcoin-core/secp256k1",
+  "category": "extra",
+  "description": "Optimized C library for EC operations on curve secp256k1",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

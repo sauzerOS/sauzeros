@@ -1,0 +1,11 @@
+{
+  "url": "https://libosinfo.org/",
+  "category": "extra",
+  "description": "Tools for managing the osinfo database",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "database",
+    "utility"
+  ]
+}

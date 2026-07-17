@@ -1,0 +1,11 @@
+{
+  "url": "http://www.simplesystems.org/libtiff/",
+  "category": "extra",
+  "description": "Library for manipulation of TIFF images",
+  "info": "",
+  "license": "libtiff",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

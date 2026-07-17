@@ -1,0 +1,8 @@
+{
+  "url": "https://ostreedev.github.io/ostree/",
+  "category": "extra",
+  "description": "Operating system and container binary deployment and upgrades",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": []
+}

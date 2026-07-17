@@ -1,0 +1,11 @@
+{
+  "url": "https://openprinting.github.io/cups/",
+  "category": "extra",
+  "description": "OpenPrinting CUPS - daemon package",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND Zlib AND BSD-2-Clause",
+  "tags": [
+    "print",
+    "server"
+  ]
+}

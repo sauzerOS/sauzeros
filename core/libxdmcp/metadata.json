@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxdmcp",
+  "category": "extra",
+  "description": "X11 Display Manager Control Protocol library",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

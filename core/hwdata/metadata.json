@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/vcrhonek/hwdata",
+  "category": "base",
+  "description": "hardware identification databases",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "database",
+    "ide"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pypa/installer",
+  "category": "extra",
+  "description": "Low-level library for installing a Python package from a wheel distribution",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

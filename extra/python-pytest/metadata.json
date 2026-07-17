@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.pytest.org",
+  "category": "extra",
+  "description": "Simple powerful testing with Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

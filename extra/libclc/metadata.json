@@ -1,0 +1,10 @@
+{
+  "url": "https://libclc.llvm.org/",
+  "category": "extra",
+  "description": "Library requirements of the OpenCL C programming language",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "library"
+  ]
+}

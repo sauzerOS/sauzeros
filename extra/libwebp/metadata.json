@@ -1,0 +1,12 @@
+{
+  "url": "https://developers.google.com/speed/webp/",
+  "category": "extra",
+  "description": "WebP image codec library",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "graphics",
+    "library",
+    "multimedia"
+  ]
+}

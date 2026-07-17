@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/NVIDIA/nvidia-settings",
+  "category": "extra",
+  "description": "Tool for configuring the NVIDIA graphics driver",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "graphics",
+    "utility"
+  ]
+}

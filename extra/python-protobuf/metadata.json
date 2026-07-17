@@ -1,0 +1,10 @@
+{
+  "url": "https://developers.google.com/protocol-buffers/",
+  "category": "extra",
+  "description": "Python 3 bindings for Google Protocol Buffers",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

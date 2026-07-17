@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/NVIDIA/egl-gbm",
+  "category": "extra",
+  "description": "The GBM EGL external platform library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

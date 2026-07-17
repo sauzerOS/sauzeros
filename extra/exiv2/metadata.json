@@ -1,0 +1,10 @@
+{
+  "url": "https://exiv2.org",
+  "category": "extra",
+  "description": "Exif, Iptc and XMP metadata manipulation library and tools",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

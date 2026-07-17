@@ -1,0 +1,11 @@
+{
+  "url": "http://glm.g-truc.net",
+  "category": "extra",
+  "description": "C++ mathematics library for 3D software based on the OpenGL Shading Language (GLSL) specification",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

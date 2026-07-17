@@ -1,0 +1,10 @@
+{
+  "url": "https://www.rarlab.com/rar_add.htm",
+  "category": "extra",
+  "description": "The RAR uncompression program",
+  "info": "",
+  "license": "LicenseRef-UnRAR",
+  "tags": [
+    "compression"
+  ]
+}
