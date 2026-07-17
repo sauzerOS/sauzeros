@@ -14,6 +14,10 @@ sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR=$1 install
 
+mv \
+  "$1/etc/alsa/conf.d/99-pulseaudio-default.conf.example" \
+  "$1/usr/share/alsa/alsa.conf.d/99-pulseaudio-default.conf"
+
 # pulseaudio-alsa split package
 pkgdir=$HOKUTO_SPLIT_DIR/pulseaudio-alsa
 install -vdm 755 "$pkgdir/etc/alsa/conf.d"
