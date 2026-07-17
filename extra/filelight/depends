@@ -8,7 +8,7 @@ kirigami
 kirigami-addons
 kwidgetsaddons
 qqc2-desktop-style
-qt-base
+qt
 qt-declarative
 extra-cmake-modules make
 kdoctools make
