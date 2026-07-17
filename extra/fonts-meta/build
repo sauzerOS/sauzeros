@@ -48,7 +48,12 @@ install -Dm644 NotoSansSymbol* -t "$destdir"/usr/share/fonts/TTF/
 # fonts-noto
 destdir=$HOKUTO_SPLIT_DIR/fonts-noto
 install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 *.ttf -t "$destdir"/usr/share/fonts/TTF/
+for font in *.ttf; do
+    case $font in
+        Arimo*|Cousine*|Tinos*) continue ;;
+    esac
+    install -Dm644 "$font" -t "$destdir"/usr/share/fonts/TTF/
+done
 popd
 
 # fonts-microsoft
