@@ -66,6 +66,7 @@ _hokuto() {
         'bump:Bump package versions'
         'alt:List or switch package alternatives'
         'info:View installed package information'
+        'depends:Show package dependencies or reverse dependencies'
         'cleanup:Clean caches and temporary files'
         'upload:Upload local binaries to the remote mirror'
         'check:Check whether a package is installed'
@@ -177,6 +178,11 @@ _hokuto() {
           ;;
         checksum|c|edit|e|bump|check)
           _hokuto_repository_packages
+          ;;
+        depends)
+          _arguments \
+            '(-r --reverse)'{-r,--reverse}'[Show reverse dependencies]' \
+            '1:package:_hokuto_install_packages'
           ;;
       esac
       ;;

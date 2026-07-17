@@ -102,6 +102,13 @@ _hokuto_complete_install_targets()
     COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
 }
 
+_hokuto_complete_available_packages()
+{
+    local -a choices
+    mapfile -t choices < <(command "${COMP_WORDS[0]}" __complete install 2>/dev/null)
+    COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
+}
+
 _hokuto_first_command()
 {
     local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check"
@@ -208,7 +215,7 @@ _hokuto_complete()
         depends)
             case "$cur" in
                 -*) COMPREPLY=($(compgen -W "-r --reverse" -- "$cur")) ;;
-                *) _hokuto_complete_packages ;;
+                *) _hokuto_complete_available_packages ;;
             esac
             ;;
         manifest|m|size)
