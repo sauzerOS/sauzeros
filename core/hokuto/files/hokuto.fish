@@ -43,7 +43,7 @@ function __hokuto_alt_accepts_target
 end
 
 set -l prog_names hk hokuto
-set -l hokuto_commands version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check
+set -l hokuto_commands version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check
 
 for prog in $prog_names
     complete -c $prog -f

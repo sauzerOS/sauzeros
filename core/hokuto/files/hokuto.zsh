@@ -65,6 +65,7 @@ _hokuto() {
         'e:Edit a package recipe'
         'bump:Bump package versions'
         'alt:List or switch package alternatives'
+        'info:View installed package information'
         'cleanup:Clean caches and temporary files'
         'upload:Upload local binaries to the remote mirror'
         'check:Check whether a package is installed'

@@ -104,7 +104,7 @@ _hokuto_complete_install_targets()
 
 _hokuto_first_command()
 {
-    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check"
+    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check"
     for ((i = 1; i < cword; i++)); do
         word=${words[i]}
         if [[ " $commands " == *" $word "* ]]; then
@@ -121,7 +121,7 @@ _hokuto_complete()
     COMPREPLY=()
     _hokuto_comp_words
 
-    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt settings init-repos upload keys sign-file depends cross-sync check"
+    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check"
 
     cmd=$(_hokuto_first_command)
     if [[ -z $cmd ]]; then
