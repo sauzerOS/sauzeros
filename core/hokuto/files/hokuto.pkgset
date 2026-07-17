@@ -136,6 +136,8 @@ kde-apps:
 ark
 dolphin
 dolphin-plugins
+ffmpegthumbs
+gwenview
 kate
 kcalc
 kio-extras
@@ -144,7 +146,6 @@ konsole
 kwalletmanager
 libkexiv2
 okular
-gwenview
 
 cosmic:
 cosmic-app-library
