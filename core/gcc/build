@@ -129,6 +129,7 @@ fi
     --enable-__cxa_atexit \
     --enable-default-pie \
     --enable-default-ssp \
+    --disable-libssp \
     --enable-shared \
     --enable-threads \
     --enable-tls \
@@ -221,7 +222,6 @@ libs=(
     libitm*
     libquadmath*
     libsanitizer*
-    libssp*
     libstdc++*
     libsupc*
     libubsan*
