@@ -16,7 +16,7 @@ if [ -z "$krel" ]; then
     exit 1
 fi
 
-echo "Detected Kernel Release: $krel"
+printf '\nDetected Kernel Release: %s\n' "$krel"
 
 echo "Running depmod -a $krel"
 depmod -a "$krel"
