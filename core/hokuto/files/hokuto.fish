@@ -150,7 +150,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from upload" -l copy-from-r2 -d "Migrate from Cloudflare R2"
 
     complete -c $prog -n "__fish_seen_subcommand_from depends" -s r -l reverse -d "Show reverse dependencies"
-    complete -c $prog -n "__fish_seen_subcommand_from depends" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
+    complete -c $prog -n "__fish_seen_subcommand_from depends" -a "(__hokuto_get_install_packages)" -d "Available Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from meta" -s e -d "Edit metadata"
     complete -c $prog -n "__fish_seen_subcommand_from meta" -o db -d "Generate global package database"
