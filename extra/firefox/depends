@@ -32,7 +32,7 @@ mailcap
 nspr
 nss
 pango
-nvidia-vaapi-driver suggest
+libva-nvidia-driver suggest
 cbindgen make
 clang make
 diffutils make
