@@ -1,0 +1,11 @@
+{
+  "url": "https://search.cpan.org/dist/URI/",
+  "category": "extra",
+  "description": "Uniform Resource Identifiers (absolute and relative)",
+  "info": "",
+  "license": "PerlArtistic",
+  "tags": [
+    "ide",
+    "perl"
+  ]
+}

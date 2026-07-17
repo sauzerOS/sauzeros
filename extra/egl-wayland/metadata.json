@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/NVIDIA/egl-wayland",
+  "category": "extra",
+  "description": "EGLStream-based Wayland external platform",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "wayland"
+  ]
+}

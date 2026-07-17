@@ -1,0 +1,10 @@
+{
+  "url": "https://www.devicetree.org/",
+  "category": "extra",
+  "description": "Device Tree Compiler",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "compiler"
+  ]
+}

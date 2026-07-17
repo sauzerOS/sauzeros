@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libhandy",
+  "category": "extra",
+  "description": "GTK 3 UI elements for mobile devices",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

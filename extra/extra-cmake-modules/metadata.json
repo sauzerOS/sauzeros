@@ -1,0 +1,8 @@
+{
+  "url": "https://develop.kde.org/products/frameworks/",
+  "category": "extra",
+  "description": "Extra modules and scripts for CMake",
+  "info": "",
+  "license": "LGPL",
+  "tags": []
+}

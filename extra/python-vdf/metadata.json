@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/solsticegamestudios/vdf",
+  "category": "extra",
+  "description": "Library for working with Valve's VDF text format",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

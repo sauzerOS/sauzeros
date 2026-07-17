@@ -1,0 +1,10 @@
+{
+  "url": "https://fukuchi.org/works/qrencode/",
+  "category": "extra",
+  "description": "C library for encoding data in a QR Code symbol.",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "library"
+  ]
+}

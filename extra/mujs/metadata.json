@@ -1,0 +1,8 @@
+{
+  "url": "https://mujs.com/",
+  "category": "extra",
+  "description": "An embeddable Javascript interpreter in C",
+  "info": "",
+  "license": "ISC",
+  "tags": []
+}

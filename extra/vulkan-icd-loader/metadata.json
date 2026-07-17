@@ -1,0 +1,11 @@
+{
+  "url": "https://www.vulkan.org/",
+  "category": "extra",
+  "description": "Vulkan Installable Client Driver (ICD) Loader",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "graphics"
+  ]
+}

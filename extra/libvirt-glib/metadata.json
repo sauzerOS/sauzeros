@@ -1,0 +1,8 @@
+{
+  "url": "https://libvirt.org",
+  "category": "extra",
+  "description": "GLib bindings for libvirt",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

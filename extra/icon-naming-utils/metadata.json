@@ -1,0 +1,10 @@
+{
+  "url": "http://tango.freedesktop.org/",
+  "category": "extra",
+  "description": "Maps the new names of icons for Tango to the legacy names used by the GNOME and KDE desktops.",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "gnome"
+  ]
+}

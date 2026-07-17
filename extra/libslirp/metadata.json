@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/slirp/libslirp",
+  "category": "extra",
+  "description": "General purpose TCP-IP emulator",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "emulator"
+  ]
+}

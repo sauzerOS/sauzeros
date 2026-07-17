@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/pipewire/rtkit",
+  "category": "extra",
+  "description": "Realtime Policy and Watchdog Daemon",
+  "info": "",
+  "license": "GPL-3.0-or-later AND MIT",
+  "tags": [
+    "server"
+  ]
+}

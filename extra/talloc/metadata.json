@@ -1,0 +1,8 @@
+{
+  "url": "https://talloc.samba.org/",
+  "category": "extra",
+  "description": "Hierarchical pool based memory allocator with destructors",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": []
+}

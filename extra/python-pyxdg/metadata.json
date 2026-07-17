@@ -1,0 +1,11 @@
+{
+  "url": "http://freedesktop.org/Software/pyxdg",
+  "category": "extra",
+  "description": "Python library to access freedesktop.org standards",
+  "info": "",
+  "license": "LGPL-2.0-only",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

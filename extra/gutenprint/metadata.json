@@ -1,0 +1,10 @@
+{
+  "url": "https://gimp-print.sourceforge.io/",
+  "category": "extra",
+  "description": "Top quality printer drivers for POSIX systems",
+  "info": "",
+  "license": "Bison-exception-2.2",
+  "tags": [
+    "print"
+  ]
+}

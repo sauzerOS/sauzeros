@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pikepdf/pikepdf",
+  "category": "extra",
+  "description": "Read and write PDFs with Python, powered by qpdf",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "pdf",
+    "python"
+  ]
+}

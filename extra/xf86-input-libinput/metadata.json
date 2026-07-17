@@ -1,0 +1,11 @@
+{
+  "url": "http://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Generic input driver for the X.Org server based on libinput",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "server",
+    "x11"
+  ]
+}

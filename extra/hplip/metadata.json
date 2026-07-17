@@ -1,0 +1,10 @@
+{
+  "url": "https://hplipopensource.com",
+  "category": "extra",
+  "description": "Drivers for HP DeskJet, OfficeJet, Photosmart, Business Inkjet and some LaserJet",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "office"
+  ]
+}

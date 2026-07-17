@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/evince",
+  "category": "extra",
+  "description": "Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "pdf"
+  ]
+}

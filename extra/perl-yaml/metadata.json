@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/YAML/",
+  "category": "extra",
+  "description": "Perl/CPAN Module YAML : YAML Aint Markup Language",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.spice-space.org",
+  "category": "extra",
+  "description": "SPICE server",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "server"
+  ]
+}

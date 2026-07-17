@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfce4-appfinder/start",
+  "category": "extra",
+  "description": "Application launcher and finder",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

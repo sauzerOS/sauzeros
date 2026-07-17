@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Matroska-Org/libebml",
+  "category": "extra",
+  "description": "Extensible Binary Meta Language library",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

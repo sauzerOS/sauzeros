@@ -1,0 +1,10 @@
+{
+  "url": "https://www.kernel.org/",
+  "category": "base",
+  "description": "Linux Key Management Utilities",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

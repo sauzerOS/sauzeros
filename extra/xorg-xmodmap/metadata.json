@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Utility for modifying keymaps and button mappings",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "utility"
+  ]
+}

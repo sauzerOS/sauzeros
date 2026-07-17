@@ -1,0 +1,12 @@
+{
+  "url": "https://libarchive.org/",
+  "category": "base",
+  "description": "Multi-format archive and compression library",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "archive",
+    "compression",
+    "library"
+  ]
+}

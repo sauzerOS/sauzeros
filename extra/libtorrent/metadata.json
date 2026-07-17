@@ -1,0 +1,11 @@
+{
+  "url": "https://rakshasa.github.io/rtorrent/",
+  "category": "extra",
+  "description": "BitTorrent library with a focus on high performance",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "torrent"
+  ]
+}

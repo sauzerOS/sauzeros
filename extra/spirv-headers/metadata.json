@@ -1,0 +1,10 @@
+{
+  "url": "https://www.khronos.org/spirv/",
+  "category": "extra",
+  "description": "SPIR-V header files and registry",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "devel"
+  ]
+}

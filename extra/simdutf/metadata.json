@@ -1,0 +1,8 @@
+{
+  "url": "https://simdutf.github.io/simdutf/",
+  "category": "extra",
+  "description": "Unicode routines (UTF8, UTF16, UTF32) and Base64",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": []
+}

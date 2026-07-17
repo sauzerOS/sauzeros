@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfce4-power-manager/start",
+  "category": "extra",
+  "description": "Power Manager for Xfce",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

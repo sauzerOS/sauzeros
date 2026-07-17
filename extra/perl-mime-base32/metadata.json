@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/MIME-Base32",
+  "category": "extra",
+  "description": "Base32 encoder / decoder",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

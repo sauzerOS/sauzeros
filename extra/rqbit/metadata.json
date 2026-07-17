@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/ikatson/rqbit",
+  "category": "extra",
+  "description": "A bittorrent client in Rust",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "torrent"
+  ]
+}

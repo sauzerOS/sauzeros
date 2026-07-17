@@ -1,0 +1,11 @@
+{
+  "url": "https://www.boost.org/",
+  "category": "extra",
+  "description": "Free peer-reviewed portable C++ source libraries (development headers)",
+  "info": "",
+  "license": "BSL-1.0",
+  "tags": [
+    "devel",
+    "library"
+  ]
+}

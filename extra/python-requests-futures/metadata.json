@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/ross/requests-futures",
+  "category": "extra",
+  "description": "Asynchronous Python HTTP Requests for Humans using Futures",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "network",
+    "python",
+    "sync"
+  ]
+}

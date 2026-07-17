@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pdfarranger/pdfarranger",
+  "category": "extra",
+  "description": "Helps merge or split PDF documents and rotate, crop and rearrange pages",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "pdf"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/flatpak/libportal",
+  "category": "extra",
+  "description": "GIO-style async APIs for most Flatpak portals",
+  "info": "",
+  "license": "LGPL-3.0-only",
+  "tags": []
+}

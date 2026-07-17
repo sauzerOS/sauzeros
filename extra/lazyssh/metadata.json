@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/Adembc/lazyssh",
+  "category": "extra",
+  "description": "A terminal-based SSH manager inspired by lazydocker and k9s",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": []
+}

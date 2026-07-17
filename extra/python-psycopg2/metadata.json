@@ -1,0 +1,11 @@
+{
+  "url": "https://www.psycopg.org/",
+  "category": "extra",
+  "description": "A PostgreSQL database adapter for the Python programming language.",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "database",
+    "python"
+  ]
+}

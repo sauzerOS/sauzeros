@@ -1,0 +1,11 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/desktop-file-utils",
+  "category": "extra",
+  "description": "Command line utilities for working with desktop entries",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

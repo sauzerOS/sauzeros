@@ -1,0 +1,11 @@
+{
+  "url": "https://libzip.org",
+  "category": "extra",
+  "description": "C library for reading, creating, and modifying zip archives",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "archive",
+    "library"
+  ]
+}

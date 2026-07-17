@@ -1,0 +1,12 @@
+{
+  "url": "https://docs.xfce.org/xfce/libxfce4util/start",
+  "category": "extra",
+  "description": "Basic utility non-GUI functions for Xfce",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "gui",
+    "utility",
+    "xfce"
+  ]
+}

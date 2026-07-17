@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/PyO3/maturin",
+  "category": "extra",
+  "description": "Build and publish crates with pyo3, rust-cpython and cffi bindings - Python bindings",
+  "info": "",
+  "license": "Apache-2.0 OR MIT",
+  "tags": [
+    "python"
+  ]
+}

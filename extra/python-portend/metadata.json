@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jaraco/portend",
+  "category": "extra",
+  "description": "Use portend to monitor TCP ports for bound or unbound states.",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

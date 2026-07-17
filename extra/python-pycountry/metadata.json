@@ -1,0 +1,10 @@
+{
+  "url": "https://pypi.org/project/pycountry/",
+  "category": "extra",
+  "description": "ISO country, subdivision, language, currency and script definitions and their translations",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "python"
+  ]
+}

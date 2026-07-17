@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libx11",
+  "category": "extra",
+  "description": "X11 client-side library",
+  "info": "",
+  "license": "MIT AND X11",
+  "tags": [
+    "cli",
+    "library",
+    "x11"
+  ]
+}

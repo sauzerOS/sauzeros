@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Martchus/qtforkawesome",
+  "category": "extra",
+  "description": "Library that bundles ForkAwesome for use within Qt applications",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-or-later\"\n]",
+  "tags": [
+    "library"
+  ]
+}

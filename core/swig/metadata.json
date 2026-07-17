@@ -1,0 +1,8 @@
+{
+  "url": "https://www.swig.org/",
+  "category": "extra",
+  "description": "Generate scripting interfaces to C/C++ code",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfce4-session/start",
+  "category": "extra",
+  "description": "Xfce's session manager",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

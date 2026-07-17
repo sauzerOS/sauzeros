@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/repology/postgresql-libversion",
+  "category": "extra",
+  "description": "PostgreSQL extension with support for version string comparison",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": []
+}

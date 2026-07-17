@@ -1,0 +1,8 @@
+{
+  "url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.301/dotnet-sdk-10.0.301-linux-x64.tar.gz",
+  "category": "extra",
+  "description": "dotnet core bin",
+  "info": "",
+  "license": "",
+  "tags": []
+}

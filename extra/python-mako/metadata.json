@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/sqlalchemy/mako",
+  "category": "extra",
+  "description": "A template library written in Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

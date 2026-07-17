@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Server access control program for X",
+  "info": "",
+  "license": "MIT AND ICU",
+  "tags": [
+    "server"
+  ]
+}

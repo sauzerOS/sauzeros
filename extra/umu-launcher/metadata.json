@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Open-Wine-Components/umu-launcher",
+  "category": "extra",
+  "description": "The Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "games"
+  ]
+}

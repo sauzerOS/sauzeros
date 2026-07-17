@@ -1,0 +1,8 @@
+{
+  "url": "https://www.zlib.net/",
+  "category": "base",
+  "description": "Mini zip and unzip based on zlib",
+  "info": "",
+  "license": "Zlib",
+  "tags": []
+}

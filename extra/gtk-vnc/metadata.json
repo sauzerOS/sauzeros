@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gtk-vnc",
+  "category": "extra",
+  "description": "VNC viewer widget for GTK",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxcvt",
+  "category": "extra",
+  "description": "library providing a standalone version of the X server implementation of the VESA CVT standard timing modelines generator",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "library",
+    "server",
+    "x11"
+  ]
+}

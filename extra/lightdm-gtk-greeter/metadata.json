@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/Xubuntu/lightdm-gtk-greeter",
+  "category": "extra",
+  "description": "GTK+ greeter for LightDM",
+  "info": "",
+  "license": "GPL3",
+  "tags": []
+}

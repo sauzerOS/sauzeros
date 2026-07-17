@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/kkos/oniguruma",
+  "category": "extra",
+  "description": "a regular expressions library",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "library"
+  ]
+}

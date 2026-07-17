@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/JSON",
+  "category": "extra",
+  "description": "JSON (JavaScript Object Notation) encoder/decoder",
+  "info": "",
+  "license": "Artistic-1.0-Perl",
+  "tags": [
+    "perl"
+  ]
+}

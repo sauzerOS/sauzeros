@@ -1,0 +1,10 @@
+{
+  "url": "http://www.twolame.org/",
+  "category": "extra",
+  "description": "An optimized MPEG Audio Layer 2 (MP2) encoder",
+  "info": "",
+  "license": "LGPL2.1",
+  "tags": [
+    "multimedia"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.qt.io",
+  "category": "extra",
+  "description": "Enables the use of Qt6 APIs in Python applications",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "python"
+  ]
+}

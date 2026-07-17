@@ -1,0 +1,10 @@
+{
+  "url": "https://gnome.pages.gitlab.gnome.org/libsecret/",
+  "category": "base",
+  "description": "Library for storing and retrieving passwords and other secrets",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

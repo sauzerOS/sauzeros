@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/spesmilo/electrum-ecc",
+  "category": "extra",
+  "description": "Python library for libsecp256k1, using ctypes",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.samba.org",
+  "category": "extra",
+  "description": "SMB Fileserver and AD Domain server",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "server"
+  ]
+}

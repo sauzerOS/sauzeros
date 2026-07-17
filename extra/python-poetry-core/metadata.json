@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/python-poetry/poetry-core",
+  "category": "extra",
+  "description": "Poetry PEP 517 Build Backend & Core Utilities",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python",
+    "utility"
+  ]
+}

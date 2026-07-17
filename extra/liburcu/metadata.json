@@ -1,0 +1,10 @@
+{
+  "url": "https://lttng.org/urcu",
+  "category": "extra",
+  "description": "LGPLv2.1 userspace RCU (read-copy-update) library",
+  "info": "",
+  "license": "LGPL2.1",
+  "tags": [
+    "library"
+  ]
+}

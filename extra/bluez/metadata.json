@@ -1,0 +1,11 @@
+{
+  "url": "http://www.bluez.org/",
+  "category": "extra",
+  "description": "Daemons for the bluetooth protocol stack",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "bluetooth",
+    "server"
+  ]
+}

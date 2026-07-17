@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.gnome.org/Apps/FileRoller",
+  "category": "extra",
+  "description": "Create and modify archives",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "archive"
+  ]
+}

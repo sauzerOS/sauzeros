@@ -1,0 +1,8 @@
+{
+  "url": "https://docs.xfce.org/xfce/tumbler/start",
+  "category": "extra",
+  "description": "Thumbnail service implementing the thumbnail management D-Bus specification",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

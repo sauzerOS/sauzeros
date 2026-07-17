@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/hunspell/hunspell",
+  "category": "extra",
+  "description": "Spell checker and morphological analyzer library and program",
+  "info": "",
+  "license": "LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-1.1",
+  "tags": [
+    "library"
+  ]
+}

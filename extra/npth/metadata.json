@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnupg.org/software/npth/index.html",
+  "category": "base",
+  "description": "The new GNU portable threads library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

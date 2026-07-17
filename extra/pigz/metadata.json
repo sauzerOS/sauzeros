@@ -1,0 +1,10 @@
+{
+  "url": "https://www.zlib.net/pigz",
+  "category": "extra",
+  "description": "Parallel implementation of the gzip file compressor",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "compression"
+  ]
+}

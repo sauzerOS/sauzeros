@@ -1,0 +1,10 @@
+{
+  "url": "https://mupdf.com",
+  "category": "extra",
+  "description": "Lightweight PDF and XPS viewer",
+  "info": "",
+  "license": "AGPL-3.0-or-later",
+  "tags": [
+    "pdf"
+  ]
+}

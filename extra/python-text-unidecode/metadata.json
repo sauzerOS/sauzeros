@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/kmike/text-unidecode",
+  "category": "extra",
+  "description": "The most basic Text::Unidecode port",
+  "info": "",
+  "license": "Artistic-1.0-Perl",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://jemalloc.net/",
+  "category": "extra",
+  "description": "General-purpose scalable concurrent malloc implementation",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": []
+}

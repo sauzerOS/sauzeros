@@ -1,0 +1,11 @@
+{
+  "url": "https://go.dev/",
+  "category": "extra",
+  "description": "Core compiler tools for the Go programming language",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "compiler",
+    "utility"
+  ]
+}

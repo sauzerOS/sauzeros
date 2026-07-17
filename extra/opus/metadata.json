@@ -1,0 +1,10 @@
+{
+  "url": "https://www.opus-codec.org/",
+  "category": "extra",
+  "description": "Totally open, royalty-free, highly versatile audio codec",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "multimedia"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/markokr/rarfile",
+  "category": "extra",
+  "description": "Python module for RAR archive reading",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "archive",
+    "python"
+  ]
+}

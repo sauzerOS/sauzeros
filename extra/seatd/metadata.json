@@ -1,0 +1,11 @@
+{
+  "url": "https://sr.ht/~kennylevinsen/seatd/",
+  "category": "extra",
+  "description": "A minimal seat management daemon, and a universal seat management library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "server"
+  ]
+}

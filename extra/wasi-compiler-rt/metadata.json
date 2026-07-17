@@ -1,0 +1,11 @@
+{
+  "url": "https://compiler-rt.llvm.org/",
+  "category": "extra",
+  "description": "Compiler runtime libraries for clang (WASI)",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "compiler",
+    "library"
+  ]
+}

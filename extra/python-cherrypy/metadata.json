@@ -1,0 +1,11 @@
+{
+  "url": "https://cherrypy.dev",
+  "category": "extra",
+  "description": "A pythonic, object-oriented web development framework",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "devel",
+    "python"
+  ]
+}

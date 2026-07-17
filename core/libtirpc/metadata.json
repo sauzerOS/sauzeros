@@ -1,0 +1,10 @@
+{
+  "url": "http://git.linux-nfs.org/?p=steved/libtirpc.git;a=summary",
+  "category": "base",
+  "description": "Transport Independent RPC library (SunRPC replacement)",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}

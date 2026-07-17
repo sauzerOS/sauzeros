@@ -1,0 +1,10 @@
+{
+  "url": "https://xiph.org/flac/",
+  "category": "extra",
+  "description": "Free Lossless Audio Codec",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "multimedia"
+  ]
+}

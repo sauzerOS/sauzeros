@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/thunar/archive",
+  "category": "extra",
+  "description": "Adds archive operations to the Thunar file context menus",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "archive"
+  ]
+}

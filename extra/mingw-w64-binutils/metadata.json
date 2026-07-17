@@ -1,0 +1,10 @@
+{
+  "url": "http://www.gnu.org/software/binutils",
+  "category": "extra",
+  "description": "Cross binutils for the MinGW-w64 cross-compiler",
+  "info": "",
+  "license": "FSFAP",
+  "tags": [
+    "compiler"
+  ]
+}

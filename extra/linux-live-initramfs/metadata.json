@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/sauzerOS/sauzeros/tree/master/extra/linux-live-initramfs",
+  "category": "extra",
+  "description": "linux live initramfs",
+  "info": "",
+  "license": "",
+  "tags": [
+    "boot"
+  ]
+}

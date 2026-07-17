@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info",
+  "category": "extra",
+  "description": "APN configuration presets for mobile broadband connections",
+  "info": "",
+  "license": "CC-PDDC",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/python-injector/injector",
+  "category": "extra",
+  "description": "Python dependency injection framework, inspired by Guice.",
+  "info": "",
+  "license": "[\n  \"BSD\"\n]",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X.Org font utilities",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "fonts",
+    "utility",
+    "x11"
+  ]
+}

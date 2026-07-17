@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/iceauth",
+  "category": "extra",
+  "description": "ICE authority file utility",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "utility"
+  ]
+}

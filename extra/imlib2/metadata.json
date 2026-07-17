@@ -1,0 +1,11 @@
+{
+  "url": "https://sourceforge.net/projects/enlightenment/",
+  "category": "extra",
+  "description": "Library that does image file loading and saving as well as rendering, manipulation, arbitrary polygon support",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

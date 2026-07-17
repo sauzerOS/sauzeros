@@ -1,0 +1,8 @@
+{
+  "url": "https://pagure.io/mailcap",
+  "category": "extra",
+  "description": "Helper application and MIME type associations for file types",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://projects.jlu5.com/icoextract.html",
+  "category": "extra",
+  "description": "Extract icons from Windows PE files (.exe/.dll)",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

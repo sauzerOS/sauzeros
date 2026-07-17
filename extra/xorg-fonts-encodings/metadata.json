@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/font/encodings",
+  "category": "extra",
+  "description": "X.org font encoding files",
+  "info": "",
+  "license": "LicenseRef-xorg-fonts-encodings",
+  "tags": [
+    "fonts",
+    "x11"
+  ]
+}

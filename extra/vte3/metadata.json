@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.gnome.org/Apps/Terminal/VTE",
+  "category": "extra",
+  "description": "Virtual Terminal Emulator widget (GTK3)",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "emulator"
+  ]
+}

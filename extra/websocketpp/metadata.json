@@ -1,0 +1,12 @@
+{
+  "url": "https://www.zaphoyd.com/websocketpp/",
+  "category": "extra",
+  "description": "C++/Boost Asio based websocket client/server library",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "cli",
+    "library",
+    "network"
+  ]
+}

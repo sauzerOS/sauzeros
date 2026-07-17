@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/librsvg",
+  "category": "extra",
+  "description": "SVG rendering library",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

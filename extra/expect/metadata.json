@@ -1,0 +1,10 @@
+{
+  "url": "https://www.nist.gov/el/msid/expect.cfm",
+  "category": "extra",
+  "description": "A tool for automating interactive applications",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "utility"
+  ]
+}

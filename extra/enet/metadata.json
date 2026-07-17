@@ -1,0 +1,10 @@
+{
+  "url": "http://enet.bespin.org/",
+  "category": "extra",
+  "description": "A relatively thin, simple and robust network communication layer on top of UDP",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "network"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.com/kernel-firmware/linux-firmware",
+  "category": "base",
+  "description": "Firmware files for Linux - Default set",
+  "info": "",
+  "license": "CC0-1.0",
+  "tags": [
+    "firmware"
+  ]
+}

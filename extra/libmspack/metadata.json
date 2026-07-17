@@ -1,0 +1,11 @@
+{
+  "url": "https://www.cabextract.org.uk/libmspack/",
+  "category": "extra",
+  "description": "A library for Microsoft compression formats",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "compression",
+    "library"
+  ]
+}

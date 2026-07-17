@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/zenity",
+  "category": "extra",
+  "description": "Display graphical dialog boxes from shell scripts",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "graphics",
+    "gui",
+    "shell"
+  ]
+}

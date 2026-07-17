@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/kurtmckee/feedparser",
+  "category": "extra",
+  "description": "Parse RSS and Atom feeds in Python",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

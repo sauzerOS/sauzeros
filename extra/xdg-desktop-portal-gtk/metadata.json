@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/flatpak/xdg-desktop-portal-gtk",
+  "category": "extra",
+  "description": "A backend implementation for xdg-desktop-portal using GTK",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": []
+}

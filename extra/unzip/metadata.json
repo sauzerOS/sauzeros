@@ -1,0 +1,10 @@
+{
+  "url": "http://infozip.sourceforge.net/UnZip.html",
+  "category": "extra",
+  "description": "For extracting and viewing files in .zip archives",
+  "info": "",
+  "license": "custom",
+  "tags": [
+    "archive"
+  ]
+}

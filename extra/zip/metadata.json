@@ -1,0 +1,11 @@
+{
+  "url": "http://www.info-zip.org/Zip.html",
+  "category": "extra",
+  "description": "Compressor/archiver for creating and modifying zipfiles",
+  "info": "",
+  "license": "LicenseRef-Info-ZIP",
+  "tags": [
+    "archive",
+    "compression"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://netfilter.org/projects/nftables/",
+  "category": "extra",
+  "description": "Netfilter tables userspace tools",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}

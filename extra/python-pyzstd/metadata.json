@@ -1,0 +1,12 @@
+{
+  "url": "https://pypi.org/project/pyzstd",
+  "category": "extra",
+  "description": "Python bindings to Zstandard (zstd) compression library",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "compression",
+    "library",
+    "python"
+  ]
+}

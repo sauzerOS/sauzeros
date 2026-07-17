@@ -1,0 +1,11 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/fontconfig/",
+  "category": "extra",
+  "description": "Library for configuring and customizing font access",
+  "info": "",
+  "license": "HPND AND Unicode-DFS-2016",
+  "tags": [
+    "fonts",
+    "library"
+  ]
+}

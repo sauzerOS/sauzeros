@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/sahlberg/libnfs",
+  "category": "extra",
+  "description": "client library for accessing NFS shares",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

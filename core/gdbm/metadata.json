@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnu.org/software/gdbm/gdbm.html",
+  "category": "base",
+  "description": "GNU database library",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "database",
+    "library"
+  ]
+}

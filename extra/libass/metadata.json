@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/libass/libass/",
+  "category": "extra",
+  "description": "A portable library for SSA/ASS subtitles rendering",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

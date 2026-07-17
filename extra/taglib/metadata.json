@@ -1,0 +1,11 @@
+{
+  "url": "https://taglib.github.io/",
+  "category": "extra",
+  "description": "A Library for reading and editing the meta-data of several popular audio formats",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

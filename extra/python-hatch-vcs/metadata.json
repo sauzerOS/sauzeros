@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ofek/hatch-vcs",
+  "category": "extra",
+  "description": "Hatch plugin for versioning with your preferred VCS",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

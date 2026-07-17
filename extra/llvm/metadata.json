@@ -1,0 +1,10 @@
+{
+  "url": "https://llvm.org/",
+  "category": "extra",
+  "description": "Compiler infrastructure",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "compiler"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://www.tcpdump.org/",
+  "category": "base",
+  "description": "A system-independent interface for user-level packet capture",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": []
+}

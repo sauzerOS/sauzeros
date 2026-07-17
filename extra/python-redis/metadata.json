@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/redis/redis-py",
+  "category": "extra",
+  "description": "The Python interface to the Redis key-value store",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "database",
+    "python"
+  ]
+}

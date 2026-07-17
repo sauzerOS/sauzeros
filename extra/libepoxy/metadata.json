@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/anholt/libepoxy",
+  "category": "extra",
+  "description": "Library handling OpenGL function pointer management",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

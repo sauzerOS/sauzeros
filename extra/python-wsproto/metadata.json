@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/python-hyper/wsproto",
+  "category": "extra",
+  "description": "WebSockets state-machine based protocol implementation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "network",
+    "python"
+  ]
+}

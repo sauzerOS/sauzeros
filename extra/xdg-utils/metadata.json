@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xdg/xdg-utils",
+  "category": "extra",
+  "description": "Command line tools that assist applications with a variety of desktop integration tasks",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli"
+  ]
+}

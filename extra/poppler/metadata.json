@@ -1,0 +1,12 @@
+{
+  "url": "https://poppler.freedesktop.org/",
+  "category": "extra",
+  "description": "PDF rendering library based on xpdf 3.0",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "graphics",
+    "library",
+    "pdf"
+  ]
+}

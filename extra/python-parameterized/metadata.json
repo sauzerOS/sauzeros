@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/wolever/parameterized",
+  "category": "extra",
+  "description": "Parameterized testing with any Python test framework",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "python"
+  ]
+}

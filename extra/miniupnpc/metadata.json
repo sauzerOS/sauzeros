@@ -1,0 +1,11 @@
+{
+  "url": "https://miniupnp.tuxfamily.org/",
+  "category": "extra",
+  "description": "Small UPnP client library/tool to access Internet Gateway Devices",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

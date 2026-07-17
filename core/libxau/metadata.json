@@ -1,0 +1,11 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X11 authorisation library",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "library",
+    "x11"
+  ]
+}

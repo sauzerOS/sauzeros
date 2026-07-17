@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/saivert/pwvucontrol",
+  "category": "extra",
+  "description": "Pipewire volume control for GNOME",
+  "info": "",
+  "license": "[\n  \"GPL-3.0-only\"\n]",
+  "tags": [
+    "gnome"
+  ]
+}

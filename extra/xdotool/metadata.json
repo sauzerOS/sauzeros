@@ -1,0 +1,11 @@
+{
+  "url": "https://www.semicomplete.com/projects/xdotool/",
+  "category": "extra",
+  "description": "Command-line X11 automation tool",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "x11"
+  ]
+}

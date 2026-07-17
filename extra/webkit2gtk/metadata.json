@@ -1,0 +1,8 @@
+{
+  "url": "https://webkitgtk.org",
+  "category": "extra",
+  "description": "Web content engine for GTK",
+  "info": "",
+  "license": "[\n  \"AFL-2.0 OR GPL-2.0-or-later\",\n  \"Apache-2.0\",\n  \"Apache-2.0 WITH LLVM-exception\",\n  \"BSD-2-Clause\",\n  \"BSD-2-Clause-Views\",\n  \"BSD-3-Clause\",\n  \"BSD-Source-Code\",\n  \"BSL-1.0\",\n  \"bzip2-1.0.6\",\n  \"GPL-2.0-only\",\n  \"GPL-3.0-only WITH Autoconf-exception-3.0\",\n  \"GPL-3.0-or-later WITH Bison-exception-2.2\",\n  \"ICU\",\n  \"ISC\",\n  \"LGPL-2.1-only\",\n  \"LGPL-2.1-or-later\",\n  \"MIT\",\n  \"MPL-1.1\",\n  \"MPL-2.0\",\n  \"NCSA\",\n  \"NCSA OR MIT\",\n  \"OFL-1.1\",\n  \"SunPro\",\n  \"Unicode-TOU\"\n]",
+  "tags": []
+}

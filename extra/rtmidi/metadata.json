@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/thestk/rtmidi",
+  "category": "extra",
+  "description": "A set of C++ classes that provides a common API for realtime MIDI input/output.",
+  "info": "",
+  "license": "LicenseRef-RtMidi",
+  "tags": []
+}

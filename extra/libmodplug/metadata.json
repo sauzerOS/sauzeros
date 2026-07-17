@@ -1,0 +1,10 @@
+{
+  "url": "http://modplug-xmms.sourceforge.net/",
+  "category": "extra",
+  "description": "A MOD playing library",
+  "info": "",
+  "license": "LicenseRef-PublicDomain",
+  "tags": [
+    "library"
+  ]
+}

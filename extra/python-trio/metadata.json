@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/python-trio/trio",
+  "category": "extra",
+  "description": "A friendly Python library for async concurrency and I/O",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

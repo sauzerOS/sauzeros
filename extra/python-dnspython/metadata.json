@@ -1,0 +1,11 @@
+{
+  "url": "http://www.dnspython.org",
+  "category": "extra",
+  "description": "A DNS toolkit for Python",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "network",
+    "python"
+  ]
+}

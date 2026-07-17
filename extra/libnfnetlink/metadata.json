@@ -1,0 +1,10 @@
+{
+  "url": "https://www.netfilter.org/projects/libnfnetlink/",
+  "category": "base",
+  "description": "Low-level library for netfilter related kernel/userspace communication",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "library"
+  ]
+}

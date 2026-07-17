@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/AyatanaIndicators/libayatana-indicator",
+  "category": "extra",
+  "description": "Ayatana Indicators shared library",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

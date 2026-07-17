@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/libevdev/",
+  "category": "extra",
+  "description": "Wrapper library for evdev devices",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://launchpad.net/ufw",
+  "category": "extra",
+  "description": "Uncomplicated and easy to use CLI tool for managing a netfilter firewall",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "cli",
+    "utility"
+  ]
+}

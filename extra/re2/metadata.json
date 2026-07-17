@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/google/re2",
+  "category": "extra",
+  "description": "Fast, safe, thread-friendly regular expression engine",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": []
+}

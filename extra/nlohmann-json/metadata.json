@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/nlohmann/json",
+  "category": "extra",
+  "description": "JSON for Modern C++",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

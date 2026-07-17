@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/storaged-project/libblockdev",
+  "category": "extra",
+  "description": "A library for manipulating block devices",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "disk-tools",
+    "library"
+  ]
+}

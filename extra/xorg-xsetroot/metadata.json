@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Classic X utility to set your root window background to a given pattern or color",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "utility"
+  ]
+}

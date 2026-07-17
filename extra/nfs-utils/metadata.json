@@ -1,0 +1,10 @@
+{
+  "url": "http://nfs.sourceforge.net",
+  "category": "base",
+  "description": "Support programs for Network File Systems",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "network"
+  ]
+}

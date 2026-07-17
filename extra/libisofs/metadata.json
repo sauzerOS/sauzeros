@@ -1,0 +1,12 @@
+{
+  "url": "https://dev.lovelyhq.com/libburnia/libisofs",
+  "category": "extra",
+  "description": "Library to pack up hard disk files and directories into a ISO 9660 disk image",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "disk-tools",
+    "graphics",
+    "library"
+  ]
+}

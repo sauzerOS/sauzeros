@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/aaugustin/websockets",
+  "category": "extra",
+  "description": "Python implementation of the WebSocket Protocol (RFC 6455)",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "network",
+    "python"
+  ]
+}

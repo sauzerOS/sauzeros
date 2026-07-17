@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/espeak-ng/pcaudiolib",
+  "category": "extra",
+  "description": "Portable C Audio Library",
+  "info": "",
+  "license": "GPL3",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

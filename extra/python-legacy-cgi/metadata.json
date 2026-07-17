@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/jackrosenthal/legacy-cgi",
+  "category": "extra",
+  "description": "Fork of the standard library cgi and cgitb modules, being deprecated in PEP-594",
+  "info": "",
+  "license": "PSF-2.0",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

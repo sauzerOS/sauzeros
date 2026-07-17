@@ -1,0 +1,8 @@
+{
+  "url": "https://git.kernel.org/pub/scm/devel/pahole/pahole.git",
+  "category": "extra",
+  "description": "Type info tools",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}

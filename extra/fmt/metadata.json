@@ -1,0 +1,10 @@
+{
+  "url": "https://fmt.dev",
+  "category": "extra",
+  "description": "Open-source formatting library for C++",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

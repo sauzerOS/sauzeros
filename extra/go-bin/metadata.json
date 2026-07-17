@@ -1,0 +1,8 @@
+{
+  "url": "https://go.dev/",
+  "category": "extra",
+  "description": "Go programming language (binary release)",
+  "info": "",
+  "license": "[\n  \"BSD\"\n]",
+  "tags": []
+}

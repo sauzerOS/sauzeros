@@ -1,0 +1,11 @@
+{
+  "url": "http://0pointer.de/lennart/projects/libdaemon/",
+  "category": "extra",
+  "description": "Lightweight C library that eases the writing of UNIX daemons",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "library",
+    "server"
+  ]
+}

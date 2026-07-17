@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libwnck",
+  "category": "extra",
+  "description": "Window Navigator Construction Kit",
+  "info": "",
+  "license": "[\n  \"LGPL-2.0-only\"\n]",
+  "tags": []
+}

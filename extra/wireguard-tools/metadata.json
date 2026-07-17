@@ -1,0 +1,11 @@
+{
+  "url": "https://www.wireguard.com/",
+  "category": "extra",
+  "description": "next generation secure network tunnel - tools for configuration",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "network",
+    "utility"
+  ]
+}

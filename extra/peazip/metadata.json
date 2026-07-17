@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/peazip/PeaZip",
+  "category": "extra",
+  "description": "Cross-platform file and archive manager (Qt6)",
+  "info": "",
+  "license": "[\n  \"LGPL-3.0-or-later\"\n]",
+  "tags": [
+    "archive"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://libcheck.github.io/check/",
+  "category": "extra",
+  "description": "Unit testing framework for C",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.vmware.com/products/workstation-for-linux.html",
+  "category": "extra",
+  "description": "The industry standard for running multiple operating systems as virtual machines on a single Linux PC.",
+  "info": "",
+  "license": "[\n  \"custom\"\n]",
+  "tags": [
+    "virtual-machine"
+  ]
+}

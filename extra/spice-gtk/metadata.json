@@ -1,0 +1,11 @@
+{
+  "url": "https://www.spice-space.org/",
+  "category": "extra",
+  "description": "GTK+ client library for SPICE",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

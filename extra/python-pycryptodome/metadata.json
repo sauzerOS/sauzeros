@@ -1,0 +1,11 @@
+{
+  "url": "https://www.pycryptodome.org/",
+  "category": "extra",
+  "description": "Collection of cryptographic algorithms and protocols, implemented for use from Python 3.",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "crypto",
+    "python"
+  ]
+}

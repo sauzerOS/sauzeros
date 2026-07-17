@@ -1,0 +1,11 @@
+{
+  "url": "https://thrysoee.dk/editline/",
+  "category": "base",
+  "description": "Command line editor library providing generic line editing, history, and tokenization functions",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pypa/pyproject-hooks",
+  "category": "extra",
+  "description": "A low-level library for calling build-backends in pyproject.toml-based project",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

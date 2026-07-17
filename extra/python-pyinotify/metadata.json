@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/seb-m/pyinotify",
+  "category": "extra",
+  "description": "Python module used for monitoring filesystems events on Linux platforms with inotify.",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "disk-tools",
+    "python"
+  ]
+}

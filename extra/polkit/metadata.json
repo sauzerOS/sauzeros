@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/polkit-org/polkit",
+  "category": "extra",
+  "description": "Application development toolkit for controlling system-wide privileges",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": [
+    "devel"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/at-spi2-core",
+  "category": "extra",
+  "description": "Protocol definitions and daemon for D-Bus at-spi",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "server"
+  ]
+}

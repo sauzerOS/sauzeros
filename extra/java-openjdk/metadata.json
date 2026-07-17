@@ -1,0 +1,15 @@
+{
+  "url": "https://github.com/openjdk/jdk17u/archive/refs/tags/jdk-17.0.20+7.tar.gz",
+  "category": "extra",
+  "description": "java openjdk",
+  "info": "",
+  "license": "",
+  "tags": [],
+  "subpackages": [
+    "jdk-openjdk",
+    "jre-openjdk",
+    "jre-openjdk-headless",
+    "openjdk-doc",
+    "openjdk-src"
+  ]
+}

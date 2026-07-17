@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/libsdl-org/sdl2-compat",
+  "category": "extra",
+  "description": "An SDL2 compatibility layer that uses SDL3 behind the scenes",
+  "info": "",
+  "license": "Zlib",
+  "tags": []
+}

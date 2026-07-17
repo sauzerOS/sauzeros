@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.xfce.org/xfce/libxfce4ui/start",
+  "category": "extra",
+  "description": "Widgets library for the Xfce desktop environment",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "library",
+    "xfce"
+  ]
+}

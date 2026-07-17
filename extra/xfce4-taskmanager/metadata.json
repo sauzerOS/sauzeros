@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/apps/xfce4-taskmanager/start",
+  "category": "extra",
+  "description": "Easy to use task manager",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

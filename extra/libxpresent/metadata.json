@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxpresent",
+  "category": "extra",
+  "description": "X Present Extension library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

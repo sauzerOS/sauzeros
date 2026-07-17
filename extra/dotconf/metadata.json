@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/williamh/dotconf",
+  "category": "extra",
+  "description": "A C library for parsing configuration files",
+  "info": "",
+  "license": "LGPL2.1",
+  "tags": [
+    "library"
+  ]
+}

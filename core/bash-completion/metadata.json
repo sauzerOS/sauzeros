@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/scop/bash-completion",
+  "category": "extra",
+  "description": "Programmable completion for the bash shell",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "shell"
+  ]
+}

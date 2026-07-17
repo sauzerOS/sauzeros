@@ -1,0 +1,10 @@
+{
+  "url": "https://pogostick.net/~pnh/ntpasswd/",
+  "category": "extra",
+  "description": "Offline NT Password Editor - reset passwords in a Windows NT SAM user database file",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "database"
+  ]
+}

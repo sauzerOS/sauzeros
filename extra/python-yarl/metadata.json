@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/aio-libs/yarl/",
+  "category": "extra",
+  "description": "Yet another URL library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

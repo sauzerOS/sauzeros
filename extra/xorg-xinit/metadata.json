@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X.Org initialisation program",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "x11"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "Create an X cursor file from PNG images",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "graphics"
+  ]
+}

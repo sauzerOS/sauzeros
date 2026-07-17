@@ -1,0 +1,10 @@
+{
+  "url": "https://google.github.io/flatbuffers/",
+  "category": "extra",
+  "description": "An efficient cross platform serialization library for C++, with support for Java, C# and Go",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

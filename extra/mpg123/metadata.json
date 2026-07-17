@@ -1,0 +1,10 @@
+{
+  "url": "https://mpg123.de/",
+  "category": "extra",
+  "description": "Console based real time MPEG Audio Player for Layer 1, 2 and 3",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "multimedia"
+  ]
+}

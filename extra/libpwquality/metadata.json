@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/libpwquality/libpwquality",
+  "category": "extra",
+  "description": "Library for password quality checking and generating random passwords",
+  "info": "",
+  "license": "BSD-3-Clause OR GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

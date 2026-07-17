@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/sabnzbd/sabctools/",
+  "category": "extra",
+  "description": "implements three main sets of C implementations that are used within SABnzbd",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-only\"\n]",
+  "tags": [
+    "python"
+  ]
+}

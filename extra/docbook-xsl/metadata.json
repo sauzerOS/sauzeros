@@ -1,0 +1,8 @@
+{
+  "url": "https://docbook.org/",
+  "category": "extra",
+  "description": "XML stylesheets for Docbook-xml transformations",
+  "info": "",
+  "license": "LicenseRef-docbook-XSL",
+  "tags": []
+}

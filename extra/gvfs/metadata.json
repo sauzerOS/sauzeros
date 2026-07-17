@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gvfs",
+  "category": "extra",
+  "description": "Virtual filesystem implementation for GIO",
+  "info": "",
+  "license": "LGPL-2.0-only",
+  "tags": [
+    "disk-tools"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/pfmoore/editables",
+  "category": "extra",
+  "description": "Python library for creating editable wheels",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

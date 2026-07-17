@@ -1,0 +1,12 @@
+{
+  "url": "http://www.pygame.org",
+  "category": "extra",
+  "description": "Python game library",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "games",
+    "library",
+    "python"
+  ]
+}

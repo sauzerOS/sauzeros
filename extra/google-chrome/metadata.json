@@ -1,0 +1,10 @@
+{
+  "url": "https://www.google.com/chrome",
+  "category": "extra",
+  "description": "The popular web browser by Google (Stable Channel)",
+  "info": "",
+  "license": "[\n  \"custom:chrome\"\n]",
+  "tags": [
+    "browser"
+  ]
+}

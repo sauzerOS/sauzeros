@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/rbarrois/python-semanticversion",
+  "category": "extra",
+  "description": "A library implementing the 'SemVer' scheme",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

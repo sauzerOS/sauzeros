@@ -1,0 +1,11 @@
+{
+  "url": "https://www.pango.org/",
+  "category": "extra",
+  "description": "A library for layout and rendering of text",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

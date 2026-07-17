@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jaraco/jaraco.context",
+  "category": "extra",
+  "description": "Context managers by jaraco",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

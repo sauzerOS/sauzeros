@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/google/double-conversion",
+  "category": "extra",
+  "description": "Binary-decimal and decimal-binary routines for IEEE doubles",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": []
+}

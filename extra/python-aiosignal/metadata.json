@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/aio-libs/aiosignal",
+  "category": "extra",
+  "description": "List of registered asynchronous callbacks",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python",
+    "sync"
+  ]
+}

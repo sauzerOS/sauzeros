@@ -1,0 +1,10 @@
+{
+  "url": "http://links.twibright.com/",
+  "category": "base",
+  "description": "A text WWW browser, similar to Lynx",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "browser"
+  ]
+}

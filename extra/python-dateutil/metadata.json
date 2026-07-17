@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/dateutil/dateutil",
+  "category": "extra",
+  "description": "Provides powerful extensions to the standard datetime module",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

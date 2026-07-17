@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/miloyip/rapidjson",
+  "category": "extra",
+  "description": "Fast JSON parser/generator for C++ with both SAX/DOM style API",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ricmoo/pyaes",
+  "category": "extra",
+  "description": "Pure-Python Implementation of the AES block-cipher and common modes of operation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

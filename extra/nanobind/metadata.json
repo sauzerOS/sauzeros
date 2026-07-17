@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/wjakob/nanobind",
+  "category": "extra",
+  "description": "Tiny and efficient C++/Python bindings",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/udisks/",
+  "category": "extra",
+  "description": "Daemon, tools and libraries to access and manipulate disks, storage devices and technologies",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "server"
+  ]
+}

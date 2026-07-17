@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/Anorov/PySocks",
+  "category": "extra",
+  "description": "SOCKS4, SOCKS5 or HTTP proxy (Anorov fork PySocks replaces socksipy)",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "network",
+    "python"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config",
+  "category": "extra",
+  "description": "X keyboard configuration files",
+  "info": "",
+  "license": "LicenseRef-xkeyboard-config",
+  "tags": []
+}

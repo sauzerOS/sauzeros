@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/google/shaderc",
+  "category": "extra",
+  "description": "Collection of tools, libraries and tests for shader compilation",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

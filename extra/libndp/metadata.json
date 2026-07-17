@@ -1,0 +1,10 @@
+{
+  "url": "http://libndp.org/",
+  "category": "extra",
+  "description": "Library for Neighbor Discovery Protocol",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

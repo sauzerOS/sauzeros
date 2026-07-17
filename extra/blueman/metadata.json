@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/blueman-project/blueman",
+  "category": "extra",
+  "description": "GTK+ Bluetooth Manager",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "bluetooth"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/libfuse/libfuse",
+  "category": "extra",
+  "description": "Interface for userspace programs to export a filesystem to the Linux kernel",
+  "info": "",
+  "license": "GPL2",
+  "tags": [
+    "disk-tools",
+    "kernel"
+  ]
+}

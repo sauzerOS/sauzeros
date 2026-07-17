@@ -1,0 +1,10 @@
+{
+  "url": "https://www.netfilter.org/projects/iptables/index.html",
+  "category": "base",
+  "description": "Linux kernel packet control tool (using nft interface)",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "kernel"
+  ]
+}

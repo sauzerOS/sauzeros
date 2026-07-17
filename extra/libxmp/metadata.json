@@ -1,0 +1,10 @@
+{
+  "url": "http://xmp.sourceforge.net/",
+  "category": "extra",
+  "description": "Library that supports over 90 module formats (Amiga, Atari, ..)",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

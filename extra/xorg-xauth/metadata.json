@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/xauth",
+  "category": "extra",
+  "description": "X.Org authorization settings program",
+  "info": "",
+  "license": "MIT-open-group",
+  "tags": [
+    "x11"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://flatpak.github.io/xdg-desktop-portal/",
+  "category": "extra",
+  "description": "Desktop integration portals for sandboxed apps",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

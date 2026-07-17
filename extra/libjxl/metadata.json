@@ -1,0 +1,10 @@
+{
+  "url": "https://jpeg.org/jpegxl/",
+  "category": "extra",
+  "description": "JPEG XL image format reference implementation",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "graphics"
+  ]
+}

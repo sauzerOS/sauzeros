@@ -1,0 +1,10 @@
+{
+  "url": "https://pcsclite.apdu.fr/",
+  "category": "extra",
+  "description": "PC/SC Architecture smartcard middleware library",
+  "info": "",
+  "license": "0BSD",
+  "tags": [
+    "library"
+  ]
+}

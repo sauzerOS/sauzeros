@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/dimtpap/obs-pipewire-audio-capture",
+  "category": "extra",
+  "description": "PipeWire audio capturing for OBS Studio",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-or-later\"\n]",
+  "tags": [
+    "multimedia"
+  ]
+}

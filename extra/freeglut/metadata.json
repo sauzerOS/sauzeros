@@ -1,0 +1,11 @@
+{
+  "url": "https://freeglut.sourceforge.net/",
+  "category": "extra",
+  "description": "Free OpenGL Utility Toolkit",
+  "info": "",
+  "license": "X11",
+  "tags": [
+    "graphics",
+    "utility"
+  ]
+}

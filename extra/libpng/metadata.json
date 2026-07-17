@@ -1,0 +1,10 @@
+{
+  "url": "http://www.libpng.org/pub/png/libpng.html",
+  "category": "extra",
+  "description": "A collection of routines used to create PNG format graphics files",
+  "info": "",
+  "license": "libpng-2.0",
+  "tags": [
+    "graphics"
+  ]
+}

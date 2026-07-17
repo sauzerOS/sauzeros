@@ -1,0 +1,10 @@
+{
+  "url": "http://www.lazarus.freepascal.org/",
+  "category": "extra",
+  "description": "Delphi-like IDE for FreePascal common files",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "ide"
+  ]
+}

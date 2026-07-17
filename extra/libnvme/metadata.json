@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/linux-nvme/libnvme",
+  "category": "extra",
+  "description": "C Library for NVM Express on Linux",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "url": "https://www.gtkmm.org/",
+  "category": "extra",
+  "description": "C++ bindings for ATK",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

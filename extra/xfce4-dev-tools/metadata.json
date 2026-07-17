@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfce4-dev-tools/start",
+  "category": "extra",
+  "description": "Xfce developer tools",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "xfce"
+  ]
+}

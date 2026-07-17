@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/flit/tree/main/flit_core",
+  "category": "extra",
+  "description": "A PEP 517 build backend for packages using Flit",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

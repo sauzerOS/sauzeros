@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/gorakhargosh/watchdog",
+  "category": "extra",
+  "description": "Python API and shell utilities to monitor file system events",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python",
+    "shell",
+    "utility"
+  ]
+}

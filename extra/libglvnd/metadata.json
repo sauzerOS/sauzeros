@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/glvnd/libglvnd",
+  "category": "extra",
+  "description": "The GL Vendor-Neutral Dispatch library",
+  "info": "",
+  "license": "custom:BSD-like",
+  "tags": [
+    "library"
+  ]
+}

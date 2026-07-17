@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/microsoft/mimalloc",
+  "category": "extra",
+  "description": "General-purpose allocator with excellent performance characteristics",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

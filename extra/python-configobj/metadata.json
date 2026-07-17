@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/DiffSK/configobj",
+  "category": "extra",
+  "description": "Simple config file reader and writer",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://halloy.chat",
+  "category": "extra",
+  "description": "An open-source IRC client",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "chat",
+    "cli"
+  ]
+}

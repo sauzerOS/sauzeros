@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pytest-dev/pluggy",
+  "category": "extra",
+  "description": "Plugin and hook calling mechanisms for python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://sass-lang.com/libsass/",
+  "category": "extra",
+  "description": "C implementation of Sass CSS preprocessor (library)",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

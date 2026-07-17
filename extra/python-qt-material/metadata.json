@@ -1,0 +1,10 @@
+{
+  "url": "https://qt-material.readthedocs.io/",
+  "category": "extra",
+  "description": "Material inspired stylesheet for PySide & PyQt",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

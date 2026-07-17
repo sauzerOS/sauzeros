@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio",
+  "category": "base",
+  "description": "Modular initramfs image creation utility",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "boot",
+    "graphics",
+    "utility"
+  ]
+}

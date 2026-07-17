@@ -1,0 +1,10 @@
+{
+  "url": "https://rrthomas.github.io/enchant/",
+  "category": "extra",
+  "description": "A wrapper library for generic spell checking",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

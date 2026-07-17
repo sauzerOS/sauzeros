@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/sdispater/tomlkit",
+  "category": "extra",
+  "description": "Style-preserving TOML library for Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

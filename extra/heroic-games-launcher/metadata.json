@@ -1,0 +1,10 @@
+{
+  "url": "https://heroicgameslauncher.com/",
+  "category": "extra",
+  "description": "Native GOG, Epic Games and Amazon games launcher for Linux",
+  "info": "",
+  "license": "[\n  \"GPL-3.0-only\"\n]",
+  "tags": [
+    "games"
+  ]
+}

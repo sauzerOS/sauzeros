@@ -1,0 +1,11 @@
+{
+  "url": "https://mhogomchungu.github.io/zuluCrypt",
+  "category": "extra",
+  "description": "A cli and gui frontend to cryptsetup",
+  "info": "",
+  "license": "[\n  \"GPL-2.0-or-later\"\n]",
+  "tags": [
+    "cli",
+    "gui"
+  ]
+}

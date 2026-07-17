@@ -1,0 +1,11 @@
+{
+  "url": "https://pagure.io/libaio",
+  "category": "base",
+  "description": "The Linux-native asynchronous I/O facility (aio) library",
+  "info": "",
+  "license": "LGPL-2.0-or-later",
+  "tags": [
+    "library",
+    "sync"
+  ]
+}

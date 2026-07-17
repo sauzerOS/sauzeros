@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/apps/xfce4-panel-profiles/start",
+  "category": "extra",
+  "description": "Simple application to manage Xfce panel layouts",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "xfce"
+  ]
+}

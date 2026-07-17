@@ -1,0 +1,10 @@
+{
+  "url": "https://cffi.readthedocs.org/",
+  "category": "extra",
+  "description": "Foreign Function Interface for Python calling C code",
+  "info": "",
+  "license": "MIT-0",
+  "tags": [
+    "python"
+  ]
+}

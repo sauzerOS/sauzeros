@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/jedisct1/libsodium",
+  "category": "extra",
+  "description": "A modern, portable, easy to use crypto library",
+  "info": "",
+  "license": "custom:ISC",
+  "tags": [
+    "crypto",
+    "library"
+  ]
+}

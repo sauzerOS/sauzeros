@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/xubuntu/lightdm-gtk-greeter-settings",
+  "category": "extra",
+  "description": "Settings editor for the LightDM GTK+ Greeter",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": []
+}

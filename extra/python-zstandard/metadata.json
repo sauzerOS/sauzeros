@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/indygreg/python-zstandard",
+  "category": "extra",
+  "description": "Python bindings to the Zstandard (zstd) compression library",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "compression",
+    "library",
+    "python"
+  ]
+}

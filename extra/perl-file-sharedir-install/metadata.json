@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/File-ShareDir-Install",
+  "category": "extra",
+  "description": "File::ShareDir::Install - Install read-only data files from a distribution",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

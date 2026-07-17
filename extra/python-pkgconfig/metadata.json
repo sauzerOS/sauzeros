@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/matze/pkgconfig",
+  "category": "extra",
+  "description": "Python module to interface with the pkg-config command line tool",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "cli",
+    "python"
+  ]
+}

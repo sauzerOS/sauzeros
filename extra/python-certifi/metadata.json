@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/certifi/python-certifi",
+  "category": "extra",
+  "description": "Python package for providing Mozilla's CA Bundle (using system CA store)",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "python"
+  ]
+}

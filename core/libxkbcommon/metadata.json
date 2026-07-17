@@ -1,0 +1,10 @@
+{
+  "url": "https://xkbcommon.org/",
+  "category": "extra",
+  "description": "Keymap handling library for toolkits and window systems",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

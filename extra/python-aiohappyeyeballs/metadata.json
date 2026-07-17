@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/aio-libs/aiohappyeyeballs",
+  "category": "extra",
+  "description": "Happy Eyeballs for asyncio",
+  "info": "",
+  "license": "PSF-2.0",
+  "tags": [
+    "python"
+  ]
+}

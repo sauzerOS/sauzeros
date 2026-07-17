@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jaraco/jaraco.classes",
+  "category": "extra",
+  "description": "Module for classes manipulation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

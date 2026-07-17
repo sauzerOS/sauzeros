@@ -1,0 +1,10 @@
+{
+  "url": "https://luajit.org/",
+  "category": "extra",
+  "description": "Just-in-time compiler and drop-in replacement for Lua 5.1",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "compiler"
+  ]
+}

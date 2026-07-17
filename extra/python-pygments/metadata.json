@@ -1,0 +1,10 @@
+{
+  "url": "https://pygments.org/",
+  "category": "extra",
+  "description": "Python syntax highlighter",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python"
+  ]
+}

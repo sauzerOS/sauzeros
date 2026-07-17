@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/app/xmessage",
+  "category": "extra",
+  "description": "Display a message or query in a window",
+  "info": "",
+  "license": "X11",
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/agronholm/typeguard",
+  "category": "extra",
+  "description": "Run-time type checker for Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

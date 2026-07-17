@@ -1,0 +1,10 @@
+{
+  "url": "https://bottlepy.org",
+  "category": "extra",
+  "description": "A fast and simple micro-framework for small web-applications",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

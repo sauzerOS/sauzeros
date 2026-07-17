@@ -1,0 +1,10 @@
+{
+  "url": "https://www.kernel.org/pub/software/network/tftp/tftp-hpa/",
+  "category": "extra",
+  "description": "Official tftp server",
+  "info": "",
+  "license": "BSD-4-Clause-UC",
+  "tags": [
+    "server"
+  ]
+}

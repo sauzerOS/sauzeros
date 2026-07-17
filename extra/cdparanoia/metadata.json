@@ -1,0 +1,10 @@
+{
+  "url": "https://www.xiph.org/paranoia/",
+  "category": "extra",
+  "description": "Compact Disc Digital Audio extraction tool",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "multimedia"
+  ]
+}

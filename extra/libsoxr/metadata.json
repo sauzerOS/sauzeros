@@ -1,0 +1,10 @@
+{
+  "url": "https://sourceforge.net/p/soxr/wiki/Home/",
+  "category": "extra",
+  "description": "The SoX Resampler library that aims to give fast and high quality results for any constant resampling ratio",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

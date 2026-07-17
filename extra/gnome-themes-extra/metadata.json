@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/Archive/gnome-themes-extra",
+  "category": "extra",
+  "description": "Extra GNOME themes (legacy HighContrast icon theme and index files for Adwaita)",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "gnome"
+  ]
+}

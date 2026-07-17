@@ -1,0 +1,10 @@
+{
+  "url": "https://libcxx.llvm.org/",
+  "category": "extra",
+  "description": "LLVM C++ standard library (WASI)",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": [
+    "library"
+  ]
+}

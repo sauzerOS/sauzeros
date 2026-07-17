@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/wiki/Software/libmbim/",
+  "category": "extra",
+  "description": "MBIM modem protocol helper library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}

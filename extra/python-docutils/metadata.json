@@ -1,0 +1,11 @@
+{
+  "url": "http://docutils.sourceforge.net",
+  "category": "extra",
+  "description": "Set of tools for processing plaintext docs into formats such as HTML, XML, or LaTeX",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "python",
+    "utility"
+  ]
+}

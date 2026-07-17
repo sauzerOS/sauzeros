@@ -1,0 +1,10 @@
+{
+  "url": "https://xorg.freedesktop.org/",
+  "category": "extra",
+  "description": "X transport library",
+  "info": "",
+  "license": "HPND",
+  "tags": [
+    "library"
+  ]
+}

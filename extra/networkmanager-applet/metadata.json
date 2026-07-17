@@ -1,0 +1,10 @@
+{
+  "url": "https://download.gnome.org/sources/network-manager-applet/1.36/network-manager-applet-1.36.0.tar.xz",
+  "category": "extra",
+  "description": "networkmanager applet",
+  "info": "",
+  "license": "",
+  "tags": [
+    "network"
+  ]
+}

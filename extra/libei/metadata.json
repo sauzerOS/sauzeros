@@ -1,0 +1,10 @@
+{
+  "url": "https://libinput.pages.freedesktop.org/libei/",
+  "category": "extra",
+  "description": "Library for Emulated Input",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

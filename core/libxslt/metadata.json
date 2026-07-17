@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/libxslt/-/wikis/home",
+  "category": "extra",
+  "description": "XML stylesheet transformation library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://botan.randombit.net/",
+  "category": "extra",
+  "description": "Crypto library written in C++",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "crypto",
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/hynek/hatch-fancy-pypi-readme",
+  "category": "extra",
+  "description": "Fancy PyPI READMEs with Hatch",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

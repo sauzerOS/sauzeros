@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/strukturag/libde265",
+  "category": "extra",
+  "description": "Open h.265 video codec implementation",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [
+    "multimedia"
+  ]
+}

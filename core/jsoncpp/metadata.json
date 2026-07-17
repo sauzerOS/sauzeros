@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/open-source-parsers/jsoncpp",
+  "category": "extra",
+  "description": "C++ library for interacting with JSON",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

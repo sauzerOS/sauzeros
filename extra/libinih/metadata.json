@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/benhoyt/inih",
+  "category": "base",
+  "description": "A simple .INI file parser written in C",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": []
+}

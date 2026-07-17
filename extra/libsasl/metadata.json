@@ -1,0 +1,10 @@
+{
+  "url": "https://www.cyrusimap.org/sasl/",
+  "category": "base",
+  "description": "Cyrus Simple Authentication Service Layer (SASL) library",
+  "info": "",
+  "license": "BSD-3-Clause-Attribution",
+  "tags": [
+    "library"
+  ]
+}

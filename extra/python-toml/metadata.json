@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/uiri/toml",
+  "category": "extra",
+  "description": "A Python library for parsing and creating TOML",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

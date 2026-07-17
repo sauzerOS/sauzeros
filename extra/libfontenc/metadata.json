@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libfontenc",
+  "category": "extra",
+  "description": "X11 font encoding library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "fonts",
+    "library",
+    "x11"
+  ]
+}

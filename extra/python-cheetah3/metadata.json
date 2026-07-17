@@ -1,0 +1,11 @@
+{
+  "url": "https://cheetahtemplate.org",
+  "category": "extra",
+  "description": "A Python powered template engine and code generator",
+  "info": "",
+  "license": "CC-PDDC",
+  "tags": [
+    "devel",
+    "python"
+  ]
+}

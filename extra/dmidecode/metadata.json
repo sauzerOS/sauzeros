@@ -1,0 +1,10 @@
+{
+  "url": "https://www.nongnu.org/dmidecode",
+  "category": "extra",
+  "description": "Desktop Management Interface table related utilities",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

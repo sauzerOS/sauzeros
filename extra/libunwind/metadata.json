@@ -1,0 +1,8 @@
+{
+  "url": "https://www.nongnu.org/libunwind/",
+  "category": "extra",
+  "description": "Determine and manipulate the call-chain of a program",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

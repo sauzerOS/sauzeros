@@ -1,0 +1,10 @@
+{
+  "url": "http://lame.sourceforge.net/",
+  "category": "extra",
+  "description": "A high quality MPEG Audio Layer III (MP3) encoder",
+  "info": "",
+  "license": "LGPL-2.0-only",
+  "tags": [
+    "multimedia"
+  ]
+}

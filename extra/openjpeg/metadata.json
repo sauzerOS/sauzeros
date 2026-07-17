@@ -1,0 +1,10 @@
+{
+  "url": "https://www.openjpeg.org",
+  "category": "extra",
+  "description": "An open source JPEG 2000 codec",
+  "info": "",
+  "license": "[\n  \"BSD\"\n]",
+  "tags": [
+    "multimedia"
+  ]
+}

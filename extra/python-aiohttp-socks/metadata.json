@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/romis2012/aiohttp-socks",
+  "category": "extra",
+  "description": "SOCKS proxy connector for aiohttp. SOCKS4(a) and SOCKS5 are supported.",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

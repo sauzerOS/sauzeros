@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/trbs/pid",
+  "category": "extra",
+  "description": "Pidfile featuring stale detection and file-locking",
+  "info": "",
+  "license": "[\n  \"Apache\"\n]",
+  "tags": [
+    "python"
+  ]
+}

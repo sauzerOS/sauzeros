@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/glib-networking",
+  "category": "extra",
+  "description": "Network extensions for GLib",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "network"
+  ]
+}

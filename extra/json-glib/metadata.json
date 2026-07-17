@@ -1,0 +1,10 @@
+{
+  "url": "https://gnome.pages.gitlab.gnome.org/json-glib/",
+  "category": "extra",
+  "description": "JSON library built on GLib",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

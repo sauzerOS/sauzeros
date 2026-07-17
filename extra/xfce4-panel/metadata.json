@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/xfce/xfce4-panel/start",
+  "category": "extra",
+  "description": "Panel for the Xfce desktop environment",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "xfce"
+  ]
+}

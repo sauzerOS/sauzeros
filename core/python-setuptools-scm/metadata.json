@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/setuptools-scm",
+  "category": "extra",
+  "description": "Handles managing your python package versions in scm metadata",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

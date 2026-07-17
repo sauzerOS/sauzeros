@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.com/iucode-tool/iucode-tool/wikis/home",
+  "category": "extra",
+  "description": "Tool to manipulate Intel® IA-32/X86-64 microcode bundles",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "firmware"
+  ]
+}

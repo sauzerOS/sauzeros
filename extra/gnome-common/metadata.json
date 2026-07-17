@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnome.org",
+  "category": "extra",
+  "description": "Common development macros for GNOME",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "devel",
+    "gnome"
+  ]
+}

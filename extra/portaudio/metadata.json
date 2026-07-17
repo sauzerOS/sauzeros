@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/portaudio/portaudio/",
+  "category": "extra",
+  "description": "A free, cross-platform, open source, audio I/O library.",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

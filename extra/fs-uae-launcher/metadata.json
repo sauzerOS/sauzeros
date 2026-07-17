@@ -1,0 +1,12 @@
+{
+  "url": "https://fs-uae.net/",
+  "category": "extra",
+  "description": "Graphical user interface for the FS-UAE Amiga emulator",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "emulator",
+    "graphics",
+    "gui"
+  ]
+}

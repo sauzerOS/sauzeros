@@ -1,0 +1,11 @@
+{
+  "url": "https://www.gnupg.org",
+  "category": "base",
+  "description": "General purpose cryptographic library based on the code from GnuPG",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "crypto",
+    "library"
+  ]
+}

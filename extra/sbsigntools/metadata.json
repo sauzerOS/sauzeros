@@ -1,0 +1,10 @@
+{
+  "url": "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git/about",
+  "category": "extra",
+  "description": "Tools to add signatures to EFI binaries and Drivers",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "boot"
+  ]
+}

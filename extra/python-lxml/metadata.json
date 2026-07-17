@@ -1,0 +1,11 @@
+{
+  "url": "https://lxml.de/",
+  "category": "extra",
+  "description": "Python binding for the libxml2 and libxslt libraries",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

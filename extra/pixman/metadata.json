@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/pixman/pixman",
+  "category": "extra",
+  "description": "The pixel-manipulation library for X and cairo",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

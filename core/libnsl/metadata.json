@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/thkukuk/libnsl",
+  "category": "base",
+  "description": "Public client interface library for NIS(YP)",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "cli",
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://www.fluidsynth.org/",
+  "category": "extra",
+  "description": "A real-time software synthesizer based on the SoundFont 2 specifications",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "fonts"
+  ]
+}

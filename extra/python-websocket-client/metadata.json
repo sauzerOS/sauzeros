@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/websocket-client/websocket-client",
+  "category": "extra",
+  "description": "WebSocket client library for Python",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "library",
+    "network",
+    "python"
+  ]
+}

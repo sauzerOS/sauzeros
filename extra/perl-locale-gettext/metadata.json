@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/Locale-gettext/",
+  "category": "extra",
+  "description": "Permits access from Perl to the gettext() family of functions",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

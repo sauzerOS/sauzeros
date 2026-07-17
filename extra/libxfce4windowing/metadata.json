@@ -1,0 +1,13 @@
+{
+  "url": "https://docs.xfce.org/xfce/libxfce4windowing/start",
+  "category": "extra",
+  "description": "Windowing concept abstraction library for X11 and Wayland",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library",
+    "wayland",
+    "x11",
+    "xfce"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://search.cpan.org/dist/YAML-LibYAML/",
+  "category": "extra",
+  "description": "Perl YAML Serialization using XS and libyaml",
+  "info": "",
+  "license": "GPL",
+  "tags": [
+    "perl"
+  ]
+}

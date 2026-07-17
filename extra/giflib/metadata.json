@@ -1,0 +1,11 @@
+{
+  "url": "https://giflib.sourceforge.net/",
+  "category": "extra",
+  "description": "Library for reading and writing gif images",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

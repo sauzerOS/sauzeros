@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/Dav1dde/glad",
+  "category": "extra",
+  "description": "Multi-language GL/GLES/EGL/GLX/WGL loader-generator",
+  "info": "",
+  "license": "[\n  \"Apache\",\n  \"MIT\"\n]",
+  "tags": [
+    "python"
+  ]
+}

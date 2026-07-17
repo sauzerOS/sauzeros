@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/avahi/avahi",
+  "category": "extra",
+  "description": "Service Discovery for Linux using mDNS/DNS-SD (compatible with Bonjour)",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "network"
+  ]
+}

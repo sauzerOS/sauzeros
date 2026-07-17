@@ -1,0 +1,8 @@
+{
+  "url": "https://troydhanson.github.io/uthash/",
+  "category": "extra",
+  "description": "C preprocessor implementations of a hash table and a linked list",
+  "info": "",
+  "license": "BSD",
+  "tags": []
+}

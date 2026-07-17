@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/HyperionGray/trio-websocket",
+  "category": "extra",
+  "description": "WebSocket library for Trio",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "network",
+    "python"
+  ]
+}

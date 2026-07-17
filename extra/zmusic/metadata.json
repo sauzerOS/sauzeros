@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ZDoom/ZMusic",
+  "category": "extra",
+  "description": "GZDoom's music system as a standalone library",
+  "info": "",
+  "license": "[\n  \"BSD\",\n  \"custom:dumb\",\n  \"GPL3\",\n  \"LGPL2.1\",\n  \"LGPL3\"\n]",
+  "tags": [
+    "library"
+  ]
+}

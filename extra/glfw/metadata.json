@@ -1,0 +1,12 @@
+{
+  "url": "https://www.glfw.org/",
+  "category": "extra",
+  "description": "A free, open source, portable framework for graphical application development",
+  "info": "",
+  "license": "custom:ZLIB",
+  "tags": [
+    "devel",
+    "graphics",
+    "gui"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/erocarrera/pefile",
+  "category": "extra",
+  "description": "Python PE parsing module",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

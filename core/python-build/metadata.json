@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pypa/build",
+  "category": "extra",
+  "description": "A simple, correct Python build frontend",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

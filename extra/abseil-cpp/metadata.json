@@ -1,0 +1,10 @@
+{
+  "url": "https://abseil.io",
+  "category": "extra",
+  "description": "Collection of C++ library code designed to augment the C++ standard library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "url": "https://git.sr.ht/~sircmpwn/scdoc/",
+  "category": "extra",
+  "description": "Tool for generating roff manual pages",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "utility"
+  ]
+}

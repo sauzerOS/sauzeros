@@ -1,0 +1,10 @@
+{
+  "url": "https://wiki.samba.org/index.php/LinuxCIFS_utils",
+  "category": "extra",
+  "description": "CIFS filesystem user-space tools",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "disk-tools"
+  ]
+}

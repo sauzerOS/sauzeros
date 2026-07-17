@@ -1,0 +1,11 @@
+{
+  "url": "https://djvu.sourceforge.net/",
+  "category": "extra",
+  "description": "Library and utilities to create, manipulate and view DjVu (déjà vu) documents",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library",
+    "utility"
+  ]
+}

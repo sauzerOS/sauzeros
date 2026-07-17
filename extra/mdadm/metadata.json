@@ -1,0 +1,10 @@
+{
+  "url": "https://git.kernel.org/pub/scm/utils/mdadm",
+  "category": "base",
+  "description": "A tool for managing/monitoring Linux md device arrays, also known as Software RAID",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

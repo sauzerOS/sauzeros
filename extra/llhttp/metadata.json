@@ -1,0 +1,10 @@
+{
+  "url": "https://llhttp.org",
+  "category": "extra",
+  "description": "Port of http_parser to llparse",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "network"
+  ]
+}

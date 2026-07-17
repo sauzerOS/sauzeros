@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.gnome.org/GNOME/gspell",
+  "category": "extra",
+  "description": "Spell-checking library for GTK applications",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

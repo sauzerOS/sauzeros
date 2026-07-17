@@ -1,0 +1,10 @@
+{
+  "url": "https://www.srtalliance.org/",
+  "category": "extra",
+  "description": "Secure Reliable Transport library",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "library"
+  ]
+}

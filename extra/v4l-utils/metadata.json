@@ -1,0 +1,11 @@
+{
+  "url": "https://linuxtv.org/",
+  "category": "extra",
+  "description": "Userspace tools and conversion library for Video 4 Linux",
+  "info": "",
+  "license": "LGPL",
+  "tags": [
+    "library",
+    "multimedia"
+  ]
+}

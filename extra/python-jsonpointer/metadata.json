@@ -1,0 +1,11 @@
+{
+  "url": "https://python-json-pointer.readthedocs.org/",
+  "category": "extra",
+  "description": "Identify specific nodes in a JSON document (RFC 6901)",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "ide",
+    "python"
+  ]
+}

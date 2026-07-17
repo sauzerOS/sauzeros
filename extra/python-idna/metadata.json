@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/kjd/idna",
+  "category": "extra",
+  "description": "Internationalized Domain Names in Applications (IDNA)",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

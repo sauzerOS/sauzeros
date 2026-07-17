@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.xfce.org/apps/screensaver/start",
+  "category": "extra",
+  "description": "Xfce Screensaver",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "xfce"
+  ]
+}

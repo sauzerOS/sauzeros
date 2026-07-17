@@ -1,0 +1,10 @@
+{
+  "url": "http://github.com/tyarkoni/transitions",
+  "category": "extra",
+  "description": "A lightweight, object-oriented finite state machine implementation in Python",
+  "info": "",
+  "license": "[\n  \"MIT\"\n]",
+  "tags": [
+    "python"
+  ]
+}

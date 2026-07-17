@@ -1,0 +1,11 @@
+{
+  "url": "https://ipxe.org/",
+  "category": "extra",
+  "description": "Network bootloader",
+  "info": "",
+  "license": "0BSD",
+  "tags": [
+    "boot",
+    "network"
+  ]
+}

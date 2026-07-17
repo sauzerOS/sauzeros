@@ -1,0 +1,10 @@
+{
+  "url": "https://www.vim.org",
+  "category": "extra",
+  "description": "Vi Improved, a highly configurable, improved version of the vi text editor",
+  "info": "",
+  "license": "custom:vim",
+  "tags": [
+    "editor"
+  ]
+}

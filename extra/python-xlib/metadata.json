@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/python-xlib/python-xlib",
+  "category": "extra",
+  "description": "A fully functional X client library for Python programs",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "cli",
+    "library",
+    "python"
+  ]
+}

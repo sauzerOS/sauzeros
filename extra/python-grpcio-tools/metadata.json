@@ -1,0 +1,10 @@
+{
+  "url": "https://grpc.io",
+  "category": "extra",
+  "description": "Python protobuf generator for GRPC",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

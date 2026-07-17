@@ -1,0 +1,10 @@
+{
+  "url": "https://cython.org",
+  "category": "extra",
+  "description": "C-Extensions for Python",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

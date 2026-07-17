@@ -1,0 +1,10 @@
+{
+  "url": "https://cgit.freedesktop.org/xcb/util-errors/",
+  "category": "extra",
+  "description": "XCB errors library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

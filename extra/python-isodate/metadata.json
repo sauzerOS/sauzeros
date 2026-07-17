@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/gweis/isodate",
+  "category": "extra",
+  "description": "An ISO 8601 date/time/duration parser and formatter",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

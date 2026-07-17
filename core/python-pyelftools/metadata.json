@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/eliben/pyelftools",
+  "category": "extra",
+  "description": "Python library for analyzing ELF files and DWARF debugging information",
+  "info": "",
+  "license": "Unlicense",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

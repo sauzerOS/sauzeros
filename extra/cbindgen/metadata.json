@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/mozilla/cbindgen",
+  "category": "extra",
+  "description": "A tool for generating C bindings to Rust code",
+  "info": "",
+  "license": "MPL-2.0",
+  "tags": [
+    "utility"
+  ]
+}

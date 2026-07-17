@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/dirkvdb/ffmpegthumbnailer",
+  "category": "extra",
+  "description": "Lightweight video thumbnailer that can be used by file managers",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "file-manager",
+    "multimedia"
+  ]
+}

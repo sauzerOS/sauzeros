@@ -1,0 +1,8 @@
+{
+  "url": "https://gnupg.org/related_software/pinentry/",
+  "category": "base",
+  "description": "Collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol",
+  "info": "",
+  "license": "GPL",
+  "tags": []
+}

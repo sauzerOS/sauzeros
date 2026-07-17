@@ -1,0 +1,10 @@
+{
+  "url": "https://python-markdown.github.io/",
+  "category": "extra",
+  "description": "Python implementation of John Gruber's Markdown",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "python"
+  ]
+}

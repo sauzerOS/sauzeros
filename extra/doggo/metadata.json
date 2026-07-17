@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/mr-karan/doggo",
+  "category": "extra",
+  "description": "Command-line DNS Client for Humans",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "cli",
+    "network"
+  ]
+}

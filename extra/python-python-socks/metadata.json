@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/romis2012/python-socks",
+  "category": "extra",
+  "description": "Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "cli",
+    "python"
+  ]
+}

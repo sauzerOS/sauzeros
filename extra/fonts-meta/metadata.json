@@ -1,0 +1,23 @@
+{
+  "url": "https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz",
+  "category": "extra",
+  "description": "fonts meta",
+  "info": "",
+  "license": "",
+  "tags": [
+    "fonts"
+  ],
+  "subpackages": [
+    "fonts-croscore",
+    "fonts-liberation",
+    "fonts-microsoft",
+    "fonts-microsoft-extra",
+    "fonts-noto",
+    "fonts-noto-emoji",
+    "fonts-noto-japanese",
+    "fonts-noto-korean",
+    "fonts-noto-simplified-chinese",
+    "fonts-noto-symbols",
+    "fonts-noto-traditional-chinese"
+  ]
+}

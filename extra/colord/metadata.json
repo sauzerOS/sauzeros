@@ -1,0 +1,10 @@
+{
+  "url": "https://www.freedesktop.org/software/colord/",
+  "category": "extra",
+  "description": "System daemon for managing color devices",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "server"
+  ]
+}

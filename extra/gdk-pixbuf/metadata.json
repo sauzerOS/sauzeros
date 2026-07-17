@@ -1,0 +1,11 @@
+{
+  "url": "http://www.gtk.org/",
+  "category": "extra",
+  "description": "Image loading and manipulation library",
+  "info": "",
+  "license": "[\n  \"GPL\",\n  \"LGPL\"\n]",
+  "tags": [
+    "graphics",
+    "library"
+  ]
+}

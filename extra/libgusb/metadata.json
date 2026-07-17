@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/hughsie/libgusb",
+  "category": "extra",
+  "description": "GObject wrapper for libusb1",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": []
+}

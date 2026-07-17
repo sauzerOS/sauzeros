@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.freedesktop.org/xorg/lib/libxcursor",
+  "category": "extra",
+  "description": "X cursor management library",
+  "info": "",
+  "license": "HPND-sell-variant",
+  "tags": [
+    "library"
+  ]
+}

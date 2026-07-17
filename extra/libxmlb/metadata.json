@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/hughsie/libxmlb",
+  "category": "extra",
+  "description": "Library to help create and query binary XML blobs",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "library"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://www.pycryptodome.org/",
+  "category": "extra",
+  "description": "A self-contained Python package of low-level cryptographic primitives",
+  "info": "",
+  "license": "BSD-2-Clause",
+  "tags": [
+    "crypto",
+    "python"
+  ]
+}

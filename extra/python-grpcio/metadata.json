@@ -1,0 +1,10 @@
+{
+  "url": "https://grpc.io",
+  "category": "extra",
+  "description": "Python language bindings for grpc, remote procedure call (RPC) framework",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "python"
+  ]
+}

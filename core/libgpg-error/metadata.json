@@ -1,0 +1,10 @@
+{
+  "url": "https://www.gnupg.org",
+  "category": "base",
+  "description": "Support library for libgcrypt",
+  "info": "",
+  "license": "BSD-3-Clause OR LGPL-2.1-or-later",
+  "tags": [
+    "library"
+  ]
+}

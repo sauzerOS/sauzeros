@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/ncopa/xfce-polkit",
+  "category": "extra",
+  "description": "A simple PolicyKit authentication agent for XFCE",
+  "info": "",
+  "license": "[\n  \"GPL\"\n]",
+  "tags": [
+    "xfce"
+  ]
+}

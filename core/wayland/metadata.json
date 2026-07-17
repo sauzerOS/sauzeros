@@ -1,0 +1,11 @@
+{
+  "url": "https://wayland.freedesktop.org/",
+  "category": "extra",
+  "description": "A computer display server protocol",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "server",
+    "wayland"
+  ]
+}

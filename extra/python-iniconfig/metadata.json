@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/pytest-dev/iniconfig",
+  "category": "extra",
+  "description": "brain-dead simple config-ini parsing",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

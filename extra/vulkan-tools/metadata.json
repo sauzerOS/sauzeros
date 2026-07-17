@@ -1,0 +1,11 @@
+{
+  "url": "https://www.vulkan.org/",
+  "category": "extra",
+  "description": "Vulkan tools and utilities",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "graphics",
+    "utility"
+  ]
+}

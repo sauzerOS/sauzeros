@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/lincolnloop/python-qrcode",
+  "category": "extra",
+  "description": "Python library to generate QR codes",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library",
+    "python"
+  ]
+}

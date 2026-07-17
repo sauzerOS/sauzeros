@@ -1,0 +1,10 @@
+{
+  "url": "https://gitlab.com/sane-project/backends",
+  "category": "extra",
+  "description": "Scanner Access Now Easy",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "scan"
+  ]
+}

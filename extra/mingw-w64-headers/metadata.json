@@ -1,0 +1,8 @@
+{
+  "url": "http://mingw-w64.sourceforge.net",
+  "category": "extra",
+  "description": "MinGW-w64 headers for Windows",
+  "info": "",
+  "license": "LicenseRef-custom",
+  "tags": []
+}

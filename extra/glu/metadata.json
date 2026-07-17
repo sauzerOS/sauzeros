@@ -1,0 +1,12 @@
+{
+  "url": "https://gitlab.freedesktop.org/mesa/glu",
+  "category": "extra",
+  "description": "Mesa OpenGL utility library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "graphics",
+    "library",
+    "utility"
+  ]
+}
