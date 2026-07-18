@@ -11,9 +11,9 @@ go generate ./commands
 go build .
 
 install -Dm755 git-lfs "$1"/usr/bin/git-lfs
-"${git-lfs}" completion bash | install -Dm644 /dev/stdin \
-    "${1}/usr/share/bash-completion/completions/${git-lfs}"
-"${git-lfs}" completion fish | install -Dm644 /dev/stdin \
-    "${1}/usr/share/fish/vendor_completions.d/${git-lfs}.fish"
-"${git-lfs}" completion zsh | install -Dm644 /dev/stdin \
-    "${1}/usr/share/zsh/site-functions/_${git-lfs}"
+git-lfs completion bash | install -Dm644 /dev/stdin \
+    "${1}/usr/share/bash-completion/completions/${3}"
+git-lfs completion fish | install -Dm644 /dev/stdin \
+    "${1}/usr/share/fish/vendor_completions.d/${3}.fish"
+git-lfs completion zsh | install -Dm644 /dev/stdin \
+    "${1}/usr/share/zsh/site-functions/_${3}"
