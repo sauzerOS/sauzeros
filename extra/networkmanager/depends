@@ -1,4 +1,5 @@
 curl
+dnsmasq
 glib
 glibc
 iproute2
@@ -15,7 +16,6 @@ nss
 readline
 systemd-libs
 bluez suggest Bluetooth support
-dnsmasq suggest connection sharing
 iwd suggest wifi support
 libnvme suggest NBFT support
 modemmanager suggest cellular network support
@@ -25,7 +25,6 @@ polkit suggest let non-root users control networking
 bash make
 curl make
 docbook-xsl make
-dnsmasq make
 glib make
 glibc make
 gobject-introspection make
