@@ -107,6 +107,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s y -l yes -d "Assume yes"
 
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l remote -d "List remote packages"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls" -l size -d "Sort packages by size, largest first"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l check-integrity -d "Check installed manifests for missing files"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
