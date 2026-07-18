@@ -1,4 +1,5 @@
 gtk+3
+libatomic
 libnotify
 libxss
 nspr
