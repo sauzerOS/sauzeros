@@ -165,7 +165,7 @@ _hokuto_complete()
             ;;
 		list|ls)
 			case "$cur" in
-				-*) COMPREPLY=($(compgen -W "--remote --check-integrity" -- "$cur")) ;;
+				-*) COMPREPLY=($(compgen -W "--remote --size --check-integrity" -- "$cur")) ;;
                 *) _hokuto_complete_installed ;;
             esac
             ;;

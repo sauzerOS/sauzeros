@@ -82,6 +82,7 @@ _hokuto() {
         list|ls)
           _arguments \
             '--remote[List packages from the remote repository]' \
+            '--size[Sort packages by size, largest first]' \
             '--check-integrity[Check installed manifests for missing files]' \
             '*:installed package:_hokuto_installed_packages'
           ;;
