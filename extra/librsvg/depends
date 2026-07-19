@@ -15,3 +15,12 @@ llvm make
 meson make
 rust make
 vala make 
+lib32-cairo make
+lib32-fontconfig make
+lib32-freetype make
+lib32-gdk-pixbuf make
+lib32-glib make
+lib32-harfbuzz make
+lib32-libxml2 make
+lib32-pango make
+lib32-rust-libs make
