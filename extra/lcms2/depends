@@ -1,3 +1,4 @@
 glibc
 libjpeg-turbo
 libtiff 
+lib32-libtiff make
