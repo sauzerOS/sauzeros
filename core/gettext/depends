@@ -6,3 +6,5 @@ libgomp
 libstdc++
 libxml2 optional
 ncurses
+lib32-acl make
+lib32-gcc-libs make
