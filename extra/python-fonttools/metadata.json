@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/fonttools/fonttools",
+  "category": "extra",
+  "description": "A library to manipulate font files from Python",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}
