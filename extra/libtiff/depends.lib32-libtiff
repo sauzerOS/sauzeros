@@ -1,0 +1,7 @@
+libtiff
+lib32-gcc-libs
+lib32-glibc
+lib32-libjpeg-turbo
+lib32-xz
+lib32-zlib-ng
+lib32-zstd
