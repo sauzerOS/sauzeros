@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+NOCONFIGURE=1 ./autogen.sh
+./configure --prefix=/usr \
+  --disable-static
+
+make
+make DESTDIR="${1}" install
