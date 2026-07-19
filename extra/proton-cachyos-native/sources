@@ -1,6 +1,93 @@
-git+https://github.com/CachyOS/proton-cachyos.git#tag=cachyos-11.0-20260702-native -> proton-cachyos
-https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86{,_64}.tar.xz
-https://github.com/madewokherd/wine-mono/releases/download/wine-mono-11.2.0/wine-mono-11.2.0-x86.tar.xz
-https://github.com/madewokherd/xalia/releases/download/xalia-0.4.9/xalia-0.4.9-net48-mono.zip
+git+https://github.com/CachyOS/proton-cachyos.git#cachyos-11.0-20260702-native proton-cachyos
+git+https://github.com/KhronosGroup/OpenXR-SDK#8899a91c17ce9618f565f42408b47db1d6e9ccc7 proton-cachyos/OpenXR-SDK
+git+https://github.com/KhronosGroup/SPIRV-Headers#6cae8216a6ea19ff3f237af01e54378c1ff81fcd -> spirv-headers-6cae8216a6ea proton-cachyos/SPIRV-Headers
+git+https://github.com/KhronosGroup/Vulkan-Headers#36872f9062b17b1a30b8ed1d81ca5ea6bb608a72 -> vulkan-headers-36872f9062b1 proton-cachyos/Vulkan-Headers
+git+https://github.com/videolan/dav1d.git#b546257f770768b2c88258c533da38b91a06f737 proton-cachyos/dav1d
+git+https://github.com/doitsujin/dxvk.git#c8c49cc156f5044f9046ae5a8396a3a3aec2ed00 proton-cachyos/dxvk
+git+https://github.com/jp7677/dxvk-nvapi#bac88f0a2fe94f14138d3f60f8734600a03beb3d -> dxvk-nvapi-bac88f0a2fe9 proton-cachyos/dxvk-nvapi
+git+https://github.com/WinterSnowfall/d7vk.git#667c47081c092465f87f1c97d68de9607c7023ec proton-cachyos/extras/d7vk
+git+https://github.com/enderice2/rpc-bridge.git#6aa60772a5241c7bd1b8d38f026b2a5168e0f93c proton-cachyos/extras/discord-rpc-bridge
+git+https://github.com/netborg-afps/dxvk-low-latency.git#0ccdd368e9117fa6c67d4d6edc5319573c84ddd9 proton-cachyos/extras/dxvk-low-latency
+git+https://github.com/pythonlover02/DXVK-Sarek.git#fa3f90318190b9dd58d95b6f0ac1c79616ba3907 proton-cachyos/extras/dxvk-sarek
+git+https://github.com/FFmpeg/FFmpeg#f46e514491172d15bd74b4abb1814cd2f05a763e proton-cachyos/ffmpeg
+git+https://github.com/liberationfonts/liberation-fonts#4b0192046158094654e865245832c66d2104219e proton-cachyos/fonts/liberation-fonts
+git+https://github.com/KhronosGroup/glslang#df7fec2cfa966919172ee83bfcae6c9c9b3f91b8 -> glslang-df7fec2cfa96 proton-cachyos/glslang
+git+https://github.com/ebassi/graphene#4e2578450809c2099400cf85caf18eafcd7100aa proton-cachyos/graphene
+git+https://github.com/GStreamer/orc.git#141218e37a1da2ffa1f3f1c996092f61782f3235 proton-cachyos/gst-orc
+git+https://github.com/sdroege/gst-plugin-rs#1d52139e35dd66ce6038aad05ca5cd6059df900d proton-cachyos/gst-plugins-rs
+git+https://github.com/GStreamer/gstreamer.git#43421c2a5b8ac5cceb52b11749df40301e1de5c0 proton-cachyos/gstreamer
+git+https://github.com/GNOME/libsoup.git#25eac153004f777581ca2d95e31a02ca96844332 proton-cachyos/libsoup
+git+https://github.com/mesonbuild/meson.git#53d4f7dc2dee749a973c9caa102473802644a386 proton-cachyos/meson
+git+https://github.com/SveSop/dxvk-nvapi.git#69998887eeef78ab6548e8327379246c9307ff4f -> dxvk-nvapi-69998887eeef proton-cachyos/nvidia-libs/dxvk-nvapi
+git+https://github.com/SveSop/nvcuda.git#772b344a3594fca916999c5c5288d875332de482 -> nvcuda-772b344a3594 proton-cachyos/nvidia-libs/nvcuda
+git+https://github.com/SveSop/nvcuda.git#1993a7c745e08f8bfb11502b7489dd7fba70a08f -> nvcuda-1993a7c745e0 proton-cachyos/nvidia-libs/nvcuda32
+git+https://github.com/SveSop/nvenc.git#09ec9e1c8b25a351e415a6d0361bfacad0fd710c -> nvenc-09ec9e1c8b25 proton-cachyos/nvidia-libs/nvenc
+git+https://github.com/SveSop/nvenc.git#ff7220eb8a19ea7e0db8bd5c401a50b606712ff7 -> nvenc-ff7220eb8a19 proton-cachyos/nvidia-libs/nvenc32
+git+https://github.com/Saancreed/wine-nvml.git#40fc2fc7c67e090c1d69194bae010edf23694100 proton-cachyos/nvidia-libs/wine-nvml
+git+https://github.com/SveSop/wine-nvoptix.git#ea2e23341ab84bcbebbf191f7f04cac13f1ac95b proton-cachyos/nvidia-libs/wine-nvoptix
+git+https://github.com/ValveSoftware/openvr#91825305130f446f82054c1ec3d416321ace0072 proton-cachyos/openvr
+git+https://github.com/Open-Wine-Components/umu-protonfixes#c43c368d83120cc1bcc1f1df52c094f75af5744c proton-cachyos/protonfixes
+git+https://gitlab.winehq.org/wine/vkd3d#7b62a72af495075ada7506d3821b7ddfab3a227c proton-cachyos/vkd3d
+git+https://github.com/HansKristian-Work/vkd3d-proton#3dfc6f07d0953b1e8b41705275c2c59cc7374fc5 proton-cachyos/vkd3d-proton
+git+https://github.com/KhronosGroup/Vulkan-Utility-Libraries.git#b538fb5b08513aa78346cd414ad5e576a2a3e920 proton-cachyos/vklayers/Vulkan-Utility-Libraries
+git+https://github.com/Korthos-Software/low_latency_layer.git#4e7fe12b797d89be07919acf3d2df5cda3f4d89f proton-cachyos/vklayers/low_latency_layer
+git+https://github.com/HansKristian-Work/pyroveil.git#e1f547372cf1b9d14da56621716d2137088d0061 proton-cachyos/vklayers/pyroveil
+git+https://github.com/DadSchoorse/vkBasalt.git#4f97f09ffe91900e6ca136cc26cf7966f8f6970d proton-cachyos/vklayers/vkbasalt
+git+https://github.com/CachyOS/wine-cachyos.git#e4a7f0f8395582df45dd12973f36db40dca250f8 proton-cachyos/wine
+git+https://github.com/Joshua-Ashton/mingw-directx-headers#9df86f2341616ef1888ae59919feaa6d4fad693d proton-cachyos/dxvk/include/native/directx
+git+https://github.com/KhronosGroup/Vulkan-Headers#8864cdc896bbc2a9b6eb36b3218fc9ef57908d77 -> vulkan-headers-8864cdc896bb proton-cachyos/dxvk/include/vulkan
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#04f10f650d514df88b76d25e83db360142c7b174 -> spirv-headers-04f10f650d51 proton-cachyos/dxvk/include/spirv
+git+https://github.com/doitsujin/libdisplay-info.git#275e6459c7ab1ddd4b125f28d0440716e4888078 proton-cachyos/dxvk/subprojects/libdisplay-info
+git+https://github.com/doitsujin/dxbc-spirv.git#4c0c8f67fdb61db271fa028d3b5435e24932c42f -> dxbc-spirv-4c0c8f67fdb6 proton-cachyos/dxvk/subprojects/dxbc-spirv
+git+https://github.com/KhronosGroup/Vulkan-Headers#2cd90f9d20df57eac214c148f3aed885372ddcfe -> vulkan-headers-2cd90f9d20df proton-cachyos/dxvk-nvapi/external/Vulkan-Headers
+git+https://github.com/NVIDIA/nvapi#cd6918f60b3c9a0476fdfe7e89bb32330602049d -> nvapi-cd6918f60b3c proton-cachyos/dxvk-nvapi/external/nvapi
+git+https://github.com/misyltoad/vkroots#ee76e620798612c52fb8dcc32a1058a0a3538930 proton-cachyos/dxvk-nvapi/external/vkroots
+git+https://github.com/microsoft/DirectX-Headers#ea2799ce66647c69710a81338e828b19973e0370 -> directx-headers-ea2799ce6664 proton-cachyos/dxvk-nvapi/external/DirectX-Headers
+git+https://github.com/Joshua-Ashton/mingw-directx-headers#9df86f2341616ef1888ae59919feaa6d4fad693d proton-cachyos/extras/d7vk/include/native/directx
+git+https://github.com/KhronosGroup/Vulkan-Headers#8864cdc896bbc2a9b6eb36b3218fc9ef57908d77 -> vulkan-headers-8864cdc896bb proton-cachyos/extras/d7vk/include/vulkan
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#04f10f650d514df88b76d25e83db360142c7b174 -> spirv-headers-04f10f650d51 proton-cachyos/extras/d7vk/include/spirv
+git+https://github.com/doitsujin/libdisplay-info.git#275e6459c7ab1ddd4b125f28d0440716e4888078 proton-cachyos/extras/d7vk/subprojects/libdisplay-info
+git+https://github.com/doitsujin/dxbc-spirv.git#6da3ed38834b0ae3ae7f4267568181dabc7104bc -> dxbc-spirv-6da3ed38834b proton-cachyos/extras/d7vk/subprojects/dxbc-spirv
+git+https://github.com/Joshua-Ashton/mingw-directx-headers#9df86f2341616ef1888ae59919feaa6d4fad693d proton-cachyos/extras/dxvk-low-latency/include/native/directx
+git+https://github.com/KhronosGroup/Vulkan-Headers#5d94bb4dcc968cccce1f601324fcaf3eda92a52b -> vulkan-headers-5d94bb4dcc96 proton-cachyos/extras/dxvk-low-latency/include/vulkan
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#04f10f650d514df88b76d25e83db360142c7b174 -> spirv-headers-04f10f650d51 proton-cachyos/extras/dxvk-low-latency/include/spirv
+git+https://github.com/doitsujin/libdisplay-info.git#275e6459c7ab1ddd4b125f28d0440716e4888078 proton-cachyos/extras/dxvk-low-latency/subprojects/libdisplay-info
+git+https://github.com/doitsujin/dxbc-spirv.git#ca8e29efc5a9c0e2da4191929ebc67aa4de7d786 -> dxbc-spirv-ca8e29efc5a9 proton-cachyos/extras/dxvk-low-latency/subprojects/dxbc-spirv
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#ce9dfb01496073a02d74581ae909384763b41ff8 -> spirv-headers-ce9dfb014960 proton-cachyos/extras/dxvk-sarek/include/spirv
+git+https://github.com/KhronosGroup/Vulkan-Headers.git#afe9eb980aa928a66d1c9c06f38c55dd59868720 -> vulkan-headers-afe9eb980aa9 proton-cachyos/extras/dxvk-sarek/include/vulkan
+git+https://github.com/ebassi/mutest.git#f0dcb2a48a4a8ef3dc1f7327bb0d4056a798c1a7 proton-cachyos/graphene/subprojects/mutest
+git+https://github.com/KhronosGroup/Vulkan-Headers#2cd90f9d20df57eac214c148f3aed885372ddcfe -> vulkan-headers-2cd90f9d20df proton-cachyos/nvidia-libs/dxvk-nvapi/external/Vulkan-Headers
+git+https://github.com/NVIDIA/nvapi#9b181ea572f680327fe01a14a0f1f41c78034104 -> nvapi-9b181ea572f6 proton-cachyos/nvidia-libs/dxvk-nvapi/external/nvapi
+git+https://github.com/misyltoad/vkroots#ee76e620798612c52fb8dcc32a1058a0a3538930 proton-cachyos/nvidia-libs/dxvk-nvapi/external/vkroots
+git+https://github.com/microsoft/DirectX-Headers#c94b9b23aaadc2034dd1cad656a5a69f1526f98a -> directx-headers-c94b9b23aaad proton-cachyos/nvidia-libs/dxvk-nvapi/external/DirectX-Headers
+git+https://github.com/kyz/libmspack.git#305907723a4e7ab2018e58040059ffb5e77db837 proton-cachyos/protonfixes/subprojects/libmspack
+git+https://github.com/Winetricks/winetricks.git#08304e81f9ac9a83c552a6bd78689040d174bf95 proton-cachyos/protonfixes/subprojects/winetricks
+git+https://github.com/Open-Wine-Components/umu-database#c5ff855644b787a024d2ad1314b506639691b2a6 proton-cachyos/protonfixes/subprojects/umu-database
+git+https://gitlab.com/procps-ng/procps.git#54e7feb2bf672a12717f6d4ced548da6b3159596 proton-cachyos/protonfixes/subprojects/procps-ng
+git+https://github.com/HansKristian-Work/dxil-spirv#7ecda135de740f4db016c2bbdf8b021ce6b0bebd proton-cachyos/vkd3d-proton/subprojects/dxil-spirv
+git+https://github.com/KhronosGroup/Vulkan-Headers#0e9de566b7d4051c5cc1b762e242c46565956bdf -> vulkan-headers-0e9de566b7d4 proton-cachyos/vkd3d-proton/khronos/Vulkan-Headers
+git+https://github.com/KhronosGroup/SPIRV-Headers#f88a2d766840fc825af1fc065977953ba1fa4a91 -> spirv-headers-f88a2d766840 proton-cachyos/vkd3d-proton/khronos/SPIRV-Headers
+git+https://github.com/KhronosGroup/SPIRV-Cross#7918775748c5e2f5c40d9918ce68825035b5a1e1 -> spirv-cross-7918775748c5 proton-cachyos/vklayers/pyroveil/third_party/spirv-cross
+git+https://github.com/KhronosGroup/SPIRV-Tools#a62abcb402009b9ca5975e6167c09f237f630e0e -> spirv-tools-a62abcb40200 proton-cachyos/vklayers/pyroveil/third_party/spirv-tools
+git+https://github.com/KhronosGroup/SPIRV-Headers#aa6cef192b8e693916eb713e7a9ccadf06062ceb -> spirv-headers-aa6cef192b8e proton-cachyos/vklayers/pyroveil/third_party/spirv-headers
+git+https://github.com/google/shaderc#ab0d3ed184e4919a236eecddb6514e4923a5e38f proton-cachyos/vklayers/pyroveil/third_party/shaderc
+git+https://github.com/KhronosGroup/glslang#963588074b26326ff0426c8953c1235213309bdb -> glslang-963588074b26 proton-cachyos/vklayers/pyroveil/third_party/glslang
+git+https://github.com/KhronosGroup/Vulkan-Headers#234c4b7370a8ea3239a214c9e871e4b17c89f4ab -> vulkan-headers-234c4b7370a8 proton-cachyos/vklayers/pyroveil/third_party/vulkan-headers
+git+https://github.com/miloyip/rapidjson#24b5e7a8b27f42fa16b96fc70aade9106cf7102f proton-cachyos/vklayers/pyroveil/third_party/rapidjson
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#c8ad050fcb29e42a2f57d9f59e97488f465c436d -> spirv-headers-c8ad050fcb29 proton-cachyos/dxvk/subprojects/dxbc-spirv/submodules/spirv_headers
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#c8ad050fcb29e42a2f57d9f59e97488f465c436d -> spirv-headers-c8ad050fcb29 proton-cachyos/extras/d7vk/subprojects/dxbc-spirv/submodules/spirv_headers
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#c8ad050fcb29e42a2f57d9f59e97488f465c436d -> spirv-headers-c8ad050fcb29 proton-cachyos/extras/dxvk-low-latency/subprojects/dxbc-spirv/submodules/spirv_headers
+git+https://github.com/KhronosGroup/SPIRV-Headers#c63848ecf2200425511319fd8bf2c17b751e501e -> spirv-headers-c63848ecf220 proton-cachyos/vkd3d-proton/subprojects/dxil-spirv/third_party/spirv-headers
+git+https://github.com/KhronosGroup/SPIRV-Tools#199cb207b911501ddd76dcddf100a6e21c15ef23 -> spirv-tools-199cb207b911 proton-cachyos/vkd3d-proton/subprojects/dxil-spirv/third_party/SPIRV-Tools
+git+https://github.com/KhronosGroup/SPIRV-Cross#4b7bcb7e5cf71015b3299088d22004bfe4e13a5e -> spirv-cross-4b7bcb7e5cf7 proton-cachyos/vkd3d-proton/subprojects/dxil-spirv/third_party/SPIRV-Cross
+git+https://github.com/doitsujin/dxbc-spirv#d5b06435fd84843d4c9ee7b3b42d2f3b7b8e3f1a -> dxbc-spirv-d5b06435fd84 proton-cachyos/vkd3d-proton/subprojects/dxil-spirv/subprojects/dxbc-spirv
+git+https://github.com/KhronosGroup/SPIRV-Headers.git#c8ad050fcb29e42a2f57d9f59e97488f465c436d -> spirv-headers-c8ad050fcb29 proton-cachyos/vkd3d-proton/subprojects/dxil-spirv/subprojects/dxbc-spirv/submodules/spirv_headers
+git+https://github.com/google/googletest.git#ba96d0b1161f540656efdaed035b3c062b60e006 proton-cachyos/vklayers/pyroveil/third_party/rapidjson/thirdparty/gtest
+https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.tar.xz noextract
+https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.tar.xz noextract
+https://github.com/madewokherd/wine-mono/releases/download/wine-mono-11.2.0/wine-mono-11.2.0-x86.tar.xz noextract
+https://github.com/madewokherd/xalia/releases/download/xalia-0.4.9/xalia-0.4.9-net48-mono.zip noextract
 files/compatibilitytool.vdf.template
 files/ntsync.conf
+files/LinUwUx.patch
+files/only-enable-requested-fsr4.patch

@@ -1,0 +1,11 @@
+--- a/protonfixes/upscalers.py
++++ b/protonfixes/upscalers.py
+@@ -640,7 +640,7 @@ def setup_upscalers(
+         ('dlss', dlss_version, 'dlss' in compat_config or 'optiscaler' in compat_config),
+         ('xess', xess_version, 'xess' in compat_config or 'optiscaler' in compat_config),
+         # amdxcffx64 4.1.1
+-        ('fsr4', fsr4_version, True),
++        ('fsr4', fsr4_version, 'fsr4' in compat_config),
+         ('ffx3', ffx3_version, 'ffx3' in compat_config or 'optiscaler' in compat_config),
+         ('ffx4', ffx4_version, 'ffx4' in compat_config),
+     )
