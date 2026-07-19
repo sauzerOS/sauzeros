@@ -13,3 +13,9 @@ pipewire make
 portaudio make
 qt make optional
 sdl3 make
+lib32-alsa-lib make
+lib32-ffmpeg make
+lib32-fluidsynth make
+lib32-libpulse make
+lib32-pipewire make
+lib32-portaudio make
