@@ -5,7 +5,6 @@ isl
 libgcc
 mingw-w64
 mingw-w64-binutils
-mingw-w64-headers
 mingw-w64-winpthreads
 mpc
 mpfr
@@ -13,3 +12,4 @@ python
 zlib-ng
 zstd
 mingw-w64-gcc | mingw-w64-gcc-static make
+mingw-w64-headers make
