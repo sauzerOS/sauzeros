@@ -1,4 +1,4 @@
-git+https://github.com/CachyOS/proton-cachyos.git#cachyos-11.0-20260702-native proton-cachyos
+git+https://github.com/CachyOS/proton-cachyos.git#cachyos-${version}-native proton-cachyos
 git+https://github.com/KhronosGroup/OpenXR-SDK#8899a91c17ce9618f565f42408b47db1d6e9ccc7 proton-cachyos/OpenXR-SDK
 git+https://github.com/KhronosGroup/SPIRV-Headers#6cae8216a6ea19ff3f237af01e54378c1ff81fcd -> spirv-headers-6cae8216a6ea proton-cachyos/SPIRV-Headers
 git+https://github.com/KhronosGroup/Vulkan-Headers#36872f9062b17b1a30b8ed1d81ca5ea6bb608a72 -> vulkan-headers-36872f9062b1 proton-cachyos/Vulkan-Headers

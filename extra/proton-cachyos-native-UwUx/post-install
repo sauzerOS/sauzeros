@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+real_user=${HOKUTO_REAL_USER:?HOKUTO_REAL_USER is not set}
+user_home=$(getent passwd "$real_user" | cut -d: -f6)
+
+if [[ -z "$user_home" ]]; then
+    echo "Unable to determine the home directory for $real_user" >&2
+    exit 1
+fi
+
+user_group=$(id -gn "$real_user")
+steam_share="$user_home/.local/share/Steam"
+compat_dir="$steam_share/compatibilitytools.d"
+tool_name="proton-cachyos-native-UwUx-${HOKUTO_VERSION:?HOKUTO_VERSION is not set}"
+tool_dir="/usr/share/steam/compatibilitytools.d/$tool_name"
+tool_link="$compat_dir/proton-cachyos-native-UwUx"
+
+if [[ ! -d "$tool_dir" ]]; then
+    echo "Installed Proton directory not found: $tool_dir" >&2
+    exit 1
+fi
+
+# Create any missing Steam directories with ownership suitable for the real user.
+install -d -o "$real_user" -g "$user_group" \
+    "$user_home/.local" \
+    "$user_home/.local/share" \
+    "$steam_share" \
+    "$compat_dir"
+
+if [[ -e "$tool_link" && ! -L "$tool_link" ]]; then
+    echo "Refusing to replace non-symlink path: $tool_link" >&2
+    exit 1
+fi
+
+ln -sfn "$tool_dir" "$tool_link"
+chown -h "$real_user:$user_group" "$tool_link"
