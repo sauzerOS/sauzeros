@@ -1,0 +1,5 @@
+glib
+glibc
+autoconf-archive make
+gobject-introspection make
+vala make
