@@ -1,4 +1,4 @@
-git+https://github.com/stenzek/duckstation#v0.1-11391
+git+https://github.com/stenzek/duckstation#v0.1-11515
 https://raw.githubusercontent.com/duckstation/dependencies/refs/heads/master/patches/libpng-1.6.56-apng.patch
 https://github.com/duckstation/chtdb/releases/download/latest/cheats.zip noextract
 https://github.com/duckstation/chtdb/releases/download/latest/patches.zip noextract
@@ -7,3 +7,4 @@ files/versions
 files/build-dependencies-linux.sh
 files/DuckStationDependencies.cmake
 files/nag-screen1.patch
+files/system-sqlite.patch

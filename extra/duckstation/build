@@ -2,6 +2,7 @@
 
 # remove nag screen
 patch -Np1 -i nag-screen1.patch
+patch -Np1 -i system-sqlite.patch
 
 # allow to run from /usr
 sed -i 's/std::memcmp(EmuFolders::AppRoot.data(), "\/usr\/", 5) == 0/false/' src/core/core.cpp
@@ -18,6 +19,7 @@ sed -i '79d;90d' CMakeModules/DuckStationDependencies.cmake
 
 # only build required deps with custom script/version file
 mkdir -pv scripts/deps/patches
+chmod +x build-dependencies-linux.sh
 cp {versions,build-dependencies-linux.sh} scripts/deps/
 cp libpng-1.6.56-apng.patch scripts/deps/patches/
 scripts/deps/build-dependencies-linux.sh deps
