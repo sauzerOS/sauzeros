@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/adobe-type-tools/afdko",
+  "category": "extra",
+  "description": "Adobe Font Development Kit for OpenType",
+  "info": "",
+  "license": "",
+  "tags": [
+    "fonts",
+    "utility"
+  ]
+}
