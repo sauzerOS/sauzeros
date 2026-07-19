@@ -1,6 +1,15 @@
 #!/bin/bash -e
 
-cp pic/gifgrid.gif doc/giflib-logo.gif
+CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
 make
 make DESTDIR=$1 PREFIX=/usr install
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+make clean
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+make CC="gcc -m32"
+make PREFIX=/usr LIBDIR=/usr/lib32 DESTDIR="${pkgdir}" install
+rm -r "${pkgdir}"/usr/{include,share,bin}
+fi
