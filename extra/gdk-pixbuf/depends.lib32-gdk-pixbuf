@@ -1,0 +1,6 @@
+gdk-pixbuf
+lib32-glib
+lib32-glibc
+lib32-libjpeg-turbo
+lib32-libpng
+lib32-libtiff

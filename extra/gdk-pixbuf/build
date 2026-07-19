@@ -26,3 +26,33 @@ meson setup build            \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+meson_options=(
+    -D android=disabled
+    -D builtin_loaders=all
+    -D documentation=false
+    -D gif=enabled
+    -D glycin=disabled
+    -D gtk_doc=false
+    -D installed_tests=false
+    -D introspection=disabled
+    -D jpeg=enabled
+    -D legacy_xpm=enabled
+    -D man=false
+    -D others=enabled
+    -D png=enabled
+    -D thumbnailer=disabled
+    -D tiff=enabled
+  )
+hokuto-meson-32 build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir "$pkgdir"
+rm -rf "$pkgdir"/usr/{include,lib,share}
+find "$pkgdir/usr/bin" -type f -not -name gdk-pixbuf-query-loaders -delete
+mv "$pkgdir"/usr/bin/gdk-pixbuf-query-loaders{,-32}
+fi
+
