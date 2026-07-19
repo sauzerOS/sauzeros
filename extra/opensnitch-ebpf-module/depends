@@ -1,1 +1,4 @@
-linux | linux-cachyos | linux-live make
+clang make
+linux-headers make
+lld make
+llvm make
