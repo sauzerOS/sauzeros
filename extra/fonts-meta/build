@@ -8,53 +8,57 @@ install -Dm644 *.ttf -t "$destdir"/usr/share/fonts/TTF/
 popd
 
 # fonts-croscore
-pushd noto-fonts
+pushd google-fonts
 destdir=$HOKUTO_SPLIT_DIR/fonts-croscore
 install -d $destdir/usr/share/fonts/TTF/
 install -Dm644 Arimo* -t "$destdir"/usr/share/fonts/TTF/
 install -Dm644 Cousine* -t "$destdir"/usr/share/fonts/TTF/
 install -Dm644 Tinos* -t "$destdir"/usr/share/fonts/TTF/
+popd
+
+# fonts-noto-traditional-chinese
+pushd noto-sans-traditional-chinese
+destdir=$HOKUTO_SPLIT_DIR/fonts-noto-traditional-chinese
+install -d "$destdir/usr/share/fonts/OTF"
+install -Dm644 *.otf -t "$destdir/usr/share/fonts/OTF/"
+popd
+
+# fonts-noto-simplified-chinese
+pushd noto-sans-simplified-chinese
+destdir=$HOKUTO_SPLIT_DIR/fonts-noto-simplified-chinese
+install -d "$destdir/usr/share/fonts/OTF"
+install -Dm644 *.otf -t "$destdir/usr/share/fonts/OTF/"
+popd
+
+# fonts-noto-korean
+pushd noto-sans-korean
+destdir=$HOKUTO_SPLIT_DIR/fonts-noto-korean
+install -d "$destdir/usr/share/fonts/OTF"
+install -Dm644 *.otf -t "$destdir/usr/share/fonts/OTF/"
+popd
+
+# fonts-noto-japanese
+pushd noto-sans-japanese
+destdir=$HOKUTO_SPLIT_DIR/fonts-noto-japanese
+install -d "$destdir/usr/share/fonts/OTF"
+install -Dm644 *.otf -t "$destdir/usr/share/fonts/OTF/"
+popd
+
+# Noto hinted static fonts, split by writing system. Hokuto places the Git
+# checkout at the build root.
+while read -r subpackage families; do
+    destdir=$HOKUTO_SPLIT_DIR/$subpackage
+    install -d "$destdir/usr/share/fonts/noto"
+    for family in $families; do
+        install -Dm644 "fonts/$family/hinted/ttf/"*.ttf \
+            -t "$destdir/usr/share/fonts/noto/"
+    done
+done < noto-splits
 
 # fonts-noto-emoji
 destdir=$HOKUTO_SPLIT_DIR/fonts-noto-emoji
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoColorEmoji* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto-traditional-chinese
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto-traditional-chinese
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoSansTC* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto-simplified-chinese
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto-simplified-chinese
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoSansSC* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto-korean
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto-korean
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoSansKR* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto-japanese
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto-japanese
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoSansJP* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto-symbols
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto-symbols
-install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 NotoSansSymbol* -t "$destdir"/usr/share/fonts/TTF/
-
-# fonts-noto
-destdir=$HOKUTO_SPLIT_DIR/fonts-noto
-install -d $destdir/usr/share/fonts/TTF/
-for font in *.ttf; do
-    case $font in
-        Arimo*|Cousine*|Tinos*) continue ;;
-    esac
-    install -Dm644 "$font" -t "$destdir"/usr/share/fonts/TTF/
-done
-popd
+install -d "$destdir/usr/share/fonts/noto"
+install -Dm644 NotoColorEmoji.ttf -t "$destdir/usr/share/fonts/noto/"
 
 # fonts-microsoft
 pushd ms-fonts

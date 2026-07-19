@@ -1,0 +1,23 @@
+fonts-noto NotoSans NotoSansMono NotoSerif NotoSerifDisplay
+fonts-noto-arabic NotoKufiArabic NotoNaskhArabic NotoNaskhArabicUI NotoSansArabic NotoSansArabicUI
+fonts-noto-armenian NotoSansArmenian NotoSerifArmenian
+fonts-noto-bengali NotoSansBengali NotoSerifBengali
+fonts-noto-devanagari NotoSansDevanagari NotoSerifDevanagari
+fonts-noto-ethiopic NotoSansEthiopic NotoSerifEthiopic
+fonts-noto-georgian NotoSansGeorgian NotoSerifGeorgian
+fonts-noto-gujarati NotoSansGujarati NotoSerifGujarati
+fonts-noto-gurmukhi NotoSansGurmukhi NotoSerifGurmukhi
+fonts-noto-hebrew NotoRashiHebrew NotoSansHebrew NotoSerifHebrew
+fonts-noto-kannada NotoSansKannada NotoSerifKannada
+fonts-noto-khmer NotoSansKhmer NotoSerifKhmer
+fonts-noto-lao NotoSansLao NotoSansLaoLooped NotoSerifLao
+fonts-noto-malayalam NotoSansMalayalam NotoSerifMalayalam
+fonts-noto-myanmar NotoSansMyanmar NotoSerifMyanmar
+fonts-noto-oriya NotoSansOriya NotoSerifOriya
+fonts-noto-sinhala NotoSansSinhala NotoSerifSinhala
+fonts-noto-symbols NotoSansMath NotoSansSymbols NotoSansSymbols2
+fonts-noto-tamil NotoSansTamil NotoSerifTamil
+fonts-noto-telugu NotoSansTelugu NotoSerifTelugu
+fonts-noto-thai NotoSansThai NotoSansThaiLooped NotoSerifThai
+fonts-noto-tibetan NotoSerifTibetan
+fonts-noto-urdu NotoNastaliqUrdu
