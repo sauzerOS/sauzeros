@@ -1,193 +1,167 @@
+at-spi2-core
 attr
-lib32-attr
-#
-blas
-lib32-blas
 cabextract
-desktop-file-utils
-fontconfig
-lib32-fontconfig
-flac
-lib32-flac
-freetype2
-lib32-freetype2
-libgcc
-lib32-gcc-libs
-gettext
-lib32-gettext
-glib2
-lib32-glib2
-glibc
-lib32-glibc
-#
-lapack
-lib32-lapack
-libgudev
-lib32-libgudev
-libnsl
-lib32-libnsl
-libpcap
-lib32-libpcap
-libunwind
-lib32-libunwind
-libvpx
-lib32-libvpx
-libwebp
-lib32-libwebp
-libx11
-lib32-libx11
-libxcursor
-lib32-libxcursor
-libxext
-lib32-libxext
-libxkbcommon
-lib32-libxkbcommon
-libxml2
-lib32-libxml2
-libxi
-lib32-libxi
-libxrandr
-lib32-libxrandr
-mpg123
-lib32-mpg123
-pipewire
-lib32-pipewire
-python
-python-six
-speex
-lib32-speex
-speexdsp
-lib32-speexdsp
-#
-Start
-of
-old
-steam-native-runtime
-atk
-lib32-atk
 cairo
-lib32-cairo
 curl
-lib32-curl
-dbus-glib
-lib32-dbus-glib
-freeglut
-lib32-freeglut
-gdk-pixbuf2
-lib32-gdk-pixbuf2
-glu
-lib32-glu
-lcms2
-lib32-lcms2
-libcaca
-lib32-libcaca
-libcanberra
-lib32-libcanberra
 dbus
+dbus-glib
+desktop-file-utils
+flac
+fontconfig
+freeglut
+freetype
+gdk-pixbuf
+gettext
+glib
+glibc
+glu
+lcms2
+lib32-at-spi2-core
+lib32-attr
+lib32-cairo
+lib32-curl
 lib32-dbus
-libdrm
+lib32-dbus-glib
+lib32-flac
+lib32-fontconfig
+lib32-freeglut
+lib32-freetype
+lib32-gcc-libs
+lib32-gdk-pixbuf
+lib32-gettext
+lib32-glib
+lib32-glibc
+lib32-glu
+lib32-lcms2
+lib32-libcanberra
 lib32-libdrm
-libice
+lib32-libgudev
 lib32-libice
-libibus
-libnm
+lib32-libnghttp2
 lib32-libnm
-libusb
+lib32-libnsl
+lib32-libpcap
+lib32-libsm
+lib32-libtheora
+lib32-libunwind
 lib32-libusb
-libvdpau
 lib32-libvdpau
-libvorbis
 lib32-libvorbis
-libxft
+lib32-libvpx
+lib32-libwebp
+lib32-libx11
+lib32-libxcursor
+lib32-libxext
 lib32-libxft
-libxmu
+lib32-libxi
+lib32-libxkbcommon
+lib32-libxml2
 lib32-libxmu
-libxrender
+lib32-libxrandr
 lib32-libxrender
-libxtst
 lib32-libxtst
-nspr
+lib32-mpg123
 lib32-nspr
-openal
+lib32-nvidia-utils
 lib32-openal
-pango
 lib32-pango
-sdl2-compat
-lib32-sdl2-compat
-pipewire
 lib32-pipewire
+lib32-pipewire
+lib32-sdl2-compat
+lib32-speex
+lib32-speexdsp
+lib32-wayland
+lib32-xz
+libcanberra
+libdrm
+libgcc
+libgudev
+libice
+libnm
+libnsl
+libpcap
 librsvg
 libsm
-lib32-libsm
 libtheora
-lib32-libtheora
-vulkan-driver
-lib32-vulkan-driver
-#
-End
-of
-old
-steam-native-runtime
+libunwind
+libusb
+libvdpau
+libvorbis
+libvpx
+libwebp
+libx11
+libxcursor
+libxext
+libxft
+libxi
+libxkbcommon
+libxml2
+libxmu
+libxrandr
+libxrender
+libxtst
+mpg123
+nghttp2
+nspr
+nvidia-utils
+openal
+pango
+pipewire
+pipewire
+python
+python-six
+sdl2-compat
+speex
+speexdsp
 unzip
 wayland
-lib32-wayland
 xz
-lib32-xz
 afdko make
 alsa-lib make
-lib32-alsa-lib make
 clang make
 cmake make
 ffmpeg make
 fontforge make
 giflib make
-lib32-giflib make
 git make
-glib2-devel make
 glslang make
 gnutls make
+gtk+3 make
+lib32-alsa-lib make
+lib32-giflib make
 lib32-gnutls make
-gtk3 make
-lib32-gtk3 make
-libgphoto2 make
-libpulse make
+lib32-gtk+3 make
 lib32-libpulse make
-libva make
 lib32-libva make
-libxcomposite make
 lib32-libxcomposite make
-libxinerama make
 lib32-libxinerama make
-libxxf86vm make
 lib32-libxxf86vm make
+lib32-mesa make
+lib32-rust-libs make
+lib32-vulkan-icd-loader make
+libpulse make
+libva make
+libxcomposite make
+libxinerama make
+libxxf86vm make
 lld make
 mesa make
-lib32-mesa make
-mesa-libgl make
-lib32-mesa-libgl make
 meson make
 mingw-w64-gcc make
 mingw-w64-tools make
 nasm make
-opencl-headers make
-opencl-icd-loader make
-lib32-opencl-icd-loader make
 pcsclite make
-lib32-pcsclite make
-perl make
 perl-json make
-rsync make
-rust make
-lib32-rust-libs make
+perl make
 python-pefile make
 python-setuptools-scm make
+rsync make
+rust make
 samba make
 unixodbc make
 v4l-utils make
-lib32-v4l-utils make
 vulkan-headers make
 vulkan-icd-loader make
-lib32-vulkan-icd-loader make
 wayland-protocols make
 wget make
 xorg-util-macros make
