@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+python -m build -wn
+python -m installer -d "${1}" dist/*.whl

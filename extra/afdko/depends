@@ -1,0 +1,14 @@
+glibc
+libgcc
+libstdc++
+libxml2
+python
+python-fontpens
+python-fonttools
+cmake make
+cython make
+python-build make
+python-installer make
+python-scikit-build-core make
+python-setuptools-scm make
+python-wheel make
