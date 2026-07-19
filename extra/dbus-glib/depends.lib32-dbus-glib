@@ -1,0 +1,4 @@
+dbus-glib
+lib32-dbus
+lib32-glib
+lib32-glibc
