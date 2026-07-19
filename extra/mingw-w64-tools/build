@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+_architectures=(i686-w64-mingw32 x86_64-w64-mingw32)
+
+for tool in gendef genidl genpeimg; do
+    mkdir -p "${tool}-build"
+    pushd "${tool}-build"
+    "../mingw-w64-tools/${tool}/configure" --prefix=/usr
+    make
+    popd
+done
+
+for architecture in "${_architectures[@]}"; do
+    mkdir -p "widl-${architecture}-build"
+    pushd "widl-${architecture}-build"
+    ../mingw-w64-tools/widl/configure \
+        --prefix=/usr \
+        --target="${architecture}" \
+        --program-prefix="${architecture}-"
+    make
+    popd
+done
+
+for tool in gendef genidl genpeimg; do
+    make -C "${tool}-build" DESTDIR="$1" install
+done
+
+for architecture in "${_architectures[@]}"; do
+    make -C "widl-${architecture}-build" DESTDIR="$1" install
+done
+
+install -d "$1/usr/share/licenses/mingw-w64-tools"
+for tool in gendef genidl genpeimg; do
+    install -m644 "mingw-w64-tools/${tool}/COPYING" \
+        "$1/usr/share/licenses/mingw-w64-tools/COPYING.${tool}"
+done

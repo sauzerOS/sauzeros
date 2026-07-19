@@ -1,0 +1,11 @@
+{
+  "url": "https://www.mingw-w64.org/",
+  "category": "extra",
+  "description": "MinGW-w64 utilities",
+  "info": "",
+  "license": "GPL-3.0-or-later AND LGPL-2.0-or-later",
+  "tags": [
+    "compiler",
+    "cross-compiler"
+  ]
+}
