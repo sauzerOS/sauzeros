@@ -2,3 +2,6 @@ dbus
 expat
 glib
 glibc
+lib32-dbus make
+lib32-glib make
+lib32-expat make
