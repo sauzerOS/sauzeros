@@ -2,3 +2,4 @@ alsa-lib
 glibc
 libgcc
 libstdc++
+lib32-alsa-lib make

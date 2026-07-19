@@ -1,1 +1,2 @@
 https://github.com/PortAudio/portaudio/archive/refs/tags/v${version}.tar.gz
+https://github.com/PortAudio/portaudio/archive/refs/tags/v${version}.tar.gz portaudio-32
