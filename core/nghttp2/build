@@ -12,3 +12,22 @@ fi
 
 make
 make DESTDIR=$1 install
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+make clean
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-lib$3
+export CC='gcc -m32'
+export CXX='g++ -m32'
+export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+./configure \
+  --prefix=/usr \
+  --disable-examples \
+  --disable-python-bindings \
+  --enable-lib-only \
+  --libdir=/usr/lib32
+
+make
+make DESTDIR="$pkgdir" install
+rm -r "$pkgdir"/usr/include
+fi
