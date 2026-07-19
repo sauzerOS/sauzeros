@@ -1,0 +1,10 @@
+{
+  "url": "http://www.unixodbc.org/",
+  "category": "extra",
+  "description": "ODBC is an open specification for providing application developers with a predictable API with which to access Data Sources",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}
