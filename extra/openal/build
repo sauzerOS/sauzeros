@@ -8,3 +8,20 @@ cmake -B build \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+export CC="gcc -m32 -mstackrealign"
+export CXX="g++ -m32 -mstackrealign"
+export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr  \
+  -D CMAKE_BUILD_TYPE=None      \
+  -D CMAKE_INSTALL_LIBDIR=lib32 \
+
+cmake --build build
+DESTDIR="$pkgdir" cmake --install build
+rm -rv "$pkgdir"/usr/{include,share,bin}
+fi

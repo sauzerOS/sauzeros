@@ -1,0 +1,5 @@
+openal
+lib32-gcc-libs
+lib32-glibc
+lib32-ffmpeg
+lib32-fluidsynth
