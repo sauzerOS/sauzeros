@@ -10,3 +10,7 @@ cmake make
 freeglut make
 glu make
 mesa make 
+lib32-libjpeg-turbo make
+lib32-xz make
+lib32-zlib-ng make
+lib32-zstd make
