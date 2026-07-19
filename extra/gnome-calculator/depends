@@ -1,0 +1,17 @@
+dconf
+glib
+glibc
+gtk
+gtksourceview
+hicolor-icon-theme
+libadwaita
+libgee
+libsoup
+libxml2
+mpc
+mpfr
+blueprint-compiler make
+gobject-introspection make
+itstool make
+meson make
+vala make
