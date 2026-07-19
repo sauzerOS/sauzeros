@@ -52,6 +52,7 @@ esac
     --enable-shared \
     --enable-version3 \
     --enable-vulkan \
+    --enable-vaapi \
     $OPT_FLAGS
 
 make
@@ -86,6 +87,7 @@ make distclean
             --enable-vulkan                           \
             --enable-cuda-llvm                        \
             --enable-opengl                           \
+            --enable-vaapi                            \
             --enable-openssl
 
 make

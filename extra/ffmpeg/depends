@@ -22,6 +22,7 @@ libplacebo
 libpulse
 librsvg
 libsoxr
+libva
 libvorbis
 libvpx
 libwebp
@@ -55,6 +56,7 @@ lib32-libdrm make
 lib32-libpulse make
 lib32-libvdpau make
 lib32-libvorbis make
+lib32-libva make
 lib32-libvpx make
 lib32-libx11 make 
 lib32-libxcb make
