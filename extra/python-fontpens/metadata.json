@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/robotools/fontPens",
+  "category": "extra",
+  "description": "A collection of classes implementing the pen protocol for manipulating glyphs",
+  "info": "",
+  "license": "BSD",
+  "tags": [
+    "python"
+  ]
+}
