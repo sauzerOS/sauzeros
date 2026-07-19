@@ -1,5 +1,20 @@
 #!/bin/bash -e
 
-meson setup build --prefix=/usr --buildtype=release
+hokuto-meson build \
+  -D default_bus=dbus-broker
 meson compile -C build
 meson install -C build --destdir=$1
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+hokuto-meson-32 build        \
+  -D default_bus=dbus-broker \
+  -D docs=false              \
+  -D introspection=disabled
+
+meson compile -C build
+meson install -C build --destdir "$pkgdir"
+rm -r "${pkgdir}"/{etc,usr/{include,lib,share}}
+fi

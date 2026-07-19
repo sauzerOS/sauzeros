@@ -13,3 +13,10 @@ dbus-broker make
 gobject-introspection make
 libxml2 make
 meson make
+lib32-dbus make
+lib32-glib make
+lib32-libx11 make
+lib32-libxi make
+lib32-libxtst make
+lib32-libxml2 make 
+lib32-systemd make
