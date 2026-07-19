@@ -42,7 +42,7 @@ _make_wrappers
 cd proton-cachyos
 
 # Apply the local LinUwUx compatibility patch rebased for this Proton/Wine revision.
-# patch -Np1 -i "$recipe_dir/LinUwUx.patch"
+patch -Np1 -i "$recipe_dir/LinUwUx.patch"
 
 # Older protonfixes revisions set up FSR4 unconditionally. Gate those revisions
 # on PROTON_FSR4_UPGRADE; newer revisions already contain the equivalent check.
@@ -88,7 +88,7 @@ ROOTLESS_CONTAINER="" \
 ../proton-cachyos/configure.sh \
     --container-engine="none" \
     --proton-sdk-image="" \
-    --build-name="proton-cachyos-native" \
+    --build-name="proton-cachyos-native-UwUx" \
     --without-steamrt-depends \
     --without-tts
 
@@ -99,8 +99,8 @@ dist_dir=$PWD/dist
 package_version=${2:?missing package version}
 sed -r \
   -e "s|##INSTALL_PATH##|.|" \
-  -e "s|##DISPLAY_NAME##|proton-cachyos-${package_version} (native)|" \
-  -e "s|##INTERNAL_TOOL_NAME##|proton-cachyos-native|" \
+  -e "s|##DISPLAY_NAME##|proton-cachyos-UwUx-${package_version} (native)|" \
+  -e "s|##INTERNAL_TOOL_NAME##|proton-cachyos-native-UwUx|" \
   "$recipe_dir/compatibilitytool.vdf.template" \
   > "$dist_dir/compatibilitytool.vdf"
 
@@ -109,14 +109,14 @@ sed -r \
 rm -rf dst-* obj-* src-* pfx-*
 
 _compatdir="${1}/usr/share/steam/compatibilitytools.d"
-_tool_name="proton-cachyos-native-${package_version}"
+_tool_name="proton-cachyos-native-UwUx-${package_version}"
 _tool_dir="${_compatdir}/${_tool_name}"
 mkdir -p "$_tool_dir"
 rsync --delete -arx "$dist_dir/" "${_tool_dir}/"
 
 # Load ntsync module
 install -Dm644 "$recipe_dir/ntsync.conf" \
-    "${1}/usr/lib/modules-load.d/10-proton-cachyos-native.conf"
+    "${1}/usr/lib/modules-load.d/10-proton-cachyos-native-UwUx.conf"
 
 cd "${_tool_dir}/files"
 

@@ -1,0 +1,167 @@
+at-spi2-core
+attr
+cabextract
+cairo
+curl
+dbus
+dbus-glib
+desktop-file-utils
+flac
+fontconfig
+freeglut
+freetype
+gdk-pixbuf
+gettext
+glib
+glibc
+glu
+lcms2
+lib32-at-spi2-core
+lib32-attr
+lib32-cairo
+lib32-curl
+lib32-dbus
+lib32-dbus-glib
+lib32-flac
+lib32-fontconfig
+lib32-freeglut
+lib32-freetype
+lib32-gcc-libs
+lib32-gdk-pixbuf
+lib32-gettext
+lib32-glib
+lib32-glibc
+lib32-glu
+lib32-lcms2
+lib32-libcanberra
+lib32-libdrm
+lib32-libgudev
+lib32-libice
+lib32-libnghttp2
+lib32-libnm
+lib32-libnsl
+lib32-libpcap
+lib32-libsm
+lib32-libtheora
+lib32-libunwind
+lib32-libusb
+lib32-libvdpau
+lib32-libvorbis
+lib32-libvpx
+lib32-libwebp
+lib32-libx11
+lib32-libxcursor
+lib32-libxext
+lib32-libxft
+lib32-libxi
+lib32-libxkbcommon
+lib32-libxml2
+lib32-libxmu
+lib32-libxrandr
+lib32-libxrender
+lib32-libxtst
+lib32-mpg123
+lib32-nspr
+lib32-nvidia-utils
+lib32-openal
+lib32-pango
+lib32-pipewire
+lib32-pipewire
+lib32-sdl2-compat
+lib32-speex
+lib32-speexdsp
+lib32-wayland
+lib32-xz
+libcanberra
+libdrm
+libgcc
+libgudev
+libice
+libnm
+libnsl
+libpcap
+librsvg
+libsm
+libtheora
+libunwind
+libusb
+libvdpau
+libvorbis
+libvpx
+libwebp
+libx11
+libxcursor
+libxext
+libxft
+libxi
+libxkbcommon
+libxml2
+libxmu
+libxrandr
+libxrender
+libxtst
+mpg123
+nghttp2
+nspr
+nvidia-utils
+openal
+pango
+pipewire
+pipewire
+python
+python-six
+sdl2-compat
+speex
+speexdsp
+unzip
+wayland
+xz
+afdko make
+alsa-lib make
+clang make
+cmake make
+ffmpeg make
+fontforge make
+giflib make
+git make
+glslang make
+gnutls make
+gtk+3 make
+lib32-alsa-lib make
+lib32-giflib make
+lib32-gnutls make
+lib32-gtk+3 make
+lib32-libpulse make
+lib32-libva make
+lib32-libxcomposite make
+lib32-libxinerama make
+lib32-libxxf86vm make
+lib32-mesa make
+lib32-rust-libs make
+lib32-vulkan-icd-loader make
+libpulse make
+libva make
+libxcomposite make
+libxinerama make
+libxxf86vm make
+lld make
+mesa make
+meson make
+mingw-w64-gcc make
+mingw-w64-tools make
+nasm make
+pcsclite make
+perl-json make
+perl make
+python-pefile make
+python-setuptools-scm make
+rsync make
+rust make
+samba make
+unixodbc make
+v4l-utils make
+vulkan-headers make
+vulkan-icd-loader make
+wayland-protocols make
+wget make
+xorg-util-macros make
