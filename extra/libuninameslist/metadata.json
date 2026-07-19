@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/fontforge/libuninameslist",
+  "category": "extra",
+  "description": "Large, sparse array mapping each unicode code point to the annotation data for it",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}
