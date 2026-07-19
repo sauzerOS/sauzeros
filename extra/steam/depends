@@ -13,9 +13,11 @@ lib32-alsa-plugins
 lib32-fontconfig
 lib32-gcc-libs
 lib32-glibc
+lib32-libfribdi
 lib32-libglvnd
 lib32-libgpg-error
 lib32-libnm
+lib32-libtiff
 lib32-libva
 lib32-libx11
 lib32-libxcrypt
