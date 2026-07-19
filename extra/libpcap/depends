@@ -3,3 +3,5 @@ dbus
 glibc
 libnl
 bluez-libs make
+lib32-dbus make
+lib32-libnl make

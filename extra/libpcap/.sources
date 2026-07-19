@@ -1,1 +1,2 @@
 https://www.tcpdump.org/release/libpcap-${version}.tar.xz
+https://www.tcpdump.org/release/libpcap-${version}.tar.xz libpcap-32

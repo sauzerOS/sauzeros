@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 autoreconf -fvi
-
 ./configure --prefix=/usr \
             --enable-bluetooth \
             --enable-usb \
@@ -9,3 +8,23 @@ autoreconf -fvi
 
 make
 make DESTDIR=$1 install
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+cd libpcap-32
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+./configure --prefix=/usr \
+   --prefix=/usr          \
+   --libdir=/usr/lib32    \
+   --enable-ipv6          \
+   --enable-bluetooth     \
+   --enable-usb           \
+   --with-libnl
+
+make
+make DESTDIR="$pkgdir" install
+rm -rf "$pkgdir/usr/"{include,share,bin}
+fi
