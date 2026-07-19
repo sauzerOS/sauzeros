@@ -1,0 +1,8 @@
+at-spi2-core
+lib32-dbus
+lib32-gcc-libs
+lib32-glib
+lib32-glibc
+lib32-libx11
+lib32-libxi
+lib32-libxtst
