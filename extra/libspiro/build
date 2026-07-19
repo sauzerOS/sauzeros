@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+autoreconf -fiv
+
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var
+
+make
+make DESTDIR="${1}" install

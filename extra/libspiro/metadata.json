@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/fontforge/libspiro",
+  "category": "extra",
+  "description": "Library that simplifies the drawing of beautiful curves",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "library"
+  ]
+}
