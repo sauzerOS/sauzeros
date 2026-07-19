@@ -1,0 +1,2 @@
+http://potrace.sourceforge.net/download/${version}/potrace-${version}.tar.gz
+files/potrace-1.16-lto.patch
