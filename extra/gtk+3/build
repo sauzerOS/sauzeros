@@ -19,3 +19,27 @@ _pick "$1" gtk+3-demos usr/share/applications/gtk3-{demo,icon-browser,widget-fac
 _pick "$1" gtk+3-demos usr/share/glib-2.0/schemas/org.gtk.{Demo,exampleapp}.gschema.xml
 _pick "$1" gtk+3-demos usr/share/icons/hicolor/*/apps/gtk3-{demo,widget-factory}[-.]*
 _pick "$1" gtk+3-demos usr/share/man/man1/gtk3-{demo,demo-application,icon-browser,widget-factory}.1
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
+#32 bit split package
+rm -rf build
+pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
+meson_options=(
+  -D broadway_backend=true
+  -D cloudproviders=false
+  -D colord=no
+  -D gtk_doc=false
+  -D introspection=false
+  -D man=false
+  -D print_backends=file
+)
+
+CFLAGS+=" -DG_DISABLE_CAST_CHECKS"
+hokuto-meson-32 build "${meson_options[@]}"
+meson compile -C build
+meson install -C build --destdir "$pkgdir"
+meson install -C build --destdir "$pkgdir"
+rm -r "$pkgdir"/{etc,usr/{include,share}}
+find "$pkgdir/usr/bin" -type f -not -name gtk-query-immodules-3.0 -delete
+mv "$pkgdir"/usr/bin/gtk-query-immodules-3.0{,-32}
+fi
