@@ -1,0 +1,11 @@
+{
+  "url": "https://fontforge.github.io/",
+  "category": "extra",
+  "description": "Outline and bitmap font editor",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "fonts",
+    "utility"
+  ]
+}
