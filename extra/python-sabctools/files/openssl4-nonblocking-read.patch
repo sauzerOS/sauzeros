@@ -1,0 +1,87 @@
+From: sauzerOS <packaging@sauzeros.org>
+Subject: [PATCH] Avoid leaving nonblocking TLS reads in WANT_READ
+
+OpenSSL 4 does not permit a write after SSL_read_ex() has returned
+SSL_ERROR_WANT_READ. unlocked_ssl_recv_into() used to hide that retry state
+when an earlier read in the same call had produced application data. The
+next Python SSLSocket.send() would consequently fail with SSLEOFError.
+
+Only drain application data that OpenSSL reports as immediately available.
+This preserves batching without starting another read that may need to be
+retried.
+
+diff --git a/src/unlocked_ssl.cc b/src/unlocked_ssl.cc
+index 24c6c91..1e8cfa7 100644
+--- a/src/unlocked_ssl.cc
++++ b/src/unlocked_ssl.cc
+@@ -28,6 +28,7 @@
+ static int (*SSL_read_ex)(void*, void*, size_t, size_t*) = NULL;
+ static int (*SSL_get_error)(void*, int) = NULL;
+ static int (*SSL_get_shutdown)(void*) = NULL;
++static int (*SSL_pending)(const void*) = NULL;
+ static PyObject *SSLWantReadError = NULL;
+ static PyObject *SSLWantWriteError = NULL;
+ static PyTypeObject *SSLSocketType = NULL;
+@@ -171,6 +172,7 @@ void openssl_init() {
+     *(void**)&SSL_read_ex = GetProcAddress(openssl_handle, "SSL_read_ex");
+     *(void**)&SSL_get_error = GetProcAddress(openssl_handle, "SSL_get_error");
+     *(void**)&SSL_get_shutdown = GetProcAddress(openssl_handle, "SSL_get_shutdown");
++    *(void**)&SSL_pending = GetProcAddress(openssl_handle, "SSL_pending");
+ #else
+     // Find library at "import ssl; print(ssl._ssl.__file__)"
+ 
+@@ -187,6 +189,7 @@ void openssl_init() {
+     *(void**)&SSL_read_ex = dlsym(openssl_handle, "SSL_read_ex");
+     *(void**)&SSL_get_error = dlsym(openssl_handle, "SSL_get_error");
+     *(void**)&SSL_get_shutdown = dlsym(openssl_handle, "SSL_get_shutdown");
++    *(void**)&SSL_pending = dlsym(openssl_handle, "SSL_pending");
+ #endif
+ 
+ cleanup:
+@@ -200,6 +203,7 @@ cleanup:
+         SSL_read_ex = NULL;
+         SSL_get_error = NULL;
+         SSL_get_shutdown = NULL;
++        SSL_pending = NULL;
+         PyErr_Clear(); // linking is optional; any failure results in openssl_linked=False
+     }
+ }
+@@ -208,6 +212,7 @@ bool openssl_linked() {
+     return SSL_read_ex &&
+         SSL_get_error &&
+         SSL_get_shutdown &&
++        SSL_pending &&
+         SSLWantReadError &&
+         SSLWantWriteError &&
+         SSLSocketType;
+@@ -249,7 +254,7 @@ static PyObject* unlocked_ssl_recv_into_impl(PySSLSocket *self, Py_ssize_t len,
+             }
+             count += readbytes;
+             len -= readbytes;
+-        } while (len > 0);
++        } while (len > 0 && SSL_pending(self->ssl) > 0);
+         err = _PySSL_errno(retval == 0, self->ssl, retval);
+         Py_END_ALLOW_THREADS;
+ #if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 15)
+diff --git a/tests/test_unlocked_ssl.py b/tests/test_unlocked_ssl.py
+index ad4c8c2..048e501 100644
+--- a/tests/test_unlocked_ssl.py
++++ b/tests/test_unlocked_ssl.py
+@@ -285,6 +285,17 @@ def test_unlocked_ssl_recv_into_response(client, buffer):
+     assert buffer[:bytes_received].tobytes() == b"TEST"
+ 
+ 
++def test_write_after_unlocked_ssl_recv(client, buffer):
++    bytes_received = unlocked_ssl_recv_into_wrapper(client, b"GREETING", buffer)
++    assert buffer[:bytes_received].tobytes() == b"GREETING"
++
++    # A successful read must not be followed internally by a hidden
++    # SSL_ERROR_WANT_READ. OpenSSL 4 requires that operation to be retried and
++    # rejects this subsequent write if the retry state was left pending.
++    bytes_received = unlocked_ssl_recv_into_wrapper(client, b"COMMAND", buffer)
++    assert buffer[:bytes_received].tobytes() == b"COMMAND"
++
++
+ def test_unlocked_ssl_recv_into_bulk_response(client):
+     # 131072 bytes divide up into 8 TLS records (16 KB each)
+     # In nonblocking mode, we should be able to read all eight in a single
