@@ -1,0 +1,10 @@
+{
+  "url": "http://potrace.sourceforge.net/",
+  "category": "extra",
+  "description": "Utility for tracing a bitmap (input: PBM,PGM,PPM,BMP; output: EPS,PS,PDF,SVG,DXF,PGM,Gimppath,XFig)",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "utility"
+  ]
+}

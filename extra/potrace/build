@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+patch -Np1 -i potrace-1.16-lto.patch  # fixes FTBFS on aarch64 with LTO
+autoreconf -fiv
+
+./configure \
+  --prefix=/usr \
+  --mandir=/usr/share/man \
+  --with-libpotrace
+
+make
+make DESTDIR="${1}" install
