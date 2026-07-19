@@ -1,2 +1,3 @@
 git make
+linux-headers make
 pahole make
