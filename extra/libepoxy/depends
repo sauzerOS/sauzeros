@@ -4,3 +4,5 @@ libx11
 mesa make
 meson make
 systemd make
+lib32-libglvnd make
+lib32-systemd make
