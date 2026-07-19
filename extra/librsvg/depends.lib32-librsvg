@@ -1,0 +1,11 @@
+librsvg
+lib32-cairo
+lib32-fontconfig
+lib32-freetype
+lib32-gcc-libs
+lib32-gdk-pixbuf
+lib32-glib
+lib32-glibc
+lib32-harfbuzz
+lib32-libxml2
+lib32-pango 
