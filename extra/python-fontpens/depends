@@ -1,0 +1,6 @@
+python-fonttools
+python-build make
+python-hatchling make
+python-hatch-vcs make
+python-installer make
+python-wheel make
