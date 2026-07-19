@@ -1,6 +1,7 @@
 curl
 lib32-libidn2
 lib32-libpsl
+lib32-libnghttp2
 lib32-openssl
 lib32-zlib-ng
 lib32-zstd

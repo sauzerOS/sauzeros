@@ -11,6 +11,7 @@ lib32-brotli make optional
 lib32-libidn2 make
 lib32-libpsl make
 lib32-libunistring make
+lib32-libnghttp2 optional make
 lib32-openssl make
 lib32-zlib-ng make
 lib32-zstd make
