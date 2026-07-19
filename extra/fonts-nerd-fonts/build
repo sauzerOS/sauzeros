@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Patch Nerd Fonts' pinned snapshots of the upstream font files.  Renaming is
+# deliberately disabled so every generated face keeps its original family,
+# full, PostScript, weight, and style names.
 fonts='
 0xProto
 3270
@@ -73,22 +76,140 @@ VictorMono
 ZedMono
 '
 
+patcher=$PWD/font-patcher
+source_root=$PWD/src/unpatched-fonts
+patched_root=$PWD/patched
+config_root=$PWD/patched-configs
+task_file=$PWD/patch-tasks
+parallel_jobs=${HOKUTO_JOBS:-${CMAKE_BUILD_PARALLEL_LEVEL:-$(nproc)}}
+
+if ! [[ $parallel_jobs =~ ^[1-9][0-9]*$ ]]; then
+    echo "invalid parallel job count: $parallel_jobs" >&2
+    exit 1
+fi
+
+find_config() {
+    local font_file=$1
+    local font_root=$2
+    local dir parent
+
+    dir=$(dirname "$font_file")
+    parent=$(dirname "$dir")
+
+    if [ -f "$dir/config.cfg" ]; then
+        printf '%s\n' "$dir/config.cfg"
+    elif [ -f "$parent/config.cfg" ]; then
+        printf '%s\n' "$parent/config.cfg"
+    elif [ -f "$font_root/config.cfg" ]; then
+        printf '%s\n' "$font_root/config.cfg"
+    fi
+}
+
+# Keep each upstream configuration's glyph and metrics adjustments, but remove
+# naming-mode overrides so --makegroups -1 always remains authoritative.
+while IFS= read -r -d '' config; do
+    relative_config=${config#"$source_root"/}
+    sanitized_config=$config_root/$relative_config
+    install -Dm644 "$config" "$sanitized_config"
+    sed -Ei '/^commandline:/ s/(^|[[:space:]])--makegroups([[:space:]]+-?[0-9]+)?([[:space:]]|$)/ /' "$sanitized_config"
+    if grep -Eq '^commandline:.*--makegroups' "$sanitized_config"; then
+        echo "failed to remove naming override from $config" >&2
+        exit 1
+    fi
+done < <(find "$source_root" -type f -name config.cfg -print0)
+
+: > "$task_file"
+task_count=0
+declare -A expected_counts=()
 for font in $fonts; do
-    srcdir=$font
-    pkgdir=$HOKUTO_SPLIT_DIR/fonts-nerd-fonts-$font
-    fontdir=$pkgdir/usr/share/fonts/TTF
+    srcdir=$source_root/$font
 
     if [ ! -d "$srcdir" ]; then
-        echo "missing extracted source directory: $srcdir" >&2
+        echo "missing unpatched font directory: $srcdir" >&2
         exit 1
     fi
 
-    if ! find "$srcdir" -type f \( -iname '*.ttf' -o -iname '*.otf' -o -iname '*.ttc' -o -iname '*.otc' \) -print -quit | grep -q .; then
-        echo "no font files found in $srcdir" >&2
+    found=0
+    queued=0
+    while IFS= read -r -d '' source_font; do
+        source_relative=${source_font#"$source_root"/}
+
+        # These two upstream Gohu 11px files have identical family, style,
+        # full, and PostScript names.  The Unicode face contains every glyph
+        # from the plain face plus its extended character set, so installing
+        # both would create an ambiguous fontconfig identity.
+        if [ "$source_relative" = Gohu/11/gohufont-11.ttf ]; then
+            continue
+        fi
+
+        found=1
+        printf '%s\0%s\0' "$font" "$source_font" >> "$task_file"
+        ((task_count += 1))
+        ((queued += 1))
+    done < <(find "$srcdir" -type f \( -iname '*.ttf' -o -iname '*.otf' -o -iname '*.sfd' \) -print0)
+
+    if [ "$found" -eq 0 ]; then
+        echo "no patchable font files found in $srcdir" >&2
+        exit 1
+    fi
+    expected_counts["$font"]=$queued
+done
+
+patch_one() {
+    local font=$1
+    local source_font=$2
+    local font_root=$source_root/$font
+    local source_relative=${source_font#"$source_root"/}
+    local task_relative=${source_relative%.*}
+    local outdir=$patched_root/$task_relative
+    local config config_relative
+    local -a args
+
+    install -d "$outdir"
+    config=$(find_config "$source_font" "$font_root")
+    args=(
+        -q
+        --complete
+        --no-progressbars
+        --makegroups -1
+        --outputdir "$outdir"
+    )
+    if [ -n "$config" ]; then
+        config_relative=${config#"$source_root"/}
+        args+=(--configfile "$config_root/$config_relative")
+    fi
+
+    XDG_CONFIG_HOME=$outdir/.config \
+        fontforge -quiet -script "$patcher" "$source_font" "${args[@]}"
+}
+
+export -f find_config patch_one
+export patcher source_root patched_root config_root
+
+echo "patching $task_count font faces with $parallel_jobs parallel jobs"
+xargs -0 -r -n 2 -P "$parallel_jobs" bash -c 'patch_one "$1" "$2"' _ < "$task_file"
+
+for font in $fonts; do
+    srcdir=$source_root/$font
+    outdir=$patched_root/$font
+    pkgdir=$HOKUTO_SPLIT_DIR/fonts-nerd-fonts-$font
+    fontdir=$pkgdir/usr/share/fonts/TTF
+    input_count=${expected_counts["$font"]}
+    output_count=$(find "$outdir" -type f \( -iname '*.ttf' -o -iname '*.otf' \) | wc -l)
+
+    if [ "$output_count" -ne "$input_count" ]; then
+        echo "font patcher produced $output_count of $input_count expected fonts for $font" >&2
+        exit 1
+    fi
+
+    duplicate_names=$(find "$outdir" -type f \( -iname '*.ttf' -o -iname '*.otf' \) -printf '%f\n' | sort | uniq -d)
+    if [ -n "$duplicate_names" ]; then
+        echo "duplicate output filenames for $font:" >&2
+        echo "$duplicate_names" >&2
         exit 1
     fi
 
     install -d "$fontdir"
-    find "$srcdir" -type f \( -iname '*.ttf' -o -iname '*.otf' -o -iname '*.ttc' -o -iname '*.otc' \) \
+    find "$outdir" -type f \( -iname '*.ttf' -o -iname '*.otf' \) \
         -exec install -Dm644 {} -t "$fontdir" \;
 done

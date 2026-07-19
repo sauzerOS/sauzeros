@@ -1,9 +1,9 @@
 {
-  "url": "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/0xProto.tar.xz",
+  "url": "https://github.com/ryanoasis/nerd-fonts",
   "category": "extra",
-  "description": "fonts nerd fonts",
-  "info": "",
-  "license": "",
+  "description": "Upstream fonts patched locally with Nerd Fonts glyphs while retaining their original names",
+  "info": "Uses the pinned upstream-font snapshots and font-patcher from the matching Nerd Fonts tag.",
+  "license": "various",
   "tags": [
     "fonts"
   ],
