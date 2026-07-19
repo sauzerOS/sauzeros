@@ -1,72 +1,36 @@
 From: sauzerOS <packaging@sauzeros.org>
-Subject: [PATCH] Clear swallowed OpenSSL errors after a successful read
+Subject: [PATCH] Match CPython's OpenSSL 4 SSLSocket layout
 
-unlocked_ssl_recv_into() batches TLS records by continuing to call
-SSL_read_ex() until the nonblocking socket reports WANT_READ. If data was
-read before that condition, the function returns the data and intentionally
-hides WANT_READ from its caller.
+CPython's OpenSSL 4 support adds got_eof_error to PySSLSocket and removes
+the cached _PySSLError member.  sauzerOS backports that change to Python
+3.14, while upstream sabctools assumes the layout starts at Python 3.15.
+Its fast read path consequently writes SSL_ERROR_WANT_READ into
+got_eof_error, so the next regular SSLSocket operation raises a bogus
+SSLEOFError.
 
-OpenSSL 4 leaves an error associated with that final read on the thread-local
-error queue. Since the fast path bypasses CPython's normal SSL error handling,
-the queue was not drained and the next SSLSocket.send() failed with a bogus
-SSLEOFError. Clear the swallowed error and reset CPython's cached socket error
-before reporting the successful read.
+Use CPython's OpenSSL 4 layout starting with Python 3.14.
 
 diff --git a/src/unlocked_ssl.cc b/src/unlocked_ssl.cc
-index 24c6c91..a71152c 100644
+index 24c6c91..e39e9d2 100644
 --- a/src/unlocked_ssl.cc
 +++ b/src/unlocked_ssl.cc
-@@ -28,6 +28,7 @@
- static int (*SSL_read_ex)(void*, void*, size_t, size_t*) = NULL;
- static int (*SSL_get_error)(void*, int) = NULL;
- static int (*SSL_get_shutdown)(void*) = NULL;
-+static void (*ERR_clear_error)(void) = NULL;
- static PyObject *SSLWantReadError = NULL;
- static PyObject *SSLWantWriteError = NULL;
- static PyTypeObject *SSLSocketType = NULL;
-@@ -171,6 +172,7 @@ void openssl_init() {
-     *(void**)&SSL_read_ex = GetProcAddress(openssl_handle, "SSL_read_ex");
-     *(void**)&SSL_get_error = GetProcAddress(openssl_handle, "SSL_get_error");
-     *(void**)&SSL_get_shutdown = GetProcAddress(openssl_handle, "SSL_get_shutdown");
-+    *(void**)&ERR_clear_error = GetProcAddress(openssl_handle, "ERR_clear_error");
+@@ -50,7 +50,7 @@ typedef struct {
+     int socket_type;
+     PyObject *owner; /* Python level "owner" passed to servername callback */
+     PyObject *server_hostname;
+-#if PY_VERSION_HEX >= SABCTOOLS_PY_HEX(3, 15)
++#if PY_VERSION_HEX >= SABCTOOLS_PY_HEX(3, 14)
+     int got_eof_error;
  #else
-     // Find library at "import ssl; print(ssl._ssl.__file__)"
- 
-@@ -187,6 +189,7 @@ void openssl_init() {
-     *(void**)&SSL_read_ex = dlsym(openssl_handle, "SSL_read_ex");
-     *(void**)&SSL_get_error = dlsym(openssl_handle, "SSL_get_error");
-     *(void**)&SSL_get_shutdown = dlsym(openssl_handle, "SSL_get_shutdown");
-+    *(void**)&ERR_clear_error = dlsym(openssl_handle, "ERR_clear_error");
+     _PySSLError err; /* last seen error from various sources */
+@@ -255,7 +255,7 @@ static PyObject* unlocked_ssl_recv_into_impl(PySSLSocket *self, Py_ssize_t len,
+         } while (len > 0);
+         err = _PySSL_errno(retval == 0, self->ssl, retval);
+         Py_END_ALLOW_THREADS;
+-#if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 15)
++#if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 14)
+         self->err = err;
  #endif
- 
- cleanup:
-@@ -200,6 +203,7 @@ cleanup:
-         SSL_read_ex = NULL;
-         SSL_get_error = NULL;
-         SSL_get_shutdown = NULL;
-+        ERR_clear_error = NULL;
-         PyErr_Clear(); // linking is optional; any failure results in openssl_linked=False
-     }
- }
-@@ -208,6 +212,7 @@ bool openssl_linked() {
-     return SSL_read_ex &&
-         SSL_get_error &&
-         SSL_get_shutdown &&
-+        ERR_clear_error &&
-         SSLWantReadError &&
-         SSLWantWriteError &&
-         SSLSocketType;
-@@ -257,6 +262,11 @@ static PyObject* unlocked_ssl_recv_into_impl(PySSLSocket *self, Py_ssize_t len,
- #endif
- 
-         if (count > 0) {
-+            ERR_clear_error();
-+#if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 15)
-+            err = { 0 };
-+            self->err = err;
-+#endif
-             break;
-         }
  
 diff --git a/tests/test_unlocked_ssl.py b/tests/test_unlocked_ssl.py
 index ad4c8c2..d69ae54 100644
@@ -81,8 +45,8 @@ index ad4c8c2..d69ae54 100644
 +    assert buffer[:bytes_received].tobytes() == b"GREETING"
 +
 +    # The optimized reader may consume all currently available TLS records
-+    # before returning. Any internal WANT_READ error must not leak into the
-+    # next operation on the socket.
++    # before returning. Its internal WANT_READ must not mark the CPython
++    # socket as having reached EOF.
 +    bytes_received = unlocked_ssl_recv_into_wrapper(client, b"COMMAND", buffer)
 +    assert buffer[:bytes_received].tobytes() == b"COMMAND"
 +
