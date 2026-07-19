@@ -3,3 +3,8 @@ libpulse runtime
 libvorbis
 sound-theme-freedesktop
 gtk+3 make
+lib32-alsa-lib make
+lib32-libtool make
+lib32-libpulse make
+lib32-libvorbis make
+lib32-gtk+3 make
