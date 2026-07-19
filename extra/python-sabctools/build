@@ -1,4 +1,9 @@
 #!/bin/bash -e
 
+case "$2" in
+    9.4.*) patch -Np1 -i openssl4-nonblocking-read-9.4.patch ;;
+    *)     patch -Np1 -i openssl4-nonblocking-read.patch ;;
+esac
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
