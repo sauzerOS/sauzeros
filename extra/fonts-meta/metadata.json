@@ -1,9 +1,9 @@
 {
-  "url": "https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz",
+  "url": "https://notofonts.github.io/",
   "category": "extra",
-  "description": "fonts meta",
+  "description": "Core font collection with Google Noto split by major writing system",
   "info": "",
-  "license": "",
+  "license": "custom",
   "tags": [
     "fonts"
   ],
@@ -13,11 +13,32 @@
     "fonts-microsoft",
     "fonts-microsoft-extra",
     "fonts-noto",
+    "fonts-noto-arabic",
+    "fonts-noto-armenian",
+    "fonts-noto-bengali",
+    "fonts-noto-devanagari",
     "fonts-noto-emoji",
+    "fonts-noto-ethiopic",
+    "fonts-noto-georgian",
+    "fonts-noto-gujarati",
+    "fonts-noto-gurmukhi",
+    "fonts-noto-hebrew",
     "fonts-noto-japanese",
+    "fonts-noto-kannada",
+    "fonts-noto-khmer",
     "fonts-noto-korean",
+    "fonts-noto-lao",
+    "fonts-noto-malayalam",
+    "fonts-noto-myanmar",
+    "fonts-noto-oriya",
     "fonts-noto-simplified-chinese",
+    "fonts-noto-sinhala",
     "fonts-noto-symbols",
-    "fonts-noto-traditional-chinese"
+    "fonts-noto-tamil",
+    "fonts-noto-telugu",
+    "fonts-noto-thai",
+    "fonts-noto-tibetan",
+    "fonts-noto-traditional-chinese",
+    "fonts-noto-urdu"
   ]
 }

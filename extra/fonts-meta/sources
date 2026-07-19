@@ -1,4 +1,11 @@
 https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz liberation
 files/ms-fonts.tar.xz ms-fonts
 files/helvetica-lucida-vera.tar.xz helvetica-lucida-vera
-files/noto-fonts.tar.xz noto-fonts
+files/noto-fonts.tar.xz google-fonts
+https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/16_NotoSansJP.zip noto-sans-japanese
+https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/17_NotoSansKR.zip noto-sans-korean
+https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/18_NotoSansSC.zip noto-sans-simplified-chinese
+https://github.com/notofonts/noto-cjk/releases/download/Sans2.004/19_NotoSansTC.zip noto-sans-traditional-chinese
+git+https://github.com/notofonts/notofonts.github.io#tag=noto-monthly-release-2026.07.01
+files/noto-splits
+https://raw.githubusercontent.com/googlefonts/noto-emoji/v2.051/fonts/NotoColorEmoji.ttf
