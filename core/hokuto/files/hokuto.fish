@@ -138,6 +138,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l sources -d "Remove cached sources"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l bins -d "Remove built binary packages"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l orphans -d "Check and remove orphans"
+    complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l kernel -d "Remove old kernels and related modules"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l tmp -d "Remove temporary build files"
     complete -c $prog -n "__fish_seen_subcommand_from cleanup" -l all -d "Clean sources, bins and orphans"
 

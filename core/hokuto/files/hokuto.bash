@@ -225,7 +225,7 @@ _hokuto_complete()
             COMPREPLY=($(compgen -W "--checksums --backup --restore --add" -- "$cur"))
             ;;
 		cleanup)
-			COMPREPLY=($(compgen -W "--sources --bins --orphans --tmp --all" -- "$cur"))
+			COMPREPLY=($(compgen -W "--sources --bins --orphans --kernel --tmp --all" -- "$cur"))
             ;;
         upload)
             COMPREPLY=($(compgen -W "--cleanup --cleanup-all --reindex --sync --prompt --syncdb --delete --copy-from-r2" -- "$cur"))

@@ -91,6 +91,7 @@ _hokuto() {
             '--sources[Remove cached sources]' \
             '--bins[Remove built binary packages]' \
             '--orphans[Check and remove orphan packages]' \
+            '--kernel[Prompt to remove old kernels and related modules]' \
             '--tmp[Remove temporary build files]' \
 			'--all[Clean sources, binaries, temporary files, and orphans]'
 			;;
