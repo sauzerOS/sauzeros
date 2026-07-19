@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+# https://gitlab.archlinux.org/archlinux/packaging/packages/fontforge/-/issues/2
+# https://github.com/fontforge/fontforge/pull/5702
+patch -p1 -i "5702.patch"
+# https://archlinux.org/todo/python-pkg_resources-deprecation/
+# https://github.com/fontforge/fontforge/commit/fbc4114e1af657b0889f78d24f70c4d56937d189
+patch -p1 -i fbc4114e1af657b0889f78d24f70c4d56937d189.patch
+
+cmake_options=(
+	-D CMAKE_BUILD_TYPE=Release
+	-D CMAKE_INSTALL_PREFIX=/usr
+	-D ENABLE_MAINTAINER_TOOLS=True
+	-D ENABLE_FONTFORGE_EXTRAS=True
+	-D UNIX=True
+)
+cmake -B build ${cmake_options[@]}
+cmake --build build
+DESTDIR="${1}" cmake --install build
