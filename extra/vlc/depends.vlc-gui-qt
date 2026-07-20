@@ -5,14 +5,15 @@ libstdc++
 libvlc
 libx11
 qt
+qt-declarative
 qt-svg
 qt-wayland
 vlc-cli
-vlc-plugin-lua
-vlc-plugin-pulse
 vlc-plugins-base
 vlc-plugins-video-output
 wayland
+vlc-plugin-pulse suggest pulseaudio support
+vlc-plugin-pipewire suggest pipewire support
 vlc-plugin-libsecret suggest for libsecret/gnome-keyring support on Gnome
 vlc-plugin-notify suggest for notification support
 vlc-plugins-extra suggest  for extra plugins
