@@ -5,7 +5,6 @@ vlc-gui-ncurses suggest for ncurses TUI
 vlc-gui-skins2 suggest for Skins2 GUI
 vlc-plugin-aom suggest for AOM AV1 codec support
 vlc-plugin-ass suggest for SSA/ASS subtitle codec support
-vlc-plugin-dca suggest for DTS Coherent Acoustics codec support
 vlc-plugin-ffmpeg suggest for FFMPEG based access, codec, demux, packetizer, VDPAU, video chroma and video filter support
 vlc-plugin-fluidsynth suggest for FluidSynth codec support
 vlc-plugin-freetype suggest for subtitle and on screen display text rendering support
@@ -16,12 +15,12 @@ vlc-plugin-libsecret suggest for libsecret keystore support
 vlc-plugin-mad suggest for MPEG Audio Decoder audio filter support
 vlc-plugin-mdns suggest for mDNS services discovery support
 vlc-plugin-modplug suggest for MOD demux support
-vlc-plugin-mpeg2 suggest for MPEG2 codec support
 vlc-plugin-mtp suggest for MTP device access and discovery support
 vlc-plugin-nfs suggest for NFS access support
 vlc-plugin-notify suggest for notification support
+vlc-plugin-nvdec suggest nvdec support
+vlc-plugin-rtp suggest rtp support
 vlc-plugin-samplerate suggest for samplerate audio filter support
-vlc-plugin-sdl suggest for SDL codec support
 vlc-plugin-sftp suggest for SFTP access support
 vlc-plugin-smb suggest for SMB access support
 vlc-plugin-soxr suggest for SoX Resampler audio filter support
@@ -60,7 +59,6 @@ liba52 make
 libaom make
 libarchive make
 libass make
-libdca make
 libgcc make
 libglvnd make
 libgme make
@@ -84,6 +82,7 @@ libssh2 make
 libstdc++ make
 libtheora make
 libva make
+lua52 make
 libvorbis make
 libvpx make
 libx11 make
@@ -97,9 +96,11 @@ opus make
 pcsclite make
 protobuf make
 qt make
+qt-declarative make
+qt-shadertools make
 qt-svg make
-sdl2-compat make
-sdl-image make
+qt-tools make
+qt-wayland make
 smbclient make
 speexdsp make
 speex make
@@ -107,6 +108,7 @@ srt make
 systemd-libs make
 taglib make
 twolame make
+vulkan-headers make
 wayland make
 wayland-protocols make
 x264 make
