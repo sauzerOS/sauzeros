@@ -3,7 +3,7 @@ hicolor-icon-theme
 qt6pas
 shared-mime-info
 ffmpegthumbnailer suggest preview video files
-imagemagick (optional) - preview xcf files
+imagemagick suggest preview xcf files
 unrar suggest support for rar archives
 7zip suggest support for 7zip archives
 unzip suggest support extracting zip archives
