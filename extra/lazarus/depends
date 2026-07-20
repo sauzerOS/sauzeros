@@ -1,4 +1,4 @@
-fpc make
-fpc-src make
+fpc
+fpc-src
 qt6pas make
 rsync make
