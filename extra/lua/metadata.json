@@ -4,5 +4,19 @@
   "description": "Powerful lightweight programming language designed for extending applications",
   "info": "",
   "license": "MIT",
-  "tags": []
+  "tags": [],
+  "split_metadata": {
+    "lua51": {
+      "description": "Lua 5.1 compatibility runtime and development files"
+    },
+    "lua52": {
+      "description": "Lua 5.2 compatibility runtime and development files"
+    },
+    "lua53": {
+      "description": "Lua 5.3 compatibility runtime and development files"
+    },
+    "lua54": {
+      "description": "Lua 5.4 compatibility runtime and development files"
+    }
+  }
 }

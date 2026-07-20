@@ -1,43 +1,161 @@
 #!/bin/bash -e
 
-_majorver=${2%.*}
-cd lua
-patch -Np1 -i ../liblua.so.patch
-patch -Np1 -i ../paths.patch
-cd ..
-cp -r lua lua++
+main_ver=$2
+main_abi=${main_ver%.*}
 
-sed "s/%VER%/$_majorver/g;s/%REL%/$2/g" lua.pc > lua/lua.pc
-sed "s/%VER%/$_majorver/g;s/%REL%/$2/g;s/-llua/-llua++/g" lua.pc > lua++/lua++.pc
+# Lua 5.5: the default implementation owns the unversioned commands,
+# headers, libraries and pkg-config aliases.
+patch -d lua55 -Np1 -i ../liblua.so.patch
+patch -d lua55 -Np1 -i ../paths.patch
+cp -r lua55 lua55++
+sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g" lua.pc > lua55/lua.pc
+sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g;s/-llua/-llua++/g" lua.pc > lua55++/lua++.pc
 
-cd lua
+cd lua55
 make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
 make \
-  TO_LIB="liblua.so liblua.so.$_majorver liblua.so.$2" \
+  TO_LIB="liblua.so liblua.so.$main_abi liblua.so.$main_ver" \
   INSTALL_DATA='cp -d' \
   INSTALL_TOP="$1"/usr \
   INSTALL_MAN="$1"/usr/share/man/man1 \
   install
-ln -sf /usr/bin/lua "$1"/usr/bin/lua$_majorver
-ln -sf /usr/bin/luac "$1"/usr/bin/luac$_majorver
-ln -sf /usr/lib/liblua.so.$2 "$1"/usr/lib/liblua$_majorver.so
+ln -sf /usr/bin/lua "$1"/usr/bin/lua$main_abi
+ln -sf /usr/bin/luac "$1"/usr/bin/luac$main_abi
+ln -sf /usr/lib/liblua.so.$main_ver "$1"/usr/lib/liblua$main_abi.so
 
 install -Dm644 lua.pc "$1"/usr/lib/pkgconfig/lua55.pc
 ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua.pc
 ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua5.5.pc
 ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua-5.5.pc
+install -d "$1/usr/share/doc/$3"
+install -m644 doc/*.{png,css,html} "$1/usr/share/doc/$3"
+install -Dm644 ../license-from-upstream "$1/usr/share/licenses/$3/LICENSE"
 
-cd ../lua++
+cd ../lua55++
 make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ LUA_A=liblua++.a LUA_SO=liblua++.so linux
 make \
-  TO_LIB="liblua++.so liblua++.so.$_majorver liblua++.so.$2" \
+  TO_LIB="liblua++.so liblua++.so.$main_abi liblua++.so.$main_ver" \
   INSTALL_BIN=null INSTALL_INC=null INSTALL_MAN=../null \
   INSTALL_DATA='cp -d' \
   INSTALL_TOP="$1"/usr \
   install
-ln -sf /usr/lib/liblua++.so.$2 "$1"/usr/lib/liblua++$_majorver.so
+ln -sf /usr/lib/liblua++.so.$main_ver "$1"/usr/lib/liblua++$main_abi.so
 
 install -Dm644 lua++.pc "$1"/usr/lib/pkgconfig/lua++55.pc
 ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++.pc
 ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++5.5.pc
 ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++-5.5.pc
+
+# Lua 5.4: every public filename is ABI-versioned so it can coexist with lua.
+cd ..
+patch -d lua54 -Np1 -i ../liblua.so.patch
+patch -d lua54 -Np1 -i ../paths.patch
+cp -r lua54 lua54++
+sed 's/%VER%/5.4/g;s/%REL%/5.4.8/g;s/-llua/-llua5.4/g;s:/include:/include/lua5.4:' lua.pc > lua54/lua.pc
+sed 's/%VER%/5.4/g;s/%REL%/5.4.8/g;s/-llua/-llua++5.4/g;s:/include:/include/lua5.4:' lua.pc > lua54++/lua.pc
+sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.4/; /^LUAC_T=/ s/luac/luac5.4/' -i lua54/src/Makefile
+sed -E '/^LUA_(SO|A|T)=/ s/lua/lua++5.4/; /^LUAC_T=/ s/luac/luac5.4/' -i lua54++/src/Makefile
+
+cd lua54
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux-readline
+lua54_dir="$HOKUTO_SPLIT_DIR/lua54"
+make TO_BIN='lua5.4 luac5.4' \
+  TO_LIB='liblua5.4.so liblua5.4.so.5.4 liblua5.4.so.5.4.8' \
+  INSTALL_DATA='cp -d' INSTALL_TOP="$lua54_dir/usr" \
+  INSTALL_INC="$lua54_dir/usr/include/lua5.4" \
+  INSTALL_MAN="$lua54_dir/usr/share/man/man1" install
+install -Dm644 lua.pc "$lua54_dir/usr/lib/pkgconfig/lua54.pc"
+ln -sf lua54.pc "$lua54_dir/usr/lib/pkgconfig/lua5.4.pc"
+ln -sf lua54.pc "$lua54_dir/usr/lib/pkgconfig/lua-5.4.pc"
+ln -s liblua5.4.so "$lua54_dir/usr/lib/liblua.so.5.4"
+ln -s liblua5.4.so "$lua54_dir/usr/lib/liblua.so.5.4.8"
+install -d "$lua54_dir/usr/share/doc/lua54"
+install -m644 doc/*.{gif,png,css,html} "$lua54_dir/usr/share/doc/lua54"
+install -Dm644 ../license-from-upstream "$lua54_dir/usr/share/licenses/lua54/LICENSE"
+mv "$lua54_dir/usr/share/man/man1/lua.1" "$lua54_dir/usr/share/man/man1/lua5.4.1"
+mv "$lua54_dir/usr/share/man/man1/luac.1" "$lua54_dir/usr/share/man/man1/luac5.4.1"
+
+cd ../lua54++
+make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ \
+  LUA_A=liblua++5.4.a LUA_SO=liblua++5.4.so linux-readline
+make TO_BIN='lua++5.4 luac5.4' \
+  TO_LIB='liblua++5.4.so liblua++5.4.so.5.4 liblua++5.4.so.5.4.8' \
+  INSTALL_BIN=null INSTALL_INC=null INSTALL_MAN=../null INSTALL_DATA='cp -d' \
+  INSTALL_TOP="$lua54_dir/usr" install
+install -Dm644 lua.pc "$lua54_dir/usr/lib/pkgconfig/lua++54.pc"
+ln -sf lua++54.pc "$lua54_dir/usr/lib/pkgconfig/lua++5.4.pc"
+ln -sf lua++54.pc "$lua54_dir/usr/lib/pkgconfig/lua++-5.4.pc"
+
+# Lua 5.3
+cd ..
+patch -d lua53 -Np1 -i ../lua53-liblua.so.patch
+sed 's/%VER%/5.3/g;s/%REL%/5.3.6/g;s/-llua/-llua5.3/g;s:/include:/include/lua5.3:' lua.pc > lua53/lua.pc
+sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.3/; /^LUAC_T=/ s/luac/luac5.3/' -i lua53/src/Makefile
+cd lua53
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+lua53_dir="$HOKUTO_SPLIT_DIR/lua53"
+make TO_BIN='lua5.3 luac5.3' \
+  TO_LIB='liblua5.3.so liblua5.3.so.5.3 liblua5.3.so.5.3.6' \
+  INSTALL_DATA='cp -d' INSTALL_TOP="$lua53_dir/usr" \
+  INSTALL_INC="$lua53_dir/usr/include/lua5.3" \
+  INSTALL_MAN="$lua53_dir/usr/share/man/man1" install
+install -Dm644 lua.pc "$lua53_dir/usr/lib/pkgconfig/lua53.pc"
+ln -sf lua53.pc "$lua53_dir/usr/lib/pkgconfig/lua5.3.pc"
+ln -sf lua53.pc "$lua53_dir/usr/lib/pkgconfig/lua-5.3.pc"
+ln -s liblua5.3.so "$lua53_dir/usr/lib/liblua.so.5.3"
+ln -s liblua5.3.so "$lua53_dir/usr/lib/liblua.so.5.3.6"
+install -d "$lua53_dir/usr/share/doc/lua53"
+install -m644 doc/*.{gif,png,css,html} "$lua53_dir/usr/share/doc/lua53"
+install -Dm644 ../license-from-upstream "$lua53_dir/usr/share/licenses/lua53/LICENSE"
+mv "$lua53_dir/usr/share/man/man1/lua.1" "$lua53_dir/usr/share/man/man1/lua5.3.1"
+mv "$lua53_dir/usr/share/man/man1/luac.1" "$lua53_dir/usr/share/man/man1/luac5.3.1"
+
+# Lua 5.2
+cd ..
+patch -d lua52 -Np1 -i ../lua52-liblua.so.patch
+sed 's/%VER%/5.2/g;s/%REL%/5.2.4/g;s/-llua/-llua5.2/g;s:/include:/include/lua5.2:' lua.pc > lua52/lua.pc
+sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.2/; /^LUAC_T=/ s/luac/luac5.2/' -i lua52/src/Makefile
+cd lua52
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+lua52_dir="$HOKUTO_SPLIT_DIR/lua52"
+make TO_BIN='lua5.2 luac5.2' \
+  TO_LIB='liblua5.2.so liblua5.2.so.5.2 liblua5.2.so.5.2.4' \
+  INSTALL_DATA='cp -d' INSTALL_TOP="$lua52_dir/usr" \
+  INSTALL_INC="$lua52_dir/usr/include/lua5.2" \
+  INSTALL_MAN="$lua52_dir/usr/share/man/man1" install
+install -Dm644 lua.pc "$lua52_dir/usr/lib/pkgconfig/lua52.pc"
+ln -sf lua52.pc "$lua52_dir/usr/lib/pkgconfig/lua5.2.pc"
+ln -sf lua52.pc "$lua52_dir/usr/lib/pkgconfig/lua-5.2.pc"
+ln -s liblua5.2.so "$lua52_dir/usr/lib/liblua.so.5.2"
+ln -s liblua5.2.so "$lua52_dir/usr/lib/liblua.so.5.2.4"
+install -d "$lua52_dir/usr/share/doc/lua52"
+install -m644 doc/*.{gif,png,css,html} "$lua52_dir/usr/share/doc/lua52"
+install -Dm644 ../license-from-upstream "$lua52_dir/usr/share/licenses/lua52/LICENSE"
+mv "$lua52_dir/usr/share/man/man1/lua.1" "$lua52_dir/usr/share/man/man1/lua5.2.1"
+mv "$lua52_dir/usr/share/man/man1/luac.1" "$lua52_dir/usr/share/man/man1/luac5.2.1"
+
+# Lua 5.1 includes Arch's compiler flag and CVE-2014-5461 fixes.
+cd ..
+patch -d lua51 -Np1 -i ../lua51-cve-2014-5461.patch
+patch -d lua51 -Np1 -i ../lua51-arch.patch
+patch -d lua51 -Np1 -i ../lua51-cflags.patch
+sed -e 's:llua:llua5.1:' -e 's:/include:/include/lua5.1:' -i lua51/etc/lua.pc
+sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.1/; /^LUAC_T=/ s/luac/luac5.1/' -i lua51/src/Makefile
+cd lua51
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+lua51_dir="$HOKUTO_SPLIT_DIR/lua51"
+make TO_BIN='lua5.1 luac5.1' \
+  TO_LIB='liblua5.1.so liblua5.1.so.5.1 liblua5.1.so.5.1.5' \
+  INSTALL_DATA='cp -d' INSTALL_TOP="$lua51_dir/usr" \
+  INSTALL_INC="$lua51_dir/usr/include/lua5.1" \
+  INSTALL_MAN="$lua51_dir/usr/share/man/man1" install
+install -Dm644 etc/lua.pc "$lua51_dir/usr/lib/pkgconfig/lua51.pc"
+ln -sf lua51.pc "$lua51_dir/usr/lib/pkgconfig/lua5.1.pc"
+ln -sf lua51.pc "$lua51_dir/usr/lib/pkgconfig/lua-5.1.pc"
+ln -s liblua5.1.so "$lua51_dir/usr/lib/liblua.so.5.1"
+ln -s liblua5.1.so "$lua51_dir/usr/lib/liblua.so.5.1.5"
+install -d "$lua51_dir/usr/share/doc/lua51"
+install -m644 doc/*.{gif,png,css,html} "$lua51_dir/usr/share/doc/lua51"
+install -Dm644 COPYRIGHT "$lua51_dir/usr/share/licenses/lua51/COPYRIGHT"
+mv "$lua51_dir/usr/share/man/man1/lua.1" "$lua51_dir/usr/share/man/man1/lua5.1.1"
+mv "$lua51_dir/usr/share/man/man1/luac.1" "$lua51_dir/usr/share/man/man1/luac5.1.1"

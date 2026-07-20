@@ -1,4 +1,14 @@
-https://www.lua.org/ftp/lua-${version}.tar.gz lua
+https://www.lua.org/ftp/lua-${version}.tar.gz lua55
+https://www.lua.org/ftp/lua-5.4.8.tar.gz lua54
+https://www.lua.org/ftp/lua-5.3.6.tar.gz lua53
+https://www.lua.org/ftp/lua-5.2.4.tar.gz lua52
+https://www.lua.org/ftp/lua-5.1.5.tar.gz lua51
 files/liblua.so.patch
 files/lua.pc
 files/paths.patch
+files/lua53-liblua.so.patch
+files/lua52-liblua.so.patch
+files/lua51-arch.patch
+files/lua51-cflags.patch
+files/lua51-cve-2014-5461.patch
+files/license-from-upstream
