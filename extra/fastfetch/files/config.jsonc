@@ -15,10 +15,10 @@
     "kernel",
     "uptime",
 {
-      "type": "command",
-      "key": "Packages",
-      "text": "hokuto ls | wc -l"
-    },
+  "type": "command",
+  "key": "Packages",
+  "text": "set -- /var/db/hokuto/installed/*/ && echo \"$#\""
+},
     "packages",
     "shell",
     "de",
