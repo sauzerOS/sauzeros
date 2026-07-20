@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/meehl/rusty-path-of-building",
+  "category": "extra",
+  "description": "An offline build planner for Path of Exile 1 and 2 using the cross-platform 'rusty-path-of-building' runtime",
+  "info": "",
+  "license": "",
+  "tags": [
+    "games",
+    "utility"
+  ]
+}

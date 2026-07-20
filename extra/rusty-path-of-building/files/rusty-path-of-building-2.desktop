@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Path of Building 2 (Rusty)
+Comment=An offline build planner for Path of Exile 2
+Exec=rusty-path-of-building poe2 %u
+Terminal=false
+Type=Application
+Categories=Game
+Keywords=poe;pob;poe2;pob2;path;exile;
+MimeType=x-scheme-handler/pob2;
+Icon=rusty-path-of-building
+StartupWMClass=rusty-path-of-building-2

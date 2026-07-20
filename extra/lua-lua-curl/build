@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+make clean
+make DESTDIR="$1" LUA_IMPL=lua install
+
+make clean
+make DESTDIR="$HOKUTO_SPLIT_DIR/lua51-lua-curl" LUA_IMPL=lua51 install
+
+make clean
+make DESTDIR="$HOKUTO_SPLIT_DIR/lua52-lua-curl" LUA_IMPL=lua52 install
+
+make clean
+make DESTDIR="$HOKUTO_SPLIT_DIR/lua53-lua-curl" LUA_IMPL=lua53 install
+
+make clean
+make DESTDIR="$HOKUTO_SPLIT_DIR/lua54-lua-curl" LUA_IMPL=lua54 install

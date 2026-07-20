@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Path of Building 1 (Rusty)
+Comment=An offline build planner for Path of Exile 1
+Exec=rusty-path-of-building poe1 %u
+Terminal=false
+Type=Application
+Categories=Game
+Keywords=poe;pob;poe1;pob1;path;exile;
+MimeType=x-scheme-handler/pob;
+Icon=rusty-path-of-building
+StartupWMClass=rusty-path-of-building-1

@@ -1,0 +1,16 @@
+{
+  "url": "https://github.com/Lua-cURL/Lua-cURLv3",
+  "category": "extra",
+  "description": "Lua binding to libcurl",
+  "info": "",
+  "license": "",
+  "tags": [
+    "lua"
+  ],
+  "subpackages": [
+    "lua51-lua-curl",
+    "lua52-lua-curl",
+    "lua53-lua-curl",
+    "lua54-lua-curl"
+  ]
+}

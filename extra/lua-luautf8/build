@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+build_luautf8() {
+  local lua_pc=$1
+  local lua_version=$2
+  local destdir=$3
+  local package_name=$4
+  local module_dir="$destdir/usr/lib/lua/$lua_version"
+
+  install -d "$module_dir"
+  ${CC:-cc} \
+    $CFLAGS \
+    -fPIC \
+    $(pkgconf --cflags "$lua_pc") \
+    -shared \
+    $LDFLAGS \
+    -o "$module_dir/lua-utf8.so" \
+    lutf8lib.c \
+    $(pkgconf --libs "$lua_pc")
+}
+
+build_luautf8 lua55 5.5 "$1" lua-luautf8
+build_luautf8 lua54 5.4 "$HOKUTO_SPLIT_DIR/lua54-luautf8" lua54-luautf8
+build_luautf8 lua53 5.3 "$HOKUTO_SPLIT_DIR/lua53-luautf8" lua53-luautf8
+build_luautf8 lua52 5.2 "$HOKUTO_SPLIT_DIR/lua52-luautf8" lua52-luautf8
+build_luautf8 lua51 5.1 "$HOKUTO_SPLIT_DIR/lua51-luautf8" lua51-luautf8

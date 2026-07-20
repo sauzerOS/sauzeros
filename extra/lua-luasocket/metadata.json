@@ -1,0 +1,31 @@
+{
+  "url": "https://github.com/lunarmodules/luasocket",
+  "category": "extra",
+  "description": "Networking support library for the Lua language",
+  "info": "Built directly from source without LuaRocks metadata.",
+  "license": "MIT",
+  "tags": [
+    "library",
+    "network"
+  ],
+  "subpackages": [
+    "lua51-luasocket",
+    "lua52-luasocket",
+    "lua53-luasocket",
+    "lua54-luasocket"
+  ],
+  "split_metadata": {
+    "lua51-luasocket": {
+      "description": "Networking support library for Lua 5.1"
+    },
+    "lua52-luasocket": {
+      "description": "Networking support library for Lua 5.2"
+    },
+    "lua53-luasocket": {
+      "description": "Networking support library for Lua 5.3"
+    },
+    "lua54-luasocket": {
+      "description": "Networking support library for Lua 5.4"
+    }
+  }
+}
