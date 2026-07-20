@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+build_socket() {
+  local lua_version=$1
+  local lua_include=$2
+  local destdir=$3
+  local package_name=$4
+
+  make clean
+  make linux \
+    LUAV="$lua_version" \
+    LUAINC="$lua_include" \
+    MYCFLAGS="$CFLAGS" \
+    MYLDFLAGS="$LDFLAGS"
+  make install-unix \
+    LUAV="$lua_version" \
+    LUAINC="$lua_include" \
+    MYCFLAGS="$CFLAGS" \
+    MYLDFLAGS="$LDFLAGS" \
+    prefix=/usr \
+    DESTDIR="$destdir"
+}
+
+build_socket 5.5 /usr/include "$1" lua-luasocket
+build_socket 5.4 /usr/include/lua5.4 "$HOKUTO_SPLIT_DIR/lua54-luasocket" lua54-luasocket
+build_socket 5.3 /usr/include/lua5.3 "$HOKUTO_SPLIT_DIR/lua53-luasocket" lua53-luasocket
+build_socket 5.2 /usr/include/lua5.2 "$HOKUTO_SPLIT_DIR/lua52-luasocket" lua52-luasocket
+build_socket 5.1 /usr/include/lua5.1 "$HOKUTO_SPLIT_DIR/lua51-luasocket" lua51-luasocket

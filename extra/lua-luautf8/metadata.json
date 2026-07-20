@@ -1,0 +1,22 @@
+{
+  "url": "https://github.com/starwing/luautf8",
+  "category": "extra",
+  "description": "Add UTF-8 support to Lua, compatible with Lua string module",
+  "info": "Built directly from source without LuaRocks metadata.",
+  "license": "MIT",
+  "tags": ["library"],
+  "split_metadata": {
+    "lua51-luautf8": {
+      "description": "UTF-8 support module for Lua 5.1"
+    },
+    "lua52-luautf8": {
+      "description": "UTF-8 support module for Lua 5.2"
+    },
+    "lua53-luautf8": {
+      "description": "UTF-8 support module for Lua 5.3"
+    },
+    "lua54-luautf8": {
+      "description": "UTF-8 support module for Lua 5.4"
+    }
+  }
+}

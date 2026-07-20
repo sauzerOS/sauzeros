@@ -1,0 +1,7 @@
+desktop-file-utils
+luajit
+lua51-lua-curl
+lua51-luautf8
+lua51-luasocket
+rust make
+zlib-ng make

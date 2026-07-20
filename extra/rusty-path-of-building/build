@@ -1,0 +1,25 @@
+#!/bin/bash -e
+
+export RUSTUP_TOOLCHAIN=stable
+cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+# lzip.so
+pushd "lua/libs/lzip"
+make LUA_IMPL=luajit
+make DESTDIR="${1}" install
+popd
+
+# build runtime binary
+export RUSTUP_TOOLCHAIN=stable
+export CARGO_TARGET_DIR=target
+cargo build --frozen --release
+
+# install executable
+install -Dm0755 -t "${1}/usr/bin/" "target/release/rusty-path-of-building"
+
+# install desktop entries
+install -Dm644 "rusty-path-of-building-1.desktop" "${1}/usr/share/applications/rusty-path-of-building-1.desktop"
+install -Dm644 "rusty-path-of-building-2.desktop" "${1}/usr/share/applications/rusty-path-of-building-2.desktop"
+
+# install icon
+install -Dm644 "assets/icon.png" "${1}/usr/share/icons/hicolor/256x256/apps/rusty-path-of-building.png"
