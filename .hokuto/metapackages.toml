@@ -106,6 +106,7 @@ depends = [
 "spectacle",
 "systemsettings",
 "xdg-desktop-portal-kde",
+"xorg-setxkbmap",
 ]
 suggests = [
 "breeze-plymouth suggest Breeze theme for Plymouth",
