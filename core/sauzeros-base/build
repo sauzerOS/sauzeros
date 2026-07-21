@@ -112,7 +112,7 @@ sed -i "s/^HOKUTO_LTO=.*/HOKUTO_LTO=$SET_HOKUTO_LTO/" "$1/etc/hokuto/hokuto.conf
 # Set CFLAGS
 if [ "$HOKUTO_GENERIC" = "1" ]; then
 CFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto/hokuto.conf")
-CXXFLAGS_GEN=$(sed -n 's/^CFLAGS_GEN=//p' "$1/etc/hokuto/hokuto.conf")
+CXXFLAGS_GEN=$(sed -n 's/^CXXFLAGS_GEN=//p' "$1/etc/hokuto/hokuto.conf")
 sed -i "s|^CFLAGS=.*|CFLAGS=${CFLAGS_GEN}|" "$1/etc/hokuto/hokuto.conf"
 sed -i "s|^CXXFLAGS=.*|CXXFLAGS=${CXXFLAGS_GEN}|" "$1/etc/hokuto/hokuto.conf"
 fi
