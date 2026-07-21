@@ -1,24 +1,13 @@
 {
   "logo": {
-    "source": "/usr/share/pixmaps/hokuto.png", // path to your logo
-    "type": "auto",        // auto-detects type (image, text, builtin)
-    //"width": 40,           // optional: scale width
-    //"height": 20,          // optional: scale height
-    "position": "left"     // or "right"
+    "source": "sauzerOS",
+    "type": "builtin",
+    "position": "left"
   },
   "modules": [
-    "break",
-    "break",
-    "break",
-    "break",
     "os",
     "kernel",
     "uptime",
-{
-  "type": "command",
-  "key": "Packages",
-  "text": "set -- /var/db/hokuto/installed/*/ && echo \"$#\""
-},
     "packages",
     "shell",
     "de",

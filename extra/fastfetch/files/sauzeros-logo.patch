@@ -1,0 +1,133 @@
+diff --git a/src/detection/packages/packages.h b/src/detection/packages/packages.h
+index 21193493..f7456b4d 100644
+--- a/src/detection/packages/packages.h
++++ b/src/detection/packages/packages.h
+@@ -22,6 +22,7 @@ typedef struct FFPackagesResult {
+     uint32_t guixUser;
+     uint32_t hpkgSystem;
+     uint32_t hpkgUser;
++    uint32_t hokuto;
+     uint32_t installrelease;
+     uint32_t kiss;
+     uint32_t linglong;
+diff --git a/src/detection/packages/packages_linux.c b/src/detection/packages/packages_linux.c
+index ee4efbe4..bfc8f113 100644
+--- a/src/detection/packages/packages_linux.c
++++ b/src/detection/packages/packages_linux.c
+@@ -505,6 +505,9 @@ static void getPackageCounts(FFstrbuf* baseDir, FFPackagesResult* packageCounts,
+     if (FF_PACKAGES_IS_ENABLED(options, KISS)) {
+         packageCounts->kiss += getNumElements(baseDir, "/var/db/kiss/installed", true);
+     }
++    if (FF_PACKAGES_IS_ENABLED(options, HOKUTO)) {
++        packageCounts->hokuto += getNumElements(baseDir, "/var/db/hokuto/installed", true);
++    }
+     if (FF_PACKAGES_IS_ENABLED(options, NIX)) {
+         packageCounts->nixDefault += ffPackagesGetNix(baseDir, "/nix/var/nix/profiles/default");
+         packageCounts->nixSystem += ffPackagesGetNix(baseDir, "/run/current-system");
+diff --git a/src/logo/ascii/s.inc b/src/logo/ascii/s.inc
+index 8fc7e0c6..19155518 100644
+--- a/src/logo/ascii/s.inc
++++ b/src/logo/ascii/s.inc
+@@ -94,6 +94,19 @@ static const FFlogo S[] = {
+         },
+     },
+     #endif
++    #ifdef FASTFETCH_DATATEXT_LOGO_SAUZEROS
++    // sauzerOS
++    {
++        .names = { "sauzerOS", "sauzeros" },
++        .lines = FASTFETCH_DATATEXT_LOGO_SAUZEROS,
++        .colors = {
++            FF_COLOR_FG_BLUE,
++            FF_COLOR_FG_RED,
++        },
++        .colorKeys = FF_COLOR_FG_BLUE,
++        .colorTitle = FF_COLOR_FG_BLUE,
++    },
++    #endif
+     #ifdef FASTFETCH_DATATEXT_LOGO_SCIENTIFIC
+     // Scientific
+     {
+diff --git a/src/logo/ascii/s/sauzeros.txt b/src/logo/ascii/s/sauzeros.txt
+new file mode 100644
+index 00000000..6b621a5b
+--- /dev/null
++++ b/src/logo/ascii/s/sauzeros.txt
+@@ -0,0 +1,13 @@
++$2███████████████████████████████
++
++
++$1███ ███ █ █ ███ ███ ██  ███ ███
++█   █ █ █ █   █ █   █ █ █ █ █
++█   █ █ █ █   █ █   █ █ █ █ █
++███ ███ █ █  █  ██  ██  █ █ ███
++  █ █ █ █ █ █   █   █ █ █ █   █
++  █ █ █ █ █ █   █   █ █ █ █   █
++███ █ █ ███ ███ ███ █ █ ███ ███
++
++
++$2███████████████████████████████
+diff --git a/src/modules/packages/option.h b/src/modules/packages/option.h
+index c215593c..1c2294ea 100644
+--- a/src/modules/packages/option.h
++++ b/src/modules/packages/option.h
+@@ -41,6 +41,7 @@ typedef enum FF_A_PACKED FFPackagesFlags {
+     FF_PACKAGES_FLAG_CARDS_BIT = UINT64_C(1) << 34U,
+     FF_PACKAGES_FLAG_PORG_BIT = UINT64_C(1) << 35U,
+     FF_PACKAGES_FLAG_INSTALLRELEASE_BIT = UINT64_C(1) << 36U,
++    FF_PACKAGES_FLAG_HOKUTO_BIT = UINT64_C(1) << 37U,
+     FF_PACKAGES_FLAG_FORCE_UNSIGNED = UINT64_MAX,
+ } FFPackagesFlags;
+ static_assert(sizeof(FFPackagesFlags) == sizeof(uint64_t), "");
+diff --git a/src/modules/packages/packages.c b/src/modules/packages/packages.c
+index 8cb4027b..6fcfc9ba 100644
+--- a/src/modules/packages/packages.c
++++ b/src/modules/packages/packages.c
+@@ -89,6 +89,7 @@ bool ffPrintPackages(FFPackagesOptions* options) {
+         } else {
+             FF_PRINT_PACKAGE_NAME(hpkgSystem, "hpkg")
+         }
++        FF_PRINT_PACKAGE(hokuto)
+         FF_PRINT_PACKAGE_NAME(installrelease, "install-release")
+         FF_PRINT_PACKAGE(kiss)
+         FF_PRINT_PACKAGE(linglong)
+@@ -164,6 +165,7 @@ bool ffPrintPackages(FFPackagesOptions* options) {
+                 FF_ARG(counts.guixUser, "guix-user"),
+                 FF_ARG(counts.hpkgSystem, "hpkg-system"),
+                 FF_ARG(counts.hpkgUser, "hpkg-user"),
++                FF_ARG(counts.hokuto, "hokuto"),
+                 FF_ARG(counts.installrelease, "install-release"),
+                 FF_ARG(counts.kiss, "kiss"),
+                 FF_ARG(counts.linglong, "linglong"),
+@@ -282,6 +284,7 @@ void ffParsePackagesJsonObject(FFPackagesOptions* options, yyjson_val* module) {
+                         case 'H':
+                             if (false)
+                                 ;
++                            FF_TEST_PACKAGE_NAME(HOKUTO)
+                             FF_TEST_PACKAGE_NAME(HPKG)
+                             break;
+                         case 'I':
+@@ -395,6 +398,7 @@ void ffGeneratePackagesJsonConfig(FFPackagesOptions* options, yyjson_mut_doc* do
+     FF_TEST_PACKAGE_NAME(EOPKG)
+     FF_TEST_PACKAGE_NAME(FLATPAK)
+     FF_TEST_PACKAGE_NAME(GUIX)
++    FF_TEST_PACKAGE_NAME(HOKUTO)
+     FF_TEST_PACKAGE_NAME(HPKG)
+     FF_TEST_PACKAGE_NAME(KISS)
+     FF_TEST_PACKAGE_NAME(LINGLONG)
+@@ -459,6 +463,7 @@ bool ffGeneratePackagesJsonResult(FFPackagesOptions* options, yyjson_mut_doc* do
+     FF_APPEND_PACKAGE_COUNT(guixHome)
+     FF_APPEND_PACKAGE_COUNT(guixSystem)
+     FF_APPEND_PACKAGE_COUNT(guixUser)
++    FF_APPEND_PACKAGE_COUNT(hokuto)
+     FF_APPEND_PACKAGE_COUNT(hpkgSystem)
+     FF_APPEND_PACKAGE_COUNT(hpkgUser)
+     FF_APPEND_PACKAGE_COUNT(installrelease)
+@@ -535,6 +540,7 @@ FFModuleBaseInfo ffPackagesModuleInfo = {
+         { "Number of guix-home packages", "guix-home" },
+         { "Number of guix-system packages", "guix-system" },
+         { "Number of guix-user packages", "guix-user" },
++        { "Number of Hokuto packages", "hokuto" },
+         { "Number of hpkg-system packages", "hpkg-system" },
+         { "Number of hpkg-user packages", "hpkg-user" },
+         { "Number of install-release packages", "install-release" },
