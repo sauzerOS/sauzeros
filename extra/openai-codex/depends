@@ -1,0 +1,14 @@
+bubblewrap
+bzip2
+glibc
+libcap
+libgcc
+oniguruma
+openssl
+sqlite
+xz
+zlib-ng
+zstd
+git suggest repo action
+ripgrep suggest faster repo search
+rust make

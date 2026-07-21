@@ -1,0 +1,2 @@
+https://github.com/openai/codex/archive/refs/tags/rust-v${version}.tar.gz
+files/openssl-sys-0.9.117.patch
