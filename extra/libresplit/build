@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+patch -Np1 -i pause-resume.patch
+
 hokuto-meson build
 meson compile -C build
 meson install -C build --destdir "${1}"
