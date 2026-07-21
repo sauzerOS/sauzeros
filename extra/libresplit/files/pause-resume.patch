@@ -1,0 +1,158 @@
+diff --git a/docs/settings-keybinds.md b/docs/settings-keybinds.md
+index 897c68e..2819971 100644
+--- a/docs/settings-keybinds.md
++++ b/docs/settings-keybinds.md
+@@ -37,6 +37,7 @@ Under the `keybind` section, you will find the following key bindings:
+ | Keybind                      | Type   | Description                                 | Default               |
+ | ---------------------------- | ------ | ------------------------------------------- | --------------------- |
+ | `start_split`                | String | Start/split keybind                         | space                 |
++| `pause_resume`               | String | Pause/resume timer keybind                  | Pause                 |
+ | `stop_reset`                 | String | Stop/Reset keybind                          | Backspace             |
+ | `cancel`                     | String | Cancel keybind                              | Delete                |
+ | `unsplit`                    | String | Unsplit keybind                             | Page_Up               |
+diff --git a/src/gui/app_window.c b/src/gui/app_window.c
+index 487163c..d1846f3 100644
+--- a/src/gui/app_window.c
++++ b/src/gui/app_window.c
+@@ -339,6 +339,7 @@ static void ls_app_window_init(LSAppWindow* win)
+     win->opts.decorated = cfg.libresplit.start_decorated.value.b;
+     win->opts.win_on_top = cfg.libresplit.start_on_top.value.b;
+     win->keybinds.start_split = parse_keybind(cfg.keybinds.start_split.value.s);
++    win->keybinds.pause_resume = parse_keybind(cfg.keybinds.pause_resume.value.s);
+     win->keybinds.stop_reset = parse_keybind(cfg.keybinds.stop_reset.value.s);
+     win->keybinds.cancel = parse_keybind(cfg.keybinds.cancel.value.s);
+     win->keybinds.unsplit = parse_keybind(cfg.keybinds.unsplit.value.s);
+diff --git a/src/gui/timer.c b/src/gui/timer.c
+index b6438c3..cb9a103 100644
+--- a/src/gui/timer.c
++++ b/src/gui/timer.c
+@@ -263,3 +263,21 @@ void timer_stop(LSAppWindow* win)
+         }
+     }
+ }
++
++/**
++ * Pauses or resumes an active timer without resetting the current attempt.
++ *
++ * @param win The LibreSplit window
++ */
++void timer_pause_resume(LSAppWindow* win)
++{
++    if (!win->timer || !win->timer->started
++        || win->timer->curr_split >= win->timer->game->split_count)
++        return;
++
++    if (win->timer->running) {
++        timer_stop(win);
++    } else {
++        timer_start(win);
++    }
++}
+diff --git a/src/gui/timer.h b/src/gui/timer.h
+index 6dfa19a..51f71e7 100644
+--- a/src/gui/timer.h
++++ b/src/gui/timer.h
+@@ -10,4 +10,5 @@ void timer_skip(LSAppWindow* win);
+ void timer_pause(LSAppWindow* win);
+ void timer_unpause(LSAppWindow* win);
+ void timer_stop(LSAppWindow* win);
++void timer_pause_resume(LSAppWindow* win);
+ void timer_split(LSAppWindow* win);
+diff --git a/src/keybinds/keybinds.h b/src/keybinds/keybinds.h
+index 45fbd2e..e7d0bc2 100644
+--- a/src/keybinds/keybinds.h
++++ b/src/keybinds/keybinds.h
+@@ -16,6 +16,7 @@ typedef struct
+  */
+ typedef struct {
+     Keybind start_split; /*!< The "start or split" global keybind */
++    Keybind pause_resume; /*!< The "pause or resume timer" global keybind */
+     Keybind stop_reset; /*!< The "stop or reset timer" global keybind */
+     Keybind cancel; /*!< The "cancel" global keybind */
+     Keybind unsplit; /*!< The "undo split" global keybind */
+diff --git a/src/keybinds/keybinds_callbacks.c b/src/keybinds/keybinds_callbacks.c
+index caf746d..47bdf78 100644
+--- a/src/keybinds/keybinds_callbacks.c
++++ b/src/keybinds/keybinds_callbacks.c
+@@ -7,6 +7,11 @@ void keybind_start_split(GtkWidget* widget, LSAppWindow* win)
+     timer_start_split(win);
+ }
+ 
++void keybind_pause_resume(const char* str, LSAppWindow* win)
++{
++    timer_pause_resume(win);
++}
++
+ void keybind_stop_reset(const char* str, LSAppWindow* win)
+ {
+     // NOTE: [Penaz] [2026-02-02] This needs to be put as a "delayed handler",
+@@ -60,6 +65,8 @@ gboolean ls_app_window_keypress(GtkWidget* widget,
+     LSAppWindow* win = (LSAppWindow*)data;
+     if (keybind_match(win->keybinds.start_split, event->key)) {
+         timer_start_split(win);
++    } else if (keybind_match(win->keybinds.pause_resume, event->key)) {
++        timer_pause_resume(win);
+     } else if (keybind_match(win->keybinds.stop_reset, event->key)) {
+         timer_stop_or_reset(win);
+     } else if (keybind_match(win->keybinds.cancel, event->key)) {
+@@ -83,6 +90,10 @@ void bind_global_hotkeys(AppConfig cfg, LSAppWindow* win)
+         cfg.keybinds.start_split.value.s,
+         (KeybinderHandler)keybind_start_split,
+         win);
++    keybinder_bind(
++        cfg.keybinds.pause_resume.value.s,
++        (KeybinderHandler)keybind_pause_resume,
++        win);
+     keybinder_bind(
+         cfg.keybinds.stop_reset.value.s,
+         (KeybinderHandler)keybind_stop_reset,
+diff --git a/src/keybinds/keybinds_callbacks.h b/src/keybinds/keybinds_callbacks.h
+index 0b97663..d4830a9 100644
+--- a/src/keybinds/keybinds_callbacks.h
++++ b/src/keybinds/keybinds_callbacks.h
+@@ -3,6 +3,7 @@
+ #include <gtk/gtk.h>
+ 
+ extern void timer_start_split(LSAppWindow* win);
++extern void timer_pause_resume(LSAppWindow* win);
+ extern void timer_cancel_run(LSAppWindow* win);
+ extern void timer_skip(LSAppWindow* win);
+ extern void timer_unsplit(LSAppWindow* win);
+@@ -13,6 +14,8 @@ gboolean ls_app_window_keypress(GtkWidget* widget, GdkEvent* event, gpointer dat
+ 
+ void keybind_start_split(GtkWidget* widget, LSAppWindow* win);
+ 
++void keybind_pause_resume(const char* str, LSAppWindow* win);
++
+ void keybind_stop_reset(const char* str, LSAppWindow* win);
+ 
+ void keybind_cancel(const char* str, LSAppWindow* win);
+diff --git a/src/settings/definitions.c b/src/settings/definitions.c
+index e754544..483da97 100644
+--- a/src/settings/definitions.c
++++ b/src/settings/definitions.c
+@@ -81,6 +81,12 @@ AppConfig cfg = {
+             .value.s = "space",
+             .desc = "Start or Split",
+         },
++        .pause_resume = {
++            .key = "pause_resume",
++            .type = CFG_KEYBIND,
++            .value.s = "Pause",
++            .desc = "Pause or Resume Timer",
++        },
+         .stop_reset = {
+             .key = "stop_reset",
+             .type = CFG_KEYBIND,
+diff --git a/src/settings/definitions.h b/src/settings/definitions.h
+index 09e0f9d..8bd4b00 100644
+--- a/src/settings/definitions.h
++++ b/src/settings/definitions.h
+@@ -41,6 +41,7 @@ typedef struct LibreSplitConfig {
+ 
+ typedef struct KeybindConfig {
+     ConfigEntry start_split;
++    ConfigEntry pause_resume;
+     ConfigEntry stop_reset;
+     ConfigEntry cancel;
+     ConfigEntry unsplit;

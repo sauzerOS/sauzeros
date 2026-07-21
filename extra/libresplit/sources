@@ -1,1 +1,2 @@
 git+https://github.com/LibreSplit/LibreSplit.git#42d87992
+files/pause-resume.patch
