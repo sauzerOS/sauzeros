@@ -1,0 +1,49 @@
+#!/bin/bash -e
+
+cd codex-rs
+patch -Np1 -i ../openssl-sys-0.9.117.patch
+cargo fetch --target "$(rustc --print host-tuple)"
+
+# Used for dynamic linking
+export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+export RUSTONIG_DYNAMIC_LIBONIG=1
+export ZSTD_SYS_USE_PKG_CONFIG=1
+
+# Cargo build scripts compile native dependencies such as ring into static
+# archives. GCC slim-LTO objects are not consumed by rustc's final link, which
+# leaves ring's C symbols unresolved. Keep Rust's thin LTO below, but disable
+# the distribution-wide C/C++ LTO flags for Cargo's native dependencies.
+strip_native_lto_flags() {
+  local flag
+  local -a flags kept
+
+  read -r -a flags <<< "$1"
+  for flag in "${flags[@]}"; do
+    case "${flag}" in
+      -flto|-flto=*) ;;
+      *) kept+=("${flag}") ;;
+    esac
+  done
+  printf '%s' "${kept[*]}"
+}
+export CFLAGS="$(strip_native_lto_flags "${CFLAGS:-}")"
+export CXXFLAGS="$(strip_native_lto_flags "${CXXFLAGS:-}")"
+
+# Reduces build time by about 10 minutes
+export CARGO_PROFILE_RELEASE_LTO=thin
+cargo build --frozen --release \
+            --bin codex \
+            --bin codex-code-mode-host \
+            --bin codex-responses-api-proxy
+
+install -Dm755 -t "${1}"/usr/bin \
+  target/release/codex \
+  target/release/codex-code-mode-host \
+  target/release/codex-responses-api-proxy
+
+install -d "${1}/usr/share/bash-completion/completions" \
+           "${1}/usr/share/zsh/site-functions" \
+           "${1}/usr/share/fish/vendor_completions.d"
+"${1}/usr/bin/codex" completion bash > "${1}/usr/share/bash-completion/completions/codex"
+"${1}/usr/bin/codex" completion zsh > "${1}/usr/share/zsh/site-functions/_codex"
+"${1}/usr/bin/codex" completion fish > "${1}/usr/share/fish/vendor_completions.d/codex.fish"
