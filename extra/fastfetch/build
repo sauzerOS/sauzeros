@@ -2,6 +2,8 @@
 
 PREFIX=${CROSS_PREFIX:-/usr}
 
+patch -Np1 -i sauzeros-logo.patch
+
 if [ "$HOKUTO_CROSS" = "1" ]; then
     export CMAKE_FLAGS="-D CMAKE_SYSTEM_NAME=Linux \
     -D ENABLE_CHAFA=OFF  \
