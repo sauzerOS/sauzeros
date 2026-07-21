@@ -11,6 +11,7 @@ hokuto-meson build                \
       -D selinux=false            \
       -D qt=false                 \
       -D session_tracking=systemd \
+      -D clat=false               \
       -D modem_manager=true
 
 meson compile -C build
