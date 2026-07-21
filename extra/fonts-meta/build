@@ -8,12 +8,17 @@ install -Dm644 *.ttf -t "$destdir"/usr/share/fonts/TTF/
 popd
 
 # fonts-croscore
-pushd google-fonts
 destdir=$HOKUTO_SPLIT_DIR/fonts-croscore
 install -d $destdir/usr/share/fonts/TTF/
-install -Dm644 Arimo* -t "$destdir"/usr/share/fonts/TTF/
-install -Dm644 Cousine* -t "$destdir"/usr/share/fonts/TTF/
-install -Dm644 Tinos* -t "$destdir"/usr/share/fonts/TTF/
+install -Dm644 arimo/fonts/ttf/*.ttf -t "$destdir"/usr/share/fonts/TTF/
+install -Dm644 cousine/fonts/ttf/*.ttf -t "$destdir"/usr/share/fonts/TTF/
+install -Dm644 tinos/fonts/ttf/*.ttf -t "$destdir"/usr/share/fonts/TTF/
+
+# fonts-helvetica-lucida-vera
+pushd helvetica-lucida-vera
+destdir=$HOKUTO_SPLIT_DIR/fonts-helvetica-lucida-vera
+install -d "$destdir/usr/share/fonts/TTF"
+install -Dm644 *.ttf *.otf -t "$destdir/usr/share/fonts/TTF/"
 popd
 
 # fonts-noto-traditional-chinese

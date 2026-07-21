@@ -1,2 +1,1 @@
 files/helvetica-lucida-vera.tar.xz filter=lfs diff=lfs merge=lfs -text
-files/noto-fonts.tar.xz filter=lfs diff=lfs merge=lfs -text

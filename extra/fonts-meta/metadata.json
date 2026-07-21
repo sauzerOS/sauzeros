@@ -9,6 +9,7 @@
   ],
   "subpackages": [
     "fonts-croscore",
+    "fonts-helvetica-lucida-vera",
     "fonts-liberation",
     "fonts-microsoft",
     "fonts-microsoft-extra",
