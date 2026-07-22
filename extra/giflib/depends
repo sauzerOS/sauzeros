@@ -1,3 +1,4 @@
 glibc
 imagemagick make optional
+docbook-xsl make
 xmlto make
