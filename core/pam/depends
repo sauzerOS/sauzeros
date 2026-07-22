@@ -5,8 +5,10 @@ libtirpc
 libxcrypt
 libxslt make
 meson make
+systemd optional make
 lib32-libtirpc make
 lib32-libxcrypt make
+lib32-systemd optional make
 aarch64-libtirpc cross make
 aarch64-gcc cross make
 qemu-user-static cross make
