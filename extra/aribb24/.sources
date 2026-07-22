@@ -1,0 +1,2 @@
+https://github.com/nkoriyama/aribb24/archive/v${version}.tar.gz
+https://github.com/nkoriyama/aribb24/commit/b08931895599e42ce6930a720a3fca74f6f6d9cb.patch -> aribb24-1.0.3-add-missing-libm.patch
