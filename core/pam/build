@@ -61,16 +61,8 @@ fi
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
-CC="gcc -m32 -march=i686"              \
-CXX="g++ -m32 -march=i686"             \
-meson setup build       \
-    --prefix=/usr       \
-    --sbindir=bin       \
-    --libdir=/usr/lib32 \
-    --buildtype=release \
+hokuto-meson-32 build \
     -D docs=disabled
-
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
