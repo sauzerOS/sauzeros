@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+patch -Np1 -i aribb24-1.0.3-add-missing-libm.patch
+
+autoreconf -fiv
+./configure --prefix=/usr
+make
+make DESTDIR="${1}" install
