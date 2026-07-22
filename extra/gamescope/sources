@@ -1,4 +1,4 @@
-git+https://github.com/ValveSoftware/gamescope#3.16.24
+git+https://github.com/ValveSoftware/gamescope#3.16.25
 git+https://gitlab.freedesktop.org/emersion/libdisplay-info.git libdisplay-info
 git+https://gitlab.freedesktop.org/emersion/libliftoff.git libliftoff
 git+https://github.com/ValveSoftware/openvr.git openvr
