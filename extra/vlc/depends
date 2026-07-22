@@ -35,6 +35,7 @@ vlc-plugins-extra suggest for extra plugins
 vlc-plugins-visualization suggest for visualization plugins
 abseil-cpp make
 alsa-lib make
+aribb24 make
 avahi make
 bash make
 cairo make
@@ -59,6 +60,7 @@ liba52 make
 libaom make
 libarchive make
 libass make
+libdvbpsi make
 libgcc make
 libglvnd make
 libgme make
@@ -82,7 +84,6 @@ libssh2 make
 libstdc++ make
 libtheora make
 libva make
-lua52 make
 libvorbis make
 libvpx make
 libx11 make
@@ -90,13 +91,14 @@ libxcb make
 libxinerama make
 libxml2 make
 libxpm make
+lua52 make
 mesa make
 mpg123 make
 opus make
 pcsclite make
 protobuf make
-qt make
 qt-declarative make
+qt make
 qt-shadertools make
 qt-svg make
 qt-tools make

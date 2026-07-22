@@ -2,7 +2,9 @@ glibc
 libvlc
 libxcb
 vlc-plugin-aom
+vlc-plugin-aribb24
 vlc-plugin-ass
+vlc-plugin-dvb
 vlc-plugin-ffmpeg
 vlc-plugin-freetype
 vlc-plugin-gme
