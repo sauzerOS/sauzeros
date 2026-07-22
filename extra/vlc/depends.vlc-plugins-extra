@@ -12,6 +12,7 @@ vlc-plugin-mad
 vlc-plugin-modplug
 vlc-plugin-mtp
 vlc-plugin-nfs
+vlc-plugin-rnnoise
 vlc-plugin-samplerate
 vlc-plugin-sftp
 vlc-plugin-soxr

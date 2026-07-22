@@ -236,6 +236,8 @@ _pick "$1" vlc-plugin-pulse usr/lib/vlc/plugins/services_discovery/libpulselist_
 
 _pick "$1" vlc-plugin-samplerate usr/lib/vlc/plugins/audio_filter/libsamplerate_plugin.so
 
+_pick "$1" vlc-plugin-rnnoise usr/lib/vlc/plugins/audio_filter/librnnoise_plugin.so
+
 _pick "$1" vlc-plugin-rtp usr/lib/vlc/plugins/access/rtp/
 _pick "$1" vlc-plugin-rtp usr/lib/vlc/plugins/codec/librtp_rawvid_plugin.so
 

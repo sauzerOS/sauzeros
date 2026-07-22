@@ -4,7 +4,9 @@ vlc-gui-qt runtime
 vlc-gui-ncurses suggest for ncurses TUI
 vlc-gui-skins2 suggest for Skins2 GUI
 vlc-plugin-aom suggest for AOM AV1 codec support
+vlc-plugin-aribb24 suggest Japanese ARIB B24 subtitle support for VLC
 vlc-plugin-ass suggest for SSA/ASS subtitle codec support
+vlc-plugin-dvb suggest MPEG-TS and DVB digital television support plugin for VLC (streamlink)
 vlc-plugin-ffmpeg suggest for FFMPEG based access, codec, demux, packetizer, VDPAU, video chroma and video filter support
 vlc-plugin-fluidsynth suggest for FluidSynth codec support
 vlc-plugin-freetype suggest for subtitle and on screen display text rendering support
@@ -19,6 +21,7 @@ vlc-plugin-mtp suggest for MTP device access and discovery support
 vlc-plugin-nfs suggest for NFS access support
 vlc-plugin-notify suggest for notification support
 vlc-plugin-nvdec suggest nvdec support
+vlc-plugin-rnnoise suggest Real-time microphone and voice noise reduction plugin for VLC
 vlc-plugin-rtp suggest rtp support
 vlc-plugin-samplerate suggest for samplerate audio filter support
 vlc-plugin-sftp suggest for SFTP access support
@@ -103,6 +106,7 @@ qt-shadertools make
 qt-svg make
 qt-tools make
 qt-wayland make
+rnnoise make
 smbclient make
 speexdsp make
 speex make
