@@ -1,4 +1,4 @@
-https://github.com/systemd/systemd/archive/refs/tags/v261.1.tar.gz
+https://github.com/systemd/systemd/archive/refs/tags/v261.2.tar.gz
 https://github.com/systemd/systemd/pull/42676.patch
 files/10-sauzeros.conf
 files/20-wired.network
