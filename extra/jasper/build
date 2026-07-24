@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+sed -r 's|(CMAKE_SKIP_BUILD_RPATH) FALSE|\1 TRUE|g' -i CMakeLists.txt
+
 cmake -B build                                 \
   -D CMAKE_INSTALL_PREFIX=/usr                 \
   -D CMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
