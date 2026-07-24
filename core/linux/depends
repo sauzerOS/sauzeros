@@ -8,6 +8,7 @@ openssl make
 pahole make
 perl make
 python make
+rust make
 tar make
 xxhash make
 xz make
