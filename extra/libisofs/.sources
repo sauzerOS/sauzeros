@@ -1,1 +1,1 @@
-git+https://dev.lovelyhq.com/libburnia/libisofs#${version-libburnia}
+git+https://dev.lovelyhq.com/libburnia/libisofs#release-${version-libburnia}
