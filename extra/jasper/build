@@ -2,7 +2,7 @@
 
 sed -r 's|(CMAKE_SKIP_BUILD_RPATH) FALSE|\1 TRUE|g' -i CMakeLists.txt
 
-cmake -B build                                 \
+cmake -B build-jasper                          \
   -D CMAKE_INSTALL_PREFIX=/usr                 \
   -D CMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
   -D JAS_ENABLE_OPENGL=ON                      \
@@ -12,6 +12,6 @@ cmake -B build                                 \
   -D ALLOW_IN_SOURCE_BUILD=ON                  \
   -D JAS_ENABLE_SHARED=ON
 
-cmake --build build
-DESTDIR=$1 cmake --install build
+cmake --build build-jasper
+DESTDIR=$1 cmake --install build-jasper
 
