@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
-hokuto-meson build
+hokuto-meson build \
+  -D video=true    \
+  -D venus=true
 meson compile -C build
 meson install -C build --destdir=$1
