@@ -1,0 +1,31 @@
+From 7d13bb959c7b55bbaebdc09b7e71311e0cf78f77 Mon Sep 17 00:00:00 2001
+From: Akira TAGOH <akira@tagoh.org>
+Date: Thu, 16 Jul 2026 16:59:27 +0900
+Subject: [PATCH] Drop Noto Sans CJK KR from 60-nonlatin.conf
+
+Noto Sans CJK KR can be used as system-ui but Noto Sans CJK KR can't be
+system-ui. We shouldn't request any candidate of system-ui fonts for fallback
+of "Noto Sans CJK KR".
+
+Changelog: fixed
+---
+ conf.d/40-nonlatin.conf | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/conf.d/40-nonlatin.conf b/conf.d/40-nonlatin.conf
+index 2609619b..742deaca 100644
+--- a/conf.d/40-nonlatin.conf
++++ b/conf.d/40-nonlatin.conf
+@@ -312,10 +312,6 @@
+ 		<family>Khmer UI</family>
+ 		<default><family>system-ui</family></default>
+ 	</alias>
+-	<alias>
+-		<family>Noto Sans CJK KR</family>
+-		<default><family>system-ui</family></default>
+-	</alias>
+ 	<alias>
+ 		<family>Lao UI</family>
+ 		<default><family>system-ui</family></default>
+-- 
+2.50.1

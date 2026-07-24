@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+patch -Np1 -i 7d13bb959c7b55bbaebdc09b7e71311e0cf78f77.patch
+patch -Np1 -i fontconfig-2.18.2-cache11.patch
+
 hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
