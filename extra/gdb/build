@@ -8,4 +8,5 @@ cd build
              --with-system-zlib
 
 make
-make DESTDIR=$1 install
+make -C gdb DESTDIR="$1" install
+make -C gdbserver DESTDIR="$1" install
