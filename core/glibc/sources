@@ -1,4 +1,4 @@
-git+https://sourceware.org/git/glibc.git#release/2.43/master
+git+https://sourceware.org/git/glibc.git#release/2.44/master
 files/locale-gen
 files/locale.gen
 files/aarch64-linux-gnu-tools.tar.xz noextract
