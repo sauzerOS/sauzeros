@@ -2,6 +2,7 @@ coreutils
 gawk
 kmod
 bc make
+dracut make
 libelf make
 libgcc make
 openssl make
