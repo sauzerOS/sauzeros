@@ -1,2 +1,2 @@
-linux-cachyos cdemu-vhba-module xpadneo nvidia-modules
-linux cdemu-vhba-module xpadneo nvidia-modules
+linux-cachyos vhba-module xpadneo nvidia-open
+linux vhba-module xpadneo nvidia-open
