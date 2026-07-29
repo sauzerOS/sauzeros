@@ -9,6 +9,7 @@ ninja runtime
 xz
 zlib-ng
 zstd
+cmake optional make
 cmake cross make
 aarch64-bzip2 cross make
 aarch64-curl cross make
