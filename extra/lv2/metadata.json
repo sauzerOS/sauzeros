@@ -1,0 +1,15 @@
+{
+  "url": "https://lv2plug.in/",
+  "category": "extra",
+  "description": "Plugin standard for audio systems",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "audio",
+    "plugin"
+  ],
+  "subpackages": [
+    "lv2-docs",
+    "lv2-example-plugins"
+  ]
+}

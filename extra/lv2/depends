@@ -1,0 +1,6 @@
+meson make
+python-lxml make
+python-markdown make
+python-pygments make
+serd make
+sord make
