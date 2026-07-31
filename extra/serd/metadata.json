@@ -1,0 +1,13 @@
+{
+  "url": "https://drobilla.net/software/serd.html",
+  "category": "extra",
+  "description": "Lightweight C library for RDF syntax supporting reading/ writing Turtle and NTriples",
+  "info": "",
+  "license": "0BSD OR ISC",
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "serd-docs"
+  ]
+}
