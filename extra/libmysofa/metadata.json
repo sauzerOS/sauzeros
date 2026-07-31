@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/hoene/libmysofa/",
+  "category": "extra",
+  "description": "C library to read HRTFs if they are stored in the AES69-2015 SOFA format",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "audio",
+    "library"
+  ]
+}
