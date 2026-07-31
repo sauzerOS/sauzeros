@@ -1,0 +1,29 @@
+breeze-icons
+gsl
+kconfigwidgets
+kiconthemes
+kirigami
+kirigami-addons
+libbs2b
+libebur128
+libsamplerate
+libsndfile
+lilv
+nlohmann-json
+onetbb
+pipewire
+qqc2-desktop-style
+qt
+qt-graphs
+rnnoise
+soundtouch
+speexdsp
+webrtc-audio-processing
+zita-convolver
+calf suggest limiter, exciter, bass enhancer and others
+lsp-plugins-lv2 suggest equalizer, compressor, delay, loudness
+appstream make
+cmake make
+extra-cmake-modules make
+intltool make
+ladspa make

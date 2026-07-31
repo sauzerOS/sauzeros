@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/wwmm/easyeffects",
+  "category": "extra",
+  "description": "Audio Effects for Pipewire applications",
+  "info": "",
+  "license": "GPL-3.0-only",
+  "tags": [
+    "audio"
+  ]
+}
