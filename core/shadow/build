@@ -3,6 +3,13 @@
 # apply archlinux patches
 zstdcat shadow-$2-arch1.patch.zst | patch -Np1
 
+# Backport shadow-maint/shadow@ba4419c5, committed just after 4.20.0.
+# uintmax_t is declared by <stdint.h>; relying on a transitive include breaks
+# with current toolchains.
+sed -i '/#include <stdio.h>/i #include <stdint.h>' \
+    lib/find_new_sub_gids.c \
+    lib/find_new_sub_uids.c
+
 autoreconf -fvi
 
 configure_options=(
