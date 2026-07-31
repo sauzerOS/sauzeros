@@ -1,0 +1,10 @@
+{
+  "url": "http://www.fftw.org/",
+  "category": "extra",
+  "description": "A library for computing the discrete Fourier transform (DFT)",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "library"
+  ]
+}
