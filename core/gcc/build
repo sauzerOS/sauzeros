@@ -114,6 +114,11 @@ else
     multilib_opt="--disable-multilib"
 fi
 
+languages="c,c++"
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$HOKUTO_ARCH" = "x86_64" ]; then
+    languages+=",fortran"
+fi
+
 ../configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
@@ -133,7 +138,7 @@ fi
     --enable-shared \
     --enable-threads \
     --enable-tls \
-    --enable-languages=c,c++ \
+    --enable-languages="$languages" \
     --enable-checking=release \
     --enable-initfini-array \
     --without-included-gettext \
@@ -211,6 +216,27 @@ _pick "$1" libubsan usr/lib/libubsan.so*
 
 # lto-dump split package
 _pick "$1" lto-dump usr/bin/lto-dump
+
+# gcc-fortran split package (native x86_64 builds only)
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$HOKUTO_ARCH" = "x86_64" ]; then
+    _pick "$1" gcc-fortran usr/bin/f95
+    _pick "$1" gcc-fortran usr/bin/gfortran
+    _pick "$1" gcc-fortran usr/bin/*-gfortran
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/f951
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/finclude
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/include/ISO_Fortran_binding.h
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/libcaf_shmem.a
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/libcaf_single.a
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/libgfortran.spec
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/32/finclude
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/32/libcaf_shmem.a
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/32/libcaf_single.a
+    _pick "$1" gcc-fortran usr/lib/gcc/*/"$2"/32/libgfortran.spec
+    _pick "$1" gcc-fortran usr/share/info/gfortran.info*
+    _pick "$1" gcc-fortran usr/share/man/man1/gfortran.1*
+    install -Dm644 ../COPYING.RUNTIME \
+        "$HOKUTO_SPLIT_DIR/gcc-fortran/usr/share/licenses/gcc-fortran/RUNTIME.LIBRARY.EXCEPTION"
+fi
 
 # lib32-gcc-libs split package
 if [ "$MULTILIB" = "1" ]; then
