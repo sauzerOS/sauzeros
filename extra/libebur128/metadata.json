@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/jiixyj/libebur128",
+  "category": "extra",
+  "description": "A library that implements the EBU R 128 standard for loudness normalisation",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

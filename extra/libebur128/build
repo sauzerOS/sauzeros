@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+cmake -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_STATIC_LIBS=OFF \
+  -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
