@@ -1,0 +1,7 @@
+bash
+glibc
+libgcc
+libgomp
+libquadmath
+cmake make
+gcc-fortran make
