@@ -2,7 +2,6 @@ coreutils
 gawk
 kmod
 bc make
-dracut make
 libelf make
 libgcc make
 openssl make
@@ -15,3 +14,4 @@ xxhash make
 xz make
 zlib-ng make
 zstd make
+dracut post-install
