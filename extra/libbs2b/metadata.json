@@ -1,0 +1,10 @@
+{
+  "url": "http://bs2b.sourceforge.net",
+  "category": "extra",
+  "description": "Bauer stereophonic-to-binaural DSP effect library",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "library"
+  ]
+}

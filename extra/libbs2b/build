@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Fix error: format not a string literal and no format arguments [-Werror=format-security]
+patch -Np0 -i formatsecurity.diff
+sed -i 's/dist-lzma/dist-xz/g' configure.ac
+autoreconf -fvi
+./configure --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make DESTDIR="${1}" install
