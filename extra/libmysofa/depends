@@ -1,0 +1,4 @@
+glibc
+zlib-ng
+cmake make
+cunit make
