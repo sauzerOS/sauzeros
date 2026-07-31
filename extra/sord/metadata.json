@@ -1,0 +1,13 @@
+{
+  "url": "https://drobilla.net/software/sord.html",
+  "category": "extra",
+  "description": "A lightweight C library for storing RDF data in memory",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "sord-docs"
+  ]
+}
