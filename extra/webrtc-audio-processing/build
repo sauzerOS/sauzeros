@@ -7,7 +7,7 @@ git cherry-pick -n e9c78dc4712fa6362b0c839ad57b6b46dce1ba83
 patch -Np1 -i 0001-Fix-build-with-abseil-cpp-202508.patch
 
 hokuto-meson build \
-  -D cpp_std=c++17 \
+  -D cpp_std=c++20 \
   -D neon=disabled
 
 meson compile -C build
