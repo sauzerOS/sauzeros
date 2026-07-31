@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+./configure \
+  --prefix=/usr \
+  --sbindir=/usr/bin \
+  --enable-plugins \
+  --sysconfdir=/etc
+
+make
+make DESTDIR="${1}" install

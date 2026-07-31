@@ -1,0 +1,10 @@
+{
+  "url": "https://www.open-mpi.org/projects/hwloc/",
+  "category": "extra",
+  "description": "Portable Hardware Locality is a portable abstraction of hierarchical architectures",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": [
+    "library"
+  ]
+}
