@@ -1,0 +1,10 @@
+{
+  "url": "https://uxlfoundation.github.io/oneTBB/",
+  "category": "extra",
+  "description": "oneAPI Threading Building Blocks - a high level abstract threading library",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": [
+    "library"
+  ]
+}

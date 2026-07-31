@@ -1,0 +1,9 @@
+glibc
+hwloc
+libgcc
+libstdc++
+cmake make
+python make
+python-pip make
+python-setuptools make
+swig make
