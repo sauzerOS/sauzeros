@@ -5,10 +5,11 @@ dbus
 fdk-aac
 glib
 glibc
-liblc3
 libfreeaptx
 libgcc
+liblc3
 libldac
+libmysofa
 libpipewire
 libsndfile
 libusb

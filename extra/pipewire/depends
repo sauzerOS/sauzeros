@@ -22,6 +22,7 @@ libcanberra make
 libfreeaptx make
 liblc3 make
 libldac make
+libmysofa make
 libpulse make
 libsndfile make
 libusb make
