@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+hokuto-meson build
+meson compile -C build
+meson install -C build --destdir "${1}"
+
+# install bash completion to correct directory and remove /etc: https://gitlab.com/lv2/lilv/-/work_items/15
+install -vDm 644 "${1}/etc/bash_completion.d/${3}" -t "${1}/usr/share/bash-completion/completions/"
+rm -frv "${1}/etc"

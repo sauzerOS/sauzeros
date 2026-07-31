@@ -1,0 +1,15 @@
+{
+  "url": "https://gitlab.com/lv2/lilv",
+  "category": "extra",
+  "description": "A C library interface to the LV2 plug-in standard",
+  "info": "",
+  "license": "0BSD OR ISC",
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "lilv-docs",
+    "lilv-tools",
+    "python-lilv"
+  ]
+}
