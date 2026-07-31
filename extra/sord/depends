@@ -1,0 +1,6 @@
+glibc
+pcre2
+serd
+zix
+glibc make
+meson make
