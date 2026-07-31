@@ -1,0 +1,13 @@
+{
+  "url": "https://gitlab.com/drobilla/zix",
+  "category": "extra",
+  "description": "A lightweight C99 portability and data structure library",
+  "info": "",
+  "license": "0BSD OR ISC",
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "zix-docs"
+  ]
+}
