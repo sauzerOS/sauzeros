@@ -1,0 +1,21 @@
+{
+  "url": "https://lsp-plug.in",
+  "category": "extra",
+  "description": "Collection of open-source plugins",
+  "info": "",
+  "license": "LGPL-3.0-or-later",
+  "tags": [],
+  "subpackages": [
+    "liblsp-r3d-glx-lib",
+    "liblsp-audio-jack-lib",
+    "liblsp-audio-pipewire-lib",
+    "lsp-plugins-clap",
+    "lsp-plugins-docs",
+    "lsp-plugins-gst",
+    "lsp-plugins-ladspa",
+    "lsp-plugins-lv2",
+    "lsp-plugins-standalone",
+    "lsp-plugins-vst",
+    "lsp-plugins-vst3"
+  ]
+}
