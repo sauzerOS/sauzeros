@@ -1,0 +1,10 @@
+glibc
+lv2
+serd
+sord
+sratom
+zix
+libsndfile make
+meson make
+python make
+swig make
