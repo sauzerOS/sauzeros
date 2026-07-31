@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+patch -Np1 -i soundtouch-cmake.patch
+autoreconf -fiv
+./configure --prefix=/usr \
+  --enable-shared
+
+cmake -B build \
+  -D CMAKE_BUILD_TYPE='' \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D BUILD_SHARED_LIBS=ON
+cmake --build build
+DESTDIR="${1}" cmake --install build
