@@ -1,0 +1,11 @@
+{
+  "url": "https://www.ladspa.org/",
+  "category": "extra",
+  "description": "Linux Audio Developer's Simple Plugin API (LADSPA)",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [
+    "audio",
+    "library"
+  ]
+}

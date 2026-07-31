@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+# fix memory leak when plugin scanning
+patch -Np1 -i ladspa-1.17-fix-memleak-in-plugin-scanning.patch
+# fix underlinking of plugins
+patch -Np1 -i ladspa-1.17-plugin_underlinking.patch
+# add LDFLAGS for full RELRO
+patch -Np1 -i ladspa-1.17-distribution-flags.patch
+
+make -C src
+
+make_options=(
+  INSTALL_PLUGINS_DIR="${1}/usr/lib/ladspa/"
+  INSTALL_INCLUDE_DIR="${1}/usr/include/"
+  INSTALL_BINARY_DIR="${1}/usr/bin/"
+  install
+  -C src
+)
+make "${make_options[@]}"

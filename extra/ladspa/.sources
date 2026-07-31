@@ -1,0 +1,4 @@
+https://ladspa.org/download/ladspa_sdk_${version}.tgz
+files/ladspa-1.17-plugin_underlinking.patch
+files/ladspa-1.17-fix-memleak-in-plugin-scanning.patch
+files/ladspa-1.17-distribution-flags.patch
