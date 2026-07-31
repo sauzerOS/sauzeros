@@ -1,0 +1,4 @@
+f0eba71c7ebcea727ff4da373a71f4b01a76e940f519b16c3dced87f7f6a3713  ladspa_sdk_1.17.tgz
+6bd226b1768b2ada9cdb294978937f1de225e1e275497ec2ad2c745ffd4a851d  ladspa-1.17-plugin_underlinking.patch
+d86429316cc11e040520f64026c63846c6bfc609fa5c26e2481e568ce862e2db  ladspa-1.17-fix-memleak-in-plugin-scanning.patch
+9ad400b4b990640598ba401cb2595d1bc6b6fa9d4117b20305e2d8d934dbfbe9  ladspa-1.17-distribution-flags.patch
