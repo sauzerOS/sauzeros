@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+libtoolize --force --copy
+aclocal
+autoheader
+automake --add-missing --include-deps --copy
+autoconf
+
+./configure \
+  --prefix=/usr \
+  --enable-automated \
+  --enable-basic \
+  --enable-console \
+  --enable-test \
+  --enable-shared \
+  --enable-static
+
+make
+make DESTDIR="${1}/" install
