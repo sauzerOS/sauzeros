@@ -7,5 +7,15 @@
   "tags": [
     "compiler",
     "devel"
-  ]
+  ],
+  "split_metadata": {
+    "gcc-fortran": {
+      "description": "Fortran front-end for GCC",
+      "tags": [
+        "compiler",
+        "devel",
+        "fortran"
+      ]
+    }
+  }
 }
