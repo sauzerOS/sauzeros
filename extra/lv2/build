@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+# Disable gtk2 example plugins
+sed -i -e '/eg-sampler.lv2/d' -e '/eg-scope.lv2/d' plugins/meson.build
+
+hokuto-meson build
+meson compile -C build
+meson install -C build --destdir "${1}"
