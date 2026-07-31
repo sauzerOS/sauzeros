@@ -1,0 +1,4 @@
+libgcc
+libstdc++
+cmake make
+ninja make

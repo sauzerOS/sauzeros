@@ -1,0 +1,11 @@
+{
+  "url": "https://www.surina.net/soundtouch/",
+  "category": "extra",
+  "description": "An audio processing library",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": [
+    "audio",
+    "library"
+  ]
+}
