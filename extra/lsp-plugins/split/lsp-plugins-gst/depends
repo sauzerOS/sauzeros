@@ -1,0 +1,6 @@
+glib
+glibc
+gstreamer
+gst-plugins-base
+libsndfile
+libstdc++

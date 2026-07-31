@@ -1,0 +1,9 @@
+cairo
+fontconfig
+freetype
+glibc
+libglvnd
+libsndfile
+libstdc++
+libx11
+libxrandr

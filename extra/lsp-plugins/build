@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+config_options=(
+  config
+  VERBOSE=1
+  ARTIFACT_EXPORT_HEADERS=1
+  FEATURES='clap gst ladspa launcher lv2 pipewire standalone vst2 vst3 xdg'
+  PREFIX=/usr
+  -C lsp-plugins
+)
+
+make "${config_options[@]}"
+make VERBOSE=1 -C lsp-plugins
+
+make PREFIX=/usr DESTDIR="${1}" install -C lsp-plugins
+
+(
+  cd "${1}"
+  _pick liblsp-audio-pipewire-lib usr/include/lsp-plug.in/audio/pipewire/*
+  _pick liblsp-audio-pipewire-lib usr/lib/liblsp-audio-pipewire-*
+  _pick liblsp-audio-pipewire-lib usr/lib/pkgconfig/lsp-audio-pipewire-lib.pc
+  _pick lsp-plugins-clap usr/lib/clap/*
+  _pick lsp-plugins-gst usr/lib/gstreamer-1.0/*
+  _pick lsp-plugins-gst usr/lib/lsp-plugins/liblsp-plugins-gstreamer-*.so
+  _pick lsp-plugins-ladspa usr/lib/ladspa/*
+  _pick lsp-plugins-lv2 usr/lib/lv2/*
+  _pick lsp-plugins-standalone usr/bin/*
+  _pick lsp-plugins-standalone usr/lib/lsp-plugins/*
+  _pick lsp-plugins-standalone usr/share/applications/*
+  _pick lsp-plugins-standalone usr/share/icons/*
+  _pick lsp-plugins-vst usr/lib/vst/*
+  _pick lsp-plugins-vst3 usr/lib/vst3/*
+)
+
+rm -rv "${1}/etc"
+rm -rv "${1}/usr"

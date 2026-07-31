@@ -1,0 +1,10 @@
+cairo
+fontconfig
+freetype
+glibc
+hicolor-icon-theme
+libglvnd
+libsndfile
+libstdc++
+libx11
+libxrandr
