@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+# https://github.com/uxlfoundation/oneTBB/issues/1735
+# https://gitlab.archlinux.org/archlinux/packaging/packages/onetbb/-/merge_requests/2
+patch -Np1 -i "010-onetbb-fix-linkage-of-test-malloc-pure-c.patch"
+
+cmake -B build \
+  -G 'Unix Makefiles' \
+  -D CMAKE_BUILD_TYPE:STRING='None' \
+  -D CMAKE_INSTALL_PREFIX:PATH='/usr' \
+  -D TBB_STRICT:BOOL='OFF' \
+  -D TBB4PY_BUILD:BOOL='ON' \
+  -W no-author
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
