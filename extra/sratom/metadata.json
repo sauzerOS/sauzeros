@@ -1,0 +1,13 @@
+{
+  "url": "https://drobilla.net/software/sratom.html",
+  "category": "extra",
+  "description": "An LV2 Atom RDF serialisation library",
+  "info": "",
+  "license": "ISC",
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "sratom-docs"
+  ]
+}
