@@ -1,0 +1,8 @@
+glibc
+libpciaccess
+ncurses
+systemd-libs
+cairo make
+libx11 make
+libxml2 make
+systemd make
