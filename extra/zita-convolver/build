@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+# FS#36248 - strip -march=native
+# call ldconfig in local context
+sed -e '/native/d; s/ldconfig/& -N $(DESTDIR)\/$(LIBDIR)/' -i source/Makefile
+make -C source
+make SUFFIX="" PREFIX=/usr DESTDIR="${1}/" install -C source

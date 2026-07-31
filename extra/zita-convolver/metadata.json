@@ -1,0 +1,11 @@
+{
+  "url": "https://kokkinizita.linuxaudio.org/linuxaudio/",
+  "category": "extra",
+  "description": "A fast, partitioned convolution engine library.",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "audio",
+    "library"
+  ]
+}
