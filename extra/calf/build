@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+cmake \
+  -B build \
+  -D CMAKE_BUILD_TYPE=None \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D WANT_EXPERIMENTAL=ON \
+  -D WANT_GUI=OFF \
+  -W no-dev
+
+cmake --build build
+DESTDIR="${1}" cmake --install build
