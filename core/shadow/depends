@@ -4,5 +4,6 @@ libxcrypt
 pam
 libcap make
 libxslt make
+itstool make
 zstd make
 aarch64-gcc cross make
