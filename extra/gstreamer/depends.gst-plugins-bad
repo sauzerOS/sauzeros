@@ -6,7 +6,6 @@ fdk-aac
 fluidsynth
 glib
 glibc
-gst-plugins-bad
 gst-plugins-base
 gstreamer
 json-glib
@@ -37,6 +36,6 @@ qrencode
 sbc
 spandsp
 srt
-webrtc-audio-processing<2.0
+webrtc-audio-processing<2
 x265
 zxing-cpp

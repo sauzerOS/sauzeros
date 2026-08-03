@@ -7,6 +7,7 @@ else
 fi
 
 meson_options=(
+    -D cpp_std=c++20
     -D benchmarks=disabled
     -D examples=disabled
     -D devtools=disabled
@@ -474,6 +475,7 @@ _pick "$1" gst-python usr/lib/python*/site-packages/gi/overrides
 if [ "$MULTILIB" = "1" ]; then
 # 32bit split packages
 meson32_options=(
+    -D cpp_std=c++20
     -D benchmarks=disabled
     -D examples=disabled
     -D devtools=disabled
