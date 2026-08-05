@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 patch -Np1 -i pulse-sysdefault.diff
+patch -Np1 -i ffmpeg-supported-config.patch
 autoreconf -fiv
 
 configure_options=(
@@ -43,4 +44,3 @@ make
 make DESTDIR="$pkgdir" install
 rm -rv "$pkgdir"/{etc,usr/share}
 fi
-
