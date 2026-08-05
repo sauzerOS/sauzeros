@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+patch -Np1 -i ffmpeg-9.patch
+
 cmake -B build                            \
       -D CMAKE_INSTALL_PREFIX=/usr        \
       -D CMAKE_BUILD_TYPE=Release         \
