@@ -26,7 +26,6 @@ esac
     --enable-libdrm \
     --enable-libfreetype \
     --enable-libfribidi \
-    --enable-libglslang \
     --enable-libharfbuzz \
     --enable-libjxl \
     --enable-libmodplug \
