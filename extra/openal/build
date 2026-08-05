@@ -20,8 +20,10 @@ cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr  \
   -D CMAKE_BUILD_TYPE=None      \
   -D CMAKE_INSTALL_LIBDIR=lib32 \
+  -D ALSOFT_UTILS=OFF           \
+  -D ALSOFT_EXAMPLES=OFF
 
 cmake --build build
 DESTDIR="$pkgdir" cmake --install build
-rm -rv "$pkgdir"/usr/{include,share,bin}
+rm -rv "$pkgdir"/usr/{include,share}
 fi
