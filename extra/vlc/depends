@@ -7,6 +7,7 @@ vlc-plugin-aom suggest for AOM AV1 codec support
 vlc-plugin-aribb24 suggest Japanese ARIB B24 subtitle support for VLC
 vlc-plugin-ass suggest for SSA/ASS subtitle codec support
 vlc-plugin-dvb suggest MPEG-TS and DVB digital television support plugin for VLC (streamlink)
+vlc-plugin-ebur128 suggest EBU R 128 loudness meter audio filter
 vlc-plugin-ffmpeg suggest for FFMPEG based access, codec, demux, packetizer, VDPAU, video chroma and video filter support
 vlc-plugin-fluidsynth suggest for FluidSynth codec support
 vlc-plugin-freetype suggest for subtitle and on screen display text rendering support
@@ -64,6 +65,7 @@ libaom make
 libarchive make
 libass make
 libdvbpsi make
+libebur128 make
 libgcc make
 libglvnd make
 libgme make
