@@ -6,6 +6,7 @@ https://www.lua.org/ftp/lua-5.1.5.tar.gz lua51
 files/liblua.so.patch
 files/lua.pc
 files/paths.patch
+files/paths55.patch
 files/lua53-liblua.so.patch
 files/lua52-liblua.so.patch
 files/lua51-arch.patch
