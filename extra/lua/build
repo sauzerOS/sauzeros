@@ -6,7 +6,7 @@ main_abi=${main_ver%.*}
 # Lua 5.5: the default implementation owns the unversioned commands,
 # headers, libraries and pkg-config aliases.
 patch -d lua55 -Np1 -i ../liblua.so.patch
-patch -d lua55 -Np1 -i ../paths.patch
+patch -d lua55 -Np1 -i ../paths55.patch
 cp -r lua55 lua55++
 sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g" lua.pc > lua55/lua.pc
 sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g;s/-llua/-llua++/g" lua.pc > lua55++/lua++.pc
