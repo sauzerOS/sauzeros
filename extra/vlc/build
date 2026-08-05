@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-#patch -Np1 -i 0003-Adjust-includes-for-build-with-gstreamer-1.28.patch
+patch -Np1 -i 0004-ffmpeg-9-rawvideo-codecs.patch
 NOCONFIGURE=1 autoreconf -fvi
 
 configure_options=(
@@ -152,6 +152,8 @@ _pick "$1" vlc-plugin-dvb usr/lib/vlc/plugins/mux/libmux_ts_plugin.so
 
 _pick "$1" vlc-plugin-dvd usr/lib/vlc/plugins/access/libdvdnav_plugin.so
 _pick "$1" vlc-plugin-dvd usr/lib/vlc/plugins/access/libdvdread_plugin.so
+
+_pick "$1" vlc-plugin-ebur128 usr/lib/vlc/plugins/audio_filter/libebur128_plugin.so
 
 _pick "$1" vlc-plugin-faad2 usr/lib/vlc/plugins/codec/libfaad_plugin.so
 

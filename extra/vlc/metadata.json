@@ -23,6 +23,7 @@
     "vlc-plugin-dav1d",
     "vlc-plugin-dbus",
     "vlc-plugin-dbus-screensaver",
+    "vlc-plugin-ebur128",
     "vlc-plugin-faad2",
     "vlc-plugin-ffmpeg",
     "vlc-plugin-flac",
