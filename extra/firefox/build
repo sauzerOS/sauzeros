@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 cd firefox-$2
+patch -Np1 -i ../ffmpeg-63.patch
 mv ../mozconfig .
 mv ../google-api-key .
 

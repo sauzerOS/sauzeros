@@ -1,4 +1,5 @@
 https://archive.mozilla.org/pub/firefox/releases/153.0.3/source/firefox-153.0.3.source.tar.xz
+https://github.com/mozilla-firefox/firefox/commit/df4c67dc9015f789b258e112450397049ca4337d.patch -> ffmpeg-63.patch
 files/firefox.desktop
 files/firefox-symbolic.svg
 files/mozconfig
