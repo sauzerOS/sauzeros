@@ -1,1 +1,1 @@
-https://archive.mozilla.org/pub/nspr/releases/v${version}/src/nspr-${version}.tar.gz
+https://github.com/mozilla/nspr/archive/refs/tags/NSPR_${version_}_RTM.tar.gz
