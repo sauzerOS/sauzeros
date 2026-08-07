@@ -36,6 +36,6 @@ qrencode
 sbc
 spandsp
 srt
-webrtc-audio-processing<2
+webrtc-audio-processing
 x265
 zxing-cpp

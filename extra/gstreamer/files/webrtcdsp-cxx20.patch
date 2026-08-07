@@ -1,0 +1,12 @@
+diff --git a/subprojects/gst-plugins-bad/ext/webrtcdsp/meson.build b/subprojects/gst-plugins-bad/ext/webrtcdsp/meson.build
+--- a/subprojects/gst-plugins-bad/ext/webrtcdsp/meson.build
++++ b/subprojects/gst-plugins-bad/ext/webrtcdsp/meson.build
+@@ -23,7 +23,7 @@ plugin_sources += {
+   'webrtcdsp': pathsep.join(doc_sources)
+ }
+ 
+-default_cppstd = 'cpp_std=c++17'
++default_cppstd = 'cpp_std=c++20'
+ 
+ webrtc_dep = dependency('webrtc-audio-processing-2', version : ['>= 2.0'],
+                         required : false)
