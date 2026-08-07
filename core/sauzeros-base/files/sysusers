@@ -6,6 +6,7 @@ g ftp 11 - -
 g mail 12 - -
 g log 19 - -
 g scanner 96 - -
+g network - -
 
 # default users
 u! bin 1 - -
