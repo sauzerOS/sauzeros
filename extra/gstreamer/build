@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+# Support FFmpeg 9
+git cherry-pick -n be9bdb67f4fc868977f1f74e95b6ebe19ef792ec
+
+# webrtc-audio-processing 2 uses Abseil ordering types that require C++20
+patch -Np1 -i webrtcdsp-cxx20.patch
+
 if hokuto check qt; then
     qt_opt=enabled
 else
