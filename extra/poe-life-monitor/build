@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+appdir="$1/usr/lib/poe-life-monitor"
+
+install -d "$appdir" "$1/usr/bin"
+install -Dm755 poe-life-monitor poe-life-monitor-gui -t "$appdir"
+install -Dm644 poe_life_monitor.py poe_life_gui.py x11_scroll_click.py -t "$appdir"
+install -Dm644 README.md "$appdir/README.md"
+cp -r tessdata "$appdir/tessdata"
+chmod -R u+w,a+rX "$appdir/tessdata"
+
+ln -s ../lib/poe-life-monitor/poe-life-monitor "$1/usr/bin/poe-life-monitor"
+ln -s ../lib/poe-life-monitor/poe-life-monitor-gui "$1/usr/bin/poe-life-monitor-gui"
+
+install -Dm644 poe-life-monitor.desktop \
+  "$1/usr/share/applications/poe-life-monitor.desktop"
+install -Dm644 poe-life-monitor.svg \
+  "$1/usr/share/icons/hicolor/scalable/apps/poe-life-monitor.svg"
