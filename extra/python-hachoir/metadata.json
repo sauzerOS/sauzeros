@@ -1,0 +1,8 @@
+{
+  "url": "https://hachoir.readthedocs.io/",
+  "category": "extra",
+  "description": "A Python library to view and edit a binary stream field by field",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}
