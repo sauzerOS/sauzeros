@@ -13,6 +13,7 @@ python-cryptography
 python-dateutil
 python-feedparser
 python-guessit
+python-hachoir
 python-jaraco.classes
 python-jaraco.collections
 python-jaraco.context
@@ -26,7 +27,7 @@ python-puremagic
 python-pysocks
 python-rarfile
 python-rebulk
-python-sabctools==9.4.0
+python-sabctools
 python-sgmllib3k
 python-six
 python-tempora
