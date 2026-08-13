@@ -34,7 +34,6 @@ configure_static_options=(
   --disable-docs
   --disable-fdt
   --disable-gcrypt
-  --disable-glusterfs
   --disable-gnutls
   --disable-gtk
   --disable-install-blobs
@@ -146,7 +145,6 @@ _pick "$1" qemu-audio-spice usr/lib/qemu/audio-spice.so
 
 _pick "$1" qemu-block-curl usr/lib/qemu/block-curl.so
 _pick "$1" qemu-block-dmg usr/lib/qemu/block-dmg*.so
-#_pick "$1" qemu-block-gluster usr/lib/qemu/block-gluster.so
 #_pick "$1" qemu-block-iscsi usr/lib/qemu/block-iscsi.so
 _pick "$1" qemu-block-nfs usr/lib/qemu/block-nfs.so
 #_pick "$1" qemu-block-ssh usr/lib/qemu/block-ssh.so
@@ -205,6 +203,9 @@ _pick "$1" qemu-system-arm-firmware usr/share/qemu/firmware/60-edk2-arm.json
 
 _pick "$1" qemu-system-avr usr/bin/qemu-system-avr
 _pick "$1" qemu-system-avr usr/share/man/man1/qemu-system-avr.1*
+
+_pick "$1" qemu-system-hexagon usr/bin/qemu-system-hexagon
+_pick "$1" qemu-system-hexagon usr/share/man/man1/qemu-system-hexagon.1*
 
 _pick "$1" qemu-system-hppa usr/bin/qemu-system-hppa
 _pick "$1" qemu-system-hppa usr/share/man/man1/qemu-system-hppa.1*
