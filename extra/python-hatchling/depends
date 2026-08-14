@@ -6,3 +6,4 @@ python-pluggy
 python-trove-classifiers
 python-build make
 python-installer make 
+python-tomlkit make
