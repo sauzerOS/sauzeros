@@ -1,4 +1,4 @@
-https://github.com/ubuntu/lightdm/archive/refs/tags/1.33.0.tar.gz
+https://github.com/ubuntu/lightdm/archive/refs/tags/1.33.1.tar.gz
 files/lightdm-autologin.pam
 files/lightdm-default-config.patch
 files/lightdm.pam
