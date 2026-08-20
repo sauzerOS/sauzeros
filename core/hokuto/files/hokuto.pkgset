@@ -168,6 +168,10 @@ cosmic-settings-daemon
 cosmic-workspaces
 xdg-desktop-portal-cosmic
 
+go:
+go
+go-bin
+
 linux:
 linux
 linux-api-headers
