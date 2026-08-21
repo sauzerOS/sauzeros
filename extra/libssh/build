@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+cmake \
+  -B build \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D WITH_GSSAPI=OFF \
+  -D UNIT_TESTING=OFF
+
+cmake --build build
+DESTDIR="${1}" cmake --install build

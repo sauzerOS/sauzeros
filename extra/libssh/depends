@@ -1,0 +1,6 @@
+glibc
+openssl
+zlib-ng
+cmake make
+openssh make
+python make
