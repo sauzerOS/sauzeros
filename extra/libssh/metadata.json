@@ -1,0 +1,11 @@
+{
+  "url": "https://www.libssh.org/",
+  "category": "extra",
+  "description": "Library for accessing ssh client services through C libraries",
+  "info": "",
+  "license": "LGPL-2.1-or-later",
+  "tags": [],
+  "subpackages": [
+    "libssh-docs"
+  ]
+}
