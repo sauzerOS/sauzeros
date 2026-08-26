@@ -1,1 +1,2 @@
 https://github.com/OpenPrinting/libcupsfilters/releases/download/${version}/libcupsfilters-${version}.tar.xz
+https://github.com/OpenPrinting/libcupsfilters/pull/167.patch
