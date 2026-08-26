@@ -3,7 +3,9 @@
 cmake -B build                 \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=Release  \
-  -D BUILD_STATIC_LIBS=OFF
+  -D BUILD_STATIC_LIBS=OFF     \
+  -D REQUIRE_CRYPTO_GNUTLS=ON  \
+  -D REQUIRE_CRYPTO_OPENSSL=OFF
 
 cmake --build build
 DESTDIR=$1 cmake --install build
