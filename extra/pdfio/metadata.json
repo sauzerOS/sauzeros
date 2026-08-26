@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/michaelrsweet/pdfio",
+  "category": "extra",
+  "description": "Simple C library for reading and writing PDF files",
+  "info": "",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "tags": []
+}

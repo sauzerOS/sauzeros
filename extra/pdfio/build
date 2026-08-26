@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+autoreconf -vfi
+# The build system uses only DSOFLAGS but not LDFLAGS to build some libraries.
+export DSOFLAGS=${LDFLAGS}
+
+./configure --prefix=/usr \
+  --enable-shared \
+  --disable-static
+
+make
+make DESTDIR="${1}" install
