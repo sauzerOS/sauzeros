@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+patch -Np1 -i 167.patch
+
 ./configure --prefix=/usr  \
   --sysconfdir=/etc \
   --sbindir=/usr/bin \

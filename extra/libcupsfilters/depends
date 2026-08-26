@@ -8,6 +8,7 @@ libpng
 libstdc++
 libtiff
 lcms2
+pdfio
 poppler
 qpdf
 cups make
