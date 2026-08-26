@@ -13,6 +13,7 @@ libxml2
 poppler
 systemd-libs
 v4l-utils
+hplip suggest "HP scanner support"
 autoconf-archive make
 python make
 systemd make
