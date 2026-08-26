@@ -10,7 +10,21 @@ if [ ! -f "$version_file" ]; then
 fi
 
 pkgver=$(head -n1 "$version_file" | awk '{print $1}')
-krel=$(find /usr/lib/modules /lib/modules -maxdepth 1 -type d -name "${pkgver}-sauzerOS" 2>/dev/null | sed 's|.*/||' | sort -V | tail -n 1)
+
+# Detect installed sauzerOS kernel release.
+#
+# The package version may be abbreviated, e.g.:
+#   package version: 7.2
+#   kernel release:  7.2.0-sauzerOS
+krel=$(find /usr/lib/modules /lib/modules \
+    -maxdepth 1 \
+    -type d \
+    -name "${pkgver}*-sauzerOS" \
+    2>/dev/null |
+    sed 's|.*/||' |
+    sort -V |
+    tail -n 1)
+
 if [ -z "$krel" ]; then
     echo "Error: could not detect installed sauzerOS kernel release for $pkgver."
     exit 1
