@@ -1,15 +1,13 @@
 dbus
 fontconfig
 glibc
-libexif
-libgcc
-libjpeg-turbo
-libpng
-libstdc++
-libtiff
 lcms2
+libcups
+libexif
+libjpeg-turbo
+libjxl
+libpng
+libtiff
 pdfio
 poppler
-qpdf
-cups make
 ghostscript make 
