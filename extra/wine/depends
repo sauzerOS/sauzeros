@@ -23,7 +23,6 @@ ffmpeg suggest
 gnutls suggest
 gst-plugins-bad suggest
 gst-plugins-base suggest
-gst-plugins-base-libs suggest
 gst-plugins-good suggest
 gst-plugins-ugly suggest
 gstreamer suggest
