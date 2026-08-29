@@ -28,7 +28,7 @@ cmake -B build                   \
     -D USE_GTK4=OFF              \
     -D ENABLE_BUBBLEWRAP_SANDBOX=ON \
     -D USE_SYSTEM_SYSPROF_CAPTURE=NO \
-    -Wno-dev -G Ninja
+    -W no-author
 
 cmake --build build
 DESTDIR=$1 cmake --install build
