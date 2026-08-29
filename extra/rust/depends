@@ -12,6 +12,7 @@ openssl
 sqlite
 zlib-ng
 cmake make
+git make
 libffi make
 llvm make
 perl make
