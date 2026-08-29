@@ -30,4 +30,5 @@ export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
 make
 make DESTDIR="$pkgdir" install
 rm -r "$pkgdir"/usr/include
+rm -r "$pkgdir"/usr/share/man
 fi
