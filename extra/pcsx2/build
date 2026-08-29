@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# ffmpeg 9 patch
+patch -Np1 -i ffmpeg9.patch
+
 CC=clang
 CXX=clang++
 CFLAGS="-O2 -pipe -fomit-frame-pointer -flto=auto"
@@ -20,7 +23,7 @@ sed -E -e 's@\b(Qt6::)?(Gui)\b@\1\2 \1\2Private@' \
  -i cmake/SearchForStuff.cmake \
     pcsx2-qt/CMakeLists.txt
 
-git describe --tags | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
+#git describe --tags | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
 
 # build deps
 cd kddockwidgets
@@ -35,7 +38,7 @@ cmake -B build                         \
     -D KDDockWidgets_NO_SPDLOG=ON      \
     -D KDDockWidgets_QT6=ON            \
     -D KDDockWidgets_X11EXTRAS=OFF     \
-    -Wno-dev
+    -W no-dev
 
 cmake --build build
 DESTDIR="../deps" cmake --install build
@@ -47,7 +50,7 @@ cmake -B build                         \
     -D CMAKE_PREFIX_PATH="../deps/usr" \
     -D CMAKE_SKIP_RPATH=ON             \
     -D BUILD_SHARED_LIBS=ON            \
-    -Wno-dev
+    -W no-dev
 
 cmake --build build
 DESTDIR="../deps" cmake --install build
@@ -61,7 +64,21 @@ cmake -B build                         \
     -D BUILD_SHARED_LIBS=ON            \
     -D PLUTOSVG_BUILD_EXAMPLES=ON      \
     -D PLUTOSVG_ENABLE_FREETYPE=ON     \
-    -Wno-dev
+    -W no-dev
+
+cmake --build build
+DESTDIR="../deps" cmake --install build
+
+cd ../rapidyaml
+cmake -B build                         \
+    -D CMAKE_BUILD_TYPE=None           \
+    -D CMAKE_INSTALL_PREFIX='/usr'     \
+    -D CMAKE_PREFIX_PATH="../deps/usr" \
+    -D CMAKE_SKIP_RPATH=ON             \
+    -D BUILD_SHARED_LIBS=ON            \
+    -D PLUTOSVG_BUILD_EXAMPLES=ON      \
+    -D PLUTOSVG_ENABLE_FREETYPE=ON     \
+    -W no-dev
 
 cmake --build build
 DESTDIR="../deps" cmake --install build
@@ -81,7 +98,7 @@ cmake -B build \
     -D USE_VULKAN=ON \
     -D WAYLAND_API=ON \
     -D X11_API=ON \
-    -Wno-dev
+    -W no-dev
 
 cmake --build build
 DESTDIR=$1 cmake --install build
