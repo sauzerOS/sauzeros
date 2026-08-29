@@ -4,6 +4,10 @@ set -e
 # Assuming $2 is version and $1 is DESTDIR
 cd "rustc-$2-src"
 
+# upstream dropped AMX-TF32
+patch -Np1 -i ../159310.patch
+git apply ../amx-tf32-removal.patch
+
 # Select the correct TOML
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
     echo "==> Preparing Cross-Compilation"
@@ -120,7 +124,7 @@ done
 shopt -u nullglob
 
 # LLVM 22.1.0 fix7
-sed -i 's|llvm/Passes/PassPlugin.h|llvm/Plugins/PassPlugin.h|g' ./compiler/rustc_llvm/llvm-wrapper/PassWrapper.cpp
+#sed -i 's|llvm/Passes/PassPlugin.h|llvm/Plugins/PassPlugin.h|g' ./compiler/rustc_llvm/llvm-wrapper/PassWrapper.cpp
 
 ./x.py build
 
