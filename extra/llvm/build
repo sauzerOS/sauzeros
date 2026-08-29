@@ -13,7 +13,8 @@ _get_distribution_components() {
         continue
         ;;
       # 2. Explicit LLVM passes (Shared, TableGen, Debugging, Testing)
-      LLVM|LLVMgold|LLVMDemangle|LLVMSupport|LLVMTableGen|LLVMDebuginfod|LLVMTestingAnnotations|LLVMTestingSupport)
+      # LLVMDebuginfod omitted: depends on LLVMHTTP, which is not exported.
+      LLVM|LLVMgold|LLVMDemangle|LLVMSupport|LLVMTableGen|LLVMTestingAnnotations|LLVMTestingSupport)
         ;;
       # 3. Exclude all other static LLVM* libraries
       LLVM*)
@@ -105,7 +106,7 @@ install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
 ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
 
 # clang split package
-_pick "$1" clang usr/bin/clang*
+_pick "$1" clang usr/bin/{clang,clang++,clang-cl,clang-cpp}
 _pick "$1" clang usr/bin/git-clang-format
 _pick "$1" clang $libdir/libclang*
 _pick "$1" clang etc/clang/*
