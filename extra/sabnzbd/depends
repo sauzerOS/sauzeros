@@ -11,7 +11,7 @@ python-coherent.licensed
 python-configobj
 python-cryptography
 python-dateutil
-python-feedparser
+python-feedparser<=6.0.12
 python-guessit
 python-hachoir
 python-jaraco.classes
@@ -25,9 +25,10 @@ python-more-itertools
 python-portend
 python-puremagic
 python-pysocks
+python-pyyaml
 python-rarfile
 python-rebulk
-python-sabctools
+python-sabctools<=9.6.3
 python-sgmllib3k
 python-six
 python-tempora
