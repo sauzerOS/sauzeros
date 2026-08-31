@@ -1,13 +1,8 @@
-// /etc/polkit-1/rules.d/10-udisks-wheel.rules
 polkit.addRule(function(action, subject) {
-    if (action.id == "org.freedesktop.udisks2.filesystem-mount" ||
-        action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
-        action.id == "org.freedesktop.udisks2.filesystem-unmount-others" ||
-        action.id == "org.freedesktop.udisks2.encrypted-unlock" ||
-        action.id == "org.freedesktop.udisks2.encrypted-unlock-others" ||
-        action.id == "org.freedesktop.udisks2.loop-setup") {
-        if (subject.isInGroup("wheel")) {
-            return polkit.Result.YES;
-        }
+    if ((action.id.startsWith("org.freedesktop.udisks2.") || 
+         action.id.startsWith("org.freedesktop.upower.") ||
+         action.id == "org.freedesktop.login1.set-reboot-to-firmware-setup") &&
+        subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
     }
 });
