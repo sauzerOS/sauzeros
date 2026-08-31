@@ -1,4 +1,5 @@
 git+https://github.com/polkit-org/polkit#${version}
 files/polkit-1
 files/10-udisks2-mount.rules
+files/20-powerdevil.rules
 files/50-logs.rules
