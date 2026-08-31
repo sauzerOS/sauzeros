@@ -1,0 +1,10 @@
+// /etc/polkit-1/rules.d/20-powerdevil.rules
+polkit.addRule(function(action, subject) {
+    if ((action.id.startsWith("org.freedesktop.upower.") ||
+         action.id.startsWith("org.freedesktop.switcheroocontrol.") ||
+         action.id == "org.kde.powerdevil.backlighthelper.brightness" ||
+         action.id == "org.kde.powerdevil.discretegpuhelper.hasdiscretegpu") &&
+        subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
