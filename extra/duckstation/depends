@@ -13,3 +13,4 @@ python make
 qt-tools make
 qt-wayland make
 spirv-headers make
+xz make
