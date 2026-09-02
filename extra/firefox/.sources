@@ -5,4 +5,3 @@ files/mozconfig
 files/google-api-key
 files/distribution.ini
 files/0001-Install-under-remoting-name.patch
-files/0002-Bug-2053518-Handle-the-oe-linux-rust-targets-added-i.patch

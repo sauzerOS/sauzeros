@@ -2,7 +2,6 @@
 
 cd firefox-$2
 patch -Np1 -i ../0001-Install-under-remoting-name.patch
-patch -Np1 -i ../0002-Bug-2053518-Handle-the-oe-linux-rust-targets-added-i.patch
 mv ../mozconfig .
 mv ../google-api-key .
 
