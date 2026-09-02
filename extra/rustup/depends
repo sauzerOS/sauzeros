@@ -2,3 +2,4 @@ glibc
 libgcc
 xz
 zstd 
+rust | rustup make
