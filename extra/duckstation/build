@@ -56,3 +56,7 @@ install -d $1/usr/bin
 ln -s /usr/lib/duckstation/duckstation-qt $1/usr/bin/duckstation-qt
 install -Dvm644 "duckstation-qt.desktop" "${1}/usr/share/applications/duckstation-qt.desktop"
 install -Dvm644 "${1}/usr/lib/duckstation/resources/images/duck.png" "${1}/usr/share/icons/hicolor/64x64/apps/duckstation-qt.png"
+
+# use custom achievement unlock sound (steam)
+xz -dc unlock.wav.xz > "${1}/usr/lib/duckstation/resources/sounds/achievements/unlock.wav"
+chmod 644 "${1}/usr/lib/duckstation/resources/sounds/achievements/unlock.wav"
