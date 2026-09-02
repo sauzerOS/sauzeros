@@ -41,8 +41,7 @@ incremental       = false
 rpath             = false
 dist-src          = false
 # Enable the same optimizations as the official upstream build.
-# broken on llvm 23.1.0
-lto = "off"
+lto = "thin"
 #codegen-units = 1
 
 # Don't build lld which does not belong to this package and seems not
