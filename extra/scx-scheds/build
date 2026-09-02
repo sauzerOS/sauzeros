@@ -14,6 +14,8 @@ cargo build                \
   --exclude scxcash        \
   --exclude xtask          \
   --exclude vmlinux_docify \
+  --exclude scx_characterize \
+  --exclude scx_forge_agent \
   --exclude scx_arena_selftests
 
 # Install all built executables (skip .so and .d files)
