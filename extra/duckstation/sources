@@ -7,3 +7,4 @@ files/versions
 files/build-dependencies-linux.sh
 files/DuckStationDependencies.cmake
 files/nag-screen1.patch
+files/system-sqlite.patch
