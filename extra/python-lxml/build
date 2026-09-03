@@ -1,5 +1,8 @@
 #!/bin/bash
 export LC_CTYPE=en_US.UTF-8
 
+# cython 3.3.0 fix
+sed -i 's/<3.3//g' pyproject.toml
+
 python -m build --wheel --no-isolation
 python -m installer --destdir=$1 dist/*.whl
