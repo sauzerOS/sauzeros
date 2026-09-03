@@ -3,5 +3,3 @@ files/mozconfig
 files/google-api-key
 files/org.mozilla.Thunderbird.desktop
 files/clang22-wasm32-wasip1.patch
-files/0001-Bug-2053518-Handle-the-oe-linux-rust-targets-added-in.patch
-files/mozpkix-x11-success-macro.patch
