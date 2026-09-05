@@ -4,5 +4,10 @@
   "description": "libaom",
   "info": "",
   "license": "",
-  "tags": []
+  "tags": [
+    "library"
+  ],
+  "subpackages": [
+    "lib32-libaom"
+  ]
 }
