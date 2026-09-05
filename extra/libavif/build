@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+cmake -B build                 \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D AVIF_LIBYUV=OFF           \
+  -D AVIF_BUILD_APPS=ON        \
+  -D AVIF_CODEC_AOM=SYSTEM     \
+  -D AVIF_CODEC_DAV1D=SYSTEM   \
+  -D AVIF_LIBXML2=SYSTEM       \
+  -D AVIF_BUILD_GDK_PIXBUF=OFF
+
+cmake --build build
+DESTDIR=$1 cmake --install build

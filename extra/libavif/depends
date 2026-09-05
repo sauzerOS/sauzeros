@@ -1,0 +1,11 @@
+dav1d
+glibc
+libaom
+libgcc
+libjpeg-turbo
+libpng
+libstdc++
+libwebp
+libxml2
+cmake make
+nasm make
