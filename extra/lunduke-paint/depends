@@ -1,0 +1,6 @@
+gdk-pixbuf
+gtkmm3
+libarchive
+libcairomm1
+pugixml
+meson make
