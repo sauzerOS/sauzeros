@@ -26,3 +26,5 @@ install -dm 755 "${1}"/usr/share/retroarch/assets
 cp -dr --no-preserve=ownership glui "${1}"/usr/share/retroarch/assets/
 cp -dr --no-preserve=ownership xmb "${1}"/usr/share/retroarch/assets/
 cp -dr --no-preserve=ownership ozone "${1}"/usr/share/retroarch/assets/
+cp -dr --no-preserve=ownership fonts "${1}"/usr/share/retroarch/assets/
+cp -dr --no-preserve=ownership sounds "${1}"/usr/share/retroarch/assets/
