@@ -18,4 +18,4 @@ lib32-libffi make
 lib32-libxml2 make
 lib32-zlib-ng make
 lib32-zstd make
-aarch64-linux-headers cross
+aarch64-linux-api-headers cross
