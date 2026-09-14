@@ -1,2 +1,2 @@
-https://invisible-mirror.net/archives/ncurses/current/ncurses-${version}.tgz
+https://invisible-mirror.net/archives/ncurses/ncurses-${version}.tar.gz
 files/terminfo.src misc
