@@ -8,6 +8,6 @@ cmake make
 lib32-lz4 make
 lib32-xz make
 lib32-zlib-ng make
-aarch64-lz4 cross make
-aarch64-xz cross make
-
+aarch64-lz4 cross
+aarch64-xz cross
+aarch64-zlib-ng cross
