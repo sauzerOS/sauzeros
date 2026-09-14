@@ -1,4 +1,10 @@
 #!/bin/bash -e
 
+case "$HOKUTO_ARCH" in
+    aarch64) KARCH=arm64 ;;
+    x86_64)  KARCH=x86_64 ;;
+    *) echo "unsupported HOKUTO_ARCH: $HOKUTO_ARCH" >&2; exit 1 ;;
+esac
+
 make mrproper
-make INSTALL_HDR_PATH="${1}/usr" headers_install
+make INSTALL_HDR_PATH="${1}/${CROSS_PREFIX}/usr" ARCH="$KARCH" headers_install
