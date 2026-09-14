@@ -4,4 +4,4 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make
-aarch64-linux-headers cross
+aarch64-linux-api-headers cross
