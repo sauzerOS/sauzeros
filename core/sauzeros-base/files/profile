@@ -52,6 +52,7 @@ export HISTSIZE=1000
 export HISTIGNORE="&:[bf]g:exit"
 export TERMINAL="xterm"
 export EDITOR=nano
+export QEMU_AARCH64_LD_PREFIX=/usr/aarch64-linux-gnu
 
 # XZ multi-threading optimization from your LFS setup
 export XZ_OPT="-T0 -M 90%"
