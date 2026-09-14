@@ -20,7 +20,8 @@ lib32-zlib-ng make
 lib32-zstd make
 aarch64-binutils cross
 aarch64-glibc cross
-aarch64-gmp crossnative
-aarch64-linux-headers cross
-aarch64-mpc crossnative
-aarch64-mpfr crossnative
+aarch64-gmp crossnative make
+aarch64-linux-api-headers cross
+aarch64-mpc crossnative make
+aarch64-mpfr crossnative make
+aarch64-zlib-ng crossnative make

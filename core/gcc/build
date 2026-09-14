@@ -163,6 +163,15 @@ ln -s gcc "$1/usr/bin/cc"
 # POSIX compliance.
 install -Dm755 ../c99 "$1/usr/bin/c99"
 
+# Cross-native aarch64: force libraries into /usr/lib (not /usr/lib64)
+# so the split-package logic finds them.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ -d "$1/usr/lib64" ]; then
+mkdir -p "$1/usr/lib"
+# Move everything; preserve any existing content in lib
+mv "$1/usr/lib64"/* "$1/usr/lib/" 2>/dev/null || true
+rmdir "$1/usr/lib64" 2>/dev/null || true
+fi
+
 # Symlink for LTO.
 {
 mkdir -p "$1/usr/lib/bfd-plugins"
