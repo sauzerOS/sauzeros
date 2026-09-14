@@ -21,12 +21,21 @@ if ! hokuto check "${HOKUTO_ARCH}-gcc"; then
 cd ..
 tar xvf aarch64-linux-gnu-tools.tar.xz
 cd glibc-build
+
+# Set triplet to match the extracted bootstrap binaries
+  TARGET_TRIPLET="${HOKUTO_ARCH}-lfs-linux-gnu"
+
   export BUILD_CC=gcc
   export CC=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-gcc
   export CXX=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-g++
   export AR=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-ar
   export RANLIB=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-ranlib
+  export OBJDUMP=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-objdump
+  export OBJCOPY=$HOKUTO_BUILD_DIR/tools/bin/${HOKUTO_ARCH}-lfs-linux-gnu-objcopy
 else
+# Set triplet to match installed host toolchain
+  TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+
   export BUILD_CC=gcc
   export CC=${TARGET_TRIPLET}-gcc
   export CXX=${TARGET_TRIPLET}-g++
