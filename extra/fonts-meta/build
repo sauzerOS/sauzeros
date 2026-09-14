@@ -58,7 +58,24 @@ while read -r subpackage families; do
         install -Dm644 "fonts/$family/hinted/ttf/"*.ttf \
             -t "$destdir/usr/share/fonts/noto/"
     done
+    # Debloat regional splits (prune condensed, semi, extra variants like Arch)
+    rm -f "$destdir"/usr/share/fonts/noto/Noto*{-Condensed,-Semi,-Extra}*.ttf
 done < noto-splits
+
+# Install all remaining Noto font families not in regional splits into fonts-noto
+destdir=$HOKUTO_SPLIT_DIR/fonts-noto
+other_families=$(grep -v "^fonts-noto " noto-splits | awk '{$1=""; print}' | tr -s ' ' '\n' | grep -v '^$' | sort -u)
+for fam_dir in fonts/*; do
+    [ -d "$fam_dir" ] || continue
+    fam=$(basename "$fam_dir")
+    echo "$other_families" | grep -qx "$fam" && continue
+    if compgen -G "$fam_dir/hinted/ttf/*.tt[fc]" > /dev/null; then
+        install -Dm644 "$fam_dir"/hinted/ttf/*.tt[fc] -t "$destdir/usr/share/fonts/noto/"
+    fi
+done
+
+# Debloat fonts-noto (prune condensed, semi, extra variants like Arch)
+rm -f "$destdir"/usr/share/fonts/noto/Noto*{-Condensed,-Semi,-Extra}*.ttf
 
 # fonts-noto-emoji
 destdir=$HOKUTO_SPLIT_DIR/fonts-noto-emoji
