@@ -13,6 +13,11 @@ fi
 make
 make DESTDIR=$1 install
 
+# remove conflicting files
+if [ "$CROSS_PREFIX" != "/usr" ]; then
+rm -rf $1/etc
+fi
+
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
 make clean
