@@ -7,3 +7,4 @@ llvm make
 rust | rustup make
 aarch64-llvm cross make
 aarch64-rust cross make
+rust cross make
