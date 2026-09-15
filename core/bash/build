@@ -1,17 +1,46 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 export CFLAGS="$CFLAGS -DSYS_BASHRC='\"/etc/bash/bashrc\"'"
 
 for p in bash53-*; do
     patch -Np0 -i "$p";
 done
 
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+
+    # bash probes a lot of libc and kernel behaviour by running test programs,
+    # and falls back to pessimistic guesses for every one of them when it can't.
+    # These are the values bash's own configure detects natively on this host --
+    # they describe glibc and Linux, not the CPU, so they hold for the target
+    # too. Without them bash builds its own getcwd()/mktime() replacements,
+    # believes FIFOs and ulimit() are missing, thinks printf has no %a and that
+    # POSIX real-time signals are unusable, and reads exit statuses at the wrong
+    # offset in the wait status word.
+    export bash_cv_fnmatch_equiv_fallback=yes
+    export bash_cv_fnmatch_equiv_value=1
+    export bash_cv_func_strchrnul_works=yes
+    export bash_cv_getcwd_malloc=yes
+    export bash_cv_printf_a_format=yes
+    export bash_cv_sys_named_pipes=present
+    export bash_cv_ulimit_maxfds=yes
+    export bash_cv_unusable_rtsigs=no
+    export bash_cv_wexitstatus_offset=8
+    export ac_cv_func_working_mktime=yes
+fi
+
 ./configure \
-    --prefix=/usr \
-    --with-installed-readline
+    --prefix="$PREFIX" \
+    --with-installed-readline \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
 
-ln -s bash "$1/usr/bin/sh"
-
+ln -s bash "$1$PREFIX/bin/sh"
