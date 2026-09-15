@@ -60,7 +60,7 @@ cmake -B build                     \
   -D WITH_DOCS=OFF                 \
   -D FISH_USE_SYSTEM_PCRE2=ON      \
   -D WITH_MESSAGE_LOCALIZATION=ON  \
-  -Wno-dev \
+  -W no-author \
   $CMAKE_OPTS
 
 cmake --build build
