@@ -12,6 +12,12 @@ EOF
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CONF_ARGS="--prefix=$CROSS_PREFIX --libexecdir=$CROSS_PREFIX/lib --host=$HOKUTO_ARCH-linux-gnu"
+
+    # hokuto exports CARGO_BUILD_TARGET, so cargo writes libgitcore.a to
+    # target/<triple>/release, while git's Makefile hardcodes target/release
+    # and then fails to link it. config.mak is included after that default and
+    # RUST_LIB expands lazily, so overriding the directory here is enough.
+    echo "RUST_TARGET_DIR = target/${CARGO_BUILD_TARGET:-${HOKUTO_ARCH}-unknown-linux-gnu}/release" >> config.mak
 else
     CONF_ARGS="--prefix=/usr --libexecdir=/usr/lib"
 fi
