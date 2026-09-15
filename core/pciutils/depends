@@ -2,5 +2,5 @@ glibc
 hwdata
 kmod
 systemd-libs
-aarch64-kmod cross make
-aarch64-systemd-libs cross make
+aarch64-kmod cross
+aarch64-systemd cross
