@@ -4,4 +4,4 @@ libgcc
 libstdc++
 zlib-ng
 zstd
-aarch64-linux-headers cross
+aarch64-linux-api-headers cross
