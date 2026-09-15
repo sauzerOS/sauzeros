@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 # remove flit_core check
 sed -i 's/<4//g' pyproject.toml
 
 python -m build --wheel --no-isolation
-python -m installer --destdir="$1" dist/*.whl
+python -m installer --destdir="$1" --prefix="$PREFIX" dist/*.whl
