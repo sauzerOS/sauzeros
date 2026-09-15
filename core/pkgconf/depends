@@ -1,4 +1,4 @@
 glibc
 zlib-ng rebuild
 bzip2 rebuild
-aarch64-linux-headers cross
+aarch64-linux-api-headers cross
