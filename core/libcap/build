@@ -5,6 +5,13 @@ PREFIX="${CROSS_PREFIX:-/usr}"
 SBINDIR="${PREFIX}/bin"
 LIBDIR="${PREFIX}/lib"
 PKGCONFIGDIR="${LIBDIR}/pkgconfig"
+# Make.Rules spells its prefix variable in lowercase, so the PREFIX below never
+# reaches it and the include/man paths keep their /usr defaults -- a cross
+# build then drops sys/capability.h and the manpages into the *host* /usr and
+# writes includedir=/usr/include into libcap.pc, which puts host headers on
+# every cross compile line that uses it. Both default to /usr natively.
+INC_PREFIX="${PREFIX}"
+MAN_PREFIX="${PREFIX}/share"
 
 # libcap Makefile doesn't strictly follow standard env vars, so we pass them explicitly
 EXTRA_OPTS=""
@@ -20,6 +27,8 @@ mk() {
         PREFIX="$PREFIX" \
         SBINDIR="$SBINDIR" \
         LIBDIR="$LIBDIR" \
+        inc_prefix="$INC_PREFIX" \
+        man_prefix="$MAN_PREFIX" \
         PKGCONFIGDIR="$PKGCONFIGDIR" \
         RAISE_SETFCAP=no \
         INDENT=" " \
