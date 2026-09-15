@@ -7,4 +7,4 @@ case "$HOKUTO_ARCH" in
 esac
 
 make mrproper
-make INSTALL_HDR_PATH="${1}/${CROSS_PREFIX}/usr" ARCH="$KARCH" headers_install
+make INSTALL_HDR_PATH="${1}/${CROSS_PREFIX}" ARCH="$KARCH" headers_install
