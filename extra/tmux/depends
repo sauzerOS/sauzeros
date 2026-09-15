@@ -2,3 +2,8 @@ libevent
 ncurses
 systemd-libs
 systemd make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libevent cross
+aarch64-ncurses cross
+aarch64-systemd cross
