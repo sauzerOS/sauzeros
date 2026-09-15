@@ -1,5 +1,18 @@
 #!/bin/bash -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    case "$HOKUTO_ARCH" in
+        aarch64) GOARCH=arm64 ;;
+        x86_64)  GOARCH=amd64 ;;
+        *)       GOARCH=$HOKUTO_ARCH ;;
+    esac
+    # cgo stays enabled so the cross build produces the same dynamically
+    # linked PIE binary as the native one. cgo and the external link step use
+    # the cross CC hokuto exports. PGO is architecture independent, so the
+    # profile still applies.
+    export GOARCH CGO_ENABLED=1
+fi
+
 go build \
   -buildmode=pie \
   -mod=readonly \

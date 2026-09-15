@@ -1,2 +1,4 @@
 glibc
 go-bin | go make
+go-bin | go cross make
+aarch64-gcc cross make
