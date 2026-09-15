@@ -1,2 +1,5 @@
 glibc
 m4
+aarch64-glibc cross make
+aarch64-gcc cross make
+m4 cross make
