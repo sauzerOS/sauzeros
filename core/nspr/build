@@ -14,7 +14,7 @@ else
 fi
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    CONF_ARGS="$CONF_ARGS --host=$HOKUTO_ARCH-linux-gnu"
+CONF_ARGS="$CONF_ARGS --host=$HOKUTO_ARCH-linux-gnu HOST_CC=gcc HOST_CFLAGS=-O2"
 fi
 
 ./configure $CONF_ARGS
