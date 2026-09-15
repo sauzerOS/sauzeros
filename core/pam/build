@@ -21,7 +21,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     else
         meson_options+=(--cross-file "$HOKUTO_ARCH")
         if [ "$PREFIX" != "/usr" ]; then
-            export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+        export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
         fi
     fi
 fi
@@ -71,4 +71,4 @@ cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
 fi
 
 # set unix_chkpwd uid
-chmod 4755 $1/usr/bin/unix_chkpwd
+chmod 4755 $1/${CROSS_PREFIX}/bin/unix_chkpwd
