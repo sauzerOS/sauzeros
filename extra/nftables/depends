@@ -9,3 +9,15 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make 
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-gmp cross
+aarch64-jansson cross
+aarch64-libmnl cross
+aarch64-libnftnl cross
+aarch64-readline cross
+python cross make
+python-build cross make
+python-installer cross make
+python-setuptools cross make
+python-wheel cross make

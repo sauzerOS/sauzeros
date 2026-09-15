@@ -1,20 +1,36 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure --prefix="$PREFIX" \
   --disable-debug         \
   --with-json             \
   --with-cli=readline     \
-  --disable-python
+  --disable-python        \
+  $CROSS_OPTS
 
 make
-
-cd py
-python -m build --wheel --no-isolation
-cd ..
 make DESTDIR=$1 install
-python -m installer --destdir="$1" py/dist/*.whl
 
-# basic safe firewall config
-install -Dm644 nftables.conf "$1/etc/nftables.conf"
-# systemd
-install -Dm644 nftables.service "$1/usr/lib/systemd/system/nftables.service"
+# The python binding is pure python, so it is built with the host interpreter
+# and needs no cross handling. It and the config/unit files below belong to a
+# real install only: a cross-system sysroot is built against, never booted.
+if [ "$PREFIX" = "/usr" ]; then
+    cd py
+    python -m build --wheel --no-isolation
+    cd ..
+    python -m installer --destdir="$1" py/dist/*.whl
+
+    # basic safe firewall config
+    install -Dm644 nftables.conf "$1/etc/nftables.conf"
+    # systemd
+    install -Dm644 nftables.service "$1/usr/lib/systemd/system/nftables.service"
+fi
