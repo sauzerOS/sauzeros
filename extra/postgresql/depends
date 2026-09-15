@@ -14,3 +14,15 @@ zstd
 readline make
 systemd make
 util-linux make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-icu cross
+aarch64-liburing cross
+aarch64-lz4 cross
+aarch64-openssl cross
+aarch64-pam cross
+aarch64-readline cross
+aarch64-systemd cross
+aarch64-util-linux cross
+aarch64-zlib-ng cross
+aarch64-zstd cross

@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 # fix a typo in a sgml file:
 sed -e 's/"app-pgchecksums "/"app-pgchecksums"/' \
     -i doc/src/sgml/ref/pg_combinebackup.sgml
@@ -12,27 +14,45 @@ sed -e '/DEFAULT_PGSOCKET_DIR/s@/tmp@/run/postgresql@' \
 CFLAGS+=" -ffat-lto-objects"
 CXXFLAGS+=" -ffat-lto-objects"
 
+CONF_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CONF_OPTS+=(--host="$HOST_TRIPLET")
+
+    # Without this, 'make install' compiles the timezone database by running
+    # the zic it just built -- a target binary, which cannot run here. Using
+    # the system tzdata skips building and running zic entirely.
+    CONF_OPTS+=(--with-system-tzdata=/usr/share/zoneinfo)
+fi
+
 ./configure       \
-  --prefix=/usr   \
+  --prefix="$PREFIX" \
   --with-readline \
   --with-openssl  \
   --with-pam      \
   --with-icu      \
   --with-systemd  \
   --with-zstd     \
-  --enable-thread-safety
+  --enable-thread-safety \
+  "${CONF_OPTS[@]}"
 
 make
 make DESTDIR=$1 install
 make -C contrib DESTDIR="$1" install
 
-install -Dm 644 postgresql.pam "${1}/etc/pam.d/postgresql"
-install -Dm 644 postgresql.service -t "${1}/usr/lib/systemd/system"
-install -Dm 644 postgresql.sysusers "${1}/usr/lib/sysusers.d/postgresql.conf"
-install -Dm 644 postgresql.tmpfiles "${1}/usr/lib/tmpfiles.d/postgresql.conf"
+# Host configuration and unit files: a cross-system sysroot is built against,
+# never booted, so it gets the libraries and headers but none of this.
+if [ "$PREFIX" = "/usr" ]; then
+    install -Dm 644 postgresql.pam "${1}/etc/pam.d/postgresql"
+    install -Dm 644 postgresql.service -t "${1}/usr/lib/systemd/system"
+    install -Dm 644 postgresql.sysusers "${1}/usr/lib/sysusers.d/postgresql.conf"
+    install -Dm 644 postgresql.tmpfiles "${1}/usr/lib/tmpfiles.d/postgresql.conf"
 
-majorver=${2%%.*}
-sed -e "s/%PGMAJORVERSION%/${majorver}/g" \
-    -e "s/%PREVMAJORVERSION%/$((majorver - 1))/g" \
-    postgresql-check-db-dir.in |
-install -Dm755 /dev/stdin "${1}/usr/bin/postgresql-check-db-dir"
+    majorver=${2%%.*}
+    sed -e "s/%PGMAJORVERSION%/${majorver}/g" \
+        -e "s/%PREVMAJORVERSION%/$((majorver - 1))/g" \
+        postgresql-check-db-dir.in |
+    install -Dm755 /dev/stdin "${1}/usr/bin/postgresql-check-db-dir"
+fi
