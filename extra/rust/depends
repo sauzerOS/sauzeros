@@ -17,5 +17,10 @@ libffi make
 llvm make
 perl make
 python make
+aarch64-curl cross
 aarch64-llvm cross make
-qemu-user-static cross make
+aarch64-openssl cross
+qemu-user-static-binfmt cross
+clang cross make
+lld cross make
+llvm cross make
