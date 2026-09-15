@@ -1,15 +1,27 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+TARGET_ARCH="$HOKUTO_ARCH"
+[ "$TARGET_ARCH" = "arm64" ] && TARGET_ARCH="aarch64"
+
 python setup.py build
 python setup.py install \
     --root="$1" \
+    --prefix="$PREFIX" \
     --optimize=1 \
     --skip-build
 
-install -d "$1/usr/share/meson/cross"
-install -Dm644 lib32   "$1/usr/share/meson/cross/lib32"
-install -Dm644 aarch64        "$1/usr/share/meson/cross/aarch64"
+# These files describe *this* host's toolchains, so they only belong in an
+# x86_64 package: cross/aarch64 points at the aarch64-linux-gnu binaries and a
+# qemu exe_wrapper, and lib32/x86 is a -m32 multilib setup. Neither is usable
+# from an aarch64 system, where aarch64 is the native architecture.
+if [ "$TARGET_ARCH" = "x86_64" ]; then
+    install -d "$1$PREFIX/share/meson/cross"
+    install -Dm644 lib32   "$1$PREFIX/share/meson/cross/lib32"
+    install -Dm644 aarch64        "$1$PREFIX/share/meson/cross/aarch64"
 
-# Maintain compatibility for native x86 builds
-install -d "$1/usr/share/meson/native"
-install -Dm644 lib32   "$1/usr/share/meson/native/x86"
+    # Maintain compatibility for native x86 builds
+    install -d "$1$PREFIX/share/meson/native"
+    install -Dm644 lib32   "$1$PREFIX/share/meson/native/x86"
+fi
