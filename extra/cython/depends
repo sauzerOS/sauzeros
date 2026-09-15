@@ -5,3 +5,7 @@ python-setuptools
 python-build make
 python-installer make
 python-wheel make 
+aarch64-python cross make
+python-build cross make
+python-installer cross make
+python-wheel cross make
