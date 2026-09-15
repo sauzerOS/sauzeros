@@ -1,15 +1,43 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 zcat libpng-1.6.55-apng.patch.gz | patch -Np1
 
-cmake -B build                 \
-  -D CMAKE_BUILD_TYPE=Release  \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D BUILD_SHARED_LIBS=ON      \
-  -D PNG_TESTS=OFF             \
-  -D PNG_STATIC=OFF            \
-  -D PNG_SHARED=ON             \
-  -D PNG_TOOLS=OFF
+CMAKE_FLAGS=()
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_SYSROOT="$(${CC:-${HOKUTO_ARCH}-linux-gnu-gcc} -print-sysroot 2>/dev/null)"
+    [ -n "$CROSS_SYSROOT" ] || CROSS_SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
+
+    CMAKE_FLAGS+=(
+        -D CMAKE_SYSTEM_NAME=Linux
+        -D CMAKE_SYSTEM_PROCESSOR="$HOKUTO_ARCH"
+
+        # Scope find_package/find_path/find_library to the cross sysroot, so
+        # zlib resolves against the target and not the host. Host headers on
+        # the include path would be read by the cross compiler, and glibc's
+        # bits/wordsize.h keys off __x86_64__, so it would report
+        # __WORDSIZE=32 and miscompile in confusing ways.
+        -D CMAKE_SYSROOT="$CROSS_SYSROOT"
+        -D CMAKE_FIND_ROOT_PATH="$CROSS_SYSROOT"
+        # Build tools still have to come from the host.
+        -D CMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER
+        -D CMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY
+        -D CMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
+        -D CMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY
+    )
+fi
+
+cmake -B build                       \
+  -D CMAKE_BUILD_TYPE=Release        \
+  -D CMAKE_INSTALL_PREFIX="$PREFIX"  \
+  -D BUILD_SHARED_LIBS=ON            \
+  -D PNG_TESTS=OFF                   \
+  -D PNG_STATIC=OFF                  \
+  -D PNG_SHARED=ON                   \
+  -D PNG_TOOLS=OFF                   \
+  "${CMAKE_FLAGS[@]}"
 
 cmake --build build
 DESTDIR=$1 cmake --install build
