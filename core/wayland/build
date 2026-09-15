@@ -12,24 +12,17 @@ MESON_OPTS=(
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-# Create a native pkg-config wrapper that unsets the cross variables.
-# This is necessary because hokuto exports PKG_CONFIG_SYSROOT_DIR globally,
-# which causes native dependency checks to wrongly prepend the sysroot.
-    cat <<EOF > native-pkg-config
-#!/bin/bash
-unset PKG_CONFIG_SYSROOT_DIR
-unset PKG_CONFIG_LIBDIR
-# Optionally set a path to ensure host .pc files are found
-export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig
-exec pkg-config "\$@"
-EOF
-    chmod +x native-pkg-config
 
+    # wayland-protocols is resolved as a native (build-machine) dependency;
+    # use hokuto's native pkg-config wrapper so the target sysroot hokuto
+    # exports globally isn't applied to its already-absolute prefix.
     cat <<EOF > host-tools.ini
 [binaries]
-pkg-config = '$PWD/native-pkg-config'
 wayland-scanner = '/usr/bin/wayland-scanner'
 EOF
+    if [ -n "$HOKUTO_NATIVE_FILE" ]; then
+        MESON_OPTS+=(--native-file "$HOKUTO_NATIVE_FILE")
+    fi
     MESON_OPTS+=(--native-file host-tools.ini)
 fi
 
