@@ -29,3 +29,8 @@ libjxl make
 librsvg make
 libwebp make
 libzip make
+aarch64-bzip2 cross
+aarch64-libx11 cross
+aarch64-libpng cross
+aarch64-xz cross
+aarch64-zlib-ng cross
