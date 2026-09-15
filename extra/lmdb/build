@@ -1,8 +1,22 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# liblmdb's Makefile hard-assigns CC/AR with '=', so they win over the
+# environment and hokuto's cross toolchain would be ignored. Command-line
+# variables do override them. Left empty for a native build so the Makefile
+# keeps its own defaults.
+LMDB_TOOLS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    LMDB_TOOLS=(
+        CC="${CC:-${HOKUTO_ARCH}-linux-gnu-gcc}"
+        AR="${AR:-${HOKUTO_ARCH}-linux-gnu-ar}"
+    )
+fi
+
 cd libraries/liblmdb
-make
+make prefix="$PREFIX" "${LMDB_TOOLS[@]}"
 
 sed -i 's| liblmdb.a||' Makefile
 
-make prefix=/usr DESTDIR=$1 install
+make prefix="$PREFIX" "${LMDB_TOOLS[@]}" DESTDIR=$1 install
