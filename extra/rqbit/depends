@@ -3,3 +3,9 @@ libgcc
 openssl
 npm make 
 rust | rustup make
+npm cross make
+rust cross make
+aarch64-rust cross make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-openssl cross
