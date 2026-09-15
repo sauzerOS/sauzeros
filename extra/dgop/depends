@@ -1,2 +1,6 @@
 glibc
 go | go-bin make
+go | go-bin cross make
+aarch64-glibc cross
+aarch64-gcc cross make
+aarch64-pcre2 cross
