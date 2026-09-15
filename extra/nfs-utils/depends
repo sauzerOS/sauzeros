@@ -13,6 +13,11 @@ util-linux-libs
 rpcsvc-proto make
 sqlite make
 aarch64-gcc cross make
+aarch64-keyutils cross make
 aarch64-libnl cross make
 aarch64-libevent cross make
+aarch64-libtirpc cross make
+aarch64-libxml2 cross make
+aarch64-readline cross make
 aarch64-util-linux cross make
+aarch64-rpcsvc-proto cross make
