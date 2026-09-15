@@ -1,8 +1,26 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+SYSCONFDIR=/etc
+[ "$PREFIX" = "/usr" ] || SYSCONFDIR="$PREFIX/etc"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+# Note: rpcsvc/Makefile generates the rpcsvc/*.h headers by running the rpcgen
+# it just built, so a cross build runs a target binary here. The distro's
+# qemu-user binfmt handler covers that (hokuto exports QEMU_LD_PREFIX), and the
+# generated headers are architecture independent either way.
 ./configure \
-    --sysconfdir=/etc
+    --prefix="$PREFIX" \
+    --sysconfdir="$SYSCONFDIR" \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
-
