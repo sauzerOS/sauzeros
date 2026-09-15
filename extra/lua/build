@@ -3,48 +3,77 @@
 main_ver=$2
 main_abi=${main_ver%.*}
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Every lua src/Makefile hard-assigns CC/AR/RANLIB, so the environment is
+# ignored and the cross toolchain has to be passed on the make command line.
+# Left empty for a native build so each version keeps its own defaults, which
+# differ: 5.5/5.4/5.3 build with -std=gnu99, 5.2/5.1 with plain gcc.
+LUA_CC=()
+LUA_CC89=()
+LUA_CXX=(CC=g++)
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_cc="${CC:-${HOKUTO_ARCH}-linux-gnu-gcc}"
+    cross_cxx="${CXX:-${HOKUTO_ARCH}-linux-gnu-g++}"
+    cross_ar=(
+        AR="${AR:-${HOKUTO_ARCH}-linux-gnu-ar} rcu"
+        RANLIB="${RANLIB:-${HOKUTO_ARCH}-linux-gnu-ranlib}"
+    )
+    LUA_CC=(CC="$cross_cc -std=gnu99" "${cross_ar[@]}")
+    LUA_CC89=(CC="$cross_cc" "${cross_ar[@]}")
+    LUA_CXX=(CC="$cross_cxx" "${cross_ar[@]}")
+fi
+
 # Lua 5.5: the default implementation owns the unversioned commands,
 # headers, libraries and pkg-config aliases.
 patch -d lua55 -Np1 -i ../liblua.so.patch
 patch -d lua55 -Np1 -i ../paths55.patch
 cp -r lua55 lua55++
-sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g" lua.pc > lua55/lua.pc
-sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g;s/-llua/-llua++/g" lua.pc > lua55++/lua++.pc
+sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g;s|^prefix=/usr|prefix=$PREFIX|" lua.pc > lua55/lua.pc
+sed "s/%VER%/$main_abi/g;s/%REL%/$main_ver/g;s/-llua/-llua++/g;s|^prefix=/usr|prefix=$PREFIX|" lua.pc > lua55++/lua++.pc
 
 cd lua55
-make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CC[@]}" linux
 make \
   TO_LIB="liblua.so liblua.so.$main_abi liblua.so.$main_ver" \
   INSTALL_DATA='cp -d' \
-  INSTALL_TOP="$1"/usr \
-  INSTALL_MAN="$1"/usr/share/man/man1 \
+  INSTALL_TOP="$1$PREFIX" \
+  INSTALL_MAN="$1$PREFIX"/share/man/man1 \
   install
-ln -sf /usr/bin/lua "$1"/usr/bin/lua$main_abi
-ln -sf /usr/bin/luac "$1"/usr/bin/luac$main_abi
-ln -sf /usr/lib/liblua.so.$main_ver "$1"/usr/lib/liblua$main_abi.so
+ln -sf $PREFIX/bin/lua "$1$PREFIX"/bin/lua$main_abi
+ln -sf $PREFIX/bin/luac "$1$PREFIX"/bin/luac$main_abi
+ln -sf $PREFIX/lib/liblua.so.$main_ver "$1$PREFIX"/lib/liblua$main_abi.so
 
-install -Dm644 lua.pc "$1"/usr/lib/pkgconfig/lua55.pc
-ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua.pc
-ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua5.5.pc
-ln -sf lua55.pc "$1"/usr/lib/pkgconfig/lua-5.5.pc
-install -d "$1/usr/share/doc/$3"
-install -m644 doc/*.{png,css,html} "$1/usr/share/doc/$3"
-install -Dm644 ../license-from-upstream "$1/usr/share/licenses/$3/LICENSE"
+install -Dm644 lua.pc "$1$PREFIX"/lib/pkgconfig/lua55.pc
+ln -sf lua55.pc "$1$PREFIX"/lib/pkgconfig/lua.pc
+ln -sf lua55.pc "$1$PREFIX"/lib/pkgconfig/lua5.5.pc
+ln -sf lua55.pc "$1$PREFIX"/lib/pkgconfig/lua-5.5.pc
+install -d "$1$PREFIX/share/doc/$3"
+install -m644 doc/*.{png,css,html} "$1$PREFIX/share/doc/$3"
+install -Dm644 ../license-from-upstream "$1$PREFIX/share/licenses/$3/LICENSE"
 
 cd ../lua55++
-make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ LUA_A=liblua++.a LUA_SO=liblua++.so linux
+make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CXX[@]}" LUA_A=liblua++.a LUA_SO=liblua++.so linux
 make \
   TO_LIB="liblua++.so liblua++.so.$main_abi liblua++.so.$main_ver" \
   INSTALL_BIN=null INSTALL_INC=null INSTALL_MAN=../null \
   INSTALL_DATA='cp -d' \
-  INSTALL_TOP="$1"/usr \
+  INSTALL_TOP="$1$PREFIX" \
   install
-ln -sf /usr/lib/liblua++.so.$main_ver "$1"/usr/lib/liblua++$main_abi.so
+ln -sf $PREFIX/lib/liblua++.so.$main_ver "$1$PREFIX"/lib/liblua++$main_abi.so
 
-install -Dm644 lua++.pc "$1"/usr/lib/pkgconfig/lua++55.pc
-ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++.pc
-ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++5.5.pc
-ln -sf lua++55.pc "$1"/usr/lib/pkgconfig/lua++-5.5.pc
+install -Dm644 lua++.pc "$1$PREFIX"/lib/pkgconfig/lua++55.pc
+ln -sf lua++55.pc "$1$PREFIX"/lib/pkgconfig/lua++.pc
+ln -sf lua++55.pc "$1$PREFIX"/lib/pkgconfig/lua++5.5.pc
+ln -sf lua++55.pc "$1$PREFIX"/lib/pkgconfig/lua++-5.5.pc
+
+if [ "$PREFIX" != "/usr" ]; then
+    # The legacy 5.1-5.4 builds below exist only to fill the luaXX split
+    # packages. A cross-system build installs into $CROSS_PREFIX instead of
+    # /usr and produces no splits, so stop here. A native or plain cross
+    # build installs into /usr and does produce them.
+    exit 0
+fi
 
 # Lua 5.4: every public filename is ABI-versioned so it can coexist with lua.
 cd ..
@@ -57,7 +86,7 @@ sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.4/; /^LUAC_T=/ s/luac/luac5.4/' -i lua54/src
 sed -E '/^LUA_(SO|A|T)=/ s/lua/lua++5.4/; /^LUAC_T=/ s/luac/luac5.4/' -i lua54++/src/Makefile
 
 cd lua54
-make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux-readline
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CC[@]}" linux-readline
 lua54_dir="$HOKUTO_SPLIT_DIR/lua54"
 make TO_BIN='lua5.4 luac5.4' \
   TO_LIB='liblua5.4.so liblua5.4.so.5.4 liblua5.4.so.5.4.8' \
@@ -76,7 +105,7 @@ mv "$lua54_dir/usr/share/man/man1/lua.1" "$lua54_dir/usr/share/man/man1/lua5.4.1
 mv "$lua54_dir/usr/share/man/man1/luac.1" "$lua54_dir/usr/share/man/man1/luac5.4.1"
 
 cd ../lua54++
-make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" CC=g++ \
+make MYCFLAGS="$CXXFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CXX[@]}" \
   LUA_A=liblua++5.4.a LUA_SO=liblua++5.4.so linux-readline
 make TO_BIN='lua++5.4 luac5.4' \
   TO_LIB='liblua++5.4.so liblua++5.4.so.5.4 liblua++5.4.so.5.4.8' \
@@ -92,7 +121,7 @@ patch -d lua53 -Np1 -i ../lua53-liblua.so.patch
 sed 's/%VER%/5.3/g;s/%REL%/5.3.6/g;s/-llua/-llua5.3/g;s:/include:/include/lua5.3:' lua.pc > lua53/lua.pc
 sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.3/; /^LUAC_T=/ s/luac/luac5.3/' -i lua53/src/Makefile
 cd lua53
-make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CC[@]}" linux
 lua53_dir="$HOKUTO_SPLIT_DIR/lua53"
 make TO_BIN='lua5.3 luac5.3' \
   TO_LIB='liblua5.3.so liblua5.3.so.5.3 liblua5.3.so.5.3.6' \
@@ -116,7 +145,7 @@ patch -d lua52 -Np1 -i ../lua52-liblua.so.patch
 sed 's/%VER%/5.2/g;s/%REL%/5.2.4/g;s/-llua/-llua5.2/g;s:/include:/include/lua5.2:' lua.pc > lua52/lua.pc
 sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.2/; /^LUAC_T=/ s/luac/luac5.2/' -i lua52/src/Makefile
 cd lua52
-make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CC89[@]}" linux
 lua52_dir="$HOKUTO_SPLIT_DIR/lua52"
 make TO_BIN='lua5.2 luac5.2' \
   TO_LIB='liblua5.2.so liblua5.2.so.5.2 liblua5.2.so.5.2.4' \
@@ -142,7 +171,7 @@ patch -d lua51 -Np1 -i ../lua51-cflags.patch
 sed -e 's:llua:llua5.1:' -e 's:/include:/include/lua5.1:' -i lua51/etc/lua.pc
 sed -E '/^LUA_(SO|A|T)=/ s/lua/lua5.1/; /^LUAC_T=/ s/luac/luac5.1/' -i lua51/src/Makefile
 cd lua51
-make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
+make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" "${LUA_CC89[@]}" linux
 lua51_dir="$HOKUTO_SPLIT_DIR/lua51"
 make TO_BIN='lua5.1 luac5.1' \
   TO_LIB='liblua5.1.so liblua5.1.so.5.1 liblua5.1.so.5.1.5' \
