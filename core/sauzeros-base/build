@@ -77,7 +77,8 @@ for arch in aarch64-linux-gnu; do
     install -dm 755 "$CROSS_DIR/usr/sbin"
     install -dm 755 "$CROSS_DIR/usr/share"
     install -dm 755 "$CROSS_DIR/usr/include"
-
+    install -dm 755 "$CROSS_DIR/usr/libexec"
+    install -dm 755 "$CROSS_DIR/usr/var"
     # Create sysroot structure compatibility symlinks
     ln -s usr/lib    "$CROSS_DIR/lib"
     ln -s usr/lib    "$CROSS_DIR/lib64"
@@ -85,6 +86,8 @@ for arch in aarch64-linux-gnu; do
     ln -s usr/bin    "$CROSS_DIR/sbin"
     ln -s usr/share  "$CROSS_DIR/share"
     ln -s usr/include "$CROSS_DIR/include"
+    ln -s usr/libexec "$CROSS_DIR/libexec"
+    ln -s usr/var "$CROSS_DIR/var"
 done
 
 # Setup hokuto cache dirs
