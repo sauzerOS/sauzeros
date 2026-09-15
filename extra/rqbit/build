@@ -1,11 +1,34 @@
 #!/bin/bash -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    if [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+        echo "rqbit: cross-system builds are not supported; nothing links against a standalone binary" >&2
+        exit 1
+    fi
+
+    # reqwest's default-tls and sha1-crypto-hash both pull in openssl-sys,
+    # which locates OpenSSL through the pkg-config crate. That crate skips the
+    # probe when host != target unless it can tell the environment is
+    # cross-aware, and silently falls back to scanning the host's /usr, which
+    # would link the x86_64 libssl. Say so explicitly; hokuto points
+    # PKG_CONFIG_LIBDIR at the target sysroot, so the probe resolves there.
+    export PKG_CONFIG_ALLOW_CROSS=1
+fi
+
 cargo fetch --locked
 cargo build -p rqbit --frozen --release
+
+# hokuto exports CARGO_BUILD_TARGET for cross builds, which moves the binary
+# from target/release into target/<triple>/release.
+RELEASE_DIR="target/${CARGO_BUILD_TARGET:+${CARGO_BUILD_TARGET}/}release"
+
 install -d $1/usr/bin
-install -Dm 755 target/release/rqbit $1/usr/bin
+install -Dm 755 "$RELEASE_DIR/rqbit" $1/usr/bin
 
 # install completions
+# rqbit prints its own completion scripts, so this runs the binary we just
+# built. Under cross that is a target binary, executed through the qemu-user
+# binfmt handler (hokuto exports QEMU_LD_PREFIX so it finds the sysroot loader).
 install -d "${1}/usr/share/bash-completion/completions" \
            "${1}/usr/share/zsh/site-functions" \
            "${1}/usr/share/fish/vendor_completions.d"
