@@ -1,3 +1,6 @@
 glibc
 oniguruma
 python make 
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-oniguruma cross
