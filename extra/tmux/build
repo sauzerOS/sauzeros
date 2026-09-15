@@ -1,10 +1,28 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 ./autogen.sh
+
+CONF_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CONF_OPTS+=(--host="$HOST_TRIPLET")
+
+    # tmux picks its default TERM by running a program against the terminfo
+    # database; cross-compiling cannot run it and falls back to plain
+    # "screen". The target ships the same ncurses terminfo, so keep the
+    # answer a native build arrives at.
+    CONF_OPTS+=(--with-TERM=screen-256color)
+fi
+
 ./configure        \
-    --prefix=/usr  \
+    --prefix="$PREFIX"  \
     --enable-sixel \
-    --enable-systemd
+    --enable-systemd \
+    "${CONF_OPTS[@]}"
 
 make
 make DESTDIR="$1" install
