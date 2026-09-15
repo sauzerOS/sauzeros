@@ -1,9 +1,27 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 export CFLAGS="$CFLAGS -static"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+
+    # make only uses posix_spawn() if a run test confirms that a failed spawn
+    # reports the error synchronously. Cross compiling answers "no", which
+    # switches off make's whole posix_spawn path and leaves the slower
+    # fork/exec fallback. glibc's posix_spawn does fail synchronously -- that
+    # is what configure finds natively on this host.
+    export make_cv_synchronous_posix_spawn=yes
+fi
+
 ./configure \
-    --prefix=/usr
+    --prefix="$PREFIX" \
+    $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
-
