@@ -1,20 +1,46 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR=/etc
+LOCALSTATE_DIR=/var/lib
+if [ "$PREFIX" != "/usr" ]; then
+    SYSCONF_DIR="$PREFIX/etc"
+    LOCALSTATE_DIR="$PREFIX/var/lib"
+fi
+
 export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all -std=gnu17"
 
 patch -Np1 -i mitkrb-1.22.2-openssl_4_fixes-1.patch
 patch -Np1 -i mitkrb-1.22.2-security_fix-1.patch
 patch -Np1 -i mitkrb-1.22.2-upstream_fix-1.patch
 
+CONF_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CONF_OPTS+=(--host="$HOST_TRIPLET")
+
+    # These two probes run a test program, and krb5's configure aborts rather
+    # than guessing when it cannot. Both hold for linux/glibc: gcc supports
+    # the constructor/destructor attributes, and glibc's printf supports
+    # positional arguments.
+    CONF_OPTS+=(
+        krb5_cv_attr_constructor_destructor=yes,yes
+        ac_cv_printf_positional=yes
+    )
+fi
+
 cd src
-./configure --prefix=/usr \
-            --sbindir=/usr/bin \
-            --sysconfdir=/etc \
-            --localstatedir=/var/lib \
+./configure --prefix="$PREFIX" \
+            --sbindir="$PREFIX/bin" \
+            --sysconfdir="$SYSCONF_DIR" \
+            --localstatedir="$LOCALSTATE_DIR" \
             --enable-shared \
             --with-system-et \
             --with-system-ss \
             --disable-rpath \
-            --without-tcl
+            --without-tcl \
+            "${CONF_OPTS[@]}"
 make
 make DESTDIR="${1}" install
