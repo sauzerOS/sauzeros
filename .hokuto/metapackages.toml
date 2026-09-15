@@ -52,6 +52,16 @@ depends = [
 "texinfo",
 "which",
 ]
+[aarch64-base-devel]
+description = "aarch64 cross toolchain"
+depends = [
+"aarch64-binutils",
+"aarch64-gcc",
+"aarch64-linux-api-headers",
+"aarch64-glibc",
+"aarch64-pkgconf",
+"qemu-user-static-binfmt",
+]
 [kde-desktop]
 description = "KDE Plasma"
 depends = [
