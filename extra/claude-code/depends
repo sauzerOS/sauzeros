@@ -1,0 +1,7 @@
+bash
+bubblewrap suggest sandboxing
+github-cli suggest interact with GitHub
+git suggest use git with Claude
+ripgrep suggest enhanced file search
+socat suggest sandboxing
+tmux suggest agent team split panes

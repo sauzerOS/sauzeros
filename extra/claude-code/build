@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+install -Dm755 "claude" "${1}/opt/claude-code/bin/claude"
+
+# Create wrapper script to disable upstream update paths, and to suppress the
+# native-install health check. Claude Code expects the native installer layout
+# (~/.local/bin/claude); since we install to /opt + /usr/bin it would otherwise
+# warn on every startup: "claude command at ~/.local/bin/claude missing or broken".
+install -dm755 "${1}/usr/bin"
+cat > "${1}/usr/bin/claude" << 'EOF'
+#!/bin/sh
+export DISABLE_UPDATES=1
+export DISABLE_INSTALLATION_CHECKS=1
+exec /opt/claude-code/bin/claude "$@"
+EOF
+chmod 755 "${1}/usr/bin/claude"

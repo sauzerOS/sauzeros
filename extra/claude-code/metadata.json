@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/anthropics/claude-code",
+  "category": "extra",
+  "description": "An agentic coding tool that lives in your terminal",
+  "info": "",
+  "license": "LicenseRef-claude-code",
+  "tags": []
+}
