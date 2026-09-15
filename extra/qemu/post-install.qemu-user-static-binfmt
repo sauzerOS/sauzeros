@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Enabling binfmt systemd service"
+systemctl enable --now systemd-binfmt.service
