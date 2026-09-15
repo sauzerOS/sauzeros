@@ -1,11 +1,15 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 # Disable tests and examples
 echo "all:" > examples/Makefile
 echo "all:" > test/Makefile
 
+# liburing's hand-written configure takes the compiler from $CC, which hokuto
+# already points at the cross toolchain, so only the prefix needs adjusting.
 ./configure \
-    --prefix=/usr
+    --prefix="$PREFIX"
 
 make
 make DESTDIR="$1" install
