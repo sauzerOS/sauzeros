@@ -9,10 +9,12 @@ zlib-ng
 zstd
 procps-ng make
 python make
-aarch64-libuv cross make
 aarch64-brotli cross make
-aarch64-icu cross make
-aarch64-openssl cross make
-aarch64-nghttp2 cross make
-aarch64-zlib-ng cross make
-aarch64-gcc cross make
+aarch64-c-ares cross
+aarch64-gcc cross
+aarch64-icu cross
+aarch64-libffi cross
+aarch64-libuv cross
+aarch64-nghttp2 cross
+aarch64-openssl cross
+aarch64-zlib-ng cross
