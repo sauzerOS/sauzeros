@@ -1,15 +1,33 @@
 #!/bin/bash -e
 
-./configure          \
-  --prefix=/usr      \
-  --exec-prefix=/    \
-  --sysconfdir=/etc  \
-  --libdir=/usr/lib  \
-  --bindir=/usr/bin  \
-  --sbindir=/usr/bin \
+PREFIX="${CROSS_PREFIX:-/usr}"
+EXEC_PREFIX=/
+SYSCONF_DIR=/etc
+if [ "$PREFIX" != "/usr" ]; then
+    # Keep everything inside the sysroot for a cross-system build.
+    EXEC_PREFIX="$PREFIX"
+    SYSCONF_DIR="$PREFIX/etc"
+fi
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure                    \
+  --prefix="$PREFIX"           \
+  --exec-prefix="$EXEC_PREFIX" \
+  --sysconfdir="$SYSCONF_DIR"  \
+  --libdir="$PREFIX/lib"       \
+  --bindir="$PREFIX/bin"       \
+  --sbindir="$PREFIX/bin"      \
   --enable-watch8bit \
   --with-systemd     \
-  --disable-kill
+  --disable-kill     \
+  $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
