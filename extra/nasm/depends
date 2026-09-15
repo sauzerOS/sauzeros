@@ -1,3 +1,5 @@
 glibc
 zlib-ng
 diffutils make
+aarch64-glibc cross make
+aarch64-zlib-ng cross make
