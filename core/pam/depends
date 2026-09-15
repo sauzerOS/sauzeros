@@ -11,4 +11,4 @@ lib32-libxcrypt make
 lib32-systemd optional make
 aarch64-libtirpc cross make
 aarch64-gcc cross make
-qemu-user-static cross make
+aarch64-libxcrypt cross make
