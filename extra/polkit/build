@@ -1,15 +1,43 @@
 #!/bin/bash -e
 
-hokuto-meson build               \
-      -D os_type=lfs             \
-      -D man=false               \
-      -D session_tracking=logind \
-      -D tests=false
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
 
+# Same defaults hokuto-meson applies, spelled out so the cross file and the
+# sysroot prefix can be added below.
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    --libexecdir=lib
+    --sbindir=bin
+    --buildtype=plain
+    --wrap-mode=nodownload
+    -D b_pie=true
+    -D b_ndebug=true
+    -D os_type=lfs
+    -D man=false
+    -D session_tracking=logind
+    -D tests=false
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(
+        --cross-file "$HOKUTO_ARCH"
+        # g-ir-scanner introspects by running the binaries it just built,
+        # which it cannot do for a foreign architecture.
+        -D introspection=false
+    )
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
-meson install -C build --destdir=$1
+meson install -C build --destdir="$1"
 
-install -Dm 644 polkit-1 $1/usr/lib/pam.d/polkit-1
-install -Dm 644 10-udisks2-mount.rules $1/etc/polkit-1/rules.d/10-udisks2-mount.rules
-install -Dm 644 20-powerdevil.rules $1/etc/polkit-1/rules.d/20-powerdevil.rules
-install -Dm 644 50-logs.rules $1/etc/polkit-1/rules.d/50-logs.rules
+# Host configuration belongs to a real install only. A cross-system sysroot
+# ($PREFIX = /usr/<triplet>) is built against, never booted, so it gets the
+# libraries and headers but none of the /etc drop-ins.
+if [ "$PREFIX" = "/usr" ]; then
+    install -Dm 644 polkit-1 "$1/usr/lib/pam.d/polkit-1"
+    install -Dm 644 10-udisks2-mount.rules "$1/etc/polkit-1/rules.d/10-udisks2-mount.rules"
+    install -Dm 644 20-powerdevil.rules "$1/etc/polkit-1/rules.d/20-powerdevil.rules"
+    install -Dm 644 50-logs.rules "$1/etc/polkit-1/rules.d/50-logs.rules"
+fi
