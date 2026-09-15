@@ -1,2 +1,4 @@
 perl
 autoconf make
+perl cross make
+autoconf cross make
