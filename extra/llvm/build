@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 cd llvm
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
 # installing static libraries; inspired by Gentoo
@@ -82,7 +84,7 @@ cmake_args=(
     -W no-dev
 )
 cmake "${cmake_args[@]}"
-cd build
+cd $CROSS_BUILD_DIR
 distribution_components=$(_get_distribution_components | paste -sd\;)
 test -n "$distribution_components"
 cmake_args+=(-DLLVM_DISTRIBUTION_COMPONENTS="$distribution_components")
@@ -94,34 +96,6 @@ DESTDIR=$1 cmake --install $CROSS_BUILD_DIR
 # Install wrapper
 install -d $1/usr/bin
 install -Dm755 ../aarch64-linux-gnu-llvm-config $1/usr/bin/aarch64-linux-gnu-llvm-config
-
-# llvm-libs split package
-libdir=usr/lib
-_pick "$1" llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
-_pick "$1" llvm-libs $libdir/LLVMgold.so
-
-# Symlink LLVMgold.so from /usr/lib/bfd-plugins
-# https://bugs.archlinux.org/task/28479
-install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
-ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
-
-# clang split package
-_pick "$1" clang usr/bin/{clang,clang++,clang-cl,clang-cpp}
-_pick "$1" clang usr/bin/git-clang-format
-_pick "$1" clang $libdir/libclang*
-_pick "$1" clang etc/clang/*
-_pick "$1" clang usr/include/clang-c/*
-_pick "$1" clang usr/include/clang/*
-_pick "$1" clang $libdir/clang/*
-_pick "$1" clang $libdir/cmake/clang/*
-_pick "$1" clang $libdir/libscanbuild/clang.py
-_pick "$1" clang usr/share/clang/*
-
-# lld split package
-_pick "$1" lld usr/bin/{ld.lld,ld64.lld,lld,lld-link,wasm-ld}
-_pick "$1" lld usr/include/lld/*
-_pick "$1" lld usr/include/cmake/lld/*
-_pick "$1" lld usr/lib/liblld*
 
 else
 cmake_args=(
@@ -158,6 +132,10 @@ for i in clang clang++; do
 done
 fi
 
+# Split packages only make sense when installing into /usr. A cross-system
+# build installs into $CROSS_PREFIX (/usr/<triplet>), so _pick would find
+# nothing under usr/lib anyway.
+if [ "$PREFIX" = "/usr" ]; then
 # llvm-libs split package
 libdir=usr/lib
 _pick "$1" llvm-libs $libdir/lib{LLVM,LTO,Remarks}*.so*
@@ -166,7 +144,7 @@ _pick "$1" llvm-libs $libdir/LLVMgold.so
 # Symlink LLVMgold.so from /usr/lib/bfd-plugins
 # https://bugs.archlinux.org/task/28479
 install -d "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins"
-ln -s ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
+ln -sfn ../LLVMgold.so "$HOKUTO_SPLIT_DIR/llvm-libs/usr/lib/bfd-plugins/LLVMgold.so"
 
 # clang split package
 rm -rf "$1/usr/lib/clang/22/lib/i386-"*
@@ -186,6 +164,7 @@ _pick "$1" lld usr/bin/{ld.lld,ld64.lld,lld,lld-link,wasm-ld}
 _pick "$1" lld usr/include/lld/*
 _pick "$1" lld usr/include/cmake/lld/*
 _pick "$1" lld usr/lib/liblld*
+fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
