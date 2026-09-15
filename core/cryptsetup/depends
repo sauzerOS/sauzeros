@@ -5,7 +5,9 @@ openssl
 popt
 util-linux-libs
 util-linux make
-aarch64-device-mapper cross make
-aarch64-popt cross make
 aarch64-gcc cross make
-aarch64-util-linux cross make
+aarch64-json-c cross
+aarch64-lvm2 cross
+aarch64-openssl cross
+aarch64-popt cross
+aarch64-util-linux cross
