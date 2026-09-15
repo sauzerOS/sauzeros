@@ -1,13 +1,30 @@
 #!/bin/bash -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 # openssl 4 fix
 sed -e 's/\([->.a-zA-Z_]*\)->length/ASN1_STRING_length(\1)/' \
     -i lib/iolog/hostcheck.c
 
+CONF_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CONF_OPTS+=(--host="$HOST_TRIPLET")
+fi
+
+# Keep sudoers inside the sysroot for a cross-system build. A native build is
+# left alone: sudo's configure rewrites the default sysconfdir to /etc itself.
+if [ "$PREFIX" != "/usr" ]; then
+    CONF_OPTS+=(--sysconfdir="$PREFIX/etc")
+fi
+
 ./configure                  \
-  --prefix=/usr              \
-  --sbindir=/usr/bin         \
-  --libexecdir=/usr/lib      \
+  --prefix="$PREFIX"         \
+  --sbindir="$PREFIX/bin"    \
+  --libexecdir="$PREFIX/lib" \
   --with-rundir=/run/sudo    \
   --with-vardir=/var/db/sudo \
   --with-pam                 \
@@ -20,13 +37,19 @@ sed -e 's/\([->.a-zA-Z_]*\)->length/ASN1_STRING_length(\1)/' \
   --with-env-editor          \
   --with-logfac=auth         \
   --enable-tmpfiles.d        \
- --with-passprompt="[sudo] password for %p: "
+ --with-passprompt="[sudo] password for %p: " \
+  "${CONF_OPTS[@]}"
 
 make
 make DESTDIR=$1 install
 
 # Remove /run/sudo directory; we create it using systemd-tmpfiles
-rmdir "$1/run/sudo"
-rmdir "$1/run"
+if [ -d "$1/run/sudo" ]; then
+    rmdir "$1/run/sudo"
+    rmdir "$1/run"
+fi
 
-install -Dm644 "sudo.pam" "$1/etc/pam.d/sudo"
+# The PAM drop-in is host configuration; a cross-system sysroot doesn't boot.
+if [ "$PREFIX" = "/usr" ]; then
+    install -Dm644 "sudo.pam" "$1/etc/pam.d/sudo"
+fi
