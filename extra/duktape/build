@@ -1,8 +1,13 @@
 #!/bin/bash -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 sed -i 's/-Os/-O2/' Makefile.sharedlibrary
 # Add missing NEEDED on libm.so
 sed -i 's/duktape\.c/& -lm/' Makefile.sharedlibrary
 
-make -f Makefile.sharedlibrary INSTALL_PREFIX=/usr
-make DESTDIR=$1 -f Makefile.sharedlibrary INSTALL_PREFIX=/usr install
+# Makefile.sharedlibrary uses CC ?= gcc, so the cross toolchain hokuto exports
+# is picked up from the environment as-is.
+make -f Makefile.sharedlibrary INSTALL_PREFIX="$PREFIX"
+make DESTDIR=$1 -f Makefile.sharedlibrary INSTALL_PREFIX="$PREFIX" install
