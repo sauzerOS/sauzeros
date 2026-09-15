@@ -9,3 +9,13 @@ dbus make
 git make
 gobject-introspection make
 meson make 
+aarch64-gcc cross make
+aarch64-duktape cross
+aarch64-expat cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-pam cross
+aarch64-systemd cross
+aarch64-dbus cross
+git cross make
+meson cross make
