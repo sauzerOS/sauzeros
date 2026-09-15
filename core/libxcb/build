@@ -10,18 +10,15 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
     [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
     CROSS_OPTS="--host=$HOST_TRIPLET"
-    # libxcb needs to find xcb-proto during build.
-    # PYTHONPATH is set by hokuto, but ensure it's exported for configure tests.
+# PYTHONPATH is set by hokuto, but ensure it's exported for configure tests.
     export PYTHONPATH="$PYTHONPATH"
 fi
 
-./configure --prefix="$PREFIX"   \
-    --sysconfdir="$SYSCONF_DIR"       \
-    --mandir="$PREFIX/share/man" \
-    --localstatedir="$PREFIX/var"    \
-    --disable-specs         \
-    --without-xmlto         \
-    --disable-static \
+PKG_CONFIG_SYSROOT_DIR="" ./configure --prefix="$PREFIX"    \
+    --sysconfdir="$SYSCONF_DIR"   \
+    --mandir="$PREFIX/share/man"  \
+    --localstatedir="$PREFIX/var" \
+    --disable-static              \
     $CROSS_OPTS
 
 make
@@ -35,8 +32,6 @@ CC="gcc -m32" CXX="g++ -m32" PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
     --sysconfdir=/etc       \
     --mandir=/usr/share/man \
     --localstatedir=/var    \
-    --disable-specs         \
-    --without-xmlto         \
     --disable-static        \
     --libdir=/usr/lib32
 
