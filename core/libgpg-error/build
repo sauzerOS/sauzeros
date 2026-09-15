@@ -9,11 +9,22 @@ if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
+# These three were hardcoded to the host's FHS paths, so a cross-system build
+# dropped gpgrt-config.1 into the host's /usr/share/man and compiled the host's
+# /etc into the library. Keep the FHS layout when installing into /usr and stay
+# inside the prefix otherwise.
+SYSCONFDIR=/etc
+LOCALSTATEDIR=/var
+if [ "$PREFIX" != "/usr" ]; then
+    SYSCONFDIR="$PREFIX/etc"
+    LOCALSTATEDIR="$PREFIX/var"
+fi
+
 ./configure \
     --prefix="$PREFIX" \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --localstatedir=/var \
+    --sysconfdir="$SYSCONFDIR" \
+    --mandir="$PREFIX/share/man" \
+    --localstatedir="$LOCALSTATEDIR" \
     $CROSS_OPTS
 
 make
