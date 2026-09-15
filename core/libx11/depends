@@ -5,5 +5,7 @@ xorg-util-macros make
 xtrans make
 lib32-libxcb make
 aarch64-gcc cross make
-aarch64-xtrans cross make
-aarch64-libxcb cross make
+aarch64-libxau cross
+aarch64-libxcb cross
+aarch64-xorgproto cross
+aarch64-xtrans cross
