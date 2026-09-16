@@ -1,4 +1,6 @@
+libversion
 python
+pkgconf make
 python-build make
 python-installer make
 python-setuptools make
