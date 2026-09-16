@@ -69,6 +69,19 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     TARGET_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
     HOST_OPT="--build=$(gcc -dumpmachine) --host=${TARGET_TRIPLET} --target=${TARGET_TRIPLET}"
 
+    # Tell the build where the target's headers live *on this machine*. With
+    # build != host and no --with-build-sysroot, gcc sets
+    #   BUILD_SYSTEM_HEADER_DIR = $(CROSS_SYSTEM_HEADER_DIR)   (.../sys-include)
+    # which does not exist here, so gcc/Makefile.in's
+    #   LIMITS_H_TEST = [ -f $(BUILD_SYSTEM_HEADER_DIR)/limits.h ]
+    # fails and include/limits.h is installed as the bare glimits.h instead of
+    # the limitx.h+glimits.h+limity.h wrapper. The bare copy never chains to
+    # libc's limits.h, so the resulting compiler cannot see LINE_MAX, PATH_MAX
+    # or anything else from <limits.h> beyond the compiler's own built-ins.
+    # --with-build-sysroot is build-time only; the installed compiler still
+    # uses the default /usr/include at runtime.
+    HOST_OPT="$HOST_OPT --with-build-sysroot=/usr/${TARGET_TRIPLET}"
+
     # Isolate Build (x86) from Host (ARM64) configuration
     export CC_FOR_BUILD="gcc"
     export CXX_FOR_BUILD="g++"
