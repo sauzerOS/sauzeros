@@ -5,6 +5,16 @@ CONFIGURE_ARGS=(
     --enable-threadsafe
     --enable-fts4
     --enable-fts5
+    # Upstream defaults to building libsqlite3.so with no SONAME at all
+    # ("this project has no direct use for soname"). Without one the linker
+    # records whatever path it was handed into DT_NEEDED, so anything that
+    # resolves sqlite through pkg-config -- meson does, by absolute path --
+    # ends up needing a literal /<libdir>/libsqlite3.so. That is invisible
+    # natively and fatal when cross compiling, where the baked path is the
+    # host's sysroot. "legacy" is upstream's name for libsqlite3.so.0, the
+    # symlink this package already installs; nothing else about the install
+    # changes.
+    --soname=legacy
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -30,6 +40,7 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig          \
             --host=i686-pc-linux-gnu          \
             --enable-threadsafe \
     	    --enable-fts{4,5} \
+            --soname=legacy \
             CPPFLAGS="-D SQLITE_ENABLE_COLUMN_METADATA=1 \
                       -D SQLITE_ENABLE_UNLOCK_NOTIFY=1   \
                       -D SQLITE_ENABLE_DBSTAT_VTAB=1     \
