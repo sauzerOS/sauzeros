@@ -1,0 +1,22 @@
+diff -Naur a/src/util/apparmor.c b/src/util/apparmor.c
+--- a/src/util/apparmor.c	2025-06-16 19:26:27.000000000 +0700
++++ b/src/util/apparmor.c	2026-09-16 16:54:30.746837908 +0700
+@@ -6,6 +6,7 @@
+  * Ubuntu patches. This follows closely what dbus-daemon does.
+  */
+ 
++#include <limits.h>
+ #include <c-rbtree.h>
+ #include <c-stdaux.h>
+ #include <stdlib.h>
+diff -Naur a/src/util/proc.c b/src/util/proc.c
+--- a/src/util/proc.c	2025-06-16 19:26:27.000000000 +0700
++++ b/src/util/proc.c	2026-09-16 16:54:30.746389223 +0700
+@@ -2,6 +2,7 @@
+  * Proc Helpers
+  */
+ 
++#include <limits.h>
+ #include <c-stdaux.h>
+ #include <stdlib.h>
+ #include <stdio.h>
