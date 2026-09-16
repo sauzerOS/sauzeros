@@ -1,4 +1,4 @@
-git+https://github.com/repology/repology-updater#3966c7d
+git+https://github.com/repology/repology-updater#${version-last-only}
 git+https://github.com/repology/repology-rules rules.d
 files/repology-update.service
 files/repology-update.timer
