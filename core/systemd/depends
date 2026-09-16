@@ -62,6 +62,7 @@ aarch64-libseccomp cross make
 aarch64-libxcrypt cross make
 aarch64-libxkbcommon cross make
 aarch64-lz4 cross make
+aarch64-pam cross make
 aarch64-p11-kit cross make
 aarch64-pcre2 cross make
 aarch64-python-jinja2 cross make
