@@ -110,3 +110,14 @@ destdir=$HOKUTO_SPLIT_DIR/fonts-microsoft-extra
 install -d "$destdir"/usr/share/fonts/truetype
 install -Dm644 *.ttf -t "$destdir"/usr/share/fonts/truetype/
 popd
+
+# fonts-dejavu
+# Installed under truetype/dejavu rather than the TTF/ directory the other
+# splits use: fontconfig scans /usr/share/fonts recursively either way, but
+# repology-webapp looks for DejaVuSans.ttf and DejaVuSans-Bold.ttf in exactly
+# /usr/share/fonts/truetype/dejavu (or the FreeBSD path) and panics otherwise.
+pushd dejavu
+destdir=$HOKUTO_SPLIT_DIR/fonts-dejavu
+install -d "$destdir/usr/share/fonts/truetype/dejavu"
+install -Dm644 ttf/*.ttf -t "$destdir/usr/share/fonts/truetype/dejavu/"
+popd
