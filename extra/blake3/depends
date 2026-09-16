@@ -2,4 +2,8 @@ glibc
 libgcc
 cmake make
 rust make
+cmake cross make
+rust cross make
 aarch64-rust cross make
+aarch64-gcc cross make
+aarch64-glibc cross
