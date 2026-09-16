@@ -17,6 +17,13 @@ MESON_OPTS=(
     -D man=false
     -D session_tracking=logind
     -D tests=false
+    # polkit reads its systemd directories out of systemd.pc, and a cross
+    # sysroot's .pc spells them absolutely (/usr/<triplet>/lib/...) instead of
+    # relative to the prefix, which upstream notes in a FIXME next to the
+    # lookup. Pin the one meson exposes as an option so the units land in the
+    # prefix being built for; sysusers.d and tmpfiles.d are handled after
+    # install because they have no option.
+    -D systemdsystemunitdir="$PREFIX/lib/systemd/system"
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -31,6 +38,30 @@ fi
 meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir="$1"
+
+# sysusers_dir and tmpfiles_dir come straight from systemd.pc with no meson
+# option to override them, so in a cross build for the target they arrive under
+# the host sysroot prefix. Put them where this prefix says they belong. The
+# cross-system build is left alone: there $PREFIX is the sysroot already.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
+    SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
+    for dropin in sysusers.d tmpfiles.d; do
+        [ -d "$1$SYSROOT/lib/$dropin" ] || continue
+        mkdir -p "$1$PREFIX/lib/$dropin"
+        mv "$1$SYSROOT/lib/$dropin"/* "$1$PREFIX/lib/$dropin/"
+    done
+
+    # Nothing else belongs under the sysroot in a target package. Fail loudly
+    # rather than shipping a file nobody will find.
+    if [ -d "$1$SYSROOT" ]; then
+        strays=$(find "$1$SYSROOT" \( -type f -o -type l \) -print)
+        if [ -n "$strays" ]; then
+            printf 'error: files left under %s in the target package:\n%s\n' "$SYSROOT" "$strays" >&2
+            exit 1
+        fi
+        rm -rf "$1$SYSROOT"
+    fi
+fi
 
 # Host configuration belongs to a real install only. A cross-system sysroot
 # ($PREFIX = /usr/<triplet>) is built against, never booted, so it gets the
