@@ -35,6 +35,15 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     fi
 fi
 
+# The three dbus directories are the only paths systemd derives from a
+# pkg-config variable (meson.build: libdbus.get_variable(pkgconfig: 'datadir')
+# and friends). Every .pc in the sysroot carries an absolute, self-contained
+# prefix, so a plain cross build picks up /usr/<triplet>/share and installs the
+# bus policy and service files where the target will never look. Derive them
+# from $PREFIX instead; that is what the native build resolves to anyway.
+# ("D-Bus interfaces directory: no" is separate and expected -- the
+# export-dbus-interfaces target is inside "if not meson.is_cross_build()"
+# because it has to run the binaries it just built.)
 LANG=en_US.UTF-8 \
 meson setup build                  \
       --prefix="$PREFIX"           \
@@ -59,6 +68,9 @@ meson setup build                  \
       -D man=$manvalue              \
       -D oomd=true                  \
       -D pamconfdir="$SYSCONF_DIR/pam.d" \
+      -D dbuspolicydir="$PREFIX/share/dbus-1/system.d" \
+      -D dbussessionservicedir="$PREFIX/share/dbus-1/services" \
+      -D dbussystemservicedir="$PREFIX/share/dbus-1/system-services" \
       -D bootloader=enabled         \
       -D sbat-distro-url="https://sauzeros.github.io"
 
