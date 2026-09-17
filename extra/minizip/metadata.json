@@ -1,8 +1,10 @@
 {
-  "url": "https://www.zlib.net/",
+  "url": "https://github.com/zlib-ng/minizip-ng",
   "category": "base",
   "description": "Mini zip and unzip based on zlib",
   "info": "",
   "license": "Zlib",
-  "tags": []
+  "tags": [
+    "library"
+  ]
 }
