@@ -1,2 +1,1 @@
-https://github.com/jemalloc/jemalloc/releases/download/${version}/jemalloc-${version}.tar.bz2
-https://github.com/jemalloc/jemalloc/pull/2900.patch
+git+https://github.com/jemalloc/jemalloc#${version}
