@@ -1,13 +1,45 @@
 #!/bin/bash -e
 
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto)
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 patch -Np1 -i 0001-units-Enable-statically.patch
 
-meson setup build \
-  --prefix=/usr   \
-  -D docs=false   \
-  -D audit=false  \
-  -D linux-4-17=true \
-  -D system-console-users=gdm,sddm,lightdm,lxdm
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    -D docs=false
+    -D audit=false
+    -D linux-4-17=true
+    -D system-console-users=gdm,sddm,lightdm,lxdm
+)
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 meson compile -C build
-meson install -C build --destdir=$1
+meson install -C build --destdir="$1"
+
+# dbus-broker reads the unit and catalog directories out of systemd.pc:
+#
+#   conf.set('systemunitdir', dep_systemd.get_variable('systemdsystemunitdir'))
+#   conf.set('userunitdir',   dep_systemd.get_variable('systemduserunitdir'))
+#   conf.set('catalogdir',    dep_systemd.get_variable('catalogdir'))
+#
+# A cross sysroot's .pc spells those absolutely (/usr/<triplet>/lib/systemd/...)
+# rather than relative to the prefix, so a target build installs them under the
+# sysroot instead of where they belong. None of the three is exposed as a meson
+# option, so the only correction available is to move them afterwards. The
+# cross-system build is left alone: there $PREFIX is the sysroot already.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
+    SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
+    if [ -d "$1$SYSROOT" ]; then
+        while IFS= read -r -d '' stray; do
+            rel="${stray#"$1$SYSROOT/"}"
+            mkdir -p "$1$PREFIX/$(dirname "$rel")"
+            mv "$stray" "$1$PREFIX/$rel"
+        done < <(find "$1$SYSROOT" \( -type f -o -type l \) -print0)
+        rm -rf "$1$SYSROOT"
+    fi
+fi
