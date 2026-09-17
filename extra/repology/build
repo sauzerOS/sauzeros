@@ -23,7 +23,6 @@ REPOS_KEEP=(
     kiss/sauzeros-cosmic.yaml
     kiss/sauzeros-kde.yaml
     modules/cpan.yaml
-    modules/pypi.yaml
     rpm/mageia.yaml
     slackware.yaml
     void.yaml
@@ -46,6 +45,12 @@ for repo in "${REPOS_KEEP[@]}"; do
 done
 rm -rf repos.d
 mv "$keep_dir" repos.d
+
+# Our own pypi repository definition, replacing the upstream one that was just
+# pruned away. It is installed here rather than through the sources file so it
+# cannot be removed by the prune above or depend on extraction order.
+install -Dm644 pypi.yaml repos.d/modules/pypi.yaml
+rm pypi.yaml
 
 mkdir -p $1/usr/bin
 install -Dm755 update-repology $1/usr/bin/update-repology

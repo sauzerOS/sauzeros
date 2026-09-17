@@ -9,3 +9,5 @@ files/sauzeros.yaml repos.d/kiss/
 files/sauzeros-cosmic.yaml repos.d/kiss/
 files/sauzeros-kde.yaml repos.d/kiss/
 files/repology.conf
+files/sauzeros_pypi.py repology/fetchers/fetchers/
+files/pypi.yaml
