@@ -1,9 +1,20 @@
 #!/bin/bash -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+    echo "rustup: cross-system builds are not supported; nothing links against a standalone binary" >&2
+    exit 1
+fi
+
 cargo build --release --no-default-features --features reqwest-rustls-tls --features no-self-update --bin rustup-init
 
+# hokuto exports CARGO_BUILD_TARGET for cross builds, which moves the binary
+# from target/release into target/<triple>/release. build.rs bakes cargo's
+# TARGET into the binary as the tuple rustup installs toolchains for, so it
+# already describes the target rather than the build host.
+RELEASE_DIR="target/${CARGO_BUILD_TARGET:+${CARGO_BUILD_TARGET}/}release"
+
 install -d "${1}/usr/lib/rustup/bin"
-install -Dm755 "target/release/rustup-init" "${1}/usr/bin/rustup"
+install -Dm755 "$RELEASE_DIR/rustup-init" "${1}/usr/bin/rustup"
 
 _binlinks=('cargo' 'rustc' 'rustdoc' 'rust-gdb' 'rust-lldb' 'rustfmt' 'cargo-fmt' 'cargo-clippy' 'clippy-driver' 'cargo-miri')
 for link in "${_binlinks[@]}"; do
@@ -16,6 +27,9 @@ ln -s /usr/bin/rustup "${1}/usr/lib/rustup/bin/rust-analyzer"
 install -Dm644 rustup-profile.sh "$1/etc/profile.d/rustup.sh"
 
 # Generate completion files.
+# rustup prints its own completions, so this runs the binary just built. Under
+# cross that is a target binary, executed through the qemu-user binfmt handler
+# (hokuto exports QEMU_LD_PREFIX so it finds the sysroot loader).
 mkdir -p "$1/usr/share/bash-completion/completions"
 "$1"/usr/bin/rustup completions bash > "$1/usr/share/bash-completion/completions/rustup"
 "$1"/usr/bin/rustup completions bash cargo > "$1/usr/share/bash-completion/completions/cargo"
@@ -24,5 +38,3 @@ mkdir -p "$1/usr/share/fish/vendor_completions.d"
 mkdir -p "$1/usr/share/zsh/site-functions"
 "$1"/usr/bin/rustup completions zsh > "$1/usr/share/zsh/site-functions/_rustup"
 "$1"/usr/bin/rustup completions zsh cargo > "$1/usr/share/zsh/site-functions/_cargo"
-
-
