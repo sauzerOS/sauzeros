@@ -1,3 +1,35 @@
+# Automatic HTTPS via Cloudflare DNS-01 (default path)
+
+This build of caddy includes the caddy-dns/cloudflare provider, so certificates
+can be issued over the DNS-01 challenge. DNS-01 proves domain control by writing
+a TXT record rather than accepting an inbound connection, which means it works
+behind CGNAT, on IPv6-only links, and with no ports forwarded.
+
+Setup:
+
+  1. Create a Cloudflare API token scoped Zone -> DNS -> Edit for your zone:
+     https://dash.cloudflare.com/profile/api-tokens
+
+  2. Install the token:
+
+       install -m 600 -o root -g root \
+           /etc/caddy/cloudflare.env.example /etc/caddy/cloudflare.env
+       # edit /etc/caddy/cloudflare.env and set CLOUDFLARE_API_TOKEN=
+
+  3. Uncomment this line in the global block of /etc/caddy/Caddyfile:
+
+       acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+
+  4. systemctl restart caddy
+
+The acme_dns line ships commented out on purpose: caddy refuses to start when
+the token is empty, so enabling it by default would break a fresh install.
+
+The unit pulls the token in with `EnvironmentFile=-/etc/caddy/cloudflare.env`.
+The leading `-` makes it optional, and systemd reads it as root before dropping
+to the caddy user, so the file stays 0600 root:root.
+
+
 # Caddyfile example conf with local issued cert
 {
     # Restrict the admin interface to a local unix file socket whose directory

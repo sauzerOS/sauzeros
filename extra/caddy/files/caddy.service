@@ -27,8 +27,9 @@ User=caddy
 Group=caddy
 Environment=XDG_DATA_HOME=/var/lib
 Environment=XDG_CONFIG_HOME=/etc
+EnvironmentFile=-/etc/caddy/cloudflare.env
 ExecStartPre=/usr/bin/caddy validate --config /etc/caddy/Caddyfile
-ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
+ExecStart=/usr/bin/caddy run --config /etc/caddy/Caddyfile
 ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
 ExecStopPost=/usr/bin/rm -f /run/caddy/admin.socket
 
