@@ -1,4 +1,28 @@
 #!/bin/bash -e
 
-make PREFIX=/usr DISPATCH=1
-make PREFIX=/usr DISPATCH=1 DESTDIR="${1}" install
+# Use CROSS_PREFIX if set (defaults to /usr in hokuto). xxhash is a library, so
+# the cross-system variant is worth producing as well: it puts libxxhash, its
+# headers and its .pc into the sysroot for other cross builds to link against.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# Do not pass DISPATCH=1. xxh_x86dispatch.c implements runtime SSE2/AVX2/AVX512
+# selection and guards itself with #error on anything that is not x86, so
+# forcing it on breaks every other architecture. The Makefile already turns it
+# on by itself where it applies:
+#
+#   detect_x86_arch = $(shell $(CC) -dumpmachine | grep -E 'i[3-6]86|x86_64')
+#   ifneq ($(strip $(call detect_x86_arch)),)
+#       DISPATCH ?= 1
+#   endif
+#
+# DISPATCH ?= 1 is a conditional assignment, but a variable given on the make
+# command line overrides it unconditionally, which is what defeated the check.
+# Leaving it unset keeps dispatch on x86 and off elsewhere, and because the test
+# reads $(CC) -dumpmachine it follows the cross compiler too.
+#
+# Nothing else needs cross handling: the Makefile leaves CC to the environment,
+# takes CFLAGS with ?= and only appends to LDFLAGS, and its install target
+# neither runs the binaries it built nor calls ldconfig.
+
+make PREFIX="$PREFIX"
+make PREFIX="$PREFIX" DESTDIR="${1}" install
