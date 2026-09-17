@@ -2,5 +2,32 @@
 
 CFLAGS="$CFLAGS -fno-lto"
 
-python -m build --wheel --no-isolation
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+    echo "python-maturin: cross-system builds are not supported; nothing links against a standalone binary" >&2
+    exit 1
+fi
+
+# maturin bootstraps itself through setuptools-rust, whose RustBin target takes
+# the architecture from CARGO_BUILD_TARGET. hokuto exports that for cross builds
+# along with the matching linker, so the wheel is filled with a target binary
+# without any further prompting. The aarch64 standard library comes from the
+# aarch64-rust package, which symlinks its rustlib into the host toolchain's so
+# the host rustc can compile for the target.
+#
+# setup.py quietly downloads a private Rust toolchain when cargo is missing.
+# hokuto always installs one, and a silent download would be the wrong compiler
+# for this build anyway, so refuse the fallback rather than take it.
+export MATURIN_NO_INSTALL_RUST=1
+
+# setup.py marks the wheel as platform specific, and setuptools then tags it
+# with the interpreter's own platform -- which under cross is the build host's,
+# so a wheel holding an aarch64 binary would be labelled linux_x86_64.
+# _PYTHON_HOST_PLATFORM is CPython's standard override for exactly this, and is
+# scoped to the wheel build so nothing else sees a rewritten platform.
+PLATFORM_ENV=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    PLATFORM_ENV=(env "_PYTHON_HOST_PLATFORM=linux-${HOKUTO_ARCH}")
+fi
+
+"${PLATFORM_ENV[@]}" python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
