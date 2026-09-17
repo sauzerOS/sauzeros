@@ -1,6 +1,7 @@
 https://github.com/systemd/systemd/archive/refs/tags/v261.3.tar.gz
 https://github.com/systemd/systemd/pull/42676.patch
 files/10-sauzeros.conf
+files/10-stop-timeout.conf
 files/20-wired.network
 files/25-wireless.network
 files/dns_servers.conf
