@@ -1,0 +1,56 @@
+#!/bin/bash -e
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    if [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+        echo "repology-webapp: cross-system builds are not supported; nothing links against a standalone binary" >&2
+        exit 1
+    fi
+
+    # Several dependencies reach for pkg-config from a build script. That crate
+    # refuses to probe when host != target unless it is told the environment is
+    # cross-aware, and otherwise falls back to scanning the host's /usr, which
+    # would resolve to x86_64 libraries. hokuto already points PKG_CONFIG_LIBDIR
+    # at the target sysroot, so the probe lands in the right place.
+    export PKG_CONFIG_ALLOW_CROSS=1
+fi
+
+# repology-rs is nightly-only: repology-webapp and repology-common open with
+# #![feature(iterator_try_collect)], #![feature(default_field_values)] and
+# friends, and the workspace is edition 2024 with rust-version 1.99, so the
+# distribution's stable rust cannot build it whatever its version.
+#
+# Fetch a toolchain with rustup instead of depending on a nightly package, and
+# keep it inside the build directory: RUSTUP_HOME below sits under
+# $HOKUTO_BUILD_DIR, which hokuto removes once the package is made, so the
+# toolchain leaves nothing behind on the build machine and nothing in the
+# package. CARGO_HOME already points into the build directory.
+#
+# The toolchain is a plain "nightly" rather than a pinned date so the package
+# does not break when an old nightly is pruned from the dist server. Set
+# REPOLOGY_RUST_TOOLCHAIN to something like nightly-2026-09-01 to pin it.
+TOOLCHAIN="${REPOLOGY_RUST_TOOLCHAIN:-nightly}"
+export RUSTUP_HOME="${HOKUTO_BUILD_DIR:-$PWD}/rustup"
+
+# --profile minimal is rustc, cargo and the host standard library only: no docs,
+# no clippy, no rustfmt, none of which this build uses.
+rustup toolchain install "$TOOLCHAIN" --profile minimal
+
+# A cross build compiles for hokuto's CARGO_BUILD_TARGET, so that target's
+# standard library has to be added to the throwaway toolchain as well. Native
+# builds already have theirs from the minimal profile.
+if [ -n "${CARGO_BUILD_TARGET:-}" ]; then
+    rustup target add "$CARGO_BUILD_TARGET" --toolchain "$TOOLCHAIN"
+fi
+
+# `rustup run` puts the toolchain's bin directory first on PATH, so build
+# scripts and proc macros get the same nightly rustc. Calling cargo directly
+# would instead go through whichever of the rust and rustup packages currently
+# owns /usr/bin/cargo.
+rustup run "$TOOLCHAIN" cargo fetch --locked
+rustup run "$TOOLCHAIN" cargo build -p repology-webapp --frozen --release
+
+# hokuto exports CARGO_BUILD_TARGET for cross builds, which moves the binary
+# from target/release into target/<triple>/release.
+RELEASE_DIR="target/${CARGO_BUILD_TARGET:+${CARGO_BUILD_TARGET}/}release"
+
+install -Dm755 "$RELEASE_DIR/repology-webapp" "$1/usr/bin/repology-webapp"
