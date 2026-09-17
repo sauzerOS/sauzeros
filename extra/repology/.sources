@@ -3,6 +3,9 @@ git+https://github.com/repology/repology-rules rules.d
 files/repology-update.service
 files/repology-update.timer
 files/repology-webapp.service
-files/repos.tar.xz repos
 files/sauzeros.py repology/parsers/parsers/
 files/update-repology
+files/sauzeros.yaml repos.d/kiss/
+files/sauzeros-cosmic.yaml repos.d/kiss/
+files/sauzeros-kde.yaml repos.d/kiss/
+files/repology.conf

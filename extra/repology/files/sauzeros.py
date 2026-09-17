@@ -15,12 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with repology.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
 import os
 import re
 import subprocess
-from typing import Iterable, Iterator
+from typing import Any, Iterable, Iterator
 
 from repology.logger import Logger
+from repology.package import LinkType
 from repology.packagemaker import NameType, PackageFactory, PackageMaker
 from repology.parsers import Parser
 from repology.parsers.maintainers import extract_maintainers
@@ -41,6 +43,17 @@ def normalize_sauzeros_version(version: str) -> str:
         return match[1]
 
     return version
+
+
+def read_metadata(path: str) -> dict[str, Any]:
+    """Read a package's metadata.json, or return nothing if it has none."""
+    try:
+        with open(path) as fd:
+            data = json.load(fd)
+    except FileNotFoundError:
+        return {}
+
+    return data if isinstance(data, dict) else {}
 
 
 def iter_sources(path: str) -> Iterator[str]:
@@ -84,7 +97,35 @@ class SauzerosGitParser(Parser):
                     pkg.log('skipping sourceless package', Logger.ERROR)
                     continue
 
-                pkg.add_downloads(iter_sources(sources_path_abs))
+                pkg.add_links(LinkType.UPSTREAM_DOWNLOAD, iter_sources(sources_path_abs))
+
+                # The download URL alone is not enough to tell repology which
+                # project a package belongs to. Short names such as ark and
+                # cunit are shared by unrelated software, and repology's
+                # split-ambiguity rules resolve them by looking at the homepage:
+                #
+                #   { name: ark,   wwwpart: apps.kde.org/ark/, setname: $0-archiver }
+                #   { name: cunit, sourceforge: cunit,         setname: cunit-original }
+                #   { name: ark,   addflag: unclassified }
+                #
+                # Without a homepage only the last rule can match and the
+                # package lands in <name>-unclassified. metadata.json already
+                # carries the URL, so publish it along with the rest of what it
+                # knows.
+                #
+                # 'category' is deliberately not published: in this repository
+                # it is the section the package lives in (core, extra), not an
+                # upstream category, and feeding it to repology's categorypat
+                # rules would only invite mismatches. The section is already
+                # reported as the subrepo below.
+                metadata = read_metadata(os.path.join(package_path_abs, 'metadata.json'))
+
+                if homepage := metadata.get('url'):
+                    pkg.add_links(LinkType.UPSTREAM_HOMEPAGE, homepage)
+                if summary := metadata.get('description'):
+                    pkg.set_summary(summary)
+                if license_ := metadata.get('license'):
+                    pkg.add_licenses(license_)
 
                 pkg.set_extra_field('path', package_path_rel)
                 pkg.set_subrepo(package_path_rel_comps[0])
