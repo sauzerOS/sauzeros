@@ -5,3 +5,6 @@ libstdc++
 zlib-ng
 zstd
 aarch64-linux-api-headers cross
+aarch64-elfutils cross make
+aarch64-zlib-ng cross make
+aarch64-zstd cross make
