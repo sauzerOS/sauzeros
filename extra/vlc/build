@@ -1,6 +1,5 @@
 #!/bin/bash -e
 
-patch -Np1 -i 0004-ffmpeg-9-rawvideo-codecs.patch
 NOCONFIGURE=1 autoreconf -fvi
 
 configure_options=(
@@ -515,6 +514,7 @@ _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_dirac_p
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_dts_plugin.so
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_flac_plugin.so
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_h264_plugin.so
+_pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_h266_plugin.so
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_hevc_plugin.so
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mlp_plugin.so
 _pick "$1" vlc-plugins-base usr/lib/vlc/plugins/packetizer/libpacketizer_mpeg4audio_plugin.so
