@@ -1,0 +1,41 @@
+###########################################################################
+# PyPI, restricted to the python modules this distribution packages.
+#
+# This replaces upstream's repos.d/modules/pypi.yaml, which pulls the whole of
+# PyPI from pypicache.repology.org. That file is removed by the build script so
+# the two do not both define a repository called pypi.
+#
+# The repository name and ruleset are kept as upstream has them: rule
+# 400.wildcard-pure.yaml maps anything with `ruleset: pypi` to python:$0, which
+# is how these line up with the python modules the other repositories ship.
+###########################################################################
+- name: pypi
+  type: modules
+  desc: PyPI
+  family: pypi
+  ruleset: pypi
+  # Upstream expects 12000 packages because it carries all of PyPI. We carry
+  # only what we package, which is a couple of hundred projects; the check is
+  # against package count, one per release, so this is still a meaningful
+  # tripwire against a fetch that silently returns almost nothing.
+  minpackages: 500
+  sources:
+    - name: pypi
+      fetcher:
+        class: SauzerosPyPiFetcher
+        repositories:
+          - https://github.com/sauzerOS/sauzeros.git
+          - https://github.com/sauzerOS/cosmic.git
+          - https://github.com/sauzerOS/kde.git
+        fetch_delay: 0.5
+      parser:
+        class: PyPiCacheJsonParser
+  shadow: true
+  incomplete: true
+  repolinks:
+    - desc: PyPI - the Python Package Index
+      url: https://pypi.python.org/pypi
+  packagelinks:
+    - type: PROJECT_HOMEPAGE
+      url: 'https://pypi.org/project/{srcname}/'
+  groups: [all, production]
