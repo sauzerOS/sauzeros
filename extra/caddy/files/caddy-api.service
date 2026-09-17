@@ -21,7 +21,8 @@ User=caddy
 Group=caddy
 Environment=XDG_DATA_HOME=/var/lib
 Environment=XDG_CONFIG_HOME=/var/lib
-ExecStart=/usr/bin/caddy run --environ --resume
+EnvironmentFile=-/etc/caddy/cloudflare.env
+ExecStart=/usr/bin/caddy run --resume
 
 # Do not allow the process to be restarted in a tight loop. If the
 # process fails to start, something critical needs to be fixed.

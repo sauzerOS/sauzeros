@@ -55,6 +55,7 @@ install -Dm 644 "caddy.tmpfiles" "$1/usr/lib/tmpfiles.d/caddy.conf"
 install -Dm 644 "caddy.sysusers" "$1/usr/lib/sysusers.d/caddy.conf"
 
 install -Dm 644 "Caddyfile" -t "$1/etc/caddy"
+install -Dm 644 "cloudflare.env.example" -t "$1/etc/caddy"
 install -d "$1/etc/caddy/conf.d"
 
 install -Dm 644 index.html "$1/usr/share/caddy/index.html"

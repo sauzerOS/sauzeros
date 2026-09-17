@@ -7,3 +7,4 @@ files/caddy.tmpfiles
 files/override-main-module-version.patch
 files/use-data-dir-for-autosave.patch
 files/Caddyfile
+files/cloudflare.env.example

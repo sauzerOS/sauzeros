@@ -16,6 +16,20 @@
 	# interface. If admin over TCP is turned on one should make sure
 	# implications are well understood.
 	admin "unix//run/caddy/admin.socket"
+
+	# Certificates are issued via the DNS-01 challenge using Cloudflare.
+	# DNS-01 proves control by writing a TXT record instead of accepting an
+	# inbound connection, so it works behind CGNAT, on IPv6-only links, and
+	# with no ports forwarded at all.
+	#
+	# To enable: put a Cloudflare API token scoped Zone:DNS:Edit for your zone
+	# in /etc/caddy/cloudflare.env (see cloudflare.env.example), then uncomment
+	# the line below and restart caddy.
+	#
+	# Left commented because caddy refuses to start when the token is empty,
+	# which would break the default install.
+	#
+	# acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
 }
 
 http:// {
