@@ -1,11 +1,57 @@
 #!/bin/bash -e
+
+# Repositories to parse. Everything else upstream ships is removed below.
+#
+# repos.d is taken from the upstream checkout rather than from a snapshot kept
+# in this package, so it can never drift away from the code that reads it. A
+# frozen copy is what broke metacpan: the snapshot still used the old
+# es_size/es_filter/es_fields keys that ElasticSearchFetcher no longer accepts,
+# and its slackware entry still pointed at mirror.bytemark.co.uk, whose
+# certificate has since expired. Upstream had fixed both.
+#
+# The sauzeros entries are ours and are placed into repos.d/kiss by the sources
+# file; the rest come from upstream. None of the yaml files include one another,
+# so they can be dropped individually.
+REPOS_KEEP=(
+    adelie.yaml
+    alpine/alpine.yaml
+    arch/arch.yaml
+    arch/aur.yaml
+    crux.yaml
+    gentoo/gentoo.yaml
+    kiss/sauzeros.yaml
+    kiss/sauzeros-cosmic.yaml
+    kiss/sauzeros-kde.yaml
+    modules/cpan.yaml
+    modules/pypi.yaml
+    rpm/mageia.yaml
+    slackware.yaml
+    void.yaml
+)
+
+# Fail rather than silently parse less than intended: upstream retires a
+# repository now and then (rpm/scientific.yaml went that way), and losing one
+# without noticing is exactly the kind of quiet breakage this list exists to
+# prevent.
+keep_dir="$PWD/.repos.d.keep"
+rm -rf "$keep_dir"
+for repo in "${REPOS_KEEP[@]}"; do
+    if [ ! -f "repos.d/$repo" ]; then
+        echo "repology: repos.d/$repo is missing; it was probably retired upstream." >&2
+        echo "repology: drop it from REPOS_KEEP or ship it in files/." >&2
+        exit 1
+    fi
+    mkdir -p "$keep_dir/$(dirname "$repo")"
+    mv "repos.d/$repo" "$keep_dir/$repo"
+done
+rm -rf repos.d
+mv "$keep_dir" repos.d
+
 mkdir -p $1/usr/bin
 install -Dm755 update-repology $1/usr/bin/update-repology
 rm update-repology
 
 mkdir -p $1/opt/repology/updater
-rm -rf repos.d
-mv repos repos.d
 
 # tar->bsdtar in tar.py
 sed -i "s/\['tar', '-x', '-z', '-f', tarpath, '-C', statedir.get_path()\]/['bsdtar', '-x', '-z', '-f', tarpath, '-C', statedir.get_path()]/" repology/fetchers/fetchers/tar.py

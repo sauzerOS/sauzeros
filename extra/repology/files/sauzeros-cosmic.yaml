@@ -1,0 +1,22 @@
+- name: sauzeros-cosmic
+  type: repository
+  desc: SauzerOS Cosmic
+  family: kiss
+  ruleset: kiss
+  minpackages: 20
+  sources:
+    - name: repository
+      fetcher:
+        class: GitFetcher
+        url: 'https://github.com/sauzerOS/cosmic.git'
+        sparse_checkout: [ '**/version', '**/sources', '**/metadata.json' ]
+      parser:
+        class: SauzerosGitParser
+        maintainer_from_git: true
+  repolinks:
+    - desc: sauzerOS Cosmic
+      url: https://github.com/sauzerOS/cosmic/
+  packagelinks:
+    - type: PACKAGE_SOURCES
+      url: 'https://github.com/sauzerOS/cosmic/tree/master/{path}'
+  groups: [ all, production ]

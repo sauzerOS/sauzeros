@@ -1,0 +1,30 @@
+###########################################################################
+# SauzerOS
+###########################################################################
+- name: sauzeros
+  type: repository
+  desc: SauzerOS
+  family: kiss
+  ruleset: kiss
+  minpackages: 100
+  sources:
+    - name: repository
+      fetcher:
+        class: GitFetcher
+        url: 'https://github.com/sauzerOS/sauzeros.git'
+        sparse_checkout: [ '**/version', '**/sources', '**/metadata.json' ]
+      parser:
+        class: SauzerosGitParser
+        maintainer_from_git: true
+  repolinks:
+    - desc: sauzerOS
+      url: https://sauzeros.github.io/
+  packagelinks:
+    - type: PACKAGE_SOURCES
+      url: 'https://github.com/sauzerOS/sauzeros/tree/master/{path}'
+# This handles .patch and .diff files
+    - type: PACKAGE_PATCH
+      url: 'https://github.com/sauzerOS/sauzeros/blob/master/{path}/files/{?patch}'
+    - type: PACKAGE_PATCH_RAW
+      url: 'https://raw.githubusercontent.com/sauzerOS/sauzeros/master/{path}/files/{?patch}'
+  groups: [ all, production ]
