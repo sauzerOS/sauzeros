@@ -6,9 +6,17 @@ else
     glycin_opt=disabled
 fi
 
-meson setup build            \
-      --prefix=/usr          \
-      --buildtype=release    \
+# The cross glib is built without introspection, so gobject-introspection-1.0
+# is absent from the sysroot. Leaving introspection enabled makes meson fall
+# back to the glib wrap and build a whole second glib. glycin is probed on the
+# host, which says nothing about the target.
+introspection_opt=enabled
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    introspection_opt=disabled
+    glycin_opt=disabled
+fi
+
+hokuto-meson build           \
     -D android=disabled      \
     -D builtin_loaders=all   \
     -D documentation=false   \
@@ -16,7 +24,7 @@ meson setup build            \
     -D glycin=$glycin_opt    \
     -D gtk_doc=false         \
     -D installed_tests=false \
-    -D introspection=enabled \
+    -D introspection=$introspection_opt \
     -D jpeg=disabled         \
     -D man=false             \
     -D others=enabled        \
