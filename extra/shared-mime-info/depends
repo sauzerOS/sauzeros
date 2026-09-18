@@ -4,4 +4,6 @@ libgcc
 libstdc++
 libxml2
 git make
+git cross make
 meson make
+meson cross make
