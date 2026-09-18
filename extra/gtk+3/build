@@ -1,17 +1,40 @@
 #!/bin/bash -e
 
+# A cross-system build installs under the sysroot, so every path below has to
+# follow CROSS_PREFIX rather than assume /usr. It also links only, which is why
+# introspection, colord, cups and the cloud providers are dropped: none of them
+# are in the sysroot and none are needed to produce libgtk-3.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(
+      -D introspection=false
+      -D colord=no
+      -D cloudproviders=false
+      -D print_backends=file
+      -D gtk_doc=false
+      -D demos=false
+      -D examples=false
+      -D tests=false
+    )
+fi
+
 hokuto-meson build \
   -D man=false     \
-  -D broadway_backend=true
+  -D broadway_backend=true "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
 
+# Built by GTK 4, shared with GTK 3
+rm -f "$1$PREFIX/bin/gtk-update-icon-cache"
+
+# The runtime settings and the demo split only make sense for a package that is
+# actually installed on a machine, not for the link-time copy in the sysroot.
+if [ "$PREFIX" = "/usr" ]; then
 mkdir -p $1/etc/gtk-3.0/
 cp settings.ini $1/etc/gtk-3.0/
-
-# Built by GTK 4, shared with GTK 3
-rm $1/usr/bin/gtk-update-icon-cache
 
 # gtk+3-demos
 _pick "$1" gtk+3-demos usr/bin/gtk3-{demo,demo-application,icon-browser,widget-factory}
@@ -19,6 +42,7 @@ _pick "$1" gtk+3-demos usr/share/applications/gtk3-{demo,icon-browser,widget-fac
 _pick "$1" gtk+3-demos usr/share/glib-2.0/schemas/org.gtk.{Demo,exampleapp}.gschema.xml
 _pick "$1" gtk+3-demos usr/share/icons/hicolor/*/apps/gtk3-{demo,widget-factory}[-.]*
 _pick "$1" gtk+3-demos usr/share/man/man1/gtk3-{demo,demo-application,icon-browser,widget-factory}.1
+fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
