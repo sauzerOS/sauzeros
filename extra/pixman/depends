@@ -2,3 +2,4 @@ glibc
 libpng make
 meson make
 lib32-libpng make
+aarch64-gcc cross make

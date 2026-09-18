@@ -1,8 +1,19 @@
 #!/bin/bash -e
 
-meson setup output  \
-    -D prefix=/usr  \
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, and meson needs the cross file that names the aarch64 toolchain.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
     -D gtk=disabled
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
+fi
+
+meson setup output "${MESON_OPTS[@]}"
 
 meson compile -C output
 meson install -C output --destdir=$1
