@@ -68,3 +68,14 @@ lib32-zlib-ng make
 lib32-zstd make
 
 
+aarch64-gcc cross make
+aarch64-expat cross make
+aarch64-libdrm cross make
+aarch64-libglvnd cross make
+aarch64-libx11 cross make
+aarch64-libxcb cross make
+aarch64-libxext cross make
+aarch64-libxshmfence cross make
+aarch64-libxxf86vm cross make
+aarch64-zlib-ng cross make
+aarch64-zstd cross make

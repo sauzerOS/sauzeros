@@ -1,5 +1,34 @@
 #!/bin/bash -e
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # A deliberately small mesa for the Raspberry Pi: the vc4/v3d gallium
+    # drivers give hardware GL, and softpipe is the software fallback that does
+    # not drag in llvm. What the X server actually needs from here is libgbm,
+    # without which build_modesetting is false and the server ships no video
+    # driver at all.
+    #
+    # Left out on purpose, each of which would pull a large dependency of its
+    # own: vulkan (spirv-tools), llvmpipe (llvm), wayland, the extra HUD
+    # (lm-sensors) and the video codecs.
+    hokuto-meson build             \
+        --sysconfdir=/etc          \
+        --localstatedir=/var       \
+        --optimization 2           \
+        -D platforms=x11           \
+        -D egl=enabled             \
+        -D gbm=enabled             \
+        -D glx=dri                 \
+        -D valgrind=disabled       \
+        -D libunwind=disabled      \
+        -D glvnd=enabled           \
+        -D llvm=disabled           \
+        -D vulkan-drivers=""       \
+        -D gallium-drivers="v3d,vc4,softpipe" \
+        -D gallium-extra-hud=false \
+        -D gallium-mediafoundation=disabled \
+        -D gles1=disabled          \
+        -D video-codecs=""
+else
 hokuto-meson build             \
     --sysconfdir=/etc          \
     --mandir=/usr/share/man    \
@@ -20,32 +49,39 @@ hokuto-meson build             \
     -D intel-virtio-experimental=true \
     -D gles1=disabled          \
     -D video-codecs=all
+fi
 
 meson compile -C build
 meson install -C build --destdir=$1
 
-libdir=usr/lib
+# Relative to $1 below, so it has to track CROSS_PREFIX: a cross-system build
+# installs under usr/aarch64-linux-gnu/lib, not usr/lib.
+libdir="${CROSS_PREFIX:-/usr}/lib"
+libdir="${libdir#/}"
 
-_pick "$1" vulkan-broadcom $libdir/libvulkan_broadcom.so
-_pick "$1" vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
+    _pick "$1" vulkan-broadcom $libdir/libvulkan_broadcom.so
+    _pick "$1" vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
 
-_pick "$1" vulkan-radeon $libdir/libvulkan_radeon.so
-_pick "$1" vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
-_pick "$1" vulkan-radeon usr/share/vulkan/icd.d/radeon_icd.json
+    _pick "$1" vulkan-radeon $libdir/libvulkan_radeon.so
+    _pick "$1" vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
+    _pick "$1" vulkan-radeon usr/share/vulkan/icd.d/radeon_icd.json
 
-_pick "$1" vulkan-swrast $libdir/libvulkan_lvp.so
-_pick "$1" vulkan-swrast usr/share/vulkan/icd.d/lvp_icd.json
+    _pick "$1" vulkan-swrast $libdir/libvulkan_lvp.so
+    _pick "$1" vulkan-swrast usr/share/vulkan/icd.d/lvp_icd.json
 
-_pick "$1" vulkan-virtio $libdir/libvulkan_virtio.so
-_pick "$1" vulkan-virtio usr/share/vulkan/icd.d/virtio_icd.json
+    _pick "$1" vulkan-virtio $libdir/libvulkan_virtio.so
+    _pick "$1" vulkan-virtio usr/share/vulkan/icd.d/virtio_icd.json
 
-_pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_anti_lag.so
-_pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
-_pick "$1" vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
+    _pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_anti_lag.so
+    _pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
+    _pick "$1" vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
 
-_pick "$1" vulkan-mesa-layers $libdir/libVkLayer_*.so
-_pick "$1" vulkan-mesa-layers usr/bin/mesa-*-control.py
-_pick "$1" vulkan-mesa-layers usr/share/vulkan/explicit_layer.d
+    _pick "$1" vulkan-mesa-layers $libdir/libVkLayer_*.so
+    _pick "$1" vulkan-mesa-layers usr/bin/mesa-*-control.py
+    _pick "$1" vulkan-mesa-layers usr/share/vulkan/explicit_layer.d
+
+fi
 
 # indirect rendering
 pushd $1
