@@ -1,0 +1,5 @@
+glibc
+autoconf make
+automake make
+bison make
+flex make

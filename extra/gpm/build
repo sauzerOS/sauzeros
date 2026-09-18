@@ -1,0 +1,48 @@
+#!/bin/bash -e
+
+# gpm 1.20.7 is from 2012 and needs several accommodations to build with a
+# current toolchain:
+#
+#   -std=gnu17        prog/gpm-root.y uses K&R "()" declarations, which C23 --
+#                     GCC's default since 14 -- reinterprets as "(void)"
+#   -fcommon          tentative definitions shared across translation units,
+#                     rejected since GCC 10 switched to -fno-common
+#   __sigemptyset     a glibc-internal symbol that is no longer exported
+export CFLAGS="$CFLAGS -std=gnu17 -fcommon -D__sigemptyset=sigemptyset"
+export CFLAGS="$CFLAGS -Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration"
+
+# major()/minor() moved to <sys/sysmacros.h> in glibc 2.28. Without the include
+# they are implicitly declared, which LTO turns into an undefined reference at
+# link time rather than a warning.
+# gpm-root.c is generated from gpm-root.y by bison, so the .y is what to patch.
+for f in src/daemon/open_console.c src/prog/gpm-root.y; do
+    grep -q 'sys/sysmacros.h' "$f" || \
+        sed -i '0,/#include/s|#include|#include <sys/sysmacros.h>\n#include|' "$f"
+done
+
+# The release tarball ships no configure script.
+./autogen.sh
+
+# --without-curses: the optional curses glue declares Gpm_Wgetch with a
+# signature that conflicts with modern ncurses. Nothing in sauzerOS uses it;
+# links only needs Gpm_Open and Gpm_GetLibVersion from the core library.
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, so the prefix comes from CROSS_PREFIX.
+_prefix="${CROSS_PREFIX:-/usr}"
+
+./configure \
+    --prefix="$_prefix" \
+    --sysconfdir=/etc \
+    --without-curses
+
+# The dependency-generation rule lacks the -Iheaders that every compile rule
+# carries, so it cannot resolve gpm.h for prog/*.c and aborts the build.
+sed -i 's|$(CC) -I. -I $(srcdir) -M |$(CC) -I. -Iheaders -I $(srcdir) -M |' src/Makefile
+
+# Only src/ is wanted: doc/ needs texinfo and contrib/ ships nothing we use.
+make SUBDIRS=src
+make SUBDIRS=src DESTDIR="$1" install
+
+# The install creates the SONAME link but not the development symlink that
+# -lgpm resolves against, which is what links configure probes for.
+ln -sf libgpm.so.2.1.0 "$1$_prefix/lib/libgpm.so"
