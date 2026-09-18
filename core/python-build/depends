@@ -9,3 +9,5 @@ python cross make
 python-build cross make
 python-flit-core cross make
 python-installer cross make
+python-packaging cross
+python-pyproject-hooks cross
