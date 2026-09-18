@@ -1,9 +1,23 @@
 #!/bin/bash -e
 
-meson setup build               \
-      --prefix=/usr             \
-      --buildtype=release       \
-      -D documentation=disabled
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, and meson needs the cross file that names the aarch64 toolchain.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    --buildtype=release
+    -D documentation=disabled
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
+    # The test suite needs the "check" framework, which has no aarch64 build and
+    # could not be executed on the build host anyway.
+    MESON_OPTS+=(-D tests=disabled)
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
