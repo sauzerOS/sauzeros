@@ -1,8 +1,22 @@
 #!/bin/bash -e
 
+# bash-completion only ships a .pc file, and the completionsdir it reports is
+# the sysroot's, not the target's, so there is nothing useful to install either
+# way in a cross build.
+# vapi looks vapigen up through pkg-config, which in a cross build searches the
+# sysroot, where the host's vala is not.
+completion_opt=true
+vapi_opt=true
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    completion_opt=false
+    vapi_opt=false
+fi
+
 hokuto-meson build \
   -D man=false     \
-  -D gtk_doc=false
+  -D gtk_doc=false \
+  -D bash_completion=$completion_opt \
+  -D vapi=$vapi_opt
 
 meson compile -C build
 meson install -C build --destdir=$1
