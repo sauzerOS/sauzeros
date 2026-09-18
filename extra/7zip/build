@@ -19,8 +19,8 @@ _platform_flags=()
 (for i in Bundles/{Alone,Alone7z,Format7zF,SFXCon} UI/Console; do
     make -C CPP/7zip/$i -f ../../cmpl_gcc.mak "${_platform_flags[@]}" \
       LFLAGS_STRIP= \
-      CC="cc $CPPFLAGS $CFLAGS $LDFLAGS" \
-      CXX="g++ $CPPFLAGS $CXXFLAGS $LDFLAGS"
+      CC="${CC:-cc} $CPPFLAGS $CFLAGS $LDFLAGS" \
+      CXX="${CXX:-g++} $CPPFLAGS $CXXFLAGS $LDFLAGS"
 done)
 
 install -vDm755 CPP/7zip/Bundles/Alone{/b/g/7za,7z/b/g/7zr} \
