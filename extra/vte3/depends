@@ -19,7 +19,9 @@ fast_float make
 fmt make
 gobject-introspection make
 gperf make
+gperf cross make
 graphene make
 gtk+3 make
 meson make
+meson cross make
 vala make 
