@@ -7,3 +7,7 @@ xorgproto make
 lib32-libxext make
 lib32-libx11 make
 lib32-libxext make
+aarch64-gcc cross make
+aarch64-libx11 cross make
+aarch64-libxext cross make
+aarch64-xorgproto cross make
