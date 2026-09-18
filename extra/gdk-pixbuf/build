@@ -10,27 +10,32 @@ fi
 # is absent from the sysroot. Leaving introspection enabled makes meson fall
 # back to the glib wrap and build a whole second glib. glycin is probed on the
 # host, which says nothing about the target.
+# glycin decodes images for gdk-pixbuf, which is why the built-in loaders stay
+# off. It has to be enabled for the target too: with both switched off, the
+# cross built gdk-pixbuf cannot read jpeg, png, gif or tiff at all, and
+# icewmbg reports "cannot load <file>" for every image.
+loaders_opt=disabled
 introspection_opt=enabled
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     introspection_opt=disabled
-    glycin_opt=disabled
+    glycin_opt=enabled
 fi
 
 hokuto-meson build           \
     -D android=disabled      \
     -D builtin_loaders=all   \
     -D documentation=false   \
-    -D gif=disabled          \
+    -D gif=$loaders_opt          \
     -D glycin=$glycin_opt    \
     -D gtk_doc=false         \
     -D installed_tests=false \
     -D introspection=$introspection_opt \
-    -D jpeg=disabled         \
+    -D jpeg=$loaders_opt         \
     -D man=false             \
     -D others=enabled        \
-    -D png=disabled          \
+    -D png=$loaders_opt          \
     -D thumbnailer=disabled  \
-    -D tiff=disabled
+    -D tiff=$loaders_opt
 
 meson compile -C build
 meson install -C build --destdir=$1
