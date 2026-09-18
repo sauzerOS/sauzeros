@@ -1,8 +1,18 @@
 #!/bin/bash -e
 
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, and configure needs --host so it stops probing the build machine.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS="--host=${HOKUTO_ARCH}-linux-gnu"
+fi
+
 ./configure \
-    --prefix=/usr \
-    --with-shared-memory-dir=/dev/shm
+    --prefix="$PREFIX" \
+    --with-shared-memory-dir=/dev/shm \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
