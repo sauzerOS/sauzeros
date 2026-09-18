@@ -1,5 +1,25 @@
 #!/bin/bash -e
 
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, and meson needs the cross file that names the aarch64 toolchain.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
+    --sysconfdir="$PREFIX/etc"
+    --mandir="$PREFIX/share/man"
+    --libexecdir="$PREFIX/lib"
+    -D default_library=both
+    -D debug-gui=false
+    -D documentation=false
+    -D tests=false
+    -D libwacom=false
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
+fi
+
 export CFLAGS="$CFLAGS -fPIC"
 
 # Build fails with clang due to -Werror (forced on) and
@@ -7,16 +27,7 @@ export CFLAGS="$CFLAGS -fPIC"
 # the below CFLAGS.
 export CFLAGS="-Wno-unused-command-line-argument $CFLAGS"
 
-meson setup build         \
-  --prefix=/usr           \
-  --sysconfdir=/etc       \
-  --mandir=/usr/share/man \
-  --libexecdir=/usr/lib   \
-  -D default_library=both \
-  -D debug-gui=false      \
-  -D documentation=false  \
-  -D tests=false          \
-  -D libwacom=false
+meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
