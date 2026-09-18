@@ -1,6 +1,7 @@
 glib
 glibc
 glycin optional
+glycin cross
 shared-mime-info
 gobject-introspection make
 meson make
