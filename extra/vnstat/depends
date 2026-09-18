@@ -1,3 +1,4 @@
 bash
 sqlite
 libgd
+aarch64-sqlite cross
