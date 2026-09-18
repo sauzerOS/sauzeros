@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+# The VideoCore GPU, not the ARM core, is what boots a Raspberry Pi: it reads
+# bootcode.bin (Pi 0-3; on Pi 4 this lives in on-board EEPROM instead), then
+# start*.elf plus the matching fixup*.dat, and only then hands off to the ARM
+# kernel. The firmware reads these from the first FAT partition, so they must
+# land in /boot.
+#
+#   start4*.elf / fixup4*.dat   BCM2711  (Pi 4, Pi 400, CM4)
+#   start*.elf  / fixup*.dat    BCM2835/6/7 (Pi 0-3)
+#
+# The plain, cd, db and x variants trade GPU features against memory: cd is the
+# cut-down build, x the extended one, db the debug one.
+
+install -d "$1/boot"
+install -m 644 bootcode.bin -t "$1/boot"
+install -m 644 start.elf start4.elf start4cd.elf start4db.elf start4x.elf \
+               start_cd.elf start_db.elf start_x.elf -t "$1/boot"
+install -m 644 fixup.dat fixup4.dat fixup4cd.dat fixup4db.dat fixup4x.dat \
+               fixup_cd.dat fixup_db.dat fixup_x.dat -t "$1/boot"
+
+install -Dm 644 LICENCE.broadcom \
+    "$1/usr/share/licenses/raspberrypi-firmware/LICENCE.broadcom"

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/raspberrypi/firmware",
+  "category": "extra",
+  "description": "Raspberry Pi VideoCore boot firmware",
+  "info": "",
+  "license": "custom:broadcom",
+  "tags": [
+    "firmware",
+    "raspberrypi"
+  ]
+}
