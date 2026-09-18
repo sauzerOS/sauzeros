@@ -1,1 +1,1 @@
-https://pagure.io/mailcap/archive/r${version-}/mailcap-r${version-}.tar.gz
+https://releases.pagure.org/mailcap/mailcap-${version}.tar.xz
