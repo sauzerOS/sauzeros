@@ -1,6 +1,13 @@
 #!/bin/bash -e
 
-hokuto-meson build
+GUDEV_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection and vala bindings need to run target binaries to
+    # scan them, which cannot happen while cross compiling.
+    GUDEV_OPTS+=(-D introspection=disabled -D vapi=disabled -D tests=disabled)
+fi
+
+hokuto-meson build "${GUDEV_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 

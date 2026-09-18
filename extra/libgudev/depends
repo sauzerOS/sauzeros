@@ -9,3 +9,6 @@ umockdev make
 vala make
 lib32-glib make
 lib32-systemd make
+aarch64-gcc cross make
+aarch64-glib cross make
+aarch64-systemd cross make
