@@ -1,11 +1,22 @@
 #!/bin/bash -e
 
-hokuto-meson build        \
-  --sysconfdir=/etc       \
-  --mandir=/usr/share/man \
-  -D b_ndebug=false       \
-  -D docs=false           \
-  -D gtk4=false
+# A cross-system build installs under the sysroot, so sysconfdir and mandir
+# have to follow CROSS_PREFIX instead of landing in the host's /etc and
+# /usr/share/man. gir and vapi need the host's introspection scanner run
+# against target libraries, which the cross glib does not provide.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(-D gir=false -D vapi=false)
+fi
+
+hokuto-meson build              \
+  --sysconfdir="$PREFIX/etc"    \
+  --mandir="$PREFIX/share/man"  \
+  -D b_ndebug=false             \
+  -D docs=false                 \
+  -D gtk4=false "${cross_opts[@]}
 
 meson compile -C build
 meson install -C build --destdir=$1
