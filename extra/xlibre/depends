@@ -37,3 +37,5 @@ xorg-font-util make
 xorgproto make
 xorg-util-macros make
 
+aarch64-mesa cross make
+aarch64-libglvnd cross make
