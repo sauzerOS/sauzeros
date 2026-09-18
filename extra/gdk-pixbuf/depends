@@ -4,6 +4,7 @@ glycin optional
 shared-mime-info
 gobject-introspection make
 meson make
+meson cross make
 lib32-glib make
 lib32-libjpeg-turbo make
 lib32-libpng make
