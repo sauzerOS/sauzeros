@@ -14,20 +14,12 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     [ -n "$CROSS_SYSROOT" ] || CROSS_SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
 
     cmake_options+=(
-        -D CMAKE_SYSTEM_NAME=Linux
-        -D CMAKE_SYSTEM_PROCESSOR="$HOKUTO_ARCH"
 
         # Scope find_package/find_path/find_library to the cross sysroot. Host
         # headers on the include path would be read by the cross compiler, and
         # glibc's bits/wordsize.h keys off __x86_64__, so it would report
         # __WORDSIZE=32 and miscompile in confusing ways.
-        -D CMAKE_SYSROOT="$CROSS_SYSROOT"
-        -D CMAKE_FIND_ROOT_PATH="$CROSS_SYSROOT"
         # Build tools still have to come from the host.
-        -D CMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER
-        -D CMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY
-        -D CMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY
-        -D CMAKE_FIND_ROOT_PATH_MODE_PACKAGE=ONLY
     )
 fi
 
