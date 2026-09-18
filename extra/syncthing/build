@@ -26,3 +26,36 @@ mkdir -pv "$1/usr/lib/systemd/user"
 
 cp -a system/* "$1/usr/lib/systemd/system"
 cp -a user/* "$1/usr/lib/systemd/user"
+
+# Upstream's system unit orders only after network.target and gives up quickly:
+# StartLimitBurst=4 within StartLimitIntervalSec=60, with RestartSec=1, means it
+# stops trying about four seconds in.
+#
+# network.target only means networking is being configured, not that any address
+# is usable, so a syncthing configured to bind a specific address (rather than
+# 0.0.0.0) fails at boot with "cannot assign requested address", burns through
+# those four retries and lands in start-limit-hit. That is likely whenever the
+# address belongs to an interface brought up late -- a VPN or overlay such as
+# ZeroTier or WireGuard, or a DHCP lease that has not arrived yet.
+#
+# Ordering after network-online.target and being far more patient about retries
+# fixes the general case. A specific address that appears even later still wants
+# a local drop-in that waits for it; this only stops the unit giving up first.
+#
+# Patched here rather than shipped as a copy so the file keeps tracking
+# upstream, whose sandboxing section changes between releases.
+_unit="$1/usr/lib/systemd/system/syncthing@.service"
+sed -i \
+    -e 's|^After=network\.target$|After=network-online.target\nWants=network-online.target|' \
+    -e 's|^StartLimitIntervalSec=60$|StartLimitIntervalSec=300|' \
+    -e 's|^StartLimitBurst=4$|StartLimitBurst=30|' \
+    -e 's|^RestartSec=1$|RestartSec=5|' \
+    "$_unit"
+
+# Fail loudly if upstream renames these, rather than shipping the old behaviour.
+for _expect in "After=network-online.target" "StartLimitBurst=30" "RestartSec=5"; do
+    grep -qx "$_expect" "$_unit" || {
+        echo "syncthing: expected '$_expect' in the unit after patching" >&2
+        exit 1
+    }
+done
