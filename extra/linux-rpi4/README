@@ -1,0 +1,29 @@
+# linux-rpi4
+
+Cross-compiled Raspberry Pi 4 (BCM2711) kernel from the raspberrypi/linux tree.
+
+## Boot firmware
+
+This package ships the kernel, the bcm2711 device trees and the compiled
+overlays, but NOT the VideoCore boot firmware. Install `raspberrypi-firmware`
+into the *target* rootfs alongside it -- a Pi will not boot without both.
+
+It is deliberately not a dependency: the firmware belongs to the target's boot
+media, and making it a dependency drags 21 MiB of Broadcom blobs into /boot on
+whatever machine happens to cross-compile the kernel.
+
+## Overlays
+
+`make ARCH=arm64 dtbs` builds the overlays as .dtbo, reachable under
+arch/arm64/boot/dts/overlays because that path is a symlink into the arm tree
+where the Pi overlay sources live (arch/arm64/boot/dts/Makefile carries
+`subdir-y += overlays`).
+
+Only the compiled .dtbo files are of any use at boot -- the .dts files beside
+them are source. Releases up to 6.18.33.95b85be-1 shipped the .dts by mistake,
+so /boot/overlays was inert.
+
+## Building
+
+Needs an aarch64 cross toolchain (`aarch64-gcc`); the build script hardcodes
+ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-.
