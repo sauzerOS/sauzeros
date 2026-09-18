@@ -1,5 +1,14 @@
 #!/bin/bash -e
 
-make
-make DESTDIR=$1 PREFIX=/usr install-shared
-install -D -m755 h264{dec,enc} -t "${1}/usr/bin"
+# openh264's Makefile picks the architecture from `uname -m` unless ARCH is
+# given, so a cross build otherwise compiles x86 assembly with the aarch64
+# compiler. PREFIX has to follow CROSS_PREFIX for the same reason as elsewhere.
+PREFIX="${CROSS_PREFIX:-/usr}"
+MAKE_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MAKE_OPTS+=(ARCH="${HOKUTO_ARCH}" CC="${CC}" CXX="${CXX}" AR="${AR}")
+fi
+
+make "${MAKE_OPTS[@]}"
+make "${MAKE_OPTS[@]}" DESTDIR=$1 PREFIX="$PREFIX" install-shared
+install -D -m755 h264{dec,enc} -t "${1}${PREFIX}/bin"
