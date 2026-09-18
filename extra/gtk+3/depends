@@ -34,8 +34,10 @@ zlib-ng
 gobject-introspection make nocross
 hicolor-icon-theme make
 meson make
+meson cross make
 sassc make nocross
 wayland-protocols make 
+aarch64-wayland-protocols cross make
 lib32-at-spi2-core make nocross
 lib32-cairo make nocross
 lib32-fontconfig make nocross
