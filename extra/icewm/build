@@ -32,6 +32,26 @@ cmake -B build "${CMAKE_OPTS[@]}"
 cmake --build build
 DESTDIR="${1}" cmake --install build
 
-# Remove the directory tree created for development purposes only (e.g. the playground locale dir)
-# See https://github.com/ice-wm/icewm/commit/5d735df293e61fd94e114ef58e800d757f98d01c
-rm -rf "${1}/build"
+# po/CMakeLists mirrors the locale tree into a "playground" directory for
+# development convenience, and its DESTINATION is CMAKE_CURRENT_BINARY_DIR,
+# which is absolute. `cmake --install` with DESTDIR therefore recreates the
+# whole build path inside the package, e.g.
+#   $1/var/tmp/hokuto/icewm-01/build/build/po/playground/es/LC_MESSAGES/icewm.mo
+#
+# Upstream means to avoid this: it prefers file(CREATE_LINK) at configure time
+# and only falls back to install() on CMake older than 3.14. The guard is
+# written `if(CMAKE_VERSION VERSION_GREATER OR VERSION_EQUAL "3.14")`, which is
+# malformed and evaluates false on current CMake, so the install() branch runs.
+#
+# The old cleanup removed "$1/build", which only matched when the build was an
+# in-tree ./build. Remove the tree where it actually lands, then prune the empty
+# parents that leaves behind (var/tmp/...) without touching anything else.
+rm -rf "${1}${PWD}"
+rmdir -p --ignore-fail-on-non-empty "$(dirname "${1}${PWD}")" 2>/dev/null || true
+
+# The package must contain nothing outside the install prefix.
+if find "$1" -mindepth 1 -maxdepth 1 ! -name usr ! -name etc ! -name var -print -quit | grep -q .; then
+    echo "icewm: unexpected top-level directories in the package:" >&2
+    find "$1" -mindepth 1 -maxdepth 1 ! -name usr ! -name etc ! -name var >&2
+    exit 1
+fi
