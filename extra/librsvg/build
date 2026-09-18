@@ -1,7 +1,21 @@
 #!/bin/bash -e
 
+# introspection and vala both need the host scanners run against target
+# libraries, which the cross glib does not provide.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # librsvg drives cargo itself; without triplet it builds for the build
+    # machine and then looks for the artifacts under the target triple.
+    cross_opts+=(
+      -D introspection=disabled
+      -D vala=disabled
+      -D docs=disabled
+      -D triplet="${HOKUTO_ARCH}-unknown-linux-gnu"
+    )
+fi
+
 hokuto-meson build \
-  -D pixbuf-loader=disabled
+  -D pixbuf-loader=disabled "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

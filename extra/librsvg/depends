@@ -10,10 +10,13 @@ libxml2
 libgcc
 pango
 cargo-c make
+cargo-c cross make
 gobject-introspection make
 llvm make
 meson make
+meson cross make
 rust make
+rust cross make
 vala make 
 lib32-cairo make
 lib32-fontconfig make
