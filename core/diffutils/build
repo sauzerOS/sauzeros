@@ -1,8 +1,21 @@
 #!/bin/bash -e
 
+_cfg=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # hokuto sets the cross toolchain but passes no --host. Without it, and with
+    # qemu-aarch64 binfmt registered, configure successfully RUNS its aarch64
+    # test binary, concludes it is not cross compiling, and then dies on
+    # gnulib's socklen_t check.
+    _cfg=(--host="${HOKUTO_ARCH}-linux-gnu")
+
+    # With --host, gnulib declines to guess this one run-test result and errors
+    # out instead. Value taken from a native configure on aarch64 running the
+    # same glibc 2.44 and GCC 16.2.0 that the cross toolchain targets.
+    export gl_cv_func_strcasecmp_works='guessing yes'
+fi
+
 ./configure \
-    --prefix=/usr
+    --prefix=/usr "${_cfg[@]}"
 
 make
 make DESTDIR="$1" install
-
