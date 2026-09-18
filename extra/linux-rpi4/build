@@ -4,9 +4,25 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs modules
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=$1
-mkdir -p $1/boot/
-mkdir -p $1/boot/overlays/
 
-cp arch/arm64/boot/Image.gz $1/boot/kernel8.img
-cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-4-b.dtb $1/boot/
-cp arch/arm/boot/dts/overlays/*.dts $1/boot/overlays/
+mkdir -p "$1/boot/overlays"
+
+cp arch/arm64/boot/Image.gz "$1/boot/kernel8.img"
+
+# BCM2711 is the Pi 4 generation: Pi 4 B, Pi 400 and the CM4 modules.
+cp arch/arm64/boot/dts/broadcom/bcm2711-*.dtb "$1/boot/"
+
+# The firmware can only apply *compiled* overlays; the .dts files beside them
+# are source and are useless at boot, which is what this package shipped before.
+#
+# `make ARCH=arm64 dtbs` does build them: arch/arm64/boot/dts/Makefile carries
+# `subdir-y += overlays`, and arch/arm64/boot/dts/overlays is a symlink into the
+# arm tree, which is where the Pi overlay sources actually live. So the .dtbo
+# files are reachable under the arm64 path even though no arm64 copy exists.
+cp arch/arm64/boot/dts/overlays/*.dtbo "$1/boot/overlays/"
+
+# overlay_map.dtb tells the firmware which overlays apply to which board and
+# hat_map.dtb maps HAT product IDs onto overlays; the same Makefile builds both.
+cp arch/arm64/boot/dts/overlays/overlay_map.dtb "$1/boot/overlays/"
+cp arch/arm64/boot/dts/overlays/hat_map.dtb "$1/boot/overlays/"
+cp arch/arm64/boot/dts/overlays/README "$1/boot/overlays/"
