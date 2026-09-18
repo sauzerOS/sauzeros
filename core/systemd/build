@@ -98,6 +98,11 @@ install -v -m644 dns_servers.conf "$1/etc/systemd/resolved.conf.d/dns_servers.co
 install -v -m644 10-sauzeros.conf "$1/usr/lib/sysctl.d/10-sauzeros.conf"
 install -v -m755 -d "$1/usr/lib/systemd/user.conf.d"
 install -v -m644 10-stop-timeout.conf "$1/usr/lib/systemd/user.conf.d/10-stop-timeout.conf"
+
+# Grant the active local seat access to /dev/fb*; see the rule for why this is
+# preferred over putting users in the video group.
+install -v -Dm644 71-framebuffer-uaccess.rules \
+    "$1/usr/lib/udev/rules.d/71-framebuffer-uaccess.rules"
 fi
 
 # systemd-libs
