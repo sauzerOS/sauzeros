@@ -6,3 +6,8 @@ xorgproto
 xorg-util-macros make
 lib32-libxext make
 lib32-libxfixes make
+aarch64-gcc cross make
+aarch64-libx11 cross make
+aarch64-libxext cross make
+aarch64-libxfixes cross make
+aarch64-xorgproto cross make
