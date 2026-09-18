@@ -15,3 +15,8 @@ lib32-bzip2 make
 lib32-libpng make
 lib32-zlib-ng make
 lib32-harfbuzz make optional
+aarch64-gcc cross make
+aarch64-brotli cross make
+aarch64-bzip2 cross make
+aarch64-libpng cross make
+aarch64-zlib-ng cross make
