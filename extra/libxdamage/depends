@@ -4,3 +4,7 @@ libxfixes
 xorgproto
 lib32-libx11 make
 lib32-libxfixes make
+aarch64-gcc cross make
+aarch64-libx11 cross make
+aarch64-libxfixes cross make
+aarch64-xorgproto cross make
