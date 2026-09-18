@@ -7,6 +7,7 @@ chafa make optional
 gobject-introspection make
 icu make
 meson make
+meson cross make
 lib32-cairo make optional
 lib32-freetype make
 lib32-glib make
