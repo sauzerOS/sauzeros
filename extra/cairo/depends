@@ -14,6 +14,7 @@ pixman
 pkgconf
 zlib-ng
 meson make
+meson cross make
 lib32-fontconfig make
 lib32-freetype make
 lib32-glib make
