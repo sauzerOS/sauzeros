@@ -6,3 +6,7 @@ xorg-util-macros make
 xtrans make
 lib32-libice make
 lib32-util-linux make
+aarch64-gcc cross make
+aarch64-libice cross make
+aarch64-xorgproto cross make
+aarch64-util-linux cross make
