@@ -6,7 +6,17 @@ ranlib = 'aarch64-linux-gnu-ranlib'
 nm = 'aarch64-linux-gnu-nm'
 strip = 'aarch64-linux-gnu-strip'
 pkg-config = 'aarch64-linux-gnu-pkg-config'
+# Host rustc emits target code directly: aarch64-rust installs the target std
+# into the host toolchain's own rustlib, the same layout `rustup target add`
+# uses, so no sysroot juggling is needed -- only the target and the linker.
+rust = ['rustc', '--target', 'aarch64-unknown-linux-gnu']
+rust_ld = 'aarch64-linux-gnu-gcc'
 exe_wrapper = '/usr/bin/qemu-aarch64-static'
+
+[properties]
+# Projects that build Rust through meson read the target triple from here
+# rather than inferring it from cpu_family.
+rust_target = 'aarch64-unknown-linux-gnu'
 
 [host_machine]
 system = 'linux'
