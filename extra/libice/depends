@@ -2,3 +2,5 @@ glibc
 xorgproto
 xorg-util-macros make
 xtrans make
+aarch64-gcc cross make
+aarch64-xorgproto cross make
