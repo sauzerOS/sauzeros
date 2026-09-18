@@ -1,0 +1,11 @@
+{
+  "url": "https://www.nico.schottelius.org/software/gpm/",
+  "category": "extra",
+  "description": "Console mouse server and client library",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": [
+    "console",
+    "input"
+  ]
+}
