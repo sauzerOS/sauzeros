@@ -2,7 +2,9 @@ expat
 freetype
 glibc
 meson make
+meson cross make
 gperf make
+gperf cross make
 lib32-expat make
 lib32-freetype make
 aarch64-gcc cross make
