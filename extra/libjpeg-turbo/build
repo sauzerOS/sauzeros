@@ -9,8 +9,6 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     PREFIX="${CROSS_PREFIX:-/usr}"
     _tool_prefix="${HOKUTO_ARCH}-linux-gnu-"
     CMAKE_OPTS+=(
-        -D CMAKE_SYSTEM_NAME=Linux
-        -D CMAKE_SYSTEM_PROCESSOR="$HOKUTO_ARCH"
     )
 fi
 
