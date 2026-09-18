@@ -2,3 +2,5 @@ glibc
 libpciaccess
 meson make
 lib32-libpciaccess make
+aarch64-gcc cross make
+aarch64-libpciaccess cross make
