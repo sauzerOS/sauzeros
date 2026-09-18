@@ -1,0 +1,12 @@
+# Hand the framebuffer to the user of the active local session.
+#
+# /dev/fb0 is root:video, so console graphics (links -g -driver fb, fbi,
+# fbterm, ...) otherwise requires adding the user to the video group. That is a
+# permanent, machine-wide grant: it survives logout, applies to remote sessions,
+# and extends to every other member of the group.
+#
+# The uaccess tag instead lets systemd-logind attach a POSIX ACL for whoever
+# currently holds the local seat, added at login and dropped at logout. The tag
+# is acted on by systemd's own 73-seat-late.rules, so this file must sort before
+# it.
+SUBSYSTEM=="graphics", KERNEL=="fb[0-9]*", TAG+="uaccess"
