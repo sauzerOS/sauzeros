@@ -11,6 +11,7 @@ libxrender
 gobject-introspection make
 help2man make
 meson make
+meson cross make
 lib32-cairo make
 lib32-fontconfig make
 lib32-freetype make
