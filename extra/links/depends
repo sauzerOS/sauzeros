@@ -1,4 +1,5 @@
 brotli
+gpm
 bzip2
 glibc
 libevent
@@ -7,7 +8,16 @@ xz
 zlib-ng
 zstd
 libjpeg-turbo make
-libpng (ake
+libpng make
 libtiff make
 libwebp make
-libx11 make 
+aarch64-brotli cross make
+aarch64-gpm cross make
+aarch64-bzip2 cross make
+aarch64-libevent cross make
+aarch64-libjpeg-turbo cross make
+aarch64-libpng cross make
+aarch64-openssl cross make
+aarch64-xz cross make
+aarch64-zlib-ng cross make
+aarch64-zstd cross make
