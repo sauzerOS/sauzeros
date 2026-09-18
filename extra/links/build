@@ -3,9 +3,22 @@
 # glibc fix
 sed '/*strchr/s/cast_const_char //g' -i ftp.c
 
+# Graphics: framebuffer only, no X.
+#
+# links has no --with-fb; the framebuffer driver is on by default and is turned
+# off with --without-fb, so the old --with-fb was silently doing nothing. What
+# actually gated it is gpm: configure only adds FB to the driver list when
+# linux/{fb,kd,vt}.h, sys/mman.h, sys/ioctl.h AND libgpm are all present.
+# Without gpm the driver is dropped without a word, which is why only X ever
+# showed up.
+#
+# --without-x keeps X out deliberately: graphics here is for the console, and
+# linking X in would make the binary need libX11 on targets that have no X.
 ./configure \
     --prefix=/usr \
-    --mandir=/usr/share/man
+    --mandir=/usr/share/man \
+    --enable-graphics \
+    --without-x
 
 make
 make DESTDIR="$1" install
