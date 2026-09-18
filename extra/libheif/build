@@ -1,7 +1,12 @@
 #!/bin/bash -e
 
+# A cross build installs into the target sysroot, never the host's /usr.
+# CMAKE_INSTALL_LIBDIR must stay relative so CMake joins it with the prefix;
+# an absolute value is taken verbatim and escapes the sysroot.
+
 cmake -B build                       \
-    -D CMAKE_INSTALL_PREFIX=/usr     \
+    -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
+      -D CMAKE_INSTALL_LIBDIR=lib     \
     -D WITH_DAV1D=ON                 \
     -D WITH_RAV1E=OFF                \
     -D WITH_FFMPEG_DECODER=ON        \
