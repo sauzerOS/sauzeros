@@ -1,7 +1,12 @@
 #!/bin/bash -e
 
+# A cross build installs into the target sysroot, never the host's /usr.
+# CMAKE_INSTALL_LIBDIR must stay relative so CMake joins it with the prefix;
+# an absolute value is taken verbatim and escapes the sysroot.
+
 cmake -B aom-build                 \
-      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
+      -D CMAKE_INSTALL_LIBDIR=lib \
       -D CMAKE_BUILD_TYPE=Release  \
       -D BUILD_SHARED_LIBS=1       \
       -D ENABLE_DOCS=no            \
@@ -12,7 +17,7 @@ cmake -B aom-build                 \
 cmake --build aom-build
 DESTDIR=$1 cmake --install aom-build
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf aom-build
 CC="gcc -m32" CXX="g++ -m32"         \
