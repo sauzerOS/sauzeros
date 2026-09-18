@@ -4,5 +4,6 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make
-aarch64-python-setuptools cross make
+python-build cross make
+python-setuptools cross make
 aarch64-gcc cross make
