@@ -5,3 +5,9 @@ libx11 make
 libxi make
 meson make
 xorgproto make
+aarch64-gcc cross make
+aarch64-libinput cross make
+aarch64-xlibre cross make
+aarch64-libx11 cross make
+aarch64-libxi cross make
+aarch64-xorgproto cross make
