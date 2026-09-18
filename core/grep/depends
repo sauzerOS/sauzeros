@@ -1,3 +1,5 @@
 glibc
 pcre2
 gperf make
+aarch64-pcre2 cross
+gperf cross make
