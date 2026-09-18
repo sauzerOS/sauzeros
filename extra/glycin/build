@@ -1,5 +1,21 @@
 #!/bin/bash -e
 
-hokuto-meson build
+# glycin-image-rs is pure Rust and covers png, jpeg, gif, webp, bmp and tiff,
+# which is everything gdk-pixbuf needs from glycin. The other loaders each drag
+# in a large C/C++ stack that is not cross built: glycin-heif wants libheif
+# (libde265, x265, aom), glycin-jxl wants libjxl and highway, and glycin-svg
+# wants librsvg.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(
+      -D loaders=glycin-image-rs
+      -D introspection=false
+      -D vapi=false
+      -D tests=false
+      -D libglycin-gtk4=false
+    )
+fi
+
+hokuto-meson build "${cross_opts[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
