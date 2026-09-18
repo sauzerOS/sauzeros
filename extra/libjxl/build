@@ -1,9 +1,14 @@
 #!/bin/bash -e
 
+# A cross build installs into the target sysroot, never the host's /usr.
+# CMAKE_INSTALL_LIBDIR must stay relative so CMake joins it with the prefix;
+# an absolute value is taken verbatim and escapes the sysroot.
+
 export CFLAGS+=' -DNDEBUG -ffat-lto-objects'
 export CXXFLAGS+=' -DNDEBUG -ffat-lto-objects'
 
-cmake -B build -D CMAKE_INSTALL_PREFIX=/usr          \
+cmake -B build -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
+      -D CMAKE_INSTALL_LIBDIR=lib          \
       -D CMAKE_POLICY_VERSION_MINIMUM:STRING='3.5.0' \
       -D CMAKE_BUILD_TYPE=Release                    \
       -D BUILD_TESTING=OFF                           \
