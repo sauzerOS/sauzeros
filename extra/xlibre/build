@@ -1,14 +1,30 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr   \
-  -D xvfb=true    \
-  -D xnest=true   \
-  -D xephyr=true  \
-  -D systemd_logind=true \
-  -D seatd_libseat=false \
-  -D drm=true \
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+  --prefix="$PREFIX"
+  -D systemd_logind=true
+  -D seatd_libseat=false
+  -D drm=true
   -D suid_wrapper=true
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
+    # Xvfb, Xnest and Xephyr are test/nested servers that pull in the whole
+    # client-side X and xcb stack. The target only needs the real server, so
+    # they stay off until those libraries exist for aarch64.
+    MESON_OPTS+=(-D xvfb=false -D xnest=false -D xephyr=false)
+    # GLX, glamor and DRI all need mesa/libglvnd, which have no aarch64 build
+    # yet. Without them the server falls back to software rendering, which is
+    # enough to bring X up on the target; drop these once mesa cross-builds.
+    MESON_OPTS+=(-D glx=false -D glamor=false -D dri1=false -D dri2=false -D dri3=false)
+else
+    MESON_OPTS+=(-D xvfb=true -D xnest=true -D xephyr=true)
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
