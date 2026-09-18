@@ -1,10 +1,13 @@
 #!/bin/bash -e
 
-cmake -B build                 \
-  -D CMAKE_BUILD_TYPE=None     \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -W no-dev                    \
-  -D FASTFLOAT_TEST=OFF        \
+# A cross build installs into the target sysroot, never the host's /usr, and
+# CMAKE_INSTALL_LIBDIR must stay relative so it joins with the prefix.
+cmake -B build                                  \
+  -D CMAKE_BUILD_TYPE=None                      \
+  -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
+  -D CMAKE_INSTALL_LIBDIR=lib                   \
+  -W no-dev                                     \
+  -D FASTFLOAT_TEST=OFF                         \
   -D SYSTEM_DOCTEST=OFF
 
 cmake --build build
