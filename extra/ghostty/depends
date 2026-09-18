@@ -1,6 +1,6 @@
 bzip2
 fontconfig
-freetype2
+freetype
 glib
 glibc
 gtk
@@ -12,6 +12,6 @@ libx11
 oniguruma
 pixman
 wayland
-zlib
+zlib-ng
 blueprint-compiler make
-zig-bin make 
+zig-bin<0.16 make 
