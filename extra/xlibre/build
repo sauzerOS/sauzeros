@@ -20,6 +20,13 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # makes the modesetting driver usable, and build_modesetting itself is
     # false without libgbm. DRI1 stays off -- it is ancient and unused.
     MESON_OPTS+=(-D glx=true -D glamor=true -D dri1=false -D dri2=true -D dri3=true)
+
+    # fontrootdir otherwise comes from xorg-font-util's .pc in the sysroot, so
+    # the target package ends up with a compiled-in font path of
+    # /usr/aarch64-linux-gnu/share/fonts/X11. Every entry then fails to open at
+    # startup, X runs with no fonts at all, and there is no cursor font to draw
+    # the pointer with.
+    MESON_OPTS+=(-D "fontrootdir=$PREFIX/share/fonts/X11")
 else
     MESON_OPTS+=(-D xvfb=true -D xnest=true -D xephyr=true)
 fi
