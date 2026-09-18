@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr   \
+hokuto-meson build \
   -D enable_asm=true
 
 meson compile -C build
