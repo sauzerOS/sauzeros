@@ -1,10 +1,14 @@
 #!/bin/bash -e
 
+# A cross-system build installs into the target sysroot, so the prefix has to
+# come from CROSS_PREFIX. CMAKE_INSTALL_LIBDIR must also stay RELATIVE: CMake
+# joins a relative value with the prefix but honours an absolute one verbatim,
+# so a hardcoded /usr/lib would drop target libraries into the host's /usr/lib.
 cmake_options=(
   -D BUILD_SHARED_LIBS=ON
   -D CMAKE_BUILD_TYPE=None
-  -D CMAKE_INSTALL_LIBDIR=/usr/lib
-  -D CMAKE_INSTALL_PREFIX=/usr
+  -D CMAKE_INSTALL_LIBDIR=lib
+  -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}"
   -D CMAKE_SKIP_INSTALL_RPATH=ON
   -D WEBP_BUILD_CWEBP=ON
   -D WEBP_BUILD_DWEBP=ON
@@ -29,7 +33,7 @@ pkgdir=$HOKUTO_SPLIT_DIR/lib32-$3
 cmake_options=(
     -D BUILD_SHARED_LIBS=ON
     -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_INSTALL_LIBDIR=/usr/lib32
+    -D CMAKE_INSTALL_LIBDIR=lib32
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_SKIP_INSTALL_RPATH=ON
     -D WEBP_BUILD_CWEBP=OFF
