@@ -3,3 +3,6 @@ libx11
 xorgproto
 xorg-util-macros make
 lib32-libx11 make
+aarch64-gcc cross make
+aarch64-libx11 cross make
+aarch64-xorgproto cross make
