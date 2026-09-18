@@ -1,14 +1,15 @@
 #!/bin/bash -e
 
-# glycin-image-rs is pure Rust and covers png, jpeg, gif, webp, bmp and tiff,
-# which is everything gdk-pixbuf needs from glycin. The other loaders each drag
-# in a large C/C++ stack that is not cross built: glycin-heif wants libheif
-# (libde265, x265, aom), glycin-jxl wants libjxl and highway, and glycin-svg
-# wants librsvg.
+# The loader set is left at the default (heif, image-rs, jxl, svg) for the
+# target as well: libheif, libjxl and librsvg are all cross built now, and
+# dropping glycin-svg would leave the target unable to render the SVG icons
+# that menus and window managers use.
+#
+# introspection and vapi need the host scanners run against target libraries,
+# which the cross glib does not provide.
 cross_opts=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     cross_opts+=(
-      -D loaders=glycin-image-rs
       -D introspection=false
       -D vapi=false
       -D tests=false
