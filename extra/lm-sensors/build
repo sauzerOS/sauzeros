@@ -1,7 +1,15 @@
 #!/bin/bash -e
 
-make PREFIX=/usr
-make BUILD_STATIC_LIB=0 \
+# The lm-sensors Makefile hardcodes `CC := gcc` and `AR := ar`. A makefile
+# assignment beats the environment, so the cross toolchain is only honoured if
+# it is passed on the make command line.
+_tools=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    _tools=(CC="$CC" AR="$AR")
+fi
+
+make "${_tools[@]}" PREFIX=/usr
+make "${_tools[@]}" BUILD_STATIC_LIB=0 \
     PREFIX=/usr SBINDIR=/usr/bin MANDIR=/usr/share/man DESTDIR=$1 install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
