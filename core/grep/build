@@ -1,8 +1,19 @@
 #!/bin/bash -e
 
 export CFLAGS="$CFLAGS -Wno-error -static"
+
+_cfg=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # hokuto sets the cross toolchain but passes no --host. Without it, and with
+    # qemu-aarch64 binfmt registered, configure successfully RUNS its aarch64
+    # test binary, concludes it is not cross compiling, and then dies on
+    # gnulib's socklen_t check. Passing the triplet is the whole fix here --
+    # grep needs no cached run-test results.
+    _cfg=(--host="${HOKUTO_ARCH}-linux-gnu")
+fi
+
 ./configure \
-    --prefix=/usr
+    --prefix=/usr "${_cfg[@]}"
 
 make
 make DESTDIR=$1 install
