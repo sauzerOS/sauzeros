@@ -5,3 +5,8 @@ libgcc
 libgudev
 libxml2 make
 meson make
+aarch64-gcc cross make
+aarch64-glib cross make
+aarch64-libevdev cross make
+aarch64-libgudev cross make
+aarch64-libxml2 cross make
