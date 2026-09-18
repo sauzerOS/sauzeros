@@ -2,3 +2,4 @@ glibc
 imagemagick make optional
 docbook-xsl make
 xmlto make
+aarch64-gcc cross make
