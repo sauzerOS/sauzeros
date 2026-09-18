@@ -1,8 +1,8 @@
-alsa-lib
+alsa-lib nocross
 imlib2
 libsm
-librsvg
-libsndfile
+librsvg nocross
+libsndfile nocross
 libxcomposite
 libxcursor
 libxdamage
