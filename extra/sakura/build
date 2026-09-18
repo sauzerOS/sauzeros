@@ -3,7 +3,7 @@
 cmake -B build \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE='None'   \
-  -Wno-dev
+  -W no-dev
 
 cmake --build build
 DESTDIR=$1 cmake --install build
