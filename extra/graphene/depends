@@ -2,3 +2,4 @@ glib
 glibc
 gobject-introspection make
 meson make
+meson cross make
