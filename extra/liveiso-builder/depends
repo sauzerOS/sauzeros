@@ -1,4 +1,7 @@
+dosfstools
+e2fsprogs
 libisoburn
 limine
 mtools
 squashfs-tools
+util-linux

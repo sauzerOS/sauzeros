@@ -1,113 +1,358 @@
 #!/bin/bash -e
 
+# Build a live image from an existing rootfs.
+#
+# x86_64 produces an ISO9660/El Torito image that boots under BIOS and UEFI
+# through Limine.
+#
+# arm64 produces a partitioned disk image instead. A Raspberry Pi 4 cannot boot
+# ISO9660: its EEPROM bootloader looks for an MBR partition table, takes the
+# first FAT partition, and reads config.txt, start4.elf and the kernel out of
+# it. There is no El Torito stage to hook into. The result is still written with
+# dd exactly like the ISO, and is named .iso for that reason.
+
 # --- Color Definitions ---
 BLUE='\033[0;34m'
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 NC='\033[0m'
 
-# --- 1) Root Check ---
-if [[ "$(id -u)" -ne 0 ]]; then
-    echo -e "${RED}Error: This script must be run as root (e.g., via sudo).${NC}" >&2
-    exit 1
+msg()  { echo -e "${BLUE}-> $*${NC}"; }
+warn() { echo -e "${YELLOW}-> $*${NC}" >&2; }
+die()  { echo -e "${RED}Error: $*${NC}" >&2; exit 1; }
+
+# The volume label the dracut live cmdline looks for. It must match the label
+# written on whichever filesystem carries LiveOS/squashfs.img.
+LIVE_LABEL="sauzerOS-live"
+
+usage() {
+    cat <<EOF
+Usage: sauzeros-live [options]
+
+  -r, --rootfs DIR     rootfs to package   (default: /var/tmp/sauzerOS-live)
+  -b, --build-dir DIR  scratch directory   (default: /var/tmp/iso_build)
+  -a, --arch ARCH      x86_64 or arm64     (default: detected from the rootfs)
+  -f, --firmware DIR   Raspberry Pi boot firmware, arm64 only
+                       (default: the rootfs's own /boot)
+  -o, --output FILE    output image        (default: ./sauzerOS-live[-arch].iso)
+  -h, --help           this message
+
+With no options the rootfs and build directory are prompted for, as before.
+EOF
+}
+
+# --- Root Check ---
+[[ "$(id -u)" -eq 0 ]] || die "This script must be run as root (e.g., via sudo)."
+
+original_dir=$(pwd)
+
+rootfs_dir=""
+build_dir=""
+arch=""
+firmware_dir=""
+iso_path_final=""
+prompt=1
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -r|--rootfs)    rootfs_dir=$2; prompt=0; shift 2 ;;
+        -b|--build-dir) build_dir=$2;  shift 2 ;;
+        -a|--arch)      arch=$2;       shift 2 ;;
+        -f|--firmware)  firmware_dir=$2; shift 2 ;;
+        -o|--output)    iso_path_final=$2; shift 2 ;;
+        -h|--help)      usage; exit 0 ;;
+        *)              die "Unknown option: $1" ;;
+    esac
+done
+
+if [[ $prompt -eq 1 ]]; then
+    read -e -p "$(echo -e ${BLUE}"Enter the build directory (default: /var/tmp/iso_build): "${NC})" reply
+    build_dir=${build_dir:-$reply}
+    read -e -p "$(echo -e ${BLUE}"Enter the rootfs directory (default: /var/tmp/sauzerOS-live): "${NC})" reply
+    rootfs_dir=${rootfs_dir:-$reply}
 fi
 
-# --- FIX: Capture the original directory and user ---
-# When run via 'sudo', this captures the directory where the user ran the command.
-# If not using sudo (e.g., direct root login), it falls back to the current directory.
-if [ -n "$SUDO_USER" ]; then
-    # Captures the directory from where 'sudo' was invoked.
-    original_dir=$(pwd)
-else
-    # Fallback for direct root login.
-    original_dir=$(pwd)
+build_dir=$(eval echo "${build_dir:-/var/tmp/iso_build}")
+rootfs_dir=$(eval echo "${rootfs_dir:-/var/tmp/sauzerOS-live}")
+
+[[ -d "$rootfs_dir" ]] || die "Rootfs directory '$rootfs_dir' not found."
+
+need() {
+    for tool in "$@"; do
+        command -v "$tool" >/dev/null 2>&1 || die "'$tool' is required but not installed."
+    done
+}
+
+# --- Architecture detection -------------------------------------------------
+# Read e_machine out of an ELF header in the rootfs rather than trusting the
+# directory name: 0x3e is x86-64, 0xb7 is aarch64.
+detect_arch() {
+    local probe
+    for probe in /usr/bin/bash /bin/bash /usr/bin/sh /bin/sh /usr/bin/env; do
+        [[ -f "$rootfs_dir$probe" ]] || continue
+        local machine
+        machine=$(od -An -tx1 -j18 -N2 "$rootfs_dir$probe" 2>/dev/null | tr -d ' \n')
+        case "$machine" in
+            3e00) echo "x86_64"; return 0 ;;
+            b700) echo "arm64";  return 0 ;;
+        esac
+    done
+    # Fall back to what the rootfs was given to boot with.
+    [[ -f "$rootfs_dir/boot/kernel8.img" ]] && { echo "arm64"; return 0; }
+    return 1
+}
+
+if [[ -z "$arch" ]]; then
+    arch=$(detect_arch) || die "Cannot tell what architecture '$rootfs_dir' is for; pass --arch."
+    msg "Detected rootfs architecture: ${arch}"
 fi
 
-# --- 2) User Input for Directories ---
-read -e -p "$(echo -e ${BLUE}"Enter the build directory (default: /var/tmp/iso_build): "${NC})" build_dir
-build_dir=${build_dir:-/var/tmp/iso_build}
-# 'eval echo' is a safe way to force the shell to perform tilde expansion on the input.
-build_dir=$(eval echo "$build_dir")
+case "$arch" in
+    x86_64|amd64) arch=x86_64 ;;
+    arm64|aarch64) arch=arm64 ;;
+    *) die "Unsupported architecture '$arch' (expected x86_64 or arm64)." ;;
+esac
 
-
-read -e -p "$(echo -e ${BLUE}"Enter the rootfs directory (default: /var/tmp/sauzerOS-live): "${NC})" rootfs_dir
-rootfs_dir=${rootfs_dir:-/var/tmp/sauzerOS-live}
-rootfs_dir=$(eval echo "$rootfs_dir")
-
-if [[ ! -d "$rootfs_dir" ]]; then
-    echo -e "${RED}Error: Rootfs directory '$rootfs_dir' not found.${NC}" >&2
-    exit 1
+if [[ -z "$iso_path_final" ]]; then
+    if [[ "$arch" == "arm64" ]]; then
+        iso_path_final="${original_dir}/sauzerOS-live-arm64.iso"
+    else
+        iso_path_final="${original_dir}/sauzerOS-live.iso"
+    fi
 fi
+case "$iso_path_final" in /*) ;; *) iso_path_final="${original_dir}/${iso_path_final}" ;; esac
 
-# --- 3) Dynamic ISO Filename ---
-#timestamp=$(date +'%Y%m%d-%H%M')
-iso_filename="sauzerOS-live.iso"
-# FIX: Use the captured original directory for the final path.
-iso_path_final="${original_dir}/${iso_filename}"
+msg "Using build directory: ${build_dir}"
+msg "Using rootfs directory: ${rootfs_dir}"
+msg "Target architecture: ${arch}"
 
-
-# --- Script Body ---
-echo -e "${BLUE}-> Using build directory: ${build_dir}${NC}"
-echo -e "${BLUE}-> Using rootfs directory: ${rootfs_dir}${NC}"
-
-if [ -d "$build_dir" ]; then
-    echo -e "${BLUE}-> Cleaning up previous build directory...${NC}"
-    rm -rf "$build_dir"
-fi
+[[ -d "$build_dir" ]] && { msg "Cleaning up previous build directory..."; rm -rf "$build_dir"; }
 mkdir -pv "$build_dir"
 
-pushd "$build_dir" > /dev/null
+# --- Shared: the squashfs everything else wraps -----------------------------
+make_squashfs() {
+    local dest=$1
+    mkdir -p "$(dirname "$dest")"
+    msg "Creating squashfs image (this may take a while)..."
+    mksquashfs "$rootfs_dir" "$dest" -comp xz -b 1M -noappend
+}
 
-echo -e "${BLUE}-> Creating ISO directory structure...${NC}"
-iso_root="iso_root"
-mkdir -pv "$iso_root"/{boot,limine,LiveOS,EFI/BOOT,}
+########################################################################
+# x86_64: ISO9660 + El Torito, booted by Limine
+########################################################################
+build_x86_64() {
+    need mksquashfs xorriso limine xz
 
-echo -e "${BLUE}-> Copying kernel and initramfs...${NC}"
-cp -v "$rootfs_dir"/boot/initramfs.img "$iso_root"/boot/initramfs.img
-cp -v "$rootfs_dir"/boot/vmlinuz-sauzerOS-live "$iso_root"/boot/vmlinuz
+    pushd "$build_dir" > /dev/null
 
-echo -e "${BLUE}-> Creating squashfs image (this may take a while)...${NC}"
-mksquashfs "$rootfs_dir" "$iso_root"/LiveOS/squashfs.img -comp xz -b 1M
+    msg "Creating ISO directory structure..."
+    local iso_root="iso_root"
+    mkdir -pv "$iso_root"/{boot,limine,LiveOS,EFI/BOOT}
 
-echo -e "${BLUE}-> Installing Limine bootloader files...${NC}"
-cp -v /usr/share/limine/{limine-uefi-cd.bin,limine-bios-cd.bin,limine-bios.sys} "$iso_root"/limine/
-cp -v /usr/share/limine/BOOTX64.EFI "$iso_root"/EFI/BOOT/
-cp -v /usr/share/liveiso-builder/limine.conf "$iso_root"/limine/limine.conf
-cp -v /usr/share/liveiso-builder/sauzeros_splash.png "$iso_root"/limine/splash.png
+    msg "Copying kernel and initramfs..."
+    cp -v "$rootfs_dir"/boot/initramfs.img "$iso_root"/boot/initramfs.img
+    cp -v "$rootfs_dir"/boot/vmlinuz-sauzerOS-live "$iso_root"/boot/vmlinuz
 
-echo -e "${BLUE}-> Preparing EFI shells...${NC}"
-xz -dc /usr/share/liveiso-builder/shell.efi.xz > "$iso_root"/EFI/BOOT/shellx64_mini.efi
-xz -dc /usr/share/liveiso-builder/shell_full.efi.xz > "$iso_root"/EFI/BOOT/shellx64.efi
+    make_squashfs "$iso_root/LiveOS/squashfs.img"
 
-echo -e "${BLUE}-> Building the ISO image with xorriso...${NC}"
-# FIX: Use the absolute path for the output file.
-xorriso -as mkisofs -R -r -J                 \
-        -volid "sauzerOS-live"               \
-        -iso-level 3 -full-iso9660-filenames \
-        -b limine/limine-bios-cd.bin         \
-        -no-emul-boot -boot-load-size 4      \
-        -boot-info-table                     \
-        -apm-block-size 2048                 \
-        --efi-boot limine/limine-uefi-cd.bin \
-        -efi-boot-part --efi-boot-image      \
-        --protective-msdos-label             \
-        "$iso_root" -o "$iso_path_final"
+    msg "Installing Limine bootloader files..."
+    cp -v /usr/share/limine/{limine-uefi-cd.bin,limine-bios-cd.bin,limine-bios.sys} "$iso_root"/limine/
+    cp -v /usr/share/limine/BOOTX64.EFI "$iso_root"/EFI/BOOT/
+    cp -v /usr/share/liveiso-builder/limine.conf "$iso_root"/limine/limine.conf
+    cp -v /usr/share/liveiso-builder/sauzeros_splash.png "$iso_root"/limine/splash.png
 
-echo -e "${BLUE}-> Making the ISO bootable on BIOS systems...${NC}"
-# FIX: Use the absolute path for limine install.
-limine bios-install "$iso_path_final"
+    msg "Preparing EFI shells..."
+    xz -dc /usr/share/liveiso-builder/shell.efi.xz > "$iso_root"/EFI/BOOT/shellx64_mini.efi
+    xz -dc /usr/share/liveiso-builder/shell_full.efi.xz > "$iso_root"/EFI/BOOT/shellx64.efi
 
-popd > /dev/null
+    msg "Building the ISO image with xorriso..."
+    xorriso -as mkisofs -R -r -J                 \
+            -volid "$LIVE_LABEL"                 \
+            -iso-level 3 -full-iso9660-filenames \
+            -b limine/limine-bios-cd.bin         \
+            -no-emul-boot -boot-load-size 4      \
+            -boot-info-table                     \
+            -apm-block-size 2048                 \
+            --efi-boot limine/limine-uefi-cd.bin \
+            -efi-boot-part --efi-boot-image      \
+            --protective-msdos-label             \
+            "$iso_root" -o "$iso_path_final"
 
-echo -e "${BLUE}-> Cleaning up intermediate files...${NC}"
+    msg "Making the ISO bootable on BIOS systems..."
+    limine bios-install "$iso_path_final"
+
+    popd > /dev/null
+}
+
+########################################################################
+# arm64: MBR + FAT32 firmware partition + ext4 LiveOS partition
+########################################################################
+
+# Files the Raspberry Pi 4 EEPROM bootloader needs before it can start a kernel.
+# bootcode.bin is not used by the Pi 4 (its second stage lives in EEPROM) but is
+# harmless and keeps the partition usable on a Pi 3.
+RPI_FIRMWARE_REQUIRED=(start4.elf fixup4.dat)
+RPI_FIRMWARE_OPTIONAL=(start.elf start4x.elf start4cd.elf start4db.elf
+                       fixup.dat fixup4x.dat fixup4cd.dat fixup4db.dat
+                       bootcode.bin)
+
+build_arm64() {
+    need mksquashfs mkfs.vfat mcopy mmd mke2fs sfdisk truncate
+
+    local fw_src=${firmware_dir:-$rootfs_dir/boot}
+    local boot_stage="$build_dir/boot"      # becomes the FAT partition
+    local data_stage="$build_dir/data"      # becomes the ext4 partition
+    mkdir -p "$boot_stage" "$data_stage/LiveOS"
+
+    # --- firmware -----------------------------------------------------------
+    msg "Collecting Raspberry Pi firmware from ${fw_src}..."
+    local missing=()
+    local f
+    for f in "${RPI_FIRMWARE_REQUIRED[@]}"; do
+        if [[ -f "$fw_src/$f" ]]; then cp -a "$fw_src/$f" "$boot_stage/"; else missing+=("$f"); fi
+    done
+    if (( ${#missing[@]} )); then
+        die "Raspberry Pi boot firmware missing from ${fw_src}: ${missing[*]}
+       Without it the Pi's bootloader cannot start anything.
+       Install the firmware into the rootfs's /boot, or point --firmware at a
+       directory holding it (a Raspberry Pi OS boot partition will do)."
+    fi
+    for f in "${RPI_FIRMWARE_OPTIONAL[@]}"; do
+        [[ -f "$fw_src/$f" ]] && cp -a "$fw_src/$f" "$boot_stage/"
+    done
+
+    # --- kernel, dtb, overlays, initramfs -----------------------------------
+    msg "Copying kernel, device tree and initramfs..."
+    [[ -f "$rootfs_dir/boot/kernel8.img" ]] ||
+        die "No ${rootfs_dir}/boot/kernel8.img; the rootfs needs the linux-rpi4 package installed."
+    cp -a "$rootfs_dir/boot/kernel8.img" "$boot_stage/"
+
+    [[ -f "$rootfs_dir/boot/bcm2711-rpi-4-b.dtb" ]] ||
+        die "No ${rootfs_dir}/boot/bcm2711-rpi-4-b.dtb; the Pi 4 cannot boot without its device tree."
+    # Ship every device tree the rootfs carries, so the same image also comes up
+    # on a Pi 400 or CM4.
+    cp -a "$rootfs_dir"/boot/bcm*.dtb "$boot_stage/" 2>/dev/null || true
+
+    # Only compiled overlays are of any use to the firmware; a .dts is source.
+    if compgen -G "$rootfs_dir/boot/overlays/*.dtbo" > /dev/null; then
+        mkdir -p "$boot_stage/overlays"
+        cp -a "$rootfs_dir"/boot/overlays/*.dtbo "$boot_stage/overlays/"
+        [[ -f "$rootfs_dir/boot/overlays/README" ]] &&
+            cp -a "$rootfs_dir/boot/overlays/README" "$boot_stage/overlays/"
+    else
+        warn "No compiled overlays (*.dtbo) in ${rootfs_dir}/boot/overlays; continuing without them."
+    fi
+
+    [[ -f "$rootfs_dir/boot/initramfs.img" ]] ||
+        die "No ${rootfs_dir}/boot/initramfs.img; the live image needs an initramfs to find the squashfs."
+    cp -a "$rootfs_dir/boot/initramfs.img" "$boot_stage/initramfs.img"
+
+    # --- firmware configuration --------------------------------------------
+    # The Pi has no bootloader menu: the firmware itself reads config.txt, loads
+    # the kernel and the initramfs, and hands cmdline.txt to the kernel.
+    msg "Writing config.txt and cmdline.txt..."
+    cat > "$boot_stage/config.txt" <<EOF
+# sauzerOS live image for Raspberry Pi 4
+arm_64bit=1
+kernel=kernel8.img
+
+# The firmware, not a bootloader, is what loads the initramfs here.
+# "followkernel" places it directly after the kernel in memory.
+initramfs initramfs.img followkernel
+
+# Leave room for the VideoCore allocator; matches the installed system.
+cma=256M@256M
+
+# Keep the USB controller in a state the kernel can take over from.
+dwc_otg.lpm_enable=0
+
+disable_overscan=1
+EOF
+
+    # dracut's dmsquash-live finds the filesystem by label and then mounts
+    # LiveOS/squashfs.img from it, which is why the ext4 partition below is
+    # labelled to match.
+    cat > "$boot_stage/cmdline.txt" <<EOF
+console=tty1 rd.live.image root=live:LABEL=${LIVE_LABEL} rootwait net.ifnames=0 loglevel=3
+EOF
+
+    # --- LiveOS -------------------------------------------------------------
+    make_squashfs "$data_stage/LiveOS/squashfs.img"
+
+    # --- size the partitions ------------------------------------------------
+    local boot_kib data_kib
+    boot_kib=$(du -sk "$boot_stage" | cut -f1)
+    data_kib=$(du -sk "$data_stage" | cut -f1)
+
+    # FAT32 needs a floor of ~33 MiB to be formatted as FAT32 at all, and the
+    # firmware wants slack; ext4 metadata costs roughly a tenth of the volume.
+    local boot_mib=$(( boot_kib / 1024 + 64 ))
+    (( boot_mib < 256 )) && boot_mib=256
+    local data_mib=$(( data_kib / 1024 + data_kib / 1024 / 10 + 64 ))
+
+    msg "Boot partition: ${boot_mib} MiB    LiveOS partition: ${data_mib} MiB"
+
+    # --- build the two filesystems -----------------------------------------
+    local boot_img="$build_dir/boot.img"
+    local data_img="$build_dir/data.img"
+
+    msg "Creating FAT32 boot filesystem..."
+    rm -f "$boot_img"
+    truncate -s "${boot_mib}M" "$boot_img"
+    # -F 32 keeps it FAT32 whatever the size; the Pi firmware reads FAT16 and
+    # FAT32, and -n gives the partition a recognisable label.
+    mkfs.vfat -F 32 -n SAUZEROSBT "$boot_img" > /dev/null
+
+    # mcopy writes into the image without needing a loop mount.
+    ( cd "$boot_stage" && mcopy -s -i "$boot_img" ./* :: )
+
+    msg "Creating ext4 LiveOS filesystem..."
+    rm -f "$data_img"
+    truncate -s "${data_mib}M" "$data_img"
+    # -d populates from a directory without mounting; -m 0 keeps no reserve.
+    mke2fs -q -t ext4 -L "$LIVE_LABEL" -m 0 -d "$data_stage" "$data_img" > /dev/null
+
+    # --- assemble the disk image -------------------------------------------
+    msg "Assembling the disk image..."
+    local sector=512
+    local align=8192                      # 4 MiB, the usual alignment
+    local boot_sectors=$(( boot_mib * 1024 * 1024 / sector ))
+    local data_sectors=$(( data_mib * 1024 * 1024 / sector ))
+    local boot_start=$align
+    # Start the second partition on the next 4 MiB boundary after the first.
+    local data_start=$(( ( (boot_start + boot_sectors + align - 1) / align ) * align ))
+    local total_sectors=$(( data_start + data_sectors + align ))
+
+    rm -f "$iso_path_final"
+    truncate -s $(( total_sectors * sector )) "$iso_path_final"
+
+    # An MBR label, because that is what the Pi 4 bootloader parses. Type 0c is
+    # FAT32 with LBA, which is what it looks for first.
+    sfdisk --quiet --label dos "$iso_path_final" <<EOF
+${boot_start},${boot_sectors},0c,*
+${data_start},${data_sectors},83
+EOF
+
+    msg "Writing filesystems into the image..."
+    dd if="$boot_img" of="$iso_path_final" bs=$sector seek=$boot_start conv=notrunc status=none
+    dd if="$data_img" of="$iso_path_final" bs=$sector seek=$data_start conv=notrunc status=none
+}
+
+case "$arch" in
+    x86_64) build_x86_64 ;;
+    arm64)  build_arm64 ;;
+esac
+
+msg "Cleaning up intermediate files..."
 rm -rf "$build_dir"
 
-# --- FIX: Change ownership back to the original user ---
-# The $SUDO_USER, $SUDO_UID, and $SUDO_GID variables are set by the 'sudo' command.
-# This ensures the final ISO is owned by the user who ran the script, not by root.
+# Hand the image back to the user who invoked sudo, not to root.
 if [ -n "$SUDO_USER" ]; then
-    echo -e "${BLUE}-> Setting file ownership to '${SUDO_USER}'...${NC}"
+    msg "Setting file ownership to '${SUDO_USER}'..."
     chown "$SUDO_UID:$SUDO_GID" "$iso_path_final"
 fi
 
-# --- 4) Success Message ---
-echo -e "${BLUE}-> Success! ${iso_filename} written to ${original_dir}${NC}"
+msg "Success! $(basename "$iso_path_final") written to $(dirname "$iso_path_final")"
+if [[ "$arch" == "arm64" ]]; then
+    echo -e "${BLUE}-> Write it to a USB stick with:  dd if=$(basename "$iso_path_final") of=/dev/sdX bs=4M status=progress conv=fsync${NC}"
+fi
