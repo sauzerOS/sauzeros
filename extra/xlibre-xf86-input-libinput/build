@@ -1,7 +1,27 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr
+# A cross-system build installs into the target sysroot rather than the host's
+# /usr, and meson needs the cross file that names the aarch64 toolchain.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+MESON_OPTS=(
+    --prefix="$PREFIX"
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
+    # These three default to values read out of xorg-server.pc. In a cross build
+    # that .pc lives in the sysroot and its paths are prefixed with it, so the
+    # driver would install to /usr/aarch64-linux-gnu/... inside a package meant
+    # for the target's own /usr. Pin them to where the target expects them.
+    MESON_OPTS+=(
+        -D "xorg-module-dir=$PREFIX/lib/xorg/modules/xlibre-25/input"
+        -D "sdkdir=$PREFIX/include/xorg"
+        -D "xorg-conf-dir=$PREFIX/share/X11/xorg.conf.d"
+    )
+fi
+
+meson setup build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
