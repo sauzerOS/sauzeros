@@ -16,7 +16,7 @@ hokuto-meson build              \
   --mandir="$PREFIX/share/man"  \
   -D b_ndebug=false             \
   -D docs=false                 \
-  -D gtk4=false "${cross_opts[@]}
+  -D gtk4=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
