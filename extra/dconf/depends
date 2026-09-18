@@ -4,5 +4,6 @@ glibc
 bash-completion make
 dbus make
 meson make
+meson cross make
 systemd make
 vala make
