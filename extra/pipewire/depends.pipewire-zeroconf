@@ -1,8 +1,8 @@
-avahi
+avahi nocross
 glibc
 libgcc
 libpipewire
 openssl
-opus
+opus nocross
 pipewire
 pipewire-audio
