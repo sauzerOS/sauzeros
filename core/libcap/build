@@ -39,6 +39,14 @@ mk() {
 mk
 mk DESTDIR="$1" install
 
+# Make.Rules writes prefix= into the .pc from its own lowercase variable, which
+# the uppercase PREFIX above never reaches, so a cross build ships .pc files
+# claiming the host's /usr. libdir and includedir are pinned explicitly so the
+# emitted flags are right either way, but anything reading the prefix variable
+# -- pkg-config --variable=prefix, or a consumer deriving its own paths from it
+# -- would be handed a host path.
+sed -e "s|^prefix=.*|prefix=$PREFIX|" -i "$1$PKGCONFIGDIR"/lib{cap,psx}.pc
+
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 make distclean
