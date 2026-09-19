@@ -5,9 +5,15 @@ sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
 # A deliberately small mpv for the Pi: X11 and DRM/KMS output through the V3D
 # (gl + egl + gbm), ALSA and pipewire for audio, libass subtitles. Everything
 # below is switched off because it is not cross built -- vaapi/vdpau (no libva
-# or libvdpau), vulkan (libplacebo here is built without it), lua and javascript
-# (no luajit or mujs), sdl2, jack, openal, pulse, sndio, libarchive, libbluray,
-# cdda, dvdnav, dvbin, uchardet, rubberband, zimg, vapoursynth, libavdevice.
+# or libvdpau), vulkan (libplacebo here is built without it), javascript (no
+# mujs), sdl2, jack, openal, pulse, sndio, libarchive, libbluray, cdda, dvdnav,
+# dvbin, uchardet, rubberband, zimg, vapoursynth, libavdevice.
+#
+# lua IS enabled: the on-screen controller (the overlay bar at the bottom),
+# the console and the stats overlay are all Lua scripts shipped in
+# player/lua/. mpv only accepts LuaJIT or Lua 5.1/5.2 -- its meson explicitly
+# requires generic lua.pc to be '>=5.1.0, <5.3.0' -- so the repo's lua 5.5
+# cannot serve here and aarch64-luajit is what satisfies it.
 cross_opts=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     cross_opts+=(
@@ -18,7 +24,7 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
       -D vaapi=disabled   -D vaapi-x11=disabled -D vaapi-drm=disabled
       -D vdpau=disabled   -D vdpau-gl-x11=disabled
       -D wayland=disabled -D dmabuf-wayland=disabled -D egl-wayland=disabled
-      -D lua=disabled     -D javascript=disabled
+      -D lua=enabled      -D javascript=disabled
       -D sdl2-audio=disabled -D sdl2-video=disabled
       -D sdl2-gamepad=disabled
       -D jack=disabled    -D openal=disabled  -D pulse=disabled
@@ -37,3 +43,11 @@ hokuto-meson build \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# Pi defaults (hardware decoding, OpenGL) -- see files/mpv.conf. Only the
+# package built *for* the target gets them: a cross,system build stages into
+# the host sysroot under /usr/aarch64-linux-gnu, where a global /etc file has
+# no business being.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${CROSS_PREFIX:-/usr}" = "/usr" ]; then
+    install -v -D -m644 mpv.conf "$1/etc/mpv/mpv.conf"
+fi
