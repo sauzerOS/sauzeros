@@ -2,7 +2,7 @@ alsa-lib
 bzip2
 cairo
 dav1d
-fdk-aac
+fdk-aac nocross
 fontconfig
 freetype
 fribidi
@@ -10,42 +10,42 @@ glib
 glibc
 gmp
 gnutls
-lame
+lame nocross
 libaom
 libass
 libdrm
 libjxl
-libmodplug
-libogg
-libplacebo
-libpulse
+libmodplug nocross
+libogg nocross
+libplacebo nocross
+libpulse nocross
 librsvg
-libsoxr
-libva
-libvorbis
-libvpx
+libsoxr nocross
+libva nocross
+libvorbis nocross
+libvpx nocross
 libwebp
-libx11
+libx11 nocross
 libxcb
-nv-codec-headers
-openjpeg
-openssl
-opus
+nv-codec-headers nocross
+openjpeg nocross
+openssl nocross
+opus nocross
 pkgconf
-sndio
-speex
-srt
-v4l-utils
-vulkan-icd-loader
+sndio nocross
+speex nocross
+srt nocross
+v4l-utils nocross
+vulkan-icd-loader nocross
 x264
 x265
-xvidcore
+xvidcore nocross
 xz
 zlib-ng
-clang make
+clang make nocross
 mesa make
-nasm make
-vulkan-headers make
+nasm make nocross
+vulkan-headers make nocross
 lib32-alsa-lib make
 lib32-bzip2 make
 lib32-fdk-aac make
@@ -67,3 +67,41 @@ lib32-opus make
 lib32-x264 make
 lib32-x265 make
 lib32-xz make
+
+# The cross build links against the sysroot copies of these, so name them
+# explicitly instead of relying on whatever happens to be installed there.
+# Derived from the aarch64-ffmpeg package's own libdeps, plus:
+#   gcc                 the cross toolchain itself
+#   linux-api-headers   linux/videodev2.h, which --enable-v4l2-m2m requires
+#   mesa                GL headers for --enable-opengl
+#   lcms2, libpng       pulled in at link time by libjxl and librsvg
+aarch64-alsa-lib cross make
+aarch64-bzip2 cross make
+aarch64-cairo cross make
+aarch64-dav1d cross make
+aarch64-fontconfig cross make
+aarch64-freetype cross make
+aarch64-fribidi cross make
+aarch64-gcc cross make
+aarch64-glib cross make
+aarch64-glibc cross make
+aarch64-gmp cross make
+aarch64-gnutls cross make
+aarch64-harfbuzz cross make
+aarch64-lcms2 cross make
+aarch64-libaom cross make
+aarch64-libass cross make
+aarch64-libdrm cross make
+aarch64-libjxl cross make
+aarch64-libpng cross make
+aarch64-librsvg cross make
+aarch64-libwebp cross make
+aarch64-libxcb cross make
+aarch64-libxml2 cross make
+aarch64-linux-api-headers cross make
+aarch64-systemd cross make
+aarch64-mesa cross make
+aarch64-x264 cross make
+aarch64-x265 cross make
+aarch64-xz cross make
+aarch64-zlib-ng cross make
