@@ -1,9 +1,18 @@
 python
+python cross
 python-editables
+python-editables cross
 python-packaging
+python-packaging cross
 python-pathspec
+python-pathspec cross
 python-pluggy
+python-pluggy cross
 python-tomlkit
+python-tomlkit cross
 python-trove-classifiers
+python-trove-classifiers cross
 python-build make
+python-build cross make
 python-installer make 
+python-installer cross make
