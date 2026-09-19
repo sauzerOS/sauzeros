@@ -30,7 +30,13 @@ ln -sf libbz2.so.$2 "$1/$CROSS_PREFIX/lib/libbz2.so.1.0"
 ln -sf bzip2 "$1/$CROSS_PREFIX/bin/bunzip2"
 ln -sf bzip2 "$1/$CROSS_PREFIX/bin/bzcat"
 
-sed "s|@VERSION@|$2|" -i bzip2.pc
+# The .pc is a template shipped with the recipe, so its prefix has to be
+# substituted too. Left at /usr it describes the *host* tree: a cross build
+# then gets includedir=/usr/include, and because the cross pkg-config treats
+# the sysroot as its system include path that -I is not filtered out. It
+# reaches anything pulling bzip2 in transitively -- freetype2 lists it in
+# Requires.private -- putting host headers on the compile line.
+sed -e "s|@VERSION@|$2|" -e "s|@PREFIX@|${CROSS_PREFIX:-/usr}|g" -i bzip2.pc
 install -Dm644 bzip2.pc -t "$1/$CROSS_PREFIX"/lib/pkgconfig
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
