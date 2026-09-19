@@ -12,6 +12,7 @@ esac
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+  cd rpi
   # ffmpeg does not use autoconf, so cross compiling is spelled out explicitly.
   #
   # The enabled set is deliberately small. ffmpeg's own decoders already cover
@@ -22,9 +23,27 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
   # built and give encoding as well.
   #
   # Left out because they are not cross built: libvpx, mp3lame, opus, vorbis,
-  # soxr, srt, openjpeg, modplug, xvid, fdk-aac, v4l2, libpulse, vaapi, vdpau,
-  # vulkan. cuda-llvm needs clang for the target, and lto is off because the
-  # cross link of a project this size with lto is not worth the risk.
+  # soxr, srt, openjpeg, modplug, xvid, fdk-aac, libv4l2, libpulse, vaapi,
+  # vdpau, vulkan. cuda-llvm needs clang for the target, and lto is off because
+  # the cross link of a project this size with lto is not worth the risk.
+  #
+  # Hardware decoding uses jc-kynesim's Raspberry Pi fork (sources: extracted
+  # into rpi/), because upstream cannot drive this hardware:
+  #
+  #  - HEVC lives in a *stateless* block, /dev/video19 "rpi-hevc-dec", whose
+  #    only output format is S265 (V4L2_PIX_FMT_HEVC_SLICE). Driving it means
+  #    parsing the bitstream in userspace and passing slice parameters as V4L2
+  #    controls attached to a Request. Upstream ffmpeg has no request-API code
+  #    at all; the fork adds the hevc_v4l2request hwaccel (--enable-v4l2-request).
+  #    The block does 8-bit and 10-bit 4:2:0, so Main and Main 10 both qualify.
+  #  - Its capture formats are all SAND (Broadcom's column-tiled layout,
+  #    "128b cols"), never linear NV12, so --enable-sand is not optional here.
+  #  - h264 stays on the stateful block at /dev/video10 via v4l2-m2m, but the
+  #    fork's version outputs DRM_PRIME, so frames reach vo_gpu as dma-bufs
+  #    instead of being copied back through the CPU.
+  #
+  # libudev and libdrm are hard requirements of v4l2-request; configure dies
+  # without them rather than quietly dropping the feature.
   ./configure \
     --prefix="$PREFIX" \
     --enable-cross-compile \
@@ -56,6 +75,10 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     --enable-libxcb \
     --enable-libxml2 \
     --enable-opengl \
+    --enable-v4l2-m2m \
+    --enable-v4l2-request \
+    --enable-libudev \
+    --enable-sand \
     $OPT_FLAGS
 else
   ./configure \
