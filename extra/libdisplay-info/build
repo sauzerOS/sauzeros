@@ -4,7 +4,7 @@ hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 hokuto-meson-32 build
