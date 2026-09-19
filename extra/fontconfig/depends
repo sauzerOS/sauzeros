@@ -8,5 +8,5 @@ gperf cross make
 lib32-expat make
 lib32-freetype make
 aarch64-gcc cross make
-aarch64-expat cross make
-aarch64-freetype cross make
+aarch64-expat cross
+aarch64-freetype cross
