@@ -3,8 +3,14 @@
 # Remove deprecated entries.
 sed -i -r 's:"(/system):"/org/gnome\1:g' schemas/*.in
 
-meson setup build \
-    --prefix=/usr
+# introspection needs the host scanner run against target libraries, which the
+# cross glib does not provide.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(-D introspection=false)
+fi
+
+hokuto-meson build "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
