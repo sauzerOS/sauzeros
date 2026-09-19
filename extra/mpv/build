@@ -2,9 +2,38 @@
 
 sed -i 's/AV_OPT_TYPE_CHANNEL_LAYOUT/AV_OPT_TYPE_CHLAYOUT/' filters/f_lavfi.c
 
+# A deliberately small mpv for the Pi: X11 and DRM/KMS output through the V3D
+# (gl + egl + gbm), ALSA and pipewire for audio, libass subtitles. Everything
+# below is switched off because it is not cross built -- vaapi/vdpau (no libva
+# or libvdpau), vulkan (libplacebo here is built without it), lua and javascript
+# (no luajit or mujs), sdl2, jack, openal, pulse, sndio, libarchive, libbluray,
+# cdda, dvdnav, dvbin, uchardet, rubberband, zimg, vapoursynth, libavdevice.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(
+      -D gl=enabled       -D egl=enabled      -D egl-x11=enabled
+      -D egl-drm=enabled  -D gbm=enabled      -D gl-x11=enabled
+      -D alsa=enabled     -D pipewire=enabled
+      -D vulkan=disabled  -D shaderc=disabled -D spirv-cross=disabled
+      -D vaapi=disabled   -D vaapi-x11=disabled -D vaapi-drm=disabled
+      -D vdpau=disabled   -D vdpau-gl-x11=disabled
+      -D wayland=disabled -D dmabuf-wayland=disabled -D egl-wayland=disabled
+      -D lua=disabled     -D javascript=disabled
+      -D sdl2-audio=disabled -D sdl2-video=disabled
+      -D sdl2-gamepad=disabled
+      -D jack=disabled    -D openal=disabled  -D pulse=disabled
+      -D sndio=disabled   -D oss-audio=disabled
+      -D libarchive=disabled -D libbluray=disabled -D cdda=disabled
+      -D dvdnav=disabled  -D dvbin=disabled   -D uchardet=disabled
+      -D rubberband=disabled -D zimg=disabled -D vapoursynth=disabled
+      -D libavdevice=disabled -D caca=disabled -D sixel=disabled
+      -D manpage-build=disabled -D html-build=disabled
+    )
+fi
+
 hokuto-meson build \
   -D x11=enabled   \
-  -D drm=enabled
+  -D drm=enabled "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
