@@ -13,6 +13,11 @@ CMAKE_OPTS=(
         -D CONFIG_LIBRSVG=ON
         -D CONFIG_LIBPNG=ON
         -D CONFIG_LIBJPEG=ON
+        # CONFIG_XPM defaults to off. Without it icewm cannot load its own .xpm
+        # assets, so icewmbg reports "Failed to load image" for every file and
+        # the menus come up bare. CMake forces LIBPNG/LIBJPEG back off when
+        # imlib2 is enabled, but leaves XPM alone.
+        -D CONFIG_XPM=ON
 	-W no-dev
 )
 
