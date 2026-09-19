@@ -1,21 +1,21 @@
 alsa-card-profiles
 alsa-lib
-bluez-libs
-dbus
-fdk-aac
-glib
+bluez-libs nocross
+dbus nocross
+fdk-aac nocross
+glib nocross
 glibc
-libfreeaptx
+libfreeaptx nocross
 libgcc
-liblc3
-libldac
-libmysofa
+liblc3 nocross
+libldac nocross
+libmysofa nocross
 libpipewire
-libsndfile
-libusb
-opus
+libsndfile nocross
+libusb nocross
+opus nocross
 pipewire
-sbc
-spandsp
+sbc nocross
+spandsp nocross
 systemd-libs
-webrtc-audio-processing<2.0
+webrtc-audio-processing<2.0 nocross

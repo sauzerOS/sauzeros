@@ -1,11 +1,11 @@
-avahi
+avahi nocross
 dbus
-dconf
-glib
+dconf nocross
+glib nocross
 glibc
 libgcc
 libpipewire
-libpulse
+libpulse nocross
 pipewire
 pipewire-audio
-wireplumber
+wireplumber nocross
