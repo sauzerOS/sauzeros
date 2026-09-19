@@ -1,6 +1,12 @@
 python
+python cross
 python-build make
+python-build cross make
 python-calver make
+python-calver cross make
 python-installer make
+python-installer cross make
 python-setuptools make
+python-setuptools cross make
 python-wheel make 
+python-wheel cross make
