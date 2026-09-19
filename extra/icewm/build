@@ -32,6 +32,16 @@ cmake -B build "${CMAKE_OPTS[@]}"
 cmake --build build
 DESTDIR="${1}" cmake --install build
 
+# Upstream generates $LIBDIR/preferences by running the freshly built genpref,
+# inside an `if(NOT CMAKE_CROSSCOMPILING)` guard, so the cross package shipped
+# without a file the native one installs. qemu-aarch64 is registered through
+# binfmt here and hokuto exports QEMU_LD_PREFIX, so the target binary runs
+# directly and the generated file is identical either way.
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    install -d "${1}${PREFIX}/share/icewm"
+    ./build/genpref -o "${1}${PREFIX}/share/icewm/preferences" -s
+fi
+
 # po/CMakeLists mirrors the locale tree into a "playground" directory for
 # development convenience, and its DESTINATION is CMAKE_CURRENT_BINARY_DIR,
 # which is absolute. `cmake --install` with DESTDIR therefore recreates the
