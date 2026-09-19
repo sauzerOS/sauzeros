@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
+# A cross build installs into the target sysroot, never the host's /usr.
 cmake -B build \
-      -D CMAKE_INSTALL_PREFIX=/usr \
+      -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
       -D CMAKE_BUILD_TYPE=Release \
       -D CMAKE_SKIP_INSTALL_RPATH=ON
 
