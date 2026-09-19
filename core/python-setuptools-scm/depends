@@ -1,7 +1,15 @@
 python
+python cross
 python-packaging
+python-packaging cross
 python-setuptools
+python-setuptools cross
 python-vcs-versioning
+python-vcs-versioning cross
 python-build make
+python-build cross make
 python-installer make
+python-installer cross make
 python-wheel make
+python-wheel cross make
+python-vcs-versioning cross make
