@@ -2,5 +2,32 @@
 
 CFLAGS="$CFLAGS -fno-lto"
 
-make amalg PREFIX=/usr
-make install DESTDIR="$1" PREFIX=/usr
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+make_args=(PREFIX="$PREFIX")
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # LuaJIT generates its VM with two tools (minilua, buildvm) that run on the
+    # build machine, so a cross build has to name the host compiler separately.
+    #
+    # CROSS is a *prefix* LuaJIT puts in front of its own CC, so CC must be
+    # left alone: the Makefile sets `CC= $(DEFAULT_CC)` with a plain
+    # assignment, which beats hokuto's exported CC=aarch64-linux-gnu-gcc, and
+    # passing that through would yield aarch64-linux-gnu-aarch64-linux-gnu-gcc.
+    # HOST_CC defaults to $(CC) too, hence naming it explicitly.
+    #
+    # The recipe also carries the "nocrossopt" option, which is not optional
+    # here: LuaJIT folds $(CFLAGS) into CCOPTIONS and applies those to the host
+    # tools as well as the target objects, so the tuned CFLAGS_ARM64 would make
+    # the *host* gcc fail with "bad value 'armv8-a+crc' for '-march='". It
+    # costs nothing -- LuaJIT's hot path is its hand-written assembly VM, not
+    # C the compiler could tune for cortex-a72.
+    make_args+=(
+        HOST_CC="gcc"
+        CROSS="${HOKUTO_ARCH}-linux-gnu-"
+        TARGET_SYS=Linux
+    )
+fi
+
+make amalg "${make_args[@]}"
+make install DESTDIR="$1" "${make_args[@]}"
