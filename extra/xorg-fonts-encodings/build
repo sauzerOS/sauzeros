@@ -1,13 +1,14 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+hokuto-meson build
 
 meson compile -C build
 meson install -C build --destdir "${1}"
 
 # regenerate encodngs file not to include non-compressed versions
-cd "$1"/usr/share/fonts/X11/encodings/large
-mkfontscale -b -s -l -n -r -p /usr/share/fonts/encodings/large -e . .
-cd "$1"/usr/share/fonts/X11/encodings/
-mkfontscale -b -s -l -n -r -p /usr/share/fonts/encodings -e . -e large .
+cd "$1$PREFIX"/share/fonts/X11/encodings/large
+mkfontscale -b -s -l -n -r -p "$PREFIX"/share/fonts/encodings/large -e . .
+cd "$1$PREFIX"/share/fonts/X11/encodings/
+mkfontscale -b -s -l -n -r -p "$PREFIX"/share/fonts/encodings -e . -e large .
