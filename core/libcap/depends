@@ -1,3 +1,4 @@
 glibc
 pam
 lib32-pam make
+aarch64-pam cross
