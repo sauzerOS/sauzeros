@@ -1,5 +1,5 @@
-prefix=/usr
-exec_prefix=/usr
+prefix=@PREFIX@
+exec_prefix=@PREFIX@
 bindir=${exec_prefix}/bin
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
