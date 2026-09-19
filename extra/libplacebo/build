@@ -5,10 +5,17 @@ sed -e '204a\    tree = ET.parse(xmlfile)'                 \
     -e 's/VkXML(ET.parse(xmlfile))/VkXML(tree.getroot())/' \
     -i src/vulkan/utils_gen.py
 
+# The target only needs the OpenGL renderer: mpv's vulkan support is optional
+# and the V3D's vulkan driver is not built into this mesa anyway. Dropping
+# vulkan takes glslang, shaderc and vulkan-icd-loader out of the cross chain,
+# which is most of libplacebo's dependency weight.
+gl_opts=(-D vulkan=enabled -D glslang=enabled -D shaderc=enabled)
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    gl_opts=(-D vulkan=disabled -D glslang=disabled -D shaderc=disabled -D opengl=enabled)
+fi
+
 hokuto-meson build   \
-  -D vulkan=enabled  \
-  -D glslang=enabled \
-  -D shaderc=enabled \
+  "${gl_opts[@]}"    \
   -D lcms=enabled    \
   -D d3d11=disabled  \
   -D demos=false

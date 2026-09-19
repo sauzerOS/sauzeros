@@ -9,11 +9,19 @@ vulkan-icd-loader
 xxhash
 libglvnd make
 meson make
+meson cross make
 ninja make
+ninja cross make
 python make
+python cross make
 python-glad make
+python-glad cross make
 python-jinja2 make
+python-jinja2 cross make
 python-mako make
+python-mako cross make
 python-markupsafe make
+python-markupsafe cross make
 python-setuptools make
+python-setuptools cross make
 vulkan-headers make 
