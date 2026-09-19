@@ -13,6 +13,7 @@ cmake make
 xorg-mkfontscale make
 aarch64-gcc cross make
 aarch64-imlib2 cross make
+aarch64-librsvg cross make
 aarch64-libx11 cross make
 aarch64-libxext cross make
 aarch64-libxrandr cross make
