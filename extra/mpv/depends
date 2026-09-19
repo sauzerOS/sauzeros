@@ -1,37 +1,37 @@
 alsa-lib
-desktop-file-utils
-ffmpeg
+desktop-file-utils nocross
 ffmpeg
 glibc
-hicolor-icon-theme
-libarchive
+hicolor-icon-theme nocross
+libarchive nocross
 libass
-libcdio
-libcdio-paranoia
+libcdio nocross
+libcdio-paranoia nocross
 libdisplay-info
 libdrm
 libglvnd
 libjpeg-turbo
-libpipewire
+libpipewire nocross
+pipewire cross
 libplacebo
-libpulse
-libva
-libvdpau
+libpulse nocross
+libva nocross
+libvdpau nocross
 libx11
 libxext
-libxkbcommon
+libxkbcommon nocross
 libxpresent
 libxrandr
 libxss
-libxv
+libxv nocross
 lcms2
-luajit
+luajit nocross
 mesa
-mujs
-openal
-sdl2-compat
-vulkan-icd-loader
-wayland
+mujs nocross
+openal nocross
+sdl2-compat nocross
+vulkan-icd-loader nocross
+wayland nocross
 zlib-ng
 yt-dlp suggest "Youtube support"
 nv-codec-headers make
