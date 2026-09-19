@@ -1,12 +1,12 @@
 glibc
-glslang
+glslang nocross
 libgcc
 libstdc++
-libunwind
+libunwind nocross
 lcms2
-shaderc
-vulkan-icd-loader
-xxhash
+shaderc nocross
+vulkan-icd-loader nocross
+xxhash nocross
 libglvnd make
 meson make
 meson cross make
@@ -25,3 +25,8 @@ python-markupsafe cross make
 python-setuptools make
 python-setuptools cross make
 vulkan-headers make 
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-lcms2 cross make
+aarch64-libglvnd cross make
+aarch64-xxhash cross make
