@@ -1,8 +1,2 @@
 https://ffmpeg.org/releases/ffmpeg-9.0.1.tar.xz
-
-# The cross build uses jc-kynesim's Raspberry Pi fork instead, extracted into
-# rpi/ so both trees coexist -- the native build stays on upstream's point
-# release. Branch test/9.0/main, pinned to a commit because a branch tarball
-# is not reproducible. Same ffmpeg 9.0 base as upstream above, so the sonames
-# match and nothing downstream needs relinking beyond a normal rebuild.
 https://github.com/jc-kynesim/rpi-ffmpeg/archive/f43bd9dafd9349b6824ee1fdcd967662fcc94c20.tar.gz -> rpi-ffmpeg-f43bd9dafd9349b6824ee1fdcd967662fcc94c20.tar.gz rpi
