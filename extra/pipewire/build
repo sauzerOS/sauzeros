@@ -2,6 +2,67 @@
 _pwname=pipewire-0.3
 _spaname=spa-0.2
 
+# A deliberately small pipewire for the target: ALSA in and out, dbus and
+# udev/systemd for device and session handling, and nothing else. Everything
+# switched off below is optional and not cross built -- bluez5 and its codec
+# zoo, gstreamer, avahi, sdl2, sndfile, libcanberra, webrtc echo cancel, roc,
+# lv2, libusb, libcamera, jack and ffmpeg. session-managers stays empty because
+# wireplumber is its own package.
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+hokuto-meson build                       \
+    -D alsa=enabled                      \
+    -D udevrulesdir="${CROSS_PREFIX:-/usr}/lib/udev/rules.d" \
+    -D pipewire-alsa=enabled             \
+    -D dbus=enabled                      \
+    -D udev=enabled                      \
+    -D libsystemd=enabled                \
+    -D spa-plugins=enabled               \
+    -D audioconvert=enabled              \
+    -D audiomixer=enabled                \
+    -D control=enabled                   \
+    -D support=enabled                   \
+    -D bluez5=disabled                   \
+    -D gstreamer=disabled                \
+    -D gstreamer-device-provider=disabled \
+    -D avahi=disabled                    \
+    -D sdl2=disabled                     \
+    -D sndfile=disabled                  \
+    -D libmysofa=disabled                \
+    -D libpulse=disabled                 \
+    -D libcanberra=disabled              \
+    -D echo-cancel-webrtc=disabled       \
+    -D libusb=disabled                   \
+    -D libcamera=disabled                \
+    -D jack=disabled                     \
+    -D pipewire-jack=disabled            \
+    -D ffmpeg=disabled                   \
+    -D pw-cat-ffmpeg=disabled            \
+    -D roc=disabled                      \
+    -D lv2=disabled                      \
+    -D x11=disabled                      \
+    -D x11-xfixes=disabled               \
+    -D legacy-rtkit=false                \
+    -D avb=disabled                      \
+    -D flatpak=disabled                  \
+    -D readline=disabled                 \
+    -D gsettings=disabled                \
+    -D compress-offload=disabled         \
+    -D opus=disabled                     \
+    -D libffado=disabled                 \
+    -D snap=disabled                     \
+    -D ebur128=disabled                  \
+    -D fftw=disabled                     \
+    -D onnxruntime=disabled              \
+    -D selinux=disabled                  \
+    -D v4l2=disabled                     \
+    -D pipewire-v4l2=disabled            \
+    -D vulkan=disabled                   \
+    -D docs=disabled                     \
+    -D man=disabled                      \
+    -D examples=disabled                 \
+    -D tests=disabled                    \
+    -D session-managers="[]"
+else
 meson setup build                        \
     --prefix=/usr                        \
     -D bluez5=enabled                    \
@@ -9,120 +70,137 @@ meson setup build                        \
     -D bluez5-backend-hfp-native=enabled \
     -D bluez5-backend-hsphfpd=enabled    \
     -D session-managers="[]"
+fi
 
 meson compile -C build
 meson install -C build --destdir=$1
 
-pushd "$1"
-# Replace copies with symlinks
-for _f in pipewire-{aes67,avb,pulse}; do
-    cmp usr/bin/pipewire usr/bin/$_f
-    ln -sf pipewire usr/bin/$_f
-  done
+PREFIX="${CROSS_PREFIX:-/usr}"
 
-# directories for overrides
-mkdir -p etc/pipewire/{client-rt,client,minimal,pipewire}.conf.d
-popd
+# The _pick splits below all name usr/... paths, which hold for a native build
+# and for a plain cross build of the target (both use prefix /usr). Only a
+# cross-system build, which installs under the sysroot prefix, has to skip
+# them. Keeping the splits for the target matters: mpv links
+# libpipewire-0.3.so and hokuto records the owning package by name, so the
+# target needs the same libpipewire split the native build produces.
+if [ "$PREFIX" != "/usr" ]; then
+    for _f in pipewire-aes67 pipewire-avb pipewire-pulse; do
+        ln -sf pipewire "$1$PREFIX/bin/$_f"
+    done
+    mkdir -p "$1$PREFIX"/etc/pipewire/{client-rt,client,minimal,pipewire}.conf.d
+else
+    pushd "$1"
+    # Replace copies with symlinks
+    for _f in pipewire-{aes67,avb,pulse}; do
+        cmp usr/bin/pipewire usr/bin/$_f
+        ln -sf pipewire usr/bin/$_f
+      done
 
-# libpipewire
-_pick "$1" libpipewire usr/include/{$_pwname,$_spaname}
-_pick "$1" libpipewire usr/lib/$_spaname/libspa.so*
-_pick "$1" libpipewire usr/lib/lib$_pwname.so*
-_pick "$1" libpipewire usr/lib/pkgconfig/lib{$_pwname,$_spaname}.pc
+    # directories for overrides
+    mkdir -p etc/pipewire/{client-rt,client,minimal,pipewire}.conf.d
+    popd
 
-# alsa-card-profiles
-_pick "$1" alsa-card-profiles usr/lib/udev
-_pick "$1" alsa-card-profiles usr/share/alsa-card-profile
+    # libpipewire
+    _pick "$1" libpipewire usr/include/{$_pwname,$_spaname}
+    _pick "$1" libpipewire usr/lib/$_spaname/libspa.so*
+    _pick "$1" libpipewire usr/lib/lib$_pwname.so*
+    _pick "$1" libpipewire usr/lib/pkgconfig/lib{$_pwname,$_spaname}.pc
 
-# pipewire-audio
-_pick "$1" pipewire-audio usr/bin/pipewire-{aes67,avb}
-_pick "$1" pipewire-audio usr/bin/pw-{cat,loopback,mididump,midi2play,midi2record,sysex}
-_pick "$1" pipewire-audio usr/bin/pw-{dsd,enc,midi,}play
-_pick "$1" pipewire-audio usr/bin/pw-{midi,}record
-_pick "$1" pipewire-audio usr/bin/spa-{acp-tool,resample}
-_pick "$1" pipewire-audio usr/lib/alsa-lib
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-avb.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-echo-cancel.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-fallback-sink.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-filter-chain*.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-loopback.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-netjack2*.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-parametric-equalizer.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-pipe-tunnel.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-protocol-simple.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-rtp-{sap,sink,source}.so
-_pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-vban*.so
-_pick "$1" pipewire-audio usr/lib/$_spaname/{aec,alsa,audio*,avb,bluez5,filter-graph}
-_pick "$1" pipewire-audio usr/lib/systemd/user/filter-chain.service
-_pick "$1" pipewire-audio usr/share/alsa
-_pick "$1" pipewire-audio usr/share/man/man1/pw-{cat,loopback,mididump}.1
-_pick "$1" pipewire-audio usr/share/man/man1/spa-{acp-tool,resample}.1
-_pick "$1" pipewire-audio usr/share/man/man5/pipewire-filter-chain.conf.5
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-avb.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-echo-cancel.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-fallback-sink.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-filter-chain*.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-loopback.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-netjack2*.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-parametric-equalizer.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-pipe-tunnel.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-protocol-simple.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-rtp-{sap,sink,source}.7
-_pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-vban*.7
-_pick "$1" pipewire-audio usr/share/pipewire/filter-chain*
-_pick "$1" pipewire-audio usr/share/pipewire/pipewire-{aes67,avb}.conf
-_pick "$1" pipewire-audio usr/share/$_spaname/bluez5
+    # alsa-card-profiles
+    _pick "$1" alsa-card-profiles usr/lib/udev
+    _pick "$1" alsa-card-profiles usr/share/alsa-card-profile
 
-mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d"
-ln -st "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d" \
-/usr/share/alsa/alsa.conf.d/50-pipewire.conf
+    # pipewire-audio
+    _pick "$1" pipewire-audio usr/bin/pipewire-{aes67,avb}
+    _pick "$1" pipewire-audio usr/bin/pw-{cat,loopback,mididump,midi2play,midi2record,sysex}
+    _pick "$1" pipewire-audio usr/bin/pw-{dsd,enc,midi,}play
+    _pick "$1" pipewire-audio usr/bin/pw-{midi,}record
+    _pick "$1" pipewire-audio usr/bin/spa-{acp-tool,resample}
+    _pick "$1" pipewire-audio usr/lib/alsa-lib
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-avb.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-echo-cancel.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-fallback-sink.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-filter-chain*.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-loopback.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-netjack2*.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-parametric-equalizer.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-pipe-tunnel.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-protocol-simple.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-rtp-{sap,sink,source}.so
+    _pick "$1" pipewire-audio usr/lib/$_pwname/libpipewire-module-vban*.so
+    _pick "$1" pipewire-audio usr/lib/$_spaname/{aec,alsa,audio*,avb,bluez5,filter-graph}
+    _pick "$1" pipewire-audio usr/lib/systemd/user/filter-chain.service
+    _pick "$1" pipewire-audio usr/share/alsa
+    _pick "$1" pipewire-audio usr/share/man/man1/pw-{cat,loopback,mididump}.1
+    _pick "$1" pipewire-audio usr/share/man/man1/spa-{acp-tool,resample}.1
+    _pick "$1" pipewire-audio usr/share/man/man5/pipewire-filter-chain.conf.5
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-avb.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-echo-cancel.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-fallback-sink.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-filter-chain*.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-loopback.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-netjack2*.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-parametric-equalizer.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-pipe-tunnel.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-protocol-simple.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-rtp-{sap,sink,source}.7
+    _pick "$1" pipewire-audio usr/share/man/man7/libpipewire-module-vban*.7
+    _pick "$1" pipewire-audio usr/share/pipewire/filter-chain*
+    _pick "$1" pipewire-audio usr/share/pipewire/pipewire-{aes67,avb}.conf
+    _pick "$1" pipewire-audio usr/share/$_spaname/bluez5
 
-# pipewire-alsa
-pkgdir="$HOKUTO_SPLIT_DIR/pipewire-alsa"
-install -d $pkgdir
-mkdir -p "$pkgdir/etc/alsa/conf.d"
-ln -st "$pkgdir/etc/alsa/conf.d" \
-/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf
+    mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d"
+    ln -st "$HOKUTO_SPLIT_DIR/pipewire-audio/etc/alsa/conf.d" \
+    /usr/share/alsa/alsa.conf.d/50-pipewire.conf
 
-install -Dm644 /dev/null \
-"$pkgdir/usr/share/pipewire/media-session.d/with-alsa"
+    # pipewire-alsa
+    pkgdir="$HOKUTO_SPLIT_DIR/pipewire-alsa"
+    install -d $pkgdir
+    mkdir -p "$pkgdir/etc/alsa/conf.d"
+    ln -st "$pkgdir/etc/alsa/conf.d" \
+    /usr/share/alsa/alsa.conf.d/99-pipewire-default.conf
 
-# pipewire-pulse
-_pick "$1" pipewire-pulse usr/bin/pipewire-pulse
-_pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-protocol-pulse.so
-_pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-pulse-tunnel.so
-_pick "$1" pipewire-pulse usr/lib/systemd/user/pipewire-pulse.*
-_pick "$1" pipewire-pulse usr/share/glib-2.0/schemas/org.freedesktop.pulseaudio.gschema.xml
-_pick "$1" pipewire-pulse usr/share/man/man1/pipewire-pulse.1
-_pick "$1" pipewire-pulse usr/share/man/man5/pipewire-pulse.conf.5
-_pick "$1" pipewire-pulse usr/share/man/man7/libpipewire-module-{protocol-pulse,pulse-tunnel}.7
-_pick "$1" pipewire-pulse usr/share/man/man7/pipewire-pulse*.7
-_pick "$1" pipewire-pulse usr/share/pipewire/pipewire-pulse.conf
+    install -Dm644 /dev/null \
+    "$pkgdir/usr/share/pipewire/media-session.d/with-alsa"
 
- # directory for overrides
-mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-pulse/etc/pipewire/pipewire-pulse.conf.d"
+    # pipewire-pulse
+    _pick "$1" pipewire-pulse usr/bin/pipewire-pulse
+    _pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-protocol-pulse.so
+    _pick "$1" pipewire-pulse usr/lib/$_pwname/libpipewire-module-pulse-tunnel.so
+    _pick "$1" pipewire-pulse usr/lib/systemd/user/pipewire-pulse.*
+    _pick "$1" pipewire-pulse usr/share/glib-2.0/schemas/org.freedesktop.pulseaudio.gschema.xml
+    _pick "$1" pipewire-pulse usr/share/man/man1/pipewire-pulse.1
+    _pick "$1" pipewire-pulse usr/share/man/man5/pipewire-pulse.conf.5
+    _pick "$1" pipewire-pulse usr/share/man/man7/libpipewire-module-{protocol-pulse,pulse-tunnel}.7
+    _pick "$1" pipewire-pulse usr/share/man/man7/pipewire-pulse*.7
+    _pick "$1" pipewire-pulse usr/share/pipewire/pipewire-pulse.conf
 
-install -Dm644 /dev/null \
-"$HOKUTO_SPLIT_DIR/pipewire-pulse/usr/share/pipewire/media-session.d/with-pulseaudio"
+     # directory for overrides
+    mkdir -p "$HOKUTO_SPLIT_DIR/pipewire-pulse/etc/pipewire/pipewire-pulse.conf.d"
 
-# gst-plugin-pipewire
-_pick "$1" gst-plugin-pipewire usr/lib/gstreamer-1.0
+    install -Dm644 /dev/null \
+    "$HOKUTO_SPLIT_DIR/pipewire-pulse/usr/share/pipewire/media-session.d/with-pulseaudio"
 
-# pipewire-v4l2
-_pick "$1" pipewire-v4l2 usr/bin/pw-v4l2 usr/lib/$_pwname/v4l2
-_pick "$1" pipewire-v4l2 usr/share/man/man1/pw-v4l2.1
+    # gst-plugin-pipewire
+    _pick "$1" gst-plugin-pipewire usr/lib/gstreamer-1.0
 
-# pipewire-x11-bell
-_pick "$1" pipewire-x11-bell usr/lib/$_pwname/libpipewire-module-x11-bell.so
-_pick "$1" pipewire-x11-bell usr/share/man/man7/libpipewire-module-x11-bell.7
+    # pipewire-v4l2
+    _pick "$1" pipewire-v4l2 usr/bin/pw-v4l2 usr/lib/$_pwname/v4l2
+    _pick "$1" pipewire-v4l2 usr/share/man/man1/pw-v4l2.1
 
-# pipewire-zeroconf
-_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-{raop,zeroconf}-*.so
-_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-rtp-session.so
-_pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-snapcast-discover.so
-_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-{raop,zeroconf}-*.7
-_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-rtp-session.7
-_pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-snapcast-discover.7
+    # pipewire-x11-bell
+    _pick "$1" pipewire-x11-bell usr/lib/$_pwname/libpipewire-module-x11-bell.so
+    _pick "$1" pipewire-x11-bell usr/share/man/man7/libpipewire-module-x11-bell.7
+
+    # pipewire-zeroconf
+    _pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-{raop,zeroconf}-*.so
+    _pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-rtp-session.so
+    _pick "$1" pipewire-zeroconf usr/lib/$_pwname/libpipewire-module-snapcast-discover.so
+    _pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-{raop,zeroconf}-*.7
+    _pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-rtp-session.7
+    _pick "$1" pipewire-zeroconf usr/share/man/man7/libpipewire-module-snapcast-discover.7
+
+fi
 
 if [ "$MULTILIB" = "1" ]; then
 #32 bit lib32-pipewire
