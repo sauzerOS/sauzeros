@@ -1,3 +1,6 @@
 meson make
+meson cross make
 xorg-mkfontscale make
+xorg-mkfontscale cross make
 xorg-util-macros make
+xorg-util-macros cross make
