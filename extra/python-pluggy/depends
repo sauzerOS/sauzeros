@@ -1,5 +1,10 @@
 python
+python cross
 python-build make
+python-build cross make
 python-installer make
+python-installer cross make
 python-setuptools make
+python-setuptools cross make
 python-setuptools-scm make 
+python-setuptools-scm cross make
