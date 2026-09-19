@@ -1,10 +1,15 @@
 alsa-lib
 bash
 glibc
-libsamplerate
+libsamplerate nocross
 libgcc
 ncurses
-pciutils
-psmisc
+pciutils nocross
+psmisc nocross
 ncurses make
 systemd make
+aarch64-alsa-lib cross make
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-ncurses cross make
+aarch64-systemd cross make

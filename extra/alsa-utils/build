@@ -1,17 +1,28 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # alsaloop is the only thing in here that wants libsamplerate, which is not
+    # cross built. Everything the target actually needs -- alsamixer, amixer,
+    # aplay/arecord, speaker-test, alsactl -- is unaffected.
+    cross_opts=(--host="${HOKUTO_ARCH}-linux-gnu" --disable-alsaloop)
+fi
+
 ./configure \
-    --prefix=/usr \
-    --sbindir=/usr/bin \
-    --with-udev-rules-dir=/usr/lib/udev/rules.d \
+    --prefix="$PREFIX" \
+    --sbindir="$PREFIX/bin" \
+    --with-udev-rules-dir="$PREFIX/lib/udev/rules.d" \
     --disable-alsaconf \
     --disable-bat \
     --disable-xmlto \
     --disable-nls \
-    --with-curses=ncursesw
+    --with-curses=ncursesw \
+    "${cross_opts[@]}"
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
 make
 make DESTDIR=$1 install
-install -vDm 644 $3.tmpfiles "$1/usr/lib/tmpfiles.d/$3.conf"
+install -vDm 644 $3.tmpfiles "$1$PREFIX/lib/tmpfiles.d/$3.conf"
