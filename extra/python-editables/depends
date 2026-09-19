@@ -1,4 +1,8 @@
 python
+python cross
 python-build make
+python-build cross make
 python-flit-core make
+python-flit-core cross make
 python-installer make
+python-installer cross make
