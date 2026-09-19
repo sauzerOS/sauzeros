@@ -9,6 +9,55 @@ case "$CPUFLAGS" in
   *neon*)   OPT_FLAGS="$OPT_FLAGS --enable-neon" ;;
 esac
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+  # ffmpeg does not use autoconf, so cross compiling is spelled out explicitly.
+  #
+  # The enabled set is deliberately small. ffmpeg's own decoders already cover
+  # H.264, HEVC, VP8/VP9, AV1, MPEG-2/4, AAC, MP3, Opus, Vorbis, FLAC and AC3,
+  # so nothing external is needed for playback -- the external codec libraries
+  # are almost all encoders. dav1d is the exception worth having: it is the
+  # fast AV1 decoder. x264/x265/aom are here because they are already cross
+  # built and give encoding as well.
+  #
+  # Left out because they are not cross built: libvpx, mp3lame, opus, vorbis,
+  # soxr, srt, openjpeg, modplug, xvid, fdk-aac, v4l2, libpulse, vaapi, vdpau,
+  # vulkan. cuda-llvm needs clang for the target, and lto is off because the
+  # cross link of a project this size with lto is not worth the risk.
+  ./configure \
+    --prefix="$PREFIX" \
+    --enable-cross-compile \
+    --arch=aarch64 \
+    --target-os=linux \
+    --cross-prefix="${HOKUTO_ARCH}-linux-gnu-" \
+    --pkg-config="${HOKUTO_ARCH}-linux-gnu-pkg-config" \
+    --disable-debug \
+    --disable-static \
+    --disable-stripping \
+    --enable-shared \
+    --enable-gpl \
+    --enable-version3 \
+    --enable-fontconfig \
+    --enable-gmp \
+    --enable-gnutls \
+    --enable-libaom \
+    --enable-libass \
+    --enable-libdav1d \
+    --enable-libdrm \
+    --enable-libfreetype \
+    --enable-libfribidi \
+    --enable-libharfbuzz \
+    --enable-libjxl \
+    --enable-librsvg \
+    --enable-libwebp \
+    --enable-libx264 \
+    --enable-libx265 \
+    --enable-libxcb \
+    --enable-libxml2 \
+    --enable-opengl \
+    $OPT_FLAGS
+else
   ./configure \
     --prefix=/usr \
     --disable-debug \
@@ -53,14 +102,18 @@ esac
     --enable-vulkan \
     --enable-vaapi \
     $OPT_FLAGS
+fi
 
 make
-gcc tools/qt-faststart.c -o tools/qt-faststart
-make DESTDIR=$1 install
-install -v -m755    tools/qt-faststart $1/usr/bin
-rm -rf "$1/usr/share/ffmpeg/examples"
+# $CC is the cross compiler in a cross build and plain gcc natively, so this
+# little tool follows the target either way.
+${CC:-gcc} tools/qt-faststart.c -o tools/qt-faststart
 
-if [ "$MULTILIB" = "1" ]; then
+make DESTDIR=$1 install
+install -v -m755 tools/qt-faststart "$1$PREFIX/bin"
+rm -rf "$1$PREFIX/share/ffmpeg/examples"
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 CFLAGS+=' -fno-lto'
 make distclean
