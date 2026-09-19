@@ -1,3 +1,5 @@
 glibc
 hwdata make
+hwdata cross make
 meson make
+meson cross make
