@@ -19,6 +19,7 @@ aarch64-libxrandr cross make
 aarch64-libxinerama cross make
 aarch64-libxres cross make
 aarch64-libxft cross make
+aarch64-expat cross make
 aarch64-fontconfig cross make
 aarch64-freetype cross make
 aarch64-libsm cross make
