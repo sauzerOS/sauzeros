@@ -10,7 +10,7 @@ libxcb
 libxext
 libxshmfence
 libxxf86vm
-llvm-libs
+llvm-libs nocross
 lm-sensors
 spirv-tools
 wayland
