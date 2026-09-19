@@ -4,3 +4,9 @@ glibc
 harfbuzz
 freetype
 nasm make 
+aarch64-fontconfig cross make
+aarch64-freetype cross make
+aarch64-fribidi cross make
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-harfbuzz cross make
