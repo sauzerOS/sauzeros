@@ -1,18 +1,33 @@
 #!/bin/bash -e
 
+# A cross build installs into the target sysroot, never the host's /usr.
+# CMAKE_INSTALL_LIBDIR stays relative so CMake joins it with the prefix
+# instead of taking it verbatim.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# SPIRV-Headers_SOURCE_DIR is read on the *build* machine, so it must name the
+# sysroot in both cross modes. It cannot follow CROSS_PREFIX: a plain cross
+# build sets that to /usr, which is the host's own tree, where the aarch64
+# headers are not installed.
+HEADERS_DIR="$PREFIX"
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HEADERS_DIR="/usr/${HOKUTO_ARCH}-linux-gnu"
+fi
+
 cmake -B build                         \
-      -D CMAKE_INSTALL_PREFIX=/usr     \
+      -D CMAKE_INSTALL_PREFIX="$PREFIX" \
+      -D CMAKE_INSTALL_LIBDIR=lib      \
       -D CMAKE_BUILD_TYPE=Release      \
       -D SPIRV_WERROR=OFF              \
       -D BUILD_SHARED_LIBS=ON          \
       -D SPIRV_TOOLS_BUILD_STATIC=OFF  \
-      -D SPIRV-Headers_SOURCE_DIR=/usr \
+      -D SPIRV-Headers_SOURCE_DIR="$HEADERS_DIR" \
       -G Ninja
 
 cmake --build build
 DESTDIR=$1 cmake --install build
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 CC="gcc -m32" CXX="g++ -m32"           \
