@@ -1,9 +1,45 @@
 #!/bin/bash -e
 
-python -m build --wheel --no-isolation
+CFLAGS="$CFLAGS -fno-lto"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${HOKUTO_CROSS_SYSTEM:-0}" = "1" ]; then
+	echo "python-pydantic: cross-system builds are not supported; pydantic-core contains a target-specific Rust extension" >&2
+	exit 1
+fi
+
+export MATURIN_NO_INSTALL_RUST=1
+
+# Determine the actual Python version used by hokuto.
+PYTHON_VERSION="$(
+	python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")'
+)"
+
+PYTHON_BIN="/usr/bin/python${PYTHON_VERSION}"
+
+if [ ! -x "$PYTHON_BIN" ]; then
+	echo "python-pydantic: cannot find versioned Python interpreter: $PYTHON_BIN" >&2
+	exit 1
+fi
+
+PLATFORM_ENV=()
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+	PLATFORM_ENV=(
+		env
+		"_PYTHON_HOST_PLATFORM=linux-${HOKUTO_ARCH}"
+	)
+fi
+
+# pydantic itself is pure Python.
+"${PLATFORM_ENV[@]}" python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
 
+# pydantic-core contains the Rust extension.
 cd pydantic-core
-python -m build --wheel --no-isolation
-python -m installer --destdir="$1" dist/*.whl
 
+"${PLATFORM_ENV[@]}" maturin build \
+	--release \
+	--compatibility off \
+	-i "$PYTHON_BIN"
+
+python -m installer --destdir="$1" target/wheels/*.whl

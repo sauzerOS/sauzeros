@@ -12,6 +12,7 @@ aarch64-gcc cross make
 aarch64-glibc cross make
 aarch64-libxml2 cross make
 aarch64-libxslt cross make
+aarch64-python cross
 cython cross make
 git cross make
 python-build cross make

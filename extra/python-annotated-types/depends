@@ -2,3 +2,7 @@ python
 python-build make
 python-hatchling make
 python-installer make 
+python cross make
+python-build cross make
+python-hatchling cross make
+python-installer cross make

@@ -4,6 +4,7 @@ python-hatch-vcs make
 python-hatchling make
 python-installer make
 python-wheel make 
+python cross
 python-build cross make
 python-hatch-vcs cross make
 python-hatchling cross make

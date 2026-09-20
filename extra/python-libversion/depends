@@ -4,3 +4,9 @@ pkgconf make
 python-build make
 python-installer make
 python-setuptools make
+aarch64-python cross
+aarch64-libversion cross
+python-build cross make
+python-installer cross make
+python-setuptools cross make
+

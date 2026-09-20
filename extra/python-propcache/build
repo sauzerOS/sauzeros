@@ -3,5 +3,23 @@
 # Drop Cython versioned requirement
 sed -i 's/ ~= 3.1.0//' packaging/pep517_backend/_backend.py
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# This one compiles a C extension. setuptools asks the *running* interpreter
+# for the compiler and the extension suffix, so without these it would build an
+# x86_64 .so and name it accordingly. _PYTHON_SYSCONFIGDATA_NAME points at the
+# target's config (shipped by aarch64-python) for both the toolchain and the
+# right EXT_SUFFIX; _PYTHON_HOST_PLATFORM names the wheel for the target.
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The sysconfigdata module is read on the *build* machine, so it has to be
+    # found in the sysroot. It cannot follow CROSS_PREFIX: a plain cross build
+    # sets that to /usr, which is the host's own tree.
+    _sysroot="/usr/${HOKUTO_ARCH}-linux-gnu"
+    _pydir=$(basename "$(ls -d "$_sysroot"/lib/python3.* | head -1)")
+    export _PYTHON_SYSCONFIGDATA_NAME="_sysconfigdata__linux_${HOKUTO_ARCH}-linux-gnu"
+    export _PYTHON_HOST_PLATFORM="linux-${HOKUTO_ARCH}"
+    export PYTHONPATH="$_sysroot/lib/$_pydir:$PYTHONPATH"
+fi
+
 python -m build --wheel --no-isolation
-python -m installer --destdir="$1" dist/*.whl
+python -m installer --destdir="$1" --prefix="$PREFIX" dist/*.whl
