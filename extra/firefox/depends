@@ -5,17 +5,17 @@ cairo
 dbus
 ffmpeg
 fontconfig
-fonts-croscore
+fonts-croscore nocross
 freetype
 gdk-pixbuf
 glib
 glibc
 gtk+3
-hicolor-icon-theme
+hicolor-icon-theme nocross
 libgcc
 libnotify
 libpng
-libpulse
+libpulse nocross
 libstdc++
 libvpx
 libwebp
@@ -28,11 +28,11 @@ libxfixes
 libxrandr
 libxss
 libxt
-mailcap
+mailcap nocross
 nspr
 nss
 pango
-libva-nvidia-driver suggest
+libva-nvidia-driver suggest nocross
 cbindgen make
 clang make
 diffutils make
@@ -49,3 +49,64 @@ wasi-compiler-rt make
 wasi-libc make
 wasi-libc++ make
 zip make
+# WASI is a *build-machine* toolchain, not a target one. Firefox compiles its
+# RLBox-sandboxed libraries (graphite2, hunspell, ogg, expat, woff2) to
+# wasm32 with the build host's clang against /usr/share/wasi-sysroot, then
+# wasm2c turns the result into C that the *target* compiler builds. The
+# sysroot only ever contains wasm32-wasip1/p2 objects and wasi-compiler-rt
+# installs into the host clang's own resource dir, so there is no such thing
+# as an aarch64 WASI package and none is needed -- these stay native.
+wasi-compiler-rt crossnative make
+wasi-libc crossnative make
+wasi-libc++ crossnative make
+# Host-side build tools a cross build still needs on the build machine.
+cbindgen crossnative make
+clang crossnative make
+lld crossnative make
+llvm crossnative make
+nasm crossnative make
+nodejs crossnative make
+python crossnative make
+rust crossnative make
+unzip crossnative make
+zip crossnative make
+# The cross link resolves these out of the aarch64 sysroot.
+aarch64-alsa-lib cross make
+aarch64-at-spi2-core cross make
+aarch64-cairo cross make
+aarch64-dbus cross make
+aarch64-ffmpeg cross make
+aarch64-fontconfig cross make
+aarch64-freetype cross make
+aarch64-gcc cross make
+aarch64-gdk-pixbuf cross make
+aarch64-glib cross make
+aarch64-glibc cross make
+aarch64-gtk+3 cross make
+aarch64-harfbuzz cross make
+aarch64-icu cross make
+aarch64-libffi cross make
+aarch64-libice cross make
+aarch64-libjpeg-turbo cross make
+aarch64-libnotify cross make
+aarch64-libpng cross make
+aarch64-libsm cross make
+aarch64-libvpx cross make
+aarch64-libwebp cross make
+aarch64-libx11 cross make
+aarch64-libxcb cross make
+aarch64-libxcomposite cross make
+aarch64-libxdamage cross make
+aarch64-libxext cross make
+aarch64-libxfixes cross make
+aarch64-libxrandr cross make
+aarch64-libxss cross make
+aarch64-libxt cross make
+aarch64-linux-api-headers cross make
+aarch64-nspr cross make
+aarch64-nss cross make
+aarch64-pango cross make
+aarch64-pipewire cross make
+aarch64-pixman cross make
+aarch64-sqlite cross make
+aarch64-zlib-ng cross make
