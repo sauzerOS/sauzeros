@@ -3,3 +3,10 @@ Name=wl*
 
 [Network]
 DHCP=ipv4
+IPv6AcceptRA=yes
+
+[DHCPv4]
+RouteMetric=600
+
+[IPv6AcceptRA]
+RouteMetric=600
