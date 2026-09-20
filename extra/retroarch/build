@@ -2,6 +2,10 @@
 
 patch -Np1 -i retroarch-config.patch
 patch -Np1 -i ffmpeg-9.patch
+# config.def.h has no __aarch64__ case for the Linux core-updater URL, so a
+# 64-bit ARM build ships an empty buildbot address and the Core Updater can
+# download nothing until the user types one in.
+patch -Np1 -i buildbot-aarch64.patch
 
 PREFIX="${CROSS_PREFIX:-/usr}"
 

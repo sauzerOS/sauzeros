@@ -1,0 +1,23 @@
+Add the missing Linux aarch64 case for the core updater URL.
+
+config.def.h covers __x86_64__, __i386__ and armhf under __linux__, but has
+no __aarch64__ branch, so a 64-bit ARM build falls through to the empty
+default and the Core Updater shows a blank buildbot URL -- the downloader
+cannot fetch anything without the user typing the address in by hand.
+
+The path follows the same nightly/linux/<arch>/latest/ convention as its
+siblings. Verified against the buildbot: nightly/linux/aarch64/latest/
+returns HTTP 200 and lists 444 cores, while arm64, armv8 and arm64-v8a all
+return 404.
+
+--- a/config.def.h
++++ b/config.def.h
+@@ -1858,6 +1858,8 @@
+ #define DEFAULT_BUILDBOT_SERVER_URL "http://buildbot.libretro.com/nightly/linux/x86/latest/"
+ #elif defined(__arm__) && __ARM_ARCH == 7 && defined(__ARM_PCS_VFP)
+ #define DEFAULT_BUILDBOT_SERVER_URL "http://buildbot.libretro.com/nightly/linux/armhf/latest/"
++#elif defined(__aarch64__)
++#define DEFAULT_BUILDBOT_SERVER_URL "https://buildbot.libretro.com/nightly/linux/aarch64/latest/"
+ #else
+ #define DEFAULT_BUILDBOT_SERVER_URL ""
+ #endif
