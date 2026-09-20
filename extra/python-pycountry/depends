@@ -2,3 +2,6 @@ python
 python-build make
 python-installer make
 python-poetry-core make 
+python-build cross make
+python-installer cross make
+python-poetry-core cross make
