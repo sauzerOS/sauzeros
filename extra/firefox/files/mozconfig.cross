@@ -1,0 +1,52 @@
+# Cross build: runs on x86_64, produces aarch64. See files/mozconfig for the
+# native one -- this is deliberately a separate file rather than a pile of
+# conditionals, because almost every toolchain line differs.
+
+ac_add_options --enable-application=browser
+ac_add_options --prefix=/usr
+ac_add_options --enable-release
+ac_add_options --enable-hardening
+ac_add_options --enable-optimize
+ac_add_options --enable-linker=lld
+ac_add_options --disable-install-strip
+ac_add_options --disable-bootstrap
+
+ac_add_options --host=x86_64-pc-linux-gnu
+ac_add_options --target=aarch64-unknown-linux-gnu
+
+# LTO is off here. Thin LTO across a cross clang link of a tree this size is a
+# lot of risk for a first port; revisit once it builds and runs.
+ac_add_options --disable-lto
+
+# WASI is a *build-machine* toolchain. The RLBox-sandboxed libraries compile
+# to wasm32 with the host clang against this sysroot, then wasm2c emits C that
+# the aarch64 compiler builds -- so there is no target WASI package and none
+# is needed.
+ac_add_options --with-wasi-sysroot=/usr/share/wasi-sysroot
+
+# Audio: ALSA only, no PulseAudio. Firefox has no PipeWire backend at all
+# (cubeb offers alsa, jack, pulse, sndio), and the target reaches PipeWire
+# through pipewire-alsa. cubeb dlopens libasound.so.2 at runtime, so configure
+# only needs alsa.pc from the sysroot.
+ac_add_options --enable-audio-backends=alsa
+
+# Branding
+ac_add_options --enable-official-branding
+ac_add_options --enable-update-channel=release
+ac_add_options --with-unsigned-addon-scopes=app,system
+ac_add_options --allow-addon-sideload
+ac_add_options --with-google-location-service-api-keyfile=$PWD/google-api-key
+ac_add_options --with-google-safebrowsing-api-keyfile=$PWD/google-api-key
+
+# System libraries, taken from the aarch64 sysroot
+ac_add_options --with-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --with-system-libvpx
+ac_add_options --with-system-webp
+ac_add_options --with-system-png
+ac_add_options --with-system-jpeg
+ac_add_options --with-system-pipewire
+
+# Features
+ac_add_options --disable-updater
+ac_add_options --disable-tests

@@ -2,31 +2,87 @@
 
 cd firefox-$2
 patch -Np1 -i ../0001-Install-under-remoting-name.patch
-mv ../mozconfig .
 mv ../google-api-key .
 
-if [ "${HOKUTO_GENERIC}" = "1" ]; then
-    GCC_CPU="x86-64-v2"
-    RUST_CPU="x86-64-v2"
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    mv ../mozconfig.cross ./mozconfig
+    rm -f ../mozconfig
+
+    # Everything is clang here, aimed at the target by --target/--sysroot
+    # rather than by a gcc-prefixed toolchain, because Firefox's build system
+    # assumes one compiler driver it can pass both host and target work to.
+    # CROSS_PREFIX is /usr in a plain cross build (it describes the *target*
+    # filesystem), so the build-machine path to the sysroot has to be spelled
+    # out.
+    SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
+    TRIPLE="${HOKUTO_ARCH}-linux-gnu"
+
+    # hokuto already exports CFLAGS/CXXFLAGS for the target; keep them and just
+    # add the targeting. No -march=native, obviously.
+    #
+    # The recipe carries "nocrossopt" so those are the generic
+    # -O2 -pipe -mtune=generic -fPIC rather than CFLAGS_ARM64's
+    # -march=armv8-a+crc -mcpu=cortex-a72. Firefox does separate host from
+    # target flags (rust.mk exports CFLAGS_<host-triple> and
+    # CFLAGS_<target-triple> independently), but the target set still reaches
+    # build-script crates that compile for the build machine -- glslopt does
+    # exactly that -- and then:
+    #   clang: error: unsupported option '-mcpu=' for target 'x86_64-unknown-linux-gnu'
+    # -mtune=generic is valid for both architectures, which is what makes the
+    # generic set work where the tuned one cannot.
+    CC="clang --target=${TRIPLE} --sysroot=${SYSROOT}"
+    CXX="clang++ --target=${TRIPLE} --sysroot=${SYSROOT}"
+    CPP="clang-cpp --target=${TRIPLE} --sysroot=${SYSROOT}"
+    LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+
+    # Tools that run on the build machine during the build.
+    #
+    # Deliberately NOT exporting HOST_CFLAGS/HOST_CXXFLAGS. config.mk reassigns
+    # them:
+    #     HOST_CFLAGS = $(COMPUTED_HOST_CFLAGS) $(_HOST_DEPEND_CFLAGS)
+    # and exporting the names here keeps make's *new* value in the export set,
+    # so cargo's environment ends up carrying make's per-target dependency
+    # flags. cc-rs reads HOST_CFLAGS for any crate that compiles for the build
+    # machine (glslopt does), runs in the crate's own directory where no .deps/
+    # exists, and dies with:
+    #     error: error opening '.deps/force-cargo-library-build.pp'
+    # Left unexported, HOST_CFLAGS stays an ordinary make variable and never
+    # reaches cargo. Firefox works out host flags by itself.
+    export HOST_CC="clang"
+    export HOST_CXX="clang++"
+
+    # No -Clinker-plugin-lto: LTO is disabled for the cross build.
+    RUSTFLAGS="-C strip=debuginfo -C opt-level=3 -C linker=clang \
+-C link-arg=--target=${TRIPLE} -C link-arg=--sysroot=${SYSROOT} \
+-C link-arg=-fuse-ld=lld"
 else
-    GCC_CPU="native"
-    RUST_CPU="native"
-fi
+    mv ../mozconfig .
+    rm -f ../mozconfig.cross
 
-# LTO
-COMMON_FLAGS="-march=${GCC_CPU} -O2 -flto=thin -pipe ${WARNING_FLAGS}"
-CFLAGS="${COMMON_FLAGS}"
-CXXFLAGS="${COMMON_FLAGS}"
-FCFLAGS="${COMMON_FLAGS}"
-FFLAGS="${COMMON_FLAGS}"
+    if [ "${HOKUTO_GENERIC}" = "1" ]; then
+        GCC_CPU="x86-64-v2"
+        RUST_CPU="x86-64-v2"
+    else
+        GCC_CPU="native"
+        RUST_CPU="native"
+    fi
 
-RUSTFLAGS="-C target-cpu=${RUST_CPU} -C strip=debuginfo -C opt-level=3 \
+    # LTO
+    COMMON_FLAGS="-march=${GCC_CPU} -O2 -flto=thin -pipe ${WARNING_FLAGS}"
+    CFLAGS="${COMMON_FLAGS}"
+    CXXFLAGS="${COMMON_FLAGS}"
+    FCFLAGS="${COMMON_FLAGS}"
+    FFLAGS="${COMMON_FLAGS}"
+
+    RUSTFLAGS="-C target-cpu=${RUST_CPU} -C strip=debuginfo -C opt-level=3 \
 -Clinker=clang -Clinker-plugin-lto -Clink-arg=-fuse-ld=lld"
 
-LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld -flto=thin"
-CC="clang"
-CXX="clang++"
-CPP="clang-cpp"
+    LDFLAGS="${COMMON_FLAGS} ${LDFLAGS} -fuse-ld=lld -flto=thin"
+    CC="clang"
+    CXX="clang++"
+    CPP="clang-cpp"
+fi
+
 AR="llvm-ar"
 NM="llvm-nm"
 RANLIB="llvm-ranlib"

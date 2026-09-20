@@ -2,6 +2,7 @@ https://archive.mozilla.org/pub/firefox/releases/${version}/source/firefox-${ver
 files/firefox.desktop
 files/firefox-symbolic.svg
 files/mozconfig
+files/mozconfig.cross
 files/google-api-key
 files/distribution.ini
 files/0001-Install-under-remoting-name.patch
