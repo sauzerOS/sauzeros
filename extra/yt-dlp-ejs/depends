@@ -1,7 +1,13 @@
-deno
+deno nocross
+nodejs
 python
 nodejs make
 python-build make
 python-hatch-vcs make
 python-hatchling make
 python-installer make
+nodejs cross make
+python-build cross make
+python-hatch-vcs cross make
+python-hatchling cross make
+python-installer cross make
