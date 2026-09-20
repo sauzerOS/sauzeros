@@ -1,7 +1,12 @@
 #!/bin/bash -e
 
+# Data only (pci.ids, usb.ids and friends) -- nothing is compiled, so the
+# cross build just needs the prefix. configure is a hand-written script here,
+# not autoconf, so it takes no --host.
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 ./configure \
-    --prefix=/usr \
+    --prefix="$PREFIX" \
     --disable-blacklist
 
 make
