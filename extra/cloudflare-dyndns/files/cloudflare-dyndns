@@ -1,11 +1,23 @@
 #!/bin/bash
 
+# Cloudflare Dynamic DNS updater
+#
+# Automatically follows the active Internet interface.
+# With the recommended systemd-networkd configuration:
+#   eth0  -> metric 100
+#   wlan0 -> metric 600
+#
+# Therefore Ethernet is preferred when available and Wi-Fi
+# automatically becomes the fallback when Ethernet is disconnected.
+
+set -u
+
 # --- Configuration ---
 TOKEN="your_api_token"
 ZONE_ID="your_zone_id"
-RECORD_NAME="example.com"  # e.g., "home.yourdomain.com" or "yourdomain.com"
+RECORD_NAME="example.com"
 
-# Protocol Toggles (Set to true to enable, false to disable)
+# Protocol toggles
 ENABLE_IPV4=true
 ENABLE_IPV6=true
 
@@ -15,8 +27,7 @@ IP6_FILE="/var/tmp/last_cloudflare_ip6.txt"
 ID4_FILE="/var/tmp/cloudflare_record_id4.txt"
 ID6_FILE="/var/tmp/cloudflare_record_id6.txt"
 
-# IPv6 services used both to discover the public address and to verify which
-# local source address can actually reach the internet.
+# IPv6 services used to discover/verify the public address
 IP6_SERVICES=(
     "https://api64.ipify.org"
     "https://ifconfig.me/ip"
@@ -24,77 +35,156 @@ IP6_SERVICES=(
 
 # --- Function: Get or Fetch Record ID ---
 get_record_id() {
-    local type=$1
-    local id_file=$2
+    local type="$1"
+    local id_file="$2"
     local record_id=""
 
-    if [[ -f "$id_file" ]]; then
-        record_id=$(cat "$id_file")
-    else
-        echo "Fetching $type Record ID from Cloudflare"
-        record_id=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$type&name=$RECORD_NAME" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "Content-Type: application/json" | jq -r '.result[0].id')
+    # Use cached record ID if available
+    if [[ -s "$id_file" ]]; then
+        record_id=$(<"$id_file")
 
-        if [[ "$record_id" != "null" && -n "$record_id" ]]; then
-            echo "$record_id" > "$id_file"
-            echo "Saved $type Record ID: $record_id"
-        else
-            echo "Warning: Could not find $type record for $RECORD_NAME."
-            record_id=""
-        fi
-    fi
-    echo "$record_id"
-}
-
-# --- Function: Update Cloudflare Record ---
-update_record() {
-    local type=$1
-    local record_id=$2
-    local current_ip=$3
-    local ip_file=$4
-    local id_file=$5
-
-    # Check against cached IP
-    if [[ -f "$ip_file" ]]; then
-        local old_ip=$(cat "$ip_file")
-        if [[ "$current_ip" == "$old_ip" ]]; then
-            echo "$type IP has not changed ($current_ip). Skipping update."
+        # Basic sanity check
+        if [[ "$record_id" =~ ^[a-f0-9]{32}$ ]]; then
+            echo "$record_id"
             return 0
         fi
+
+        rm -f "$id_file"
     fi
 
-    echo "Updating Cloudflare $type record to $current_ip"
-    local response=$(curl -s -X PATCH "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$record_id" \
+    echo "Fetching $type Record ID for $RECORD_NAME..." >&2
+
+    local response
+    response=$(curl -fsS \
+        --connect-timeout 10 \
+        --max-time 20 \
+        -X GET \
+        "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$type&name=$RECORD_NAME" \
         -H "Authorization: Bearer $TOKEN" \
-        -H "Content-Type: application/json" \
-        --data "{\"content\": \"$current_ip\"}")
+        -H "Content-Type: application/json") || {
+            echo "Error: Failed to query Cloudflare for $type record." >&2
+            return 1
+        }
 
-    if [[ "$response" == *"\"success\":true"* ]]; then
-        echo "$current_ip" > "$ip_file"
-        echo "$type IP successfully updated to $current_ip"
-    else
-        echo "$type Cloudflare update failed. Response: $response"
-        # If record ID is invalid or unauthorized, clear the cached ID file
-        [[ "$response" == *"\"code\":6003"* || "$response" == *"\"code\":81044"* ]] && rm -f "$id_file"
+    record_id=$(jq -r '.result[0].id // empty' <<<"$response")
+
+    if [[ "$record_id" =~ ^[a-f0-9]{32}$ ]]; then
+        printf '%s\n' "$record_id" > "$id_file"
+        echo "Saved $type Record ID: $record_id" >&2
+        echo "$record_id"
+        return 0
     fi
+
+    echo "Warning: Could not find $type record for $RECORD_NAME." >&2
+    return 1
 }
 
-# --- Function: Get current active IPv6 address ---
+
+# --- Function: Get active IPv4 interface ---
+get_ipv4_interface() {
+    ip -4 route get 1.1.1.1 2>/dev/null |
+        awk '
+            {
+                for (i = 1; i <= NF; i++) {
+                    if ($i == "dev") {
+                        print $(i + 1)
+                        exit
+                    }
+                }
+            }
+        '
+}
+
+
+# --- Function: Get active IPv6 interface ---
+get_ipv6_interface() {
+    ip -6 route get 2606:4700:4700::1111 2>/dev/null |
+        awk '
+            {
+                for (i = 1; i <= NF; i++) {
+                    if ($i == "dev") {
+                        print $(i + 1)
+                        exit
+                    }
+                }
+            }
+        '
+}
+
+
+# --- Function: Get current public IPv4 ---
+get_current_ipv4() {
+    local interface response
+
+    interface=$(get_ipv4_interface)
+
+    if [[ -z "$interface" ]]; then
+        echo "Could not determine IPv4 default-route interface." >&2
+        return 1
+    fi
+
+    echo "Using $interface for IPv4." >&2
+
+    response=$(curl -fsS -4 \
+        --interface "$interface" \
+        --connect-timeout 10 \
+        --max-time 20 \
+        "https://api.ipify.org" 2>/dev/null) || \
+    response=$(curl -fsS -4 \
+        --interface "$interface" \
+        --connect-timeout 10 \
+        --max-time 20 \
+        "https://ifconfig.me/ip" 2>/dev/null) || {
+            echo "Could not determine public IPv4 address." >&2
+            return 1
+        }
+
+    # Validate that the response is actually an IPv4 address
+    if [[ "$response" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+        echo "$response"
+        return 0
+    fi
+
+    echo "Invalid IPv4 response: $response" >&2
+    return 1
+}
+
+
+# --- Function: Get current public IPv6 ---
 get_current_ipv6() {
-    local address response service
+    local interface address response service
 
+    interface=$(get_ipv6_interface)
+
+    if [[ -z "$interface" ]]; then
+        echo "Could not determine IPv6 default-route interface." >&2
+        return 1
+    fi
+
+    echo "Using $interface for IPv6." >&2
+
+    # Get usable global IPv6 addresses from the active interface
     while read -r address; do
-        for service in "${IP6_SERVICES[@]}"; do
-            response=$(curl -fsS -6 --connect-timeout 10 --max-time 20 --interface "$address" "$service" 2>/dev/null) || continue
 
+        for service in "${IP6_SERVICES[@]}"; do
+
+            response=$(curl -fsS -6 \
+                --connect-timeout 10 \
+                --max-time 20 \
+                --interface "$address" \
+                "$service" 2>/dev/null) || continue
+
+            # Only accept the address if the service sees the same
+            # IPv6 source address we selected locally.
             if [[ "$response" == "$address" ]]; then
                 echo "$address"
                 return 0
             fi
+
         done
+
     done < <(
-        ip -o -6 addr show scope global up |
+        ip -o -6 addr show dev "$interface" scope global up |
             awk '
                 / tentative | dadfailed | deprecated / { next }
                 {
@@ -104,35 +194,116 @@ get_current_ipv6() {
             '
     )
 
+    echo "Could not determine public IPv6 address on $interface." >&2
     return 1
 }
 
-# --- Main Logic ---
 
-# === IPv4 Track ===
-if [[ "$ENABLE_IPV4" = true ]]; then
-    RECORD_ID4=$(get_record_id "A" "$ID4_FILE")
-    CURRENT_IP4=$(curl -s -4 https://api.ipify.org || curl -s -4 https://ifconfig.me)
+# --- Function: Update Cloudflare Record ---
+update_record() {
+    local type="$1"
+    local record_id="$2"
+    local current_ip="$3"
+    local ip_file="$4"
+    local id_file="$5"
+
+    # Check cached IP first
+    if [[ -s "$ip_file" ]]; then
+        local old_ip
+        old_ip=$(<"$ip_file")
+
+        if [[ "$current_ip" == "$old_ip" ]]; then
+            echo "$type IP has not changed ($current_ip). Skipping update."
+            return 0
+        fi
+    fi
+
+    echo "Updating Cloudflare $type record to $current_ip..."
+
+    local response
+    response=$(curl -fsS \
+        --connect-timeout 10 \
+        --max-time 20 \
+        -X PATCH \
+        "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$record_id" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" \
+        --data "{\"content\":\"$current_ip\"}") || {
+            echo "Cloudflare $type update request failed."
+            return 1
+        }
+
+    if jq -e '.success == true' >/dev/null 2>&1 <<<"$response"; then
+        printf '%s\n' "$current_ip" > "$ip_file"
+        echo "$type IP successfully updated to $current_ip"
+        return 0
+    fi
+
+    echo "Cloudflare $type update failed."
+    echo "Response: $response"
+
+    # Clear cached record ID if Cloudflare reports that it is invalid.
+    if jq -e '
+        .errors[]?.code |
+        tostring |
+        test("^(6003|81044)$")
+    ' >/dev/null 2>&1 <<<"$response"; then
+        rm -f "$id_file"
+    fi
+
+    return 1
+}
+
+
+# ============================================================
+# IPv4
+# ============================================================
+
+if [[ "$ENABLE_IPV4" == true ]]; then
+
+    RECORD_ID4=$(get_record_id "A" "$ID4_FILE") || RECORD_ID4=""
+
+    CURRENT_IP4=$(get_current_ipv4) || CURRENT_IP4=""
 
     if [[ -n "$RECORD_ID4" && -n "$CURRENT_IP4" ]]; then
-        update_record "A" "$RECORD_ID4" "$CURRENT_IP4" "$IP4_FILE" "$ID4_FILE"
+        update_record \
+            "A" \
+            "$RECORD_ID4" \
+            "$CURRENT_IP4" \
+            "$IP4_FILE" \
+            "$ID4_FILE"
     else
-        echo "Skipping IPv4 update (Missing Record ID or Public IP)."
+        echo "Skipping IPv4 update (missing Record ID or public IP)."
     fi
+
 else
-    echo "IPv4 update is disabled in configuration."
+    echo "IPv4 update is disabled."
 fi
 
-# === IPv6 Track ===
-if [[ "$ENABLE_IPV6" = true ]]; then
-    RECORD_ID6=$(get_record_id "AAAA" "$ID6_FILE")
-    CURRENT_IP6=$(get_current_ipv6)
+
+# ============================================================
+# IPv6
+# ============================================================
+
+if [[ "$ENABLE_IPV6" == true ]]; then
+
+    RECORD_ID6=$(get_record_id "AAAA" "$ID6_FILE") || RECORD_ID6=""
+
+    CURRENT_IP6=$(get_current_ipv6) || CURRENT_IP6=""
 
     if [[ -n "$RECORD_ID6" && -n "$CURRENT_IP6" ]]; then
-        update_record "AAAA" "$RECORD_ID6" "$CURRENT_IP6" "$IP6_FILE" "$ID6_FILE"
+        update_record \
+            "AAAA" \
+            "$RECORD_ID6" \
+            "$CURRENT_IP6" \
+            "$IP6_FILE" \
+            "$ID6_FILE"
     else
-        echo "Skipping IPv6 update (Missing Record ID or Public IP)."
+        echo "Skipping IPv6 update (missing Record ID or public IP)."
     fi
+
 else
-    echo "IPv6 update is disabled in configuration."
+    echo "IPv6 update is disabled."
 fi
+
+
