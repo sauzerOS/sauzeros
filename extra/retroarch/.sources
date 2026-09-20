@@ -1,5 +1,8 @@
 https://github.com/libretro/RetroArch/releases/download/v${version}/retroarch-sourceonly-${version}.tar.xz
 https://github.com/libretro/retroarch-assets/archive/refs/tags/v1.22.0.tar.gz assets
+https://github.com/libretro/retroarch-joypad-autoconfig/archive/refs/tags/v1.22.0.tar.gz -> retroarch-joypad-autoconfig-1.22.0.tar.gz autoconfig
+https://github.com/libretro/libretro-core-info/archive/5a74858ab2f7a50cebb5a6330895bc38899531c0.tar.gz -> libretro-core-info-5a74858a.tar.gz info
 files/retroarch-config.patch
 files/ffmpeg-9.patch
 files/buildbot-aarch64.patch
+files/core-updater-experimental.patch

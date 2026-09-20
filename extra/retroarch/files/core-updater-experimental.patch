@@ -1,0 +1,22 @@
+Show experimental cores in the Core Updater by default.
+
+The Linux aarch64 buildbot only publishes nightly builds, and a large part of
+that set is flagged is_experimental in the core info files. With the upstream
+default of false the Core Downloader silently filters those entries out, so on
+this target the list is a fraction of what the buildbot actually carries -- the
+user has to find the toggle under Settings -> Network before the downloader is
+of much use.
+
+This is only a listing filter; it downloads nothing extra on its own.
+
+--- a/config.def.h	2026-09-20 13:32:50.761651965 +0700
++++ b/config.def.h	2026-09-20 13:32:50.770652291 +0700
+@@ -1469,7 +1469,7 @@
+ #define DEFAULT_STDIN_CMD_ENABLE false
+ 
+ #define DEFAULT_NETWORK_BUILDBOT_AUTO_EXTRACT_ARCHIVE true
+-#define DEFAULT_NETWORK_BUILDBOT_SHOW_EXPERIMENTAL_CORES false
++#define DEFAULT_NETWORK_BUILDBOT_SHOW_EXPERIMENTAL_CORES true
+ 
+ /* Automatically create a backup whenever a core is
+  * updated via the online updater
