@@ -1,23 +1,43 @@
 #!/bin/bash -e
 
 PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+[ "$PREFIX" = "/usr" ] && SYSCONF_DIR="/etc"
 
+# Every xkb search path below is otherwise taken from xkeyboard-config's .pc
+# (xkb_root, xkb_base, xkb_*_extensions_path), whose values are absolute and
+# point at wherever that package was installed. In a cross build that is the
+# sysroot, so a plain cross build bakes /usr/aarch64-linux-gnu/share/... into
+# the *target* library and it can find no rules at runtime:
+#   xkbcommon: ERROR: [XKB-632] Failed to add any default include path
+#   xkbcommon: ERROR: [XKB-595] Cannot load XKB rules "evdev"
+# Pin them to $PREFIX instead. The "-2" is xkeyboard-config's major version
+# (core/xkeyboard-config is 2.x); upstream expects that to change maybe once
+# in a decade.
 MESON_OPTS=(
-    --prefix="$PREFIX"
-    --libexecdir="$PREFIX/lib"
     -D default_library=both
     -D enable-docs=false
     -D enable-wayland=true
     -D enable-x11=true
+    -D xkb-config-root="$PREFIX/share/xkeyboard-config-2"
+    -D xkb-config-versioned-extensions-path="$PREFIX/share/xkeyboard-config-2.d"
+    -D xkb-config-unversioned-extensions-path="$PREFIX/share/xkeyboard-config.d"
+    -D xkb-config-extra-path="$SYSCONF_DIR/xkb"
+    -D x-locale-root="$PREFIX/share/X11/locale"
 )
 
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-MESON_OPTS+=(
-        --cross-file "$HOKUTO_ARCH"
-    )
-fi
+# XKB_LEGACY_ROOT is the one xkb path with no meson option: meson.build reads
+# it straight from xkeyboard-config's `xkb_base`, which in a cross build is the
+# sysroot. It is only a fallback include path, so nothing breaks, but it has no
+# business being baked into a target library. Force the prefix-relative
+# fallback. The grep guards it: if upstream restructures the block the build
+# fails here instead of silently shipping the sysroot path again.
+grep -q "^if XKB_LEGACY_ROOT == ''$" meson.build
+sed -i "s|^if XKB_LEGACY_ROOT == ''$|if true|" meson.build
 
-meson setup build "${MESON_OPTS[@]}"
+# hokuto-meson supplies --prefix/--libexecdir/--sbindir, --buildtype plain,
+# --wrap-mode nodownload and the --cross-file when cross building.
+hokuto-meson build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 
