@@ -2,7 +2,14 @@
 
 sed -i "s/^PROJECT_LOGO/#&/" doc/doxygen.cfg.in
 
-./configure --prefix=/usr --disable-static
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts=(--host="${HOKUTO_ARCH}-linux-gnu")
+fi
+
+./configure --prefix="$PREFIX" --disable-static "${cross_opts[@]}"
 make -j1
 make DESTDIR="$1" install
 
