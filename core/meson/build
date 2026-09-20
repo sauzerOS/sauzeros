@@ -20,7 +20,7 @@ if [ "$TARGET_ARCH" = "x86_64" ]; then
     install -d "$1$PREFIX/share/meson/cross"
     install -Dm644 lib32   "$1$PREFIX/share/meson/cross/lib32"
     install -Dm644 aarch64        "$1$PREFIX/share/meson/cross/aarch64"
-
+    install -Dm755 aarch64-ldd       "$1$PREFIX/share/meson/cross/aarch64-ldd"
     # Maintain compatibility for native x86 builds
     install -d "$1$PREFIX/share/meson/native"
     install -Dm644 lib32   "$1$PREFIX/share/meson/native/x86"

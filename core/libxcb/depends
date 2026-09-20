@@ -7,7 +7,9 @@ xorg-util-macros make
 xorgproto make
 lib32-libxau make
 lib32-libxdmcp make
-aarch64-xcb-proto cross make
-aarch64-libxau cross make
-aarch64-xorgproto cross make
 aarch64-gcc cross make
+aarch64-libxau cross
+aarch64-xcb-proto cross
+aarch64-xorgproto cross
+python cross make
+xorg-util-macros cross make

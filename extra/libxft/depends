@@ -7,8 +7,8 @@ xorgproto
 lib32-fontconfig make
 lib32-libxrender make
 aarch64-gcc cross make
-aarch64-fontconfig cross make
-aarch64-freetype cross make
-aarch64-libx11 cross make
-aarch64-libxrender cross make
-aarch64-xorgproto cross make
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-libx11 cross
+aarch64-libxrender cross
+aarch64-xorgproto cross

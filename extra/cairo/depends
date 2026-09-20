@@ -11,10 +11,9 @@ libxrender
 lzo
 mesa
 pixman
-pkgconf
 zlib-ng
 meson make
-meson cross make
+pkgconf make
 lib32-fontconfig make
 lib32-freetype make
 lib32-glib make
@@ -25,3 +24,19 @@ lib32-libxext make
 lib32-libxrender make
 lib32-pixman make
 lib32-zlib-ng make
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-libffi cross
+aarch64-libpng cross
+aarch64-libx11 cross
+aarch64-libxcb cross
+aarch64-libxext cross
+aarch64-libxrender cross
+aarch64-lzo cross
+aarch64-mesa cross
+aarch64-pixman cross
+aarch64-zlib-ng cross
+meson cross make
+pkgconf cross make

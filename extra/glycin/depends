@@ -13,3 +13,15 @@ gtk make
 meson make
 rust make
 vala make
+aarch64-bubblewrap cross 
+aarch64-cairo cross
+aarch64-fontconfig cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-lcms2 cross
+aarch64-libjxl cross
+aarch64-libheif cross
+aarch64-librsvg cross
+aarch64-libseccomp cross
+aarch64-rust cross make
+meson cross make

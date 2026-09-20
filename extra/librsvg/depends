@@ -27,3 +27,18 @@ lib32-harfbuzz make
 lib32-libxml2 make
 lib32-pango make
 lib32-rust-libs make
+aarch64-cairo cross
+aarch64-dav1d cross
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-gcc cross make
+aarch64-gdk-pixbuf cross
+aarch64-glib cross
+aarch64-harfbuzz cross
+aarch64-libpng cross
+aarch64-libxml2 cross
+aarch64-llvm cross make
+aarch64-pango cross
+aarch64-rust cross make
+cargo-c cross make
+meson cross make

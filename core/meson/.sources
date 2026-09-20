@@ -1,3 +1,4 @@
 https://github.com/mesonbuild/meson/releases/download/${version}/meson-${version}.tar.gz
 files/lib32
 files/aarch64
+files/aarch64-ldd
