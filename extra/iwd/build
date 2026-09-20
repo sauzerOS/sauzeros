@@ -1,9 +1,34 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr \
-	    --sysconfdir=/etc \
-            --localstatedir=/var \
-            --libexecdir=/usr/lib/iwd \
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+LOCALSTATE_DIR="${PREFIX}/var"
+if [ "$PREFIX" = "/usr" ]; then
+    SYSCONF_DIR="/etc"
+    LOCALSTATE_DIR="/var"
+fi
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts=(--host="${HOKUTO_ARCH}-linux-gnu")
+fi
+
+# Every one of these directories is otherwise derived from pkg-config
+# (dbus-1 datadir, dbus-1 system_bus_services_dir, systemd unitdirs) or from
+# exec_prefix, so under cross mode they follow PKG_CONFIG_LIBDIR into the
+# sysroot and a plain cross build lands its service files and D-Bus configs in
+# /usr/aarch64-linux-gnu/... on the target. Pin them all to $PREFIX.
+./configure --prefix="$PREFIX"            \
+            --sysconfdir="$SYSCONF_DIR"   \
+            --localstatedir="$LOCALSTATE_DIR" \
+            --libexecdir="$PREFIX/lib/iwd" \
+            --with-dbus-datadir="$PREFIX/share" \
+            --with-dbus-busdir="$PREFIX/share/dbus-1/system-services" \
+            --with-systemd-unitdir="$PREFIX/lib/systemd/system" \
+            --with-systemd-networkdir="$PREFIX/lib/systemd/network" \
+            --with-systemd-modloaddir="$PREFIX/lib/modules-load.d" \
+            --disable-manual-pages        \
+            "${cross_opts[@]}"
 
 make
 make DESTDIR=$1 install
