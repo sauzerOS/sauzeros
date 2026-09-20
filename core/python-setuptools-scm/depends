@@ -12,4 +12,3 @@ python-installer make
 python-installer cross make
 python-wheel make
 python-wheel cross make
-python-vcs-versioning cross make

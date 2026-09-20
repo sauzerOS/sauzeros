@@ -2,8 +2,7 @@ python
 python-build make
 python-flit-core make
 python-installer make
-aarch64-python cross
-python-build cross make
 python cross make
+python-build cross make
 python-flit-core cross make
 python-installer cross make
