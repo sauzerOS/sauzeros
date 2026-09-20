@@ -9,10 +9,6 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
     CROSS_OPTS="--host=$HOST_TRIPLET"
 
-    # Fix ncurses detection for cross-compilation
-    if [ -d "/usr/${HOST_TRIPLET}/include/ncursesw" ]; then
-        export CPPFLAGS="$CPPFLAGS -I/usr/${HOST_TRIPLET}/include/ncursesw"
-    fi
     export LDFLAGS="$LDFLAGS -L/usr/${HOST_TRIPLET}/lib"
 fi
 
