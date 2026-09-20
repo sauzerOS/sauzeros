@@ -41,10 +41,12 @@ lib32-dbus make
 lib32-glib make
 lib32-systemd make
 aarch64-alsa-lib cross make
+aarch64-bluez cross make
 aarch64-dbus cross make
 aarch64-gcc cross make
 aarch64-glib cross make
 aarch64-glibc cross make
 aarch64-ncurses cross make
 aarch64-openssl cross make
+aarch64-sbc cross make
 aarch64-systemd cross make

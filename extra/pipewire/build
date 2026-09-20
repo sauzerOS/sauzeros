@@ -2,12 +2,12 @@
 _pwname=pipewire-0.3
 _spaname=spa-0.2
 
-# A deliberately small pipewire for the target: ALSA in and out, dbus and
-# udev/systemd for device and session handling, and nothing else. Everything
-# switched off below is optional and not cross built -- bluez5 and its codec
-# zoo, gstreamer, avahi, sdl2, sndfile, libcanberra, webrtc echo cancel, roc,
-# lv2, libusb, libcamera, jack and ffmpeg. session-managers stays empty because
-# wireplumber is its own package.
+# A deliberately small pipewire for the target: ALSA in and out, bluez5 for
+# Bluetooth audio, dbus and udev/systemd for device and session handling, and
+# nothing else. Everything switched off below is optional and not cross built
+# -- the bluez5 codec zoo beyond SBC, gstreamer, avahi, sdl2, sndfile,
+# libcanberra, webrtc echo cancel, roc, lv2, libusb, libcamera, jack and
+# ffmpeg. session-managers stays empty because wireplumber is its own package.
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
 hokuto-meson build                       \
     -D alsa=enabled                      \
@@ -21,7 +21,17 @@ hokuto-meson build                       \
     -D audiomixer=enabled                \
     -D control=enabled                   \
     -D support=enabled                   \
-    -D bluez5=disabled                   \
+    -D bluez5=enabled                    \
+    -D bluez5-backend-hsp-native=enabled \
+    -D bluez5-backend-hfp-native=enabled \
+    -D bluez5-backend-ofono=disabled     \
+    -D bluez5-backend-hsphfpd=disabled   \
+    -D bluez5-codec-aptx=disabled        \
+    -D bluez5-codec-ldac=disabled        \
+    -D bluez5-codec-aac=disabled         \
+    -D bluez5-codec-opus=disabled        \
+    -D bluez5-codec-lc3plus=disabled     \
+    -D bluez5-codec-lc3=disabled         \
     -D gstreamer=disabled                \
     -D gstreamer-device-provider=disabled \
     -D avahi=disabled                    \
