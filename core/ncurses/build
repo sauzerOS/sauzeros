@@ -11,9 +11,18 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
+# ncurses picks the header location from the prefix:
+#   if test "$prefix" = "/usr" ; then with_overwrite=yes; else with_overwrite=no; fi
+# So a native or plain-cross build (prefix /usr) installs curses.h, term.h and
+# friends straight into include/, while a cross-system build (prefix
+# /usr/<triplet>) buries them in include/ncursesw/. That asymmetry breaks any
+# cross build whose source does a bare #include <curses.h> -- psmisc's pstree.c
+# does, and it fails at compile time because its configure only probes for the
+# library, never the header. Ask for the same layout everywhere.
 ./configure \
     --prefix="$PREFIX" \
     --mandir="$PREFIX/share/man" \
+    --enable-overwrite \
     --enable-pc-files \
     --disable-rpath-hack \
     --with-pkg-config-libdir="$PREFIX/lib/pkgconfig" \
