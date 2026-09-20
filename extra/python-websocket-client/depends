@@ -2,3 +2,6 @@ python
 python-build make
 python-installer make
 python-setuptools make
+python-build cross make
+python-installer cross make
+python-setuptools cross make
