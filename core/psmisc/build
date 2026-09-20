@@ -1,7 +1,15 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts=(--host="${HOKUTO_ARCH}-linux-gnu")
+fi
+
 ./configure \
-    --prefix=/usr
+    --prefix="$PREFIX" \
+    "${cross_opts[@]}"
 
 make
 make DESTDIR="$1" install
