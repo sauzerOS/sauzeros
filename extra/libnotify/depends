@@ -4,3 +4,8 @@ glibc
 gobject-introspection make
 gtk make
 meson make
+aarch64-gcc cross make
+aarch64-gdk-pixbuf cross make
+aarch64-glib cross make
+aarch64-glibc cross make
+meson cross make
