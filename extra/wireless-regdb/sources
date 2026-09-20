@@ -1,0 +1,4 @@
+git+https://git.kernel.org/pub/scm/linux/kernel/git/wens/wireless-regdb.git#tag=master-2026-09-03
+files/wireless-regdom
+files/set-wireless-regdom
+files/85-regulatory.rules

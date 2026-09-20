@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# Install phase
+install -Dm644 wireless-regdom -t "${1}"/etc/conf.d
+install -Dm644 85-regulatory.rules -t "${1}"/usr/lib/udev/rules.d
+install -Dm755 set-wireless-regdom -t "${1}"/usr/bin
+
+make install DESTDIR="${1}" MANDIR=usr/share/man FIRMWARE_PATH=usr/lib/firmware
+
+for dom in $(grep ^country db.txt | cut -d' ' -f2 | sed 's|:||g'); do
+  echo "#WIRELESS_REGDOM=\"${dom}\"" >> "${1}"/etc/conf.d/wireless-regdom.tmp
+done
+sort -u "${1}"/etc/conf.d/wireless-regdom.tmp >> "${1}"/etc/conf.d/wireless-regdom
+rm "${1}"/etc/conf.d/wireless-regdom.tmp

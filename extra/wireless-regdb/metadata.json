@@ -1,0 +1,8 @@
+{
+  "url": "https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb",
+  "category": "base",
+  "description": "Central Regulatory Domain Database",
+  "info": "",
+  "license": "LicenseRef-custom",
+  "tags": []
+}
