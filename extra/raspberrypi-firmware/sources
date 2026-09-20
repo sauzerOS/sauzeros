@@ -21,4 +21,7 @@ https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a12
 https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM43430A1.hcd
 https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM43430B0.hcd
 https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM4343A2.hcd
+https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/3bab0f823f5b53150b76aab77093adef6655b920/debian/added-firmware/cypress/cyfmac43455-sdio-standard.bin -> brcmfmac43455-sdio.bin
+https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/3bab0f823f5b53150b76aab77093adef6655b920/debian/added-firmware/cypress/cyfmac43455-sdio.clm_blob -> brcmfmac43455-sdio.clm_blob
+https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/3bab0f823f5b53150b76aab77093adef6655b920/debian/added-firmware/brcm/brcmfmac43455-sdio.txt
 https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/LICENSE.cypress
