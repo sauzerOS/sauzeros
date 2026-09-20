@@ -8,3 +8,13 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make 
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-libxml2 cross make
+aarch64-libxslt cross make
+cython cross make
+git cross make
+python-build cross make
+python-installer cross make
+python-setuptools cross make
+python-wheel cross make
