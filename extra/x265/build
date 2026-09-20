@@ -16,7 +16,6 @@ cmake -B build \
 
 cmake --build build
 DESTDIR=$1 cmake --install build
-rm -vf $1/usr/lib/libx265.a
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
@@ -35,5 +34,4 @@ DESTDIR=$PWD/DESTDIR cmake --install build
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
 install -d $dest_dir/usr/lib32
 cp -vR DESTDIR/usr/lib32/* $dest_dir/usr/lib32
-rm -vf $dest_dir/usr/lib32/libx265.a
 fi
