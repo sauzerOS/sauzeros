@@ -7,6 +7,10 @@ patch -Np1 -i ffmpeg-9.patch
 # download nothing until the user types one in.
 patch -Np1 -i buildbot-aarch64.patch
 
+# The aarch64 buildbot is nightly-only and much of it is flagged experimental,
+# which the Core Downloader hides unless this default is flipped.
+patch -Np1 -i core-updater-experimental.patch
+
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 # qb/config.libs.sh picks the global config dir with
@@ -68,6 +72,7 @@ make DESTDIR="${1}" install
 install -Dm 644 libretro-common/audio/dsp_filters/*.{dsp,so} -t "${1}${PREFIX}"/lib/retroarch/filters/audio/
 install -Dm 644 gfx/video_filters/*.{filt,so} -t "${1}${PREFIX}"/lib/retroarch/filters/video/
 
+(
 cd assets
 
 install -dm 755 "${1}${PREFIX}"/share/retroarch/assets
@@ -76,3 +81,30 @@ cp -dr --no-preserve=ownership xmb "${1}${PREFIX}"/share/retroarch/assets/
 cp -dr --no-preserve=ownership ozone "${1}${PREFIX}"/share/retroarch/assets/
 cp -dr --no-preserve=ownership fonts "${1}${PREFIX}"/share/retroarch/assets/
 cp -dr --no-preserve=ownership sounds "${1}${PREFIX}"/share/retroarch/assets/
+)
+
+# The joypad profiles live in their own upstream repo, so without this nothing
+# is ever autoconfigured and every pad comes up as
+#     Microsoft X-Box 360 pad (1118/654) not configured
+# retroarch.cfg points joypad_autoconfig_dir here (see retroarch-config.patch).
+# These are plain text profiles -- no architecture, nothing to cross build.
+(
+cd autoconfig
+make install PREFIX="$PREFIX" DESTDIR="$1"
+)
+
+# Core info files. Without these RetroArch has no idea which extensions a core
+# accepts, so the content browser filters every directory down to nothing and a
+# history entry offers no core to run it with -- the cores themselves download
+# and load fine, they are just invisible. They are shipped read-only data like
+# the assets and joypad profiles, so they live under /usr and libretro_info_path
+# points there.
+#
+# Pinned to a master commit rather than the v1.22.2 tag: the aarch64 buildbot is
+# nightly-only and the tag lags it badly -- 291 info files against the nightly
+# set's 327, and its mednafen_psx entry is missing "bin" from
+# supported_extensions.
+(
+cd info
+make install PREFIX="$PREFIX" DESTDIR="$1"
+)
