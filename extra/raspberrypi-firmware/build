@@ -21,3 +21,15 @@ install -m 644 fixup.dat fixup4.dat fixup4cd.dat fixup4db.dat fixup4x.dat \
 
 install -Dm 644 LICENCE.broadcom \
     "$1/usr/share/licenses/raspberrypi-firmware/LICENCE.broadcom"
+
+# Bluetooth firmware for the on-board radio. Unlike the boot files above these
+# are read by the kernel at runtime, not by the VideoCore at boot, so they go
+# to /usr/lib/firmware rather than /boot. Shipping every Pi model's blob keeps
+# one image usable across boards; together they are well under a megabyte.
+install -d "$1/usr/lib/firmware/brcm"
+for _f in BCM4345C0 BCM4345C5 BCM43430A1 BCM43430B0 BCM4343A2; do
+    install -m 644 "$_f.hcd" "$1/usr/lib/firmware/brcm/$_f.hcd"
+done
+install -Dm 644 LICENSE.cypress \
+    "$1/usr/share/licenses/raspberrypi-firmware/LICENSE.cypress"
+

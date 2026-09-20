@@ -16,3 +16,9 @@ https://raw.githubusercontent.com/raspberrypi/firmware/1.20260915/boot/start_cd.
 https://raw.githubusercontent.com/raspberrypi/firmware/1.20260915/boot/start_db.elf
 https://raw.githubusercontent.com/raspberrypi/firmware/1.20260915/boot/start_x.elf
 https://raw.githubusercontent.com/raspberrypi/firmware/1.20260915/boot/LICENCE.broadcom
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM4345C0.hcd
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM4345C5.hcd
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM43430A1.hcd
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM43430B0.hcd
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/BCM4343A2.hcd
+https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/cdf61dc691a49ff01a124752bd04194907f0f9cd/debian/firmware/broadcom/LICENSE.cypress
