@@ -32,3 +32,5 @@ aarch64-libxcursor cross make
 aarch64-libxdamage cross make
 aarch64-xorgproto cross make
 aarch64-libxpm cross make
+aarch64-alsa-lib cross make
+aarch64-libsndfile cross make
