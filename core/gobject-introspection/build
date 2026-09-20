@@ -8,17 +8,16 @@ MESON_OPTS=(
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-
-    # Use hokuto's native pkg-config wrapper so the target sysroot it exports
-    # globally isn't applied to native (build-machine) dependency lookups.
-    if [ -n "$HOKUTO_NATIVE_FILE" ]; then
-        MESON_OPTS+=(--native-file "$HOKUTO_NATIVE_FILE")
-    fi
+    MESON_OPTS+=(-D gi_cross_ldd_wrapper=/usr/share/meson/cross/aarch64-ldd
+                 -D python=/usr/aarch64-linux-gnu/bin/python)
 fi
 
-meson setup build "${MESON_OPTS[@]}"
+hokuto-meson build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "${PREFIX}" = "/usr" ]; then
+sed -i '1s|.*|#!/usr/bin/env python3|' $1/usr/bin/g-ir-scanner
+sed -i '1s|.*|#!/usr/bin/env python3|' $1/usr/bin/g-ir-annotation-tool
+fi
 

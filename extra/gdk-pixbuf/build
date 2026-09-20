@@ -6,10 +6,6 @@ else
     glycin_opt=disabled
 fi
 
-# The cross glib is built without introspection, so gobject-introspection-1.0
-# is absent from the sysroot. Leaving introspection enabled makes meson fall
-# back to the glib wrap and build a whole second glib. glycin is probed on the
-# host, which says nothing about the target.
 # glycin decodes images for gdk-pixbuf, which is why the built-in loaders stay
 # off. It has to be enabled for the target too: with both switched off, the
 # cross built gdk-pixbuf cannot read jpeg, png, gif or tiff at all, and
@@ -17,11 +13,16 @@ fi
 loaders_opt=disabled
 introspection_opt=enabled
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    introspection_opt=disabled
+introspection_opt=disabled
+if hokuto check aarch64-glycin; then
     glycin_opt=enabled
+else
+    glycin_opt=disabled
+fi
 fi
 
 hokuto-meson build           \
+    --debug \
     -D android=disabled      \
     -D builtin_loaders=all   \
     -D documentation=false   \

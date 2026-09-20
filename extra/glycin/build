@@ -1,19 +1,12 @@
 #!/bin/bash -e
 
-# The loader set is left at the default (heif, image-rs, jxl, svg) for the
-# target as well: libheif, libjxl and librsvg are all cross built now, and
-# dropping glycin-svg would leave the target unable to render the SVG icons
-# that menus and window managers use.
-#
-# introspection and vapi need the host scanners run against target libraries,
-# which the cross glib does not provide.
 cross_opts=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     cross_opts+=(
-      -D introspection=false
       -D vapi=false
       -D tests=false
       -D libglycin-gtk4=false
+      -D introspection=false
     )
 fi
 

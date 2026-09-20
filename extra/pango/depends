@@ -11,7 +11,6 @@ libxrender
 gobject-introspection make
 help2man make
 meson make
-meson cross make
 lib32-cairo make
 lib32-fontconfig make
 lib32-freetype make
@@ -21,3 +20,16 @@ lib32-harfbuzz make
 lib32-libx11 make
 lib32-libxft make
 lib32-libxrender make
+aarch64-cairo cross 
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-fribidi cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-harfbuzz cross
+aarch64-libx11 cross
+aarch64-libxft cross
+aarch64-libxrender cross
+aarch64-pkgconf cross make
+help2man cross make
+meson cross make

@@ -1,0 +1,5 @@
+#!/bin/sh
+exec /usr/bin/qemu-aarch64-static \
+    /usr/aarch64-linux-gnu/usr/lib/ld-linux-aarch64.so.1 \
+    --library-path /usr/aarch64-linux-gnu/lib:/usr/aarch64-linux-gnu/usr/lib \
+    --list "$@"

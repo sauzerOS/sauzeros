@@ -14,4 +14,17 @@ libjpeg-turbo make
 libpng make
 libtiff make
 openjpeg make
-
+aarch64-gcc cross make
+aarch64-libaom cross
+aarch64-libde265 cross
+aarch64-libwebp cross
+aarch64-openh264 cross
+aarch64-x264 cross
+aarch64-x265 cross
+cmake cross make
+aarch64-dav1d cross make
+aarch64-ffmpeg cross make
+aarch64-libjpeg-turbo cross make
+aarch64-libpng cross make
+aarch64-libtiff cross make
+aarch64-openjpeg cross make
