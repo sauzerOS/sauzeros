@@ -4,3 +4,9 @@ libusb
 systemd-libs
 meson make
 systemd make
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-hwdata cross make
+aarch64-libusb cross make
+aarch64-systemd cross make
+meson cross make
