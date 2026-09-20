@@ -9,3 +9,7 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make
+python-build cross make
+python-installer cross make
+python-setuptools cross make
+python-wheel cross make
