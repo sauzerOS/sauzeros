@@ -9,6 +9,13 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make
+python cross
+python-attrs cross
+python-idna cross
+python-outcome cross
+python-sniffio cross
+python-sortedcontainers cross
+python-typing-extensions cross
 python-build cross make
 python-installer cross make
 python-setuptools cross make

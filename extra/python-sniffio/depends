@@ -4,3 +4,9 @@ python-installer make
 python-setuptools make
 python-setuptools-scm make
 python-wheel make 
+python cross
+python-build cross make
+python-installer cross make
+python-setuptools cross make
+python-setuptools-scm cross make
+python-wheel cross make

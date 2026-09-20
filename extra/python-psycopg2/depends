@@ -3,3 +3,9 @@ postgresql make
 python-build make
 python-installer make
 python-setuptools make
+aarch64-gcc cross make
+aarch64-python cross make
+aarch64-postgresql cross make
+python-build cross make
+python-installer cross make
+python-setuptools cross make

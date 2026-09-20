@@ -1,4 +1,5 @@
 #!/bin/bash -e
 
-python -m build --wheel --no-isolation
-python -m installer --destdir="$1" dist/*.whl
+PREFIX="${CROSS_PREFIX:-/usr}"
+python -m build --wheel --no-isolation --skip-dependency-check
+python -m installer --destdir="$1" --prefix="$PREFIX" dist/*.whl

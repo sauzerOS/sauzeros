@@ -3,5 +3,5 @@
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 PREFIX="${CROSS_PREFIX:-/usr}"
 
-python -m build --wheel --no-isolation
+python -m build --wheel --no-isolation --skip-dependency-check
 python -m installer --destdir="$1" --prefix="$PREFIX" dist/*.whl

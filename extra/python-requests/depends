@@ -8,6 +8,11 @@ python-build make
 python-installer make
 python-setuptools make
 python-wheel make
+python cross
+python-certifi cross
+python-charset-normalizer cross
+python-idna cross
+python-urllib3 cross
 python-build cross make
 python-installer cross make
 python-setuptools cross make
