@@ -1,20 +1,28 @@
 acl
-avahi optional
-cups-filters runtime
+avahi optional nocross
+cups-filters runtime nocross
 dbus
 glibc
 gnutls
-hicolor-icon-theme
+hicolor-icon-theme nocross
 libcups runtime
 libgcc
 libstdc++
 pam
 systemd
 systemd-libs
-colord suggest for ICC color profile support
-libusb suggest for usb printer backend
-xdg-utils suggest xdg .desktop file support
-colord make optional
-libusb make
+colord suggest for ICC color profile support nocross
+libusb suggest for usb printer backend nocross
+xdg-utils suggest xdg .desktop file support nocross
+colord make optional nocross
+libusb make nocross
 pam make
 systemd make 
+aarch64-acl cross make
+aarch64-dbus cross make
+aarch64-gcc cross make
+aarch64-glibc cross make
+aarch64-gnutls cross make
+aarch64-pam cross make
+aarch64-systemd cross make
+aarch64-zlib-ng cross make

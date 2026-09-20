@@ -1,12 +1,37 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr \
-     --sysconfdir=/etc \
-     --localstatedir=/var \
-     --sbindir=/usr/bin \
-     --libdir=/usr/lib \
-     --with-logdir=/var/log/cups \
-     --with-docdir=/usr/share/cups/doc \
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONF_DIR="${PREFIX}/etc"
+LOCALSTATE_DIR="${PREFIX}/var"
+if [ "$PREFIX" = "/usr" ]; then
+    SYSCONF_DIR="/etc"
+    LOCALSTATE_DIR="/var"
+fi
+
+conf_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # avahi (mDNS printer discovery), libusb (the USB backend) and libpaper
+    # are not cross built. The point of the cross build is libcups for the
+    # clients that link it -- Chrome has a hard dependency on it -- rather
+    # than a working print server, so dropping the discovery and USB backends
+    # costs nothing here.
+    conf_opts=(
+        --host="${HOKUTO_ARCH}-linux-gnu"
+        --disable-avahi
+        --disable-libusb
+        --disable-libpaper
+    )
+else
+    conf_opts=(--enable-libpaper)
+fi
+
+./configure --prefix="$PREFIX" \
+     --sysconfdir="$SYSCONF_DIR" \
+     --localstatedir="$LOCALSTATE_DIR" \
+     --sbindir="$PREFIX/bin" \
+     --libdir="$PREFIX/lib" \
+     --with-logdir="$LOCALSTATE_DIR/log/cups" \
+     --with-docdir="$PREFIX/share/cups/doc" \
      --with-exe-file-perm=0755 \
      --with-cups-user=209 \
      --with-cups-group=209 \
@@ -15,57 +40,77 @@
      --enable-raw-printing \
      --enable-dbus=yes \
      --with-tls=gnutls \
-     --with-dbusdir=/usr/share/dbus-1 \
+     --with-dbusdir="$PREFIX/share/dbus-1" \
+     --with-icondir="$PREFIX/share/icons" \
+     --with-menudir="$PREFIX/share/applications" \
      --enable-relro \
-     --enable-libpaper \
-     --with-optim="$CFLAGS"
+     --with-optim="$CFLAGS" \
+     "${conf_opts[@]}"
 
 make
-make DESTDIR=$1 install
 
-rm -rf $1/etc/rc*.d
-rm -rf $1/etc/init.d
-install -D -m644 cups.pam $1/etc/pam.d/cups
+# PAMDIR is not a configure option: configure probes the *build machine* for
+# /etc/pam.d and bakes that in, which for a cross-system build would drop the
+# file outside the sysroot. Override it at install time -- natively this
+# resolves to the same /etc/pam.d it would have picked anyway.
+make DESTDIR=$1 PAMDIR="$SYSCONF_DIR/pam.d" install
 
-# fix perms on /var/spool and /etc
-chmod 755 $1/var/spool
-chmod 755 $1/etc
+rm -rf "$1$SYSCONF_DIR"/rc*.d
+rm -rf "$1$SYSCONF_DIR"/init.d
+install -D -m644 cups.pam "$1$SYSCONF_DIR/pam.d/cups"
+
+# fix perms on the spool and config trees
+chmod 755 "$1$LOCALSTATE_DIR/spool"
+chmod 755 "$1$SYSCONF_DIR"
 
 # use cups group FS#36769
-install -Dm644 cups.sysusers $1/usr/lib/sysusers.d/cups.conf
-sed -i "s:#User 209:User 209:" $1/etc/cups/cups-files.conf{,.default}
-sed -i "s:#Group 209:Group 209:" $1/etc/cups/cups-files.conf{,.default}
+install -Dm644 cups.sysusers "$1$PREFIX/lib/sysusers.d/cups.conf"
+sed -i "s:#User 209:User 209:" "$1$SYSCONF_DIR"/cups/cups-files.conf{,.default}
+sed -i "s:#Group 209:Group 209:" "$1$SYSCONF_DIR"/cups/cups-files.conf{,.default}
 
 # install ssl directory where to store the certs, solves some samba issues
-install -dm700 -g 209 $1/etc/cups/ssl
+install -dm700 -g 209 "$1$SYSCONF_DIR/cups/ssl"
 # remove directory from package, it will be recreated at each server start
-rm -rf $1/run
+rm -rf "$1/run"
 
 # install some more configuration files that will get filled by cupsd
-touch $1/etc/cups/printers.conf
-touch $1/etc/cups/classes.conf
-touch $1/etc/cups/subscriptions.conf
-chgrp -R 209 $1/etc/cups
+touch "$1$SYSCONF_DIR/cups/printers.conf"
+touch "$1$SYSCONF_DIR/cups/classes.conf"
+touch "$1$SYSCONF_DIR/cups/subscriptions.conf"
+chgrp -R 209 "$1$SYSCONF_DIR/cups"
 
-# fix .desktop file
-sed -i 's|^Exec=htmlview http://localhost:631/|Exec=xdg-open http://localhost:631/|g' $1/usr/share/applications/cups.desktop
+# fix .desktop file (not installed in every configuration)
+if [ -f "$1$PREFIX/share/applications/cups.desktop" ]; then
+    sed -i 's|^Exec=htmlview http://localhost:631/|Exec=xdg-open http://localhost:631/|g' \
+        "$1$PREFIX/share/applications/cups.desktop"
+fi
 
 # compress some driver files, adopted from Fedora
-find $1/usr/share/cups/model -name "*.ppd" | xargs gzip -n9f
+if [ -d "$1$PREFIX/share/cups/model" ]; then
+    find "$1$PREFIX/share/cups/model" -name "*.ppd" -print0 | xargs -0 -r gzip -n9f
+fi
 
 # remove client.conf man page
-rm -f $1/usr/share/man/man5/client.conf.5
+rm -f "$1$PREFIX/share/man/man5/client.conf.5"
 
 # comment out removed filters that are now part of cups-filters
-perl -p -i -e 's:^(.*\s+bannertops\s*)$:#\1:' $1/usr/share/cups/mime/mime.convs
+perl -p -i -e 's:^(.*\s+bannertops\s*)$:#\1:' "$1$PREFIX/share/cups/mime/mime.convs"
 
 # comment out unnecessary PageLogFormat entry
-sed -i -e 's:PageLogFormat:#PageLogFormat:' $1/etc/cups/cupsd.conf*
+sed -i -e 's:PageLogFormat:#PageLogFormat:' "$1$SYSCONF_DIR"/cups/cupsd.conf*
 
 # no more xinetd support
-rm -rf $1/etc/xinetd.d
+rm -rf "$1$SYSCONF_DIR/xinetd.d"
 
-# libcups split package
-_pick "$1" libcups usr/bin/cups-config
-_pick "$1" libcups usr/include/cups/
-_pick "$1" libcups usr/lib/libcups.so*
+# libcups split package.
+#
+# The paths below are spelled usr/..., which holds for a native build and for
+# a plain cross build of the target (both use prefix /usr). A cross-system
+# build installs under the sysroot prefix instead, and wants libcups and its
+# headers to stay in the one aarch64-cups package so the sysroot has them for
+# linking -- so it skips the split.
+if [ "$PREFIX" = "/usr" ]; then
+    _pick "$1" libcups usr/bin/cups-config
+    _pick "$1" libcups usr/include/cups/
+    _pick "$1" libcups usr/lib/libcups.so*
+fi
