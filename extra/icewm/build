@@ -27,12 +27,13 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
 	# Upstream's default image loader (imlib2) is kept: icecursor includes a
 	# hard #error unless Imlib2 or GdkPixbuf is present, so the libpng/XPM
 	# loader alone does not build the full package.
-	# icesound is the only consumer of alsa-lib and libsndfile, neither of which
-	# is cross built. ICESOUND cannot simply be emptied: upstream does
-	# string(TOLOWER ${ICESOUND} ICESOUND), which with an empty value collapses
-	# to a one-argument call and fails configuration outright. OSS is the one
-	# backend that needs no library at all -- it just opens /dev/dsp.
-	CMAKE_OPTS+=(-D ICESOUND=OSS)
+	# icesound needs libsndfile: in src/CMakeLists.txt every backend -- ALSA,
+	# AO and even OSS -- sits inside `if(sndfile_FOUND)`, and icesound itself
+	# is only built `IF(ENABLE_ALSA OR ENABLE_AO OR ENABLE_OSS)`. Without it
+	# the package shipped no icesound at all. Both libsndfile (WAV-only) and
+	# alsa-lib are cross built now, so ask for the ALSA backend, which reaches
+	# PipeWire through pipewire-alsa on the target.
+	CMAKE_OPTS+=(-D ICESOUND=ALSA)
 fi
 
 cmake -B build "${CMAKE_OPTS[@]}"
