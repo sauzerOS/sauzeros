@@ -7,7 +7,7 @@ patch -Np1 -i 242.patch
 cmake_options=(
   -B build
   -D CMAKE_BUILD_TYPE=None
-  -D CMAKE_INSTALL_PREFIX=/usr
+  -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}"
   -W no-dev
 )
 
