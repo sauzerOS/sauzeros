@@ -30,6 +30,19 @@ install -d "$1/usr/lib/firmware/brcm"
 for _f in BCM4345C0 BCM4345C5 BCM43430A1 BCM43430B0 BCM4343A2; do
     install -m 644 "$_f.hcd" "$1/usr/lib/firmware/brcm/$_f.hcd"
 done
+# WiFi firmware for the same radio. The BCM43455 covers every bcm2711 board
+# (Pi 4 B, Pi 400, CM4), which is all this distro's kernel builds for, so the
+# one chip is enough here. Without these the driver finds nothing and no wlan
+# interface is created at all:
+#     brcmfmac: Direct firmware load for brcm/brcmfmac43455-sdio.bin failed
+# The driver asks for the board-specific name first and falls back to the plain
+# one, which is what upstream's per-board files are symlinks to anyway.
+# cyfmac43455-sdio-standard.bin is the default variant; the -minimal one exists
+# only to raise the AP-mode client limit and drops 802.11k/v/r roaming with it.
+install -m 644 brcmfmac43455-sdio.bin "$1/usr/lib/firmware/brcm/brcmfmac43455-sdio.bin"
+install -m 644 brcmfmac43455-sdio.clm_blob "$1/usr/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob"
+install -m 644 brcmfmac43455-sdio.txt "$1/usr/lib/firmware/brcm/brcmfmac43455-sdio.txt"
+
 install -Dm 644 LICENSE.cypress \
     "$1/usr/share/licenses/raspberrypi-firmware/LICENSE.cypress"
 
