@@ -4,5 +4,9 @@ glibc
 gmp
 libcap
 openssl
+aarch64-acl cross
+aarch64-attr cross
 aarch64-gcc cross make
-aarch64-openssl cross make
+aarch64-gmp cross
+aarch64-libcap cross
+aarch64-openssl cross
