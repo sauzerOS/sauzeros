@@ -1,6 +1,7 @@
 device-mapper
 e2fsprogs
 glibc
+iana-etc
 keyutils
 krb5
 libcap
