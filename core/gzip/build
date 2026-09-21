@@ -1,7 +1,29 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr
+# 1. Global Patch: Atomically rename the word 'head' to 'gzip_head' everywhere
+# This treats all source files uniformly and leaves no dangling identifier mismatches.
+find . -type f \( -name "*.c" -o -name "*.h" \) -exec sed -i 's/\bhead\b/gzip_head/g' {} +
+
+PREFIX="${CROSS_PREFIX:-/usr}"
+# Add a default triplet for the build machine
+BUILD_TRIPLET="x86_64-pc-linux-gnu"
+
+# triplet for --host
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+
+    # Explicitly include both build and host to guarantee a cross environment
+    CROSS_OPTS="--build=$BUILD_TRIPLET --host=$HOST_TRIPLET"
+fi
+
+./configure \
+    --prefix="$PREFIX" \
+    --libdir="$PREFIX/lib" \
+    --sysconfdir=/etc \
+    --datarootdir="$PREFIX/share" \
+    $CROSS_OPTS
 
 make
-make DESTDIR=$1 install
-
+make DESTDIR="$1" install
