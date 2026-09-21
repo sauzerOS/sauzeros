@@ -3,3 +3,8 @@ glibc
 grep
 sed
 less make
+aarch64-coreutils cross
+aarch64-gcc cross make
+aarch64-grep cross
+aarch64-less cross make
+aarch64-sed cross
