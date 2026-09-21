@@ -2,8 +2,27 @@
 
 patch -Np1 -i hotfix-xattrs.patch
 
-FORCE_UNSAFE_CONFIGURE=1  \
-./configure --prefix=/usr
+PREFIX="${CROSS_PREFIX:-/usr}"
+# Add a default triplet for the build machine
+BUILD_TRIPLET="x86_64-pc-linux-gnu"
+
+# triplet for --host
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+
+    # Explicitly include both build and host to guarantee a cross environment
+    CROSS_OPTS="--build=$BUILD_TRIPLET --host=$HOST_TRIPLET"
+fi
+
+FORCE_UNSAFE_CONFIGURE=1          \
+./configure                       \
+    --prefix="$PREFIX"            \
+    --libdir="$PREFIX/lib"        \
+    --sysconfdir=/etc             \
+    --datarootdir="$PREFIX/share" \
+    $CROSS_OPTS
 
 make
 make DESTDIR="$1" install

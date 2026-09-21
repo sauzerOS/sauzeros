@@ -1,3 +1,6 @@
 acl
 attr
 glibc
+aarch64-acl cross
+aarch64-attr cross
+aarch64-gcc cross make
