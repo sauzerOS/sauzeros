@@ -1,5 +1,5 @@
 glibc
 attr make
 lib32-attr make
-aarch64-attr cross make
+aarch64-attr cross
 aarch64-gcc cross make
