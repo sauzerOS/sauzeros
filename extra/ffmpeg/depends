@@ -68,32 +68,32 @@ lib32-x264 make
 lib32-x265 make
 lib32-xz make
 aarch64-alsa-lib cross make
-aarch64-bzip2 cross make
-aarch64-cairo cross make
-aarch64-dav1d cross make
-aarch64-fontconfig cross make
-aarch64-freetype cross make
-aarch64-fribidi cross make
+aarch64-bzip2 cross
+aarch64-cairo cross
+aarch64-dav1d cross
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-fribidi cross
 aarch64-gcc cross make
-aarch64-glib cross make
-aarch64-glibc cross make
-aarch64-gmp cross make
-aarch64-gnutls cross make
-aarch64-harfbuzz cross make
-aarch64-lcms2 cross make
-aarch64-libaom cross make
-aarch64-libass cross make
-aarch64-libdrm cross make
-aarch64-libjxl cross make
-aarch64-libpng cross make
-aarch64-librsvg cross make
-aarch64-libwebp cross make
-aarch64-libxcb cross make
-aarch64-libxml2 cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gmp cross
+aarch64-gnutls cross
+aarch64-harfbuzz cross
+aarch64-lcms2 cross
+aarch64-libaom cross
+aarch64-libass cross
+aarch64-libdrm cross
+aarch64-libjxl cross
+aarch64-libpng cross
+aarch64-librsvg cross
+aarch64-libwebp cross
+aarch64-libxcb cross
+aarch64-libxml2 cross
 aarch64-linux-api-headers cross make
 aarch64-systemd cross make
-aarch64-mesa cross make
-aarch64-x264 cross make
-aarch64-x265 cross make
-aarch64-xz cross make
-aarch64-zlib-ng cross make
+aarch64-mesa cross
+aarch64-x264 cross
+aarch64-x265 cross
+aarch64-xz cross
+aarch64-zlib-ng cross
