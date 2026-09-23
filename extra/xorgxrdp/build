@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+patch -Np1 -i 406.patch
+
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+fi
+
+CFLAGS="$CFLAGS -ffat-lto-objects $(pkgconf --cflags-only-I libdrm)" \
+./bootstrap
+./configure              \
+  --prefix=$CROSS_PREFIX \
+  $CROSS_OPTS
+
+make
+make DESTDIR="${1}" install
