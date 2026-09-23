@@ -1,1 +1,2 @@
 rsync make
+rsync cross make
