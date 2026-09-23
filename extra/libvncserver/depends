@@ -1,0 +1,9 @@
+gnutls
+libgcrypt
+libjpeg-turbo
+libpng
+libsasl
+lzo
+systemd-libs
+sdl2-compat make
+cmake make
