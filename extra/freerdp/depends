@@ -1,0 +1,34 @@
+fuse3
+glibc
+jansson
+libcups
+libgcc
+libstdc++
+libx11
+libxcursor
+libxext
+libxdamage
+libxfixes
+libxkbcommon
+libxi
+libxinerama
+libxkbfile
+libxrandr
+libxrender
+libxtst
+sdl3
+sdl3_ttf
+wayland
+alsa-lib make
+cmake make
+ffmpeg make
+icu make
+libjpeg-turbo make
+libpng make
+libpulse make
+libusb make
+libwebp make
+openssl make
+pam make
+xorgproto make
+zlib-ng make
