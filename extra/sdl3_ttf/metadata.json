@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/libsdl-org/SDL_ttf",
+  "category": "extra",
+  "description": "A library that allows you to use TrueType fonts in your SDL applications (Version 3)",
+  "info": "",
+  "license": "Zlib",
+  "tags": []
+}
