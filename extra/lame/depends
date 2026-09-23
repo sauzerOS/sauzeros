@@ -2,3 +2,6 @@ glibc
 mpg123 optional
 ncurses
 nasm make
+aarch64-gcc cross make
+aarch64-ncurses cross
+nasm cross make
