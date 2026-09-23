@@ -1,9 +1,20 @@
 #!/bin/bash -e
 
-if hokuto check mpg123;
-then CONFIG_MPG123="--enable-mp3rtp"
+if [ "$HOKUTO_CROSS" = "1" ]; then
+    CONFIG_MPG123="--disable-mp3rtp --disable-decoder"
+elif hokuto check mpg123; then
+    CONFIG_MPG123="--enable-mp3rtp"
 else
-CONFIG_MPG123="--disable-mp3rtp --disable-decoder"
+    CONFIG_MPG123="--disable-mp3rtp --disable-decoder"
+fi
+
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
 # Disable HTML documentation.
@@ -14,11 +25,12 @@ mv -f _ doc/Makefile.in
 chmod +x configure
 
 export CFLAGS+=" -Wno-implicit-function-declaration -Wno-incompatible-pointer-types"
-./configure      \
-  --prefix=/usr  \
-  --enable-nasm  \
-  $CONFIG_MPG123 \
-  --enable-shared
+./configure               \
+  --prefix=$CROSS_PREFIX  \
+  --enable-nasm           \
+  $CONFIG_MPG123          \
+  --enable-shared         \
+  $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
