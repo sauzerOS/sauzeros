@@ -1,9 +1,6 @@
 #!/bin/bash -e
 
-PREFIX="${CROSS_PREFIX:-/usr}"
-
 MESON_OPTS=(
-  --prefix="$PREFIX"
   -D systemd_logind=true
   -D seatd_libseat=false
   -D drm=true
@@ -11,7 +8,6 @@ MESON_OPTS=(
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
     # Xvfb, Xnest and Xephyr are test/nested servers that pull in the whole
     # client-side X and xcb stack. The target only needs the real server, so
     # they stay off until those libraries exist for aarch64.
@@ -31,7 +27,6 @@ else
     MESON_OPTS+=(-D xvfb=true -D xnest=true -D xephyr=true)
 fi
 
-meson setup build "${MESON_OPTS[@]}"
-
+hokuto-meson build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1

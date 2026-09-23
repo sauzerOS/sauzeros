@@ -36,5 +36,31 @@ xcb-util-wm make
 xorg-font-util make
 xorgproto make
 xorg-util-macros make
+aarch64-dbus cross
+aarch64-gcc cross make
+aarch64-libepoxy cross
+aarch64-libglvnd cross
+aarch64-libpciaccess cross
+aarch64-libtirpc cross
+aarch64-libunwind cross
+aarch64-libxau cross
+aarch64-libxcvt cross
+aarch64-libxdmcp cross
+aarch64-libxfont2 cross
+aarch64-libxshmfence cross
+aarch64-nettle cross
+aarch64-pixman cross
+aarch64-xorg-xkbcomp cross
+aarch64-libx11 cross make
+aarch64-libxi cross make
+aarch64-libxkbfile cross make
+aarch64-libxmu cross make
+aarch64-libxrender cross make
+aarch64-libxres cross make
+aarch64-libxtst cross make
+#aarch64-libxv cross make
 aarch64-mesa cross make
-aarch64-libglvnd cross make
+meson cross make
+aarch64-pixman cross make
+aarch64-systemd cross make
+aarch64-xorgproto cross make
