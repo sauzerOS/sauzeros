@@ -9,7 +9,9 @@ systemd optional make
 lib32-libtirpc make
 lib32-libxcrypt make
 lib32-systemd optional make
-aarch64-libtirpc cross make
 aarch64-gcc cross make
-aarch64-libxcrypt cross make
+aarch64-libcap cross optional
+aarch64-libnsl cross
+aarch64-libtirpc cross
+aarch64-libxcrypt cross
 aarch64-systemd cross make optional
