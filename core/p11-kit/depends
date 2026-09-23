@@ -7,5 +7,9 @@ meson make
 systemd make optional
 lib32-libffi make
 lib32-libtasn1 make
+aarch64-coreutils cross
 aarch64-gcc cross make
-aarch64-libtasn1 cross make
+aarch64-libtasn1 cross
+aarch64-libffi cross make
+aarch64-systemd cross make optional
+meson cross make
