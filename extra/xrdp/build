@@ -1,0 +1,50 @@
+#!/bin/bash -e
+
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+patch -Np2 -b -z .orig arch-config.diff
+./bootstrap
+./configure \
+  --prefix=$PREFIX \
+  --sysconfdir=/etc \
+  --libexecdir=$PREFIX/lib \
+  --localstatedir=/var \
+  --sbindir=$PREFIX/bin \
+  --with-systemdsystemunitdir=$PREFIX/lib/systemd/system \
+  --enable-jpeg \
+  --enable-tjpeg \
+  --enable-fuse \
+  --enable-fdkaac \
+  --enable-opus \
+  --enable-mp3lame \
+  --enable-pixman \
+  --enable-painter \
+  --enable-vsock \
+  --enable-ipv6 \
+  --enable-pam-config=arch \
+  --enable-rdpsndaudin \
+  --with-imlib2 \
+  --enable-x264 \
+  --enable-librfxcodec \
+  --disable-werror \
+  $CROSS_OPTS
+
+# Fight unused direct deps
+sed -i -e "s| -shared | $LDFLAGS\0 |g" -e "s|    if test \"\$export_dynamic\" = yes && test -n \"\$export_dynamic_flag_spec\"; then|      func_append compile_command \" $LDFLAGS\"\n      func_append finalize_command \" $LDFLAGS\"\n\0|" libtool
+make CFLAGS="$CFLAGS -Wno-error=type-limits"
+
+sed -i 's^param=Xorg^param=/usr/lib/Xorg^g' sesman/sesman.ini
+make DESTDIR="${1}" install
+rm -f "${1}"/etc/xrdp/rsakeys.ini
+install -Dm644 instfiles/default/xrdp "${1}"/etc/default/xrdp
+
+if [ "$PREFIX" = "/usr/aarch64-linux-gnu" ]; then
+rm -rf $1/etc
+fi
