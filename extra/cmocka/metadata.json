@@ -1,0 +1,8 @@
+{
+  "url": "https://cmocka.org/",
+  "category": "extra",
+  "description": "Elegant unit testing framework for C with support for mock objects",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": []
+}
