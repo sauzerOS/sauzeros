@@ -1,35 +1,14 @@
 #!/bin/bash -e
 
-sed '20,$ d' -i trust/trust-extract-compat
-
-cat >> trust/trust-extract-compat << "EOF"
-# Copy existing anchor modifications to /etc/ssl/local
-/usr/libexec/make-ca/copy-trust-modifications
-
-# Update trust stores
-/usr/sbin/make-ca -r
-EOF
-
 PREFIX="${CROSS_PREFIX:-/usr}"
-
+export PKG_CONFIG_SYSTEMDUSERUNITDIR="${PREFIX}/lib/systemd/user"
 meson_options=(
-      --prefix="$PREFIX"       \
+      --prefix="$PREFIX"  \
       --buildtype=release \
-      -D trust_paths=/etc/pki/anchors
+      -D trust_paths=/etc/pki/anchors \
 )
 
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    if [ "$PREFIX" = "/usr" ]; then
-        meson_options+=(
-           --cross-file "${HOKUTO_ARCH}"
-        )
-    else
-        meson_options+=(--cross-file "$HOKUTO_ARCH")
-    fi
-fi
-
-meson setup p11-build "${meson_options[@]}"
-
+hokuto-meson p11-build "${meson_options[@]}"
 meson compile -C p11-build
 meson install -C p11-build --destdir=$1
 
@@ -41,7 +20,8 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
         rm -rf "$1$PREFIX/$HOKUTO_ARCH-linux-gnu"
     fi
 fi
-ln -sfv "$PREFIX/libexec/p11-kit/trust-extract-compat" \
+
+ln -sfv "$PREFIX/lib/p11-kit/trust-extract-compat" \
         "$1$PREFIX/bin/update-ca-certificates"
 ln -sfv ./pkcs11/p11-kit-trust.so "$1$PREFIX/lib/libnssckbi.so"
 
