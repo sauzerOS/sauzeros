@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+# gcc14 buildfix
+export CFLAGS+=" -Wno-incompatible-pointer-types"
+export CXXFLAGS+=" -Wno-incompatible-pointer-types"
+
+cmake_options=(
+  -B build
+  -D CMAKE_BUILD_TYPE=Release
+  -D CMAKE_INSTALL_LIBDIR=lib
+  -D CMAKE_INSTALL_PREFIX=/usr
+  -D CMAKE_SKIP_INSTALL_RPATH=ON
+  -D PROXY_PLUGINDIR=/usr/lib/freerdp/server/proxy/plugins
+  -D WITH_ALSA=ON
+  -D WITH_CLIENT_SDL3=ON
+  -D WITH_CUPS=ON
+  -D WITH_DSP_FFMPEG=ON
+  -D WITH_FFMPEG=ON
+  -D WITH_FUSE=ON
+  -D WITH_ICU=ON
+  -D WITH_JPEG=ON
+  -D WITH_PULSE=ON
+  -D WITH_SWSCALE=ON
+  -D WITH_SYSTEMD=ON
+  -D WITH_VAAPI=ON
+  -D WITH_WAYLAND=ON
+  -D WITH_X11=ON
+  -W no-dev
+)
+
+cmake "${cmake_options[@]}"
+cmake --build build --verbose
+
+DESTDIR="${1}" cmake --install build

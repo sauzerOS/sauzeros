@@ -1,0 +1,8 @@
+{
+  "url": "https://www.freerdp.com/",
+  "category": "extra",
+  "description": "Free implementation of the Remote Desktop Protocol (RDP)",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": []
+}
