@@ -1,15 +1,8 @@
 #!/bin/bash -e
 
-# build against the newest installed kernel that has headers, not the running
-# one: after a linux update the rebuild hook runs before the reboot
-latest=
-for d in $(ls -1 /lib/modules | sort -rV); do
-    if [ -f "/lib/modules/$d/build/Makefile" ]; then
-        latest=$d
-        break
-    fi
-done
-[ -n "$latest" ] || { echo "no kernel build tree found in /lib/modules" >&2; exit 1; }
+# Built per kernel: hokuto sets HOKUTO_KERNEL_DIR / HOKUTO_KERNEL_RELEASE.
+: "${HOKUTO_KERNEL_DIR:?kernel module package: build it with hokuto as <name>~<kernel>}"
+latest=$HOKUTO_KERNEL_RELEASE
 echo "Building vmware modules for $latest"
 
 export CC="gcc"
