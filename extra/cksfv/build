@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+./configure --prefix=/usr
+make
+make BINDIR="${1}"/usr/bin MANDIR="${1}"/usr/share/man install
