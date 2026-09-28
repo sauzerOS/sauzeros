@@ -10,13 +10,27 @@ if [ ! -f "$version_file" ]; then
 fi
 
 pkgver=$(head -n1 "$version_file" | awk '{print $1}')
-krel=$(find /usr/lib/modules /lib/modules -maxdepth 1 -type d -name "${pkgver}-sauzerOS" 2>/dev/null | sed 's|.*/||' | sort -V | tail -n 1)
+
+# Detect installed sauzerOS kernel release.
+#
+# The package version may be abbreviated, e.g.:
+#   package version: 7.2
+#   kernel release:  7.2.0-sauzerOS
+krel=$(find /usr/lib/modules /lib/modules \
+    -maxdepth 1 \
+    -type d \
+    -name "${pkgver}*-sauzerOS_C" \
+    2>/dev/null |
+    sed 's|.*/||' |
+    sort -V |
+    tail -n 1)
+
 if [ -z "$krel" ]; then
     echo "Error: could not detect installed sauzerOS kernel release for $pkgver."
     exit 1
 fi
 
-echo "Detected Kernel Release: $krel"
+printf '\nDetected Kernel Release: %s\n' "$krel"
 
 echo "Running depmod -a $krel"
 depmod -a "$krel"
@@ -64,26 +78,26 @@ update_marked_block() {
     rm -f "$tmp"
 }
 
-if [ -f /boot/limine.conf ]; then
-    echo "Updating Limine entry for $krel"
-    update_marked_block /boot/limine.conf "$(cat <<EOF
-:sauzerOS Linux $krel
-    PROTOCOL=linux
-    KERNEL_PATH=boot:///vmlinuz-$krel
-    MODULE_PATH=boot:///initramfs-$krel.img
-    CMDLINE=$rootflags
-EOF
-)"
-fi
+limine_config=/boot/EFI/limine/limine.conf
+if [ -f "$limine_config" ]; then
+    limine_cmdline=$(awk '
+        /^[[:space:]]*[Cc][Mm][Dd][Ll][Ii][Nn][Ee][[:space:]]*:/ {
+            sub(/^[[:space:]]*[Cc][Mm][Dd][Ll][Ii][Nn][Ee][[:space:]]*:[[:space:]]*/, "")
+            print
+            exit
+        }
+    ' "$limine_config")
+    if [ -z "$limine_cmdline" ]; then
+        limine_cmdline=$rootflags
+    fi
 
-if [ -f /boot/EFI/BOOT/limine.conf ]; then
     echo "Updating Limine entry for $krel"
-    update_marked_block /boot/EFI/BOOT/limine.conf "$(cat <<EOF
-:sauzerOS Linux $krel
-    PROTOCOL=linux
-    KERNEL_PATH=boot:///vmlinuz-$krel
-    MODULE_PATH=boot:///initramfs-$krel.img
-    CMDLINE=$rootflags
+    update_marked_block "$limine_config" "$(cat <<EOF
+/sauzerOS Linux $krel
+    protocol: linux
+    path: boot():/vmlinuz-$krel
+    module_path: boot():/initramfs-$krel.img
+    cmdline: $limine_cmdline
 EOF
 )"
 fi

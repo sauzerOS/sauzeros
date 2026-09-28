@@ -1,9 +1,18 @@
 coreutils
+gawk
 kmod
 bc make
 libelf make
+libgcc make
+openssl make
 pahole make
 perl make
 python make
+rust make
 tar make
+xxhash make
 xz make
+zlib-ng make
+zstd make
+btrfs-progs post-install
+dracut post-install
