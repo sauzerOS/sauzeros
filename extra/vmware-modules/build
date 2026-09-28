@@ -1,18 +1,27 @@
 #!/bin/bash -e
 
-# get newest modules dir
-latest=$(ls -1 /lib/modules | sort -V | tail -n 1)
+# build against the newest installed kernel that has headers, not the running
+# one: after a linux update the rebuild hook runs before the reboot
+latest=
+for d in $(ls -1 /lib/modules | sort -rV); do
+    if [ -f "/lib/modules/$d/build/Makefile" ]; then
+        latest=$d
+        break
+    fi
+done
+[ -n "$latest" ] || { echo "no kernel build tree found in /lib/modules" >&2; exit 1; }
+echo "Building vmware modules for $latest"
 
-KERNEL_BUILD_DIR="/lib/modules/$latest/build"
 export CC="gcc"
 export LD="ld.lld"
 
 # fix version for vmware 17.6.4
 sed -i 's/\(#define VMMON_VERSION[[:space:]]*(\)418/\1417/' vmmon-only/include/iocontrols.h
 
-make
-INSTALL_DIR="$1/lib/modules/$latest/misc/"
-mkdir -p INSTALL_DIR
+# the upstream Makefiles default VM_UNAME to `uname -r`
+make VM_UNAME="$latest"
+
+INSTALL_DIR="$1/lib/modules/$latest/misc"
 install -Dm644 vmmon-only/vmmon.ko "$INSTALL_DIR/vmmon.ko"
 install -Dm644 vmnet-only/vmnet.ko "$INSTALL_DIR/vmnet.ko"
 
