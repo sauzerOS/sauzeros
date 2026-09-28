@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
+# Built per kernel: hokuto sets HOKUTO_KERNEL_DIR / HOKUTO_KERNEL_RELEASE.
+: "${HOKUTO_KERNEL_DIR:?kernel module package: build it with hokuto as <name>~<kernel>}"
+
 cd vhba-module
-make KDIR=/usr/src/linux
-make KDIR=/usr/src/linux INSTALL_MOD_PATH=$1 modules_install
+make KDIR="$HOKUTO_KERNEL_DIR"
+make KDIR="$HOKUTO_KERNEL_DIR" INSTALL_MOD_PATH=$1 modules_install
 rm -rf $1/lib/modules/*/modules*
