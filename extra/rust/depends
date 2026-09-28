@@ -5,7 +5,7 @@ gcc
 glibc
 libgcc
 libstdc++
-sqlite
+libssh2
 lld
 llvm-libs
 openssl
