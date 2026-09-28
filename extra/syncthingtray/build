@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# upstream a2576bb408 uses m_quickUI outside its QUICK_GUI guard
+#patch -Np1 -i fix-build-without-quick-gui.patch
+
 cmake \
   -B build \
   -D CMAKE_BUILD_TYPE:STRING='Release' \
@@ -21,6 +24,7 @@ cmake \
   -D BUILD_SHARED_LIBS:BOOL=ON \
   -D WEBVIEW_PROVIDER="none" \
   -D JS_PROVIDER="qml" \
+  -D QUICK_GUI=ON \
   -D SYSTEMD_SUPPORT=ON
 
 cmake --build build
