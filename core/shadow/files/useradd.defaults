@@ -4,9 +4,6 @@
 # system.
 SHELL=/usr/bin/bash
 
-# The default group for users
-GROUP=users
-
 # The default home directory.
 HOME=/home
 
