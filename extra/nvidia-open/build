@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Built per kernel: hokuto sets HOKUTO_KERNEL_DIR / HOKUTO_KERNEL_RELEASE.
+: "${HOKUTO_KERNEL_DIR:?kernel module package: build it with hokuto as <name>~<kernel>}"
+
 unset LDFLAGS CFLAGS CXXFLAGS
 
 # disable RT CHECK
@@ -7,11 +10,9 @@ unset LDFLAGS CFLAGS CXXFLAGS
 patch -p1 -d kernel-open -i ../gpl.patch
 
 # Build and install kernel modules
-export SYSSRC=/usr/src/linux/
-export SYSOUT=/usr/src/linux/
-
-# Get the kernel version from the source tree (not the running kernel)
-KERNEL_VERSION=$(make -s -C /usr/src/linux kernelrelease)
+export SYSSRC="$HOKUTO_KERNEL_DIR"
+export SYSOUT="$HOKUTO_KERNEL_DIR"
+KERNEL_VERSION=$HOKUTO_KERNEL_RELEASE
 
 # Build modules against the target kernel
 make modules -j$(nproc)

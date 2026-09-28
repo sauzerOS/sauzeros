@@ -1,4 +1,3 @@
 libglvnd
 linux | linux-cachyos | linux-live
 nvidia-utils
-linux-headers make
