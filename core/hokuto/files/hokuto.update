@@ -1,7 +1,7 @@
 kwayland kwin kwin-x11
 mesa
 llvm spirv-llvm-translator
-ki18n kfilemetadata kcolorscheme kconfigwidgets kwidgetsaddons kbookmarks  breeze-icons kiconthemes knotifications kjobwidgets solid kio kidletime kio-extras kglobalaccel kxmlgui kcmutils baloo
+ki18n kfilemetadata kcolorscheme kwidgetsaddons kconfigwidgets kbookmarks  breeze-icons kiconthemes knotifications kjobwidgets solid kio kidletime kglobalaccel kxmlgui kcmutils kio-extras baloo
 sonnet ktexteditor
 glib librsvg
 kdecoration aurorae breeze
@@ -10,7 +10,7 @@ kwayland xdg-desktop-portal-kde
 libksysguard plasma-workspace powerdevil plasma-desktop
 libvirt python-libvirt-python
 c++utilities syncthingtray
-syncthingtray qtutilities
+qtutilities syncthingtray
 vulkan-headers vulkan-loader vulkan-tools
 gpgme gpgmepp
 libnftnl nftables
