@@ -281,7 +281,12 @@ dest_dir="$HOKUTO_SPLIT_DIR/lib32-gcc-libs/usr/lib32"
 mkdir -p "$dest_dir"
 
 for lib in "${libs[@]}"; do
-    mv "$1/usr/lib32"/$lib "$dest_dir/"
+    for f in "$1/usr/lib32"/$lib; do
+        # Static archives are for linking (-m32 -static-libstdc++): they stay
+        # in gcc, as the 64-bit ones do; lib32-gcc-libs is the runtime.
+        case $f in *.a) continue ;; esac
+        mv "$f" "$dest_dir/"
+    done
 done
 fi
 
