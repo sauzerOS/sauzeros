@@ -6,6 +6,7 @@ harfbuzz
 libgcc
 libogg
 libsndfile
+libssh2
 libstdc++
 libvorbis
 libx11
