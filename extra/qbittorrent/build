@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+# libtorrent 2.1 support (merged upstream after 5.2.x)
 patch -Np1 -i 23953.patch
 
 cmake -B build \
