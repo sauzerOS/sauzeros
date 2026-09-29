@@ -1,3 +1,6 @@
 docbook-xml
 python
 python-lxml
+docbook-xml cross
+python cross
+python-lxml cross

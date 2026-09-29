@@ -2,6 +2,6 @@
 
 patch -Np1 -i itstool-$2-lxml-1.patch
 
-PYTHON=/usr/bin/python3 ./autogen.sh --prefix=/usr
+./autogen.sh --prefix=/usr
 make
 make DESTDIR=$1 install
