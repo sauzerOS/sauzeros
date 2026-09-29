@@ -7,3 +7,13 @@ python-build make
 python-hatch-vcs make
 python-hatchling make
 python-installer make 
+cmake cross
+ninja cross
+python cross
+python-packaging cross
+python-pathspec cross
+python-build cross make 
+python-hatch-vcs cross make
+python-hatchling cross make
+python-installer cross make
+
