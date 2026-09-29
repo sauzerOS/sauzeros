@@ -19,12 +19,12 @@ hokuto-meson build         \
 meson compile -C build
 meson install -C build --destdir=$1
 
-# gvfs-avc
-_pick "$1" gvfs-avc usr/lib/gvfs{-afc-volume-monitor,d-afc}
-_pick "$1" gvfs-avc usr/lib/systemd/user/gvfs-afc-volume-monitor.service
-_pick "$1" gvfs-avc usr/share/dbus-1/services/org.gtk.vfs.AfcVolumeMonitor.service
-_pick "$1" gvfs-avc usr/share/gvfs/mounts/afc.mount
-_pick "$1" gvfs-avc usr/share/gvfs/remote-volume-monitors/afc.monitor
+# gvfs-afc
+_pick "$1" gvfs-afc usr/lib/gvfs{-afc-volume-monitor,d-afc}
+_pick "$1" gvfs-afc usr/lib/systemd/user/gvfs-afc-volume-monitor.service
+_pick "$1" gvfs-afc usr/share/dbus-1/services/org.gtk.vfs.AfcVolumeMonitor.service
+_pick "$1" gvfs-afc usr/share/gvfs/mounts/afc.mount
+_pick "$1" gvfs-afc usr/share/gvfs/remote-volume-monitors/afc.monitor
 
 # gvfs-mtp
 _pick "$1" gvfs-mtp usr/lib/gvfs{-mtp-volume-monitor,d-mtp}
