@@ -2,6 +2,9 @@
 
 sed 's|.install-cython ||' -i Makefile
 
+# Fix Cython 3.3.0 compiler crash when compiling the WebSocket reader
+git cherry-pick -n baa2709c4ca2365139d335b8542eb87e0ab6e150
+
 export AIOHTTP_USE_SYSTEM_DEPS=1
 make cythonize
 python -m build --wheel --no-isolation
