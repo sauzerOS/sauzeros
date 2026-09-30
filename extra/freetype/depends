@@ -18,5 +18,6 @@ lib32-harfbuzz make optional
 aarch64-gcc cross make
 aarch64-brotli cross
 aarch64-bzip2 cross
+aarch64-harfbuzz cross optional
 aarch64-libpng cross
 aarch64-zlib-ng cross
