@@ -5,3 +5,11 @@ limine
 mtools
 squashfs-tools
 util-linux
+rsync
+qemu-system-x86 suggest "run sauzeros-live-vm"
+qemu-ui-gtk suggest "sauzeros-live-vm window"
+qemu-hw-display-virtio-vga suggest "sauzeros-live-vm display"
+qemu-hw-display-virtio-gpu suggest "sauzeros-live-vm display"
+qemu-hw-display-virtio-vga-gl suggest "3D acceleration in sauzeros-live-vm"
+qemu-hw-display-virtio-gpu-gl suggest "3D acceleration in sauzeros-live-vm"
+qemu-audio-pipewire suggest "sound in sauzeros-live-vm"

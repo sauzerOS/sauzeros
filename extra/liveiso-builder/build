@@ -6,3 +6,4 @@ install -Dm 0644 shell_full.efi.xz $1/usr/share/liveiso-builder/shell_full.efi.x
 install -Dm 0644 limine.conf $1/usr/share/liveiso-builder/limine.conf
 install -Dm 0644 sauzeros_splash.png $1/usr/share/liveiso-builder/sauzeros_splash.png
 install -Dm 0755 sauzeros-live $1/usr/bin/sauzeros-live
+install -Dm 0755 sauzeros-live-vm $1/usr/bin/sauzeros-live-vm

@@ -1,0 +1,298 @@
+#!/bin/bash -e
+
+# Boot a live rootfs in a QEMU window so it can be configured interactively
+# (wallpaper, shortcuts, autostart entries, passwords, auto-login, ...) before
+# sauzeros-live turns it into an image.
+#
+# The rootfs is not shared into the guest over virtiofs or 9p: every file a
+# desktop session opens at login would be a round trip to a host daemon. It is
+# copied into a sparse ext4 image instead (mke2fs -d, no mounting needed) and
+# booted as a virtio disk at native speed. When the VM is shut down, the
+# changes are shown and, if accepted, rsynced back into the rootfs. The image
+# can be kept for further sessions.
+
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+msg()  { echo -e "${BLUE}-> $*${NC}"; }
+warn() { echo -e "${YELLOW}-> $*${NC}" >&2; }
+die()  { echo -e "${RED}Error: $*${NC}" >&2; exit 1; }
+
+usage() {
+    cat <<EOF
+Usage: sauzeros-live-vm [options]
+
+Boot a live rootfs in QEMU to configure it before running sauzeros-live.
+
+  -r, --rootfs DIR     rootfs to boot          (default: /var/tmp/sauzerOS-live)
+  -i, --image FILE     working disk image      (default: <rootfs>-vm.img)
+  -m, --memory SIZE    guest memory            (default: 4G)
+  -c, --cpus N         guest CPUs              (default: half the host's, at most 8)
+  -s, --free SIZE      free space in the image (default: 8G)
+  -k, --kernel FILE    kernel to boot          (default: <rootfs>/boot/vmlinuz-sauzerOS-live)
+  -a, --append ARGS    extra kernel command line arguments
+      --reuse          reuse an existing image without asking
+      --fresh          recreate the image from the rootfs without asking
+      --no-gl          plain virtio-vga instead of the 3D accelerated virtio-vga-gl
+      --display UI     QEMU display: gtk (default) or sdl
+  -h, --help           this message
+
+Run it as your normal user: QEMU needs your graphical session, and the steps
+that need root (building the image, applying the changes) go through sudo.
+EOF
+}
+
+rootfs_dir=""
+image=""
+memory=4G
+cpus=""
+free_space=8G
+kernel=""
+extra_append=""
+reuse=""
+gl=1
+display=gtk
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -r|--rootfs)  rootfs_dir=$2; shift 2 ;;
+        -i|--image)   image=$2; shift 2 ;;
+        -m|--memory)  memory=$2; shift 2 ;;
+        -c|--cpus)    cpus=$2; shift 2 ;;
+        -s|--free)    free_space=$2; shift 2 ;;
+        -k|--kernel)  kernel=$2; shift 2 ;;
+        -a|--append)  extra_append=$2; shift 2 ;;
+        --reuse)      reuse=yes; shift ;;
+        --fresh)      reuse=no; shift ;;
+        --no-gl)      gl=0; shift ;;
+        --display)    display=$2; shift 2 ;;
+        -h|--help)    usage; exit 0 ;;
+        *)            die "Unknown option: $1" ;;
+    esac
+done
+
+[[ "$(id -u)" -ne 0 ]] || die "Run sauzeros-live-vm as your normal user; it uses sudo for the steps that need root."
+
+need() {
+    local tool
+    for tool in "$@"; do
+        command -v "$tool" >/dev/null 2>&1 || die "'$tool' is required but not installed."
+    done
+}
+need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt
+
+if [[ -z "$rootfs_dir" ]]; then
+    read -e -p "$(echo -e "${BLUE}Enter the rootfs directory (default: /var/tmp/sauzerOS-live): ${NC}")" rootfs_dir
+fi
+rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-/var/tmp/sauzerOS-live}")")
+[[ -d "$rootfs_dir" ]] || die "Rootfs directory '$rootfs_dir' not found."
+[[ "$rootfs_dir" != / ]] || die "Refusing to use / as the rootfs."
+image=$(realpath -m -- "${image:-${rootfs_dir}-vm.img}")
+stamp="$image.synced"
+
+# mke2fs -d does not stop at filesystem boundaries, so a /proc or bind mount
+# left behind by a chroot session would be copied into the image.
+if findmnt -rno TARGET | grep -q "^$rootfs_dir/"; then
+    die "Something is mounted below $rootfs_dir (a leftover chroot session?); unmount it first:
+$(findmnt -rno TARGET | grep "^$rootfs_dir/")"
+fi
+
+# --- Architecture -----------------------------------------------------------
+# The same ELF e_machine probe sauzeros-live uses. Only x86_64 can be booted
+# here: an arm64 rootfs carries a Raspberry Pi kernel, which does not boot on
+# any machine QEMU can run with KVM on this host.
+machine=""
+for probe in /usr/bin/bash /bin/bash /usr/bin/sh /bin/sh; do
+    [[ -f "$rootfs_dir$probe" ]] || continue
+    machine=$(od -An -tx1 -j18 -N2 "$rootfs_dir$probe" 2>/dev/null | tr -d ' \n')
+    break
+done
+case "$machine" in
+    3e00) ;;
+    b700) die "'$rootfs_dir' is an arm64 rootfs; only x86_64 rootfs can be booted in the VM." ;;
+    *)    die "Cannot tell what architecture '$rootfs_dir' is for (no /usr/bin/bash?)." ;;
+esac
+
+# --- Kernel -----------------------------------------------------------------
+# The live kernel has virtio-blk, virtio-pci and ext4 built in, so it boots
+# straight from the image without an initramfs; virtio-gpu, virtio-net and the
+# sound driver are modules the booted system loads from the rootfs itself.
+if [[ -z "$kernel" ]]; then
+    kernel="$rootfs_dir/boot/vmlinuz-sauzerOS-live"
+    if [[ ! -f "$kernel" ]]; then
+        kernel=$(ls -t "$rootfs_dir"/boot/vmlinuz* 2>/dev/null | head -n 1 || true)
+    fi
+fi
+[[ -n "$kernel" && -f "$kernel" ]] ||
+    die "No kernel in $rootfs_dir/boot; install linux-live into the rootfs or pass --kernel."
+[[ -r "$kernel" ]] || die "Kernel $kernel is not readable by $(id -un)."
+
+msg "Rootfs: $rootfs_dir"
+msg "Image:  $image"
+msg "Kernel: $kernel"
+
+sudo -v || die "sudo authentication failed."
+
+# --- Working image ------------------------------------------------------------
+# Paths never copied back: state every boot creates for itself. Copying it
+# would give every machine booted from the ISO the same machine-id, SSH host
+# keys and random seed. rsync --delete leaves excluded paths in the rootfs
+# alone, so whatever the rootfs had there stays as it was.
+exclude_file=$(mktemp)
+mnt=""
+cleanup() {
+    rm -f "$exclude_file"
+    if [[ -n "$mnt" ]]; then
+        sudo umount "$mnt" 2>/dev/null || true
+        rmdir "$mnt" 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT
+cat > "$exclude_file" <<'EOF'
+/lost+found
+/etc/machine-id
+/var/lib/dbus/machine-id
+/etc/ssh/ssh_host_*
+/var/lib/systemd/random-seed
+/var/lib/systemd/credential.secret
+/var/lib/systemd/coredump/
+/var/lib/systemd/timers/
+/var/lib/NetworkManager/secret_key
+/var/lib/NetworkManager/timestamps
+/var/log/journal/
+/tmp/*
+/var/tmp/*
+EOF
+
+create_image() {
+    local used_kib extra_bytes total_bytes
+    msg "Measuring the rootfs..."
+    used_kib=$(sudo du -sxk "$rootfs_dir" | cut -f1)
+    extra_bytes=$(numfmt --from=iec "$free_space") || die "Invalid --free size '$free_space'."
+    # ext4 metadata and the inode tables cost roughly a tenth on top of the data.
+    total_bytes=$(( used_kib * 1024 * 11 / 10 + extra_bytes ))
+
+    msg "Creating a $(numfmt --to=iec "$total_bytes") image from the rootfs (this may take a while)..."
+    rm -f "$image" "$stamp"
+    mkdir -p "$(dirname "$image")"
+    truncate -s "$total_bytes" "$image"
+    # -d copies the tree with its owners, modes, xattrs (file capabilities,
+    # ACLs) and hard links, without mounting anything.
+    sudo mke2fs -q -t ext4 -L sauzeros-vm -m 0 -E root_owner=0:0 -d "$rootfs_dir" "$image" ||
+        die "mke2fs failed to build the image."
+    touch "$stamp"
+}
+
+if [[ -f "$image" ]]; then
+    stale=""
+    if [[ ! -f "$stamp" ]] ||
+       [[ -n "$(sudo find "$rootfs_dir" -xdev -newer "$stamp" -print -quit 2>/dev/null)" ]]; then
+        stale=1
+    fi
+    if [[ -z "$reuse" ]]; then
+        if [[ -n "$stale" ]]; then
+            warn "The rootfs changed after this image was made; applying the image later would undo those changes."
+            read -r -p "$(echo -e "${BLUE}Reuse the existing image anyway? [y/N] ${NC}")" answer
+            [[ "$answer" =~ ^[Yy] ]] && reuse=yes || reuse=no
+        else
+            read -r -p "$(echo -e "${BLUE}Reuse the existing image (keeps its unapplied changes)? [Y/n] ${NC}")" answer
+            [[ "$answer" =~ ^[Nn] ]] && reuse=no || reuse=yes
+        fi
+    fi
+    [[ "$reuse" == yes ]] || create_image
+else
+    create_image
+fi
+
+# --- QEMU ---------------------------------------------------------------------
+if [[ -z "$cpus" ]]; then
+    cpus=$(( $(nproc) / 2 ))
+    (( cpus < 1 )) && cpus=1
+    (( cpus > 8 )) && cpus=8
+fi
+
+accel=(-machine q35,accel=kvm -cpu host)
+if [[ ! -r /dev/kvm || ! -w /dev/kvm ]]; then
+    warn "No access to /dev/kvm; falling back to software emulation, which is very slow."
+    accel=(-machine q35 -cpu max)
+fi
+
+qemu_has() { qemu-system-x86_64 "$1" help 2>/dev/null | grep -qw -- "$2"; }
+
+qemu_display=()
+if (( gl )) && qemu_has -device virtio-vga-gl && qemu_has -display "$display"; then
+    qemu_display=(-device virtio-vga-gl -display "$display,gl=on")
+else
+    (( gl )) && warn "virtio-vga-gl or the $display display is unavailable; using virtio-vga without 3D acceleration."
+    qemu_has -device virtio-vga ||
+        die "QEMU has no virtio-vga device; install qemu-hw-display-virtio-vga (and -gl for 3D)."
+    qemu_has -display "$display" || die "QEMU has no $display display; install qemu-ui-$display."
+    qemu_display=(-device virtio-vga -display "$display")
+fi
+[[ "$display" == gtk ]] && qemu_display[-1]+=",zoom-to-fit=on"
+
+qemu_audio=()
+if qemu_has -audiodev pipewire; then
+    qemu_audio=(-audiodev pipewire,id=snd0 -device ich9-intel-hda -device hda-output,audiodev=snd0)
+fi
+
+msg "Booting the rootfs (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
+qemu-system-x86_64 \
+    -name "sauzerOS rootfs: $(basename "$rootfs_dir")" \
+    "${accel[@]}" \
+    -smp "$cpus" -m "$memory" \
+    -kernel "$kernel" \
+    -append "root=/dev/vda rw rootfstype=ext4 quiet $extra_append" \
+    -drive "file=$image,format=raw,if=virtio,cache=unsafe,discard=unmap" \
+    "${qemu_display[@]}" \
+    -device virtio-tablet-pci -device virtio-keyboard-pci \
+    -nic user,model=virtio-net-pci \
+    -device virtio-rng-pci \
+    "${qemu_audio[@]}" ||
+    warn "QEMU exited with an error; the image is kept as it is."
+
+# --- Changes ------------------------------------------------------------------
+mnt=$(mktemp -d)
+sudo mount -o loop,ro "$image" "$mnt" || die "Cannot mount $image to compare it with the rootfs."
+
+rsync_opts=(-aHAXS --numeric-ids --delete --exclude-from="$exclude_file")
+msg "Comparing the image with the rootfs..."
+changes=$(sudo rsync "${rsync_opts[@]}" --dry-run --itemize-changes "$mnt/" "$rootfs_dir/" | grep -v '^\.d\.\.t\.\.\.\.\.\. ' || true)
+
+if [[ -z "$changes" ]]; then
+    msg "No changes to apply."
+else
+    changed=$(grep -vc '^\*deleting' <<<"$changes" || true)
+    deleted=$(grep -c '^\*deleting' <<<"$changes" || true)
+    msg "Changes made in the VM: ${changed} new or modified, ${deleted} deleted"
+    head -n 40 <<<"$changes"
+    (( $(wc -l <<<"$changes") > 40 )) && echo "   ... and $(( $(wc -l <<<"$changes") - 40 )) more"
+fi
+
+echo
+echo "  a) apply the changes to the rootfs and keep the image for the next session"
+echo "  k) keep the image without applying (continue later)"
+echo "  d) discard the image and its changes"
+while true; do
+    read -r -p "$(echo -e "${BLUE}Choose [a/k/d] (default: k): ${NC}")" answer
+    case "${answer:-k}" in
+        a|A)
+            if [[ -n "$changes" ]]; then
+                msg "Applying the changes to $rootfs_dir..."
+                sudo rsync "${rsync_opts[@]}" "$mnt/" "$rootfs_dir/"
+            fi
+            touch "$stamp"
+            msg "Done. Build the live image with: sudo sauzeros-live -r $rootfs_dir"
+            break ;;
+        k|K)
+            msg "Image kept at $image; run sauzeros-live-vm again to continue or apply it."
+            break ;;
+        d|D)
+            sudo umount "$mnt"; rmdir "$mnt"; mnt=""
+            rm -f "$image" "$stamp"
+            msg "Image discarded; the rootfs is unchanged."
+            break ;;
+    esac
+done
