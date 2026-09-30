@@ -14,3 +14,6 @@ aarch64-glibc cross make
 aarch64-lua cross make
 aarch64-pipewire cross make
 aarch64-systemd cross make
+meson cross make
+glib cross make
+pipewire cross make
