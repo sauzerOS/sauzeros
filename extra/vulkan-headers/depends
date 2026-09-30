@@ -1,2 +1,4 @@
 cmake make
 python make
+cmake cross make
+python cross make
