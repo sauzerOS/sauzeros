@@ -1,6 +1,12 @@
 #!/bin/bash -e
 
-hokuto-meson build
+# FreeType and GLib are what pango and other consumers link against
+# (hb_ft_*, hb_glib_*). As "auto" features, meson silently drops them when the
+# target sysroot lacks them, which produces a libharfbuzz that breaks pango at
+# run time instead of a failed build.
+hokuto-meson build \
+    -D freetype=enabled \
+    -D glib=enabled
 
 meson compile -C build
 meson install -C build --destdir=$1
@@ -8,11 +14,7 @@ meson install -C build --destdir=$1
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-meson setup build           \
-      --cross-file=lib32    \
-      --prefix=/usr         \
-      --libdir=/usr/lib32   \
-      --buildtype=release   \
+hokuto-meson-32 build       \
       -D graphite2=disabled \
       -D tests=disabled
 
