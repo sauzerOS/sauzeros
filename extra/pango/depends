@@ -31,5 +31,6 @@ aarch64-libx11 cross
 aarch64-libxft cross
 aarch64-libxrender cross
 aarch64-pkgconf cross make
+glib cross make
 help2man cross make
 meson cross make
