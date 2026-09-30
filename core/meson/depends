@@ -5,5 +5,6 @@ python-installer make
 python-setuptools make
 python-wheel make
 aarch64-linux-api-headers cross
-python cross make
+python cross
 python-setuptools cross make
+ninja cross
