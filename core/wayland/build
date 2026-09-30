@@ -3,30 +3,24 @@
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 MESON_OPTS=(
-    --prefix="$PREFIX"
     -D default_library=both
     -D tests=false
     -D documentation=false
     -D dtd_validation=false
 )
 
+# hokuto-meson adds the prefix, the cross file and hokuto's native pkg-config
+# file for cross builds. The scanner runs during the build, so a cross build
+# must use the host's copy rather than building or finding a target one.
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-
-    # wayland-protocols is resolved as a native (build-machine) dependency;
-    # use hokuto's native pkg-config wrapper so the target sysroot hokuto
-    # exports globally isn't applied to its already-absolute prefix.
     cat <<EOF > host-tools.ini
 [binaries]
 wayland-scanner = '/usr/bin/wayland-scanner'
 EOF
-    if [ -n "$HOKUTO_NATIVE_FILE" ]; then
-        MESON_OPTS+=(--native-file "$HOKUTO_NATIVE_FILE")
-    fi
     MESON_OPTS+=(--native-file host-tools.ini)
 fi
 
-meson setup build "${MESON_OPTS[@]}"
+hokuto-meson build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 
@@ -40,13 +34,10 @@ fi
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-CC="gcc -m32" CXX="g++ -m32"         \
-PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup build                    \
-      --prefix=/usr                  \
-      --libdir=/usr/lib32            \
-      --buildtype=release            \
-      -D documentation=false
+hokuto-meson-32 build \
+  -D tests=false \
+  -D documentation=false \
+  -D dtd_validation=false
 
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
