@@ -1,10 +1,6 @@
 #!/bin/bash -e
 
 _backports=(
-  # f2fs-tools: fix build error on lz4-1.9.4
-  '19f77c6f6277a274434d6d8883f50e7955c6a8db'
-  # f2fs-tools: use stdbool.h instead of bool
-  '6617d15a660becc23825007ab3fc2d270b5b250f'
 )
 
 for _c in "${_backports[@]}"; do
