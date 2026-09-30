@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 cmake -B build                         \
-    -D CMAKE_INSTALL_PREFIX=/usr       \
-    -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+    -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}"       \
+    -D VULKAN_HEADERS_INSTALL_DIR="${CROSS_PREFIX:-/usr}" \
     -D CMAKE_INSTALL_LIBDIR=lib        \
     -D CMAKE_INSTALL_SYSCONFDIR=/etc   \
     -D CMAKE_INSTALL_DATADIR=/share    \
@@ -17,7 +17,9 @@ cmake -B build                         \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
-if [ "$MULTILIB" = "1" ]; then
+# A cross build uses hokuto's generated cmake toolchain file; the 32-bit split
+# is a host-only build.
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 ASFLAGS+=" --32" CFLAGS+=" -m32"       \

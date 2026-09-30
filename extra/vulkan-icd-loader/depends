@@ -10,3 +10,11 @@ lib32-nvidia-utils make
 lib32-libx11 make
 lib32-libxrandr make
 lib32-wayland make
+aarch64-gcc cross make
+aarch64-libx11 cross make
+aarch64-libxrandr cross make
+aarch64-vulkan-headers cross make
+aarch64-wayland cross make
+cmake cross make
+python cross make
+libxrandr cross make
