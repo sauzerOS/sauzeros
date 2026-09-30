@@ -6,6 +6,7 @@ kirigami
 kirigami-addons
 libbs2b
 libebur128
+libmysofa
 libsamplerate
 libsndfile
 lilv
