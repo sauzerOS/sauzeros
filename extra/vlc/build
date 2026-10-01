@@ -83,6 +83,10 @@ configure_options=(
 export RCC=/usr/lib/qt6/rcc
 export QMAKE=/usr/bin/qmake6
 export QTPATHS6="/usr/lib/qt6/bin/qtpaths6"
+# configure builds against lua5.2 (lua52 make), but only looks for a plain
+# "luac", which belongs to the lua package. Use 5.2's own byte compiler: the
+# bytecode must match the Lua the plugin is linked against.
+export LUAC=/usr/bin/luac5.2
 
 ./configure "${configure_options[@]}"
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
