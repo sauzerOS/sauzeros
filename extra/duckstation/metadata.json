@@ -1,9 +1,9 @@
 {
-  "url": "https://aur.archlinux.org/pkgbase/duckstation",
+  "url": "https://github.com/stenzek/duckstation",
   "category": "extra",
   "description": "Duckstation Playstation Emulator",
   "info": "",
-  "license": "",
+  "license": "Attribution-NonCommercial-NoDerivatives 4.0 International",
   "tags": [
     "emulator",
     "games"
