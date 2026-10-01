@@ -17,6 +17,10 @@ common_configure_options=(
 configure_options=(
   "${common_configure_options[@]}"
   --enable-modules
+  # Required, not auto-detected: a gtk+3 whose pkg-config chain is broken
+  # (gdk-pixbuf requiring a missing glycin) made 11.1.2 silently build without
+  # ui-gtk.so, so qemu-ui-gtk was never packaged.
+  --enable-gtk
   --enable-sdl
   --enable-slirp
   --enable-tpm
