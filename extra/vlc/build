@@ -97,7 +97,7 @@ make DESTDIR=$1 install
 _pick "$1" libvlc usr/include
 _pick "$1" libvlc usr/lib/libvlc*
 _pick "$1" libvlc usr/lib/pkgconfig/{libvlc,vlc-plugin}.pc
-_pick "$1" libvlc usr/lib/vlc/vlc-cache-gen
+_pick "$1" libvlc usr/libexec/vlc/vlc-cache-gen
 
 _pick "$1" vlc-cli usr/bin/{vlc,cvlc,rvlc,vlc-wrapper}
 _pick "$1" vlc-cli usr/share/man/man1/vlc{,-wrapper}.1*

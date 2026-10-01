@@ -1,3 +1,7 @@
 #!/bin/bash -e
 
+# hokuto also regenerates the cache after every install, update and removal,
+# once all VLC packages of the transaction are in place; this covers older
+# hokuto versions.
+[ -x /usr/libexec/vlc/vlc-cache-gen ] || exit 0
 /usr/libexec/vlc/vlc-cache-gen /usr/lib/vlc/plugins
