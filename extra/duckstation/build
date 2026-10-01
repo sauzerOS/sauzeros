@@ -52,8 +52,17 @@ find "deps/lib64/" -name '*.so*' -exec cp -dv --no-preserve='ownership' '{}' "${
 # patch rpath
 patchelf --force-rpath --set-rpath "/usr/lib/duckstation" "${1}/usr/lib/duckstation/duckstation-qt"
 
+# A wrapper rather than a symlink: since Qt 6.12, applicationDirPath() is the
+# directory of the path the program was started through (AT_EXECFN), symlink
+# included, and DuckStation looks for its translations next to the
+# executable. Started through a /usr/bin symlink it searched
+# /usr/bin/translations and warned on every start.
 install -d $1/usr/bin
-ln -s /usr/lib/duckstation/duckstation-qt $1/usr/bin/duckstation-qt
+cat > $1/usr/bin/duckstation-qt <<'EOF'
+#!/bin/sh
+exec /usr/lib/duckstation/duckstation-qt "$@"
+EOF
+chmod 755 $1/usr/bin/duckstation-qt
 install -Dvm644 "duckstation-qt.desktop" "${1}/usr/share/applications/duckstation-qt.desktop"
 install -Dvm644 "${1}/usr/lib/duckstation/resources/images/duck.png" "${1}/usr/share/icons/hicolor/64x64/apps/duckstation-qt.png"
 
