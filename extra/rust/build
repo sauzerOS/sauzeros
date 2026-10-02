@@ -5,8 +5,8 @@ set -e
 cd "rustc-$2-src"
 
 # upstream dropped AMX-TF32
-patch -Np1 -i ../159310.patch
-git apply ../amx-tf32-removal.patch
+#patch -Np1 -i ../159310.patch
+#git apply ../amx-tf32-removal.patch
 
 # Select the correct TOML
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then

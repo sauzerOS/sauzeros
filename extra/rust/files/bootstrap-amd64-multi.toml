@@ -48,7 +48,7 @@ lto = "thin"
 # so useful for BLFS.  Even if it turns out to be really useful we'd build
 # it as a part of the LLVM package instead.
 lld = false
-use-lld = "external"
+bootstrap-override-lld = "external"
 
 # Don't build llvm-bitcode-linker which is only useful for the NVPTX
 # backend that we don't enable.
