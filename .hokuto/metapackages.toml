@@ -22,10 +22,12 @@ depends = [
 "util-linux-libs",
 ]
 suggests = [
-"linux suggest mainline kernel",
-"limine suggest Limine bootloader",
+# Offered in this order: systemd before linux, whose post-install needs udev
+# to build the initramfs.
 "systemd suggest SystemD init",
 "dbus-broker suggest Dbus replacement",
+"linux suggest mainline kernel",
+"limine suggest Limine bootloader",
 "tzdata suggest timezone data",
 ]
 [base-devel]
