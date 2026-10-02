@@ -35,9 +35,17 @@ printf '\nDetected Kernel Release: %s\n' "$krel"
 echo "Running depmod -a $krel"
 depmod -a "$krel"
 
+# dracut needs udev, which comes with systemd. On a fresh install (hokutostrap)
+# the kernel can be installed before systemd; failing here would also skip the
+# bootloader entries below, so leave the initramfs for later instead.
 if command -v dracut >/dev/null 2>&1; then
-    echo "Generating initramfs for $krel"
-    dracut --force "/boot/initramfs-$krel.img" "$krel"
+    if command -v udevadm >/dev/null 2>&1 || [ -x /usr/lib/systemd/systemd-udevd ]; then
+        echo "Generating initramfs for $krel"
+        dracut --force "/boot/initramfs-$krel.img" "$krel"
+    else
+        echo "Skipping initramfs for $krel: dracut needs udev (systemd), which is not installed yet."
+        echo "Once it is, run: dracut --force /boot/initramfs-$krel.img $krel"
+    fi
 fi
 
 rootflags="rw"
