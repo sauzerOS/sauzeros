@@ -1,4 +1,5 @@
 glibc
 libstdc++
 cmake make
+python make
 spirv-headers make
