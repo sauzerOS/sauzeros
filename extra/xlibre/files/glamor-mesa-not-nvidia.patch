@@ -1,0 +1,16 @@
+--- a/glamor/glamor_egl.c
++++ b/glamor/glamor_egl.c
+@@ -2594,7 +2594,12 @@
+     renderer = (const char*)glGetString(GL_RENDERER);
+     vendor = (const char*)glGetString(GL_VENDOR);
+ 
+-    if (renderer && strstr(renderer, "NVIDIA")) {
++    /* Mesa drivers that run on an NVIDIA GPU name it in their renderer
++     * string -- virgl and zink in a VM on an NVIDIA host, zink on NVK -- but
++     * their EGL and GBM are Mesa's, without NVIDIA's restrictions. */
++    if (vendor && strstr(vendor, "Mesa")) {
++        is_nvidia = FALSE;
++    } else if (renderer && strstr(renderer, "NVIDIA")) {
+         is_nvidia = TRUE;
+     } else if (vendor && strstr(vendor, "NVIDIA")) {
+         is_nvidia = TRUE;

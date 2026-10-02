@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# glamor took Mesa drivers on an NVIDIA GPU (virgl, zink) for the NVIDIA driver.
+patch -Np1 -i glamor-mesa-not-nvidia.patch
+
 MESON_OPTS=(
   -D systemd_logind=true
   -D seatd_libseat=false
