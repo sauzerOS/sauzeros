@@ -20,3 +20,4 @@ aarch64-sqlite cross
 aarch64-xz cross
 aarch64-zlib-ng cross
 aarch64-zstd cross
+tzdata cross
