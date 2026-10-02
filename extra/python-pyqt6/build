@@ -1,5 +1,10 @@
 #!/bin/bash -e
 
+# Qt 6.12 removed QEvent::EnterEditFocus and LeaveEditFocus, which PyQt6 6.11
+# still binds (it builds with QT_KEYPAD_NAVIGATION). Drop them until a PyQt6
+# release for Qt 6.12 does.
+sed -i '/^ *EnterEditFocus,$/d; /^ *LeaveEditFocus,$/d' sip/QtCore/qcoreevent.sip
+
 sip-build \
    --confirm-license \
    --qmake-setting 'CONFIG += c++17' \
