@@ -9,3 +9,8 @@ gtk+3 make
 jansson make
 libcap make
 ncurses make
+aarch64-gcc cross make
+aarch64-gtk+3 cross make
+aarch64-jansson cross make
+aarch64-libcap cross make
+aarch64-ncurses cross make

@@ -1,9 +1,34 @@
 #!/bin/bash -e
 
 autoreconf -fiv
-./configure \
-  --prefix=/usr \
-  --sbindir=/usr/bin
 
+common_options=(
+  --prefix=/usr
+  --sbindir=/usr/bin
+)
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    common_options+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+
+# mtr: the command line tool, without GTK, so it only needs ncurses, jansson
+# and libcap.
+mkdir build-cli
+cd build-cli
+../configure "${common_options[@]}" --without-gtk
 make
 make DESTDIR=$1 install
+cd ..
+
+# mtr-gtk: the same program with its GTK interface, built a second time. It
+# uses the mtr-packet helper of the mtr package (found through PATH), so only
+# the mtr binary itself is installed, as mtr-gtk.
+mkdir build-gtk
+cd build-gtk
+../configure "${common_options[@]}" --with-gtk
+# configure quietly drops GTK when it is not found; that would ship a second
+# command line mtr as mtr-gtk.
+grep -q '^#define HAVE_GTK 1' config.h || { echo "mtr-gtk: GTK was not found by configure" >&2; exit 1; }
+make mtr
+install -Dm755 mtr "$1/usr/bin/mtr-gtk"
+cd ..
+_pick "$1" mtr-gtk usr/bin/mtr-gtk
