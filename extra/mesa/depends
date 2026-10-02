@@ -74,7 +74,14 @@ aarch64-libx11 cross
 aarch64-libxcb cross
 aarch64-libxext cross
 aarch64-libxrandr cross make
+aarch64-libxrender cross make
 aarch64-libxshmfence cross
 aarch64-libxxf86vm cross
 aarch64-zlib-ng cross
 aarch64-zstd cross
+meson cross make
+python-mako cross make
+python-packaging cross make
+python-ply cross make
+python-pycparser cross make
+python-pyyaml cross make
