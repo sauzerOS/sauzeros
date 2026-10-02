@@ -35,7 +35,11 @@ Boot a live rootfs in QEMU to configure it before running sauzeros-live.
   -a, --append ARGS    extra kernel command line arguments
       --reuse          reuse an existing image without asking
       --fresh          recreate the image from the rootfs without asking
-      --no-gl          plain virtio-vga instead of the 3D accelerated virtio-vga-gl
+      --gl, --no-gl    3D accelerated virtio-vga-gl (OpenGL through virgl, the
+                       default), or plain virtio-vga
+      --venus          3D plus Vulkan in the guest (Venus over virtio-gpu); with
+                       the NVIDIA driver, Vulkan programs under X need
+                       MESA_VK_WSI_DEBUG=sw to show correctly
       --display UI     QEMU display: gtk (default) or sdl
   -h, --help           this message
 
@@ -52,8 +56,9 @@ free_space=8G
 kernel=""
 extra_append=""
 reuse=""
-gl=1
-display=gtk
+gl=""
+venus=0
+display=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -66,7 +71,9 @@ while [[ $# -gt 0 ]]; do
         -a|--append)  extra_append=$2; shift 2 ;;
         --reuse)      reuse=yes; shift ;;
         --fresh)      reuse=no; shift ;;
+        --gl)         gl=1; shift ;;
         --no-gl)      gl=0; shift ;;
+        --venus)      venus=1; gl=1; shift ;;
         --display)    display=$2; shift 2 ;;
         -h|--help)    usage; exit 0 ;;
         *)            die "Unknown option: $1" ;;
@@ -83,12 +90,20 @@ need() {
 }
 need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt
 
-if [[ -z "$rootfs_dir" ]]; then
-    read -e -p "$(echo -e "${BLUE}Enter the rootfs directory (default: /var/tmp/sauzerOS-live): ${NC}")" rootfs_dir
+# The rootfs used last time is the default the next time.
+last_rootfs_file="${XDG_STATE_HOME:-$HOME/.local/state}/sauzeros-live-vm/rootfs"
+default_rootfs=/var/tmp/sauzerOS-live
+if [[ -r "$last_rootfs_file" ]]; then
+    last_rootfs=$(<"$last_rootfs_file")
+    [[ -d "$last_rootfs" ]] && default_rootfs=$last_rootfs
 fi
-rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-/var/tmp/sauzerOS-live}")")
+if [[ -z "$rootfs_dir" ]]; then
+    read -e -p "$(echo -e "${BLUE}Enter the rootfs directory (default: $default_rootfs): ${NC}")" rootfs_dir
+fi
+rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-$default_rootfs}")")
 [[ -d "$rootfs_dir" ]] || die "Rootfs directory '$rootfs_dir' not found."
 [[ "$rootfs_dir" != / ]] || die "Refusing to use / as the rootfs."
+mkdir -p "${last_rootfs_file%/*}" 2>/dev/null && printf '%s\n' "$rootfs_dir" > "$last_rootfs_file" 2>/dev/null || true
 image=$(realpath -m -- "${image:-${rootfs_dir}-vm.img}")
 stamp="$image.synced"
 
@@ -221,8 +236,38 @@ fi
 
 qemu_has() { qemu-system-x86_64 "$1" help 2>/dev/null | grep -qw -- "$2"; }
 
+# 3D in the guest goes through virglrenderer on the host GPU. With the
+# NVIDIA driver QEMU's GTK window stays black, so SDL is used instead.
+# (X in the guest needs xlibre 25.2.2 6 or newer there: older glamor takes
+# virgl on an NVIDIA GPU for the NVIDIA driver and shows only black.)
+nvidia=0
+[[ -d /sys/module/nvidia ]] && nvidia=1
+[[ -n "$gl" ]] || gl=1
+if [[ -z "$display" ]]; then
+    display=gtk
+    (( gl && nvidia )) && qemu_has -display sdl && display=sdl
+fi
+
 qemu_display=()
-if (( gl )) && qemu_has -device virtio-vga-gl && qemu_has -display "$display"; then
+qemu_memory=()
+if (( venus )); then
+    # Venus passes Vulkan through to the host driver. It needs blob
+    # resources and host-visible memory, and the guest RAM shared with the
+    # renderer, hence the memfd backend.
+    qemu-system-x86_64 -device virtio-vga-gl,help 2>/dev/null | grep -qw venus ||
+        die "This QEMU's virtio-vga-gl has no Venus support (QEMU 9.2 or newer, virglrenderer built with -D venus=true)."
+    qemu_has -display "$display" || die "QEMU has no $display display; install qemu-ui-$display."
+    qemu_display=(-device virtio-vga-gl,blob=true,hostmem=4G,venus=true -display "$display,gl=on")
+    qemu_memory=(-object "memory-backend-memfd,id=mem,size=$memory,share=on")
+    accel[1]+=",memory-backend=mem"
+    msg "Venus enabled: Vulkan in the guest runs on the host GPU, OpenGL stays on virgl."
+    if (( nvidia )); then
+        # Venus on NVIDIA blits presented images into a buffer whose row
+        # pitch the X server reads differently; a CPU copy shows them right.
+        msg "With the NVIDIA driver, run Vulkan programs under X with MESA_VK_WSI_DEBUG=sw"
+        msg "(per program or session, not in the rootfs: it would end up in the ISO)."
+    fi
+elif (( gl )) && qemu_has -device virtio-vga-gl && qemu_has -display "$display"; then
     qemu_display=(-device virtio-vga-gl -display "$display,gl=on")
 else
     (( gl )) && warn "virtio-vga-gl or the $display display is unavailable; using virtio-vga without 3D acceleration."
@@ -239,21 +284,45 @@ if qemu_has -audiodev pipewire; then
 fi
 
 msg "Booting the rootfs (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
+# The guest's serial console is this terminal: a login that works whatever
+# the display does. Ctrl+Alt+F<n> never reaches the guest (the host's X
+# server takes it), but Ctrl+A C opens the QEMU monitor here, where
+# "sendkey ctrl-alt-f2" does; Ctrl+A C again returns to the console.
+msg "Guest console: this terminal (Ctrl+A C toggles the QEMU monitor, e.g. 'sendkey ctrl-alt-f2')."
+
+# The guest agent's port: udev in the guest starts qemu-guest-agent when it
+# appears (the unit has no [Install] section to enable it by).
+qga_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-qga.sock"
+rm -f "$qga_socket"
 qemu-system-x86_64 \
     -name "sauzerOS rootfs: $(basename "$rootfs_dir")" \
     "${accel[@]}" \
     -smp "$cpus" -m "$memory" \
+    "${qemu_memory[@]}" \
     -kernel "$kernel" \
-    -append "root=/dev/vda rw rootfstype=ext4 quiet $extra_append" \
+    -append "root=/dev/vda rw rootfstype=ext4 quiet console=tty0 console=ttyS0 $extra_append" \
+    -serial mon:stdio \
     -drive "file=$image,format=raw,if=virtio,cache=unsafe,discard=unmap" \
     "${qemu_display[@]}" \
-    -device virtio-tablet-pci -device virtio-keyboard-pci \
+    -device qemu-xhci -device usb-kbd -device usb-tablet \
     -nic user,model=virtio-net-pci \
     -device virtio-rng-pci \
+    -chardev "socket,id=qga0,path=$qga_socket,server=on,wait=off" \
+    -device virtio-serial-pci -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
     "${qemu_audio[@]}" ||
     warn "QEMU exited with an error; the image is kept as it is."
 
 # --- Changes ------------------------------------------------------------------
+# A guest that was not shut down cleanly (the window closed, QEMU killed)
+# leaves the ext4 journal to replay, which a read-only mount cannot do.
+# Replay it on the image itself; it is ours to modify.
+fsck_rc=0
+sudo e2fsck -p "$image" >/dev/null || fsck_rc=$?
+if (( fsck_rc >= 4 )); then
+    die "The image's filesystem has errors e2fsck -p cannot fix (exit $fsck_rc).
+       Repair it with: sudo e2fsck -f $image"
+fi
+
 mnt=$(mktemp -d)
 sudo mount -o loop,ro "$image" "$mnt" || die "Cannot mount $image to compare it with the rootfs."
 
