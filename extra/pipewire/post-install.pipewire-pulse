@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Here rather than in wireplumber's post-install: pipewire-pulse depends on
+# wireplumber, so it is installed after it and its socket did not exist yet.
+systemctl enable --global pipewire-pulse.socket
