@@ -1,4 +1,4 @@
 glibc
 meson make
 aarch64-gcc cross make
-aarch64-xorgproto cross make
+meson cross make

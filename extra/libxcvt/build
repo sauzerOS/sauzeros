@@ -1,32 +1,13 @@
 #!/bin/bash -e
 
-# A cross-system build installs into the target sysroot rather than the host's
-# /usr, and meson needs the cross file that names the aarch64 toolchain.
-PREFIX="${CROSS_PREFIX:-/usr}"
-
-MESON_OPTS=(
-    --prefix="$PREFIX"
-)
-
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
-fi
-
-meson setup build "${MESON_OPTS[@]}"
-
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
-CC="gcc -m32" CXX="g++ -m32"         \
-PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
-meson setup build                    \
-            --prefix=/usr            \
-            --libdir=/usr/lib32      \
-            --buildtype=release
-
+hokuto-meson-32 build
 meson compile -C build
 meson install -C build --destdir=$PWD/DESTDIR
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
