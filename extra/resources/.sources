@@ -1,1 +1,1 @@
-https://github.com/nokyan/resources/archive/refs/tags/v${version}.tar.gz
+https://gitlab.gnome.org/GNOME/Incubator/resources/-/archive/${version}/resources-${version}.tar.bz2
