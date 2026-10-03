@@ -2,18 +2,7 @@
 
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 
-PREFIX="${CROSS_PREFIX:-/usr}"
-
-MESON_OPTS=(
-    --prefix="$PREFIX"
-    --buildtype=release
-)
-
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "$HOKUTO_ARCH")
-fi
-
-meson setup build "${MESON_OPTS[@]}"
+hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
