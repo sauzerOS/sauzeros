@@ -5,25 +5,16 @@
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 MESON_OPTS=(
-    --prefix="$PREFIX"
     -D gtk=disabled
 )
 
-if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    MESON_OPTS+=(--cross-file "${HOKUTO_ARCH}")
-fi
-
-meson setup output "${MESON_OPTS[@]}"
-
+hokuto-meson output "${MESON_OPTS[@]}"
 meson compile -C output
 meson install -C output --destdir=$1
 
 if [ "$MULTILIB" = "1" ]; then
 #32bit split package
-meson setup build           \
-      --cross-file=lib32    \
-      --prefix=/usr         \
-      --buildtype=release   \
+hokuto-meson-32 build       \
       -D tests=disabled
 
 meson compile -C build
