@@ -1,0 +1,8 @@
+{
+  "url": "https://python-evdev.readthedocs.io/en/latest/",
+  "category": "extra",
+  "description": "Python bindings for the Linux input subsystem",
+  "info": "",
+  "license": "BSD-3-Clause",
+  "tags": []
+}
