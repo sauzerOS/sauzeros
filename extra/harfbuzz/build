@@ -4,7 +4,20 @@
 # (hb_ft_*, hb_glib_*). As "auto" features, meson silently drops them when the
 # target sysroot lacks them, which produces a libharfbuzz that breaks pango at
 # run time instead of a failed build.
+#
+# FreeType is built with HarfBuzz, so freetype2.pc requires harfbuzz: the very
+# library this builds, which a clean build environment does not have (it is
+# only an optional dependency of freetype). pkg-config then rejects freetype2
+# altogether. A stand-in harfbuzz.pc, never installed, breaks the cycle; it is
+# passed as pkg_config_path, which meson also honors in the 32-bit build,
+# where it ignores PKG_CONFIG_PATH from the environment.
+pcstub=$PWD/pc-stub
+install -d "$pcstub"
+printf 'Name: harfbuzz\nDescription: stand-in for the harfbuzz being built\nVersion: %s\nCflags: -I/usr/include/harfbuzz\n' "$2" \
+    > "$pcstub/harfbuzz.pc"
+
 hokuto-meson build \
+    -D pkg_config_path="$pcstub" \
     -D freetype=enabled \
     -D glib=enabled
 
@@ -14,7 +27,13 @@ meson install -C build --destdir=$1
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
+# The same stand-in: lib32-freetype requires the lib32-harfbuzz this builds.
+# Without it, hb_ft_* went missing here (steamui.so: undefined symbol
+# hb_ft_face_create in lib32-pango).
 hokuto-meson-32 build       \
+      -D pkg_config_path="$pcstub" \
+      -D freetype=enabled   \
+      -D glib=enabled       \
       -D graphite2=disabled \
       -D tests=disabled
 
