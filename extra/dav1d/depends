@@ -2,3 +2,5 @@ glibc
 meson make
 nasm make
 xxhash make
+meson cross make
+xxhash cross make
