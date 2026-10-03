@@ -20,11 +20,11 @@ fi
 if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     # HOKUTO_ARCH is already normalized to e.g. aarch64/x86_64
     HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
-    CROSS_OPTS="--host=$HOST_TRIPLET --build=$(gcc -dumpmachine)"
+    CROSS_OPTS="--host=$HOST_TRIPLET --build=$(gcc -dumpmachine) --with-build-python"
 
     # Disable PGO/LTO optimizations during cross-compile as they require running target code
     # We also disable IPv6 because getaddrinfo detection usually fails during cross-compilation
-    CROSS_OPTS="$CROSS_OPTS --disable-optimizations --disable-ipv6"
+    CROSS_OPTS="$CROSS_OPTS --disable-ipv6"
 
     # Ensure ncursesw headers are found (specifically term.h which is often not included by curses.h)
     export CFLAGS="$CFLAGS -I/usr/${HOST_TRIPLET}/usr/include/ncursesw"
@@ -45,8 +45,7 @@ rm -r Modules/expat
     --enable-shared \
     $CROSS_OPTS \
     $OPTS \
-    --with-system-expat \
-    --with-system-ffi
+    --with-system-expat
 
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install

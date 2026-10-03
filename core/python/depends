@@ -5,12 +5,15 @@ libffi
 libxcrypt
 ncurses
 openssl
+python makeopt
 sqlite
 tzdata
 xz
 zlib-ng
+aarch64-bzip2 cross
 aarch64-expat cross
 aarch64-gcc cross make
+aarch64-gdbm cross
 aarch64-libffi cross
 aarch64-libxcrypt cross
 aarch64-ncurses cross
@@ -20,4 +23,6 @@ aarch64-sqlite cross
 aarch64-xz cross
 aarch64-zlib-ng cross
 aarch64-zstd cross
+python cross make
 tzdata cross
+
