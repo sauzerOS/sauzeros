@@ -2,4 +2,7 @@ glibc
 libstdc++
 cmake make
 python make
-spirv-headers make
+spirv-headers>=1.4.363.0 make
+cmake cross make
+python cross make
+aarch64-spirv-headers>=1.4.363.0 cross make
