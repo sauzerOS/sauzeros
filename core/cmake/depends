@@ -11,11 +11,14 @@ zlib-ng
 zstd
 cmake makeopt
 cmake cross make
-aarch64-bzip2 cross make
-aarch64-curl cross make
-aarch64-expat cross make
+aarch64-bzip2 cross
+aarch64-curl cross
+aarch64-expat cross
 aarch64-gcc cross make
-aarch64-xz cross make
-aarch64-zlib-ng cross make
-aarch64-zstd cross make
+aarch64-jsoncpp cross
+aarch64-xz cross
+aarch64-zlib-ng cross
+aarch64-zstd cross
+cmake cross make
 jsoncpp cross
+ninja cross
