@@ -14,14 +14,29 @@ pcre2
 simdutf
 systemd
 systemd-libs
-at-spi2-core make
 fast_float make
 fmt make
 gobject-introspection make
 gperf make
-gperf cross make
 graphene make
-gtk+3 make
 meson make
-meson cross make
 vala make 
+aarch64-at-spi2-core cross
+aarch64-cairo cross
+aarch64-fast_float cross make
+aarch64-fmt cross make
+aarch64-fribidi cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-gnutls cross
+aarch64-graphene cross make
+aarch64-gtk+3 cross
+aarch64-icu cross
+aarch64-lz4 cross
+aarch64-pango cross
+aarch64-pcre2 cross
+aarch64-simdutf cross
+aarch64-systemd cross
+glib cross make
+gperf cross make
+meson cross make
