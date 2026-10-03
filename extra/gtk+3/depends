@@ -15,7 +15,7 @@ colord nocross
 libcups nocross
 libglvnd
 libepoxy
-librsvg nocross
+librsvg
 libx11
 libxcomposite
 libxcursor
@@ -34,10 +34,8 @@ zlib-ng
 gobject-introspection make nocross
 hicolor-icon-theme make
 meson make
-meson cross make
 sassc make nocross
 wayland-protocols make 
-aarch64-wayland-protocols cross make
 lib32-at-spi2-core make nocross
 lib32-cairo make nocross
 lib32-fontconfig make nocross
@@ -61,3 +59,37 @@ lib32-libxrandr make nocross
 lib32-pango make nocross
 lib32-wayland make nocross
 lib32-zlib-ng make nocross
+aarch64-at-spi2-core cross
+aarch64-cairo cross
+aarch64-cups cross
+aarch64-dconf cross
+aarch64-desktop-file-utils cross
+aarch64-fontconfig cross
+aarch64-fribidi cross
+aarch64-gcc cross make
+aarch64-gdk-pixbuf cross
+aarch64-glib cross
+aarch64-glycin cross
+aarch64-harfbuzz cross
+aarch64-libepoxy cross
+aarch64-libglvnd cross
+aarch64-librsvg cross
+aarch64-libx11 cross
+aarch64-libxcomposite cross
+aarch64-libxcursor cross
+aarch64-libxdamage cross
+aarch64-libxext cross
+aarch64-libxfixes cross
+aarch64-libxi cross
+aarch64-libxinerama cross
+aarch64-libxkbcommon cross
+aarch64-libxrandr cross
+aarch64-libxrender cross
+aarch64-pango cross
+aarch64-shared-mime-info cross
+aarch64-wayland cross
+aarch64-wayland-protocols cross make
+aarch64-zlib-ng cross
+glib cross make
+meson cross make
+wayland cross make
