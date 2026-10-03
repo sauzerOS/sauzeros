@@ -18,9 +18,16 @@ llvm make
 perl make
 python make
 aarch64-curl cross
+aarch64-libffi cross make
+aarch64-libssh2 cross
 aarch64-llvm cross make
 aarch64-openssl cross
-qemu-user-static-binfmt cross
+aarch64-perl cross make
+aarch64-sqlite cross
+aarch64-zlib-ng cross
 clang cross make
+cmake cross make
+git cross make
 lld cross make
 llvm cross make
+python cross make
