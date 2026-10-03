@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# Venus on an NVIDIA host: Vulkan windows skewed or black (NVIDIA EGL
+# ignores the pitch of the linear prime buffers).
+patch -Np1 -i venus-nvidia-prime-stride.patch
+
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # A deliberately small mesa for the Raspberry Pi: the vc4/v3d gallium
     # drivers give hardware GL, and softpipe is the software fallback that does

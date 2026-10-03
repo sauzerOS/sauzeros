@@ -1,0 +1,57 @@
+--- a/src/virtio/vulkan/vn_wsi.c
++++ b/src/virtio/vulkan/vn_wsi.c
+@@ -187,6 +187,13 @@
+       return result;
+ 
+    physical_dev->wsi_device.supports_scanout = false;
++   /* The host imports the prime blit buffers with EGL, and NVIDIA's ignores
++    * the given pitch of a linear dma-buf, assuming a 32-byte aligned one:
++    * with the default 256, every window not 64 pixels wide is skewed or
++    * black. Align as it assumes.
++    */
++   if (physical_dev->renderer_driver_id == VK_DRIVER_ID_NVIDIA_PROPRIETARY)
++      physical_dev->wsi_device.prime_linear_stride_align = 32;
+    physical_dev->wsi_device.supports_modifiers =
+       physical_dev->base.vk.supported_extensions.EXT_image_drm_format_modifier;
+    physical_dev->base.vk.wsi_device = &physical_dev->wsi_device;
+--- a/src/vulkan/wsi/wsi_common_drm.c
++++ b/src/vulkan/wsi/wsi_common_drm.c
+@@ -877,7 +877,7 @@
+ }
+ 
+ static VkResult
+-wsi_configure_prime_image(UNUSED const struct wsi_swapchain *chain,
++wsi_configure_prime_image(const struct wsi_swapchain *chain,
+                           const VkSwapchainCreateInfoKHR *pCreateInfo,
+                           const struct wsi_drm_image_params *params,
+                           struct wsi_image_info *info)
+@@ -894,9 +894,10 @@
+ 
+    info->explicit_sync = params->explicit_sync;
+ 
+-   wsi_configure_buffer_image(chain, pCreateInfo,
+-                              WSI_PRIME_LINEAR_STRIDE_ALIGN, 4096,
+-                              info);
++   const uint32_t stride_align = chain->wsi->prime_linear_stride_align ?
++                                 chain->wsi->prime_linear_stride_align :
++                                 WSI_PRIME_LINEAR_STRIDE_ALIGN;
++   wsi_configure_buffer_image(chain, pCreateInfo, stride_align, 4096, info);
+    info->prime_use_linear_modifier = use_modifier;
+ 
+    info->create_mem = wsi_create_prime_image_mem;
+--- a/src/vulkan/wsi/wsi_common.h
++++ b/src/vulkan/wsi/wsi_common.h
+@@ -157,6 +157,13 @@
+ 
+    bool sw;
+ 
++   /* Row pitch alignment of the linear buffers of the prime blit path, in
++    * bytes; 0 means the default (256). The importer must honor the pitch it
++    * is given, which NVIDIA's EGL does not: it assumes 32 (Venus on an
++    * NVIDIA host).
++    */
++   uint32_t prime_linear_stride_align;
++
+    /* Set to true if the implementation is ok with linear WSI images. */
+    bool wants_linear;
+ 
