@@ -6,7 +6,7 @@
 
 cmake -B build \
   -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}" \
-      -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_LIBDIR=lib \
   -D SHERLOCK265=false
 
 cmake --build build
