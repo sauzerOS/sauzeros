@@ -60,3 +60,4 @@ aarch64-libxss cross make
 aarch64-mesa cross make
 aarch64-pipewire cross make
 aarch64-zlib-ng cross make
+meson cross make
