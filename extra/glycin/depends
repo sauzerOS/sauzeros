@@ -25,3 +25,4 @@ aarch64-librsvg cross
 aarch64-libseccomp cross
 aarch64-rust cross make
 meson cross make
+rust cross make
