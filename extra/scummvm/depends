@@ -22,3 +22,4 @@ sndio
 speech-dispatcher
 zlib-ng
 mesa make
+lzip make
