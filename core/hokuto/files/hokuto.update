@@ -14,3 +14,4 @@ qtutilities syncthingtray
 vulkan-headers vulkan-loader vulkan-tools
 gpgme gpgmepp
 libnftnl nftables
+spirv-headers spirv-tools
