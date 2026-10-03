@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+# Skip broken test
+sed -i '/check_PROGRAMS += tests\/test-session-info/d' Makefile.am
+
+# Set proper paths
+sed -i 's|/etc/sysconfig/spice-vdagentd|/etc/conf.d/spice-vdagentd|
+        s|/usr/sbin/spice-vdagentd|/usr/bin/spice-vdagentd|' data/spice-vdagentd.service
+sed -i 's|/etc/sysconfig/spice-vdagentd|/etc/conf.d/spice-vdagentd|' data/spice-vdagentd.1.in
+
+autoreconf -fi
+./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --sbindir=/usr/bin \
+  --with-session-info=systemd \
+  --with-init-script=systemd
+make
+make DESTDIR="${1}" install
+install -dm755 "${1}/etc/conf.d/"
+echo 'SPICE_VDAGENTD_EXTRA_ARGS=""' > "${1}/etc/conf.d/spice-vdagentd"
+
+# vm-autoresize: X follows the VM window size in sessions without a desktop
+# environment to do it.
+install -Dm755 vm-autoresize "${1}/usr/bin/vm-autoresize"
+install -Dm644 vm-autoresize.desktop "${1}/etc/xdg/autostart/vm-autoresize.desktop"
+install -Dm644 50-vm-autoresize.sh "${1}/etc/X11/xinit/xinitrc.d/50-vm-autoresize.sh"

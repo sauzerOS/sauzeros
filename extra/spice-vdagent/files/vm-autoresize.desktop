@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=VM display autoresize
+Comment=Resize the X screen with the virtual machine window
+Exec=/usr/bin/vm-autoresize
+NoDisplay=true

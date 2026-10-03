@@ -1,0 +1,36 @@
+#!/bin/bash
+# Resizes the X screen along with the VM window. When the host window is
+# resized, the virtual GPU reports a new preferred mode (a DRM hotplug
+# event), but X only switches to it when asked; desktop environments do
+# that, a bare X session does not. Wayland compositors handle it themselves.
+
+[[ -n $DISPLAY && -z $WAYLAND_DISPLAY ]] || exit 0
+compgen -G '/sys/class/drm/card*-Virtual-*' >/dev/null || exit 0
+command -v xrandr >/dev/null || exit 0
+
+# Run from a terminal, say what it does: it waits for the window to change.
+say() { [[ -t 1 ]] && echo "vm-autoresize: $*"; }
+say "following the VM window size until X exits (Ctrl+C to stop; normally started with &)"
+
+coproc MON { exec udevadm monitor --udev --subsystem-match=drm; }
+trap 'kill "$MON_PID" 2>/dev/null' EXIT
+
+while :; do
+    if read -r -t 30 line <&"${MON[0]}"; then
+        [[ $line == *" change "* ]] || continue
+        # A resize comes as a burst of events: act once it has settled.
+        while read -r -t 0.3 _ <&"${MON[0]}"; do :; done
+        # Per output: a bare "xrandr --auto" only enables outputs that are
+        # off, and leaves a running one at its old size.
+        outputs=$(xrandr --query 2>/dev/null) || exit 0
+        grep ' connected' <<<"$outputs" | while read -r output _; do
+            xrandr --output "$output" --auto >/dev/null 2>&1
+        done
+        say "screen is now $(xrandr --current 2>/dev/null | sed -n 's/.* current \([0-9]* x [0-9]*\).*/\1/p')"
+    else
+        # A timeout (status above 128) is the time to check that X is
+        # still there; anything else means the monitor ended.
+        (( $? > 128 )) || exit 0
+        xrandr --current >/dev/null 2>&1 || exit 0
+    fi
+done

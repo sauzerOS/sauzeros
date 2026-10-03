@@ -1,0 +1,13 @@
+alsa-lib
+dbus
+glib
+glibc
+gtk+3
+libdrm
+libpciaccess
+libx11
+libxinerama
+libxrandr
+xorg-xrandr
+systemd-libs
+spice-protocol make

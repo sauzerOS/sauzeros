@@ -1,0 +1,4 @@
+git+https://gitlab.freedesktop.org/spice/linux/vd_agent#tag=spice-vdagent-${version}
+files/vm-autoresize
+files/vm-autoresize.desktop
+files/50-vm-autoresize.sh
