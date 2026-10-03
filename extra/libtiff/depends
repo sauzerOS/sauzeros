@@ -15,5 +15,10 @@ lib32-xz make
 lib32-zlib-ng make
 lib32-zstd make
 aarch64-gcc cross make
-aarch64-zlib-ng cross make
-aarch64-libjpeg-turbo cross make
+aarch64-libjpeg-turbo cross
+aarch64-libwebp cross optional
+aarch64-mesa cross make
+aarch64-xz cross
+aarch64-zlib-ng cross
+aarch64-zstd cross
+cmake cross make
