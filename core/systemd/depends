@@ -70,6 +70,7 @@ aarch64-python-markupsafe cross make
 aarch64-python-pyelftools cross make
 aarch64-qrencode cross make
 aarch64-util-linux cross make
+gperf cross make
 meson cross make
 python-jinja2 cross make
 python-pefile cross make
