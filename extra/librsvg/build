@@ -14,7 +14,11 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     )
 fi
 
+# pixbuf is "auto": when gdk-pixbuf-2.0 does not resolve (the cross
+# gdk-pixbuf requires glycin-2) librsvg silently drops its GdkPixbuf API and
+# icewm no longer compiles against it. Fail here instead.
 hokuto-meson build \
+  -D pixbuf=enabled \
   -D pixbuf-loader=disabled "${cross_opts[@]}"
 
 meson compile -C build
