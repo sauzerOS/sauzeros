@@ -7,6 +7,7 @@ gtk
 hicolor-icon-theme
 libadwaita
 libgcc
+libsoup
 polkit
 appstream make
 meson make
