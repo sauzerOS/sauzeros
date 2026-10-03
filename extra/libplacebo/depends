@@ -26,7 +26,7 @@ python-setuptools make
 python-setuptools cross make
 vulkan-headers make 
 aarch64-gcc cross make
-aarch64-glibc cross make
-aarch64-lcms2 cross make
+aarch64-lcms2 cross
 aarch64-libglvnd cross make
+aarch64-vulkan-headers cross make
 aarch64-xxhash cross make
