@@ -10,3 +10,5 @@ aarch64-glib cross make
 aarch64-libevdev cross make
 aarch64-libgudev cross make
 aarch64-libxml2 cross make
+glib cross make
+meson cross make
