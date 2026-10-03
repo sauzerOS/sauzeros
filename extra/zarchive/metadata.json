@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/Exzap/ZArchive",
+  "category": "extra",
+  "description": "Library for creating and reading zstd-compressed file archives (.zar)",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}
