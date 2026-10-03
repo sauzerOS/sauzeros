@@ -4,3 +4,6 @@ files/shell_full.efi.xz noextract
 files/sauzeros-live
 files/sauzeros-live-vm
 files/sauzeros_splash.png
+files/sauzeros-live-vm.bash
+files/sauzeros-live-vm.fish
+files/sauzeros-live-vm.zsh

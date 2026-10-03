@@ -1,0 +1,19 @@
+# fish completion for sauzeros-live-vm
+
+complete -c sauzeros-live-vm -f
+complete -c sauzeros-live-vm -s r -l rootfs -x -a "(__fish_complete_directories)" -d "Rootfs to boot"
+complete -c sauzeros-live-vm -s i -l image -r -F -d "Working disk image"
+complete -c sauzeros-live-vm -s m -l memory -x -d "Guest memory (4G)"
+complete -c sauzeros-live-vm -s c -l cpus -x -d "Guest CPUs"
+complete -c sauzeros-live-vm -s s -l free -x -d "Free space in the image (8G)"
+complete -c sauzeros-live-vm -s k -l kernel -r -F -d "Kernel to boot"
+complete -c sauzeros-live-vm -s a -l append -x -d "Extra kernel command line arguments"
+complete -c sauzeros-live-vm -l reuse -d "Reuse an existing image without asking"
+complete -c sauzeros-live-vm -l fresh -d "Recreate the image from the rootfs without asking"
+complete -c sauzeros-live-vm -l gl -d "3D acceleration through virgl (default)"
+complete -c sauzeros-live-vm -l no-gl -d "Plain virtio-vga, no 3D"
+complete -c sauzeros-live-vm -l venus -d "3D plus Vulkan in the guest (Venus)"
+complete -c sauzeros-live-vm -l relative-mouse -d "Relative mouse the window captures, for games"
+complete -c sauzeros-live-vm -l uefi -d "Boot through UEFI firmware instead of the BIOS"
+complete -c sauzeros-live-vm -l display -x -a "gtk sdl spice" -d "QEMU display"
+complete -c sauzeros-live-vm -s h -l help -d "Show usage"

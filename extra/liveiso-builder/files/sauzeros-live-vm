@@ -38,9 +38,20 @@ Boot a live rootfs in QEMU to configure it before running sauzeros-live.
       --gl, --no-gl    3D accelerated virtio-vga-gl (OpenGL through virgl, the
                        default), or plain virtio-vga
       --venus          3D plus Vulkan in the guest (Venus over virtio-gpu); with
-                       the NVIDIA driver, Vulkan programs under X need
-                       MESA_VK_WSI_DEBUG=sw to show correctly
-      --display UI     QEMU display: gtk (default) or sdl
+                       the NVIDIA driver it needs mesa 26.2.4 3 or newer in the
+                       guest, Vulkan programs only show in a window (fullscreen
+                       stays black), and games may show broken textures:
+                       OpenGL (virgl) is the reliable choice there
+      --relative-mouse a relative mouse the window captures, for games (the
+                       default tablet moves the pointer in and out freely, but
+                       games that warp it get a fast, jumpy mouse); click in the
+                       window to capture it, Ctrl+Alt (gtk: Ctrl+Alt+G) releases
+      --uefi           boot through UEFI firmware (edk2, from the
+                       qemu-system-x86-firmware package) instead of the BIOS;
+                       its variables are kept in <image>.efivars
+      --display UI     QEMU display: gtk (default), sdl, or spice: the spicy
+                       client, which shares the clipboard and resizes the guest
+                       screen with its window (spice-vdagent in the guest)
   -h, --help           this message
 
 Run it as your normal user: QEMU needs your graphical session, and the steps
@@ -58,6 +69,8 @@ extra_append=""
 reuse=""
 gl=""
 venus=0
+relative_mouse=0
+uefi=0
 display=""
 
 while [[ $# -gt 0 ]]; do
@@ -74,6 +87,8 @@ while [[ $# -gt 0 ]]; do
         --gl)         gl=1; shift ;;
         --no-gl)      gl=0; shift ;;
         --venus)      venus=1; gl=1; shift ;;
+        --relative-mouse) relative_mouse=1; shift ;;
+        --uefi)       uefi=1; shift ;;
         --display)    display=$2; shift 2 ;;
         -h|--help)    usage; exit 0 ;;
         *)            die "Unknown option: $1" ;;
@@ -88,7 +103,7 @@ need() {
         command -v "$tool" >/dev/null 2>&1 || die "'$tool' is required but not installed."
     done
 }
-need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt
+need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt pkill losetup findmnt
 
 # The rootfs used last time is the default the next time.
 last_rootfs_file="${XDG_STATE_HOME:-$HOME/.local/state}/sauzeros-live-vm/rootfs"
@@ -106,6 +121,7 @@ rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-$default_rootfs}")")
 mkdir -p "${last_rootfs_file%/*}" 2>/dev/null && printf '%s\n' "$rootfs_dir" > "$last_rootfs_file" 2>/dev/null || true
 image=$(realpath -m -- "${image:-${rootfs_dir}-vm.img}")
 stamp="$image.synced"
+efivars="$image.efivars"
 
 # mke2fs -d does not stop at filesystem boundaries, so a /proc or bind mount
 # left behind by a chroot session would be copied into the image.
@@ -157,10 +173,18 @@ sudo -v || die "sudo authentication failed."
 # alone, so whatever the rootfs had there stays as it was.
 exclude_file=$(mktemp)
 mnt=""
+spice_watch_pid=""
 cleanup() {
+    # Every step runs whatever the one before returned (the script runs
+    # with -e): a watcher already gone must not cost the unmount.
+    set +e
     rm -f "$exclude_file"
+    [[ -n "$spice_watch_pid" ]] && kill "$spice_watch_pid" 2>/dev/null
     if [[ -n "$mnt" ]]; then
-        sudo umount "$mnt" 2>/dev/null || true
+        if ! sudo umount "$mnt"; then
+            sudo umount -l "$mnt" 2>/dev/null ||
+                warn "Could not unmount $mnt; unmount it with: sudo umount $mnt"
+        fi
         rmdir "$mnt" 2>/dev/null || true
     fi
 }
@@ -190,7 +214,7 @@ create_image() {
     total_bytes=$(( used_kib * 1024 * 11 / 10 + extra_bytes ))
 
     msg "Creating a $(numfmt --to=iec "$total_bytes") image from the rootfs (this may take a while)..."
-    rm -f "$image" "$stamp"
+    rm -f "$image" "$stamp" "$efivars"
     mkdir -p "$(dirname "$image")"
     truncate -s "$total_bytes" "$image"
     # -d copies the tree with its owners, modes, xattrs (file capabilities,
@@ -236,17 +260,79 @@ fi
 
 qemu_has() { qemu-system-x86_64 "$1" help 2>/dev/null | grep -qw -- "$2"; }
 
+# UEFI: edk2's code is read-only; its variable store (boot entries,
+# settings) is a writable copy kept with the image. The kernel is still
+# passed with -kernel: the firmware starts it as an EFI program.
+qemu_firmware=()
+if (( uefi )); then
+    efi_code=/usr/share/qemu/edk2-x86_64-code.fd
+    efi_vars_template=/usr/share/qemu/edk2-i386-vars.fd
+    [[ -r "$efi_code" && -r "$efi_vars_template" ]] ||
+        die "--uefi needs the edk2 firmware; install qemu-system-x86-firmware."
+    [[ -f "$efivars" ]] || cp "$efi_vars_template" "$efivars" ||
+        die "Cannot create the UEFI variable store $efivars."
+    qemu_firmware=(-drive "if=pflash,format=raw,unit=0,readonly=on,file=$efi_code"
+        -drive "if=pflash,format=raw,unit=1,file=$efivars")
+    msg "Firmware: UEFI (variables in $efivars)"
+fi
+
 # 3D in the guest goes through virglrenderer on the host GPU. With the
 # NVIDIA driver QEMU's GTK window stays black, so SDL is used instead.
 # (X in the guest needs xlibre 25.2.2 6 or newer there: older glamor takes
 # virgl on an NVIDIA GPU for the NVIDIA driver and shows only black.)
 nvidia=0
 [[ -d /sys/module/nvidia ]] && nvidia=1
+# spicy cannot show 3D output with the NVIDIA driver either: its EGL setup
+# fails there and the window stays black. QEMU's egl-headless display can
+# render it instead and hand spicy plain 2D frames (a copy per frame, but
+# 3D, Venus, clipboard and resizing all work).
+spice_egl=0
+if [[ "$display" == spice ]] && (( nvidia )); then
+    if qemu_has -display egl-headless; then
+        spice_egl=1
+    else
+        (( venus )) && die "--venus with spicy needs QEMU's egl-headless display on NVIDIA; install qemu-ui-egl-headless."
+        if [[ -z "$gl" ]]; then
+            gl=0
+            msg "NVIDIA driver and spicy: no 3D acceleration in the guest (install qemu-ui-egl-headless for it)."
+        fi
+    fi
+fi
 [[ -n "$gl" ]] || gl=1
 if [[ -z "$display" ]]; then
     display=gtk
     (( gl && nvidia )) && qemu_has -display sdl && display=sdl
 fi
+
+# SPICE: QEMU serves the display on a socket only this user can open, and
+# spicy shows it; no window of QEMU's own.
+spice_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-spice.sock"
+if [[ "$display" == spice ]]; then
+    command -v spicy >/dev/null 2>&1 || die "--display spice needs spicy (the spice-gtk package)."
+    command -v socat >/dev/null 2>&1 || die "--display spice needs socat (to end the session without crashing QEMU)."
+    qemu-system-x86_64 -help 2>/dev/null | grep -q -- '^-spice ' || die "This QEMU was built without SPICE support."
+fi
+# The QEMU display options, with 3D (gl=on) when $1 is 1.
+display_options() {
+    if [[ "$display" == spice ]]; then
+        local opts="unix=on,addr=$spice_socket,disable-ticketing=on"
+        # Without the agent's absolute pointer, spicy captures the mouse.
+        (( relative_mouse )) && opts+=",agent-mouse=off"
+        if (( $1 && spice_egl )); then
+            printf '%s\n' -spice "$opts" -display egl-headless
+            return
+        fi
+        (( $1 )) && opts+=",gl=on"
+        printf '%s\n' -spice "$opts" -display none
+    elif (( $1 )); then
+        printf '%s\n' -display "$display,gl=on"
+    else
+        printf '%s\n' -display "$display"
+    fi
+}
+display_available() {
+    [[ "$display" == spice ]] || qemu_has -display "$display"
+}
 
 qemu_display=()
 qemu_memory=()
@@ -256,32 +342,51 @@ if (( venus )); then
     # renderer, hence the memfd backend.
     qemu-system-x86_64 -device virtio-vga-gl,help 2>/dev/null | grep -qw venus ||
         die "This QEMU's virtio-vga-gl has no Venus support (QEMU 9.2 or newer, virglrenderer built with -D venus=true)."
-    qemu_has -display "$display" || die "QEMU has no $display display; install qemu-ui-$display."
-    qemu_display=(-device virtio-vga-gl,blob=true,hostmem=4G,venus=true -display "$display,gl=on")
+    display_available || die "QEMU has no $display display; install qemu-ui-$display."
+    mapfile -t qemu_display < <(display_options 1)
+    qemu_display=(-device virtio-vga-gl,blob=true,hostmem=4G,venus=true "${qemu_display[@]}")
     qemu_memory=(-object "memory-backend-memfd,id=mem,size=$memory,share=on")
     accel[1]+=",memory-backend=mem"
     msg "Venus enabled: Vulkan in the guest runs on the host GPU, OpenGL stays on virgl."
     if (( nvidia )); then
-        # Venus on NVIDIA blits presented images into a buffer whose row
-        # pitch the X server reads differently; a CPU copy shows them right.
-        msg "With the NVIDIA driver, run Vulkan programs under X with MESA_VK_WSI_DEBUG=sw"
-        msg "(per program or session, not in the rootfs: it would end up in the ISO)."
+        # NVIDIA's EGL ignores the pitch of the buffers Venus presents
+        # through; mesa 26.2.4 3 aligns them as it assumes. A fullscreen
+        # window is flipped to the screen directly, which QEMU cannot show
+        # from NVIDIA memory, and texture uploads are not reliable yet.
+        msg "With the NVIDIA driver: Vulkan needs mesa 26.2.4 3 or newer in the guest and"
+        msg "shows only in a window (fullscreen stays black); games may show broken"
+        msg "textures, OpenGL is the reliable choice for them."
     fi
-elif (( gl )) && qemu_has -device virtio-vga-gl && qemu_has -display "$display"; then
-    qemu_display=(-device virtio-vga-gl -display "$display,gl=on")
+elif (( gl )) && qemu_has -device virtio-vga-gl && display_available; then
+    mapfile -t qemu_display < <(display_options 1)
+    qemu_display=(-device virtio-vga-gl "${qemu_display[@]}")
 else
     (( gl )) && warn "virtio-vga-gl or the $display display is unavailable; using virtio-vga without 3D acceleration."
     qemu_has -device virtio-vga ||
         die "QEMU has no virtio-vga device; install qemu-hw-display-virtio-vga (and -gl for 3D)."
-    qemu_has -display "$display" || die "QEMU has no $display display; install qemu-ui-$display."
-    qemu_display=(-device virtio-vga -display "$display")
+    display_available || die "QEMU has no $display display; install qemu-ui-$display."
+    mapfile -t qemu_display < <(display_options 0)
+    qemu_display=(-device virtio-vga "${qemu_display[@]}")
 fi
-[[ "$display" == gtk ]] && qemu_display[-1]+=",zoom-to-fit=on"
+# No zoom-to-fit: resizing the window then asks the guest for that
+# resolution instead of scaling the picture.
 
 qemu_audio=()
 if qemu_has -audiodev pipewire; then
     qemu_audio=(-audiodev pipewire,id=snd0 -device ich9-intel-hda -device hda-output,audiodev=snd0)
 fi
+
+# A mount of the image left by an earlier session (its cleanup interrupted)
+# must go: the VM writes to the image, and e2fsck refuses a mounted one.
+while read -r loopdev; do
+    [[ -n "$loopdev" ]] || continue
+    while read -r target; do
+        [[ -n "$target" ]] || continue
+        msg "Unmounting a leftover mount of the image: $target"
+        sudo umount "$target" || die "Cannot unmount $target; unmount it, then start again."
+        [[ "$target" == /tmp/tmp.* ]] && rmdir "$target" 2>/dev/null
+    done < <(findmnt -rn -S "$loopdev" -o TARGET)
+done < <(losetup -j "$image" -n -O NAME 2>/dev/null)
 
 msg "Booting the rootfs (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
 # The guest's serial console is this terminal: a login that works whatever
@@ -292,23 +397,139 @@ msg "Guest console: this terminal (Ctrl+A C toggles the QEMU monitor, e.g. 'send
 
 # The guest agent's port: udev in the guest starts qemu-guest-agent when it
 # appears (the unit has no [Install] section to enable it by).
+# spice-vdagent's port. With spicy it reaches the client, which shares the
+# clipboard and has the guest follow its window size. Otherwise QEMU's own
+# end of the protocol shares the clipboard with QEMU's window. The mouse
+# stays with the USB tablet.
+qemu_vdagent=()
+if [[ "$display" == spice ]]; then
+    qemu_vdagent=(-chardev spicevmc,id=vdagent0,name=vdagent
+        -device virtserialport,chardev=vdagent0,name=com.redhat.spice.0)
+elif qemu-system-x86_64 -chardev help 2>/dev/null | grep -qx '  *qemu-vdagent'; then
+    qemu_vdagent=(-chardev qemu-vdagent,id=vdagent0,clipboard=on,mouse=off
+        -device virtserialport,chardev=vdagent0,name=com.redhat.spice.0)
+fi
+# The tablet reports absolute positions: the pointer moves in and out of the
+# window freely. Games read relative motion and warp the pointer back to the
+# middle, which a tablet turns into a fast, jumpy mouse; they want a
+# relative mouse that the window captures.
+qemu_pointer=(-device usb-tablet)
+if (( relative_mouse )); then
+    qemu_pointer=(-device usb-mouse)
+    case "$display" in
+        gtk) msg "Relative mouse: click in the window to capture it, Ctrl+Alt+G releases it." ;;
+        *)   msg "Relative mouse: click in the window to capture it, Ctrl+Alt releases it." ;;
+    esac
+fi
 qga_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-qga.sock"
 rm -f "$qga_socket"
+qemu_spice_exit=()
+if [[ "$display" == spice ]]; then
+    rm -f "$spice_socket"
+    spice_uri="spice+unix://$spice_socket"
+    # QEMU crashes in spice_server_destroy() when it exits with a client
+    # still connected (QEMU 11.1, spice-server 0.16). So a guest power-off
+    # only stops the VM (-no-shutdown), and this session watcher, which also
+    # runs spicy, closes every spicy on the socket and then has QEMU quit.
+    # Closing the spicy window shuts the guest down cleanly the same way.
+    qmp_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-qmp.sock"
+    rm -f "$qmp_socket"
+    qemu_spice_exit=(-no-shutdown -qmp "unix:$qmp_socket,server=on,wait=off")
+    watch_log="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-watch.log"
+    (
+        # Not -e: pkill finding no spicy (its window already closed) and the
+        # like are expected here, and must not end the watcher before quit.
+        set +e
+        log() { echo "$(date +%T) $*" >> "$watch_log"; }
+        : > "$watch_log"
+        # However long QEMU takes to start (Venus, a large shared memory).
+        until [[ -S "$qmp_socket" && -S "$spice_socket" ]]; do
+            kill -0 "$$" 2>/dev/null || exit 0
+            sleep 0.2
+        done
+        # pkill takes a regular expression: the URI's "+" and "." literally.
+        spicy_pattern="--uri=$(sed 's/[][\.*^$+?(){}|]/\\&/g' <<<"$spice_uri")"
+        spicy --uri="$spice_uri" --title="sauzerOS rootfs: $(basename "$rootfs_dir")" >/dev/null 2>&1 &
+        spicy=$!
+        trap 'log "watcher exits"; pkill -f -- "$spicy_pattern" 2>/dev/null' EXIT
+        log "spicy started (pid $spicy)"
+        started=$SECONDS
+        window_open=1
+        # The guest is off once QEMU says so: a SHUTDOWN event, or the
+        # "shutdown" status the 2-second poll finds should the event be
+        # missed. If the QMP connection drops, it is made again.
+        while kill -0 "$$" 2>/dev/null; do
+            coproc QMP { exec socat - "UNIX-CONNECT:$qmp_socket" 2>/dev/null; }
+            echo '{"execute":"qmp_capabilities"}' >&"${QMP[1]}"
+            log "connected to QMP"
+            polled=$SECONDS
+            guest_off=0
+            while :; do
+                if read -r -t 0.5 line <&"${QMP[0]}"; then
+                    case $line in
+                        *'"event": "SHUTDOWN"'*|*'"status": "shutdown"'*)
+                            log "guest is off: $line"
+                            guest_off=1
+                            break ;;
+                        *'"event"'*) log "event: $line" ;;
+                    esac
+                elif (( $? <= 128 )); then
+                    log "QMP connection closed"
+                    break
+                fi
+                if (( window_open )) && ! kill -0 "$spicy" 2>/dev/null; then
+                    window_open=0
+                    if (( SECONDS - started < 5 )); then
+                        # It never really ran (no display, a failed connection).
+                        log "spicy exited right away"
+                        warn "spicy exited; the VM keeps running. Reopen it with: spicy --uri=$spice_uri"
+                    else
+                        # The window was closed: the guest shuts down cleanly.
+                        log "spicy window closed: system_powerdown"
+                        echo '{"execute":"system_powerdown"}' >&"${QMP[1]}"
+                    fi
+                fi
+                if (( SECONDS - polled >= 2 )); then
+                    polled=$SECONDS
+                    echo '{"execute":"query-status"}' >&"${QMP[1]}" 2>/dev/null
+                fi
+            done
+            if (( guest_off )); then
+                pkill -f -- "$spicy_pattern" 2>/dev/null
+                for _ in {1..30}; do
+                    pgrep -f -- "$spicy_pattern" >/dev/null || break
+                    sleep 0.1
+                done
+                sleep 0.5
+                log "quit"
+                echo '{"execute":"quit"}' >&"${QMP[1]}"
+                exit 0
+            fi
+            [[ -n "${QMP_PID:-}" ]] && kill "$QMP_PID" 2>/dev/null
+            sleep 1
+        done
+    ) &
+    spice_watch_pid=$!
+    msg "Display: spicy (closing its window shuts the guest down)"
+fi
 qemu-system-x86_64 \
     -name "sauzerOS rootfs: $(basename "$rootfs_dir")" \
     "${accel[@]}" \
     -smp "$cpus" -m "$memory" \
+    "${qemu_firmware[@]}" \
     "${qemu_memory[@]}" \
     -kernel "$kernel" \
     -append "root=/dev/vda rw rootfstype=ext4 quiet console=tty0 console=ttyS0 $extra_append" \
     -serial mon:stdio \
     -drive "file=$image,format=raw,if=virtio,cache=unsafe,discard=unmap" \
     "${qemu_display[@]}" \
-    -device qemu-xhci -device usb-kbd -device usb-tablet \
+    -device qemu-xhci -device usb-kbd "${qemu_pointer[@]}" \
     -nic user,model=virtio-net-pci \
     -device virtio-rng-pci \
     -chardev "socket,id=qga0,path=$qga_socket,server=on,wait=off" \
     -device virtio-serial-pci -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
+    "${qemu_vdagent[@]}" \
+    "${qemu_spice_exit[@]}" \
     "${qemu_audio[@]}" ||
     warn "QEMU exited with an error; the image is kept as it is."
 
@@ -317,9 +538,10 @@ qemu-system-x86_64 \
 # leaves the ext4 journal to replay, which a read-only mount cannot do.
 # Replay it on the image itself; it is ours to modify.
 fsck_rc=0
-sudo e2fsck -p "$image" >/dev/null || fsck_rc=$?
+fsck_out=$(sudo e2fsck -p "$image" 2>&1) || fsck_rc=$?
 if (( fsck_rc >= 4 )); then
-    die "The image's filesystem has errors e2fsck -p cannot fix (exit $fsck_rc).
+    printf '%s\n' "$fsck_out" >&2
+    die "e2fsck -p could not check the image (exit $fsck_rc; its output is above).
        Repair it with: sudo e2fsck -f $image"
 fi
 
@@ -360,7 +582,7 @@ while true; do
             break ;;
         d|D)
             sudo umount "$mnt"; rmdir "$mnt"; mnt=""
-            rm -f "$image" "$stamp"
+            rm -f "$image" "$stamp" "$efivars"
             msg "Image discarded; the rootfs is unchanged."
             break ;;
     esac

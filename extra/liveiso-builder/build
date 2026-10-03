@@ -7,3 +7,6 @@ install -Dm 0644 limine.conf $1/usr/share/liveiso-builder/limine.conf
 install -Dm 0644 sauzeros_splash.png $1/usr/share/liveiso-builder/sauzeros_splash.png
 install -Dm 0755 sauzeros-live $1/usr/bin/sauzeros-live
 install -Dm 0755 sauzeros-live-vm $1/usr/bin/sauzeros-live-vm
+install -Dm 0644 sauzeros-live-vm.bash $1/usr/share/bash-completion/completions/sauzeros-live-vm
+install -Dm 0644 sauzeros-live-vm.fish $1/usr/share/fish/vendor_completions.d/sauzeros-live-vm.fish
+install -Dm 0644 sauzeros-live-vm.zsh $1/usr/share/zsh/site-functions/_sauzeros-live-vm
