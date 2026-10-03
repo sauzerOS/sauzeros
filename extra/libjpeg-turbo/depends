@@ -2,3 +2,5 @@ glibc
 cmake make
 nasm make
 lib32-expat make
+aarch64-gcc cross make
+cmake cross make
