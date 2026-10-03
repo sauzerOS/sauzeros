@@ -18,3 +18,5 @@ aarch64-wayland-protocols cross make
 aarch64-xkeyboard-config cross make
 aarch64-xorgproto cross make
 aarch64-zlib-ng cross make
+meson cross make
+wayland cross make
