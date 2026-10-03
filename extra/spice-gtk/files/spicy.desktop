@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Spicy
+GenericName=SPICE Client
+Comment=Connect to a virtual machine's SPICE display
+Exec=spicy
+Icon=spicy
+Terminal=false
+Categories=Network;RemoteAccess;
+Keywords=spice;vm;virtual machine;qemu;remote;

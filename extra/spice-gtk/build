@@ -3,3 +3,7 @@
 hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
+
+# A launcher for spicy, which upstream does not install.
+install -Dm644 spicy.desktop "$1/usr/share/applications/spicy.desktop"
+install -Dm644 spicy.svg "$1/usr/share/icons/hicolor/scalable/apps/spicy.svg"

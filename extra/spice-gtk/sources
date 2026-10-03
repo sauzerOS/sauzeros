@@ -1,1 +1,3 @@
 git+https://gitlab.freedesktop.org/spice/spice-gtk#v0.43
+files/spicy.desktop
+files/spicy.svg
