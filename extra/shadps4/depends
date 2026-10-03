@@ -1,10 +1,22 @@
-glslang
 ffmpeg
+freetype
+glslang
 libpng
+miniupnpc
+miniz
+openssl
 pugixml
+sdl3
+systemd-libs
+xxhash
+zarchive
 boost make
+clang make
 cmake make
+lld make
+llvm make
 mold make
 nlohmann-json make
 spirv-headers make
-sdl3 make
+stb make
+vulkan-headers make

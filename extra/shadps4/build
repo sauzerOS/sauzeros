@@ -1,22 +1,31 @@
 #!/bin/bash -e
 
-git rm -r externals/MoltenVK
 git rm -r externals/date
 git rm -r externals/ext-boost
 git rm -r externals/ffmpeg-core
+git rm -r externals/freetype
 git rm -r externals/glslang
 git rm -r externals/json
 git rm -r externals/libpng
+git rm -r externals/libressl
+git rm -r externals/mesa-kosmickrisp
+git rm -r externals/miniupnp
+git rm -r externals/miniz
 git rm -r externals/pugixml
+git rm -r externals/sdl3
+git rm -r externals/stb
+git rm -r externals/vulkan-headers
+git rm -r externals/xxhash
+git rm -r externals/zarchive
 git rm -r externals/zlib-ng
+git rm -r externals/zstd
 git submodule update --init --recursive --depth 1
-
-# fix nlohmann-json
-sed -E -e '/nlohmann_json/i find_package(nlohmann_json)' -i CMakeLists.txt
-sed -E -e '/add_subdirectory\(json\)/d' -i externals/CMakeLists.txt
 
 # allow any version
 sed -E -e '/find_package/s&(glslang) \S+ (CONFIG)&\1 \2&' -i CMakeLists.txt
+
+# use system openssl (externals/libressl is removed above)
+sed -e 's&LibreSSL.*MODULE&OpenSSL CONFIG&' -i CMakeLists.txt
 
 # respect system build flags
 sed -E -e '/march/d' -i CMakeLists.txt
@@ -29,21 +38,30 @@ sed -E -e 's&@APP_IS_RELEASE@&true&' \
 sed -E -e 's&(fmt::format)\("shadPS4 v&\1("shadPS4 &' \
   -i src/emulator.cpp
 
+export CFLAGS+=" -DNDEBUG"
+export CXXFLAGS+=" -DNDEBUG"
+# Upstream no longer builds for plain x86-64 (v1), e.g. the generic variant.
+if [ "$HOKUTO_ARCH" = "x86_64" ]; then
+    export CFLAGS+=" -msse4.1"
+    export CXXFLAGS+=" -msse4.1"
+fi
+CC=clang
+CXX=clang++
+LDFLAGS+=" -fuse-ld=lld"
+
 cmake -B build \
-  -G Ninja     \
-  -D CMAKE_BUILD_TYPE=RELEASE \
+  -D CMAKE_BUILD_TYPE=NONE \
   -D CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE=ON \
   -D CMAKE_C_COMPILER=clang \
   -D CMAKE_CXX_COMPILER=clang++ \
-  -D CMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold" \
-  -D CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold" \
   -D CMAKE_INSTALL_PREFIX='/usr' \
   -D CMAKE_SKIP_RPATH=ON \
   -D BUILD_TESTING=OFF \
   -D TRACY_ENABLE=OFF \
   -D ENABLE_UPDATER=OFF \
+  -D ENABLE_SYSTEM_LIBRARIES=ON \
   -D SIRIT_USE_SYSTEM_SPIRV_HEADERS=ON \
-  -Wno-dev
+  -W no-author
 
 cmake --build build
 install -Dm755 build/shadps4 "$1/usr/bin/shadps4"
@@ -54,4 +72,3 @@ cd extractor
 cmake -S extractor/ -B build/extractor
 cmake --build build/extractor/
 install -Dm755 build/extractor/pkg_extractor $HOKUTO_SPLIT_DIR/shadps4-pkg-extractor/usr/bin/pkg-extractor
-
