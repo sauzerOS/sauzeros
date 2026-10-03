@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/rhinstaller/dasbus",
+  "category": "extra",
+  "description": "DBus library in Python 3",
+  "info": "",
+  "license": "LGPL-2.1-only",
+  "tags": []
+}

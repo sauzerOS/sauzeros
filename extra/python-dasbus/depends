@@ -1,0 +1,8 @@
+dbus
+glib
+python
+python-pygobject
+python-build make
+python-installer make
+python-wheel make
+python-setuptools make
