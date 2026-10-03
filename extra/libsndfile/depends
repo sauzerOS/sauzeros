@@ -14,6 +14,9 @@ lib32-libogg make
 lib32-libvorbis make
 lib32-opus make
 lib32-sqlite make
-aarch64-alsa-lib cross make
+aarch64-alsa-lib cross
 aarch64-gcc cross make
-aarch64-glibc cross make
+aarch64-sqlite cross make
+cmake cross make
+python cross make
+
