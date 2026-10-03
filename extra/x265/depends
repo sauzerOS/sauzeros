@@ -4,3 +4,4 @@ libstdc++
 cmake make
 nasm  make
 aarch64-gcc cross make
+cmake cross make
