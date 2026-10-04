@@ -35,9 +35,14 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     export ac_cv_func_working_mktime=yes
 fi
 
+# glibc's malloc, not bash's own: bash's sbrk-based allocator fails under
+# QEMU user-mode emulation ("xmalloc: cannot allocate"), so an arm64 rootfs
+# built on an x86_64 host could not run a single hook in its chroot. Arch and
+# LFS build bash this way too.
 ./configure \
     --prefix="$PREFIX" \
     --with-installed-readline \
+    --without-bash-malloc \
     $CROSS_OPTS
 
 make
