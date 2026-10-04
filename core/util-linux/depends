@@ -31,3 +31,6 @@ aarch64-ncurses cross
 aarch64-pam cross
 aarch64-python cross make
 aarch64-sqlite cross
+meson cross make
+python cross make
+
