@@ -20,3 +20,5 @@ aarch64-systemd cross make
 aarch64-util-linux cross
 aarch64-zlib-ng cross
 aarch64-zstd cross
+python cross make
+python-setuptools cross make
