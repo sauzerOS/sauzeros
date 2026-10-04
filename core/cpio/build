@@ -6,9 +6,20 @@ sed -e "/^extern int (\*xstat)/s/()/(const char * restrict,  struct stat * restr
 sed -e "/^int (\*xstat)/s/()/(const char * restrict,  struct stat * restrict)/" \
     -i src/global.c
 
-./configure \
-    --prefix=/usr \
-    --with-rmt=/usr/libexec/rmt
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure                   \
+  --prefix=$PREFIX            \
+  --with-rmt=/usr/libexec/rmt \
+  $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
