@@ -24,6 +24,10 @@ hokuto-meson build \
 meson compile -C build
 meson install -C build --destdir=$1
 
+# hb-view, hb-info and hb-raster link chafa (and with it libavif and
+# libheif); the command-line tools go in harfbuzz-utils.
+_pick "$1" harfbuzz-utils usr/bin
+
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
