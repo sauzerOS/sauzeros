@@ -3,9 +3,20 @@
 sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
 sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
 
-./configure \
-    --prefix=/usr \
-    --disable-vlock
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./configure          \
+  --prefix="$PREFIX" \
+  --disable-vlock    \
+  $CROSS_OPTS
 
 make
 make DESTDIR="$1" install
