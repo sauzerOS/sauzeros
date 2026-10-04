@@ -13,3 +13,13 @@ fi
 hokuto-meson build "${cross_opts[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
+# libglycin-gtk4 links GTK 4; in glycin it made every gdk-pixbuf user pull
+# GTK 4 and its GStreamer media stack. Not built for cross targets.
+_pick "$1" glycin-gtk4 \
+    usr/lib/libglycin-gtk4-2.so* \
+    usr/lib/pkgconfig/glycin-gtk4-2.pc \
+    usr/include/glycin-gtk4-2 \
+    usr/lib/girepository-1.0/GlyGtk4-2.typelib \
+    usr/share/gir-1.0/GlyGtk4-2.gir \
+    usr/share/vala/vapi/glycin-gtk4-2.*
