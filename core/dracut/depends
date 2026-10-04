@@ -39,3 +39,15 @@ systemd-ukify suggest Unified Kernel Image
 tar suggest live tar image
 xz suggest xz compression
 bash-completion make
+aarch64-bash cross
+aarch64-coreutils cross
+aarch64-cpio cross
+aarch64-findutils cross
+aarch64-gawk cross
+aarch64-grep cross
+aarch64-kmod cross
+aarch64-pkgconf cross
+aarch64-procps-ng cross
+aarch64-sed cross
+aarch64-util-linux cross
+aarch64-bash-completion cross make
