@@ -1,5 +1,12 @@
 #compdef sauzeros-live-vm
 
+# The host's bridges: the interfaces with a bridge/ directory in sysfs.
+_sauzeros_live_vm_bridges() {
+  local -a bridges
+  bridges=(/sys/class/net/*/bridge(N:h:t))
+  _describe 'bridge' bridges
+}
+
 _arguments -s \
   '(-r --rootfs)'{-r,--rootfs}'[rootfs to boot]:rootfs directory:_directories' \
   '(-i --image)'{-i,--image}'[working disk image]:image file:_files' \
@@ -16,4 +23,9 @@ _arguments -s \
   '--relative-mouse[relative mouse the window captures, for games]' \
   '--uefi[boot through UEFI firmware instead of the BIOS]' \
   '--display[QEMU display]:display:(gtk sdl spice)' \
+  '--iso[boot this ISO without a disk instead of a rootfs]:ISO image:_files -g "*.(iso|ISO)"' \
+  '(--create-img)--disk[boot this disk image instead of a rootfs]:disk image:_files' \
+  '(--disk)--create-img[create a disk image for --disk, asking for its size]:disk image:_files' \
+  '--arch[guest architecture for --iso and --disk]:architecture:(x86_64 aarch64)' \
+  '--bridge[put the guest on this host bridge]:bridge:_sauzeros_live_vm_bridges' \
   '(- *)'{-h,--help}'[show usage]'

@@ -18,11 +18,22 @@ _sauzeros_live_vm()
         -r|--rootfs)
             COMPREPLY=($(compgen -d -- "$cur"))
             return ;;
-        -i|--image|-k|--kernel)
+        -i|--image|-k|--kernel|--disk|--create-img)
             COMPREPLY=($(compgen -f -- "$cur"))
+            return ;;
+        --iso)
+            COMPREPLY=($(compgen -f -X '!*.[iI][sS][oO]' -- "$cur") $(compgen -d -- "$cur"))
             return ;;
         --display)
             COMPREPLY=($(compgen -W "gtk sdl spice" -- "$cur"))
+            return ;;
+        --arch)
+            COMPREPLY=($(compgen -W "x86_64 aarch64" -- "$cur"))
+            return ;;
+        --bridge)
+            local bridges=(/sys/class/net/*/bridge)
+            bridges=("${bridges[@]%/bridge}")
+            COMPREPLY=($(compgen -W "${bridges[*]##*/}" -- "$cur"))
             return ;;
         -m|--memory|-c|--cpus|-s|--free|-a|--append)
             return ;;
@@ -30,7 +41,7 @@ _sauzeros_live_vm()
 
     local opts="-r --rootfs -i --image -m --memory -c --cpus -s --free
         -k --kernel -a --append --reuse --fresh --gl --no-gl --venus
-        --relative-mouse --uefi --display -h --help"
+        --relative-mouse --uefi --display --iso --disk --create-img --arch --bridge -h --help"
     COMPREPLY=($(compgen -W "$opts" -- "$cur"))
 }
 

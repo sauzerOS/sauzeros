@@ -10,6 +10,10 @@
 # booted as a virtio disk at native speed. When the VM is shut down, the
 # changes are shown and, if accepted, rsynced back into the rootfs. The image
 # can be kept for further sessions.
+#
+# With --iso and/or --disk it is a plain VM instead: a finished ISO
+# (sauzeros-live's output) as a CD-ROM, a disk image of its own (made with
+# --create-img) or both, e.g. to install a system. No rootfs is synced.
 
 BLUE='\033[0;34m'
 RED='\033[0;31m'
@@ -24,7 +28,8 @@ usage() {
     cat <<EOF
 Usage: sauzeros-live-vm [options]
 
-Boot a live rootfs in QEMU to configure it before running sauzeros-live.
+Boot a live rootfs in QEMU to configure it before running sauzeros-live, or
+boot an ISO and/or a disk image of its own (--iso, --disk).
 
   -r, --rootfs DIR     rootfs to boot          (default: /var/tmp/sauzerOS-live)
   -i, --image FILE     working disk image      (default: <rootfs>-vm.img)
@@ -33,6 +38,18 @@ Boot a live rootfs in QEMU to configure it before running sauzeros-live.
   -s, --free SIZE      free space in the image (default: 8G)
   -k, --kernel FILE    kernel to boot          (default: <rootfs>/boot/vmlinuz-sauzerOS-live)
   -a, --append ARGS    extra kernel command line arguments
+      --iso FILE       boot this ISO as a CD-ROM instead of a rootfs: no image
+                       is made and nothing is synced back, so the rootfs
+                       options above do not apply
+      --disk FILE      attach this disk image (qcow2 or raw) instead of a
+                       rootfs and boot the boot loader on it; with --iso too,
+                       the ISO boots first and QEMU's boot menu (Esc at the
+                       firmware screen) chooses the disk. With --uefi the
+                       firmware's variables are kept in <disk>.efivars
+      --create-img FILE
+                       create a disk image (qcow2, sparse) for --disk, asking
+                       for its size; with --iso it is then booted with the ISO
+                       (to install onto it), otherwise the script ends there
       --reuse          reuse an existing image without asking
       --fresh          recreate the image from the rootfs without asking
       --gl, --no-gl    3D accelerated virtio-vga-gl (OpenGL through virgl, the
@@ -52,7 +69,20 @@ Boot a live rootfs in QEMU to configure it before running sauzeros-live.
       --display UI     QEMU display: gtk (default), sdl, or spice: the spicy
                        client, which shares the clipboard and resizes the guest
                        screen with its window (spice-vdagent in the guest)
+      --arch ARCH      guest architecture for --iso and --disk: x86_64 or
+                       aarch64 (arm64). The default is what the ISO boots
+                       (its EFI boot loader), else x86_64. An aarch64 guest
+                       runs on QEMU's virt machine through UEFI, emulated on
+                       an x86_64 host (TCG): it works, but slowly
+      --bridge NAME    put the guest on the host bridge NAME (e.g. Bridge0), so
+                       it gets an address on that network; it needs a line
+                       "allow NAME" in /etc/qemu/bridge.conf. The default is
+                       QEMU's user networking (NAT, outgoing connections only)
   -h, --help           this message
+
+An arm64 rootfs boots too, on QEMU's virt machine (emulated on an x86_64
+host, so slowly), with linux-live built for arm64 in it
+(hokuto build --cross=arm64 linux-live); linux-rpi4's kernel only runs on a Pi.
 
 Run it as your normal user: QEMU needs your graphical session, and the steps
 that need root (building the image, applying the changes) go through sudo.
@@ -72,24 +102,37 @@ venus=0
 relative_mouse=0
 uefi=0
 display=""
+iso=""
+iso_is_disk=0
+disk=""
+create_img=""
+arch=""
+bridge=""
+# The last rootfs-only option given, which --iso and --disk rule out.
+rootfs_option=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -r|--rootfs)  rootfs_dir=$2; shift 2 ;;
-        -i|--image)   image=$2; shift 2 ;;
+        -r|--rootfs)  rootfs_dir=$2; rootfs_option=$1; shift 2 ;;
+        -i|--image)   image=$2; rootfs_option=$1; shift 2 ;;
         -m|--memory)  memory=$2; shift 2 ;;
         -c|--cpus)    cpus=$2; shift 2 ;;
-        -s|--free)    free_space=$2; shift 2 ;;
-        -k|--kernel)  kernel=$2; shift 2 ;;
-        -a|--append)  extra_append=$2; shift 2 ;;
-        --reuse)      reuse=yes; shift ;;
-        --fresh)      reuse=no; shift ;;
+        -s|--free)    free_space=$2; rootfs_option=$1; shift 2 ;;
+        -k|--kernel)  kernel=$2; rootfs_option=$1; shift 2 ;;
+        -a|--append)  extra_append=$2; rootfs_option=$1; shift 2 ;;
+        --reuse)      reuse=yes; rootfs_option=$1; shift ;;
+        --fresh)      reuse=no; rootfs_option=$1; shift ;;
         --gl)         gl=1; shift ;;
         --no-gl)      gl=0; shift ;;
         --venus)      venus=1; gl=1; shift ;;
         --relative-mouse) relative_mouse=1; shift ;;
         --uefi)       uefi=1; shift ;;
         --display)    display=$2; shift 2 ;;
+        --iso)        iso=$2; shift 2 ;;
+        --disk)       disk=$2; shift 2 ;;
+        --arch)       arch=$2; shift 2 ;;
+        --create-img) create_img=$2; shift 2 ;;
+        --bridge)     bridge=$2; shift 2 ;;
         -h|--help)    usage; exit 0 ;;
         *)            die "Unknown option: $1" ;;
     esac
@@ -103,82 +146,55 @@ need() {
         command -v "$tool" >/dev/null 2>&1 || die "'$tool' is required but not installed."
     done
 }
-need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt pkill losetup findmnt
-
-# The rootfs used last time is the default the next time.
-last_rootfs_file="${XDG_STATE_HOME:-$HOME/.local/state}/sauzeros-live-vm/rootfs"
-default_rootfs=/var/tmp/sauzerOS-live
-if [[ -r "$last_rootfs_file" ]]; then
-    last_rootfs=$(<"$last_rootfs_file")
-    [[ -d "$last_rootfs" ]] && default_rootfs=$last_rootfs
-fi
-if [[ -z "$rootfs_dir" ]]; then
-    read -e -p "$(echo -e "${BLUE}Enter the rootfs directory (default: $default_rootfs): ${NC}")" rootfs_dir
-fi
-rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-$default_rootfs}")")
-[[ -d "$rootfs_dir" ]] || die "Rootfs directory '$rootfs_dir' not found."
-[[ "$rootfs_dir" != / ]] || die "Refusing to use / as the rootfs."
-mkdir -p "${last_rootfs_file%/*}" 2>/dev/null && printf '%s\n' "$rootfs_dir" > "$last_rootfs_file" 2>/dev/null || true
-image=$(realpath -m -- "${image:-${rootfs_dir}-vm.img}")
-stamp="$image.synced"
-efivars="$image.efivars"
-
-# mke2fs -d does not stop at filesystem boundaries, so a /proc or bind mount
-# left behind by a chroot session would be copied into the image.
-if findmnt -rno TARGET | grep -q "^$rootfs_dir/"; then
-    die "Something is mounted below $rootfs_dir (a leftover chroot session?); unmount it first:
-$(findmnt -rno TARGET | grep "^$rootfs_dir/")"
-fi
-
-# --- Architecture -----------------------------------------------------------
-# The same ELF e_machine probe sauzeros-live uses. Only x86_64 can be booted
-# here: an arm64 rootfs carries a Raspberry Pi kernel, which does not boot on
-# any machine QEMU can run with KVM on this host.
-machine=""
-for probe in /usr/bin/bash /bin/bash /usr/bin/sh /bin/sh; do
-    [[ -f "$rootfs_dir$probe" ]] || continue
-    machine=$(od -An -tx1 -j18 -N2 "$rootfs_dir$probe" 2>/dev/null | tr -d ' \n')
-    break
-done
-case "$machine" in
-    3e00) ;;
-    b700) die "'$rootfs_dir' is an arm64 rootfs; only x86_64 rootfs can be booted in the VM." ;;
-    *)    die "Cannot tell what architecture '$rootfs_dir' is for (no /usr/bin/bash?)." ;;
-esac
-
-# --- Kernel -----------------------------------------------------------------
-# The live kernel has virtio-blk, virtio-pci and ext4 built in, so it boots
-# straight from the image without an initramfs; virtio-gpu, virtio-net and the
-# sound driver are modules the booted system loads from the rootfs itself.
-if [[ -z "$kernel" ]]; then
-    kernel="$rootfs_dir/boot/vmlinuz-sauzerOS-live"
-    if [[ ! -f "$kernel" ]]; then
-        kernel=$(ls -t "$rootfs_dir"/boot/vmlinuz* 2>/dev/null | head -n 1 || true)
+# --create-img: make the image first; it is the disk of this session when
+# there is an ISO to boot, and the end of the script otherwise.
+if [[ -n "$create_img" ]]; then
+    [[ -z "$rootfs_option" ]] || die "$rootfs_option is for booting a rootfs; --create-img makes a disk for --disk."
+    [[ -z "$disk" ]] || die "Use either --create-img or --disk; --create-img with --iso boots the new image."
+    need qemu-img
+    create_img=$(realpath -m -- "$(eval echo "$create_img")")
+    if [[ -e "$create_img" ]]; then
+        read -r -p "$(echo -e "${BLUE}$create_img exists. Replace it with an empty disk? [y/N] ${NC}")" answer
+        [[ "$answer" =~ ^[Yy] ]] || die "Not replacing $create_img."
     fi
+    while :; do
+        read -r -p "$(echo -e "${BLUE}Disk size (default: 32G): ${NC}")" size
+        size=${size:-32G}
+        [[ "$size" =~ ^[0-9]+[KMGT]?$ ]] && break
+        warn "Give a size like 32G, 500M or 1T."
+    done
+    mkdir -p "$(dirname "$create_img")"
+    rm -f "$create_img" "$create_img.efivars"
+    qemu-img create -q -f qcow2 "$create_img" "$size" || die "qemu-img could not create $create_img."
+    msg "Created $create_img ($size, qcow2; it grows as the guest writes)."
+    if [[ -z "$iso" ]]; then
+        msg "Boot it with: sauzeros-live-vm --disk $create_img [--iso FILE]"
+        exit 0
+    fi
+    disk=$create_img
 fi
-[[ -n "$kernel" && -f "$kernel" ]] ||
-    die "No kernel in $rootfs_dir/boot; install linux-live into the rootfs or pass --kernel."
-[[ -r "$kernel" ]] || die "Kernel $kernel is not readable by $(id -un)."
 
-msg "Rootfs: $rootfs_dir"
-msg "Image:  $image"
-msg "Kernel: $kernel"
+plain_mode=0
+if [[ -n "$iso" || -n "$disk" ]]; then
+    plain_mode=1
+    [[ -z "$rootfs_option" ]] || die "$rootfs_option is for booting a rootfs, not for --iso or --disk."
+    [[ -z "$disk" ]] || need qemu-img
+else
+    [[ -z "$arch" ]] || die "--arch is for --iso and --disk; a rootfs is booted as what it is."
+    need sudo mke2fs rsync qemu-system-x86_64 truncate numfmt pkill losetup findmnt
+fi
 
-sudo -v || die "sudo authentication failed."
-
-# --- Working image ------------------------------------------------------------
-# Paths never copied back: state every boot creates for itself. Copying it
-# would give every machine booted from the ISO the same machine-id, SSH host
-# keys and random seed. rsync --delete leaves excluded paths in the rootfs
-# alone, so whatever the rootfs had there stays as it was.
-exclude_file=$(mktemp)
+# Set up before anything that cleanup() undoes.
+exclude_file=""
 mnt=""
 spice_watch_pid=""
+efivars_tmp=""
 cleanup() {
     # Every step runs whatever the one before returned (the script runs
     # with -e): a watcher already gone must not cost the unmount.
     set +e
-    rm -f "$exclude_file"
+    [[ -n "$exclude_file" ]] && rm -f "$exclude_file"
+    [[ -n "$efivars_tmp" ]] && rm -f "$efivars_tmp"
     [[ -n "$spice_watch_pid" ]] && kill "$spice_watch_pid" 2>/dev/null
     if [[ -n "$mnt" ]]; then
         if ! sudo umount "$mnt"; then
@@ -189,7 +205,163 @@ cleanup() {
     fi
 }
 trap cleanup EXIT
-cat > "$exclude_file" <<'EOF'
+
+# The start (in bytes) of each partition of a disk image with a FAT type:
+# FAT16/32 (4, 6, b, c, e) or an EFI system partition (ef).
+image_fat_offsets() {
+    command -v sfdisk >/dev/null 2>&1 || return 0
+    sfdisk -d "$1" 2>/dev/null |
+        sed -n 's/.*start= *\([0-9]*\),.*type= *\(4\|6\|b\|c\|e\|ef\|C12A7328-F81F-11D2-BA4B-00A0C93EC93B\)\b.*/\1/Ip' |
+        while read -r start; do echo $(( start * 512 )); done
+}
+# aa64, x64 or ia32: the removable-media EFI loader a disk image carries.
+image_efi_loader() {
+    command -v mdir >/dev/null 2>&1 || return 0
+    local offset
+    for offset in $(image_fat_offsets "$1"); do
+        mdir -b -i "$1@@$offset" ::/EFI/BOOT 2>/dev/null |
+            grep -ioE 'boot(aa64|x64|ia32)\.efi' | head -n 1 | sed 's/^boot//I; s/\.efi$//I' | tr 'A-Z' 'a-z'
+    done | head -n 1
+}
+
+# --iso / --disk: check them; the disk's format is what qemu-img finds.
+prepare_plain() {
+    if [[ -n "$iso" ]]; then
+        iso=$(realpath -m -- "$(eval echo "$iso")")
+        [[ -f "$iso" ]] || die "ISO '$iso' not found."
+        [[ -r "$iso" ]] || die "ISO $iso is not readable by $(id -un)."
+        # sauzeros-live's arm64 output is a partitioned disk image named .iso
+        # (written to a stick like the ISO): a CD-ROM drive reads it with
+        # 2048-byte sectors and finds no partitions. Anything without the
+        # ISO 9660 signature is attached as a disk instead, writes discarded.
+        iso_is_disk=0
+        if [[ "$(dd if="$iso" bs=1 skip=32769 count=5 status=none 2>/dev/null | tr -d '\0')" != CD001 ]]; then
+            iso_is_disk=1
+        fi
+        if (( iso_is_disk )); then
+            msg "ISO:  $iso (a disk image, not ISO 9660: attached as a disk, writes discarded)"
+        else
+            msg "ISO:  $iso"
+        fi
+    fi
+    if [[ -n "$disk" ]]; then
+        disk=$(realpath -m -- "$(eval echo "$disk")")
+        [[ -f "$disk" ]] || die "Disk image '$disk' not found (create one with --create-img)."
+        [[ -r "$disk" && -w "$disk" ]] || die "Disk image $disk is not readable and writable by $(id -un)."
+        disk_format=$(qemu-img info -U "$disk" 2>/dev/null | sed -n 's/^file format: //p')
+        [[ -n "$disk_format" ]] || die "qemu-img cannot read $disk."
+        efivars="$disk.efivars"
+        msg "Disk: $disk ($disk_format)"
+    else
+        msg "No disk; nothing is written."
+    fi
+    # The guest's architecture: --arch, or what the ISO's EFI boot loader is
+    # for (BIOS-only ISOs are x86_64).
+    case "$arch" in
+        ""|x86_64|amd64) ;;
+        aarch64|arm64) arch=aarch64 ;;
+        *) die "Unknown --arch '$arch' (x86_64 or aarch64)." ;;
+    esac
+    if [[ -z "$arch" ]]; then
+        arch=x86_64
+        if [[ -n "$iso" ]] && (( iso_is_disk )); then
+            # A disk image: the EFI loader on one of its FAT partitions.
+            local loader
+            loader=$(image_efi_loader "$iso")
+            [[ "$loader" == aa64 ]] && arch=aarch64
+        elif [[ -n "$iso" ]] && command -v xorriso >/dev/null 2>&1; then
+            efi_loaders=$(xorriso -indev "$iso" -find / -maxdepth 3 -type f 2>/dev/null |
+                grep -ioE '/efi/boot/boot(aa64|x64|ia32)\.efi' || true)
+            if grep -qi 'aa64' <<<"$efi_loaders" && ! grep -qiE 'x64|ia32' <<<"$efi_loaders"; then
+                arch=aarch64
+            fi
+        fi
+    fi
+    [[ "$arch" == x86_64 ]] || msg "Architecture: $arch"
+    vm_title="sauzerOS VM: $(basename "${iso:-$disk}")"
+    [[ -n "$iso" && -n "$disk" ]] && vm_title="sauzerOS VM: $(basename "$iso") + $(basename "$disk")"
+    return 0
+}
+
+# A rootfs: check it, find its kernel and make or reuse its image.
+prepare_rootfs() {
+    # The rootfs used last time is the default the next time.
+    last_rootfs_file="${XDG_STATE_HOME:-$HOME/.local/state}/sauzeros-live-vm/rootfs"
+    default_rootfs=/var/tmp/sauzerOS-live
+    if [[ -r "$last_rootfs_file" ]]; then
+        last_rootfs=$(<"$last_rootfs_file")
+        [[ -d "$last_rootfs" ]] && default_rootfs=$last_rootfs
+    fi
+    if [[ -z "$rootfs_dir" ]]; then
+        read -e -p "$(echo -e "${BLUE}Enter the rootfs directory (default: $default_rootfs): ${NC}")" rootfs_dir
+    fi
+    rootfs_dir=$(realpath -m -- "$(eval echo "${rootfs_dir:-$default_rootfs}")")
+    [[ -d "$rootfs_dir" ]] || die "Rootfs directory '$rootfs_dir' not found."
+    [[ "$rootfs_dir" != / ]] || die "Refusing to use / as the rootfs."
+    mkdir -p "${last_rootfs_file%/*}" 2>/dev/null && printf '%s\n' "$rootfs_dir" > "$last_rootfs_file" 2>/dev/null || true
+    image=$(realpath -m -- "${image:-${rootfs_dir}-vm.img}")
+    stamp="$image.synced"
+    efivars="$image.efivars"
+
+    # mke2fs -d does not stop at filesystem boundaries, so a /proc or bind mount
+    # left behind by a chroot session would be copied into the image.
+    if findmnt -rno TARGET | grep -q "^$rootfs_dir/"; then
+        die "Something is mounted below $rootfs_dir (a leftover chroot session?); unmount it first:
+    $(findmnt -rno TARGET | grep "^$rootfs_dir/")"
+    fi
+
+    # --- Architecture -----------------------------------------------------------
+    # The same ELF e_machine probe sauzeros-live uses.
+    machine=""
+    for probe in /usr/bin/bash /bin/bash /usr/bin/sh /bin/sh; do
+        [[ -f "$rootfs_dir$probe" ]] || continue
+        machine=$(od -An -tx1 -j18 -N2 "$rootfs_dir$probe" 2>/dev/null | tr -d ' \n')
+        break
+    done
+    case "$machine" in
+        3e00) rootfs_arch=x86_64 ;;
+        b700) rootfs_arch=aarch64 ;;
+        *)    die "Cannot tell what architecture '$rootfs_dir' is for (no /usr/bin/bash?)." ;;
+    esac
+
+    # --- Kernel -----------------------------------------------------------------
+    # The live kernel has virtio-blk, virtio-pci and ext4 built in, so it boots
+    # straight from the image without an initramfs; virtio-gpu, virtio-net and the
+    # sound driver are modules the booted system loads from the rootfs itself.
+    if [[ -z "$kernel" ]]; then
+        kernel="$rootfs_dir/boot/vmlinuz-sauzerOS-live"
+        if [[ ! -f "$kernel" ]]; then
+            kernel=$(ls -t "$rootfs_dir"/boot/vmlinuz* 2>/dev/null | head -n 1 || true)
+        fi
+    fi
+    [[ -n "$kernel" && -f "$kernel" ]] ||
+        die "No kernel in $rootfs_dir/boot; install linux-live into the rootfs or pass --kernel."
+    [[ -r "$kernel" ]] || die "Kernel $kernel is not readable by $(id -un)."
+    # An arm64 rootfs boots on QEMU's virt machine, which needs a kernel with
+    # its drivers: linux-live built with --cross=arm64 (an arm64 Image has
+    # "ARMd" at offset 56). linux-rpi4's kernel8.img only knows the Pi.
+    if [[ "$rootfs_arch" == aarch64 && "$(od -An -c -j56 -N4 "$kernel" | tr -d ' ')" != ARMd ]]; then
+        die "$kernel is not an arm64 kernel QEMU can boot. Install linux-live built for arm64
+       (hokuto build --cross=arm64 linux-live) into the rootfs, or pass --kernel."
+    fi
+
+    if [[ "$rootfs_arch" == x86_64 ]]; then
+        msg "Rootfs: $rootfs_dir"
+    else
+        msg "Rootfs: $rootfs_dir ($rootfs_arch)"
+    fi
+    msg "Image:  $image"
+    msg "Kernel: $kernel"
+
+    sudo -v || die "sudo authentication failed."
+
+    # --- Working image ------------------------------------------------------------
+    # Paths never copied back: state every boot creates for itself. Copying it
+    # would give every machine booted from the ISO the same machine-id, SSH host
+    # keys and random seed. rsync --delete leaves excluded paths in the rootfs
+    # alone, so whatever the rootfs had there stays as it was.
+    exclude_file=$(mktemp)
+    cat > "$exclude_file" <<'EOF'
 /lost+found
 /etc/machine-id
 /var/lib/dbus/machine-id
@@ -205,45 +377,56 @@ cat > "$exclude_file" <<'EOF'
 /var/tmp/*
 EOF
 
-create_image() {
-    local used_kib extra_bytes total_bytes
-    msg "Measuring the rootfs..."
-    used_kib=$(sudo du -sxk "$rootfs_dir" | cut -f1)
-    extra_bytes=$(numfmt --from=iec "$free_space") || die "Invalid --free size '$free_space'."
-    # ext4 metadata and the inode tables cost roughly a tenth on top of the data.
-    total_bytes=$(( used_kib * 1024 * 11 / 10 + extra_bytes ))
+    create_image() {
+        local used_kib extra_bytes total_bytes
+        msg "Measuring the rootfs..."
+        used_kib=$(sudo du -sxk "$rootfs_dir" | cut -f1)
+        extra_bytes=$(numfmt --from=iec "$free_space") || die "Invalid --free size '$free_space'."
+        # ext4 metadata and the inode tables cost roughly a tenth on top of the data.
+        total_bytes=$(( used_kib * 1024 * 11 / 10 + extra_bytes ))
 
-    msg "Creating a $(numfmt --to=iec "$total_bytes") image from the rootfs (this may take a while)..."
-    rm -f "$image" "$stamp" "$efivars"
-    mkdir -p "$(dirname "$image")"
-    truncate -s "$total_bytes" "$image"
-    # -d copies the tree with its owners, modes, xattrs (file capabilities,
-    # ACLs) and hard links, without mounting anything.
-    sudo mke2fs -q -t ext4 -L sauzeros-vm -m 0 -E root_owner=0:0 -d "$rootfs_dir" "$image" ||
-        die "mke2fs failed to build the image."
-    touch "$stamp"
+        msg "Creating a $(numfmt --to=iec "$total_bytes") image from the rootfs (this may take a while)..."
+        rm -f "$image" "$stamp" "$efivars"
+        mkdir -p "$(dirname "$image")"
+        truncate -s "$total_bytes" "$image"
+        # -d copies the tree with its owners, modes, xattrs (file capabilities,
+        # ACLs) and hard links, without mounting anything.
+        sudo mke2fs -q -t ext4 -L sauzeros-vm -m 0 -E root_owner=0:0 -d "$rootfs_dir" "$image" ||
+            die "mke2fs failed to build the image."
+        touch "$stamp"
+    }
+
+    if [[ -f "$image" ]]; then
+        stale=""
+        if [[ ! -f "$stamp" ]] ||
+           [[ -n "$(sudo find "$rootfs_dir" -xdev -newer "$stamp" -print -quit 2>/dev/null)" ]]; then
+            stale=1
+        fi
+        if [[ -z "$reuse" ]]; then
+            if [[ -n "$stale" ]]; then
+                warn "The rootfs changed after this image was made; applying the image later would undo those changes."
+                read -r -p "$(echo -e "${BLUE}Reuse the existing image anyway? [y/N] ${NC}")" answer
+                [[ "$answer" =~ ^[Yy] ]] && reuse=yes || reuse=no
+            else
+                read -r -p "$(echo -e "${BLUE}Reuse the existing image (keeps its unapplied changes)? [Y/n] ${NC}")" answer
+                [[ "$answer" =~ ^[Nn] ]] && reuse=no || reuse=yes
+            fi
+        fi
+        [[ "$reuse" == yes ]] || create_image
+    else
+        create_image
+    fi
+    vm_title="sauzerOS rootfs: $(basename "$rootfs_dir")"
 }
 
-if [[ -f "$image" ]]; then
-    stale=""
-    if [[ ! -f "$stamp" ]] ||
-       [[ -n "$(sudo find "$rootfs_dir" -xdev -newer "$stamp" -print -quit 2>/dev/null)" ]]; then
-        stale=1
-    fi
-    if [[ -z "$reuse" ]]; then
-        if [[ -n "$stale" ]]; then
-            warn "The rootfs changed after this image was made; applying the image later would undo those changes."
-            read -r -p "$(echo -e "${BLUE}Reuse the existing image anyway? [y/N] ${NC}")" answer
-            [[ "$answer" =~ ^[Yy] ]] && reuse=yes || reuse=no
-        else
-            read -r -p "$(echo -e "${BLUE}Reuse the existing image (keeps its unapplied changes)? [Y/n] ${NC}")" answer
-            [[ "$answer" =~ ^[Nn] ]] && reuse=no || reuse=yes
-        fi
-    fi
-    [[ "$reuse" == yes ]] || create_image
+if (( plain_mode )); then
+    prepare_plain
 else
-    create_image
+    prepare_rootfs
+    arch=$rootfs_arch
 fi
+qemu_bin=qemu-system-$arch
+need "$qemu_bin"
 
 # --- QEMU ---------------------------------------------------------------------
 if [[ -z "$cpus" ]]; then
@@ -252,28 +435,80 @@ if [[ -z "$cpus" ]]; then
     (( cpus > 8 )) && cpus=8
 fi
 
-accel=(-machine q35,accel=kvm -cpu host)
-if [[ ! -r /dev/kvm || ! -w /dev/kvm ]]; then
+# The machine: q35 on x86_64; QEMU's generic virt board on aarch64, which
+# has no BIOS, no VGA and no IDE (UEFI, virtio-gpu and virtio-scsi instead).
+# KVM only runs a guest of the host's own architecture.
+machine=q35
+[[ "$arch" == aarch64 ]] && machine=virt
+# The emulated CPU (TCG): an arm64 "max" CPU has pointer authentication,
+# whose architected algorithm (QARMA) QEMU computes in software on every
+# signed return; its implementation-defined one is far cheaper, and the
+# guest cannot tell them apart.
+tcg_cpu=max
+[[ "$arch" == aarch64 ]] && tcg_cpu=max,pauth-impdef=on
+accel=(-machine "$machine,accel=kvm" -cpu host)
+if [[ "$arch" != "$(uname -m)" ]]; then
+    accel=(-machine "$machine" -cpu "$tcg_cpu")
+    msg "No KVM for an $arch guest on this $(uname -m) host: QEMU emulates the CPU (TCG), which is slow."
+elif [[ ! -r /dev/kvm || ! -w /dev/kvm ]]; then
     warn "No access to /dev/kvm; falling back to software emulation, which is very slow."
-    accel=(-machine q35 -cpu max)
+    accel=(-machine "$machine" -cpu "$tcg_cpu")
 fi
 
-qemu_has() { qemu-system-x86_64 "$1" help 2>/dev/null | grep -qw -- "$2"; }
+qemu_has() { "$qemu_bin" "$1" help 2>/dev/null | grep -qw -- "$2"; }
+
+# The GPU device, without and with 3D: virtio-vga carries the VGA a PC
+# firmware needs; the virt board's UEFI drives virtio-gpu-pci itself.
+gpu_dev=virtio-vga
+[[ "$arch" == aarch64 ]] && gpu_dev=virtio-gpu-pci
+gpu_gl_dev=${gpu_dev/%-pci/-gl-pci}
+[[ "$gpu_dev" == virtio-vga ]] && gpu_gl_dev=virtio-vga-gl
 
 # UEFI: edk2's code is read-only; its variable store (boot entries,
 # settings) is a writable copy kept with the image. The kernel is still
 # passed with -kernel: the firmware starts it as an EFI program.
 qemu_firmware=()
+# An aarch64 virt board has no BIOS: an ISO or a disk boots through UEFI. A
+# rootfs needs neither, QEMU starts its kernel directly (-kernel).
+(( plain_mode )) && [[ "$arch" == aarch64 ]] && uefi=1
 if (( uefi )); then
-    efi_code=/usr/share/qemu/edk2-x86_64-code.fd
-    efi_vars_template=/usr/share/qemu/edk2-i386-vars.fd
-    [[ -r "$efi_code" && -r "$efi_vars_template" ]] ||
-        die "--uefi needs the edk2 firmware; install qemu-system-x86-firmware."
-    [[ -f "$efivars" ]] || cp "$efi_vars_template" "$efivars" ||
-        die "Cannot create the UEFI variable store $efivars."
+    if [[ "$arch" == aarch64 ]]; then
+        efi_code=/usr/share/qemu/edk2-aarch64-code.fd
+        # No template ships for it: an empty store of the code's size (both
+        # flash devices of the virt board are 64 MiB) is formatted by edk2.
+        efi_vars_template=""
+        [[ -r "$efi_code" ]] || die "An aarch64 guest needs the edk2 firmware ($efi_code); install the aarch64 QEMU firmware."
+    else
+        efi_code=/usr/share/qemu/edk2-x86_64-code.fd
+        efi_vars_template=/usr/share/qemu/edk2-i386-vars.fd
+        [[ -r "$efi_code" && -r "$efi_vars_template" ]] ||
+            die "--uefi needs the edk2 firmware; install qemu-system-x86-firmware."
+    fi
+    # new_efivars <file>: a fresh variable store.
+    new_efivars() {
+        if [[ -n "$efi_vars_template" ]]; then
+            cp "$efi_vars_template" "$1"
+        else
+            truncate -s "$(stat -c %s "$efi_code")" "$1"
+        fi
+    }
+    if (( plain_mode )) && [[ -z "$disk" ]]; then
+        # Nothing outlives an ISO session: a fresh store, removed afterwards.
+        efivars_tmp=$(mktemp "${TMPDIR:-/tmp}/sauzeros-live-vm-efivars.XXXXXX")
+        efivars=$efivars_tmp
+        new_efivars "$efivars" ||
+            die "Cannot create the UEFI variable store $efivars."
+    else
+        [[ -f "$efivars" ]] || new_efivars "$efivars" ||
+            die "Cannot create the UEFI variable store $efivars."
+    fi
     qemu_firmware=(-drive "if=pflash,format=raw,unit=0,readonly=on,file=$efi_code"
         -drive "if=pflash,format=raw,unit=1,file=$efivars")
-    msg "Firmware: UEFI (variables in $efivars)"
+    if [[ -n "$efivars_tmp" ]]; then
+        msg "Firmware: UEFI"
+    else
+        msg "Firmware: UEFI (variables in $efivars)"
+    fi
 fi
 
 # 3D in the guest goes through virglrenderer on the host GPU. With the
@@ -310,7 +545,7 @@ spice_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-spice.sock"
 if [[ "$display" == spice ]]; then
     command -v spicy >/dev/null 2>&1 || die "--display spice needs spicy (the spice-gtk package)."
     command -v socat >/dev/null 2>&1 || die "--display spice needs socat (to end the session without crashing QEMU)."
-    qemu-system-x86_64 -help 2>/dev/null | grep -q -- '^-spice ' || die "This QEMU was built without SPICE support."
+    "$qemu_bin" -help 2>/dev/null | grep -q -- '^-spice ' || die "This QEMU was built without SPICE support."
 fi
 # The QEMU display options, with 3D (gl=on) when $1 is 1.
 display_options() {
@@ -340,11 +575,11 @@ if (( venus )); then
     # Venus passes Vulkan through to the host driver. It needs blob
     # resources and host-visible memory, and the guest RAM shared with the
     # renderer, hence the memfd backend.
-    qemu-system-x86_64 -device virtio-vga-gl,help 2>/dev/null | grep -qw venus ||
-        die "This QEMU's virtio-vga-gl has no Venus support (QEMU 9.2 or newer, virglrenderer built with -D venus=true)."
+    "$qemu_bin" -device "$gpu_gl_dev,help" 2>/dev/null | grep -qw venus ||
+        die "This QEMU's $gpu_gl_dev has no Venus support (QEMU 9.2 or newer, virglrenderer built with -D venus=true)."
     display_available || die "QEMU has no $display display; install qemu-ui-$display."
     mapfile -t qemu_display < <(display_options 1)
-    qemu_display=(-device virtio-vga-gl,blob=true,hostmem=4G,venus=true "${qemu_display[@]}")
+    qemu_display=(-device "$gpu_gl_dev,blob=true,hostmem=4G,venus=true" "${qemu_display[@]}")
     qemu_memory=(-object "memory-backend-memfd,id=mem,size=$memory,share=on")
     accel[1]+=",memory-backend=mem"
     msg "Venus enabled: Vulkan in the guest runs on the host GPU, OpenGL stays on virgl."
@@ -357,16 +592,16 @@ if (( venus )); then
         msg "shows only in a window (fullscreen stays black); games may show broken"
         msg "textures, OpenGL is the reliable choice for them."
     fi
-elif (( gl )) && qemu_has -device virtio-vga-gl && display_available; then
+elif (( gl )) && qemu_has -device "$gpu_gl_dev" && display_available; then
     mapfile -t qemu_display < <(display_options 1)
-    qemu_display=(-device virtio-vga-gl "${qemu_display[@]}")
+    qemu_display=(-device "$gpu_gl_dev" "${qemu_display[@]}")
 else
-    (( gl )) && warn "virtio-vga-gl or the $display display is unavailable; using virtio-vga without 3D acceleration."
-    qemu_has -device virtio-vga ||
-        die "QEMU has no virtio-vga device; install qemu-hw-display-virtio-vga (and -gl for 3D)."
+    (( gl )) && warn "$gpu_gl_dev or the $display display is unavailable; using $gpu_dev without 3D acceleration."
+    qemu_has -device "$gpu_dev" ||
+        die "QEMU has no $gpu_dev device; install qemu-hw-display-${gpu_dev%-pci} (and -gl for 3D)."
     display_available || die "QEMU has no $display display; install qemu-ui-$display."
     mapfile -t qemu_display < <(display_options 0)
-    qemu_display=(-device virtio-vga "${qemu_display[@]}")
+    qemu_display=(-device "$gpu_dev" "${qemu_display[@]}")
 fi
 # No zoom-to-fit: resizing the window then asks the guest for that
 # resolution instead of scaling the picture.
@@ -378,22 +613,36 @@ fi
 
 # A mount of the image left by an earlier session (its cleanup interrupted)
 # must go: the VM writes to the image, and e2fsck refuses a mounted one.
-while read -r loopdev; do
-    [[ -n "$loopdev" ]] || continue
-    while read -r target; do
-        [[ -n "$target" ]] || continue
-        msg "Unmounting a leftover mount of the image: $target"
-        sudo umount "$target" || die "Cannot unmount $target; unmount it, then start again."
-        [[ "$target" == /tmp/tmp.* ]] && rmdir "$target" 2>/dev/null
-    done < <(findmnt -rn -S "$loopdev" -o TARGET)
-done < <(losetup -j "$image" -n -O NAME 2>/dev/null)
+if (( ! plain_mode )); then
+    while read -r loopdev; do
+        [[ -n "$loopdev" ]] || continue
+        while read -r target; do
+            [[ -n "$target" ]] || continue
+            msg "Unmounting a leftover mount of the image: $target"
+            sudo umount "$target" || die "Cannot unmount $target; unmount it, then start again."
+            [[ "$target" == /tmp/tmp.* ]] && rmdir "$target" 2>/dev/null
+        done < <(findmnt -rn -S "$loopdev" -o TARGET)
+    done < <(losetup -j "$image" -n -O NAME 2>/dev/null)
+fi
 
-msg "Booting the rootfs (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
+if (( plain_mode )); then
+    what="the disk"
+    [[ -n "$iso" ]] && what="the ISO"
+    [[ -n "$iso" && -n "$disk" ]] && what="the ISO with the disk"
+    msg "Booting $what (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
+else
+    msg "Booting the rootfs (${cpus} CPUs, ${memory} RAM). Shut the guest down to finish the session."
+fi
 # The guest's serial console is this terminal: a login that works whatever
 # the display does. Ctrl+Alt+F<n> never reaches the guest (the host's X
 # server takes it), but Ctrl+A C opens the QEMU monitor here, where
 # "sendkey ctrl-alt-f2" does; Ctrl+A C again returns to the console.
-msg "Guest console: this terminal (Ctrl+A C toggles the QEMU monitor, e.g. 'sendkey ctrl-alt-f2')."
+if (( plain_mode )); then
+    # The ISO's boot entries choose their own console, usually not ttyS0.
+    msg "QEMU monitor: this terminal, Ctrl+A C (e.g. 'sendkey ctrl-alt-f2')."
+else
+    msg "Guest console: this terminal (Ctrl+A C toggles the QEMU monitor, e.g. 'sendkey ctrl-alt-f2')."
+fi
 
 # The guest agent's port: udev in the guest starts qemu-guest-agent when it
 # appears (the unit has no [Install] section to enable it by).
@@ -405,7 +654,7 @@ qemu_vdagent=()
 if [[ "$display" == spice ]]; then
     qemu_vdagent=(-chardev spicevmc,id=vdagent0,name=vdagent
         -device virtserialport,chardev=vdagent0,name=com.redhat.spice.0)
-elif qemu-system-x86_64 -chardev help 2>/dev/null | grep -qx '  *qemu-vdagent'; then
+elif "$qemu_bin" -chardev help 2>/dev/null | grep -qx '  *qemu-vdagent'; then
     qemu_vdagent=(-chardev qemu-vdagent,id=vdagent0,clipboard=on,mouse=off
         -device virtserialport,chardev=vdagent0,name=com.redhat.spice.0)
 fi
@@ -420,6 +669,88 @@ if (( relative_mouse )); then
         gtk) msg "Relative mouse: click in the window to capture it, Ctrl+Alt+G releases it." ;;
         *)   msg "Relative mouse: click in the window to capture it, Ctrl+Alt releases it." ;;
     esac
+fi
+# The guest's serial port: the PC's 16550 or the virt board's PL011.
+serial_console=ttyS0
+[[ "$arch" == aarch64 ]] && serial_console=ttyAMA0
+# What boots: the ISO from a CD-ROM drive (its own boot loader), or the
+# rootfs kernel straight onto the image.
+if (( plain_mode )); then
+    qemu_boot=()
+    if [[ "$arch" == aarch64 ]]; then
+        # No IDE on the virt board: the CD-ROM is a virtio-scsi one. The
+        # firmware boots in bootindex order, the ISO first.
+        if [[ -n "$iso" ]] && (( iso_is_disk )); then
+            qemu_boot+=(-drive "if=none,id=cd0,file=$iso,format=raw,snapshot=on"
+                -device virtio-blk-pci,drive=cd0,bootindex=0)
+        elif [[ -n "$iso" ]]; then
+            qemu_boot+=(-device virtio-scsi-pci,id=scsi0
+                -drive "if=none,id=cd0,file=$iso,media=cdrom,format=raw,readonly=on"
+                -device scsi-cd,bus=scsi0.0,drive=cd0,bootindex=0)
+        fi
+        [[ -n "$disk" ]] && qemu_boot+=(-drive "if=none,id=hd0,file=$disk,format=$disk_format,discard=unmap"
+            -device virtio-blk-pci,drive=hd0,bootindex=1)
+    else
+        if [[ -n "$iso" ]] && (( iso_is_disk )); then
+            qemu_boot+=(-drive "if=none,id=cd0,file=$iso,format=raw,snapshot=on"
+                -device virtio-blk-pci,drive=cd0,bootindex=0)
+        elif [[ -n "$iso" ]]; then
+            qemu_boot+=(-drive "file=$iso,media=cdrom,format=raw,readonly=on")
+        fi
+        [[ -n "$disk" ]] && qemu_boot+=(-drive "file=$disk,format=$disk_format,if=virtio,discard=unmap")
+    fi
+    if [[ -n "$iso" && -n "$disk" ]]; then
+        # The ISO first, as for an install; the menu reaches the disk.
+        qemu_boot+=(-boot order=d,menu=on)
+        msg "Boot menu: press Esc at the firmware screen to boot the disk instead of the ISO."
+    elif [[ -n "$iso" ]]; then
+        qemu_boot+=(-boot order=d)
+    else
+        qemu_boot+=(-boot order=c)
+    fi
+else
+    qemu_boot=(-kernel "$kernel"
+        -append "root=/dev/vda rw rootfstype=ext4 quiet console=tty0 console=$serial_console $extra_append"
+        -drive "file=$image,format=raw,if=virtio,cache=unsafe,discard=unmap")
+fi
+# Networking: QEMU's user mode NAT, or the guest on a host bridge through
+# qemu-bridge-helper (setuid root, so QEMU itself stays unprivileged; it only
+# attaches to bridges /etc/qemu/bridge.conf allows).
+qemu_net=(-nic user,model=virtio-net-pci)
+if [[ -n "$bridge" ]]; then
+    [[ -d "/sys/class/net/$bridge/bridge" ]] ||
+        die "No bridge '$bridge' on this host (bridges: $(ls /sys/class/net/*/bridge -d 2>/dev/null | cut -d/ -f5 | xargs))."
+    bridge_helper=""
+    for helper in /usr/lib/qemu/qemu-bridge-helper /usr/libexec/qemu-bridge-helper; do
+        [[ -x "$helper" ]] && { bridge_helper=$helper; break; }
+    done
+    [[ -n "$bridge_helper" ]] || die "--bridge needs qemu-bridge-helper (from the qemu package)."
+    [[ -u "$bridge_helper" ]] ||
+        die "$bridge_helper is not setuid root, so it cannot attach to $bridge; fix it with: sudo chmod u+s $bridge_helper"
+    # The helper reads bridge.conf and the files it includes; it refuses a
+    # bridge none of them allows, with only "access denied by acl file".
+    bridge_allowed() {
+        local conf=$1 line
+        [[ -r "$conf" ]] || return 1
+        while read -r line; do
+            case $line in
+                "allow $bridge"|"allow all") return 0 ;;
+                include\ *) bridge_allowed "${line#include }" && return 0 ;;
+            esac
+        done < "$conf"
+        return 1
+    }
+    bridge_allowed /etc/qemu/bridge.conf ||
+        die "/etc/qemu/bridge.conf does not allow $bridge; allow it with:
+       echo 'allow $bridge' | sudo tee -a /etc/qemu/bridge.conf"
+    # A MAC of its own, the same every session for this ISO or rootfs, so
+    # the network's DHCP server keeps its address (QEMU's default MAC is the
+    # same for every VM).
+    mac_seed=$( (( plain_mode )) && echo "${disk:-$iso}" || echo "$rootfs_dir")
+    mac=$(printf '%s' "$mac_seed" | md5sum | sed 's/^\(..\)\(..\)\(..\).*/52:54:00:\1:\2:\3/')
+    qemu_net=(-netdev "bridge,id=net0,br=$bridge,helper=$bridge_helper"
+        -device "virtio-net-pci,netdev=net0,mac=$mac")
+    msg "Network: bridge $bridge (MAC $mac)"
 fi
 qga_socket="${XDG_RUNTIME_DIR:-/tmp}/sauzeros-live-vm-qga.sock"
 rm -f "$qga_socket"
@@ -449,7 +780,7 @@ if [[ "$display" == spice ]]; then
         done
         # pkill takes a regular expression: the URI's "+" and "." literally.
         spicy_pattern="--uri=$(sed 's/[][\.*^$+?(){}|]/\\&/g' <<<"$spice_uri")"
-        spicy --uri="$spice_uri" --title="sauzerOS rootfs: $(basename "$rootfs_dir")" >/dev/null 2>&1 &
+        spicy --uri="$spice_uri" --title="$vm_title" >/dev/null 2>&1 &
         spicy=$!
         trap 'log "watcher exits"; pkill -f -- "$spicy_pattern" 2>/dev/null' EXIT
         log "spicy started (pid $spicy)"
@@ -512,26 +843,34 @@ if [[ "$display" == spice ]]; then
     spice_watch_pid=$!
     msg "Display: spicy (closing its window shuts the guest down)"
 fi
-qemu-system-x86_64 \
-    -name "sauzerOS rootfs: $(basename "$rootfs_dir")" \
+"$qemu_bin" \
+    -name "$vm_title" \
     "${accel[@]}" \
     -smp "$cpus" -m "$memory" \
     "${qemu_firmware[@]}" \
     "${qemu_memory[@]}" \
-    -kernel "$kernel" \
-    -append "root=/dev/vda rw rootfstype=ext4 quiet console=tty0 console=ttyS0 $extra_append" \
+    "${qemu_boot[@]}" \
     -serial mon:stdio \
-    -drive "file=$image,format=raw,if=virtio,cache=unsafe,discard=unmap" \
     "${qemu_display[@]}" \
     -device qemu-xhci -device usb-kbd "${qemu_pointer[@]}" \
-    -nic user,model=virtio-net-pci \
+    "${qemu_net[@]}" \
     -device virtio-rng-pci \
     -chardev "socket,id=qga0,path=$qga_socket,server=on,wait=off" \
     -device virtio-serial-pci -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
     "${qemu_vdagent[@]}" \
     "${qemu_spice_exit[@]}" \
-    "${qemu_audio[@]}" ||
-    warn "QEMU exited with an error; the image is kept as it is."
+    "${qemu_audio[@]}" || {
+    if (( plain_mode )); then
+        warn "QEMU exited with an error."
+    else
+        warn "QEMU exited with an error; the image is kept as it is."
+    fi
+}
+
+if (( plain_mode )); then
+    msg "Session ended; nothing to apply."
+    exit 0
+fi
 
 # --- Changes ------------------------------------------------------------------
 # A guest that was not shut down cleanly (the window closed, QEMU killed)

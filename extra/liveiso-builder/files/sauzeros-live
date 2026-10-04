@@ -222,25 +222,48 @@ build_arm64() {
     done
 
     # --- kernel, dtb, overlays, initramfs -----------------------------------
+    # Two kernels can boot the Pi: linux-live built for arm64 (mainline, also
+    # runs in sauzeros-live-vm; Pi 4 and Pi 5) and linux-rpi4 (the Raspberry
+    # Pi fork, Pi 4 only, with the firmware's overlays). linux-live wins when
+    # both are installed.
     msg "Copying kernel, device tree and initramfs..."
-    [[ -f "$rootfs_dir/boot/kernel8.img" ]] ||
-        die "No ${rootfs_dir}/boot/kernel8.img; the rootfs needs the linux-rpi4 package installed."
-    cp -a "$rootfs_dir/boot/kernel8.img" "$boot_stage/"
+    local kernel_file dtb_dir extra_cmdline=""
+    if [[ -f "$rootfs_dir/boot/vmlinuz-sauzerOS-live" &&
+          "$(od -An -c -j56 -N4 "$rootfs_dir/boot/vmlinuz-sauzerOS-live" | tr -d ' ')" == ARMd ]]; then
+        kernel_file=vmlinuz-sauzerOS-live
+        dtb_dir=$rootfs_dir/boot/dtbs-sauzerOS-live
+        # The mainline device trees reserve 64 MiB for CMA, too little for
+        # vc4 on a desktop; only the command line overrides them.
+        extra_cmdline=" cma=256M"
+        msg "Kernel: linux-live (mainline)"
+    elif [[ -f "$rootfs_dir/boot/kernel8.img" ]]; then
+        kernel_file=kernel8.img
+        dtb_dir=$rootfs_dir/boot
+        msg "Kernel: linux-rpi4"
+    else
+        die "No Raspberry Pi kernel in ${rootfs_dir}/boot; install linux-live built for arm64
+       (hokuto build --cross=arm64 linux-live) or linux-rpi4 into the rootfs."
+    fi
+    cp -a "$rootfs_dir/boot/$kernel_file" "$boot_stage/"
 
-    [[ -f "$rootfs_dir/boot/bcm2711-rpi-4-b.dtb" ]] ||
-        die "No ${rootfs_dir}/boot/bcm2711-rpi-4-b.dtb; the Pi 4 cannot boot without its device tree."
-    # Ship every device tree the rootfs carries, so the same image also comes up
-    # on a Pi 400 or CM4.
-    cp -a "$rootfs_dir"/boot/bcm*.dtb "$boot_stage/" 2>/dev/null || true
+    [[ -f "$dtb_dir/bcm2711-rpi-4-b.dtb" ]] ||
+        die "No ${dtb_dir}/bcm2711-rpi-4-b.dtb; the Pi 4 cannot boot without its device tree."
+    # Ship every device tree the kernel carries, so the same image also comes
+    # up on a Pi 400, a CM4 or (linux-live) a Pi 5; the firmware picks the
+    # one for its board.
+    cp -a "$dtb_dir"/bcm*.dtb "$boot_stage/" 2>/dev/null || true
 
     # Only compiled overlays are of any use to the firmware; a .dts is source.
-    if compgen -G "$rootfs_dir/boot/overlays/*.dtbo" > /dev/null; then
-        mkdir -p "$boot_stage/overlays"
-        cp -a "$rootfs_dir"/boot/overlays/*.dtbo "$boot_stage/overlays/"
-        [[ -f "$rootfs_dir/boot/overlays/README" ]] &&
-            cp -a "$rootfs_dir/boot/overlays/README" "$boot_stage/overlays/"
-    else
-        warn "No compiled overlays (*.dtbo) in ${rootfs_dir}/boot/overlays; continuing without them."
+    # They are linux-rpi4's: they describe its device trees, not mainline's.
+    if [[ "$kernel_file" == kernel8.img ]]; then
+        if compgen -G "$rootfs_dir/boot/overlays/*.dtbo" > /dev/null; then
+            mkdir -p "$boot_stage/overlays"
+            cp -a "$rootfs_dir"/boot/overlays/*.dtbo "$boot_stage/overlays/"
+            [[ -f "$rootfs_dir/boot/overlays/README" ]] &&
+                cp -a "$rootfs_dir/boot/overlays/README" "$boot_stage/overlays/"
+        else
+            warn "No compiled overlays (*.dtbo) in ${rootfs_dir}/boot/overlays; continuing without them."
+        fi
     fi
 
     [[ -f "$rootfs_dir/boot/initramfs.img" ]] ||
@@ -252,9 +275,9 @@ build_arm64() {
     # the kernel and the initramfs, and hands cmdline.txt to the kernel.
     msg "Writing config.txt and cmdline.txt..."
     cat > "$boot_stage/config.txt" <<EOF
-# sauzerOS live image for Raspberry Pi 4
+# sauzerOS live image for Raspberry Pi 4/5
 arm_64bit=1
-kernel=kernel8.img
+kernel=${kernel_file}
 
 # The firmware, not a bootloader, is what loads the initramfs here.
 # "followkernel" places it directly after the kernel in memory.
@@ -273,8 +296,36 @@ EOF
     # LiveOS/squashfs.img from it, which is why the ext4 partition below is
     # labelled to match.
     cat > "$boot_stage/cmdline.txt" <<EOF
-console=tty1 rd.live.image root=live:LABEL=${LIVE_LABEL} rootwait net.ifnames=0 loglevel=3
+console=tty1 rd.live.image root=live:LABEL=${LIVE_LABEL} rootwait net.ifnames=0 loglevel=3${extra_cmdline}
 EOF
+
+    # --- UEFI ---------------------------------------------------------------
+    # The same partition is also an EFI system partition: systemd-boot as the
+    # removable-media loader starts the same kernel and initramfs, so the
+    # image boots in QEMU (sauzeros-live-vm), on UEFI arm64 machines and on a
+    # Pi with UEFI firmware. linux-live's Image is an EFI program; linux-rpi4's
+    # compressed kernel8.img is not, so that kernel stays Pi-firmware only.
+    local sdboot="$rootfs_dir/usr/lib/systemd/boot/efi/systemd-bootaa64.efi"
+    if [[ "$kernel_file" != kernel8.img ]]; then
+        if [[ -f "$sdboot" ]]; then
+            msg "Adding systemd-boot for UEFI..."
+            mkdir -p "$boot_stage/EFI/BOOT" "$boot_stage/loader/entries"
+            cp "$sdboot" "$boot_stage/EFI/BOOT/BOOTAA64.EFI"
+            printf 'timeout 3\ndefault sauzeros.conf\n' > "$boot_stage/loader/loader.conf"
+            # ttyAMA0 is QEMU's (and many boards') serial port; tty1, the last
+            # console, stays /dev/console. loglevel=7 instead of the Pi's
+            # loglevel=3 (and the config's default of 4), so the kernel's boot
+            # messages show on both, the serial port included.
+            local uefi_cmdline
+            uefi_cmdline="console=ttyAMA0 $(sed 's/ *loglevel=[0-9]//' "$boot_stage/cmdline.txt") loglevel=7"
+            printf 'title   sauzerOS live\nlinux   /%s\ninitrd  /initramfs.img\noptions %s\n' \
+                "$kernel_file" "$uefi_cmdline" > "$boot_stage/loader/entries/sauzeros.conf"
+            printf 'title   sauzerOS live (copy to RAM)\nlinux   /%s\ninitrd  /initramfs.img\noptions %s rd.live.ram\n' \
+                "$kernel_file" "$uefi_cmdline" > "$boot_stage/loader/entries/sauzeros-ram.conf"
+        else
+            warn "No systemd-bootaa64.efi in the rootfs (systemd built without its boot loader); the image boots on a Pi only."
+        fi
+    fi
 
     # --- LiveOS -------------------------------------------------------------
     make_squashfs "$data_stage/LiveOS/squashfs.img"
