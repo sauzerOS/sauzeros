@@ -1,5 +1,34 @@
 #!/bin/bash -e
 
+# arm64 (hokuto build --cross=arm64 linux-live): one kernel for the Raspberry
+# Pi 4/5 and QEMU's virt machine, from files/config-arm64.gz (the upstream
+# arm64 defconfig cut down to the Broadcom platforms, with the x86 live
+# kernel's feature choices; see make-config-arm64 for how it is made).
+# virtio-blk, ext4 and the PCI host are built in, so it boots straight from a
+# disk image without an initramfs, as sauzeros-live-vm does.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
+    kmake=(make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-)
+    zcat config-arm64.gz > .config
+    "${kmake[@]}" olddefconfig
+    "${kmake[@]}" Image modules dtbs
+
+    # Image is also an EFI program: QEMU's -kernel, UEFI and the Pi
+    # firmware (config.txt kernel=) all start it as it is.
+    install -Dm644 arch/arm64/boot/Image "$1/boot/vmlinuz-sauzerOS-live"
+    # Not /boot/*.dtb: linux-rpi4 ships its own (downstream) device trees
+    # there. sauzeros-live copies these onto the Pi's boot partition.
+    install -Dm644 -t "$1/boot/dtbs-sauzerOS-live" \
+        arch/arm64/boot/dts/broadcom/bcm2711-*.dtb \
+        arch/arm64/boot/dts/broadcom/bcm2712-*.dtb
+
+    ZSTD_CLEVEL=19 "${kmake[@]}" INSTALL_MOD_PATH="$1/usr" INSTALL_MOD_STRIP=1 \
+        DEPMOD=/doesnt/exist modules_install
+    rm -f "$1/usr/lib/modules/$2-sauzerOS-live/build"
+    # No headers or build tree: its scripts are x86_64 programs here, of no
+    # use for building modules on the target.
+    exit 0
+fi
+
 zcat config.gz > .config
 # New options take their defaults, as in linux: the build never waits for
 # input, so it can run unattended. To review new options, run

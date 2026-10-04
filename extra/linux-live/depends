@@ -1,1 +1,8 @@
+gawk post-install
+kmod
+dracut post-install
+lvm2 post-install
+squashfs-tools post-install
 bc make
+bc cross make
+aarch64-gcc cross make

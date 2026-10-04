@@ -46,3 +46,29 @@ else
     echo "Warning: Module directory /lib/modules/$expected_mod_dir does not exist!"
     exit 1
 fi
+
+# The live image's initramfs, which sauzeros-live puts on the ISO or the Pi's
+# boot partition: dracut's dmsquash-live finds LiveOS/squashfs.img by label.
+# It is made here, in the system the kernel is installed in, with that
+# system's own modules and tools; an arm64 root made on an x86_64 host runs
+# this through QEMU user-mode emulation.
+if ! command -v dracut >/dev/null 2>&1; then
+    echo "Warning: dracut is not installed; no live initramfs for $expected_mod_dir."
+elif ! command -v udevadm >/dev/null 2>&1 && [ ! -x /usr/lib/systemd/systemd-udevd ]; then
+    # dracut needs udev (systemd), which a fresh install may add later.
+    echo "Skipping the live initramfs: dracut needs udev (systemd), which is not installed yet."
+    echo "Once it is, reinstall linux-live (hokuto install --force linux-live)."
+else
+    # libcrypt for the rescue shell's login; /usr/lib64 is not on every arch.
+    libcrypt=""
+    for lib in /usr/lib/libcrypt.so.2 /usr/lib64/libcrypt.so.2; do
+        [ -e "$lib" ] && { libcrypt=$lib; break; }
+    done
+    echo "Generating the live initramfs for $expected_mod_dir"
+    install -d /boot
+    dracut --force \
+        --force-add "dmsquash-live bash systemd rescue fs-lib" \
+        --install "/etc/shadow /etc/nsswitch.conf $libcrypt" \
+        --kver "$expected_mod_dir" --xz /boot/initramfs.img ||
+        echo "Warning: dracut failed; /boot/initramfs.img was not made."
+fi

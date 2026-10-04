@@ -1,0 +1,133 @@
+#!/bin/bash -e
+
+# Regenerate files/config-arm64.gz, the arm64 linux-live config, from a kernel
+# source tree:
+#
+#   make-config-arm64 /path/to/linux-X.Y.Z
+#
+# The build only runs "make olddefconfig" on the saved config, which carries
+# it across kernel updates; rerun this after a big jump, or after changing
+# files/config.gz (the x86 config it takes its feature choices from).
+#
+# Needs aarch64-linux-gnu-gcc, make, flex, bison, bc and python3.
+#
+# 1. The upstream arm64 defconfig: QEMU's virt machine (generic PCI host,
+#    virtio) and the Raspberry Pi 4/5 (bcm2711/bcm2712, RP1) are in it.
+# 2. Every other SoC family switched off, which takes most of the drivers
+#    with it.
+# 3. The x86 live config's settings for options defined in the
+#    architecture-independent parts of the tree (init, kernel, mm, fs, net,
+#    security, crypto, block, and USB/HID/input/sound/media device classes):
+#    the same features as the x86 live kernel, none of its x86 hardware.
+#    A built-in of the defconfig is never made a module.
+# 4. The additions below.
+
+recipe=$(cd "$(dirname "$0")" && pwd)
+src=${1:?usage: make-config-arm64 <kernel source tree>}
+[[ -f "$src/arch/arm64/Kconfig.platforms" ]] || { echo "$src is not a kernel source tree" >&2; exit 1; }
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+kmake=(make -C "$src" ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -s)
+
+"${kmake[@]}" defconfig
+cp "$src/.config" "$work/defconfig"
+
+# 2. Platforms: everything but Broadcom (Pi 4: BCM2835/BRCMSTB, Pi 5: BRCMSTB).
+grep -oE '^(menu)?config ARCH_[A-Z0-9_]+' "$src/arch/arm64/Kconfig.platforms" | awk '{print $2}' |
+    grep -vxE 'ARCH_BCM|ARCH_BCM2835|ARCH_BRCMSTB|ARCH_BCM_IPROC' |
+    sed 's/.*/# CONFIG_& is not set/' > "$work/platforms"
+
+# 3. The x86 live kernel's choices.
+zcat "$recipe/files/config.gz" > "$work/x86"
+python3 - "$src" "$work" <<'EOF'
+import os, re, sys
+src, work = sys.argv[1:]
+defs = {}
+for root, dirs, files in os.walk(src):
+    rel = os.path.relpath(root, src)
+    if rel.startswith('arch/') and not rel.startswith('arch/arm64'):
+        continue
+    for f in files:
+        if f.startswith('Kconfig'):
+            path = os.path.normpath(os.path.join(rel, f))
+            for line in open(os.path.join(root, f), errors='replace'):
+                m = re.match(r'\s*(?:menu)?config\s+(\w+)', line)
+                if m:
+                    defs.setdefault(m.group(1), path)
+allowed = ('init/', 'kernel/', 'mm/', 'block/', 'fs/', 'net/', 'security/', 'crypto/', 'io_uring/',
+           'ipc/', 'lib/Kconfig', 'drivers/hid/', 'drivers/usb/class/', 'drivers/usb/storage/',
+           'drivers/usb/serial/', 'drivers/usb/misc/', 'drivers/net/usb/', 'drivers/input/joystick/',
+           'drivers/input/keyboard/Kconfig', 'drivers/input/mouse/', 'drivers/input/Kconfig',
+           'drivers/input/misc/Kconfig', 'drivers/bluetooth/', 'drivers/media/usb/',
+           'drivers/media/v4l2-core/', 'drivers/media/Kconfig', 'drivers/md/', 'drivers/block/',
+           'drivers/virtio/', 'drivers/gpu/drm/virtio/', 'drivers/net/Kconfig', 'drivers/net/wireguard/',
+           'drivers/char/Kconfig', 'sound/core/', 'sound/usb/', 'sound/Kconfig', 'drivers/leds/trigger/',
+           'drivers/nvme/', 'drivers/net/phy/Kconfig')
+# Toolchain, debug info and signing-key settings belong to the build, not
+# the feature set.
+skip = re.compile(r'^(DEBUG_INFO|GDB_SCRIPTS|KALLSYMS_ALL|X86|INTEL|AMD|ACPI|EFI_|HYPERV|XEN|KVM|PARAVIRT|'
+                  r'VMWARE|MODULE_SIG_KEY|SYSTEM_TRUSTED_KEYS|SYSTEM_REVOCATION|CC_|LD_|AS_|GCC_|RUSTC|'
+                  r'BINDGEN|PAHOLE|TOOLS_)')
+def read(path):
+    values = {}
+    for line in open(path):
+        m = re.match(r'CONFIG_(\w+)=(.*)', line.strip())
+        if m:
+            values[m.group(1)] = m.group(2)
+    return values
+x86, base = read(os.path.join(work, 'x86')), read(os.path.join(work, 'defconfig'))
+with open(os.path.join(work, 'x86-features'), 'w') as out:
+    for sym, val in sorted(x86.items()):
+        path = defs.get(sym)
+        if not path or not path.startswith(allowed) or skip.match(sym):
+            continue
+        if base.get(sym) == 'y' and val == 'm':
+            continue
+        if base.get(sym) != val:
+            out.write(f'CONFIG_{sym}={val}\n')
+EOF
+
+# 4. Additions.
+cat > "$work/additions" <<'EOF'
+# QEMU virt: GPU, audio (ich9-intel-hda + hda-output, or virtio-sound),
+# input, entropy and the guest agent's console port. virtio-gpu is built in:
+# edk2's virtio-gpu display is blit-only, with no framebuffer efifb could
+# take over, so the screen stays black until its driver runs.
+CONFIG_DRM=y
+CONFIG_DRM_VIRTIO_GPU=y
+# The boot on screen before the GPU driver loads: the framebuffer the Pi
+# firmware (or any firmware) describes, as in the x86 live kernel.
+CONFIG_DRM_SIMPLEDRM=y
+CONFIG_SYSFB_SIMPLEFB=y
+CONFIG_SND_HDA_INTEL=m
+CONFIG_SND_HDA_GENERIC=m
+CONFIG_SND_VIRTIO=m
+CONFIG_VIRTIO_INPUT=m
+CONFIG_VIRTIO_CONSOLE=m
+CONFIG_HW_RANDOM_VIRTIO=y
+# The live image: squashfs under dracut's dmsquash-live, zram swap, ISOs.
+CONFIG_SQUASHFS=y
+CONFIG_SQUASHFS_XZ=y
+CONFIG_SQUASHFS_ZSTD=y
+CONFIG_ZRAM=m
+CONFIG_ISO9660_FS=m
+CONFIG_JOLIET=y
+CONFIG_ZISOFS=y
+CONFIG_UDF_FS=m
+# vc4 on the Pi needs far more contiguous memory than the 32 MiB default
+# for a desktop (cma= on the command line still wins).
+CONFIG_CMA_SIZE_MBYTES=256
+# USB (Pi 4: VL805 behind the PCIe controller; Pi 5: behind RP1) built in,
+# so a USB root disk or keyboard does not depend on the initramfs.
+CONFIG_PCIE_BRCMSTB=y
+CONFIG_MISC_RP1=y
+# No debug info, as in the x86 live kernel: it would multiply the build time
+# and the size of the modules.
+CONFIG_DEBUG_INFO_NONE=y
+EOF
+
+(cd "$src" && ./scripts/kconfig/merge_config.sh -m -O . "$work/defconfig" \
+    "$work/platforms" "$work/x86-features" "$work/additions" >/dev/null)
+"${kmake[@]}" olddefconfig
+gzip -9n < "$src/.config" > "$recipe/files/config-arm64.gz"
+echo "Wrote $recipe/files/config-arm64.gz"
