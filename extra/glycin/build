@@ -10,7 +10,16 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     )
 fi
 
-hokuto-meson build "${cross_opts[@]}"
+# librsvg-2.0.pc requires gdk-pixbuf-2.0, and gdk-pixbuf-2.0.pc requires
+# glycin-2: the library this builds, which a clean build environment does not
+# have, so pkg-config rejected librsvg (and gtk4) altogether. A stand-in
+# glycin-2.pc, never installed, breaks the cycle (as in harfbuzz).
+pcstub=$PWD/pc-stub
+install -d "$pcstub"
+printf 'Name: glycin-2\nDescription: stand-in for the glycin being built\nVersion: %s\nCflags: -I/usr/include/glycin-2\n' "$2" \
+    > "$pcstub/glycin-2.pc"
+
+hokuto-meson build -D pkg_config_path="$pcstub" "${cross_opts[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
 
