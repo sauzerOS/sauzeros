@@ -1,5 +1,5 @@
 coreutils
-gawk
+gawk post-install
 kmod
 bc make
 libelf make
