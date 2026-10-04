@@ -2,7 +2,6 @@ glibc
 libgcc
 libstdc++
 fluidsynth suggest MIDI rendering
-qt suggest alsoft-config GUI Configurator
 alsa-lib make
 cmake make
 ffmpeg make

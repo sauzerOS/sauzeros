@@ -7,5 +7,14 @@
   "tags": [
     "library",
     "multimedia"
-  ]
+  ],
+  "split_metadata": {
+    "openal-utils": {
+      "description": "OpenAL Soft utilities: alsoft-config (Qt GUI), openal-info, makemhr and the example programs",
+      "tags": [
+        "multimedia",
+        "audio"
+      ]
+    }
+  }
 }

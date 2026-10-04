@@ -8,6 +8,11 @@ cmake -B build \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
+# The tools and examples (alsoft-config is a Qt GUI; the examples link SDL3,
+# ffmpeg and libsndfile) go in openal-utils, so the library alone does not
+# pull Qt and GTK into everything that plays sound.
+_pick "$1" openal-utils usr/bin
+
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
 rm -rf build
