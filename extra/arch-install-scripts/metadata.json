@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.archlinux.org/archlinux/arch-install-scripts",
+  "category": "extra",
+  "description": "Scripts to aid in installing Arch Linux",
+  "info": "",
+  "license": "GPL-2.0-only",
+  "tags": []
+}

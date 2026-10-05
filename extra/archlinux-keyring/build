@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+# Arch's own package, unpacked: only the keyrings pacman-key imports.
+# (Its archlinux-keyring-wkd-sync timer, which refreshes keys online, stays
+# out: updates of this package bring new keys.)
+install -Dm644 -t "$1/usr/share/pacman/keyrings" usr/share/pacman/keyrings/*

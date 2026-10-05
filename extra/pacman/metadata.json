@@ -1,0 +1,8 @@
+{
+  "url": "https://www.archlinux.org/pacman/",
+  "category": "base",
+  "description": "A library-based package manager with dependency support",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

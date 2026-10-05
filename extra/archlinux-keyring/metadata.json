@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.archlinux.org/archlinux/archlinux-keyring",
+  "category": "extra",
+  "description": "Arch Linux PGP keyring, for pacman and pacstrap",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "pacman",
+    "keyring"
+  ]
+}

@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+mkdir -p "${1}/etc/pacman.d"
+install -m0644 "mirrorlist" "${1}/etc/pacman.d/"

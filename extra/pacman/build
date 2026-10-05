@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+# apply patch level commits on top of annotated tag
+patchlevel=54d94116164b0b2202c6061c4a59c6f3e70820d8
+if [[ v7.1.0 != $(git describe --tags --abbrev=0 "$patchlevel") ]]; then
+    echo "patch level commit $patchlevel is not a descendant of v7.1.0" >&2
+    exit 1
+fi
+git rebase "$patchlevel"
+
+# The patches from sources sit in the build directory under their listed
+# names; revertme-* ones undo an upstream commit.
+for patch in *.patch; do
+    if [[ $patch == revertme-* ]]; then
+        echo "Reverting patch $patch..."
+        patch -RNp1 < "$patch"
+    else
+        echo "Applying patch $patch..."
+        patch -Np1 < "$patch"
+    fi
+done
+
+meson setup --prefix=/usr \
+      --buildtype=plain \
+      -Ddoc=disabled \
+      -Ddoxygen=disabled \
+      -Dscriptlet-shell=/usr/bin/bash \
+      -Dldconfig=/usr/bin/ldconfig \
+      build
+
+meson compile -C build
+DESTDIR="${1}" meson install -C build
+
+# install Arch specific stuff
+install -dm755 "${1}/etc"
+install -m644 "pacman.conf" "${1}/etc"
+install -m644 "makepkg.conf" "${1}/etc"
+install -D -m644 "alpm.sysusers" "${1}"/usr/lib/sysusers.d/alpm.conf
+install -m644 "fortran.conf" "${1}/etc/makepkg.conf.d"
+install -m644 "rust.conf" "${1}/etc/makepkg.conf.d"
+
+wantsdir="${1}/usr/lib/systemd/system/sockets.target.wants"
+install -dm755 "$wantsdir"
+
+for unit in dirmngr gpg-agent gpg-agent-{browser,extra,ssh} keyboxd; do
+  ln -s "../${unit}@.socket" "$wantsdir/${unit}@etc-pacman.d-gnupg.socket"
+done

@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# Only the scripts: the Makefile's "all" and "install" also build the man
+# pages, which need asciidoc's a2x. The scripts themselves are made with m4.
+progs=(arch-chroot genfstab pacstrap)
+make "${progs[@]}"
+
+install -Dm755 -t "$1/usr/bin" "${progs[@]}"
+install -Dm644 -t "$1/usr/share/zsh/site-functions" completion/zsh/*
+install -Dm644 -t "$1/usr/share/bash-completion/completions" completion/bash/*

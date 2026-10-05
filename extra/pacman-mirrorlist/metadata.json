@@ -1,0 +1,8 @@
+{
+  "url": "https://www.archlinux.org/mirrorlist/",
+  "category": "base",
+  "description": "Arch Linux mirror list for use by pacman",
+  "info": "",
+  "license": "GPL-2.0-or-later",
+  "tags": []
+}

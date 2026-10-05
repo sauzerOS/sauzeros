@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Import the keys into pacman's keyring, so pacman and pacstrap verify Arch
+# packages. Without pacman-key yet (pacman is being installed along with
+# this), pacman's own post-install creates the keyring and imports them.
+command -v pacman-key >/dev/null 2>&1 || exit 0
+
+gpgdir=/etc/pacman.d/gnupg
+[ -f "$gpgdir/trustdb.gpg" ] || pacman-key --init
+pacman-key --populate archlinux
+# pacman-key starts a gpg-agent; in a chroot it would keep running and hold
+# the root's /dev and /proc mounts.
+gpgconf --homedir "$gpgdir" --kill all 2>/dev/null || true

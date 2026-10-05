@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# pacman checks package signatures against its own keyring, which every
+# system has to create once. Without it nothing verifies, not even
+# archlinux-keyring, the package that brings Arch's packager keys.
+gpgdir=/etc/pacman.d/gnupg
+if [ ! -f "$gpgdir/trustdb.gpg" ]; then
+    echo "Initializing the pacman keyring in $gpgdir"
+    pacman-key --init
+    # Arch's keys, when archlinux-keyring is already there (otherwise its
+    # own install populates them).
+    if compgen -G "/usr/share/pacman/keyrings/archlinux*.gpg" >/dev/null; then
+        pacman-key --populate archlinux
+    fi
+    # pacman-key starts a gpg-agent; in a chroot it would keep running and
+    # hold the root's /dev and /proc mounts.
+    gpgconf --homedir "$gpgdir" --kill all 2>/dev/null || true
+fi

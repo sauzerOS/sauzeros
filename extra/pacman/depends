@@ -1,0 +1,15 @@
+bash
+coreutils
+curl
+gawk
+gettext
+glibc
+gnupg2
+gpgme
+archlinux-keyring
+grep
+libarchive
+openssl
+pacman-mirrorlist
+systemd
+meson make
