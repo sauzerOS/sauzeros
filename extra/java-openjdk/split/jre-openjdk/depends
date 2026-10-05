@@ -1,4 +1,0 @@
-${_commondeps[@]}
-giflib
-libgif.so
-libpng
