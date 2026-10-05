@@ -1,6 +1,5 @@
 glibc
-libblake3
-libstdc++
+libgcc
 zlib-ng
 zstd
-cmake make
+rust make

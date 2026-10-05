@@ -1,11 +1,6 @@
 #!/bin/bash -e
 
-cmake -D CMAKE_BUILD_TYPE='None'        \
-      -D CMAKE_INSTALL_PREFIX=/usr      \
-      -D CMAKE_INSTALL_LIBEXECDIR='lib' \
-      -D MOLD_LTO=ON                    \
-      -B build
-
-cmake --build build
-DESTDIR=$1 cmake --install build
+cargo fetch --locked --target host-tuple
+cargo build --frozen --release --package mold-cli
+DESTDIR="$pkgdir" PREFIX=/usr ./install-mold.sh
 
