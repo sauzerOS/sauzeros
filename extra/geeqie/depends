@@ -7,7 +7,7 @@ gdk-pixbuf
 glib
 glibc
 gspell
-gtk+3
+gtk
 hicolor-icon-theme
 lcms2
 libarchive
