@@ -45,7 +45,6 @@ CC=clang CXX=clang++ cmake -S rpcs3 -B build \
     -D USE_SYSTEM_LIBPNG=ON                  \
     -D USE_SYSTEM_ZLIB=ON                    \
     -D USE_SYSTEM_CURL=ON                    \
-    -D USE_SYSTEM_FLATBUFFERS=ON             \
     -D USE_SYSTEM_PUGIXML=ON                 \
     -D USE_SYSTEM_OPENCV=ON                  \
     -D USE_SDL=ON                            \

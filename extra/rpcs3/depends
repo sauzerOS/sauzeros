@@ -14,6 +14,8 @@ llvm-libs
 openal
 pugixml
 qt
+qt-multimedia
+qt-svg
 sdl3
 vulkan-icd-loader
 zlib-ng
