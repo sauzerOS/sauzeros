@@ -86,6 +86,7 @@ _hokuto() {
             '--remote[List packages from the remote repository]' \
             '--size[Sort packages by size, largest first]' \
             '--check-integrity[Check installed manifests for missing files]' \
+            '(-f --force)'{-f,--force}'[Start the list in force uninstall mode]' \
             '*:installed package:_hokuto_installed_packages'
           ;;
 		cleanup)
@@ -122,7 +123,7 @@ _hokuto() {
           _arguments \
             '(-f --force)'{-f,--force}'[Force uninstallation]' \
             '(-y --yes)'{-y,--yes}'[Assume yes]' \
-            '--list[Select installed packages interactively]' \
+            '(-p --purge)'{-p,--purge}'[Also remove the orphans the removal leaves]' \
             '*:installed package:_hokuto_installed_packages'
           ;;
         manifest|m|size)

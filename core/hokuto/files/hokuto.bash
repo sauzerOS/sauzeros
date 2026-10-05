@@ -157,7 +157,7 @@ _hokuto_complete()
             ;;
         uninstall|remove|r)
             case "$cur" in
-                -*) COMPREPLY=($(compgen -W "-f --force -y --yes --list" -- "$cur")) ;;
+                -*) COMPREPLY=($(compgen -W "-f --force -y --yes -p --purge" -- "$cur")) ;;
                 *) _hokuto_complete_installed ;;
             esac
             ;;
@@ -166,7 +166,7 @@ _hokuto_complete()
             ;;
 		list|ls)
 			case "$cur" in
-				-*) COMPREPLY=($(compgen -W "--remote --size --check-integrity" -- "$cur")) ;;
+				-*) COMPREPLY=($(compgen -W "--remote --size --check-integrity -f --force" -- "$cur")) ;;
                 *) _hokuto_complete_installed ;;
             esac
             ;;

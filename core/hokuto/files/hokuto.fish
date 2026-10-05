@@ -97,7 +97,7 @@ for prog in $prog_names
 
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -s f -l force -d "Force uninstallation"
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -s y -l yes -d "Assume yes"
-    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -l list -d "Select installed packages interactively"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -s p -l purge -d "Also remove the orphans the removal leaves"
     complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s i -l idle -d "Idle build during update"
@@ -111,6 +111,7 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l remote -d "List remote packages"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l size -d "Sort packages by size, largest first"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -l check-integrity -d "Check installed manifests for missing files"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls" -s f -l force -d "Start the list in force uninstall mode"
     complete -c $prog -n "__fish_seen_subcommand_from list ls" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from checksum c" -s f -d "Force sources download"
