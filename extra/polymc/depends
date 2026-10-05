@@ -1,6 +1,6 @@
 hicolor-icon-theme
+java-openjdk-jre
 libglvnd
-microsoft-jdk-25 | microsoft-jdk-21 | microsoft-jdk-17
 qt
 qt-5compat
 qt-charts
