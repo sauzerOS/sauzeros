@@ -14,6 +14,7 @@
 # so they can be dropped individually.
 REPOS_KEEP=(
     adelie.yaml
+    aerynos.yaml
     alpine/alpine.yaml
     arch/arch.yaml
     arch/aur.yaml
