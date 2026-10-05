@@ -2,7 +2,7 @@ alsa-lib
 curl
 ffmpeg
 flatbuffers
-glew<2.3
+glew
 glu
 libevdev
 libglvnd
