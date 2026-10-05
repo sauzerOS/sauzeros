@@ -10,3 +10,4 @@ quazip
 zlib-ng
 cmake make
 extra-cmake-modules make
+java-openjdk make
