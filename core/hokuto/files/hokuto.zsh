@@ -16,7 +16,9 @@ _hokuto_repository_packages() {
 
 _hokuto_install_packages() {
   local -a packages
-  packages=("${(@f)$(command $words[1] __complete install 2>/dev/null)}")
+  # The current word is passed on: for pkg@ hokuto lists the versions the
+  # mirror has.
+  packages=("${(@f)$(command $words[1] __complete install "$words[CURRENT]" 2>/dev/null)}")
   _describe 'available package' packages
 }
 

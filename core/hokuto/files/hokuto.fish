@@ -29,7 +29,9 @@ end
 
 function __hokuto_get_install_packages
     set -l executable (commandline -opc)[1]
-    command $executable __complete install 2>/dev/null
+    # The current token is passed on: for pkg@ hokuto lists the versions the
+    # mirror has.
+    command $executable __complete install (commandline -ct) 2>/dev/null
 end
 
 function __hokuto_alt_needs_provider

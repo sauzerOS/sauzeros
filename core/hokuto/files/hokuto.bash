@@ -98,7 +98,8 @@ _hokuto_complete_installed()
 _hokuto_complete_install_targets()
 {
     local -a choices
-    mapfile -t choices < <(_hokuto_get_cached_tarballs; command "${COMP_WORDS[0]}" __complete install 2>/dev/null)
+    # The word is passed on: for pkg@ hokuto lists the versions the mirror has.
+    mapfile -t choices < <(_hokuto_get_cached_tarballs; command "${COMP_WORDS[0]}" __complete install "$cur" 2>/dev/null)
     COMPREPLY=($(compgen -W "${choices[*]}" -- "$cur"))
 }
 
