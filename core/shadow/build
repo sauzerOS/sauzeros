@@ -1,11 +1,11 @@
 #!/bin/bash -e
 
-# Backport shadow-maint/shadow@ba4419c5, committed just after 4.20.0.
-# uintmax_t is declared by <stdint.h>; relying on a transitive include breaks
-# with current toolchains.
-sed -i '/#include <stdio.h>/i #include <stdint.h>' \
-    lib/find_new_sub_gids.c \
-    lib/find_new_sub_uids.c
+# Backport shadow-maint/shadow#1764 (on master, not yet in 4.20.x): 4.20.3
+# turned the --without-nscd stub of nscd_flush_cache() into an inline
+# function taking an int, but every caller passes the service name, which
+# GCC 14+ rejects (-Wint-conversion).
+sed -i 's/nscd_flush_cache(MAYBE_UNUSED int _1)/nscd_flush_cache(MAYBE_UNUSED const char *_1)/' \
+    lib/nscd.h
 
 configure_options=(
     --bindir=/usr/bin
