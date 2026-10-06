@@ -55,9 +55,9 @@ make
 make install DESTDIR="$pkgdir"
 popd
 
-echo ':: hv'
+echo ':: hyperv'
 pushd tools/hv
-pkgdir=$HOKUTO_SPLIT_DIR/hv
+pkgdir=$HOKUTO_SPLIT_DIR/hyperv
 CFLAGS+=' -DKVP_SCRIPTS_PATH=\"/usr/lib/hypervkvpd/\"' make
 make install DESTDIR="$pkgdir" sbindir=/usr/bin libexecdir=/usr/lib
 for _p in hv_kvp_daemon hv_vss_daemon; do

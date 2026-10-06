@@ -1,8 +1,65 @@
 {
-  "url": "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.1.3.tar.xz",
+  "url": "https://www.kernel.org/",
   "category": "extra",
-  "description": "linux tools",
+  "description": "Linux kernel userspace tools, built from the kernel source tree; this package installs nothing itself and suggests the split tool packages",
   "info": "",
-  "license": "",
-  "tags": []
+  "license": "GPL-2.0-only",
+  "tags": [
+    "kernel",
+    "system"
+  ],
+  "subpackages": [
+    "bootconfig",
+    "bpf",
+    "cpupower",
+    "hyperv",
+    "intel-speed-select",
+    "kcpuid",
+    "tmon",
+    "turbostat",
+    "usbip",
+    "x86_energy_perf_policy"
+  ],
+  "split_metadata": {
+    "bootconfig": {
+      "description": "Apply, delete or show the boot configuration (bootconfig) appended to an initrd",
+      "tags": ["kernel", "boot"]
+    },
+    "bpf": {
+      "description": "BPF tools: bpftool to inspect and manage eBPF programs and maps, plus bpf_asm, bpf_dbg and bpf_jit_disasm",
+      "tags": ["kernel", "bpf", "debug"]
+    },
+    "cpupower": {
+      "description": "Examine and tune processor power saving features: frequency scaling governors, idle states and energy bias",
+      "tags": ["kernel", "power", "cpu"]
+    },
+    "hyperv": {
+      "description": "Hyper-V guest integration daemons (key-value pair exchange, VSS snapshots, file copy) and lsvmbus",
+      "tags": ["kernel", "virtualization", "hyperv"]
+    },
+    "intel-speed-select": {
+      "description": "Configure Intel Speed Select Technology (performance profiles, base and turbo frequency, core power) on supported Xeon processors",
+      "tags": ["kernel", "power", "cpu", "intel"]
+    },
+    "kcpuid": {
+      "description": "Show the processor features reported by the CPUID instruction",
+      "tags": ["kernel", "cpu", "debug"]
+    },
+    "tmon": {
+      "description": "Monitor and test the Linux kernel thermal subsystem: temperatures, cooling devices and trip points",
+      "tags": ["kernel", "thermal", "monitoring"]
+    },
+    "turbostat": {
+      "description": "Report processor frequency, idle state residency, temperature and power on x86 processors",
+      "tags": ["kernel", "power", "cpu", "monitoring"]
+    },
+    "usbip": {
+      "description": "Share USB devices over an IP network: the usbip client, the usbipd server and libusbip",
+      "tags": ["kernel", "usb", "network"]
+    },
+    "x86_energy_perf_policy": {
+      "description": "Read or set the energy versus performance policy of Intel processors (EPB, EPP and HWP settings)",
+      "tags": ["kernel", "power", "cpu", "intel"]
+    }
+  }
 }
