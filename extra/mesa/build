@@ -97,6 +97,15 @@ popd
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package
+# The 32-bit build runs the 64-bit mesa_clc and vtn_bindgen2, which only
+# compile the Intel shader kernels at build time (-D mesa-clc=system).
+# Built 32-bit, mesa_clc initializes every target in the shared LLVM
+# headers, including AArch64, ARM and WebAssembly, which lib32-llvm does
+# not build, and fails to link.
+clc_tools="$PWD/mesa-clc-tools"
+mkdir -p "$clc_tools"
+cp build/src/compiler/clc/mesa_clc build/src/compiler/spirv/vtn_bindgen2 "$clc_tools/"
+export PATH="$clc_tools:$PATH"
 rm -rf build
 hokuto-meson-32 build          \
       --optimization 2         \
@@ -112,6 +121,7 @@ hokuto-meson-32 build          \
     -D gallium-extra-hud=true  \
     -D gallium-mediafoundation=disabled \
     -D intel-rt=disabled       \
+    -D mesa-clc=system         \
     -D intel-virtio-experimental=true \
     -D gles1=disabled          \
     -D video-codecs=all
