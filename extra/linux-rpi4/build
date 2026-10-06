@@ -26,3 +26,47 @@ cp arch/arm64/boot/dts/overlays/*.dtbo "$1/boot/overlays/"
 cp arch/arm64/boot/dts/overlays/overlay_map.dtb "$1/boot/overlays/"
 cp arch/arm64/boot/dts/overlays/hat_map.dtb "$1/boot/overlays/"
 cp arch/arm64/boot/dts/overlays/README "$1/boot/overlays/"
+
+# Default boot configuration. The firmware reads both from the FAT boot
+# partition; hokuto keeps local edits to them across kernel updates.
+#
+# cmdline.txt is one line. root= assumes the usual Pi layout: an SD card with
+# the FAT boot partition first and the root filesystem second. Booting from
+# USB or NVMe needs root=/dev/sda2 (or nvme0n1p2), or better a PARTUUID=.
+cat > "$1/boot/cmdline.txt" <<'CMDLINE'
+console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rw rootwait fsck.repair=yes
+CMDLINE
+
+cat > "$1/boot/config.txt" <<'CONFIG'
+# Raspberry Pi 4 / Pi 400 / CM4 boot configuration for sauzerOS.
+# Reference: https://www.raspberrypi.com/documentation/computers/config_txt.html
+
+[all]
+# 64-bit kernel, as built by linux-rpi4
+arm_64bit=1
+kernel=kernel8.img
+
+# Full KMS graphics driver, with up to two displays
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2
+disable_fw_kms_setup=1
+disable_overscan=1
+
+# Detect official cameras and DSI displays, enable on-board audio
+camera_auto_detect=1
+display_auto_detect=1
+dtparam=audio=on
+
+# Run the CPU at the 1.8 GHz the newer Pi 4 revisions are rated for
+arm_boost=1
+
+# Serial console on the GPIO header (console=serial0 in cmdline.txt)
+enable_uart=1
+
+[cm4]
+# The CM4's USB 2.0 port is in device mode by default
+otg_mode=1
+
+[all]
+CONFIG
+chmod 644 "$1/boot/cmdline.txt" "$1/boot/config.txt"

@@ -27,3 +27,11 @@ so /boot/overlays was inert.
 
 Needs an aarch64 cross toolchain (`aarch64-gcc`); the build script hardcodes
 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-.
+
+## Boot configuration
+
+The package ships a default /boot/config.txt (64-bit kernel8.img, KMS
+graphics, UART console) and /boot/cmdline.txt. cmdline.txt boots
+root=/dev/mmcblk0p2, the usual SD card layout; for USB or NVMe boot change it
+to that disk's root partition, preferably as PARTUUID=. hokuto keeps local
+edits to both files across kernel updates.
