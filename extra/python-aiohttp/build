@@ -1,9 +1,13 @@
 #!/bin/bash
+set -e
 
 sed 's|.install-cython ||' -i Makefile
 
-# Fix Cython 3.3.0 compiler crash when compiling the WebSocket reader
-git cherry-pick -n baa2709c4ca2365139d335b8542eb87e0ab6e150
+# Cython 3.3.0 crashes compiling the WebSocket reader on an annotated
+# module constant that reader_c.pxd declares as cdef (same bug as
+# aiohttp #13520, whose fix for the other constants is in 3.14.4)
+sed 's/^MSG_SIZE_OVERHEAD: Final\[int\] = /MSG_SIZE_OVERHEAD = /' \
+    -i aiohttp/_websocket/reader_py.py
 
 export AIOHTTP_USE_SYSTEM_DEPS=1
 make cythonize
