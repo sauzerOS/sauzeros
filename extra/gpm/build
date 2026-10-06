@@ -46,3 +46,9 @@ make SUBDIRS=src DESTDIR="$1" install
 # The install creates the SONAME link but not the development symlink that
 # -lgpm resolves against, which is what links configure probes for.
 ln -sf libgpm.so.2.1.0 "$1$_prefix/lib/libgpm.so"
+
+# systemd units (from Arch): gpm.path starts the daemon once /dev/input/mice
+# exists. Only for the native system, not a cross sysroot.
+if [ "$_prefix" = "/usr" ]; then
+    install -Dm644 ../gpm.service ../gpm.path -t "$1/usr/lib/systemd/system/"
+fi
