@@ -1,3 +1,0 @@
-https://ftp.gnu.org/gnu/gcc/gcc-${version}/gcc-${version}.tar.xz
-files/libcody-cxx20-char8_t.patch
-files/mingw-quote-symbols-intel-syntax.patch
