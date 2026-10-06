@@ -21,11 +21,13 @@ clang make
 cmake make
 elfutils make
 glslang make
+libclc make
 libdisplay-info make
 libpng make
 libva make
 libxrandr make
 llvm make
+spirv-llvm-translator make
 meson make
 python-mako make
 python-packaging make

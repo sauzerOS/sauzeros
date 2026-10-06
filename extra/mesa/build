@@ -43,10 +43,10 @@ hokuto-meson build             \
     -D valgrind=disabled       \
     -D libunwind=disabled      \
     -D glvnd=enabled           \
-    -D vulkan-drivers="amd,swrast,virtio,broadcom" \
+    -D vulkan-drivers="amd,intel,intel_hasvk,swrast,virtio,broadcom" \
     -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
     -D vulkan-manifest-per-architecture=false \
-    -D gallium-drivers="llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
+    -D gallium-drivers="crocus,i915,iris,llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
     -D gallium-extra-hud=true  \
     -D gallium-mediafoundation=disabled \
     -D intel-rt=enabled        \
@@ -66,6 +66,9 @@ libdir="${libdir#/}"
 if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
     _pick "$1" vulkan-broadcom $libdir/libvulkan_broadcom.so
     _pick "$1" vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+
+    _pick "$1" vulkan-intel $libdir/libvulkan_intel{,_hasvk}.so
+    _pick "$1" vulkan-intel usr/share/vulkan/icd.d/intel{,_hasvk}_icd.json
 
     _pick "$1" vulkan-radeon $libdir/libvulkan_radeon.so
     _pick "$1" vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
@@ -102,12 +105,13 @@ hokuto-meson-32 build          \
     -D valgrind=disabled       \
     -D libunwind=disabled      \
     -D glvnd=enabled           \
-    -D vulkan-drivers="amd,swrast,virtio,broadcom" \
+    -D vulkan-drivers="amd,intel,intel_hasvk,swrast,virtio,broadcom" \
     -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
     -D vulkan-manifest-per-architecture=false \
-    -D gallium-drivers="llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
+    -D gallium-drivers="crocus,i915,iris,llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
     -D gallium-extra-hud=true  \
     -D gallium-mediafoundation=disabled \
+    -D intel-rt=disabled       \
     -D intel-virtio-experimental=true \
     -D gles1=disabled          \
     -D video-codecs=all
@@ -119,6 +123,9 @@ libdir=usr/lib32
 
 _pick "$PWD/DESTDIR" lib32-vulkan-broadcom $libdir/libvulkan_broadcom.so
 _pick "$PWD/DESTDIR" lib32-vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+
+_pick "$PWD/DESTDIR" lib32-vulkan-intel $libdir/libvulkan_intel{,_hasvk}.so
+_pick "$PWD/DESTDIR" lib32-vulkan-intel usr/share/vulkan/icd.d/intel{,_hasvk}_icd.json
 
 _pick "$PWD/DESTDIR" lib32-vulkan-radeon $libdir/libvulkan_radeon.so
 _pick "$PWD/DESTDIR" lib32-vulkan-radeon usr/share/drirc.d/00-radv-defaults.conf
