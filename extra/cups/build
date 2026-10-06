@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+# 2.4.20 uses data.num_local/local_dests in cupsEnumDests() unguarded, but
+# only the DNS-SD variant of the struct has them, so a build without avahi
+# (the cross build) fails. Upstream fix, not yet merged:
+# https://github.com/OpenPrinting/cups/pull/1740 (issue #1739)
+patch -p1 -i cups-2.4.20-enum-dests-without-dnssd.patch
+
 PREFIX="${CROSS_PREFIX:-/usr}"
 SYSCONF_DIR="${PREFIX}/etc"
 LOCALSTATE_DIR="${PREFIX}/var"
