@@ -1,0 +1,9 @@
+# Local overrides for the sauzerOS Repology instance. Not part of the
+# upstream rules repository: listed in .git/info/exclude so it stays out of
+# git status and survives git pull. Loaded last among the version fixes
+# (files are read sorted by path).
+
+# sauzerOS builds the SPIR-V/Vulkan stack from the vulkan-sdk-* tags, so the
+# SDK numbering (1.4.363.0) is the one to follow; spirv-tools also tags its
+# own v20xx releases (2024.3, 2026.4), which would otherwise look newer.
+- { name: spirv-tools, verpat: "20[0-9]{2}.*", incorrect: true }

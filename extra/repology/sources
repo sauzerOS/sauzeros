@@ -11,3 +11,4 @@ files/sauzeros-kde.yaml repos.d/kiss/
 files/repology.conf
 files/sauzeros_pypi.py repology/fetchers/fetchers/
 files/pypi.yaml
+files/zz-sauzeros-local.yaml rules.d/900.version-fixes/

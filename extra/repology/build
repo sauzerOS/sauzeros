@@ -59,6 +59,13 @@ rm update-repology
 
 mkdir -p $1/opt/repology/updater
 
+# rules.d is the upstream rules checkout; our own rules live in
+# 900.version-fixes/zz-sauzeros-local.yaml (placed by the sources file),
+# which git pull leaves alone and git status should not report.
+if [ -d rules.d/.git ]; then
+    echo "900.version-fixes/zz-sauzeros-local.yaml" >> rules.d/.git/info/exclude
+fi
+
 # tar->bsdtar in tar.py
 sed -i "s/\['tar', '-x', '-z', '-f', tarpath, '-C', statedir.get_path()\]/['bsdtar', '-x', '-z', '-f', tarpath, '-C', statedir.get_path()]/" repology/fetchers/fetchers/tar.py
 
