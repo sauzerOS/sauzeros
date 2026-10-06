@@ -1,4 +1,4 @@
-git+https://gitlab.archlinux.org/pacman/pacman.git#tag=v7.1.0
+git+https://gitlab.archlinux.org/pacman/pacman.git#tag=v${version}
 https://gitlab.archlinux.org/pacman/pacman/-/commit/354a300cd26bb1c7e6551473596be5ecced921de.patch -> revertme-makepkg-remove-libdepends-and-libprovides.patch
 https://gitlab.archlinux.org/pacman/pacman/-/commit/f4bdb77470528019aaba4d8b8f947e918c6db17d.patch -> patch-reproducible-builds.patch
 files/0001-libalpm-invalidate-curl-data-in-child.patch
