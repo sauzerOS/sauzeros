@@ -1,16 +1,11 @@
 #!/bin/bash -e
 
-# apply archlinux patches
-zstdcat shadow-$2-arch1.patch.zst | patch -Np1
-
 # Backport shadow-maint/shadow@ba4419c5, committed just after 4.20.0.
 # uintmax_t is declared by <stdint.h>; relying on a transitive include breaks
 # with current toolchains.
 sed -i '/#include <stdio.h>/i #include <stdint.h>' \
     lib/find_new_sub_gids.c \
     lib/find_new_sub_uids.c
-
-autoreconf -fvi
 
 configure_options=(
     --bindir=/usr/bin
@@ -40,8 +35,25 @@ export CFLAGS="$CFLAGS -DEXTRA_CHECK_HOME_DIR"
 # prevent excessive overlinking due to libtool
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
-make DESTDIR=$1 install
+# usbindir is hardcoded to $prefix/sbin in src/Makefile.am; /usr/sbin is a
+# symlink to bin here, so install the admin tools where they belong.
+make DESTDIR=$1 usbindir=/usr/bin install
 make DESTDIR=$1 -C man install
+
+# util-linux provides login, nologin, chfn, chsh, newgrp/sg, vipw/vigr and su
+# (with their PAM files), coreutils provides groups: drop shadow's copies,
+# their man pages and PAM files.
+_replaced="login nologin chfn chsh newgrp sg vipw vigr su groups"
+for _t in $_replaced; do
+    rm -f "$1/usr/bin/$_t" "$1/usr/sbin/$_t" "$1/etc/pam.d/$_t"
+done
+find "$1/usr/share/man" -regextype posix-extended \
+    -regex ".*/($(echo $_replaced | tr ' ' '|'))\.[1-8](\.[a-z0-9]+)?" -delete
+rmdir "$1/usr/sbin" 2>/dev/null || true
+
+# login.defs adapted for PAM and util-linux, with sauzerOS defaults
+# (yescrypt, system IDs from 500, HOME_MODE 0700, no duplicate MOTD)
+install -vDm 644 login.defs "$1/etc/login.defs"
 
 # custom useradd(8) defaults (not provided by upstream)
 install -vDm 600 useradd.defaults "$1/etc/default/useradd"

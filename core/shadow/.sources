@@ -1,7 +1,7 @@
 https://github.com/shadow-maint/shadow/releases/download/${version}/shadow-${version}.tar.xz
-https://gitlab.archlinux.org/archlinux/packaging/upstream/shadow/-/releases/${version}-arch1/downloads/shadow-${version}-arch1.patch.zst
 files/shadow.service
 files/shadow.sysusers
 files/shadow.timer
 files/shadow.tmpfiles
 files/useradd.defaults
+files/login.defs

@@ -1,7 +1,7 @@
 https://github.com/shadow-maint/shadow/releases/download/4.20.0/shadow-4.20.0.tar.xz
-https://gitlab.archlinux.org/archlinux/packaging/upstream/shadow/-/releases/4.20.0-arch1/downloads/shadow-4.20.0-arch1.patch.zst
 files/shadow.service
 files/shadow.sysusers
 files/shadow.timer
 files/shadow.tmpfiles
 files/useradd.defaults
+files/login.defs

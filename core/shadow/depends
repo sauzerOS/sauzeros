@@ -6,11 +6,9 @@ docbook-xsl make
 libcap make
 libxslt make
 itstool make
-zstd make
 aarch64-gcc cross make
 aarch64-libcap cross make
 aarch64-libxcrypt cross make
-aarch64-zstd cross make
 docbook-xsl cross make
 itstool cross make
 libxslt cross make
