@@ -1,8 +1,49 @@
 #!/bin/bash -e
 
 cd codex-rs
-#patch -Np1 -i ../openssl-sys-0.9.117.patch
+# The lockfile pins openssl-sys/openssl releases that only accept OpenSSL up
+# to 3.x. Move just these two crates to their newest 0.9.x/0.10.x releases,
+# which support OpenSSL 4; a lockfile patch broke with every codex release.
+cargo update --package openssl-sys --package openssl
 cargo fetch --target "$(rustc --print host-tuple)"
+
+# codex pins Rust 1.95 (rust-toolchain.toml). Newer rustc needs deeper query
+# recursion for codex's large async fns, past the default limit of 128
+# ("queries overflow the depth limit!", first in codex-chatgpt); upstream
+# already sets 256 on some crates. Raising the limit only changes a compile-
+# time cap, so give every workspace crate root 512.
+find . -path ./target -prune -o -type f \( -path '*/src/lib.rs' -o -path '*/src/main.rs' -o -path '*/src/bin/*.rs' \) -print |
+  while read -r _root; do
+    if grep -q '^#!\[recursion_limit' "$_root"; then
+      sed -i 's/^#!\[recursion_limit = "[0-9]*"\]/#![recursion_limit = "512"]/' "$_root"
+    else
+      sed -i '1i #![recursion_limit = "512"]' "$_root"
+    fi
+  done
+
+# The code-mode runtime enables the v8 crate's sandbox feature. Upstream
+# rusty_v8 publishes no prebuilt archive for that variant (its download 404s);
+# codex publishes it as release assets, pinned with SHA-256 in MODULE.bazel.
+# Fetch the pair for this codex version and target from there.
+_target="$(rustc --print host-tuple)"
+_v8_version="$(sed -n 's/^v8 = "=\(.*\)"/\1/p' Cargo.toml)"
+_v8_id="rusty_v8_${_v8_version//./_}_${_target//-/_}"
+mkdir -p ../rusty_v8
+fetch_v8_asset() {
+  local block url sum file
+  block="$(grep -A8 "name = \"${_v8_id}_$1\"" ../MODULE.bazel)"
+  url="$(sed -n 's/^ *"\(https:[^"]*\)",*$/\1/p' <<< "$block" | head -1)"
+  sum="$(sed -n 's/^ *sha256 = "\([0-9a-f]*\)",*$/\1/p' <<< "$block")"
+  [ -n "$url" ] && [ -n "$sum" ] || { echo "no $1 for $_v8_id in MODULE.bazel" >&2; exit 1; }
+  file="../rusty_v8/${url##*/}"
+  curl -fsSL --retry 3 -o "$file" "$url" || exit 1
+  echo "$sum  $file" | sha256sum -c - >&2 || exit 1
+  realpath "$file"
+}
+# Plain assignments, so set -e stops the build when a fetch fails.
+RUSTY_V8_ARCHIVE="$(fetch_v8_asset archive)"
+RUSTY_V8_SRC_BINDING_PATH="$(fetch_v8_asset binding)"
+export RUSTY_V8_ARCHIVE RUSTY_V8_SRC_BINDING_PATH
 
 # Used for dynamic linking
 export LIBSQLITE3_SYS_USE_PKG_CONFIG=1

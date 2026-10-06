@@ -11,4 +11,5 @@ zlib-ng
 zstd
 git suggest repo action
 ripgrep suggest faster repo search
+curl make
 rust make
