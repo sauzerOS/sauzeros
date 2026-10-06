@@ -1,6 +1,16 @@
 #!/bin/bash -e
 
+# mold 3 is Rust, but build.rs compiles c/lto-message.c and the zstd crate
+# its bundled C library through the cc crate, which takes CFLAGS from the
+# environment. With -flto those objects hold only GCC's LTO bytecode, and
+# rustc's final link (no -flto) finds no mold_lto_message or ZSTD_*
+# symbols in them. Fat objects carry real code as well.
+export CFLAGS="$CFLAGS -ffat-lto-objects"
+export CXXFLAGS="$CXXFLAGS -ffat-lto-objects"
+
+# Link the system libzstd (a runtime dependency) instead of the bundled copy.
+export ZSTD_SYS_USE_PKG_CONFIG=1
+
 cargo fetch --locked --target host-tuple
 cargo build --frozen --release --package mold-cli
-DESTDIR="$pkgdir" PREFIX=/usr ./install-mold.sh
-
+DESTDIR="$1" PREFIX=/usr ./install-mold.sh
