@@ -7,3 +7,8 @@
 # SDK numbering (1.4.363.0) is the one to follow; spirv-tools also tags its
 # own v20xx releases (2024.3, 2026.4), which would otherwise look newer.
 - { name: spirv-tools, verpat: "20[0-9]{2}.*", incorrect: true }
+
+# socat 2.0.0 is still in beta (2.0.0b9). The official instance flags it devel
+# because Cygwin ships it as a test release; this instance does not parse
+# Cygwin, so AUR's 2.0.0_b9 counted as stable and made every 1.8 outdated.
+- { name: socat, verpat: "2\\.0\\.0[._-]?b[0-9].*", devel: true }
