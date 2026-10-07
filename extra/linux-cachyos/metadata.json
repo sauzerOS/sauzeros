@@ -1,10 +1,13 @@
 {
-  "url": "https://github.com/CachyOS/linux-cachyos",
+  "url": "https://github.com/CachyOS/linux",
   "category": "base",
-  "description": "sauzerOS kernel with CachyOS patches",
+  "description": "CachyOS kernel",
   "info": "",
-  "license": "",
+  "license": "GPL-2.0-only",
   "tags": [
     "kernel"
+  ],
+  "subpackages": [
+    "linux-cachyos-headers"
   ]
 }
