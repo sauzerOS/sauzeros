@@ -49,6 +49,11 @@ LLVM_SRC_DIR="$HOKUTO_BUILD_DIR/llvm"  # Adjust to your actual llvm subfolder
 HOST_BUILD_DIR="build-host"
 CROSS_BUILD_DIR="build-cross"
 
+# hokuto exports CMAKE_TOOLCHAIN_FILE (its aarch64 toolchain) for cross builds.
+# Pass 1 must build for the host, and LLVM's NATIVE helper builds would inherit
+# it and nest NATIVE builds endlessly; pass 2 passes its own toolchain file.
+unset CMAKE_TOOLCHAIN_FILE
+
 echo "=== Pass 1: Building Host Tools ==="
 mkdir -p $HOST_BUILD_DIR
 CC=gcc CXX=g++ cmake -G Ninja -S $LLVM_SRC_DIR -B $HOST_BUILD_DIR \

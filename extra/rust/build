@@ -60,7 +60,10 @@ unset PKG_CONFIG_PATH
 # Scope RUSTFLAGS to the TARGET only
 # This is the crucial change: we use CARGO_TARGET_<TRIPLE>_RUSTFLAGS
 # instead of the global RUSTFLAGS
-export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-L $SYSROOT/usr/lib -L $SYSROOT/lib -Clink-arg=--sysroot=$SYSROOT -Clink-arg=-lzstd -Clink-arg=-lidn2"
+# -L native=: the sysroot is searched for C libraries only. A plain -L also
+# finds Rust crates there, and an installed aarch64-rust ships its own
+# librustc_driver, which then clashes with the one being built (E0464).
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS="-L native=$SYSROOT/usr/lib -L native=$SYSROOT/lib -Clink-arg=--sysroot=$SYSROOT -Clink-arg=-lzstd -Clink-arg=-lidn2"
 
 # Ensure libzstd and libidn2 are found via pkg-config for the target
 export LIBZSTD_SYS_USE_PKG_CONFIG=1
