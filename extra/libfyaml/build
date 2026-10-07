@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
 autoreconf -fvi
-./configure --prefix=/usr
+./configure --prefix=/usr --without-libclang
 make
 make DESTDIR=$1 install
