@@ -52,8 +52,8 @@ sed -i \
 
 [ ! -d contrib ] && mkdir -p contrib
 mv ../wine-gecko-2.47.4-x86{,_64}.tar.xz contrib/
-mv ../wine-mono-11.2.0-x86.tar.xz contrib/
-mv ../xalia-0.4.9-net48-mono.zip contrib/
+mv ../wine-mono-11.3.0-x86.tar.xz contrib/
+mv ../xalia-0.5.0-net48-mono.zip contrib/
 
 for rustlib in gst-plugins-rs; do
 pushd $rustlib
@@ -126,7 +126,7 @@ i686-w64-mingw32-strip --strip-debug \
 x86_64-w64-mingw32-strip --strip-debug \
     $(find "${_geckodir}"-x86_64 -iname "*.dll" -or -iname "*.exe")
 
-_monodir="share/wine/mono/wine-mono-11.2.0"
+_monodir="share/wine/mono/wine-mono-11.3.0"
 i686-w64-mingw32-strip --strip-debug \
     $(find "${_monodir}"/lib/mono -iname "*.dll" -or -iname "*.exe")
 i686-w64-mingw32-strip --strip-debug \
