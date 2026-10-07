@@ -1,9 +1,44 @@
 #!/bin/bash -e
 
-cd libclc
-cmake -B build \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D CMAKE_BUILD_TYPE=Release
+_targets=(
+  spirv32-unknown-unknown
+  spirv64-unknown-unknown
+  amdgcn-amd-amdhsa
+  nvptx64-nvidia-cuda
+)
 
-cmake --build build
-DESTDIR=$1 cmake --install build
+cd libclc
+for target in "${_targets[@]}"; do
+  mkdir "build-$target"
+done
+
+for target in "${_targets[@]}"; do
+  cmake -B "build-$target" \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_C_COMPILER=clang \
+    -D CMAKE_CXX_COMPILER=clang++ \
+    -D LLVM_DEFAULT_TARGET_TRIPLE="$target"
+  cmake --build "build-$target"
+  DESTDIR="$1" cmake --install "build-$target"
+done
+
+# Mesa's clover/rusticl look for these two flat, legacy-named files rather
+# than the new per-triple layout above.
+ln -s spirv32-unknown-unknown/libclc.spv "$1/usr/share/clc/spirv-mesa3d-.spv"
+ln -s spirv64-unknown-unknown/libclc.spv "$1/usr/share/clc/spirv64-mesa3d-.spv"
+
+# Mesa also wants a pkg-config file.
+install -Dm644 /dev/stdin "$1/usr/share/pkgconfig/libclc.pc" <<END
+prefix=/usr
+datarootdir=/usr/share
+datadir=/usr/share
+pkgdatadir=\${datadir}/clc
+libexecdir=\${pkgdatadir}
+
+Name: libclc
+Description: Library requirements of the OpenCL C programming language
+Version: $2
+END
+
+
