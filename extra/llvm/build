@@ -86,7 +86,7 @@ cmake_args=(
     -D CLANG_DEFAULT_LINKER=lld
     -D COMPILER_RT_BUILD_SANITIZERS=OFF
     -D CMAKE_SKIP_INSTALL_RPATH=ON
-    -W no-dev
+    -W no-author
 )
 cmake "${cmake_args[@]}"
 cd $CROSS_BUILD_DIR
@@ -119,7 +119,7 @@ cmake_args=(
       -D LLVM_ENABLE_PROJECTS="clang;lld"
       -D LLVM_ENABLE_RUNTIMES="compiler-rt"
       -D CLANG_DEFAULT_LINKER=lld
-      -W no-dev -G Ninja -B build
+      -W no-author -G Ninja -B build
 )
 cmake "${cmake_args[@]}"
 cd build
@@ -197,7 +197,7 @@ cmake_args=(
       -D LLVM_ENABLE_RUNTIMES="compiler-rt"
       -D COMPILER_RT_INCLUDE_TESTS=OFF
       -D CLANG_DEFAULT_LINKER=lld
-      -W no-dev -G Ninja -B build
+      -W no-author -G Ninja -B build
 )
 cmake "${cmake_args[@]}"
 cd build
