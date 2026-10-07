@@ -1,0 +1,56 @@
+--- a/src/arch/gtk3/joystickdrv/joystick_linux_evdev.c
++++ b/src/arch/gtk3/joystickdrv/joystick_linux_evdev.c
+@@ -281,15 +281,17 @@
+ 
+ /** \brief  Filter callback for scandir(3)
+  *
++ * udev only creates /dev/input/by-id links for USB devices, so Bluetooth
++ * controllers have none: scan every /dev/input/event* node instead and keep
++ * the ones that report joystick or gamepad buttons (see scan_device()).
++ *
+  * \param[in]   de  dirent instance
+  *
+  * \return  \c 1 if the directory entry matches 'event*', \c 0 otherwise
+  */
+ static int sd_filter(const struct dirent *de)
+ {
+-    /* on Debian 12.10 joystick devices end with "-event-joystick", no idea if
+-     * this is also true on other Linux distros, needs checking! */
+-    return strstr(de->d_name, "-event-joystick") != NULL;
++    return strncmp(de->d_name, "event", 5) == 0;
+ }
+ 
+ /** \brief  Scan device for available buttons
+@@ -353,7 +355,7 @@
+     int                fd;
+     int                rc;
+ 
+-    snprintf(path, sizeof path, "/dev/input/by-id/%s", node);
++    snprintf(path, sizeof path, "/dev/input/%s", node);
+     fd = open(path, O_RDONLY|O_NONBLOCK);
+     if (fd < 0) {
+         return NULL;
+@@ -367,6 +369,14 @@
+         return NULL;
+     }
+ 
++    /* skip keyboards, mice and other non-joystick devices */
++    if (!libevdev_has_event_code(evdev, EV_KEY, BTN_JOYSTICK) &&
++            !libevdev_has_event_code(evdev, EV_KEY, BTN_GAMEPAD)) {
++        libevdev_free(evdev);
++        close(fd);
++        return NULL;
++    }
++
+     /* create new joystick device instance and add data */
+     joydev = joystick_device_new();
+     joydev->name        = lib_strdup(libevdev_get_name(evdev));
+@@ -418,7 +428,7 @@
+     log_message(joy_evdev_log, "Initializing Linux evdev joystick driver.");
+     joystick_driver_register(&driver);
+ 
+-    sd_result = scandir("/dev/input/by-id", &namelist, sd_filter, alphasort);
++    sd_result = scandir("/dev/input", &namelist, sd_filter, alphasort);
+     if (sd_result < 0) {
+         log_error(LOG_DEFAULT, "scandir() failed on /dev/input: %s", strerror(errno));
+         return;

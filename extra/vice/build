@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
 rm -rf src/lib/{liblame,libx264,libffmpeg}
+
+# Find Bluetooth controllers too: they have no /dev/input/by-id link.
+patch -Np1 -i vice-evdev-scan.patch
 sed -i 's/lib64/lib/g' configure.ac
 autoreconf -fi
 

@@ -19,3 +19,4 @@ files/vice-org-xpet.desktop
 files/vice-org-xplus4.desktop
 files/vice-org-xscpu64.desktop
 files/vice-org-xvic.desktop
+files/vice-evdev-scan.patch
