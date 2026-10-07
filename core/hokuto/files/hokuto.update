@@ -1,5 +1,6 @@
 kwayland kwin kwin-x11
 llvm libclc spirv-llvm-translator mesa
+llvm rust
 ki18n kfilemetadata kcolorscheme kwidgetsaddons kconfigwidgets kbookmarks  breeze-icons kiconthemes knotifications kjobwidgets solid kio kidletime kglobalaccel kxmlgui kcmutils kio-extras baloo
 sonnet ktexteditor
 glib librsvg
