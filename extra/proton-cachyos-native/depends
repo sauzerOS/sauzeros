@@ -127,10 +127,12 @@ git make
 glslang make
 gnutls make
 gtk+3 make
+jsoncpp make
 lib32-alsa-lib make
 lib32-giflib make
 lib32-gnutls make
 lib32-gtk+3 make
+lib32-jsoncpp make
 lib32-libpulse make
 lib32-libva make
 lib32-libxcomposite make

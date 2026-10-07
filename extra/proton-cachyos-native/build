@@ -50,6 +50,12 @@ sed -i \
   "s|('fsr4', fsr4_version, True)|('fsr4', fsr4_version, 'fsr4' in compat_config)|" \
   protonfixes/upscalers.py
 
+# OpenXR links a system jsoncpp when it finds one, and the 64-bit library then
+# breaks the i386 loader. Always use the vendored copy.
+#sed -i \
+#  's|^OPENXR_CMAKE_ARGS = .*|& -DBUILD_WITH_SYSTEM_JSONCPP=OFF|' \
+#  Makefile.in
+
 [ ! -d contrib ] && mkdir -p contrib
 mv ../wine-gecko-2.47.4-x86{,_64}.tar.xz contrib/
 mv ../wine-mono-11.3.0-x86.tar.xz contrib/
