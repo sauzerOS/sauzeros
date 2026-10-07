@@ -4,6 +4,14 @@
 # (also see getMultiarchTriple in clang/lib/Driver/ToolChains/WebAssembly.cpp)
 patch -Np1 -i no-normalize-triple.diff
 
+# libc++ 23 includes the z/OS locale shims (ibm.h) on every platform without
+# a support header of its own, WASI included. They define strtold_l and
+# vasprintf, which wasi-libc already declares: "cannot add 'abi_tag'
+# attribute in a redeclaration". Include them on z/OS only, as LLVM 22 did;
+# wasi-libc provides strto{f,d,ld}_l and vasprintf itself.
+sed -i 's|^#    include <__locale_dir/locale_base_api/ibm.h>$|#    if defined(__MVS__)\n#      include <__locale_dir/locale_base_api/ibm.h>\n#    endif|' \
+    libcxx/include/__locale_dir/locale_base_api.h
+
 # Platform files have been copied from
 # https://github.com/WebAssembly/wasi-sdk
 mkdir -p cmake/Platform
