@@ -5,6 +5,7 @@
   "info": "",
   "license": "MIT AND GPL-2.0-only",
   "tags": [
-    "kernel"
+    "kernel",
+    "module"
   ]
 }
