@@ -1,0 +1,6 @@
+# hokuto.prefer: which package to pick when a dependency offers alternatives
+# (xwayland needs xlibre | xorg-server). Package names, one or more per line.
+# When none of the alternatives is installed, the first name listed here
+# among them is chosen without asking; an installed one always wins.
+
+xlibre
