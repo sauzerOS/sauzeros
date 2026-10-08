@@ -34,7 +34,7 @@ _hokuto_builder()
         prev=${COMP_WORDS[COMP_CWORD-1]}
     fi
 
-    local commands="create bump build rebuild cross-sync run shell update destroy help"
+    local commands="create bump build rebuild cross-sync cycle run shell update destroy help"
 
     if (( cword == 1 )); then
         COMPREPLY=($(compgen -W "$commands -h --help" -- "$cur"))
@@ -53,10 +53,10 @@ _hokuto_builder()
             fi
             ;;
         rebuild)
-            COMPREPLY=($(compgen -W "--no-upload -j --parallel -v --verbose" -- "$cur"))
+            COMPREPLY=($(compgen -W "-y --no-upload -j --parallel -v --verbose" -- "$cur"))
             ;;
         cross-sync)
-            COMPREPLY=($(compgen -W "-system --no-upload -j" -- "$cur"))
+            COMPREPLY=($(compgen -W "-system -y --no-upload -j" -- "$cur"))
             ;;
         run)
             # The command to run inside the container, then its arguments.

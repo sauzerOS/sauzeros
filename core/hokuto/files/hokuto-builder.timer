@@ -1,0 +1,11 @@
+[Unit]
+Description=Run hokuto-builder 15 minutes after each round
+
+[Timer]
+# The first round shortly after the timer starts, then 15 minutes after the
+# previous round ended, so rounds never overlap.
+OnActiveSec=2min
+OnUnitInactiveSec=15min
+
+[Install]
+WantedBy=timers.target

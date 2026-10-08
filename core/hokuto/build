@@ -25,3 +25,5 @@ install -Dm755 hokuto-builder "$pkgdir"/usr/bin/hokuto-builder
 install -Dm644 hokuto-builder.bash "$pkgdir"/usr/share/bash-completion/completions/hokuto-builder
 install -Dm644 hokuto-builder.fish "$pkgdir"/usr/share/fish/vendor_completions.d/hokuto-builder.fish
 install -Dm644 hokuto-builder.zsh "$pkgdir"/usr/share/zsh/site-functions/_hokuto-builder
+install -Dm644 hokuto-builder.service "$pkgdir"/usr/lib/systemd/system/hokuto-builder.service
+install -Dm644 hokuto-builder.timer "$pkgdir"/usr/lib/systemd/system/hokuto-builder.timer

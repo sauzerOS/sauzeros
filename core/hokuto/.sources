@@ -10,6 +10,8 @@ files/hokuto.zsh
 files/hokuto-builder.bash
 files/hokuto-builder.fish
 files/hokuto-builder.zsh
+files/hokuto-builder.service
+files/hokuto-builder.timer
 files/hokuto.pkgset
 files/hokuto.rebuild
 files/hokuto.update

@@ -20,6 +20,7 @@ _hokuto_builder() {
     'build:build packages, then upload --sync'
     'rebuild:build and upload recipes ahead of the mirror'
     'cross-sync:hokuto cross-sync, then upload --sync'
+    'cycle:one unattended bump, rebuild and cross-sync round'
     'run:run a command in the container'
     'shell:interactive shell in the container'
     "update:update the container's own packages"
@@ -45,6 +46,7 @@ _hokuto_builder() {
       ;;
     rebuild)
       _arguments \
+        '-y[build without asking]' \
         '--no-upload[skip upload --sync]' \
         '(-j --parallel)'{-j,--parallel}'[parallel build jobs]:jobs:' \
         '(-v --verbose)'{-v,--verbose}'[verbose build output]'
@@ -52,6 +54,7 @@ _hokuto_builder() {
     cross-sync)
       _arguments \
         '-system[sync the aarch64-* cross-system packages]' \
+        '-y[build every missing package without asking]' \
         '--no-upload[skip upload --sync]' \
         '-j[parallel build jobs]:jobs:'
       ;;

@@ -1,0 +1,12 @@
+[Unit]
+Description=hokuto-builder: bump and build packages unattended
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Builds run as the user saved by 'hokuto-builder create' (BUILD_USER in
+# /etc/hokuto-builder.conf); set HOKUTO_BUILDER_USER here to override it.
+ExecStart=/usr/bin/hokuto-builder cycle
+# A round can take many hours.
+TimeoutStartSec=infinity
