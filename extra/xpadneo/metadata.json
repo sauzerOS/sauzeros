@@ -1,8 +1,11 @@
 {
   "url": "https://github.com/atar-axis/xpadneo",
   "category": "extra",
-  "description": "xpadneo",
+  "description": "Advanced Linux Driver for Xbox One Wireless Gamepad",
   "info": "",
-  "license": "",
-  "tags": []
+  "license": "GPL-2.0-only",
+  "tags": [
+    "kernel",
+    "module"
+  ]
 }
