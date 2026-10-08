@@ -1,8 +1,11 @@
 {
   "url": "https://github.com/64kramsystem/vmware-host-modules-fork",
   "category": "extra",
-  "description": "vmware modules",
+  "description": "VMWare Workstation Kernel Modules",
   "info": "",
-  "license": "",
-  "tags": []
+  "license": "GPL-2.0 license",
+  "tags": [
+    "kernel",
+    "module"
+  ]
 }
