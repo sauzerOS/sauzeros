@@ -18,3 +18,5 @@ aarch64-libuv cross
 aarch64-nghttp2 cross
 aarch64-openssl cross
 aarch64-zlib-ng cross
+aarch64-zstd cross
+python cross make
