@@ -1,1 +1,1 @@
-https://download.gnome.org/sources/libwnck/${version-major-minor}/libwnck-${version}.tar.xz
+https://gitlab.gnome.org/GNOME/libwnck/-/archive/${version-major-minor}/libwnck-${version}.tar.bz2
