@@ -4,9 +4,6 @@ MESON_OPTS=(
   --localstatedir=/var
   -D glamor=true
   -D xkb_output_dir=/var/lib/xkb
-  # As xlibre: the server in /usr/lib/Xorg behind the /usr/bin/Xorg wrapper,
-  # so xrdp's sesman, which runs /usr/lib/Xorg, works with either.
-  -D suid_wrapper=true
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -28,3 +25,11 @@ hokuto-meson build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# xrdp's sesman runs /usr/lib/Xorg, where xlibre's suid wrapper setup keeps
+# the server. Here the server is bin/Xorg itself, rootless through logind
+# with no setuid wrapper, and lib/Xorg points at it.
+xorg=$(cd "$1" && find . -path '*/bin/Xorg' -type f | head -n1)
+[ -n "$xorg" ]
+xorg=${xorg#./}
+ln -s ../bin/Xorg "$1/${xorg%/bin/Xorg}/lib/Xorg"
