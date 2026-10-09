@@ -5,6 +5,7 @@ ffmpeg
 imlib2
 fuse3
 x264
+libjpeg-turbo
 xorgxrdp runtime
 pipewire-module-xrdp suggest "Pipewire audio support"
 nasm make
@@ -12,6 +13,7 @@ cmocka make
 aarch64-gcc cross make
 aarch64-libxkbfile cross
 aarch64-libxrandr cross
+aarch64-libxfixes cross
 aarch64-fdk-aac cross
 aarch64-ffmpeg cross
 aarch64-imlib2 cross
@@ -19,5 +21,6 @@ aarch64-lame cross
 aarch64-opus cross
 aarch64-fuse3 cross
 aarch64-x264 cross
+aarch64-libjpeg-turbo cross
 nasm cross make
 cmocka cross make

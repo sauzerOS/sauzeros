@@ -7,6 +7,11 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
     [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
     CROSS_OPTS="--host=$HOST_TRIPLET"
+    # configure checks for the literal /usr/include/turbojpeg.h, the build
+    # machine's header. The source includes <turbojpeg.h>, which the cross
+    # compiler finds in the sysroot. (TURBOJPEG_PATH would also add an rpath
+    # into the sysroot.)
+    export ac_cv_header__usr_include_turbojpeg_h=yes
 fi
 
 # -i: a bare file argument is the file to patch, so "patch -Np2 arch-config.diff"
