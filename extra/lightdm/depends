@@ -9,7 +9,7 @@ libxdmcp
 libxklavier
 pam
 polkit
-xlibre | xorg-server
+xorg-server
 xorg-xmodmap
 xorg-xrdb
 accountsservice suggest Enhanced user accounts handling

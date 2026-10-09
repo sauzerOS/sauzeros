@@ -1,2 +1,2 @@
 git+https://github.com/neutrinolabs/xrdp#${version-last-only}
-files/arch-config.diff
+files/startwm-sauzeros.patch

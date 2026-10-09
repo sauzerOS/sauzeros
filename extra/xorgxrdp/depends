@@ -1,5 +1,5 @@
 glibc
-xlibre
+xorg-server
 libxfont2 make
 nasm make
 xrdp make
@@ -8,7 +8,7 @@ aarch64-libxfont2 cross make
 aarch64-libpciaccess cross
 aarch64-libepoxy cross
 aarch64-libxfixes cross
-aarch64-xlibre cross
+aarch64-xorg-server cross
 aarch64-xrdp cross make
 nasm cross make
 

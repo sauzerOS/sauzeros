@@ -1,0 +1,4 @@
+# Upstream package and its mutually exclusive replacement: either one
+# satisfies a dependency on the other.
+xorg-server xlibre
+xf86-input-libinput xlibre-xf86-input-libinput

@@ -1,9 +1,27 @@
 #!/bin/bash -e
 
-hokuto-meson build          \
-      --localstatedir=/var  \
-      -D glamor=true        \
-      -D xkb_output_dir=/var/lib/xkb
+MESON_OPTS=(
+  --localstatedir=/var
+  -D glamor=true
+  -D xkb_output_dir=/var/lib/xkb
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # Xvfb, Xnest and Xephyr are test/nested servers that pull in the whole
+    # client-side X and xcb stack; the target only needs the real server.
+    MESON_OPTS+=(-D xvfb=false -D xnest=false -D xephyr=false)
+    MESON_OPTS+=(-D glx=true -D dri1=false -D dri2=true -D dri3=true)
+    # The run-time paths come from .pc files, in a cross build the sysroot's,
+    # so the target's server would look under /usr/aarch64-linux-gnu: no fonts,
+    # no keymaps (the keyboard cannot be set up and the server exits), no DRI
+    # drivers. The xkb ones have options; fontutil.pc's fontrootdir and mesa's
+    # dri.pc dridriverdir only pkgconf's per-variable override.
+    MESON_OPTS+=(-D xkb_dir=/usr/share/X11/xkb -D xkb_bin_dir=/usr/bin)
+    export PKG_CONFIG_FONTUTIL_FONTROOTDIR=/usr/share/fonts/X11
+    export PKG_CONFIG_DRI_DRIDRIVERDIR=/usr/lib/dri
+fi
+
+hokuto-meson build "${MESON_OPTS[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

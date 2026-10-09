@@ -10,5 +10,5 @@ libxklavier
 xfconf
 cups suggest for printers support in xfce4-color-settings
 sane suggest for scanners support in xfce4-color-settings
-xlibre-xf86-input-libinput | xf86-input-libinput make
+xf86-input-libinput make
 xfce4-dev-tools make
