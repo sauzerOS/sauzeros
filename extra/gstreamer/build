@@ -452,7 +452,7 @@ files=(
     usr/share/gir-1.0/GstHip{,GL}-1.0.gir
     usr/lib/gstreamer-1.0/libgsthip.so
 )
-_pick "$1" gst-plugins-hip "${files[@]}"
+_pick "$1" gst-plugin-hip "${files[@]}"
 
 # gst-plugin-qml6
 _pick "$1" gst-plugin-qml6 usr/lib/gstreamer-1.0/libgstqml6.so
