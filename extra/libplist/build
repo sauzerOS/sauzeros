@@ -1,9 +1,22 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The Cython bindings are a C extension for the target's Python: ask the
+    # sysroot's interpreter (run through qemu-user binfmt) for its headers,
+    # extension suffix and site-packages, not the build machine's.
+    CROSS_OPTS+=(PYTHON="/usr/$HOKUTO_ARCH-linux-gnu/bin/python3")
+fi
+
 ./configure \
-  --prefix=/usr \
+  --prefix="$PREFIX" \
   --sysconfdir=/etc \
-  --localstatedir=/var
+  --localstatedir=/var \
+  "${CROSS_OPTS[@]}"
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make

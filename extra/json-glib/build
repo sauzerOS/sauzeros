@@ -1,9 +1,15 @@
 #!/bin/bash -e
 
-meson setup build \
-  --prefix=/usr \
-  --libexecdir=/usr/lib \
-  -D gtk_doc=disabled
+# gobject-introspection runs the just-built library to scan it, and the
+# sysroot's GLib carries no .gir to build against: no introspection in a cross
+# build.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(-D introspection=disabled -D tests=false)
+fi
+
+hokuto-meson build \
+  -D gtk_doc=disabled "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

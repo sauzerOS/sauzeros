@@ -1,1 +1,2 @@
 meson make
+meson cross make
