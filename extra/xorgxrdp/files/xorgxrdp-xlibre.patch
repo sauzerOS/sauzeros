@@ -1,0 +1,41 @@
+Build against XLibre: xf86NumDrivers is not exported
+
+XLibre keeps xf86NumDrivers private, so libxorgxrdp.so failed to load
+with "undefined symbol: xf86NumDrivers", and with it every xorgxrdp
+module. xf86DriverList is still exported and only allocated once a
+driver is registered, so the NVIDIA check does without the count.
+
+--- a/module/rdpMain.c
++++ b/module/rdpMain.c
+@@ -90,8 +90,18 @@
+ static xf86ScreenInitProc *g_orgScreenInit;
+ static Bool g_nvidia_grid = 0;
+ 
++/* XLibre (xlibre-server.h) keeps xf86NumDrivers private; it still exports
++ * xf86DriverList, which it only allocates once a driver is registered. */
++#if defined(__has_include)
++#if __has_include(<xlibre-server.h>)
++#define XORGXRDP_XLIBRE 1
++#endif
++#endif
++
+ extern DriverPtr *xf86DriverList;
++#ifndef XORGXRDP_XLIBRE
+ extern int xf86NumDrivers;
++#endif
+ 
+ /*****************************************************************************/
+ static Bool
+@@ -490,10 +500,12 @@
+     {
+         return 0;
+     }
++#ifndef XORGXRDP_XLIBRE
+     if (xf86NumDrivers < 1)
+     {
+         return 0;
+     }
++#endif
+     if ((xf86DriverList == NULL) || (xf86DriverList[0] == NULL) ||
+         (xf86DriverList[0]->driverName == NULL))
+     {

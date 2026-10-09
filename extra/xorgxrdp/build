@@ -1,22 +1,30 @@
 #!/bin/bash -e
 
 patch -Np1 -i 406.patch
+# XLibre does not export xf86NumDrivers (libxorgxrdp.so would not load).
+patch -Np1 -i xorgxrdp-xlibre.patch
 
 PREFIX="${CROSS_PREFIX:-/usr}"
 CROSS_OPTS=""
+MAKE_ARGS=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
-    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
-    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
-    CROSS_OPTS="--host=$HOST_TRIPLET"
-export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+    CROSS_OPTS="--host=$HOKUTO_ARCH-linux-gnu"
 fi
 
 CFLAGS="$CFLAGS -ffat-lto-objects $(pkgconf --cflags-only-I libdrm)" \
 ./bootstrap
 ./configure              \
-  --prefix=$CROSS_PREFIX \
+  --prefix="$PREFIX"     \
   $CROSS_OPTS
 
-make
-make DESTDIR="${1}" install
+# configure takes moduledir from xorg-server.pc: in a cross build the
+# sysroot's, so it carries the sysroot prefix, and the modules would land in
+# /usr/aarch64-linux-gnu/lib/xorg/... where the target's X server never looks.
+# A cross-system build (aarch64-xorgxrdp) installs into the sysroot and keeps it.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
+    moduledir=$(pkg-config xorg-server --variable=moduledir)
+    MAKE_ARGS+=(moduledir="${moduledir#/usr/$HOKUTO_ARCH-linux-gnu}")
+fi
+
+make "${MAKE_ARGS[@]}"
+make DESTDIR="${1}" "${MAKE_ARGS[@]}" install
