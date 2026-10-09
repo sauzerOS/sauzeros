@@ -6,6 +6,7 @@ imlib2
 fuse3
 x264
 xorgxrdp runtime
+pipewire-module-xrdp suggest "Pipewire audio support"
 nasm make
 cmocka make
 aarch64-gcc cross make

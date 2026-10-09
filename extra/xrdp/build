@@ -9,7 +9,9 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CROSS_OPTS="--host=$HOST_TRIPLET"
 fi
 
-patch -Np2 -b -z .orig arch-config.diff
+# -i: a bare file argument is the file to patch, so "patch -Np2 arch-config.diff"
+# read an empty stdin, exited 0, and never patched startwm.sh.
+patch -Np1 -i startwm-sauzeros.patch
 ./bootstrap
 ./configure \
   --prefix=$PREFIX \

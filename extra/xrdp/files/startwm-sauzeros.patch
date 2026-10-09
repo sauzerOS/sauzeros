@@ -1,0 +1,47 @@
+startwm.sh: start ~/.xinitrc or an installed X session on sauzerOS
+
+sauzerOS has none of the Xsession scripts startwm.sh looks for, so a
+session used to fall through to a bare xterm.
+
+--- a/sesman/startwm.sh
++++ b/sesman/startwm.sh
+@@ -79,6 +79,39 @@
+     . /etc/default/locale
+     export LANG LANGUAGE
+   fi
++  # sauzerOS
++  if [ -r /etc/locale.conf ]; then
++    . /etc/locale.conf
++    export LANG LANGUAGE
++  fi
++
++  # sauzerOS has no Xsession script for the distribution cases below, whose
++  # last resort is a bare xterm. Start the user's ~/.xinitrc, as startx
++  # would, else a desktop session from /usr/share/xsessions: $DESKTOP_SESSION
++  # if it names one, otherwise the first installed.
++  if [ -r ~/.xinitrc ]; then
++    pre_start
++    . ~/.xinitrc
++    post_start
++    exit 0
++  fi
++  if [ -z "$DESKTOP_SESSION" ] || [ ! -f "/usr/share/xsessions/$DESKTOP_SESSION.desktop" ]; then
++    for session in /usr/share/xsessions/*.desktop; do
++      [ -f "$session" ] || continue
++      DESKTOP_SESSION=$(basename "$session" .desktop)
++      break
++    done
++  fi
++  if [ -n "$DESKTOP_SESSION" ]; then
++    get_xdg_session_startupcmd "$DESKTOP_SESSION"
++    if [ -n "$STARTUP" ]; then
++      export DESKTOP_SESSION
++      pre_start
++      eval "$STARTUP"
++      post_start
++      exit 0
++    fi
++  fi
+ 
+   # debian
+   if [ -r /etc/X11/Xsession ]; then
