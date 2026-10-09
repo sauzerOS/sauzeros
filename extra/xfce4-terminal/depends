@@ -2,5 +2,6 @@ gtk-layer-shell
 hicolor-icon-theme
 libxfce4ui
 vte3
+docbook-xsl make
 meson make
 xfce4-dev-tools make 
