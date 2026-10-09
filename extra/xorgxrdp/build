@@ -4,6 +4,12 @@ patch -Np1 -i 406.patch
 # XLibre does not export xf86NumDrivers (libxorgxrdp.so would not load).
 patch -Np1 -i xorgxrdp-xlibre.patch
 
+# Glamor renders the session on the GPU's render node (DRMDevice
+# /dev/dri/renderD128 in xorg.conf), but only for the drivers DRMAllowList
+# names; add the Raspberry Pi's v3d to upstream's list.
+sed -i 's/^\(\s*Option "DRMAllowList" "[^"]*\)"/\1 v3d"/' xrdpdev/xorg.conf
+grep -q 'DRMAllowList ".* v3d"' xrdpdev/xorg.conf
+
 PREFIX="${CROSS_PREFIX:-/usr}"
 CROSS_OPTS=""
 MAKE_ARGS=()
@@ -11,19 +17,22 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     CROSS_OPTS="--host=$HOKUTO_ARCH-linux-gnu"
 fi
 
-CFLAGS="$CFLAGS -ffat-lto-objects $(pkgconf --cflags-only-I libdrm)" \
+export CFLAGS="$CFLAGS -ffat-lto-objects"
 ./bootstrap
 ./configure              \
   --prefix="$PREFIX"     \
+  --enable-glamor        \
   $CROSS_OPTS
 
 # configure takes moduledir from xorg-server.pc: in a cross build the
 # sysroot's, so it carries the sysroot prefix, and the modules would land in
 # /usr/aarch64-linux-gnu/lib/xorg/... where the target's X server never looks.
+# The same directory is libxorgxrdp's run path to the server's libglamoregl.
 # A cross-system build (aarch64-xorgxrdp) installs into the sysroot and keeps it.
 if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" = "/usr" ]; then
     moduledir=$(pkg-config xorg-server --variable=moduledir)
-    MAKE_ARGS+=(moduledir="${moduledir#/usr/$HOKUTO_ARCH-linux-gnu}")
+    moduledir=${moduledir#/usr/$HOKUTO_ARCH-linux-gnu}
+    MAKE_ARGS+=(moduledir="$moduledir" LIB_SEARCH_PATH="-R$moduledir")
 fi
 
 make "${MAKE_ARGS[@]}"

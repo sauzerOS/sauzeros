@@ -1,9 +1,16 @@
 glibc
 xorg-server
+mesa
+libepoxy
+libdrm
+libglvnd
 libxfont2 make
 nasm make
 xrdp make
 aarch64-gcc cross make
+aarch64-mesa cross make
+aarch64-libglvnd cross make
+aarch64-libdrm cross make
 aarch64-libxfont2 cross make
 aarch64-libpciaccess cross
 aarch64-libepoxy cross
@@ -11,4 +18,3 @@ aarch64-libxfixes cross
 aarch64-xorg-server cross
 aarch64-xrdp cross make
 nasm cross make
-
