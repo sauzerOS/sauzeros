@@ -1,7 +1,16 @@
 #!/bin/bash -e
 
 patch -Np1 -i lightdm-default-config.patch
-
+# The help is yelp documentation, readable only in GNOME's yelp. Building it
+# needs yelp-tools' yelp.m4 at autoreconf time; without it YELP_HELP_INIT
+# stays unexpanded and help/Makefile fails ("missing separator").
+sed -i '/^YELP_HELP_INIT$/d; /^help\/Makefile$/d' configure.ac
+sed -i 's/^\(SUBDIRS += data po src doc\) help$/\1/' Makefile.am
+if grep -q 'YELP_HELP_INIT\|help/Makefile' configure.ac || grep -q '^SUBDIRS.* help$' Makefile.am; then
+    echo "lightdm: the help is still built; the seds above need updating" >&2
+    exit 1
+fi
+autoreconf -fvi
 ./configure --prefix=/usr                 \
             --libexecdir=/usr/lib/lightdm \
             --localstatedir=/var          \
