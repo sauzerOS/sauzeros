@@ -8,7 +8,7 @@ patch -Np1 -i xorgxrdp-xlibre.patch
 # /dev/dri/renderD128 in xorg.conf), but only for the drivers DRMAllowList
 # names; add the Raspberry Pi's v3d to upstream's list.
 sed -i 's/^\(\s*Option "DRMAllowList" "[^"]*\)"/\1 v3d"/' xrdpdev/xorg.conf
-grep -q 'DRMAllowList ".* v3d"' xrdpdev/xorg.conf
+grep -q '"DRMAllowList" "[^"]* v3d"' xrdpdev/xorg.conf
 
 PREFIX="${CROSS_PREFIX:-/usr}"
 CROSS_OPTS=""
