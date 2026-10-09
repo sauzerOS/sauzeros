@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+CONF_ARGS=(
+  --prefix=/usr
+  --libexecdir=/usr/lib
+  # Explicit: configure otherwise takes the module directory from
+  # libpipewire-0.3.pc, in a cross build the sysroot's, and the module would
+  # land under /usr/aarch64-linux-gnu where the target's PipeWire never looks.
+  --with-module-dir=/usr/lib/pipewire-0.3
+)
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+  CONF_ARGS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+
+./bootstrap
+./configure "${CONF_ARGS[@]}"
+make
+make DESTDIR="$1" install
+

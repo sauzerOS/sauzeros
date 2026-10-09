@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/neutrinolabs/pipewire-module-xrdp",
+  "category": "extra",
+  "description": "PipeWire module that plays and records sound in xrdp sessions",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}
