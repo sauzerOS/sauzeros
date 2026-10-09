@@ -186,3 +186,31 @@ suggests = [
 "sonic-silver-sddm suggest SDDM silver theme",
 "sonic-workspace-wallpapers suggest Wallpapers",
 ]
+[cosmic-desktop]
+description = "Cosmic DE"
+depends = [
+"cosmic-app-library",
+"cosmic-applets",
+"cosmic-bg",
+"cosmic-comp",
+"cosmic-files",
+"cosmic-greeter",
+"cosmic-idle",
+"cosmic-launcher",
+"cosmic-monitor",
+"cosmic-notifications",
+"cosmic-osd",
+"cosmic-panel",
+"cosmic-randr",
+"cosmic-screenshot",
+"cosmic-session",
+"cosmic-settings",
+"cosmic-settings-daemon",
+"cosmic-sound-theme",
+"cosmic-terminal",
+"cosmic-text-editor",
+"cosmic-viewer",
+"cosmic-wallpapers",
+"cosmic-workspaces",
+"xdg-desktop-portal-cosmic",
+]
