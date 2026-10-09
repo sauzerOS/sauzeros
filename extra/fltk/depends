@@ -4,9 +4,9 @@ cairo
 dbus
 glib
 glibc
-glu
-hicolor-icon-theme
-libdecor
+glu nocross
+hicolor-icon-theme nocross
+libdecor nocross
 libgcc
 libglvnd
 libjpeg-turbo
@@ -21,5 +21,19 @@ pango
 wayland
 zlib-ng
 cmake make
+mandoc make
 mesa make
 wayland-protocols make 
+aarch64-gcc cross make
+aarch64-fontconfig cross make
+aarch64-freetype cross make
+aarch64-libjpeg-turbo cross make
+aarch64-libpng cross make
+aarch64-libx11 cross make
+aarch64-libxcursor cross make
+aarch64-libxext cross make
+aarch64-libxfixes cross make
+aarch64-libxft cross make
+aarch64-libxinerama cross make
+aarch64-libxrender cross make
+aarch64-zlib-ng cross make
