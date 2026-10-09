@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-hokuto-meson \
+hokuto-meson build \
   -D packagekit=false
 
 meson compile -C build

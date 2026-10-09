@@ -17,4 +17,5 @@ unzip suggest better ZIP archive support
 zip suggest better ZIP archive support
 cpio make
 meson make
+itstool make
 python make
