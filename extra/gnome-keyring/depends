@@ -1,5 +1,5 @@
 dconf
-gcr
+gcr<4
 glib
 glibc
 libcap-ng
@@ -7,6 +7,8 @@ libgcc
 libgcrypt
 pam
 systemd-libs
+docbook-xsl make
+libxslt make
 meson make
 p11-kit make
 python make 
