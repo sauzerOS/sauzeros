@@ -1,23 +1,41 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 if hokuto check sane; then
     sane_opt=true
 else
     sane_opt=false
 fi
 
-meson setup build           \
-  --prefix=/usr             \
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir; the VAPI is generated from the .gir.
+    cross_opts+=(-D introspection=false -D vapi=false -D tests=false)
+    # Only the sysroot can provide SANE to a cross build.
+    sane_opt=false
+    # systemd.pc and udev.pc in the sysroot spell their directories with the
+    # sysroot prefix: units and udev rules would land under it.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
+    export PKG_CONFIG_SYSTEMD_SYSCONF_DIR=/etc
+    export PKG_CONFIG_UDEV_UDEV_DIR="$PREFIX/lib/udev"
+else
+    cross_opts+=(-D vapi=true)
+fi
+
+# --libexecdir: colord has always installed its daemons in /usr/libexec.
+hokuto-meson build          \
   --buildtype=release       \
+  --libexecdir=libexec      \
   -D daemon_user=colord     \
-  -D vapi=true              \
   -D systemd=true           \
   -D libcolordcompat=true   \
   -D argyllcms_sensor=false \
   -D bash_completion=false  \
   -D docs=false             \
   -D sane=$sane_opt         \
-  -D man=false
+  -D man=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

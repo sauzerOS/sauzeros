@@ -11,3 +11,16 @@ docbook-xsl make
 meson make
 systemd make
 usbmuxd make 
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-libgudev cross
+aarch64-libimobiledevice cross
+aarch64-libplist cross
+aarch64-polkit cross
+aarch64-systemd cross make
+glib cross make
+meson cross make
+libxslt cross make
+docbook-xsl cross make
+polkit cross make

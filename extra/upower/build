@@ -1,7 +1,21 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir.
+    cross_opts+=(-D introspection=disabled)
+    # systemd.pc and udev.pc in the sysroot spell their directories with the
+    # sysroot prefix: units and udev rules would land under it.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
+    export PKG_CONFIG_SYSTEMD_SYSCONF_DIR=/etc
+    export PKG_CONFIG_UDEV_UDEV_DIR="$PREFIX/lib/udev"
+fi
+
 hokuto-meson build \
-  -D gtk-doc=false
+  -D gtk-doc=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

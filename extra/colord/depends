@@ -16,3 +16,18 @@ meson make
 sane make optional
 systemd make
 vala make 
+aarch64-gcc cross make
+aarch64-dbus cross
+aarch64-dconf cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-lcms2 cross
+aarch64-libgudev cross
+aarch64-libgusb cross
+aarch64-polkit cross
+aarch64-shared-mime-info cross
+aarch64-sqlite cross
+aarch64-systemd cross
+glib cross make
+meson cross make
+polkit cross make
