@@ -112,7 +112,7 @@ _hokuto_complete_available_packages()
 
 _hokuto_first_command()
 {
-    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check"
+    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist"
     for ((i = 1; i < cword; i++)); do
         word=${words[i]}
         if [[ " $commands " == *" $word "* ]]; then
@@ -123,13 +123,20 @@ _hokuto_first_command()
     return 1
 }
 
+# The packages on the build blacklist.
+_hokuto_blacklisted()
+{
+    local f=/var/db/hokuto/build-ignore.json
+    [[ -r $f ]] && sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' "$f" | sort -u
+}
+
 _hokuto_complete()
 {
     local cur prev words cword cmd
     COMPREPLY=()
     _hokuto_comp_words
 
-    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check"
+    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist"
 
     cmd=$(_hokuto_first_command)
     if [[ -z $cmd ]]; then
@@ -236,6 +243,26 @@ _hokuto_complete()
             ;;
         cross-sync)
             COMPREPLY=($(compgen -W "--native -j -i" -- "$cur"))
+            ;;
+        blacklist)
+            local i sub=""
+            for ((i = 1; i < cword; i++)); do
+                if [[ ${words[i]} == blacklist ]]; then
+                    (( i + 1 < cword )) && sub=${words[i+1]}
+                    break
+                fi
+            done
+            if [[ -z $sub ]]; then
+                COMPREPLY=($(compgen -W "list remove clear" -- "$cur"))
+            elif [[ $sub == remove ]]; then
+                if [[ $prev == -arch ]]; then
+                    COMPREPLY=($(compgen -W "native aarch64" -- "$cur"))
+                elif [[ $cur == -* ]]; then
+                    COMPREPLY=($(compgen -W "-arch" -- "$cur"))
+                else
+                    COMPREPLY=($(compgen -W "$(_hokuto_blacklisted)" -- "$cur"))
+                fi
+            fi
             ;;
         keys)
             COMPREPLY=($(compgen -W "--sync" -- "$cur"))

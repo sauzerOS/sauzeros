@@ -28,6 +28,13 @@ _hokuto_log_packages() {
   _describe 'available package log' packages
 }
 
+_hokuto_blacklisted() {
+  local -a packages
+  local f=/var/db/hokuto/build-ignore.json
+  [[ -r $f ]] && packages=(${(f)"$(sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' $f)"})
+  _describe 'blacklisted package' packages
+}
+
 _hokuto() {
   local context state line command
   typeset -A opt_args
@@ -72,6 +79,7 @@ _hokuto() {
         'cleanup:Clean caches and temporary files'
         'upload:Upload local binaries to the remote mirror'
         'check:Check whether a package is installed'
+        'blacklist:List or edit the build blacklist'
       )
       _describe 'command' commands
       ;;
@@ -183,6 +191,23 @@ _hokuto() {
           ;;
         checksum|c|edit|e|bump|check)
           _hokuto_repository_packages
+          ;;
+        blacklist)
+          if (( CURRENT == 2 )); then
+            local -a subcommands
+            subcommands=(
+              'list:List the blacklisted packages'
+              'remove:Let packages build again'
+              'clear:Empty the blacklist'
+            )
+            _describe 'blacklist command' subcommands
+          elif [[ ${words[2]} == remove ]]; then
+            shift words
+            (( CURRENT-- ))
+            _arguments \
+              "-arch[Only this architecture's entry]:arch:(native aarch64)" \
+              '*:package:_hokuto_blacklisted'
+          fi
           ;;
         depends)
           _arguments \
