@@ -1,0 +1,74 @@
+#!/bin/bash -e
+
+# The X server source, which Xvnc is built from, is unpacked into unix/xserver
+# next to tigervnc's own hw/vnc by its sources line.
+
+patch -p1 -i more-xsessions.patch
+patch -p1 -i remove-selinux.patch
+patch -p1 -i nettle-4.patch
+
+patch -d unix/xserver -Np1 -i ../xserver21.patch
+
+# The viewer and the libraries Xvnc links (common/), built in the source tree:
+# hw/vnc finds them at TIGERVNC_BUILDDIR, unix/xserver/../.. by default. A cross
+# build gets its CMake toolchain file from hokuto (CMAKE_TOOLCHAIN_FILE).
+cmake_options=(
+  -D CMAKE_BUILD_TYPE=None
+  -D CMAKE_INSTALL_PREFIX=/usr
+  -D CMAKE_INSTALL_SBINDIR=/usr/bin
+  -D CMAKE_INSTALL_LIBEXECDIR=/usr/bin
+  -D BUILD_JAVA=FALSE
+  -D BUILD_VIEWER=TRUE
+  -D ENABLE_WAYLAND=TRUE
+  -W no-author
+)
+cmake "${cmake_options[@]}" .
+cmake --build .
+
+# Xvnc
+configure_options=(
+  --disable-config-hal
+  --disable-config-udev
+  --disable-devel-docs
+  --disable-dri
+  --disable-kdrive
+  --disable-selective-werror
+  --disable-static
+  --disable-unit-tests
+  --disable-xephyr
+  --disable-xnest
+  --disable-xorg
+  --disable-xvfb
+  --disable-xwin
+  --enable-dri2
+  --enable-dri3
+  --enable-glx
+  --prefix=/usr
+  --with-pic
+  --without-dtrace
+)
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    configure_options+=(
+        --host="$HOKUTO_ARCH-linux-gnu"
+        --build="$(uname -m)-pc-linux-gnu"
+        # These default to the .pc files in the aarch64 sysroot, which would
+        # compile /usr/aarch64-linux-gnu/... into the target's Xvnc: no fonts,
+        # no keymaps, no GLX drivers once installed (as for xlibre).
+        --with-fontrootdir=/usr/share/fonts/X11
+        --with-xkb-path=/usr/share/X11/xkb
+        --with-xkb-bin-directory=/usr/bin
+        --with-dri-driver-path=/usr/lib/dri
+    )
+    # xorg-util-macros, xorg-font-util and xtrans install their autoconf macros
+    # into the sysroot as aarch64-* packages.
+    export ACLOCAL_PATH="/usr/$HOKUTO_ARCH-linux-gnu/share/aclocal${ACLOCAL_PATH:+:$ACLOCAL_PATH}"
+fi
+pushd unix/xserver
+autoreconf -fiv
+./configure "${configure_options[@]}"
+make
+popd
+
+DESTDIR="$1" cmake --install .
+make -C unix/xserver/hw/vnc DESTDIR="$1" install
+install -Dm0755 Xsession "$1/etc/X11/tigervnc/Xsession"

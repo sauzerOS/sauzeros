@@ -1,0 +1,12 @@
+{
+  "url": "https://www.tigervnc.org",
+  "category": "extra",
+  "description": "Suite of VNC servers and clients based on the VNC 4 branch of TightVNC",
+  "info": "1. Set a VNC password. It's stored in ~/.config/tigervnc/passwd:\nvncpasswd\n\n2. Choose the session and resolution in ~/.config/tigervnc/config. session is a desktop file's name from /usr/share/xsessions:\nmkdir -p ~/.config/tigervnc\ncat \u003e ~/.config/tigervnc/config \u003c\u003c'EOF'\nsession=icewm-session\ngeometry=1920x1080\nlocalhost\nEOF\nlocalhost makes the server accept connections only from the server itself and you reach it through an SSH tunnel (step 5). \nVNC password authentication is weak, so that's the safer default. \nDrop the line if you want to connect directly on your LAN.\n\n3. Give display :1 to your user:\necho ':1=user' | sudo tee -a /etc/tigervnc/vncserver.users\n\n4. Start it, and have it start at boot:\nsudo systemctl enable --now vncserver@:1\nsystemctl status vncserver@:1\nDisplay :1 listens on port 5901. If it doesn't stay up, check journalctl -u vncserver@:1 and the session log in ~/.local/state/tigervnc/.\n\n5. Connect from your PC. With localhost set, tunnel through SSH:\nssh -L 5901:localhost:5901 serverip     # keep this open\nvncviewer localhost:1\nWithout localhost, connect directly with vncviewer serverip:1.\n",
+  "license": "GPL-2.0-only",
+  "tags": [
+    "network",
+    "server",
+    "vnc"
+  ]
+}

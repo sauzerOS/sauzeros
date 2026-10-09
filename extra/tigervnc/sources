@@ -1,0 +1,6 @@
+git+https://github.com/TigerVNC/tigervnc.git#tag=v1.16.2
+https://x.org/releases/individual/xserver/xorg-server-21.1.25.tar.xz unix/xserver
+files/Xsession
+files/more-xsessions.patch
+files/remove-selinux.patch
+files/nettle-4.patch
