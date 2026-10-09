@@ -6,6 +6,10 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # No GLU for aarch64; nothing cross-built uses fltk's OpenGL support
     # (tigervnc builds its viewer without it).
     CONF_ARGS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-gl)
+    # The test programs, which are not installed, are generated with the build
+    # machine's fluid from PATH in a cross build: the container's fltk 1.3
+    # fluid writes code fltk 1.4 cannot compile ('tty' was not declared).
+    CONF_ARGS+=(--disable-test)
 fi
 
 ./configure "${CONF_ARGS[@]}"
