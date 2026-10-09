@@ -1,9 +1,5 @@
 #!/bin/bash -e
 
-git cherry-pick -n \
-  d252378a3980c99e23340e6b722631182814d8bb \
-  71c4d1750463c99ab9cbff7e1d7162210506f225
-
 cmake -B build -G Ninja \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_BUILD_TYPE=None \
