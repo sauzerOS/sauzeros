@@ -31,7 +31,6 @@ nv-codec-headers nocross
 openjpeg nocross
 openssl nocross
 opus nocross
-pkgconf
 sndio nocross
 speex nocross
 srt nocross
