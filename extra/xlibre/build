@@ -7,7 +7,6 @@ MESON_OPTS=(
   -D systemd_logind=true
   -D seatd_libseat=false
   -D drm=true
-  -D suid_wrapper=true
 )
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -39,3 +38,12 @@ fi
 hokuto-meson build "${MESON_OPTS[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
+# xrdp's sesman runs /usr/lib/Xorg. Without the suid wrapper (it only adds a
+# setuid-root Xorg.wrap: on KMS hardware the server runs rootless through
+# logind anyway) the server is bin/Xorg, and lib/Xorg points at it, as in
+# xorg-server.
+xorg=$(cd "$1" && find . -path '*/bin/Xorg' -type f | head -n1)
+[ -n "$xorg" ]
+xorg=${xorg#./}
+ln -s ../bin/Xorg "$1/${xorg%/bin/Xorg}/lib/Xorg"
