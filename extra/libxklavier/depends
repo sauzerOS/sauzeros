@@ -8,3 +8,12 @@ libxml2
 xkeyboard-config
 xorg-xkbcomp
 gobject-introspection make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-iso-codes cross make
+aarch64-libx11 cross
+aarch64-libxi cross
+aarch64-libxkbfile cross
+aarch64-libxml2 cross
+glib cross make

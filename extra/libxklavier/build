@@ -1,6 +1,22 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir.
+    CROSS_OPTS+=(--disable-introspection)
+    # The run-time paths come from the sysroot's .pc files, which carry the
+    # sysroot prefix: the target looks for its keymaps, xkbcomp and the
+    # iso-codes tables under /usr.
+    CROSS_OPTS+=(--with-xkb-base=/usr/share/X11/xkb --with-xkb-bin-base=/usr/bin)
+    export PKG_CONFIG_ISO_CODES_PREFIX=/usr
+fi
+
+./configure --prefix="$PREFIX" "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR=$1 install
