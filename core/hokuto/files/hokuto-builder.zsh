@@ -12,6 +12,15 @@ _hokuto_builder_repo_packages() {
   _describe 'package' packages
 }
 
+_hokuto_builder_blacklisted() {
+  local -a packages
+  local f
+  for f in /var/db/hokuto/build-ignore.json /var/db/hokuto/build-ignore-generic.json; do
+    [[ -r $f ]] && packages+=(${(f)"$(sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' $f)"})
+  done
+  _describe 'blacklisted package' packages
+}
+
 _hokuto_builder() {
   local -a commands
   commands=(
@@ -21,6 +30,7 @@ _hokuto_builder() {
     'rebuild:build and upload recipes ahead of the mirror'
     'cross-sync:hokuto cross-sync, then upload --sync'
     'cycle:one unattended bump, rebuild and cross-sync round'
+    'blacklist:list or edit the build blacklist'
     'run:run a command in the container'
     'shell:interactive shell in the container'
     "update:update the container's own packages"
@@ -57,6 +67,23 @@ _hokuto_builder() {
         '-y[build every missing package without asking]' \
         '--no-upload[skip upload --sync]' \
         '-j[parallel build jobs]:jobs:'
+      ;;
+    blacklist)
+      if (( CURRENT == 3 )); then
+        local -a subcommands
+        subcommands=(
+          'list:list the blacklisted packages'
+          'remove:let packages build again'
+          'clear:empty the blacklist'
+        )
+        _describe 'blacklist command' subcommands
+      elif [[ $words[3] == remove ]]; then
+        shift 2 words
+        (( CURRENT -= 2 ))
+        _arguments \
+          "-arch[only this architecture's entry]:arch:(native aarch64)" \
+          '*:package:_hokuto_builder_blacklisted'
+      fi
       ;;
     run)
       shift 2 words

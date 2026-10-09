@@ -21,6 +21,15 @@ _hokuto_builder_repo_packages()
     done
 }
 
+# The packages on the build blacklists (native and generic container).
+_hokuto_builder_blacklisted()
+{
+    local f
+    for f in /var/db/hokuto/build-ignore.json /var/db/hokuto/build-ignore-generic.json; do
+        [[ -r $f ]] && sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' "$f"
+    done | sort -u
+}
+
 _hokuto_builder()
 {
     local cur prev words cword
@@ -34,7 +43,7 @@ _hokuto_builder()
         prev=${COMP_WORDS[COMP_CWORD-1]}
     fi
 
-    local commands="create bump build rebuild cross-sync cycle run shell update destroy help"
+    local commands="create bump build rebuild cross-sync cycle blacklist run shell update destroy help"
 
     if (( cword == 1 )); then
         COMPREPLY=($(compgen -W "$commands -h --help" -- "$cur"))
@@ -57,6 +66,19 @@ _hokuto_builder()
             ;;
         cross-sync)
             COMPREPLY=($(compgen -W "-system -y --no-upload -j" -- "$cur"))
+            ;;
+        blacklist)
+            if (( cword == 2 )); then
+                COMPREPLY=($(compgen -W "list remove clear" -- "$cur"))
+            elif [[ ${words[2]} == remove ]]; then
+                if [[ $prev == -arch ]]; then
+                    COMPREPLY=($(compgen -W "native aarch64" -- "$cur"))
+                elif [[ $cur == -* ]]; then
+                    COMPREPLY=($(compgen -W "-arch" -- "$cur"))
+                else
+                    COMPREPLY=($(compgen -W "$(_hokuto_builder_blacklisted)" -- "$cur"))
+                fi
+            fi
             ;;
         run)
             # The command to run inside the container, then its arguments.
