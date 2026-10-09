@@ -4,4 +4,4 @@
 # among them is chosen without asking; an installed one always wins.
 go
 rust
-xlibre
+xorg-server
