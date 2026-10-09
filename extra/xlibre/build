@@ -25,7 +25,13 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # /usr/aarch64-linux-gnu/share/fonts/X11. Every entry then fails to open at
     # startup, X runs with no fonts at all, and there is no cursor font to draw
     # the pointer with.
-    MESON_OPTS+=(-D "fontrootdir=$PREFIX/share/fonts/X11")
+    MESON_OPTS+=(-D fontrootdir=/usr/share/fonts/X11)
+    # The same for the other run-time paths read from sysroot .pc files: the
+    # xkb data and xkbcomp (xkbcomp.pc), without which the keyboard cannot be
+    # set up and the server exits, and the DRI drivers (mesa's dri.pc), which
+    # has no meson option, so pkgconf's per-variable override sets it.
+    MESON_OPTS+=(-D xkb_dir=/usr/share/X11/xkb -D xkb_bin_dir=/usr/bin)
+    export PKG_CONFIG_DRI_DRIDRIVERDIR=/usr/lib/dri
 else
     MESON_OPTS+=(-D xvfb=true -D xnest=true -D xephyr=true)
 fi
