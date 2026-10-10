@@ -1,9 +1,9 @@
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokuto-0.4.45-amd64.tar.xz
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokuto-0.4.45-arm64.tar.xz
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokuto-0.4.45-amd64.tar.xz.sig
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokuto-0.4.45-arm64.tar.xz.sig
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokutostrap
-https://github.com/sauzerOS/hokuto/releases/download/v0.4.45/hokuto-builder
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokuto-0.4.46-amd64.tar.xz
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokuto-0.4.46-arm64.tar.xz
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokuto-0.4.46-amd64.tar.xz.sig
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokuto-0.4.46-arm64.tar.xz.sig
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokutostrap
+https://github.com/sauzerOS/hokuto/releases/download/v0.4.46/hokuto-builder
 files/hokuto.bash
 files/hokuto.fish
 files/hokuto.zsh
