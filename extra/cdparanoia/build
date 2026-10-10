@@ -7,11 +7,23 @@ patch -p1 -i cdparanoia-10.2-format-security.patch
 # Use LDFLAGS
 patch -p1 -i cdparanoia-10.2-ldflags.patch
 
-./configure --prefix=/usr \
-  --mandir=/usr/share/man
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+    # The 2008 config.sub does not know aarch64. configure copies
+    # configure.sub and configure.guess over config.sub and config.guess.
+    automake_dir=$(ls -d /usr/share/automake-* | sort -V | tail -n1)
+    cp -f "$automake_dir"/config.sub configure.sub
+    cp -f "$automake_dir"/config.guess configure.guess
+fi
+
+./configure --prefix="$PREFIX" \
+  --mandir="$PREFIX/share/man" \
+  "${CROSS_OPTS[@]}"
 
 make -j1
-make prefix="$1"/usr MANDIR="$1"/usr/share/man install
+make prefix="$1$PREFIX" MANDIR="$1$PREFIX/share/man" install
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package

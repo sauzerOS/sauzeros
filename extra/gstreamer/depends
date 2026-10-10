@@ -153,3 +153,44 @@ lib32-wayland make
 lib32-x264 make
 lib32-x265 make
 lib32-zlib-ng make
+aarch64-gcc cross make
+aarch64-alsa-lib cross
+aarch64-cairo cross
+aarch64-cdparanoia cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-graphene cross
+aarch64-iso-codes cross make
+aarch64-libcap cross
+aarch64-libdrm cross
+aarch64-libelf cross
+aarch64-libglvnd cross
+aarch64-libgudev cross
+aarch64-libjpeg-turbo cross
+aarch64-libogg cross
+aarch64-libpng cross
+aarch64-libtheora cross
+aarch64-libunwind cross
+aarch64-libvorbis cross
+aarch64-libx11 cross
+aarch64-libxcb cross
+aarch64-libxext cross
+aarch64-libxi cross
+aarch64-libxkbcommon cross
+aarch64-libxv cross
+aarch64-mesa cross
+aarch64-opus cross
+aarch64-orc cross
+aarch64-pango cross
+aarch64-rust cross make
+aarch64-wayland cross
+aarch64-wayland-protocols cross make
+aarch64-zlib-ng cross
+git cross make
+glib cross make
+meson cross make
+orc cross make
+python cross make
+rust cross make
+wayland cross make
+bash-completion cross make
