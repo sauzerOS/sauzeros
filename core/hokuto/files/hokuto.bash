@@ -279,10 +279,12 @@ _hokuto_complete()
                     break
                 fi
             done
-            if [[ -z $sub ]]; then
-                COMPREPLY=($(compgen -W "status list check confirm cancel" -- "$cur"))
-            elif [[ $sub == confirm ]]; then
-                COMPREPLY=($(compgen -W "--force" -- "$cur"))
+            if [[ $cur == -* ]]; then
+                local opts="--from -h --help"
+                [[ $sub == confirm ]] && opts+=" --force"
+                COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+            elif [[ -z $sub ]]; then
+                COMPREPLY=($(compgen -W "status list check confirm cancel help" -- "$cur"))
             fi
             ;;
         nobuild)
@@ -299,9 +301,9 @@ _hokuto_complete()
                 fi
             done
             if [[ $cur == -* ]]; then
-                COMPREPLY=($(compgen -W "-cross -native" -- "$cur"))
+                COMPREPLY=($(compgen -W "-cross -native -h --help" -- "$cur"))
             elif [[ -z $sub ]]; then
-                COMPREPLY=($(compgen -W "list add remove clear" -- "$cur"))
+                COMPREPLY=($(compgen -W "list add remove clear help" -- "$cur"))
             elif [[ $sub == remove ]]; then
                 COMPREPLY=($(compgen -W "$(_hokuto_nobuild_listed)" -- "$cur"))
             elif [[ $sub != list && $sub != clear ]]; then

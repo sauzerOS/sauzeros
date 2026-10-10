@@ -192,6 +192,8 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a confirm -d "Bump them and release python"
     complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a cancel -d "Drop the hold"
     complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and __fish_seen_subcommand_from confirm" -l force -d "Confirm without a passed check"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild" -l from -x -d "Start an upgrade from this minor release"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild nobuild" -s h -l help -d "Show the help"
 
     set -l nobuild_commands list add remove clear
     complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a list -d "List the no-build list"

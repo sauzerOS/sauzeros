@@ -79,3 +79,5 @@ complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l ch
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l confirm -d "Bump them and release python"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l force -d "Confirm without a passed check"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l cancel -d "Drop the hold"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l from -x -d "Start an upgrade from this minor release"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild nobuild" -s h -l help -d "Show the help"

@@ -227,16 +227,20 @@ _hokuto() {
               'check:Test-build them against the new python'
               'confirm:Bump them and release python'
               'cancel:Drop the hold'
+              'help:Show the help'
             )
             _describe 'python-rebuild command' subcommands
           elif [[ ${words[2]} == confirm ]]; then
-            _arguments '--force[Confirm without a passed check]'
+            _arguments '--force[Confirm without a passed check]' '--from[Start from this minor release]:minor release:' '(-h --help)'{-h,--help}'[Show the help]'
+          else
+            _arguments '--from[Start from this minor release]:minor release:' '(-h --help)'{-h,--help}'[Show the help]'
           fi
           ;;
         nobuild)
           if (( CURRENT == 2 )); then
             local -a subcommands
             subcommands=(
+              'help:Show the help'
               'list:List the no-build list'
               'add:Never build these packages'
               'remove:Build these packages again'

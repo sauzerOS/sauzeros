@@ -96,9 +96,9 @@ _hokuto_builder()
                 break
             done
             if [[ $cur == -* ]]; then
-                COMPREPLY=($(compgen -W "-cross -native" -- "$cur"))
+                COMPREPLY=($(compgen -W "-cross -native -h --help" -- "$cur"))
             elif [[ -z $sub ]]; then
-                COMPREPLY=($(compgen -W "list add remove clear" -- "$cur"))
+                COMPREPLY=($(compgen -W "list add remove clear help" -- "$cur"))
             elif [[ $sub == remove ]]; then
                 COMPREPLY=($(compgen -W "$(_hokuto_builder_nobuild_listed)" -- "$cur"))
             elif [[ $sub != list && $sub != clear ]]; then
@@ -106,7 +106,7 @@ _hokuto_builder()
             fi
             ;;
         python-rebuild)
-            COMPREPLY=($(compgen -W "--status --list --check --confirm --force --cancel -j" -- "$cur"))
+            COMPREPLY=($(compgen -W "--status --list --check --confirm --force --cancel --from -j -h --help" -- "$cur"))
             ;;
         run)
             # The command to run inside the container, then its arguments.

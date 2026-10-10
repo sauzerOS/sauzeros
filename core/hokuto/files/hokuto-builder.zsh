@@ -98,6 +98,7 @@ _hokuto_builder() {
       if (( CURRENT == 3 )); then
         local -a subcommands
         subcommands=(
+          'help:show the help'
           'list:list the no-build list'
           'add:never build these packages'
           'remove:build these packages again'
@@ -126,7 +127,9 @@ _hokuto_builder() {
         '--confirm[bump them and release python]' \
         '--force[confirm without a passed check]' \
         '--cancel[drop the hold]' \
-        '-j[parallel build jobs]:jobs:'
+        '--from[start an upgrade from this minor release]:minor release (e.g. 3.14):' \
+        '-j[parallel build jobs]:jobs:' \
+        '(-h --help)'{-h,--help}'[show the help]'
       ;;
     run)
       shift 2 words
