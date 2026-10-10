@@ -2,3 +2,9 @@ glib
 libxfce4ui
 polkit
 meson make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-libxfce4ui cross
+aarch64-polkit cross
+meson cross make

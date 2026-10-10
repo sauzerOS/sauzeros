@@ -12,3 +12,20 @@ cups suggest for printers support in xfce4-color-settings
 sane suggest for scanners support in xfce4-color-settings
 xf86-input-libinput make
 xfce4-dev-tools make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-colord cross
+aarch64-exo cross
+aarch64-garcon cross
+aarch64-libcanberra cross
+aarch64-libnotify cross
+aarch64-libxfce4ui cross
+aarch64-libxklavier cross
+aarch64-xfconf cross
+aarch64-xf86-input-libinput cross make
+aarch64-wayland-protocols cross make
+aarch64-libxcursor cross make
+aarch64-libxrandr cross make
+wayland cross make

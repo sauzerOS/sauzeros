@@ -1,10 +1,22 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir; the vala bindings are generated from the .gir.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-introspection --disable-vala)
+fi
+
 ./configure \
-    --prefix=/usr \
+    --prefix="$PREFIX" \
     --localstatedir=/var \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man
+    --sysconfdir="$SYSCONFDIR" \
+    --mandir="$PREFIX/share/man" \
+    "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR="$1" install

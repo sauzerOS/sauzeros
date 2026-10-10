@@ -6,3 +6,14 @@ xfce4-notifyd
 wayland-protocols make
 xfce4-dev-tools make
 xfce4-panel make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-libnotify cross
+aarch64-libxfce4ui cross
+aarch64-upower cross
+aarch64-wayland-protocols cross make
+aarch64-xfce4-panel cross make
+wayland cross make
+polkit cross make

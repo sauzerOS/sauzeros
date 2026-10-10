@@ -13,4 +13,17 @@ thunar-volman suggest removable device management
 tumbler suggest thumbnail previews
 gobject-introspection make
 xfce4-dev-tools make
-xfce4-panel make 
+xfce4-panel make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-exo cross
+aarch64-libexif cross
+aarch64-libgudev cross
+aarch64-libnotify cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-pcre2 cross
+aarch64-gtk+3 cross
+aarch64-xfce4-panel cross make

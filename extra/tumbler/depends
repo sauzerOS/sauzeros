@@ -1,5 +1,6 @@
 gdk-pixbuf
 libxfce4util
+gst-plugins-base
 ffmpegthumbnailer suggest video thumbnails
 freetype suggest font thumbnails
 poppler suggest PDF thumbnails
@@ -7,4 +8,19 @@ ffmpegthumbnailer make
 freetype make
 poppler make
 python make
-xfce4-dev-tools make 
+xfce4-dev-tools make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-gdk-pixbuf cross
+aarch64-libxfce4util cross
+aarch64-cairo cross make
+aarch64-curl cross make
+aarch64-ffmpegthumbnailer cross make
+aarch64-freetype cross make
+aarch64-gstreamer cross make
+aarch64-libjpeg-turbo cross make
+aarch64-libpng cross make
+aarch64-poppler cross make
+python cross make

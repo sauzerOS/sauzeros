@@ -12,4 +12,21 @@ xorg-xinit
 xorg-xrdb
 gnome-keyring suggest for keyring support when GNOME compatibility is enabled
 xfce4-screensaver suggest for locking screen with xflock4
-xfce4-dev-tools make 
+xfce4-dev-tools make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-gtk-layer-shell cross
+aarch64-libsm cross
+aarch64-libwnck cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4windowing cross
+aarch64-polkit cross
+aarch64-xfconf cross
+aarch64-colord cross make
+aarch64-upower cross make
+aarch64-wayland-protocols cross make
+wayland cross make
+xorg-iceauth cross make
+polkit cross make

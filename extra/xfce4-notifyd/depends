@@ -7,4 +7,16 @@ libxfce4util
 sqlite
 xfconf
 xfce4-dev-tools make
-xfce4-panel make 
+xfce4-panel make
+aarch64-gcc cross make
+aarch64-glibc cross
+glib cross make
+xfce4-dev-tools cross make
+aarch64-gtk-layer-shell cross
+aarch64-libcanberra cross
+aarch64-libnotify cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-sqlite cross
+aarch64-xfconf cross
+aarch64-xfce4-panel cross make
