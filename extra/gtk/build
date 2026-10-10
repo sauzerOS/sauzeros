@@ -1,22 +1,38 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+introspection=enabled
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir. The GStreamer media backend needs gst-plugins-bad,
+    # which is not cross built yet.
+    introspection=disabled
+    cross_opts+=(-D media-gstreamer=disabled)
+fi
+
 hokuto-meson build		    \
            -D broadway-backend=true \
            -D colord=enabled        \
-           -D introspection=enabled
+           -D introspection=$introspection "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
 
-# gtk-demos
-_pick "$1" gtk-demos usr/bin/gtk4-{demo,demo-application,node-editor,print-editor,widget-factory,icon-editor}
-_pick "$1" gtk-demos usr/share/applications/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}.desktop
-_pick "$1" gtk-demos usr/share/glib-2.0/schemas/org.gtk.Demo4.gschema.xml
-_pick "$1" gtk-demos usr/share/icons/hicolor/*/apps/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}[-.]*
-_pick "$1" gtk-demos usr/share/man/man1/gtk4-{demo,demo-application,node-editor,widget-factory}.1
-_pick "$1" gtk-demos usr/share/metainfo/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor}.appdata.xml
+# The split paths are spelled usr/..., which holds for a native build and a
+# plain cross build of the target. A cross-system build keeps everything in
+# the one aarch64-gtk package, which the sysroot links against.
+if [ "$PREFIX" = "/usr" ]; then
+    # gtk-demos
+    _pick "$1" gtk-demos usr/bin/gtk4-{demo,demo-application,node-editor,print-editor,widget-factory,icon-editor}
+    _pick "$1" gtk-demos usr/share/applications/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}.desktop
+    _pick "$1" gtk-demos usr/share/glib-2.0/schemas/org.gtk.Demo4.gschema.xml
+    _pick "$1" gtk-demos usr/share/icons/hicolor/*/apps/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor,Shaper}[-.]*
+    _pick "$1" gtk-demos usr/share/man/man1/gtk4-{demo,demo-application,node-editor,widget-factory}.1
+    _pick "$1" gtk-demos usr/share/metainfo/org.gtk.{Demo4,PrintEditor4,WidgetFactory4,gtk4.NodeEditor}.appdata.xml
 
-# gtk-update-icon-cache
-_pick "$1" gtk-update-icon-cache usr/bin/gtk4-update-icon-cache
-pkgdir=$HOKUTO_SPLIT_DIR/gtk-update-icon-cache
-ln -sr "$pkgdir"/usr/bin/gtk{4,}-update-icon-cache
+    # gtk-update-icon-cache
+    _pick "$1" gtk-update-icon-cache usr/bin/gtk4-update-icon-cache
+    pkgdir=$HOKUTO_SPLIT_DIR/gtk-update-icon-cache
+    ln -sr "$pkgdir"/usr/bin/gtk{4,}-update-icon-cache
+fi

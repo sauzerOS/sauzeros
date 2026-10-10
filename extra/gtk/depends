@@ -10,9 +10,9 @@ gdk-pixbuf
 glib
 glibc
 graphene
-gst-plugins-bad
-gst-plugins-base
-gstreamer
+gst-plugins-bad nocross
+gst-plugins-base nocross
+gstreamer nocross
 gtk-update-icon-cache runtime
 harfbuzz
 iso-codes
@@ -49,3 +49,46 @@ sassc make
 shaderc make
 vulkan-headers make
 wayland-protocols make 
+aarch64-gcc cross make
+aarch64-at-spi2-core cross
+aarch64-cairo cross
+aarch64-colord cross
+aarch64-cups cross
+aarch64-dconf cross
+aarch64-desktop-file-utils cross
+aarch64-fontconfig cross
+aarch64-fribidi cross
+aarch64-gdk-pixbuf cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-graphene cross
+aarch64-harfbuzz cross
+aarch64-iso-codes cross
+aarch64-libepoxy cross
+aarch64-libglvnd cross
+aarch64-libjpeg-turbo cross
+aarch64-libpng cross
+aarch64-librsvg cross
+aarch64-libtiff cross
+aarch64-libx11 cross
+aarch64-libxcursor cross
+aarch64-libxdamage cross
+aarch64-libxext cross
+aarch64-libxfixes cross
+aarch64-libxi cross
+aarch64-libxinerama cross
+aarch64-libxkbcommon cross
+aarch64-libxrandr cross
+aarch64-libxrender cross
+aarch64-pango cross
+aarch64-shared-mime-info cross
+aarch64-vulkan-headers cross make
+aarch64-vulkan-icd-loader cross
+aarch64-wayland cross
+aarch64-wayland-protocols cross make
+gettext cross make
+glib cross make
+meson cross make
+sassc cross make
+shaderc cross make
+wayland cross make

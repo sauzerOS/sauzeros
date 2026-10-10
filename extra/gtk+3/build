@@ -1,23 +1,14 @@
 #!/bin/bash -e
 
 # A cross-system build installs under the sysroot, so every path below has to
-# follow CROSS_PREFIX rather than assume /usr. It also links only, which is why
-# introspection, colord, cups and the cloud providers are dropped: none of them
-# are in the sysroot and none are needed to produce libgtk-3.
+# follow CROSS_PREFIX rather than assume /usr.
 PREFIX="${CROSS_PREFIX:-/usr}"
 
 cross_opts=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    cross_opts+=(
-      -D introspection=false
-      -D colord=no
-      -D cloudproviders=false
-      -D print_backends=file
-      -D gtk_doc=false
-      -D demos=false
-      -D examples=false
-      -D tests=false
-    )
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir.
+    cross_opts+=(-D introspection=false)
 fi
 
 hokuto-meson build \

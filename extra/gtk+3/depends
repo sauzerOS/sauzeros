@@ -1,4 +1,4 @@
-adwaita-icon-theme runtime nocross
+adwaita-icon-theme runtime
 at-spi2-core
 cairo
 dconf
@@ -8,11 +8,11 @@ fribidi
 gdk-pixbuf
 glib
 glibc
-gtk-update-icon-cache runtime nocross
+gtk-update-icon-cache runtime
 harfbuzz
-iso-codes nocross
-colord nocross
-libcups nocross
+iso-codes
+colord
+libcups
 libglvnd
 libepoxy
 librsvg
@@ -93,3 +93,8 @@ aarch64-zlib-ng cross
 glib cross make
 meson cross make
 wayland cross make
+aarch64-colord cross
+aarch64-iso-codes cross make
+aarch64-glibc cross
+gettext cross make
+sassc cross make

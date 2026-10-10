@@ -1,3 +1,5 @@
 hicolor-icon-theme
 gtk-update-icon-cache make
 meson make
+gtk-update-icon-cache cross make
+meson cross make

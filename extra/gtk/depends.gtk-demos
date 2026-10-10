@@ -7,9 +7,9 @@ gdk-pixbuf
 glib
 glibc
 graphene
-gst-plugins-bad
-gst-plugins-base
-gstreamer
+gst-plugins-bad nocross
+gst-plugins-base nocross
+gstreamer nocross
 gtk
 harfbuzz
 hicolor-icon-theme
