@@ -49,8 +49,13 @@ function __hokuto_blacklisted
     test -r $f; and string replace -rf '^\s*"package":\s*"([^"]*)".*' '$1' <$f | sort -u
 end
 
+function __hokuto_nobuild_listed
+    set -l f /var/db/hokuto/nobuild.json
+    test -r $f; and string replace -rf '^\s*"package":\s*"([^"]*)".*' '$1' <$f | sort -u
+end
+
 set -l prog_names hk hokuto
-set -l hokuto_commands version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist
+set -l hokuto_commands version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist nobuild
 
 for prog in $prog_names
     complete -c $prog -f
@@ -100,10 +105,10 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from build b" -l index -d "Update github.io status table"
     complete -c $prog -n "__fish_seen_subcommand_from build b" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
 
-    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist" -s f -l force -d "Force uninstallation"
-    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist" -s y -l yes -d "Assume yes"
-    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist" -s p -l purge -d "Also remove the orphans the removal leaves"
-    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist nobuild" -s f -l force -d "Force uninstallation"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist nobuild" -s y -l yes -d "Assume yes"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist nobuild" -s p -l purge -d "Also remove the orphans the removal leaves"
+    complete -c $prog -n "__fish_seen_subcommand_from uninstall remove r; and not __fish_seen_subcommand_from blacklist nobuild" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s i -l idle -d "Idle build during update"
     complete -c $prog -n "__fish_seen_subcommand_from update u" -o ii -l superidle -d "Super-idle build during update"
@@ -113,11 +118,11 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from update u" -l build-missing-binaries -d "Build repository packages missing current binaries"
     complete -c $prog -n "__fish_seen_subcommand_from update u" -s y -l yes -d "Assume yes"
 
-    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist" -l remote -d "List remote packages"
-    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist" -l size -d "Sort packages by size, largest first"
-    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist" -l check-integrity -d "Check installed manifests for missing files"
-    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist" -s f -l force -d "Start the list in force uninstall mode"
-    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist nobuild" -l remote -d "List remote packages"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist nobuild" -l size -d "Sort packages by size, largest first"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist nobuild" -l check-integrity -d "Check installed manifests for missing files"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist nobuild" -s f -l force -d "Start the list in force uninstall mode"
+    complete -c $prog -n "__fish_seen_subcommand_from list ls; and not __fish_seen_subcommand_from blacklist nobuild" -a "(__hokuto_get_installed_packages)" -d "Installed Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from checksum c" -s f -d "Force sources download"
     complete -c $prog -n "__fish_seen_subcommand_from checksum c" -l unpack -d "Unpack sources in build dir"
@@ -179,6 +184,16 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from blacklist; and not __fish_seen_subcommand_from $blacklist_commands" -a clear -d "Empty the blacklist"
     complete -c $prog -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -a "(__hokuto_blacklisted)" -d Blacklisted
     complete -c $prog -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -o arch -x -a "native aarch64" -d "Only this architecture's entry"
+
+    set -l nobuild_commands list add remove clear
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a list -d "List the no-build list"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a add -d "Never build these packages"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a remove -d "Build these packages again"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a clear -d "Empty the no-build list"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild" -o cross -d "Cross builds (cross-sync)"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild" -o native -d "Native builds (bump, rebuild)"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and __fish_seen_subcommand_from remove" -a "(__hokuto_nobuild_listed)" -d "On the no-build list"
+    complete -c $prog -n "__fish_seen_subcommand_from nobuild; and __fish_seen_subcommand_from add" -a "(__hokuto_get_repo_packages)" -d "Repository Package"
 
     complete -c $prog -n "__fish_seen_subcommand_from keys" -l sync -d "Update remote keyring from local"
     complete -c $prog -n "__fish_seen_subcommand_from sign-file" -a "(__fish_complete_path)" -d "File to sign"

@@ -21,7 +21,12 @@ function __hokuto_builder_blacklisted
     end | sort -u
 end
 
-set -l commands create bump build rebuild cross-sync cycle blacklist run shell update destroy help
+function __hokuto_builder_nobuild_listed
+    set -l f /var/db/hokuto/nobuild.json
+    test -r $f; and string replace -rf '^\s*"package":\s*"([^"]*)".*' '$1' <$f | sort -u
+end
+
+set -l commands create bump build rebuild cross-sync cycle blacklist nobuild run shell update destroy help
 
 complete -c hokuto-builder -f
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a create -d "Create the container (once)"
@@ -31,6 +36,7 @@ complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a reb
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a cross-sync -d "hokuto cross-sync, then upload --sync"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a cycle -d "One unattended bump, rebuild and cross-sync round"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a blacklist -d "List or edit the build blacklist"
+complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a nobuild -d "List or edit the no-build list"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a run -d "Run a command in the container"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a shell -d "Interactive shell in the container"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a update -d "Update the container's own packages"
@@ -53,5 +59,15 @@ complete -c hokuto-builder -n "__fish_seen_subcommand_from blacklist; and not __
 complete -c hokuto-builder -n "__fish_seen_subcommand_from blacklist; and not __fish_seen_subcommand_from $blacklist_commands" -a clear -d "Empty the blacklist"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -a "(__hokuto_builder_blacklisted)" -d Blacklisted
 complete -c hokuto-builder -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -o arch -x -a "native aarch64" -d "Only this architecture's entry"
+
+set -l nobuild_commands list add remove clear
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a list -d "List the no-build list"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a add -d "Never build these packages"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a remove -d "Build these packages again"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a clear -d "Empty the no-build list"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild" -o cross -d "Cross builds (cross-sync)"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild" -o native -d "Native builds (bump, rebuild)"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and __fish_seen_subcommand_from remove" -a "(__hokuto_builder_nobuild_listed)" -d "On the no-build list"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and __fish_seen_subcommand_from add" -a "(__hokuto_builder_repo_packages)" -d Package
 
 complete -c hokuto-builder -n "__fish_seen_subcommand_from run" -F -a "(__fish_complete_subcommand --fcs-skip=2)"

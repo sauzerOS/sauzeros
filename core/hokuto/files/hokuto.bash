@@ -112,7 +112,7 @@ _hokuto_complete_available_packages()
 
 _hokuto_first_command()
 {
-    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist"
+    local i word commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist nobuild"
     for ((i = 1; i < cword; i++)); do
         word=${words[i]}
         if [[ " $commands " == *" $word "* ]]; then
@@ -130,13 +130,20 @@ _hokuto_blacklisted()
     [[ -r $f ]] && sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' "$f" | sort -u
 }
 
+# The packages on the no-build list.
+_hokuto_nobuild_listed()
+{
+    local f=/var/db/hokuto/nobuild.json
+    [[ -r $f ]] && sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' "$f" | sort -u
+}
+
 _hokuto_complete()
 {
     local cur prev words cword cmd
     COMPREPLY=()
     _hokuto_comp_words
 
-    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist"
+    local commands="version --version log list ls checksum c build b bootstrap install i uninstall remove r update u manifest m size unmanaged find f new n cd edit e bump meta sync search s chroot cleanup python-rebuild alt info settings init-repos upload keys sign-file depends cross-sync check blacklist nobuild"
 
     cmd=$(_hokuto_first_command)
     if [[ -z $cmd ]]; then
@@ -262,6 +269,29 @@ _hokuto_complete()
                 else
                     COMPREPLY=($(compgen -W "$(_hokuto_blacklisted)" -- "$cur"))
                 fi
+            fi
+            ;;
+        nobuild)
+            # The subcommand is the first word after nobuild that is no option.
+            local i j sub=""
+            for ((i = 1; i < cword; i++)); do
+                if [[ ${words[i]} == nobuild ]]; then
+                    for ((j = i + 1; j < cword; j++)); do
+                        [[ ${words[j]} == -* ]] && continue
+                        sub=${words[j]}
+                        break
+                    done
+                    break
+                fi
+            done
+            if [[ $cur == -* ]]; then
+                COMPREPLY=($(compgen -W "-cross -native" -- "$cur"))
+            elif [[ -z $sub ]]; then
+                COMPREPLY=($(compgen -W "list add remove clear" -- "$cur"))
+            elif [[ $sub == remove ]]; then
+                COMPREPLY=($(compgen -W "$(_hokuto_nobuild_listed)" -- "$cur"))
+            elif [[ $sub != list && $sub != clear ]]; then
+                _hokuto_complete_packages
             fi
             ;;
         keys)

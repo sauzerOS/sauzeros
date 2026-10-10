@@ -30,6 +30,13 @@ _hokuto_builder_blacklisted()
     done | sort -u
 }
 
+# The packages on the no-build list, shared by both containers.
+_hokuto_builder_nobuild_listed()
+{
+    local f=/var/db/hokuto/nobuild.json
+    [[ -r $f ]] && sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' "$f" | sort -u
+}
+
 _hokuto_builder()
 {
     local cur prev words cword
@@ -43,7 +50,7 @@ _hokuto_builder()
         prev=${COMP_WORDS[COMP_CWORD-1]}
     fi
 
-    local commands="create bump build rebuild cross-sync cycle blacklist run shell update destroy help"
+    local commands="create bump build rebuild cross-sync cycle blacklist nobuild run shell update destroy help"
 
     if (( cword == 1 )); then
         COMPREPLY=($(compgen -W "$commands -h --help" -- "$cur"))
@@ -78,6 +85,24 @@ _hokuto_builder()
                 else
                     COMPREPLY=($(compgen -W "$(_hokuto_builder_blacklisted)" -- "$cur"))
                 fi
+            fi
+            ;;
+        nobuild)
+            # The subcommand is the first word after nobuild that is no option.
+            local j sub=""
+            for ((j = 2; j < cword; j++)); do
+                [[ ${words[j]} == -* ]] && continue
+                sub=${words[j]}
+                break
+            done
+            if [[ $cur == -* ]]; then
+                COMPREPLY=($(compgen -W "-cross -native" -- "$cur"))
+            elif [[ -z $sub ]]; then
+                COMPREPLY=($(compgen -W "list add remove clear" -- "$cur"))
+            elif [[ $sub == remove ]]; then
+                COMPREPLY=($(compgen -W "$(_hokuto_builder_nobuild_listed)" -- "$cur"))
+            elif [[ $sub != list && $sub != clear ]]; then
+                COMPREPLY=($(compgen -W "$(_hokuto_builder_repo_packages)" -- "$cur"))
             fi
             ;;
         run)

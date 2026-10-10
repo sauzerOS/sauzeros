@@ -21,6 +21,13 @@ _hokuto_builder_blacklisted() {
   _describe 'blacklisted package' packages
 }
 
+_hokuto_builder_nobuild_listed() {
+  local -a packages
+  local f=/var/db/hokuto/nobuild.json
+  [[ -r $f ]] && packages=(${(f)"$(sed -n 's/^ *"package": *"\([^"]*\)".*/\1/p' $f)"})
+  _describe 'package on the no-build list' packages
+}
+
 _hokuto_builder() {
   local -a commands
   commands=(
@@ -31,6 +38,7 @@ _hokuto_builder() {
     'cross-sync:hokuto cross-sync, then upload --sync'
     'cycle:one unattended bump, rebuild and cross-sync round'
     'blacklist:list or edit the build blacklist'
+    'nobuild:list or edit the no-build list'
     'run:run a command in the container'
     'shell:interactive shell in the container'
     "update:update the container's own packages"
@@ -83,6 +91,30 @@ _hokuto_builder() {
         _arguments \
           "-arch[only this architecture's entry]:arch:(native aarch64)" \
           '*:package:_hokuto_builder_blacklisted'
+      fi
+      ;;
+    nobuild)
+      if (( CURRENT == 3 )); then
+        local -a subcommands
+        subcommands=(
+          'list:list the no-build list'
+          'add:never build these packages'
+          'remove:build these packages again'
+          'clear:empty the no-build list'
+        )
+        _describe 'nobuild command' subcommands
+      else
+        local sub=$words[3]
+        shift 2 words
+        (( CURRENT -= 2 ))
+        case $sub in
+          remove)
+            _arguments '-cross[cross entries only]' '-native[native entries only]' '*:package:_hokuto_builder_nobuild_listed' ;;
+          list|clear)
+            _arguments '-cross[cross entries only]' '-native[native entries only]' ;;
+          *)
+            _arguments '-cross[for cross-sync]' '*:package:_hokuto_builder_repo_packages' ;;
+        esac
       fi
       ;;
     run)
