@@ -9,3 +9,18 @@ hokuto-meson build    \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# WirePlumber stops its Bluetooth monitor while the user has no active
+# session on the local seat, which is always the case over xrdp (and once
+# another user logs in on the console): Bluetooth headsets then never get
+# an audio profile. Only fast user switching needs it, so the background
+# user releases the headset; two users logged in at once may now both claim
+# one.
+install -Dm644 /dev/stdin "$1${CROSS_PREFIX:-/usr}/share/wireplumber/wireplumber.conf.d/50-bluez-no-seat.conf" <<'CONF'
+# Keep Bluetooth audio available without a session on the local seat (xrdp).
+wireplumber.profiles = {
+  main = {
+    monitor.bluez.seat-monitoring = disabled
+  }
+}
+CONF
