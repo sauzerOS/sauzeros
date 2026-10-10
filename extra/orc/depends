@@ -3,3 +3,7 @@ clang make
 git make
 llvm make
 meson make
+aarch64-gcc cross make
+aarch64-glibc cross
+git cross make
+meson cross make

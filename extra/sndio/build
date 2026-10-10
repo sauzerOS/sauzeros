@@ -2,7 +2,7 @@
 
 cd sndio-$2
 
-./configure --prefix=/usr \
+./configure --prefix="${CROSS_PREFIX:-/usr}" \
     --enable-alsa
 
 make

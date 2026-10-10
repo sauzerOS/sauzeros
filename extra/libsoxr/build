@@ -1,11 +1,14 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# WITH_AVFFT: FFmpeg 9 dropped avfft.h, and no package ever linked it.
 cmake -B build                 \
   -D CMAKE_BUILD_TYPE=None     \
-  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_PREFIX="$PREFIX" \
   -D BUILD_EXAMPLES=OFF        \
   -D BUILD_SHARED_LIBS=ON      \
-  -D WITH_AVFFT=ON             \
+  -D WITH_AVFFT=OFF            \
   -D WITH_LSR_BINDINGS=ON      \
   -D WITH_OPENMP=ON            \
   -D WITH_PFFFT=ON             \

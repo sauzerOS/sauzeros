@@ -1,5 +1,17 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The sysroot's .pc files spell their install directories with the
+    # sysroot prefix: units, D-Bus and polkit files would land under it.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
+    export PKG_CONFIG_SYSTEMD_SYSCONF_DIR=/etc
+    export PKG_CONFIG_DBUS_1_DATADIR="$PREFIX/share"
+    export PKG_CONFIG_DBUS_1_SYSCONFDIR=/etc
+    export PKG_CONFIG_POLKIT_GOBJECT_1_DATADIR="$PREFIX/share"
+fi
+
 hokuto-meson build    \
   --buildtype=release \
   -D installed_tests=false

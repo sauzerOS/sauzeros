@@ -1,3 +1,8 @@
 systemd-libs
 cmake make
 libusb make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libusb cross
+aarch64-systemd cross
+cmake cross make

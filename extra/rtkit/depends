@@ -6,3 +6,12 @@ systemd-libs
 meson make
 systemd make
 vim make
+aarch64-gcc cross make
+aarch64-dbus cross
+aarch64-glibc cross
+aarch64-libcap cross
+aarch64-polkit cross
+aarch64-systemd cross
+meson cross make
+polkit cross make
+vim cross make
