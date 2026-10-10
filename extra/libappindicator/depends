@@ -6,3 +6,12 @@ dbus-glib make
 gnome-common make
 gobject-introspection make
 vala make
+aarch64-dbus-glib cross make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-libdbusmenu cross
+glib cross make
+gnome-common cross make
+gobject-introspection cross make

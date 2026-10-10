@@ -37,12 +37,19 @@ hokuto-meson build                \
 meson compile -C build
 DESTDIR=$1 meson install -C build
 
-install -Dm 644 NetworkManager.conf "$1/etc/NetworkManager/NetworkManager.conf"
-install -Dm 644 polkit.conf "$1/etc/NetworkManager/conf.d/polkit.conf"
-install -Dm 644 org.freedesktop.NetworkManager.rules "$1/usr/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules"
-install -d "$1/etc/NetworkManager/dnsmasq.d/"
-install -Dm 644 no-cache.conf "$1/etc/NetworkManager/dnsmasq.d/no-cache.conf"
+# A cross-system build keeps everything under its prefix, /etc included.
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONFDIR=/etc
+[ "$PREFIX" != /usr ] && SYSCONFDIR="$PREFIX/etc"
+install -Dm 644 NetworkManager.conf "$1$SYSCONFDIR/NetworkManager/NetworkManager.conf"
+install -Dm 644 polkit.conf "$1$SYSCONFDIR/NetworkManager/conf.d/polkit.conf"
+install -Dm 644 org.freedesktop.NetworkManager.rules "$1$PREFIX/share/polkit-1/rules.d/org.freedesktop.NetworkManager.rules"
+install -d "$1$SYSCONFDIR/NetworkManager/dnsmasq.d/"
+install -Dm 644 no-cache.conf "$1$SYSCONFDIR/NetworkManager/dnsmasq.d/no-cache.conf"
 
+# The _pick paths are spelled usr/..., which holds for a native build;
+# a cross-system build keeps everything in its sysroot package.
+if [ "$PREFIX" = "/usr" ]; then
 # libnm
  _pick "$1" libnm usr/include/libnm
  _pick "$1" libnm usr/lib/girepository-1.0/NM-*
@@ -62,6 +69,7 @@ _pick "$1" nm-cloud-setup usr/lib/nm-cloud-setup
 _pick "$1" nm-cloud-setup usr/lib/systemd/system/nm-cloud-setup.service
 _pick "$1" nm-cloud-setup usr/lib/systemd/system/nm-cloud-setup.timer
 _pick "$1" nm-cloud-setup usr/share/man/man8/nm-cloud-setup.8.gz
+fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package

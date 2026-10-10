@@ -1,10 +1,17 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # configure cannot probe the capture type of the target.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --with-pcap=linux)
+fi
+
 autoreconf -fvi
-./configure --prefix=/usr \
+./configure --prefix="$PREFIX" \
             --enable-bluetooth \
             --enable-usb \
-            --with-libnl
+            --with-libnl "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR=$1 install

@@ -1,7 +1,12 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+# GNUInstallDirs would pick lib64, which the sysroot's pkg-config does not
+# search.
 cmake -B build -D CMAKE_BUILD_TYPE=None             \
-    -D CMAKE_INSTALL_PREFIX=/usr                    \
+    -D CMAKE_INSTALL_PREFIX="$PREFIX"               \
+    -D CMAKE_INSTALL_LIBDIR=lib                     \
     -D FLUID_DAEMON_ENV_FILE=/etc/conf.d/fluidsynth \
     -D LIB_SUFFIX=""                                \
     -D enable-ladspa=ON                             \
@@ -11,7 +16,7 @@ cmake -B build -D CMAKE_BUILD_TYPE=None             \
 cmake --build build
 DESTDIR=$1 cmake --install build
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 export CC='gcc -m32'
@@ -31,6 +36,8 @@ rsync -a tmp32dir/* $dest_dir/
 fi
 
 # soundfounts split package
+# A cross-system build only provides the library for other cross builds.
+if [ "$PREFIX" = "/usr" ]; then
 destdir_fat="$HOKUTO_SPLIT_DIR/fluidsynth-soundfont-fatboy"
 destdir_fluid="$HOKUTO_SPLIT_DIR/fluidsynth-soundfont-fluidr3"
 install -d "$destdir_fat/usr/share/sounds/sf2"
@@ -39,3 +46,4 @@ install -d "$destdir_fluid/usr/share/sounds/sf2"
 install -Dm 644 FatBoy-v0.790.sf2 "$destdir_fat/usr/share/sounds/sf2/FatBoy-v0.790.sf2"
 install -Dm 644 FluidR3_GM.sf2 "$destdir_fluid/usr/share/sounds/sf2/FluidR3_GM.sf2"
 ln -s FatBoy-v0.790.sf2  "$destdir_fat/usr/share/sounds/sf2/default.sf2"
+fi

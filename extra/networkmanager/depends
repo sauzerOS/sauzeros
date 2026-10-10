@@ -65,4 +65,5 @@ aarch64-util-linux cross
 glib cross make
 meson cross make
 perl cross make
+polkit cross make
 python cross make

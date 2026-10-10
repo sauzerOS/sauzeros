@@ -1,9 +1,19 @@
 #!/bin/bash -e
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection and vala scan the just-built library, which
+    # cannot run on the build host.
+    cross_opts+=(-D introspection=false -D vapi=false)
+    # The sysroot's iso-codes.pc carries the sysroot prefix: the target
+    # looks for the tables under /usr.
+    export PKG_CONFIG_ISO_CODES_PREFIX=/usr
+fi
+
 hokuto-meson build    \
   -D gtk_doc=false    \
   -D libnma_gtk4=true \
-  -D mobile_broadband_provider_info=false
+  -D mobile_broadband_provider_info=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

@@ -1,4 +1,28 @@
 #!/bin/bash -e
 
-./build-sdl2
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # build-sdl2 configures the bundled SDLnet for the build machine and,
+    # without a usable sdl2-config, builds its own SDL 2; take its steps
+    # with the target's sdl2-config.
+    host="$HOKUTO_ARCH-linux-gnu"
+    export SDL2_CONFIG="/usr/$host/bin/sdl2-config"
+    ./autogen.sh
+    chmod +x vs/sdl/build-scripts/strip_fPIC.sh
+    (
+        cd vs/sdlnet
+        ./autogen.sh
+        chmod +x configure install-sh
+        mkdir -p linux-host linux-build
+        cd linux-build
+        ../configure --srcdir=.. --prefix="$PWD/../linux-host" \
+            --host="$host" --enable-static --disable-shared
+        make
+        make install
+    )
+    chmod +x configure
+    ./configure --enable-debug --prefix=/usr --enable-sdl2 --host="$host"
+    make
+else
+    ./build-sdl2
+fi
 make DESTDIR=$1 install

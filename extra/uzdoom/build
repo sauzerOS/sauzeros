@@ -1,5 +1,30 @@
 #!/bin/bash -e
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The build runs zipdir, lemon and re2c, which a cross build leaves out
+    # and imports from a native build: build just those, from the bundled
+    # sources, for the build machine.
+    mkdir native-tools
+    cat > native-tools/CMakeLists.txt <<EOT
+cmake_minimum_required(VERSION 3.16)
+project(uzdoom-native-tools C CXX)
+macro(make_release_only)
+endmacro()
+find_package(BZip2 REQUIRED)
+set(LZMA_INCLUDE_DIR "$PWD/libraries/lzma/C")
+add_subdirectory("$PWD/libraries/lzma" lzma)
+add_subdirectory("$PWD/libraries/miniz" miniz)
+add_subdirectory("$PWD/tools" tools)
+export(TARGETS \${CROSS_EXPORTS} FILE "\${CMAKE_BINARY_DIR}/ImportExecutables.cmake")
+EOT
+    env -u CMAKE_TOOLCHAIN_FILE -u PKG_CONFIG_LIBDIR -u PKG_CONFIG \
+        CC=gcc CXX=g++ CFLAGS=-O2 CXXFLAGS=-O2 LDFLAGS= \
+        cmake -S native-tools -B build-native -D CMAKE_BUILD_TYPE=Release
+    env -u CMAKE_TOOLCHAIN_FILE cmake --build build-native
+    cross_opts+=(-D IMPORT_EXECUTABLES="$PWD/build-native/ImportExecutables.cmake")
+fi
+
 cmake -B build \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_CXX_FLAGS="$CXXFLAGS -ffile-prefix-map=\"$PWD\"=. -DSHARE_DIR=\\\"/usr/share/gzdoom\\\"" \
@@ -7,7 +32,7 @@ cmake -B build \
     -D SYSTEMINSTALL=ON \
     -D INSTALL_PK3_PATH=share/gzdoom \
     -D INSTALL_SOUNDFONT_PATH=share/gzdoom \
-    -D INSTALL_RPATH=/usr/lib
+    -D INSTALL_RPATH=/usr/lib "${cross_opts[@]}"
 
 cmake --build build
 DESTDIR=$1 cmake --install build

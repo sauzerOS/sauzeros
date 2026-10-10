@@ -1,9 +1,19 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONFDIR=/etc
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The build runs dbus-binding-tool, so it takes the build machine's.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu"
+        --with-dbus-binding-tool=/usr/bin/dbus-binding-tool)
+    [ "$PREFIX" != /usr ] && SYSCONFDIR="$PREFIX/etc"
+fi
+
 ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --disable-static
+    --prefix="$PREFIX" \
+    --sysconfdir="$SYSCONFDIR" \
+    --disable-static "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR="$1" install

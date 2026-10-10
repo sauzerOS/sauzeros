@@ -3,12 +3,22 @@
 # Fix unfallback from status icon
 patch -Np0 -i libappindicator-fix-unfallback.patch
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+SYSCONFDIR=/etc
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection and vala scan the just-built library, which
+    # cannot run on the build host.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-introspection)
+    [ "$PREFIX" != /usr ] && SYSCONFDIR="$PREFIX/etc"
+fi
+
 NOCONFIGURE=1 ./autogen.sh
-./configure --prefix=/usr \
-    --sysconfdir=/etc     \
+./configure --prefix="$PREFIX"   \
+    --sysconfdir="$SYSCONFDIR"   \
     --localstatedir=/var  \
     --with-gtk=3          \
-    --disable-gtk-doc
+    --disable-gtk-doc "${CROSS_OPTS[@]}"
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make

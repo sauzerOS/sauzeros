@@ -1,8 +1,15 @@
 #!/bin/bash -e
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The PAM locale directory comes from the sysroot's pam.pc, which
+    # carries the sysroot prefix.
+    cross_opts+=(-D linux-pam-localedir=/usr/share/locale)
+fi
+
 hokuto-meson build \
   -D docs=disabled \
-  -D session-manager=systemd
+  -D session-manager=systemd "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

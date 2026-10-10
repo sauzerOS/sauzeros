@@ -1,9 +1,17 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # alsoft-config is a Qt GUI, and the target has no Qt; CMake would
+    # find the build machine's.
+    cross_opts+=(-D ALSOFT_NO_CONFIG_UTIL=ON)
+fi
+
 cmake -B build \
-    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_PREFIX="$PREFIX" \
     -D CMAKE_BUILD_TYPE=None     \
-    -D CMAKE_INSTALL_LIBDIR=lib
+    -D CMAKE_INSTALL_LIBDIR=lib "${cross_opts[@]}"
 
 cmake --build build
 DESTDIR=$1 cmake --install build
@@ -11,7 +19,10 @@ DESTDIR=$1 cmake --install build
 # The tools and examples (alsoft-config is a Qt GUI; the examples link SDL3,
 # ffmpeg and libsndfile) go in openal-utils, so the library alone does not
 # pull Qt and GTK into everything that plays sound.
-_pick "$1" openal-utils usr/bin
+# A cross-system build only provides the library for other cross builds.
+if [ "$PREFIX" = "/usr" ]; then
+    _pick "$1" openal-utils usr/bin
+fi
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package

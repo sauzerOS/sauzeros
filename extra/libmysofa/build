@@ -5,7 +5,7 @@ cmake \
   -G 'Unix Makefiles' \
   -B build \
   -D CMAKE_BUILD_TYPE:STRING='None' \
-  -D CMAKE_INSTALL_PREFIX:PATH='/usr' \
+  -D CMAKE_INSTALL_PREFIX:PATH="${CROSS_PREFIX:-/usr}" \
   -D CODE_COVERAGE:BOOL='OFF' \
   -W no-dev
 cmake --build build

@@ -5,3 +5,8 @@ libnl
 bluez-libs make
 lib32-dbus make
 lib32-libnl make
+aarch64-bluez cross make
+aarch64-dbus cross
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libnl cross

@@ -10,3 +10,14 @@ gtk make
 meson make
 systemd make
 vala make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk cross
+aarch64-libgcrypt cross
+aarch64-libsecret cross
+aarch64-p11-kit cross
+aarch64-systemd cross
+glib cross make
+meson cross make
+openssh cross make

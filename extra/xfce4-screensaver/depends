@@ -3,7 +3,27 @@ garcon
 libwnck
 libxklavier
 libxss
-python
-python-pygobject
+python nocross
+python-pygobject nocross
 meson make
 xfce4-dev-tools make
+aarch64-dbus cross
+aarch64-dbus-glib cross
+aarch64-garcon cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-libwnck cross
+aarch64-libx11 cross
+aarch64-libxext cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-libxklavier cross
+aarch64-libxss cross
+aarch64-pam cross
+aarch64-systemd cross
+aarch64-xfconf cross
+glib cross make
+meson cross make
+xfce4-dev-tools cross make

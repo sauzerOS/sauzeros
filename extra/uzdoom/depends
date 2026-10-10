@@ -11,3 +11,19 @@ zmusic
 cmake make
 desktop-file-utils make
 python make
+aarch64-alsa-lib cross
+aarch64-bzip2 cross
+aarch64-dbus cross make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-libglvnd cross
+aarch64-libvpx cross
+aarch64-openal cross make
+aarch64-sdl2-compat cross
+aarch64-vulkan-headers cross make
+aarch64-vulkan-icd-loader cross
+bzip2 cross make
+cmake cross make
+python cross make

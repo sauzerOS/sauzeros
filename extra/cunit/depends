@@ -1,3 +1,7 @@
 glibc
 libtool make
 automake make
+aarch64-gcc cross make
+aarch64-glibc cross
+automake cross make
+libtool cross make
