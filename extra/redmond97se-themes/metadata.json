@@ -1,0 +1,18 @@
+{
+  "url": "https://codeberg.org/Sliver_X/Redmond97-SE",
+  "category": "extra",
+  "description": "Windows 98 inspired GTK2/3/4, Xfwm4 and Wine themes with the Obsidian Pure icon theme",
+  "info": "Arch-independent data from the prebuilt upstream release, split into GTK, Xfwm4, Wine and icon theme packages.",
+  "license": "GPL3",
+  "tags": [
+    "themes",
+    "gtk",
+    "xfce"
+  ],
+  "subpackages": [
+    "obsidian-pure-icon-theme",
+    "redmond97se-gtk-theme",
+    "redmond97se-wine-theme",
+    "redmond97se-xfwm4-theme"
+  ]
+}
