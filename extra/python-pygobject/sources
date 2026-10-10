@@ -1,1 +1,2 @@
 https://github.com/GNOME/pygobject/archive/refs/tags/3.58.1.tar.gz
+git+https://github.com/python/pythoncapi-compat.git#22811c3f0e69908894d2bd724f572b32667f2141 pythoncapi-compat

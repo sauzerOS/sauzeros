@@ -1,5 +1,27 @@
 #!/bin/bash -e
 
-hokuto-meson build
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # meson's python module asks the interpreter for the extension suffix
+    # and the include and install paths; the build machine's would name
+    # the module for x86_64. Run the target's under qemu.
+    sysroot="/usr/${HOKUTO_ARCH}-linux-gnu"
+    cat > target-python <<EOT
+#!/bin/sh
+exec /usr/bin/qemu-${HOKUTO_ARCH}-static $sysroot/usr/lib/ld-linux-${HOKUTO_ARCH}.so.1 \
+    --library-path $sysroot/lib:$sysroot/usr/lib $sysroot/bin/python3 "\$@"
+EOT
+    chmod +x target-python
+    printf "[binaries]\npython = '%s'\npython3 = '%s'\n" "$PWD/target-python" "$PWD/target-python" > target-python.ini
+    # The check looks for ip on the build machine.
+    cross_opts+=(--cross-file "$PWD/target-python.ini" -D runtime_deps_check=false)
+fi
+
+hokuto-meson build "${cross_opts[@]}"
 meson compile -C build
 meson install -C build --destdir=$1
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The scripts' shebangs name the interpreter meson ran.
+    grep -rlF "$PWD/target-python" "$1" | xargs -r sed -i "s|$PWD/target-python|/usr/bin/python3|g"
+fi

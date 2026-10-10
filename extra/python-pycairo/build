@@ -1,8 +1,23 @@
 #!/bin/bash -e
 
-meson setup build      \
-    --prefix=/usr      \
-    --buildtype=release
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # meson's python module asks the interpreter for the extension suffix
+    # and the include and install paths; the build machine's would name
+    # the module for x86_64. Run the target's under qemu.
+    sysroot="/usr/${HOKUTO_ARCH}-linux-gnu"
+    cat > target-python <<EOT
+#!/bin/sh
+exec /usr/bin/qemu-${HOKUTO_ARCH}-static $sysroot/usr/lib/ld-linux-${HOKUTO_ARCH}.so.1 \
+    --library-path $sysroot/lib:$sysroot/usr/lib $sysroot/bin/python3 "\$@"
+EOT
+    chmod +x target-python
+    printf "[binaries]\npython = '%s'\npython3 = '%s'\n" "$PWD/target-python" "$PWD/target-python" > target-python.ini
+    hokuto-meson build --buildtype=release --cross-file "$PWD/target-python.ini"
+else
+    meson setup build      \
+        --prefix=/usr      \
+        --buildtype=release
+fi
 
 meson compile -C build
 meson install -C build --destdir=$1
