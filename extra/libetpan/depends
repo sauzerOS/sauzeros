@@ -1,0 +1,5 @@
+gnutls
+libsasl
+zlib-ng
+glibc
+expat make

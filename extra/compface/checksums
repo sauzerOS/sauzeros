@@ -1,0 +1,5 @@
+1fd4ea21108856c1a167b536a22a44feff6d0fbbc1a0a75d82696869b4443e0d  compface-1.5.2.tar.gz
+de25804ed3cb72ae3a0bcf152eb5c2a67d6c9bacfee6bdaebb7e2f3445b891c9  compface-1.5.2-build.patch
+c5aeff94b652d5bf881b7d2e4d8f89ec846483f8de8bf476dcc17db56e3e750c  compface-c99.patch
+115c313ec23dc5ea23e81bef65a1ad6ed06c5a88552e9f0c26888f8d6be05571  compface-modern-c-porting.patch
+0ef2d8056a79d602733fbb44f214abb340c3422459a903896f600758bf8057ff  license-from-upstream

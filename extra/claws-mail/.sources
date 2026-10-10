@@ -1,0 +1,3 @@
+https://www.claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz
+files/bash_completion
+files/libical-4.patch

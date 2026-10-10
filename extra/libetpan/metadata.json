@@ -1,0 +1,8 @@
+{
+  "url": "https://www.etpan.org/libetpan.html",
+  "category": "extra",
+  "description": "A portable middleware for email access",
+  "info": "",
+  "license": "BSD-3-Clause AND BSD-3-Clause-Attribution AND BSD-4-Clause",
+  "tags": []
+}

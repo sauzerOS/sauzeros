@@ -1,0 +1,25 @@
+bash
+gtk+3
+gnutls
+startup-notification
+enchant
+gpgme
+libetpan
+compface
+libsm
+librsvg
+glib
+pango
+libice
+gdk-pixbuf
+cairo
+nettle
+glibc
+hicolor-icon-theme
+networkmanager make
+libnotify make
+libcanberra make
+poppler make
+libical make
+python make
+libappindicator make

@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+patch -Np0 -i compface-1.5.2-build.patch
+patch -Np1 -i compface-c99.patch
+patch -Np1 -i compface-modern-c-porting.patch
+
+autoreconf -vfi
+CFLAGS="$CFLAGS -fPIC"
+./configure --prefix=/usr --mandir=/usr/share/man
+make
+make DESTDIR="${1}" STRIP=/bin/true install

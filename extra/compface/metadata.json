@@ -1,0 +1,8 @@
+{
+  "url": "http://ftp.xemacs.org/pub/xemacs/aux/",
+  "category": "extra",
+  "description": "Utils \u0026 libs to convert from/to X-Face format.",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

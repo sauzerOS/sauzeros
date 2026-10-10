@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+NOCONFIGURE=1 ./autogen.sh
+./configure --prefix=/usr \
+  --disable-static \
+  --disable-db \
+  --with-openssl=no \
+  --with-gnutls=yes \
+  --with-poll
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make DESTDIR="${1}" install

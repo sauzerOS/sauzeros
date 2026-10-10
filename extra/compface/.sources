@@ -1,0 +1,5 @@
+http://mirrors.ibiblio.org/xemacs/aux/compface-${version}.tar.gz
+files/compface-1.5.2-build.patch
+files/compface-c99.patch
+files/compface-modern-c-porting.patch
+files/license-from-upstream

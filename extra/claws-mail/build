@@ -1,0 +1,31 @@
+#!/bin/bash -e
+
+# Fix build with libical 4
+patch -p1 -i libical-4.patch
+
+# Use libappindicator
+sed -i 's/ayatana-appindicator/appindicator/' configure.ac src/plugins/notification/notification_ayatana_indicator.c
+autoreconf -fiv
+
+./configure --prefix=/usr \
+  --disable-static \
+  --enable-enchant \
+  --enable-gnutls \
+  --disable-ldap \
+  --enable-crash-dialog \
+  --enable-pgpmime-plugin \
+  --disable-spamassassin-plugin \
+  --disable-bogofilter-plugin \
+  --disable-fancy-plugin \
+  --disable-manual
+
+sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+make
+make DESTDIR="${1}" install
+install -Dm 644 "."/bash_completion "${1}"/usr/share/bash-completion/completions/claws-mail
+
+cd tools
+install -m755 -d "${1}"/usr/lib/claws-mail/tools
+for files in *.pl *.py *.sh *.conf tb2claws-mail update-po uudec uuooffice README; do
+  cp -arv $files "${1}"/usr/lib/claws-mail/tools/
+done
