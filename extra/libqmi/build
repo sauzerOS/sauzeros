@@ -1,7 +1,23 @@
 #!/bin/bash -e
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans and help2man runs the just-built binaries,
+    # which cannot run on the build host.
+    cross_opts+=(-D introspection=false -D man=false)
+    # The sysroot's .pc files spell their directories with the sysroot
+    # prefix.
+    export PKG_CONFIG_UDEV_UDEV_DIR="${CROSS_PREFIX:-/usr}/lib/udev"
+    # bash-completion is arch-independent; give the cross pkg-config the
+    # build machine's .pc alone, for the completions directory.
+    mkdir -p "$PWD/.bash-completion-pc"
+    cp /usr/share/pkgconfig/bash-completion.pc "$PWD/.bash-completion-pc/"
+    export PKG_CONFIG_PATH="$PWD/.bash-completion-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+    export PKG_CONFIG_BASH_COMPLETION_DATADIR="${CROSS_PREFIX:-/usr}/share"
+fi
+
 hokuto-meson build             \
-      -D qrtr=false
+      -D qrtr=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

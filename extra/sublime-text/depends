@@ -1,3 +1,6 @@
 binutils make
 tar make
 xz make
+binutils cross make
+tar cross make
+xz cross make

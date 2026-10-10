@@ -11,4 +11,17 @@ libxrandr make
 python make
 spirv-tools make
 vulkan-headers make
-wayland-protocols make 
+wayland-protocols make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libx11 cross
+aarch64-libxcb cross
+aarch64-libxrandr cross
+aarch64-vulkan-headers cross make
+aarch64-vulkan-icd-loader cross
+aarch64-wayland cross
+aarch64-wayland-protocols cross make
+cmake cross make
+glslang cross make
+python cross make
+wayland cross make

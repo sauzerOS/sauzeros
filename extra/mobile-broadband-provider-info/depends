@@ -1,2 +1,4 @@
 libxslt make
 meson make
+libxslt cross make
+meson cross make

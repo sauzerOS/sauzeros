@@ -1,5 +1,22 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr
-make
-make DESTDIR=$1 install
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+CROSS_MAKE=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # configure looks for the module libraries under /usr itself rather
+    # than through pkg-config, which would pick up the host's: point it at
+    # the target sysroot. The pcre module needs the old PCRE, which the
+    # native build does not find either.
+    SYSROOT="/usr/${HOKUTO_ARCH}-linux-gnu"
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu"
+        --with-png="$SYSROOT" --with-z="$SYSROOT"
+        --without-pcre --without-onig)
+    # Those directories also end up in the rpath of slsh and the modules;
+    # the target finds its libraries in the default paths.
+    CROSS_MAKE+=(RPATH=)
+fi
+
+./configure --prefix="$PREFIX" "${CROSS_OPTS[@]}"
+make "${CROSS_MAKE[@]}"
+make "${CROSS_MAKE[@]}" DESTDIR=$1 install

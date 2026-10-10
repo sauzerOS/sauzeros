@@ -1,9 +1,17 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # configure finds Python by the host's /usr/include/python*/Python.h:
+    # the snack module would be built against the host Python.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --without-python)
+fi
+
 echo '#define USE_INTERP_RESULT 1' >> config.h
 ./autogen.sh
-./configure --prefix=/usr \
-  --without-tcl
+./configure --prefix="$PREFIX" \
+  --without-tcl "${CROSS_OPTS[@]}"
 
 make
 DESTDIR=$1 make install

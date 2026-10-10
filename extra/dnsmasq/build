@@ -2,7 +2,13 @@
 
 _build_copts='-DHAVE_DNSSEC -DHAVE_DBUS -DHAVE_NFTSET'
 
-make \
+# The Makefile builds with make's default cc.
+cross_make=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_make+=(CC="${CC:-$HOKUTO_ARCH-linux-gnu-gcc}")
+fi
+
+make "${cross_make[@]}" \
   CFLAGS="$CPPFLAGS $CFLAGS" \
   LDFLAGS="$LDFLAGS" \
   COPTS="$_build_copts" \
@@ -12,14 +18,14 @@ make \
 
 cd "contrib/lease-tools"
 
-make \
+make "${cross_make[@]}" \
   CFLAGS="$CPPFLAGS $CFLAGS" \
   LDFLAGS="$LDFLAGS" \
   COPTS="$_build_copts" \
   all
 cd ../..
 # need to pass COPTS here to avoid rebuilding the binary.
-make \
+make "${cross_make[@]}" \
   COPTS="$_build_copts" \
   PREFIX=/usr \
   BINDIR=/usr/bin \

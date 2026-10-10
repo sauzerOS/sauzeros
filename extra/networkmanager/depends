@@ -45,3 +45,24 @@ polkit make
 python-pygobject make
 systemd make
 vala make
+aarch64-curl cross
+aarch64-dbus cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-jansson cross
+aarch64-libndp cross
+aarch64-libnewt cross
+aarch64-libnvme cross
+aarch64-libpsl cross
+aarch64-modemmanager cross
+aarch64-nspr cross
+aarch64-nss cross
+aarch64-polkit cross
+aarch64-readline cross
+aarch64-systemd cross
+aarch64-util-linux cross
+glib cross make
+meson cross make
+perl cross make
+python cross make

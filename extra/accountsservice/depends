@@ -8,4 +8,15 @@ shadow
 systemd
 gobject-introspection make
 meson make
-vala make 
+vala make
+aarch64-dbus cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-json-c cross
+aarch64-libxcrypt cross
+aarch64-polkit cross
+aarch64-systemd cross
+glib cross make
+meson cross make
+polkit cross make

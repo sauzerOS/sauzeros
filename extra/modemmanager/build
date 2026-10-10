@@ -1,17 +1,38 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, which cannot run
+    # on the build host.
+    cross_opts+=(-D introspection=false -D vapi=false -D tests=false)
+    # The sysroot's .pc files spell their directories with the sysroot
+    # prefix: units and udev rules would land under it.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
+    export PKG_CONFIG_UDEV_UDEV_DIR="$PREFIX/lib/udev"
+    # bash-completion is arch-independent; give the cross pkg-config the
+    # build machine's .pc alone, for the completions directory.
+    mkdir -p "$PWD/.bash-completion-pc"
+    cp /usr/share/pkgconfig/bash-completion.pc "$PWD/.bash-completion-pc/"
+    export PKG_CONFIG_PATH="$PWD/.bash-completion-pc${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+    export PKG_CONFIG_BASH_COMPLETION_DATADIR="$PREFIX/share"
+fi
+
 hokuto-meson build       \
     -D polkit=permissive \
-    -D qrtr=false
+    -D qrtr=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
 
 # libmm-glib
-
+# The _pick paths are spelled usr/..., which holds for a native build;
+# a cross-system build keeps everything in its sysroot package.
+if [ "$PREFIX" = "/usr" ]; then
 _pick "$1" libmm-glib usr/include
 _pick "$1" libmm-glib usr/lib/girepository-1.0
 _pick "$1" libmm-glib usr/lib/libmm-glib.so*
 _pick "$1" libmm-glib usr/lib/pkgconfig
 _pick "$1" libmm-glib usr/share/gir-1.0
 _pick "$1" libmm-glib usr/share/vala
+fi

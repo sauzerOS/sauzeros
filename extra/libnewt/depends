@@ -2,3 +2,7 @@ glibc
 popt
 slang
 python make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-popt cross
+aarch64-slang cross

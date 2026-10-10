@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 cmake_options=(
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_LIBDIR=lib
-    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_PREFIX="$PREFIX"
     -D FREEGLUT_BUILD_STATIC_LIBS=OFF
 )
 
@@ -11,7 +13,7 @@ cmake -B build "${cmake_options[@]}"
 cmake --build build
 DESTDIR="${1}" cmake --install build
 
-ln -s glut.pc "${1}/usr/lib/pkgconfig/freeglut.pc"
+ln -s glut.pc "${1}${PREFIX}/lib/pkgconfig/freeglut.pc"
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit split package

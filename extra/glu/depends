@@ -3,3 +3,7 @@ libgcc
 libglvnd
 meson make
 lib32-libglvnd make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libglvnd cross
+meson cross make

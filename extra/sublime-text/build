@@ -1,6 +1,13 @@
 #!/bin/bash -e
 
-ar x sublime*.deb
+# Upstream publishes a .deb per architecture; both are fetched.
+case "$HOKUTO_ARCH" in
+    x86_64) deb_arch=amd64 ;;
+    aarch64) deb_arch=arm64 ;;
+    *) echo "sublime-text: no build for $HOKUTO_ARCH" >&2; exit 1 ;;
+esac
+
+ar x sublime-text_build-"$2"_"$deb_arch".deb
 tar xvf data.tar.xz
 
 cp -a opt $1/

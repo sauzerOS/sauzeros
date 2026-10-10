@@ -1,5 +1,24 @@
 #!/bin/bash -e
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built libnm, which cannot run on
+    # the build host; the release tarball's prebuilt man pages are kept.
+    cross_opts+=(-D introspection=false -D vapi=false -D tests=no)
+    # meson looks these up on the build host, where the cross session has
+    # none of them installed, and the provider database through the
+    # sysroot. Spell out the target's paths.
+    cross_opts+=(
+        -D dnsmasq=/usr/bin/dnsmasq
+        -D nft=/usr/bin/nft
+        -D iptables=/usr/bin/iptables
+        -D ip6tables=/usr/bin/ip6tables
+        -D modprobe=/usr/bin/modprobe
+        -D resolvconf=/usr/bin/resolvconf
+        -D mobile_broadband_provider_info_database=/usr/share/mobile-broadband-provider-info/serviceproviders.xml
+    )
+fi
+
 hokuto-meson build                \
       -D iwd=true                 \
       -D b_lto=true               \
@@ -12,7 +31,8 @@ hokuto-meson build                \
       -D qt=false                 \
       -D session_tracking=systemd \
       -D clat=false               \
-      -D modem_manager=true
+      -D modem_manager=true       \
+      "${cross_opts[@]}"
 
 meson compile -C build
 DESTDIR=$1 meson install -C build

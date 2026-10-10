@@ -5,4 +5,21 @@ libxklavier
 xfce4-panel
 xfce4-notifyd suggest show notifications on layout change
 meson make
-xfce4-dev-tools make 
+xfce4-dev-tools make
+aarch64-garcon cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-libnotify cross
+aarch64-librsvg cross
+aarch64-libwnck cross
+aarch64-libx11 cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-libxklavier cross
+aarch64-xfce4-panel cross
+aarch64-xfconf cross
+glib cross make
+meson cross make
+xfce4-dev-tools cross make

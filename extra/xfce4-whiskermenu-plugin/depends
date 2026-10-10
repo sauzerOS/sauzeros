@@ -4,3 +4,16 @@ gtk-layer-shell
 gtk+3
 xfce4-panel
 meson make
+aarch64-exo cross
+aarch64-garcon cross
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-gtk-layer-shell cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-xfce4-panel cross
+aarch64-xfconf cross
+cmake cross make
+gettext cross make

@@ -14,3 +14,12 @@ lib32-libxi make
 lib32-libxrandr make
 lib32-libxxf86vm make
 lib32-mesa make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-glu cross
+aarch64-libglvnd cross
+aarch64-libx11 cross
+aarch64-libxi cross
+aarch64-libxrandr cross
+aarch64-libxxf86vm cross
+cmake cross make

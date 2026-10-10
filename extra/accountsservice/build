@@ -2,8 +2,18 @@
 
 patch -Np1 -i 0001-tests-Drop-check-format-test.patch
 
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection and vala scan the just-built library, which
+    # cannot run on the build host.
+    cross_opts+=(-D introspection=false -D vapi=false -D tests=false)
+    # The sysroot's systemd.pc spells the unit directory with the sysroot
+    # prefix.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="${CROSS_PREFIX:-/usr}"
+fi
+
 hokuto-meson build \
-      -D admin_group=wheel
+      -D admin_group=wheel "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

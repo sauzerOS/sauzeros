@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 patch -p1 -i mesa-demos-system-data.patch
 
 hokuto-meson build     \
@@ -11,9 +13,9 @@ meson compile -C build
 meson install -C build --destdir=$1
 
 # rename binaries to avoid file conflicts with other packages
-mv "$1"/usr/bin/identity "$1"/usr/bin/identity-mesa # conflicts with identity
-mv "$1"/usr/bin/linktest "$1"/usr/bin/linktest-mesa # conflicts with haskell-tidal-link - FS#75919
-mv "$1"/usr/bin/poly "$1"/usr/bin/poly-mesa         # conflicts with polyml
+mv "$1$PREFIX"/bin/identity "$1$PREFIX"/bin/identity-mesa # conflicts with identity
+mv "$1$PREFIX"/bin/linktest "$1$PREFIX"/bin/linktest-mesa # conflicts with haskell-tidal-link - FS#75919
+mv "$1$PREFIX"/bin/poly "$1$PREFIX"/bin/poly-mesa         # conflicts with polyml
 
 # mesa-utils split package
 _pick "$1" mesa-utils usr/bin/{eglgears_wayland,eglgears_x11,eglinfo,eglkms,egltri_wayland,egltri_x11,es2_info,es2gears_wayland,es2gears_x11,es2tri,glxgears,glxinfo,peglgears,vkgears,xeglgears,xeglthreads}
