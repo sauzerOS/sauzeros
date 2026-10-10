@@ -1,11 +1,48 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The Qt 6 frontend is not cross built (Qt is not cross built), and
+    # gobject-introspection scans the just-built library while the sysroot's
+    # GLib has no .gir.
+    cross_opts+=(-D ENABLE_QT6=OFF -D ENABLE_GOBJECT_INTROSPECTION=OFF)
+    # Boost is header-only here and arch-independent, but the toolchain file
+    # keeps package and header searches inside the sysroot, which has none,
+    # and the build machine's BoostConfig.cmake would put all of
+    # /usr/include, host C library included, on the cross compiler's path.
+    # Offer the boost headers alone through a minimal config.
+    boost_inc="$PWD/.boost-include"
+    boost_cmake="$PWD/.boost-cmake"
+    mkdir -p "$boost_inc" "$boost_cmake"
+    ln -sfn /usr/include/boost "$boost_inc/boost"
+    boost_version=$(sed -n 's/^#define BOOST_LIB_VERSION "\(.*\)"/\1/p' /usr/include/boost/version.hpp | tr _ .)
+    cat > "$boost_cmake/BoostConfig.cmake" <<EOF
+if(NOT TARGET Boost::boost)
+  add_library(Boost::boost INTERFACE IMPORTED)
+  set_target_properties(Boost::boost PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "$boost_inc")
+endif()
+set(Boost_INCLUDE_DIRS "$boost_inc")
+EOF
+    cat > "$boost_cmake/BoostConfigVersion.cmake" <<EOF
+set(PACKAGE_VERSION "$boost_version")
+if(PACKAGE_FIND_VERSION VERSION_GREATER PACKAGE_VERSION)
+  set(PACKAGE_VERSION_COMPATIBLE FALSE)
+else()
+  set(PACKAGE_VERSION_COMPATIBLE TRUE)
+endif()
+EOF
+    cross_opts+=(-D Boost_DIR="$boost_cmake")
+fi
+
 cmake  -B build \
        -D CMAKE_BUILD_TYPE=Release   \
-       -D CMAKE_INSTALL_PREFIX=/usr  \
+       -D CMAKE_INSTALL_PREFIX="$PREFIX" \
        -D TESTDATADIR=$PWD/testfiles \
        -D ENABLE_QT5=OFF             \
-       -D ENABLE_UNSTABLE_API_ABI_HEADERS=ON
+       -D ENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+       "${cross_opts[@]}"
 
 cmake --build build
 DESTDIR=$1 cmake --install build

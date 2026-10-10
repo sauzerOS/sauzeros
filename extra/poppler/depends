@@ -4,6 +4,28 @@ gpgmepp
 lcms2
 openjpeg
 glib
-qt
+qt nocross
 boost make
 cmake make
+aarch64-gcc cross make
+aarch64-brotli cross
+aarch64-cairo cross
+aarch64-curl cross
+aarch64-fontconfig cross
+aarch64-freetype cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gpgmepp cross
+aarch64-harfbuzz cross
+aarch64-lcms2 cross
+aarch64-libjpeg-turbo cross
+aarch64-libpng cross
+aarch64-libtiff cross
+aarch64-nspr cross
+aarch64-nss cross
+aarch64-openjpeg cross
+aarch64-zlib-ng cross
+boost cross make
+cmake cross make
+glib cross make
+python cross make
