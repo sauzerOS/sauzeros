@@ -1,12 +1,20 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+
 mkdir build
 cd    build
-
-../configure --prefix=/usr           \
-             --localstatedir=/var    \
-             --sysconfdir=/etc
+../configure --prefix="$PREFIX"        \
+             --localstatedir=/var      \
+             --sysconfdir="$SYSCONFDIR" \
+             "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR="$1" install
-

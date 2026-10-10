@@ -17,3 +17,17 @@ librsvg make
 npth make
 pcsclite make
 readline make
+aarch64-gcc cross make
+aarch64-bzip2 cross
+aarch64-glibc cross
+aarch64-gnutls cross
+aarch64-libassuan cross
+aarch64-libgcrypt cross
+aarch64-libgpg-error cross
+aarch64-libksba cross
+aarch64-libusb cross
+aarch64-npth cross
+aarch64-readline cross
+aarch64-sqlite cross
+aarch64-zlib-ng cross
+librsvg cross make

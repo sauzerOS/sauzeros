@@ -2,3 +2,7 @@ glibc
 gnupg2
 libassuan
 libgpg-error
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libassuan cross
+aarch64-libgpg-error cross

@@ -1,2 +1,4 @@
 bash
 glibc
+aarch64-gcc cross make
+aarch64-glibc cross
