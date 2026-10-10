@@ -1,10 +1,17 @@
 #!/bin/bash -e
 
+# gobject-introspection scans the just-built library, and the sysroot's GLib
+# has no .gir; the VAPI comes from the .gir.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(-D introspection=disabled -D vapi=false)
+fi
+
 hokuto-meson build \
   -D documentation=false \
   -D gtk_doc=false \
   -D tests=false \
-  -D examples=false
+  -D examples=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

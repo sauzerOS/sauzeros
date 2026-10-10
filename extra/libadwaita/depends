@@ -8,4 +8,15 @@ pango
 gobject-introspection make
 meson make
 sassc make
-vala make 
+vala make
+aarch64-gcc cross make
+aarch64-appstream cross
+aarch64-fribidi cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-graphene cross
+aarch64-gtk cross
+aarch64-pango cross
+glib cross make
+meson cross make
+sassc cross make

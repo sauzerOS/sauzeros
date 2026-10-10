@@ -1,7 +1,23 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # hokuto sets CARGO_BUILD_TARGET, so cargo writes the binary under the
+    # target triple, while the meson rule copies it from src/<profile>.
+    triple="$HOKUTO_ARCH-unknown-linux-gnu"
+    sed -i "s|'src' / rust_target / meson.project_name()|'src' / '$triple' / rust_target / meson.project_name()|" src/meson.build
+    grep -q "'src' / '$triple' / rust_target" src/meson.build
+    # The pkg-config crate refuses a cross build unless allowed; hokuto's
+    # PKG_CONFIG already answers for the sysroot.
+    export PKG_CONFIG_ALLOW_CROSS=1
+    # bindgen (pipewire-sys, wireplumber-sys) runs the build machine's
+    # libclang: point it at the target and its sysroot.
+    export BINDGEN_EXTRA_CLANG_ARGS="--target=$HOKUTO_ARCH-linux-gnu --sysroot=/usr/$HOKUTO_ARCH-linux-gnu"
+fi
+
 hokuto-meson build
 meson compile -C build
 meson install -C build --destdir=$1
 
-ln -s /bin/pwvucontrol $1/usr/bin/pavucontrol
+ln -s /bin/pwvucontrol "$1$PREFIX/bin/pavucontrol"
