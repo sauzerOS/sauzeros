@@ -5,6 +5,11 @@
 # release for Qt 6.12 does.
 sed -i '/^ *EnterEditFocus,$/d; /^ *LeaveEditFocus,$/d' sip/QtCore/qcoreevent.sip
 
+# Python 3.15 removed PyWeakref_GetObject. Keep its borrowed reference, and
+# Py_None for a dead referent, with PyWeakref_GetRef (Python 3.13+).
+sed -i 's|return PyWeakref_GetObject(mself_wr);|{ PyObject *obj; int rc = PyWeakref_GetRef(mself_wr, \&obj); if (rc < 0) return NULL; if (rc == 0) return Py_None; Py_DECREF(obj); return obj; }|' \
+   qpy/QtCore/qpycore_pyqtslot.cpp
+
 sip-build \
    --confirm-license \
    --qmake-setting 'CONFIG += c++17' \

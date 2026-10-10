@@ -52,6 +52,16 @@ rm -r Modules/expat
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install
 
+# make install runs ensurepip with --root, and pip skips itself when the same
+# version is installed on the build system: rebuilding an installed python
+# shipped it without pip. The staged python sees only its own site-packages.
+site="$1$PREFIX/lib/python$want_version/site-packages"
+if [[ "${HOKUTO_CROSS:-0}" != "1" && ! -d "$site/pip" ]]; then
+    LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -E -m ensurepip --default-pip
+    LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -E -m compileall -q -f \
+        -s "$1" -p / "$site/pip"
+fi
+
 ln -sf python3 "$1$PREFIX/bin/python"
 if [[ -f "$1$PREFIX/bin/pip3" ]]; then
     ln -sf pip3 "$1$PREFIX/bin/pip"
