@@ -21,8 +21,10 @@ fi
     --disable-libuuid           \
     --disable-uuidd             \
     --disable-fsck              \
+    --with-systemd-unit-dir="$PREFIX/lib/systemd/system" \
+    --with-udev-rules-dir="$PREFIX/lib/udev/rules.d" \
     $CROSS_OPTS
 
 make
 make DESTDIR=$1 install
-rm -fv $1/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a
+rm -fv "$1$PREFIX"/lib/{libcom_err,libe2p,libext2fs,libss}.a

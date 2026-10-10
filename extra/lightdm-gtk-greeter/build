@@ -1,15 +1,27 @@
 #!/bin/bash -e
 
-./configure --prefix=/usr                 \
-            --libexecdir=/usr/lib/lightdm \
-            --sbindir=/usr/bin            \
-            --sysconfdir=/etc             \
+PREFIX="${CROSS_PREFIX:-/usr}"
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-introspection)
+fi
+
+./configure --prefix="$PREFIX"               \
+            --libexecdir="$PREFIX/lib/lightdm" \
+            --sbindir="$PREFIX/bin"          \
+            --sysconfdir="$SYSCONFDIR"       \
             --with-libxklavier            \
             --enable-kill-on-sigterm      \
             --disable-at-spi-command      \
             --disable-libido              \
             --disable-libindicator        \
-            --disable-static
+            --disable-static              \
+            "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR=$1 install

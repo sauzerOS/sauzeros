@@ -15,6 +15,7 @@ xorg-xrdb
 accountsservice suggest Enhanced user accounts handling
 lightdm-gtk-greeter suggest GTK greeter
 gobject-introspection make
+gtk-doc make
 intltool make
 itstool make
 libgcrypt make
@@ -25,3 +26,18 @@ libxklavier make
 pam make
 polkit make
 vala make
+aarch64-gcc cross make
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-libgcrypt cross
+aarch64-libx11 cross
+aarch64-libxcb cross
+aarch64-libxdmcp cross
+aarch64-libxklavier cross
+aarch64-pam cross
+aarch64-polkit cross
+glib cross make
+intltool cross make
+itstool cross make
+polkit cross make
+gtk-doc cross make

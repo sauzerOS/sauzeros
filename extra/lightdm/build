@@ -10,37 +10,49 @@ if grep -q 'YELP_HELP_INIT\|help/Makefile' configure.ac || grep -q '^SUBDIRS.* h
     echo "lightdm: the help is still built; the seds above need updating" >&2
     exit 1
 fi
+PREFIX="${CROSS_PREFIX:-/usr}"
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir; the vala bindings are generated from the .gir.
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-introspection --disable-vala)
+fi
+
 autoreconf -fvi
-./configure --prefix=/usr                 \
-            --libexecdir=/usr/lib/lightdm \
-            --localstatedir=/var          \
-            --sbindir=/usr/bin            \
-            --sysconfdir=/etc             \
-            --disable-static              \
-            --disable-tests               \
-            --with-greeter-user=lightdm   \
-            --with-greeter-session=lightdm-gtk-greeter
+./configure --prefix="$PREFIX"               \
+            --libexecdir="$PREFIX/lib/lightdm" \
+            --localstatedir=/var             \
+            --sbindir="$PREFIX/bin"          \
+            --sysconfdir="$SYSCONFDIR"       \
+            --disable-static                 \
+            --disable-tests                  \
+            --with-greeter-user=lightdm      \
+            --with-greeter-session=lightdm-gtk-greeter \
+            "${CROSS_OPTS[@]}"
 
 make
 make DESTDIR=$1 install
 
 # script to import DISPLAY XAUTHORITY WAYLAND_DISPLAY into systemd user session (required for desktop portal)
-install -Dm 755 systemd-session-fix $1/usr/bin/systemd-session-fix
+install -Dm 755 systemd-session-fix "$1$PREFIX"/bin/systemd-session-fix
 
-install -m 755 Xsession "${1}"/etc/lightdm/Xsession
-rm -rf "${1}"/etc/init
-rm -rf "${1}"/usr/include/lightdm-qt{,5}-*
+install -m 755 Xsession "${1}$SYSCONFDIR"/lightdm/Xsession
+rm -rf "${1}$SYSCONFDIR"/init
+rm -rf "${1}$PREFIX"/include/lightdm-qt{,5}-*
 
 # PAM
-install -m 644 lightdm.pam "${1}"/etc/pam.d/lightdm
-install -m 644 lightdm-autologin.pam "${1}"/etc/pam.d/lightdm-autologin
+install -m 644 lightdm.pam "${1}$SYSCONFDIR"/pam.d/lightdm
+install -m 644 lightdm-autologin.pam "${1}$SYSCONFDIR"/pam.d/lightdm-autologin
 
 # PolicyKit
-install -dm 755 "${1}"/usr/share/polkit-1/rules.d
-install -m 644 lightdm.rules "${1}"/usr/share/polkit-1/rules.d/lightdm.rules
+install -dm 755 "${1}$PREFIX"/share/polkit-1/rules.d
+install -m 644 lightdm.rules "${1}$PREFIX"/share/polkit-1/rules.d/lightdm.rules
 
 # Systemd
-install -dm 755 "${1}"/usr/lib/{systemd/system,sysusers.d,tmpfiles.d}
-install -m 644 lightdm.service "${1}"/usr/lib/systemd/system/lightdm.service
-install -m 644 lightdm.sysusers "${1}"/usr/lib/sysusers.d/lightdm.conf
-install -m 644 lightdm.tmpfiles "${1}"/usr/lib/tmpfiles.d/lightdm.conf
+install -dm 755 "${1}$PREFIX"/lib/{systemd/system,sysusers.d,tmpfiles.d}
+install -m 644 lightdm.service "${1}$PREFIX"/lib/systemd/system/lightdm.service
+install -m 644 lightdm.sysusers "${1}$PREFIX"/lib/sysusers.d/lightdm.conf
+install -m 644 lightdm.tmpfiles "${1}$PREFIX"/lib/tmpfiles.d/lightdm.conf
