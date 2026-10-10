@@ -87,3 +87,6 @@ python-packaging cross make
 python-ply cross make
 python-pycparser cross make
 python-pyyaml cross make
+aarch64-libdisplay-info cross make
+aarch64-systemd cross make
+aarch64-vulkan-headers cross make

@@ -11,9 +11,10 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     # without which build_modesetting is false and the server ships no video
     # driver at all.
     #
-    # Left out on purpose, each of which would pull a large dependency of its
-    # own: vulkan (spirv-tools), llvmpipe (llvm), wayland, the extra HUD
-    # (lm-sensors) and the video codecs.
+    # The Pi's own Vulkan driver (v3dv, "broadcom") and the device-select
+    # layer need nothing beyond what GL does. Left out on purpose, each of
+    # which would pull a large dependency of its own: llvmpipe (llvm),
+    # wayland, the extra HUD (lm-sensors) and the video codecs.
     hokuto-meson build             \
         --sysconfdir=/etc          \
         --localstatedir=/var       \
@@ -26,7 +27,9 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
         -D libunwind=disabled      \
         -D glvnd=enabled           \
         -D llvm=disabled           \
-        -D vulkan-drivers=""       \
+        -D vulkan-drivers=broadcom \
+        -D vulkan-layers=device-select \
+        -D vulkan-manifest-per-architecture=false \
         -D gallium-drivers="v3d,vc4,softpipe" \
         -D gallium-extra-hud=false \
         -D gallium-mediafoundation=disabled \
@@ -63,9 +66,18 @@ meson install -C build --destdir=$1
 libdir="${CROSS_PREFIX:-/usr}/lib"
 libdir="${libdir#/}"
 
-if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
+# The Vulkan splits. A cross-system build keeps everything in the one
+# aarch64-mesa package, which the sysroot links against; a plain cross build
+# has just the Pi's driver and the device-select layer.
+if [ "${CROSS_PREFIX:-/usr}" = "/usr" ]; then
     _pick "$1" vulkan-broadcom $libdir/libvulkan_broadcom.so
     _pick "$1" vulkan-broadcom usr/share/vulkan/icd.d/broadcom_icd.json
+
+    _pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
+    _pick "$1" vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
+fi
+
+if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
 
     _pick "$1" vulkan-intel $libdir/libvulkan_intel{,_hasvk}.so
     _pick "$1" vulkan-intel usr/share/vulkan/icd.d/intel{,_hasvk}_icd.json
@@ -81,8 +93,6 @@ if [ "${HOKUTO_CROSS:-0}" != "1" ]; then
     _pick "$1" vulkan-virtio usr/share/vulkan/icd.d/virtio_icd.json
 
     _pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_anti_lag.so
-    _pick "$1" vulkan-mesa-implicit-layers $libdir/libVkLayer_MESA_device_select.so
-    _pick "$1" vulkan-mesa-implicit-layers usr/share/vulkan/implicit_layer.d
 
     _pick "$1" vulkan-mesa-layers $libdir/libVkLayer_*.so
     _pick "$1" vulkan-mesa-layers usr/bin/mesa-*-control.py
