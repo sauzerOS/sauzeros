@@ -1,7 +1,14 @@
 #!/bin/bash -e
 
+# gobject-introspection scans the just-built library, and the sysroot's GLib
+# has no .gir.
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    cross_opts+=(-D introspection=disabled)
+fi
+
 hokuto-meson build \
-  -D gtk_doc=false
+  -D gtk_doc=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1

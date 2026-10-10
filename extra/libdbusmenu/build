@@ -3,12 +3,19 @@
 export HAVE_VALGRIND_TRUE='#'
 export HAVE_VALGRIND_FALSE=''
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu" --disable-introspection --disable-vala)
+fi
+
 NOCONFIGURE=1 ./autogen.sh
-./configure --prefix=/usr \
+./configure --prefix="$PREFIX" \
 	    --with-gtk=3 \
 	    --disable-dumper \
 	    --disable-static \
-	    --disable-tests
+	    --disable-tests \
+	    "${CROSS_OPTS[@]}"
 
 make
 make -j1 -C libdbusmenu-glib DESTDIR=$1 install

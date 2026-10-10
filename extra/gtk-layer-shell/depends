@@ -3,4 +3,11 @@ wayland
 gobject-introspection make
 gtk-doc make
 meson make
-wayland-protocols make 
+wayland-protocols make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-wayland cross
+aarch64-wayland-protocols cross make
+meson cross make
+wayland cross make

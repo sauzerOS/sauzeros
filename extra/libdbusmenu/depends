@@ -7,4 +7,14 @@ pango
 gnome-common make
 gobject-introspection make
 intltool make
-vala make  
+vala make
+aarch64-gcc cross make
+aarch64-at-spi2-core cross
+aarch64-gdk-pixbuf cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross
+aarch64-pango cross
+glib cross make
+gnome-common cross make
+intltool cross make
