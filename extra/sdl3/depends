@@ -45,3 +45,28 @@ lib32-pipewire make optional
 lib32-libpulse make
 lib32-sndio make
 lib32-wayland make
+aarch64-gcc cross make
+aarch64-alsa-lib cross make
+aarch64-glibc cross
+aarch64-hidapi cross
+aarch64-libdecor cross make
+aarch64-libglvnd cross
+aarch64-libusb cross
+aarch64-libx11 cross
+aarch64-libxcursor cross
+aarch64-libxext cross
+aarch64-libxinerama cross make
+aarch64-libxkbcommon cross make
+aarch64-libxrandr cross make
+aarch64-libxrender cross
+aarch64-libxss cross make
+aarch64-mesa cross make
+aarch64-pipewire cross make
+aarch64-pulseaudio cross make
+aarch64-sndio cross make
+aarch64-vulkan-headers cross make
+aarch64-wayland cross make
+aarch64-wayland-protocols cross make
+cmake cross make
+ninja cross make
+wayland cross make

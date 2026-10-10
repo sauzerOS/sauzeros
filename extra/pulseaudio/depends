@@ -17,7 +17,7 @@ speexdsp
 systemd
 systemd-libs
 rtkit
-webrtc-audio-processing<2.0
+webrtc-audio-processing<2.0 nocross
 pulseaudio-alsa suggest
 pulseaudio-bluetooth suggest
 pulseaudio-rtp suggest
@@ -44,3 +44,31 @@ lib32-libsndfile make
 lib32-libxcb make
 lib32-systemd make
 lib32-libx11 make
+aarch64-gcc cross make
+aarch64-alsa-lib cross
+aarch64-avahi cross make
+aarch64-bluez cross make
+aarch64-dbus cross
+aarch64-gdbm cross
+aarch64-glib cross
+aarch64-glibc cross
+aarch64-gtk+3 cross make
+aarch64-libcap cross
+aarch64-libice cross
+aarch64-libsm cross
+aarch64-libsndfile cross
+aarch64-libsoxr cross
+aarch64-libtool cross
+aarch64-libx11 cross
+aarch64-libxcb cross
+aarch64-libxtst cross
+aarch64-openssl cross make
+aarch64-orc cross
+aarch64-sbc cross make
+aarch64-speexdsp cross
+aarch64-systemd cross
+glib cross make
+meson cross make
+orc cross make
+perl-xml-parser cross make
+python cross make

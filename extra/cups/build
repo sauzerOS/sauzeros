@@ -16,17 +16,15 @@ fi
 
 conf_opts=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
-    # avahi (mDNS printer discovery), libusb (the USB backend) and libpaper
-    # are not cross built. The point of the cross build is libcups for the
-    # clients that link it -- Chrome has a hard dependency on it -- rather
-    # than a working print server, so dropping the discovery and USB backends
-    # costs nothing here.
+    # libpaper is not cross built, and the x86_64 package does not link it
+    # either.
     conf_opts=(
         --host="${HOKUTO_ARCH}-linux-gnu"
-        --disable-avahi
-        --disable-libusb
         --disable-libpaper
     )
+    # The sysroot's systemd.pc spells the unit directory with the sysroot
+    # prefix.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
 else
     conf_opts=(--enable-libpaper)
 fi

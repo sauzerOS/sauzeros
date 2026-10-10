@@ -1,64 +1,93 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+# meson keeps /etc for /usr and puts it under any other prefix.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+
+cross_opts=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The echo canceller needs webrtc-audio-processing 1.x, which hokuto only
+    # builds from the recipe's git history and cannot cross build; the
+    # bluetooth and RTP codecs need gst-plugins-good, which is not cross
+    # built. Everything else matches the native build.
+    cross_opts+=(-D webrtc-aec=disabled -D gstreamer=disabled -D bluez5-gstreamer=disabled)
+    # The sysroot's .pc files spell their install directories with the
+    # sysroot prefix: units, udev rules and D-Bus files would land under it.
+    export PKG_CONFIG_SYSTEMD_ROOT_PREFIX="$PREFIX"
+    export PKG_CONFIG_SYSTEMD_SYSCONF_DIR="$SYSCONFDIR"
+    export PKG_CONFIG_UDEV_UDEV_DIR="$PREFIX/lib/udev"
+    export PKG_CONFIG_DBUS_1_DATADIR="$PREFIX/share"
+    export PKG_CONFIG_DBUS_1_SYSCONFDIR="$SYSCONFDIR"
+    export PKG_CONFIG_BASH_COMPLETION_PREFIX="$PREFIX"
+    # udevrulesdir defaults to /lib/udev/rules.d whatever the prefix.
+    [ "$PREFIX" = /usr ] || cross_opts+=(-D udevrulesdir="$PREFIX/lib/udev/rules.d")
+fi
+
 hokuto-meson build     \
       -D database=gdbm \
       -D doxygen=false \
-      -D tests=false
+      -D tests=false "${cross_opts[@]}"
 
 meson compile -C build
 meson install -C build --destdir=$1
 
 # Remove systemwide conf
-rm -f "$1/etc/dbus-1/system.d/pulseaudio-system.conf"
+rm -f "$1$SYSCONFDIR/dbus-1/system.d/pulseaudio-system.conf"
 
 # Superseded by socket activation
 sed -e '/autospawn/iautospawn = no' \
-    -i $1/etc/pulse/client.conf
+    -i "$1$SYSCONFDIR/pulse/client.conf"
 
 # Disable cork-request module, can result in e.g. media players unpausing
 # when there's a Skype call incoming
 sed -e 's|/usr/bin/pactl load-module module-x11-cork-request|#&|' \
-    -i $1/usr/bin/start-pulseaudio-x11
+    -i "$1$PREFIX/bin/start-pulseaudio-x11"
 
 # Required by qpaeq
 sed -e '/Load several protocols/aload-module module-dbus-protocol' \
-    -i $1/etc/pulse/default.pa
+    -i "$1$SYSCONFDIR/pulse/default.pa"
 
 # Avoid warning about nonexistent dir
 # https://gitlab.archlinux.org/archlinux/packaging/packages/pulseaudio/-/issues/3
-mkdir -p $1/etc/pulse/{default,system}.pa.d
+mkdir -p "$1$SYSCONFDIR"/pulse/{default,system}.pa.d
 
-# libpulse
-_pick "$1" libpulse etc/pulse/client.conf
-_pick "$1" libpulse usr/bin/pa{cat,ctl,dsp,mon,play,rec,record}
-_pick "$1" libpulse usr/lib/libpulse{,-simple,-mainloop-glib}.so*
-_pick "$1" libpulse usr/lib/{cmake,pkgconfig}
-_pick "$1" libpulse usr/lib/pulseaudio/libpulse{dsp,common-*}.so
-_pick "$1" libpulse usr/include
-_pick "$1" libpulse usr/share/man/man1/pa{cat,ctl,dsp,mon,play,rec,record}.1
-_pick "$1" libpulse usr/share/man/man5/pulse-client.conf.5
-_pick "$1" libpulse usr/share/bash-completion/completions/pa{cat,ctl,dsp,play,rec,record}
-_pick "$1" libpulse usr/share/bash-completion/completions/pulseaudio
-_pick "$1" libpulse usr/share/vala
-_pick "$1" libpulse usr/share/zsh
+# The split paths are spelled usr/..., which holds for a native build and a
+# plain cross build of the target. A cross-system build keeps everything in
+# the one aarch64-pulseaudio package, which the sysroot links against.
+if [ "$PREFIX" = "/usr" ]; then
+    # libpulse
+    _pick "$1" libpulse etc/pulse/client.conf
+    _pick "$1" libpulse usr/bin/pa{cat,ctl,dsp,mon,play,rec,record}
+    _pick "$1" libpulse usr/lib/libpulse{,-simple,-mainloop-glib}.so*
+    _pick "$1" libpulse usr/lib/{cmake,pkgconfig}
+    _pick "$1" libpulse usr/lib/pulseaudio/libpulse{dsp,common-*}.so
+    _pick "$1" libpulse usr/include
+    _pick "$1" libpulse usr/share/man/man1/pa{cat,ctl,dsp,mon,play,rec,record}.1
+    _pick "$1" libpulse usr/share/man/man5/pulse-client.conf.5
+    _pick "$1" libpulse usr/share/bash-completion/completions/pa{cat,ctl,dsp,play,rec,record}
+    _pick "$1" libpulse usr/share/bash-completion/completions/pulseaudio
+    _pick "$1" libpulse usr/share/vala
+    _pick "$1" libpulse usr/share/zsh
 
-# pulseaudio-zeroconf
-moddir=usr/lib/pulseaudio/modules
-_pick "$1" pulseaudio-zeroconf $moddir/libavahi-wrap.so
-_pick "$1" pulseaudio-zeroconf $moddir/module-zeroconf-{publish,discover}.so
-_pick "$1" pulseaudio-zeroconf $moddir/module-raop-discover.so
+    # pulseaudio-zeroconf
+    moddir=usr/lib/pulseaudio/modules
+    _pick "$1" pulseaudio-zeroconf $moddir/libavahi-wrap.so
+    _pick "$1" pulseaudio-zeroconf $moddir/module-zeroconf-{publish,discover}.so
+    _pick "$1" pulseaudio-zeroconf $moddir/module-raop-discover.so
 
-# pulseaudio-bluetooth
-_pick "$1" pulseaudio-bluetooth $moddir/libbluez5-util.so
-_pick "$1" pulseaudio-bluetooth $moddir/module-bluetooth-{discover,policy}.so
-_pick "$1" pulseaudio-bluetooth $moddir/module-bluez5-{discover,device}.so
+    # pulseaudio-bluetooth
+    _pick "$1" pulseaudio-bluetooth $moddir/libbluez5-util.so
+    _pick "$1" pulseaudio-bluetooth $moddir/module-bluetooth-{discover,policy}.so
+    _pick "$1" pulseaudio-bluetooth $moddir/module-bluez5-{discover,device}.so
 
-# pulseaudio-rtp
-_pick "$1" pulseaudio-rtp $moddir/lib{rtp,raop}.so
-_pick "$1" pulseaudio-rtp $moddir/module-rtp-{send,recv}.so
-_pick "$1" pulseaudio-rtp $moddir/module-raop-sink.so
+    # pulseaudio-rtp
+    _pick "$1" pulseaudio-rtp $moddir/lib{rtp,raop}.so
+    _pick "$1" pulseaudio-rtp $moddir/module-rtp-{send,recv}.so
+    _pick "$1" pulseaudio-rtp $moddir/module-raop-sink.so
+fi
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 meson_options=(

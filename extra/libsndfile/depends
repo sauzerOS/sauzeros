@@ -1,11 +1,11 @@
 alsa-lib
-flac nocross
+flac
 glibc
-lame nocross
-libogg nocross
-libvorbis nocross
-mpg123 runtime nocross
-opus nocross
+lame
+libogg
+libvorbis
+mpg123 runtime
+opus
 cmake make
 python make
 sqlite make
@@ -19,4 +19,10 @@ aarch64-gcc cross make
 aarch64-sqlite cross make
 cmake cross make
 python cross make
-
+aarch64-flac cross
+aarch64-glibc cross
+aarch64-lame cross
+aarch64-libogg cross
+aarch64-libvorbis cross
+aarch64-mpg123 cross
+aarch64-opus cross

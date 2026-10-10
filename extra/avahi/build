@@ -5,11 +5,15 @@ patch -Np1 -i 0001-HACK-Install-fixes.patch
 
 NOCONFIGURE=1 ./autogen.sh
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
 configure_options=(
-  --prefix=/usr
-  --sysconfdir=/etc
+  --prefix="$PREFIX"
+  --sysconfdir="$SYSCONFDIR"
   --localstatedir=/var
-  --sbindir=/usr/bin
+  --sbindir="$PREFIX/bin"
   --runstatedir=/run
   --disable-manpages
   --disable-mono
@@ -19,9 +23,26 @@ configure_options=(
   --with-autoipd-user=avahi
   --with-avahi-priv-access-group=network
   --with-distro=archlinux
-  --with-systemdsystemunitdir=/usr/lib/systemd/system
-  with_dbus_sys=/usr/share/dbus-1/system.d
+  --with-systemdsystemunitdir="$PREFIX/lib/systemd/system"
+  with_dbus_sys="$PREFIX/share/dbus-1/system.d"
 )
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # gobject-introspection scans the just-built library, and the sysroot's
+    # GLib has no .gir. The Python modules are pure Python; configure checks
+    # their imports with the build machine's interpreter.
+    configure_options+=(
+      --host="$HOKUTO_ARCH-linux-gnu"
+      --disable-introspection
+    )
+    # configure only checks for pygobject-3.0.pc; the modules are pure
+    # Python and compile nothing against it. Answer from the build
+    # machine's arch-independent copy, which the sysroot lacks.
+    export PYGOBJECT_CFLAGS="$(PKG_CONFIG_LIBDIR=/usr/lib/pkgconfig:/usr/share/pkgconfig PKG_CONFIG_PATH= pkg-config --cflags pygobject-3.0)"
+    export PYGOBJECT_LIBS=" "
+    # The sysroot's dbus-1.pc spells its directories with the sysroot prefix.
+    export PKG_CONFIG_DBUS_1_DATADIR="$PREFIX/share"
+    export PKG_CONFIG_DBUS_1_SYSCONFDIR="$SYSCONFDIR"
+fi
 
 ./configure "${configure_options[@]}"
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -29,4 +50,4 @@ sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 make
 make DESTDIR="${1}" install
 echo 'u avahi - "Avahi mDNS/DNS-SD daemon"' |
-  install -Dm644 /dev/stdin "${1}/usr/lib/sysusers.d/avahi.conf"
+  install -Dm644 /dev/stdin "${1}$PREFIX/lib/sysusers.d/avahi.conf"

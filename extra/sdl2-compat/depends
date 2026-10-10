@@ -3,3 +3,8 @@ sdl3
 cmake make
 rsync make
 lib32-sdl3 make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-sdl3 cross
+cmake cross make
+ninja cross make

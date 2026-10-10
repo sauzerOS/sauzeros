@@ -1,16 +1,18 @@
 #!/bin/bash -e
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+
 CFLAGS+=" -ffat-lto-objects"
 cmake -B build -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_PREFIX="$PREFIX" \
     -D CMAKE_BUILD_TYPE=None
 
 cmake --build build
 DESTDIR=$1 cmake --install build
-install -d $1/usr/lib/pkgconfig/
-ln -s sdl2-compat.pc $1/usr/lib/pkgconfig/sdl2.pc
+install -d "$1$PREFIX/lib/pkgconfig/"
+ln -s sdl2-compat.pc "$1$PREFIX/lib/pkgconfig/sdl2.pc"
 
-if [ "$MULTILIB" = "1" ]; then
+if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32bit split package
 rm -rf build
 export CC='gcc -m32'

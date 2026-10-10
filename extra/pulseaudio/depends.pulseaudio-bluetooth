@@ -3,8 +3,8 @@ bluez-libs
 dbus
 glib
 glibc
-gst-plugins-base
-gstreamer
+gst-plugins-base nocross
+gstreamer nocross
 libpulse
 pulseaudio
 sbc
