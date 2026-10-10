@@ -232,6 +232,8 @@ _hokuto() {
             _describe 'python-rebuild command' subcommands
           elif [[ ${words[2]} == confirm ]]; then
             _arguments '--force[Confirm without a passed check]' '--from[Start from this minor release]:minor release:' '(-h --help)'{-h,--help}'[Show the help]'
+          elif [[ ${words[2]} == check ]]; then
+            _arguments '--failed[Only the last check'"'"'s failures]' '--from[Start from this minor release]:minor release:' '(-h --help)'{-h,--help}'[Show the help]'
           else
             _arguments '--from[Start from this minor release]:minor release:' '(-h --help)'{-h,--help}'[Show the help]'
           fi

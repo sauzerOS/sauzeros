@@ -3,6 +3,20 @@
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 PREFIX="${CROSS_PREFIX:-/usr}"
 
+# configure copies the build's LDFLAGS into the Libs: of the .pc files, and
+# every package linking ncurses through pkg-config took them over: hokuto's
+# -fuse-ld=bfd -flto -O1 made util-linux link with ld.bfd, which then
+# resolved libcryptsetup's libblkid to its own unversioned build tree copy.
+# Keep the library and library path flags only.
+clean_pc_libs() {
+    local pc
+    for pc in "$1"/*.pc; do
+        [ -f "$pc" ] && [ ! -L "$pc" ] || continue
+        awk '/^Libs:/ { line = "Libs:"; for (i = 2; i <= NF; i++) if ($i ~ /^-[lL]/ || $i ~ /^\$\{/) line = line " " $i; print line; next } { print }' "$pc" > "$pc.tmp"
+        mv "$pc.tmp" "$pc"
+    done
+}
+
 # triplet for --host
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
@@ -37,6 +51,7 @@ fi
 
 make
 make DESTDIR=$1 install
+clean_pc_libs "$1$PREFIX/lib/pkgconfig"
 
 # Force ncurses to link against wide-character ncurses library.
 for lib in ncurses form panel menu; do
@@ -70,6 +85,7 @@ CC="gcc -m32" CXX="g++ -m32" \
 
 make
 make DESTDIR=$PWD/DESTDIR install
+clean_pc_libs DESTDIR/usr/lib32/pkgconfig
 mkdir -p DESTDIR/usr/lib32/pkgconfig
 for lib in ncurses form panel menu ; do
     rm -vf                    DESTDIR/usr/lib32/lib${lib}.so

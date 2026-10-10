@@ -281,6 +281,7 @@ _hokuto_complete()
             done
             if [[ $cur == -* ]]; then
                 local opts="--from -h --help"
+                [[ $sub == check ]] && opts+=" --failed"
                 [[ $sub == confirm ]] && opts+=" --force"
                 COMPREPLY=($(compgen -W "$opts" -- "$cur"))
             elif [[ -z $sub ]]; then

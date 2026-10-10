@@ -1,0 +1,29 @@
+--- a/src_c/pgcompat.h	2026-10-11 05:15:28.890023749 +0700
++++ b/src_c/pgcompat.h	2026-10-11 05:15:28.928212494 +0700
+@@ -24,4 +24,26 @@
+ #define Slice_GET_INDICES_EX(slice, length, start, stop, step, slicelength) \
+     PySlice_GetIndicesEx(slice, length, start, stop, step, slicelength)
+ 
++/* PyWeakref_GetObject was removed in Python 3.15. Its replacement,
++ * PyWeakref_GetRef, returns a new reference and NULL for a dead referent;
++ * pygame's callers expect a borrowed reference and Py_None. The referent
++ * stays alive through the references other objects hold, as before. */
++#if PY_VERSION_HEX >= 0x030D0000
++static inline PyObject *
++pg_PyWeakref_GetObject(PyObject *ref)
++{
++    PyObject *obj;
++    if (PyWeakref_GetRef(ref, &obj) < 0) {
++        return NULL;
++    }
++    if (obj == NULL) {
++        return Py_None;
++    }
++    Py_DECREF(obj);
++    return obj;
++}
++#undef PyWeakref_GetObject
++#define PyWeakref_GetObject pg_PyWeakref_GetObject
++#endif
++
+ #endif /* ~PGCOMPAT_INTERNAL_H */

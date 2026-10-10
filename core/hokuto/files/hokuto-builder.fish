@@ -76,6 +76,7 @@ complete -c hokuto-builder -n "__fish_seen_subcommand_from run" -F -a "(__fish_c
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l status -d "Show the held upgrade and the last check"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l list -d "List the packages the upgrade rebuilds"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l check -d "Test-build them against the new python"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l failed -d "With --check: only the last check's failures"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l confirm -d "Bump them and release python"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l force -d "Confirm without a passed check"
 complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l cancel -d "Drop the hold"

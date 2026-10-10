@@ -124,6 +124,7 @@ _hokuto_builder() {
         '--status[show the held upgrade and the last check]' \
         '--list[list the packages the upgrade rebuilds]' \
         '--check[test-build them against the new python]' \
+        '--failed[with --check: only the packages the last check failed]' \
         '--confirm[bump them and release python]' \
         '--force[confirm without a passed check]' \
         '--cancel[drop the hold]' \

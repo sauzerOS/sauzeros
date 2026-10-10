@@ -1,4 +1,9 @@
 #!/bin/bash -e
 
+# A project's update() (PyQt6 with dbus-python support) reads the limited
+# ABI version before sip has parsed abi_version: TypeError: '>=' not
+# supported between instances of 'str' and 'int'.
+patch -Np1 -i sip-limited-abi-version.patch
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl

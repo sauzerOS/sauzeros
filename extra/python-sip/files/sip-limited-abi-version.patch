@@ -1,0 +1,22 @@
+--- a/sipbuild/project.py	2026-10-11 05:14:45.362621835 +0700
++++ b/sipbuild/project.py	2026-10-11 05:14:45.389414245 +0700
+@@ -1006,8 +1006,17 @@
+ 
+             version = (3, minor, micro)
+ 
+-        # ABI v14 requires Python v3.15 as a minimum.
+-        if self.abi_version[0] >= 14 and version < (3, 15, 0):
++        # ABI v14 requires Python v3.15 as a minimum.  A project's update()
++        # can get here before verify_configuration() has parsed abi_version.
++        abi_version = self.abi_version
++        if not abi_version:
++            abi_major = 0
++        elif isinstance(abi_version, str):
++            abi_major = parse_abi_version(abi_version)[0]
++        else:
++            abi_major = abi_version[0]
++
++        if abi_major >= 14 and version < (3, 15, 0):
+             version = (3, 15, 0)
+ 
+         self._limited_abi_version = version

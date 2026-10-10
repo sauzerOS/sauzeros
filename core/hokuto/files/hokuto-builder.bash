@@ -106,7 +106,7 @@ _hokuto_builder()
             fi
             ;;
         python-rebuild)
-            COMPREPLY=($(compgen -W "--status --list --check --confirm --force --cancel --from -j -h --help" -- "$cur"))
+            COMPREPLY=($(compgen -W "--status --list --check --failed --confirm --force --cancel --from -j -h --help" -- "$cur"))
             ;;
         run)
             # The command to run inside the container, then its arguments.
