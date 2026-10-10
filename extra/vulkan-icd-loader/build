@@ -1,8 +1,17 @@
 #!/bin/bash -e
 
+# The headers' directory ends up in CMAKE_PREFIX_PATH, whose lib/pkgconfig
+# FindPkgConfig searches as it is: /usr in a cross build gave the target the
+# build machine's x11.pc, -I/usr/include and x86 glibc headers, and a loader
+# that misread struct stat and failed to read every manifest.
+headers_dir="${CROSS_PREFIX:-/usr}"
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    headers_dir="/usr/${HOKUTO_ARCH}-linux-gnu"
+fi
+
 cmake -B build                         \
     -D CMAKE_INSTALL_PREFIX="${CROSS_PREFIX:-/usr}"       \
-    -D VULKAN_HEADERS_INSTALL_DIR="${CROSS_PREFIX:-/usr}" \
+    -D VULKAN_HEADERS_INSTALL_DIR="$headers_dir" \
     -D CMAKE_INSTALL_LIBDIR=lib        \
     -D CMAKE_INSTALL_SYSCONFDIR=/etc   \
     -D CMAKE_INSTALL_DATADIR=/share    \
