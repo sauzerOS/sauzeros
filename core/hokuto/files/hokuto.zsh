@@ -88,6 +88,7 @@ _hokuto() {
         'check:Check whether a package is installed'
         'blacklist:List or edit the build blacklist'
         'nobuild:List or edit the no-build list'
+        'python-rebuild:A held python minor upgrade: check, then confirm'
       )
       _describe 'command' commands
       ;;
@@ -215,6 +216,21 @@ _hokuto() {
             _arguments \
               "-arch[Only this architecture's entry]:arch:(native aarch64)" \
               '*:package:_hokuto_blacklisted'
+          fi
+          ;;
+        python-rebuild)
+          if (( CURRENT == 2 )); then
+            local -a subcommands
+            subcommands=(
+              'status:Show the held upgrade and the last check'
+              'list:List the packages the upgrade rebuilds'
+              'check:Test-build them against the new python'
+              'confirm:Bump them and release python'
+              'cancel:Drop the hold'
+            )
+            _describe 'python-rebuild command' subcommands
+          elif [[ ${words[2]} == confirm ]]; then
+            _arguments '--force[Confirm without a passed check]'
           fi
           ;;
         nobuild)

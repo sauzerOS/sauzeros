@@ -185,6 +185,14 @@ for prog in $prog_names
     complete -c $prog -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -a "(__hokuto_blacklisted)" -d Blacklisted
     complete -c $prog -n "__fish_seen_subcommand_from blacklist; and __fish_seen_subcommand_from remove" -o arch -x -a "native aarch64" -d "Only this architecture's entry"
 
+    set -l python_rebuild_commands status list check confirm cancel
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a status -d "Show the held upgrade and the last check"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a list -d "List the packages the upgrade rebuilds"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a check -d "Test-build them against the new python"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a confirm -d "Bump them and release python"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and not __fish_seen_subcommand_from $python_rebuild_commands" -a cancel -d "Drop the hold"
+    complete -c $prog -n "__fish_seen_subcommand_from python-rebuild; and __fish_seen_subcommand_from confirm" -l force -d "Confirm without a passed check"
+
     set -l nobuild_commands list add remove clear
     complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a list -d "List the no-build list"
     complete -c $prog -n "__fish_seen_subcommand_from nobuild; and not __fish_seen_subcommand_from $nobuild_commands" -a add -d "Never build these packages"

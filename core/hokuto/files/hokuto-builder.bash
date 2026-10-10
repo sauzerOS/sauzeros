@@ -50,7 +50,7 @@ _hokuto_builder()
         prev=${COMP_WORDS[COMP_CWORD-1]}
     fi
 
-    local commands="create bump build rebuild cross-sync cycle blacklist nobuild run shell update destroy help"
+    local commands="create bump build rebuild cross-sync cycle blacklist nobuild python-rebuild run shell update destroy help"
 
     if (( cword == 1 )); then
         COMPREPLY=($(compgen -W "$commands -h --help" -- "$cur"))
@@ -104,6 +104,9 @@ _hokuto_builder()
             elif [[ $sub != list && $sub != clear ]]; then
                 COMPREPLY=($(compgen -W "$(_hokuto_builder_repo_packages)" -- "$cur"))
             fi
+            ;;
+        python-rebuild)
+            COMPREPLY=($(compgen -W "--status --list --check --confirm --force --cancel -j" -- "$cur"))
             ;;
         run)
             # The command to run inside the container, then its arguments.

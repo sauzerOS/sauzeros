@@ -271,6 +271,20 @@ _hokuto_complete()
                 fi
             fi
             ;;
+        python-rebuild)
+            local i sub=""
+            for ((i = 1; i < cword; i++)); do
+                if [[ ${words[i]} == python-rebuild ]]; then
+                    (( i + 1 < cword )) && sub=${words[i + 1]}
+                    break
+                fi
+            done
+            if [[ -z $sub ]]; then
+                COMPREPLY=($(compgen -W "status list check confirm cancel" -- "$cur"))
+            elif [[ $sub == confirm ]]; then
+                COMPREPLY=($(compgen -W "--force" -- "$cur"))
+            fi
+            ;;
         nobuild)
             # The subcommand is the first word after nobuild that is no option.
             local i j sub=""

@@ -39,6 +39,7 @@ _hokuto_builder() {
     'cycle:one unattended bump, rebuild and cross-sync round'
     'blacklist:list or edit the build blacklist'
     'nobuild:list or edit the no-build list'
+    'python-rebuild:a held python minor upgrade: check, then confirm'
     'run:run a command in the container'
     'shell:interactive shell in the container'
     "update:update the container's own packages"
@@ -116,6 +117,16 @@ _hokuto_builder() {
             _arguments '-cross[for cross-sync]' '*:package:_hokuto_builder_repo_packages' ;;
         esac
       fi
+      ;;
+    python-rebuild)
+      _arguments \
+        '--status[show the held upgrade and the last check]' \
+        '--list[list the packages the upgrade rebuilds]' \
+        '--check[test-build them against the new python]' \
+        '--confirm[bump them and release python]' \
+        '--force[confirm without a passed check]' \
+        '--cancel[drop the hold]' \
+        '-j[parallel build jobs]:jobs:'
       ;;
     run)
       shift 2 words

@@ -26,7 +26,7 @@ function __hokuto_builder_nobuild_listed
     test -r $f; and string replace -rf '^\s*"package":\s*"([^"]*)".*' '$1' <$f | sort -u
 end
 
-set -l commands create bump build rebuild cross-sync cycle blacklist nobuild run shell update destroy help
+set -l commands create bump build rebuild cross-sync cycle blacklist nobuild python-rebuild run shell update destroy help
 
 complete -c hokuto-builder -f
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a create -d "Create the container (once)"
@@ -37,6 +37,7 @@ complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a cro
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a cycle -d "One unattended bump, rebuild and cross-sync round"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a blacklist -d "List or edit the build blacklist"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a nobuild -d "List or edit the no-build list"
+complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a python-rebuild -d "A held python minor upgrade"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a run -d "Run a command in the container"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a shell -d "Interactive shell in the container"
 complete -c hokuto-builder -n "not __fish_seen_subcommand_from $commands" -a update -d "Update the container's own packages"
@@ -71,3 +72,10 @@ complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and __fish_s
 complete -c hokuto-builder -n "__fish_seen_subcommand_from nobuild; and __fish_seen_subcommand_from add" -a "(__hokuto_builder_repo_packages)" -d Package
 
 complete -c hokuto-builder -n "__fish_seen_subcommand_from run" -F -a "(__fish_complete_subcommand --fcs-skip=2)"
+
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l status -d "Show the held upgrade and the last check"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l list -d "List the packages the upgrade rebuilds"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l check -d "Test-build them against the new python"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l confirm -d "Bump them and release python"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l force -d "Confirm without a passed check"
+complete -c hokuto-builder -n "__fish_seen_subcommand_from python-rebuild" -l cancel -d "Drop the hold"
