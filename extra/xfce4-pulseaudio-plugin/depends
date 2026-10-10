@@ -5,4 +5,17 @@ libpulse
 xfce4-panel
 pwvucontrol suggest "PipeWire volume manager"
 meson make
-xfce4-dev-tools make 
+xfce4-dev-tools make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-libcanberra cross
+aarch64-libkeybinder3 cross
+aarch64-libnotify cross
+aarch64-libxfce4ui cross
+aarch64-libxfce4util cross
+aarch64-pulseaudio cross
+aarch64-xfce4-panel cross
+aarch64-xfconf cross
+glib cross make
+meson cross make
+xfce4-dev-tools cross make
