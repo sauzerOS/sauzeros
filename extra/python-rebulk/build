@@ -1,4 +1,8 @@
 #!/bin/bash -e
 
+# uv_build follows uv's minor releases; rebulk pins the one it was released
+# with.
+sed -i 's/"uv_build>=0.11,<0.12"/"uv_build>=0.11"/' pyproject.toml
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
