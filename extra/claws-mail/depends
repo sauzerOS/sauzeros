@@ -16,7 +16,7 @@ cairo
 nettle
 glibc
 hicolor-icon-theme
-networkmanager make
+libnm make
 libnotify make
 libcanberra make
 poppler make
@@ -48,6 +48,7 @@ aarch64-librsvg cross
 aarch64-libsm cross
 aarch64-libx11 cross
 aarch64-nettle cross
+aarch64-networkmanager cross make
 aarch64-pango cross
 aarch64-perl cross
 aarch64-poppler cross
