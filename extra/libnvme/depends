@@ -17,3 +17,4 @@ aarch64-systemd cross make
 meson cross make
 python cross make
 swig cross make
+aarch64-python cross make
