@@ -4,3 +4,9 @@ python-build make
 python-hatchling make
 python-installer make
 python-wheel make
+aarch64-python cross
+python-requests cross
+python-build cross make
+python-hatchling cross make
+python-installer cross make
+python-wheel cross make
