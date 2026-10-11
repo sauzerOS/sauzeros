@@ -38,7 +38,6 @@ ncurses make
 pam make
 pcre2 make
 python make
-python-pip make
 python-setuptools make
 sdl2-compat make
 sdl2-image make

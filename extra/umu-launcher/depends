@@ -38,5 +38,4 @@ python-build make
 python-hatchling make
 python-installer make
 python-maturin make
-python-pip make
 scdoc make 
