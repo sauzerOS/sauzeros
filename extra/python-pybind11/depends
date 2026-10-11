@@ -3,4 +3,10 @@ python-build make
 python-installer make
 python-scikit-build-core make
 python-setuptools make
-python-wheel make 
+python-wheel make
+aarch64-python cross
+python-build cross make
+python-installer cross make
+python-scikit-build-core cross make
+python-setuptools cross make
+python-wheel crokss make 
