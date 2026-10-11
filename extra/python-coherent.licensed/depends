@@ -1,2 +1,4 @@
 python
 python-build make
+aarch64-python cross
+python-build cross make
