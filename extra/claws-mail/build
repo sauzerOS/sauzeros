@@ -7,6 +7,11 @@ patch -p1 -i libical-4.patch
 sed -i 's/ayatana-appindicator/appindicator/' configure.ac src/plugins/notification/notification_ayatana_indicator.c
 autoreconf -fiv
 
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+
 ./configure --prefix=/usr \
   --disable-static \
   --enable-enchant \
@@ -17,11 +22,30 @@ autoreconf -fiv
   --disable-spamassassin-plugin \
   --disable-bogofilter-plugin \
   --disable-fancy-plugin \
-  --disable-manual
+  --disable-manual "${CROSS_OPTS[@]}"
 
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-make
-make DESTDIR="${1}" install
+
+MAKE_VARS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The perl plugin's flags come from the host perl (ExtUtils::Embed):
+    # take its headers and libperl from the sysroot's perl, the same
+    # release, and keep the target's rpath; drop the host's /usr/local.
+    sysroot="/usr/$HOKUTO_ARCH-linux-gnu"
+    perl_var() { sed -n "s/^$1 = //p" src/plugins/perl/Makefile; }
+    to_sysroot() {
+        sed -e "s|-I/usr/lib/perl5|-I$sysroot/lib/perl5|g" \
+            -e "s|-L/usr/lib/perl5|-L$sysroot/lib/perl5|g" \
+            -e 's|-I/usr/local/include||g; s|-L/usr/local/lib||g'
+    }
+    MAKE_VARS+=(
+        PERL_CFLAGS="$(perl_var PERL_CFLAGS | to_sysroot)"
+        PERL_LDFLAGS="$(perl_var PERL_LDFLAGS | to_sysroot)"
+    )
+fi
+
+make "${MAKE_VARS[@]}"
+make "${MAKE_VARS[@]}" DESTDIR="${1}" install
 install -Dm 644 "."/bash_completion "${1}"/usr/share/bash-completion/completions/claws-mail
 
 cd tools

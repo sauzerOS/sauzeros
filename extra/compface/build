@@ -4,8 +4,14 @@ patch -Np0 -i compface-1.5.2-build.patch
 patch -Np1 -i compface-c99.patch
 patch -Np1 -i compface-modern-c-porting.patch
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=()
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    CROSS_OPTS+=(--host="$HOKUTO_ARCH-linux-gnu")
+fi
+
 autoreconf -vfi
 CFLAGS="$CFLAGS -fPIC"
-./configure --prefix=/usr --mandir=/usr/share/man
+./configure --prefix="$PREFIX" --mandir="$PREFIX/share/man" "${CROSS_OPTS[@]}"
 make
 make DESTDIR="${1}" STRIP=/bin/true install

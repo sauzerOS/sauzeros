@@ -5,6 +5,11 @@ autoreconf -fiv
 sed '/saslint/a #include <time.h>'       -i lib/saslutil.c
 sed '/plugin_common/a #include <time.h>' -i plugins/cram.c
 
+PREFIX="${CROSS_PREFIX:-/usr}"
+# A cross-system build stays inside the sysroot, /etc included.
+SYSCONFDIR=/etc
+[ "$PREFIX" = /usr ] || SYSCONFDIR="$PREFIX/etc"
+
 configure_options=(
   --disable-krb4
   --disable-macos-framework
@@ -19,24 +24,37 @@ configure_options=(
   --enable-checkapop
   --enable-cram
   --enable-digest
-  --enable-gssapi
   --enable-login
   --enable-ntlm
   --enable-plain
   --enable-shared
-  --infodir=/usr/share/info
-  --mandir=/usr/share/man
-  --prefix=/usr
-  --sbin=/usr/bin
-  --sysconfdir=/etc
+  --infodir="$PREFIX/share/info"
+  --mandir="$PREFIX/share/man"
+  --prefix="$PREFIX"
+  --sbin="$PREFIX/bin"
+  --sysconfdir="$SYSCONFDIR"
   --with-dblib=gdbm
   --with-devrandom=/dev/urandom
   --with-configdir=/etc/sasl2:/etc/sasl:/usr/lib/sasl2
   --with-pam
-  --with-pgsql=/usr/lib
   --with-saslauthd=/var/run/saslauthd
-  --with-sqlite3=/usr/lib
 )
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # The GSSAPI and SQL plugins are removed below anyway: build without
+    # them rather than against the target's krb5 and databases.
+    configure_options+=(
+      --host="$HOKUTO_ARCH-linux-gnu"
+      --disable-gssapi
+      --without-pgsql
+      --without-sqlite3
+    )
+else
+    configure_options+=(
+      --enable-gssapi
+      --with-pgsql=/usr/lib
+      --with-sqlite3=/usr/lib
+    )
+fi
 
 ./configure "${configure_options[@]}"
 # prevent excessive overlinking by libtool
@@ -48,4 +66,4 @@ for _target in include lib sasldb plugins utils; do
 make DESTDIR="${1}" install
 done
 # remove files provided by extra/cyrus-sasl
-rm -fv "${1}"/usr/lib/sasl2/lib{gs2,gssapiv2,ldapdb,sql}.so*
+rm -fv "${1}$PREFIX"/lib/sasl2/lib{gs2,gssapiv2,ldapdb,sql}.so*

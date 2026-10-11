@@ -1,13 +1,33 @@
 #!/bin/bash -e
 
-cmake -B build                     \
-  -D CMAKE_INSTALL_PREFIX=/usr     \
-  -D CMAKE_BUILD_TYPE=Release      \
-  -D ICAL_BUILD_DOCS=false         \
-  -D GOBJECT_INTROSPECTION=true    \
-  -D LIBICAL_JAVA_BINDINGS=False   \
-  -D LIBICAL_GLIB_BUILD_DOCS=False \
-  -D ICAL_GLIB_VAPI=true
+PREFIX="${CROSS_PREFIX:-/usr}"
 
+cmake_options=(
+  -B build
+  -D CMAKE_INSTALL_PREFIX="$PREFIX"
+  -D CMAKE_BUILD_TYPE=Release
+  -D ICAL_BUILD_DOCS=false
+  -D LIBICAL_JAVA_BINDINGS=False
+  -D LIBICAL_GLIB_BUILD_DOCS=False
+)
+
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    # libical-glib's sources come from a generator built with the library,
+    # which cannot run here: use the host libical's. gobject-introspection
+    # scans the just-built library, and the vapi is made from the .gir.
+    cmake_options+=(
+      -D CMAKE_INSTALL_LIBDIR=lib
+      -D IMPORT_ICAL_GLIB_SRC_GENERATOR=/usr/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake
+      -D GOBJECT_INTROSPECTION=false
+      -D ICAL_GLIB_VAPI=false
+    )
+else
+    cmake_options+=(
+      -D GOBJECT_INTROSPECTION=true
+      -D ICAL_GLIB_VAPI=true
+    )
+fi
+
+cmake "${cmake_options[@]}"
 cmake --build build
 DESTDIR=$1 cmake --install build

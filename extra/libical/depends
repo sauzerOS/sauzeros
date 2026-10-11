@@ -6,4 +6,12 @@ libstdc++
 libxml2
 cmake make
 gobject-introspection make
-vala make 
+vala make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-glib cross
+aarch64-icu cross
+aarch64-libxml2 cross
+cmake cross make
+glib cross make
+libical cross make

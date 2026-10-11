@@ -23,3 +23,36 @@ poppler make
 libical make
 python make
 libappindicator make
+python-pygobject make
+aarch64-gcc cross make
+aarch64-glibc cross
+aarch64-cairo cross
+aarch64-compface cross
+aarch64-curl cross
+aarch64-enchant cross
+aarch64-expat cross
+aarch64-gdk-pixbuf cross
+aarch64-glib cross
+aarch64-gnutls cross
+aarch64-gpgme cross
+aarch64-gtk+3 cross
+aarch64-libappindicator cross
+aarch64-libarchive cross
+aarch64-libcanberra cross
+aarch64-libetpan cross
+aarch64-libgpg-error cross
+aarch64-libical cross
+aarch64-libice cross
+aarch64-libnotify cross
+aarch64-librsvg cross
+aarch64-libsm cross
+aarch64-libx11 cross
+aarch64-nettle cross
+aarch64-pango cross
+aarch64-perl cross
+aarch64-poppler cross
+aarch64-python cross
+aarch64-python-pygobject cross make
+aarch64-startup-notification cross
+glib cross make
+perl cross make
