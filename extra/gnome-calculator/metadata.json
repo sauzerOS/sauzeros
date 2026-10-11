@@ -1,0 +1,11 @@
+{
+  "url": "https://apps.gnome.org/Calculator",
+  "category": "extra",
+  "description": "GNOME Scientific calculator",
+  "info": "",
+  "license": "GPL-3.0-or-later",
+  "tags": [
+    "calculator",
+    "utility"
+  ]
+}
