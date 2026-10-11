@@ -6,7 +6,8 @@ python-build make
 python-hatch-vcs make
 python-hatchling make
 python-installer make
-nodejs cross make
+aarch64-python cross make
+npm cross make
 python-build cross make
 python-hatch-vcs cross make
 python-hatchling cross make
