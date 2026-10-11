@@ -53,13 +53,22 @@ make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
 make DESTDIR=$1 install
 
 # make install runs ensurepip with --root, and pip skips itself when the same
-# version is installed on the build system: rebuilding an installed python
-# shipped it without pip. The staged python sees only its own site-packages.
+# version is installed on the build system (and a cross build never got it):
+# packages shipped without pip. Install the bundled wheel ignoring what is
+# installed, with the staged python, or in a cross build the host python,
+# which has the same version.
 site="$1$PREFIX/lib/python$want_version/site-packages"
-if [[ "${HOKUTO_CROSS:-0}" != "1" && ! -d "$site/pip" ]]; then
-    LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -E -m ensurepip --default-pip
-    LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -E -m compileall -q -f \
-        -s "$1" -p / "$site/pip"
+if [[ ! -d "$site/pip" ]]; then
+    if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
+        build_python=(python3 -I)
+    else
+        build_python=(env LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -I)
+    fi
+    pip_wheel=$(echo Lib/ensurepip/_bundled/pip-*.whl)
+    "${build_python[@]}" "$pip_wheel/pip" install --no-index --no-deps \
+        --ignore-installed --no-compile --no-warn-script-location \
+        --root "$1" --prefix "$PREFIX" "$pip_wheel"
+    "${build_python[@]}" -m compileall -q -f -s "$1" -p / "$site/pip"
 fi
 
 ln -sf python3 "$1$PREFIX/bin/python"
