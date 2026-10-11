@@ -4,6 +4,7 @@ gnutls
 startup-notification
 enchant
 gpgme
+gumbo-parser
 libetpan
 compface
 libsm
@@ -31,15 +32,18 @@ aarch64-compface cross
 aarch64-curl cross
 aarch64-enchant cross
 aarch64-expat cross
+aarch64-fontconfig cross
 aarch64-gdk-pixbuf cross
 aarch64-glib cross
 aarch64-gnutls cross
 aarch64-gpgme cross
 aarch64-gtk+3 cross
+aarch64-gumbo-parser cross
 aarch64-libappindicator cross
 aarch64-libarchive cross
 aarch64-libcanberra cross
 aarch64-libetpan cross
+aarch64-libgcrypt cross make
 aarch64-libgpg-error cross
 aarch64-libical cross
 aarch64-libice cross

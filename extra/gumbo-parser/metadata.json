@@ -1,0 +1,8 @@
+{
+  "url": "https://codeberg.org/gumbo-parser/gumbo-parser/",
+  "category": "extra",
+  "description": "HTML5 parsing library in pure C99",
+  "info": "",
+  "license": "Apache-2.0",
+  "tags": []
+}
