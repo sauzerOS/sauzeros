@@ -5,3 +5,11 @@ python-coherent.licensed make
 python-installer make
 python-setuptools-scm make
 python-wheel make 
+aarch64-python cross
+python-more-itertools cross
+python-build cross make
+python-coherent.licensed cross make
+python-installer cross make
+python-setuptools-scm cross make
+python-wheel cross make
+
