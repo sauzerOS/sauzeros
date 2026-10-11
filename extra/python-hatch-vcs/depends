@@ -1,4 +1,11 @@
+python
 python-hatchling
 python-setuptools-scm
 python-build make
 python-installer make
+aarch64-python cross
+python-hatchling cross
+python-setuptools-scm cross
+python-build cross make
+python-installer cross make
+
