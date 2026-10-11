@@ -14,7 +14,7 @@ aarch64-python cross
 aarch64-python-idna cross
 aarch64-python-multidict cross 
 aarch64-python-propcache cross
-cython make
+cython cross make
 python-build cross make
 python-expandvars cross make
 python-installer cross make
