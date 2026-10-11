@@ -9,8 +9,11 @@ kglobalaccel
 kguiaddons 
 ki18n 
 kiconthemes 
+kio
 kitemviews 
 kwidgetsaddons 
 kxmlgui 
 qt
+qt-multimedia
 cmake make
+extra-cmake-modules make

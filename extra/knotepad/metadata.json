@@ -1,8 +1,12 @@
 {
   "url": "https://github.com/fanboimsft/knotepad",
   "category": "extra",
-  "description": "knotepad",
+  "description": "Notepad + Timer",
   "info": "",
-  "license": "",
-  "tags": []
+  "license": "None",
+  "tags": [
+    "gui",
+    "kde",
+    "utility"
+  ]
 }
