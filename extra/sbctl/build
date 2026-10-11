@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+export GOFLAGS="-buildmode=pie -trimpath -modcacherw"
+# The man pages need asciidoc (a2x); an empty MANS builds and installs none.
+make MANS= build
+make MANS= PREFIX="${1}/usr" install
+install -Dm 755 contrib/mkinitcpio/sbctl "${1}/usr/lib/initcpio/post/sbctl"
