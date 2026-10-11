@@ -1,0 +1,9 @@
+#!/bin/sh
+# A Limine installed on the ESP gets the new executable, then its config
+# hash enrolled and a signature again when sbctl has keys (limine-update).
+for efi in BOOTX64.EFI BOOTIA32.EFI; do
+    if [ -f "/boot/EFI/limine/$efi" ] && [ -f "/usr/share/limine/$efi" ]; then
+        cp "/usr/share/limine/$efi" "/boot/EFI/limine/$efi"
+    fi
+done
+limine-update

@@ -107,5 +107,11 @@ if [ -f /boot/refind_linux.conf ]; then
     update_marked_block /boot/refind_linux.conf "\"Boot with standard options\" \"$rootflags initrd=/boot/initramfs-$krel.img\""
 fi
 
+# Limine: drop the entries of removed kernels and, once sbctl has keys, hash
+# the files, enroll the config and sign Limine for Secure Boot.
+if command -v limine-update >/dev/null 2>&1; then
+    limine-update
+fi
+
 mkdir -p /etc/hokuto
 touch /etc/hokuto/kernel-modules

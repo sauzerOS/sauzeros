@@ -1,0 +1,74 @@
+#!/bin/bash -e
+#
+# limine-update: keep Limine bootable with Secure Boot.
+#
+# Run after anything changes limine.conf or a file it loads (the kernel and
+# limine packages run it). It removes the entries of kernels that are gone.
+#
+# Once sbctl has keys (sbctl create-keys), it also appends a BLAKE2B hash to
+# every kernel and initramfs path, enrolls the config's hash into the Limine
+# executables, and signs them. With Secure Boot active, Limine then refuses a
+# changed config and any file whose hash does not match. Without keys,
+# nothing is enrolled and the hashes are removed, so Secure Boot stays
+# optional: Limine panics on a stale hash even with Secure Boot off.
+
+esp=${LIMINE_ESP:-/boot}
+conf=$esp/EFI/limine/limine.conf
+[ -f "$conf" ] || exit 0
+
+secure=0
+if command -v sbctl >/dev/null 2>&1 &&
+    sbctl status --json 2>/dev/null | grep -q '"installed": *true'; then
+    secure=1
+fi
+
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+
+# The kernel packages mark their entries "# hokuto kernel <release> begin/end".
+begin_re='^# hokuto kernel (.+) begin$'
+end_re='^# hokuto kernel (.+) end$'
+path_re='^([[:space:]]*(path|kernel_path|module_path)[[:space:]]*:[[:space:]]*)(\$?boot\(\):)(/[^#[:space:]]+)(#[0-9A-Fa-f]*)?[[:space:]]*$'
+skip=0
+while IFS= read -r line || [ -n "$line" ]; do
+    if [[ $line =~ $begin_re ]]; then
+        if [ ! -e "$esp/vmlinuz-${BASH_REMATCH[1]}" ]; then
+            skip=1 # that kernel is no longer installed
+            continue
+        fi
+    elif [[ $line =~ $end_re ]] && [ "$skip" = 1 ]; then
+        skip=0
+        continue
+    fi
+    [ "$skip" = 1 ] && continue
+
+    if [[ $line =~ $path_re ]] && [ "$secure" = 0 ]; then
+        # A hash left from keys since removed would stop the boot.
+        line="${BASH_REMATCH[1]}${BASH_REMATCH[3]}${BASH_REMATCH[4]}"
+    elif [[ $line =~ $path_re ]]; then
+        file=$esp${BASH_REMATCH[4]}
+        if [ -f "$file" ]; then
+            hash=$(b2sum "$file" | cut -d' ' -f1)
+            line="${BASH_REMATCH[1]}${BASH_REMATCH[3]}${BASH_REMATCH[4]}#$hash"
+        else
+            echo "limine-update: warning: $file not found; its entry cannot boot with Secure Boot" >&2
+        fi
+    fi
+    printf '%s\n' "$line"
+done < "$conf" > "$tmp"
+# The blank line before each removed entry stays behind: squeeze the runs.
+cat -s "$tmp" > "$conf"
+
+[ "$secure" = 1 ] || exit 0
+
+hash=$(b2sum "$conf" | cut -d' ' -f1)
+for efi in "$esp"/EFI/limine/*.[Ee][Ff][Ii]; do
+    [ -f "$efi" ] || continue
+    if ! limine enroll-config "$efi" "$hash" >/dev/null 2>&1; then
+        echo "limine-update: warning: could not enroll the config into $efi" >&2
+        continue
+    fi
+    # Enrolling changed the executable: sign it again.
+    sbctl sign -s "$efi" >/dev/null
+    echo "limine-update: enrolled limine.conf into $efi and signed it"
+done
