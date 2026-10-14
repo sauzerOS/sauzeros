@@ -4,6 +4,9 @@ cd firefox-$2
 patch -Np1 -i ../0001-Install-under-remoting-name.patch
 mv ../google-api-key .
 
+# hunspell missing include
+sed -i '/#include <fstream>/a #include <ios>' extensions/spellcheck/hunspell/src/csutil.hxx || exit 1
+
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     mv ../mozconfig.cross ./mozconfig
     rm -f ../mozconfig
