@@ -34,4 +34,11 @@ vulkan-headers make
 vulkan-icd-loader make
 wayland make
 zlib-ng make 
+aarch64-gcc cross make
 aarch64-imagemagick cross make
+aarch64-libxcb cross make
+aarch64-libxrandr cross make
+aarch64-sqlite cross make
+aarch64-wayland cross make
+aarch64-zlib-ng cross make
+cmake cross make
