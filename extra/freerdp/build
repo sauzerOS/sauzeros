@@ -13,19 +13,21 @@ cmake_options=(
   -D PROXY_PLUGINDIR=/usr/lib/freerdp/server/proxy/plugins
   -D WITH_ALSA=ON
   -D WITH_CLIENT_SDL3=ON
+  -D WITH_CLIENT_SDL2=OFF
   -D WITH_CUPS=ON
   -D WITH_DSP_FFMPEG=ON
   -D WITH_FFMPEG=ON
   -D WITH_FUSE=ON
   -D WITH_ICU=ON
   -D WITH_JPEG=ON
+  -D WITH_KRB5=OFF
   -D WITH_PULSE=ON
   -D WITH_SWSCALE=ON
   -D WITH_SYSTEMD=ON
   -D WITH_VAAPI=ON
   -D WITH_WAYLAND=ON
   -D WITH_X11=ON
-  -W no-dev
+  -W no-author
 )
 
 cmake "${cmake_options[@]}"
