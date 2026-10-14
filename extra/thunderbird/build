@@ -7,6 +7,10 @@ mv ../google-api-key .
 # patches
 patch -Np1 -i ../clang22-wasm32-wasip1.patch
 
+# hunspell missing include fix
+sed -i '/#include <fstream>/a #include <ios>' extensions/spellcheck/hunspell/src/csutil.hxx || exit 1
+
+
 sed -e 's|73114a5c28472e77082ad259113ffafb418ed602c1741f26da3e10278b0bf93e|a88d6cc10ec1322b53a8f4c782b5133135ace0fdfcf03d1624b768788e17be0f|' \
   -i third_party/rust/mp4parse/.cargo-checksum.json
 sed -e 's|880c982df0843cbdff38b9f9c3829a2d863a224e4de2260c41c3ac69e9148ad4|239b3e4d20498f69ed5f94481ed932340bd58cb485b26c35b09517f249d20d11|' \
