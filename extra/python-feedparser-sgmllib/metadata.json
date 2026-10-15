@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/python-syndication/feedparser-sgmllib",
+  "category": "extra",
+  "description": "Provides sgmllib from Python 2",
+  "info": "",
+  "license": "PSF-2.0",
+  "tags": []
+}
