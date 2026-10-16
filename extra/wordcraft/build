@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+cargo fetch --locked --target host-tuple
+cargo build --frozen --release
+
+install -Dm0755 -t "${1}/usr/bin/" "target/release/wordcraft"{,-cli}
+install -Dm0644 -t "${1}/usr/share/applications/" "packaging/linux/ai.storyteller.wordcraft.desktop"
+install -Dm0644 -t "${1}/usr/share/mime/packages/" "packaging/linux/ai.storyteller.wordcraft.mime.xml"
+install -Dm0644 -t "${1}/usr/share/icons/hicolor/scalable/" assets/app-icon/hicolor/scalable/apps/ai.storyteller.wordcraft.svg
+for s in ${_icons[@]}; do
+	local dim="${s}x${s}"
+	install -Dm0644 -t "${1}/usr/share/icons/hicolor/$dim/apps/" assets/app-icon/hicolor/$dim/apps/ai.storyteller.wordcraft.png
+done
