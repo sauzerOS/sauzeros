@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Awakened PoE Trade
-Exec=/opt/awakenedpoe/awakened-poe-trade
+Exec=/opt/awakenedpoe/awakened-poe-trade --ozone-platform=x11
 Terminal=false
 Type=Application
 Icon=awakened-poe-trade
