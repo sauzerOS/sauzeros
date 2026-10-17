@@ -6,6 +6,7 @@ libgcc
 libseccomp
 protobuf
 zlib-ng
+cmake make
 clang make
 llvm make
 llvm-libs make

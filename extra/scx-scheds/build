@@ -2,7 +2,7 @@
 
 export RUSTUP_TOOLCHAIN=stable
 export CARGO_TARGET_DIR=target
-cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+cargo fetch --locked --target "$(rustc --print host-tuple)"
 cargo build                \
   --release                \
   --frozen                 \
@@ -11,6 +11,7 @@ cargo build                \
   --exclude scx_rlfifo     \
   --exclude scx_wd40       \
   --exclude scx_mitosis    \
+  --exclude scx_nitosis    \
   --exclude scxcash        \
   --exclude xtask          \
   --exclude vmlinux_docify \
