@@ -3,3 +3,4 @@ sauzeros-base
 python make
 aarch64-linux-api-headers cross
 aarch64-binutils cross make
+python cross make
