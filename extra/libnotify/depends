@@ -8,4 +8,5 @@ aarch64-gcc cross make
 aarch64-gdk-pixbuf cross make
 aarch64-glib cross make
 aarch64-glibc cross make
+glib cross make
 meson cross make
