@@ -3,5 +3,5 @@ icu
 libgcc
 libstdc++
 libunwind
-openssl
+openssl<4.0 runtime
 zlib-ng
