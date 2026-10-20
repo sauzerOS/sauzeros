@@ -3,3 +3,4 @@ openssl
 smbclient
 zlib-ng
 rust | rustup make
+samba make
