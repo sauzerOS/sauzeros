@@ -1,12 +1,22 @@
-#!/bin/bash -e
-# Refactored make-ca generator for sauzerOS
+#!/bin/bash
+# Refactored make-ca generator for sauzerOS (fixed)
 # Expects certdata.txt in the current directory.
 # Optionally processes local certificates in ./local/
-shopt -s extglob;
+set -e
 
 DESTDIR="$1"
 CERTDATA="./certdata.txt"
 LOCALDIR="./local"
+
+# Refuse to run without these: an empty HOKUTO_BUILD_DIR would turn TEMPDIR
+# into /tmp and the EXIT trap would then rm -rf it.
+: "${DESTDIR:?usage: build DESTDIR ...}"
+: "${HOKUTO_BUILD_DIR:?HOKUTO_BUILD_DIR must be set}"
+
+if [ ! -f "${CERTDATA}" ]; then
+    echo "error: ${CERTDATA} not found in $(pwd)" >&2
+    exit 1
+fi
 
 # Define path constants for the target environment
 PKIDIR="/etc/pki"
@@ -28,7 +38,15 @@ MD5SUM="md5sum"
 OPENSSL="openssl"
 TRUST="trust"
 
-# Detect tool availability in build environment
+# Required tools
+for tool in "${OPENSSL}" "${TRUST}" "${MD5SUM}" awk grep sed; do
+    if ! command -v "${tool}" >/dev/null 2>&1; then
+        echo "error: required tool '${tool}' not found in PATH" >&2
+        exit 1
+    fi
+done
+
+# Detect optional tool availability in build environment
 WITH_NSS=0
 if command -v "${CERTUTIL}" >/dev/null 2>&1; then
     WITH_NSS=1
@@ -49,9 +67,14 @@ fi
 export LANG=en_US.utf8
 
 # Setup build-time temp directory
-TEMPDIR=$HOKUTO_BUILD_DIR/tmp
+TEMPDIR="${HOKUTO_BUILD_DIR}/tmp"
 trap 'rm -rf "${TEMPDIR}"' EXIT
 WORKDIR="${TEMPDIR}/work"
+
+# Expected number of anchors per purpose, counted from the input data, used to
+# verify the extracted bundles at the end.
+SA_COUNT=0
+SM_COUNT=0
 
 mkdir -p "${TEMPDIR}"/{certs,pki/anchors,work}
 
@@ -173,7 +196,8 @@ function get_trust_values() {
   cstrust="$(convert_trust $(grep '^CKA_TRUST_CODE_SIGNING' "${1}" | cut -d " " -f 3))"
   if [ "${WITH_CS}" -eq 1 ]; then
     if [ -z "${cstrust}" ]; then
-      cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C")
+      # grep -q returns 1 when there is no match; don't let set -e kill us
+      cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C" || true)
     fi
   fi
   convert_moz_distrust "${1}"
@@ -228,17 +252,21 @@ function write_anchor() {
 function write_nss_db() {
   "${CERTUTIL}" -d "sql:${1}" -A \
                 -t "${satrust},${smtrust},${cstrust}" \
-                -n "${p11label}" -i "${2}" > /dev/null 2>&1
+                -n "${p11label}" -i "${2}" > /dev/null 2>&1 \
+    || echo "warning: certutil failed to import '${p11label}'" >&2
 }
 
 function write_java_p12() {
+  # Remove an existing alias if present. keytool exits non-zero when the
+  # keystore or the alias doesn't exist yet, which is the normal case on the
+  # first run, so this must not be fatal under set -e.
   "${KEYTOOL}" -delete -noprompt -alias "${p11label}" \
-               -keystore "${1}" -storepass 'changeit' > /dev/null 2>&1
+               -keystore "${1}" -storepass 'changeit' > /dev/null 2>&1 || true
 
   EKU=""
   if [ "${satrust}" = "C" ]; then EKU="serverAuth"; fi
   if [ "${smtrust}" = "C" ]; then
-    if [ -z "${EKU}" ]; then EKU="clientAuth"; else EKU="${EKU},clientAuth"; fi
+    if [ -z "${EKU}" ]; then EKU="emailProtection"; else EKU="${EKU},emailProtection"; fi
   fi
   if [ "${cstrust}" = "C" ]; then
     if [ -z "${EKU}" ]; then EKU="codeSigning"; else EKU="${EKU},codeSigning"; fi
@@ -247,7 +275,8 @@ function write_java_p12() {
   if [ -n "${EKU}" ]; then
     "${KEYTOOL}" -importcert -file "${2}" -storetype PKCS12 \
                  -noprompt -alias "${p11label}" -storepass 'changeit' \
-                 -keystore "${1}" -ext EKU="${EKU}" > /dev/null 2>&1
+                 -keystore "${1}" -ext EKU="${EKU}" > /dev/null 2>&1 \
+      || echo "warning: keytool failed to import '${p11label}'" >&2
   fi
 }
 
@@ -276,6 +305,8 @@ for tempfile in "${TEMPDIR}"/certs/make-ca.*; do
   keyhash="$(${OPENSSL} x509 -noout -in "${tempcrt}" -hash)"
 
   get_trust_values "${tempfile}"
+  if [ "${satrust}" = "C" ]; then SA_COUNT=$((SA_COUNT + 1)); fi
+  if [ "${smtrust}" = "C" ]; then SM_COUNT=$((SM_COUNT + 1)); fi
   get_p11_label "${tempfile}"
   get_p11_trust
 
@@ -297,14 +328,16 @@ for tempfile in "${TEMPDIR}"/certs/make-ca.*; do
 done
 popd > /dev/null 2>&1
 
-# Install anchors to DESTDIR
+# Install anchors to DESTDIR. Start from a clean anchor directory so that
+# stale anchors (e.g. removed CAs) can never leak into the extracted bundles.
+rm -rf "${DESTDIR}${ANCHORDIR}"
 install -dm755 "${DESTDIR}${ANCHORDIR}"
 install -m644 "${TEMPDIR}"/pki/anchors/*.p11-kit "${DESTDIR}${ANCHORDIR}"
 
 # Process optional local certificates
 if [ -d "${LOCALDIR}" ]; then
   echo "Processing local certificates"
-  for cert in $(find "${LOCALDIR}" -name "*.pem"); do
+  while IFS= read -r cert; do
     get_p11_label "${cert}"
     keyhash=$("${OPENSSL}" x509 -noout -in "${cert}" -hash)
     subject=$("${OPENSSL}" x509 -noout -in "${cert}" -subject)
@@ -312,7 +345,8 @@ if [ -d "${LOCALDIR}" ]; then
       p11label=$(echo "${subject}" | grep -o "CN = .*" | sed 's@CN = @@' | cut -d "," -f 1)
     fi
 
-    trustlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Trusted Uses")
+    # grep returns 1 when nothing matches; keep set -e from aborting
+    trustlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Trusted Uses" || true)
     satrust=""
     smtrust=""
     cstrust=""
@@ -322,12 +356,12 @@ if [ -d "${LOCALDIR}" ]; then
     echo "${trustlist}" | grep "Code Signing" > /dev/null 2>&1 && cstrust="C"
     if [ "${WITH_CS}" -eq 1 ]; then
       if [ -z "${cstrust}" ]; then
-        cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C")
+        cstrust=$(grep -q "^${keyhash}" "${CS_FILE}" && echo "C" || true)
       fi
     fi
     echo "${trustlist}" | grep "Client Auth" > /dev/null 2>&1 && catrust="C"
 
-    rejectlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Rejected Uses")
+    rejectlist=$("${OPENSSL}" x509 -in "${cert}" -text -trustout | grep -A1 "Rejected Uses" || true)
     if [ -z "${satrust}" ]; then echo "${rejectlist}" | grep "TLS Web Server" > /dev/null 2>&1 && satrust="p"; fi
     if [ -z "${smtrust}" ]; then echo "${rejectlist}" | grep "E-mail Protection" > /dev/null 2>&1 && smtrust="p"; fi
     if [ -z "${cstrust}" ]; then echo "${rejectlist}" | grep "Code Signing" > /dev/null 2>&1 && cstrust="p"; fi
@@ -339,6 +373,9 @@ if [ -d "${LOCALDIR}" ]; then
 
     get_p11_trust
 
+    if [ "${satrust}" = "C" ]; then SA_COUNT=$((SA_COUNT + 1)); fi
+    if [ "${smtrust}" = "C" ]; then SM_COUNT=$((SM_COUNT + 1)); fi
+
     anchorfile="${DESTDIR}${ANCHORDIR}/${keyhash}.p11-kit"
     moz_trust="false"
     mozsadistrust="UNKNOWN"
@@ -348,18 +385,20 @@ if [ -d "${LOCALDIR}" ]; then
     tempcert=$(mktemp "${TEMPDIR}/certs/make-ca-local-pem.XXXXXX")
     "${OPENSSL}" x509 -in "${cert}" -text -fingerprint > "${tempcert}"
 
+    # Write into the build-time stores (the final ones are installed from
+    # TEMPDIR below and would otherwise wipe anything written to DESTDIR now).
     if [ "${WITH_NSS}" -eq 1 ]; then
-      write_nss_db "${DESTDIR}${NSSDB}" "${tempcert}"
+      write_nss_db "${TEMPDIR}/pki/nssdb" "${tempcert}"
     fi
 
     if [ "${WITH_P12}" -eq 1 ]; then
-      write_java_p12 "${DESTDIR}${KEYSTORE}/cacerts.p12" "${tempcert}"
+      write_java_p12 "${TEMPDIR}/ssl/java/cacerts.p12" "${tempcert}"
     fi
 
     rm -f "${tempcert}"
     unset tempcert keyhash certkey certcer certtxt anchorfile
     unset satrust smtrust cstrust catrust rejectlist trustlist p11label p11trust p11oid p11value
-  done
+  done < <(find "${LOCALDIR}" -name "*.pem")
 fi
 
 # Copy certdata.txt to final target directory
@@ -372,11 +411,24 @@ install -m644 "${CERTDATA}" "${DESTDIR}${SSLDIR}/certdata.txt"
 # Setup target directory paths
 install -dm755 "${DESTDIR}${CERTDIR}" "${DESTDIR}${BUNDLEDIR}" "${DESTDIR}${KEYSTORE}"
 
-# Setup environment overrides for p11-kit to isolate extraction
-export P11_KIT_TRUST_PATHS="${DESTDIR}${ANCHORDIR}"
-export P11_KIT_SYSTEM_CONFIG="${TEMPDIR}/pkcs11"
-export P11_KIT_USER_CONFIG="${TEMPDIR}/pkcs11-user"
-mkdir -p "${P11_KIT_SYSTEM_CONFIG}" "${P11_KIT_USER_CONFIG}"
+# Make "trust extract" read ONLY the anchors generated above.
+# p11-kit's trust module has a compiled-in anchor path (/etc/pki/anchors) and
+# ignores P11_KIT_TRUST_PATHS, so unless it is redirected it extracts the
+# bundles from whatever package is currently installed on the build host.
+# A per-user module config with the same file name as the system one overrides
+# it and can set the module's "paths" argument. HOME/XDG_CONFIG_HOME are
+# pointed at a scratch dir so the real user config is never touched.
+export HOME="${TEMPDIR}/home"
+export XDG_CONFIG_HOME="${HOME}/.config"
+mkdir -p "${XDG_CONFIG_HOME}/pkcs11/modules"
+cat > "${XDG_CONFIG_HOME}/pkcs11/modules/p11-kit-trust.module" <<EOF
+module: p11-kit-trust.so
+priority: 1
+trust-policy: yes
+x-trust-lookup: pkcs11:library-description=PKCS%2311%20Kit%20Trust%20Module
+disable-in: p11-kit-proxy
+x-init-reserved: paths=${DESTDIR}${ANCHORDIR}
+EOF
 
 # Extract target-specific certificate bundles from generated anchors
 echo "Extracting OpenSSL certificates"
@@ -412,16 +464,33 @@ if [ "${WITH_NSS}" -eq 1 ]; then
       -e 's/library=/library=libnsssysinit.so/'          \
       -e 's/Flags=internal/Flags=internal,moduleDBOnly/' \
       -i "${TEMPDIR}/pki/nssdb/pkcs11.txt"
-  test -d "${DESTDIR}${NSSDB}" && rm -rf "${DESTDIR}${NSSDB}"
-  install -dm755 "${DESTDIR}${NSSDB}" > /dev/null 2>&1
+  rm -rf "${DESTDIR}${NSSDB}"
+  install -dm755 "${DESTDIR}${NSSDB}"
   install -m644 "${TEMPDIR}"/pki/nssdb/{cert9.db,key4.db,pkcs11.txt} \
                  "${DESTDIR}${NSSDB}"
 fi
 
 # Write Java PKCS#12 store if generated
-if [ "${WITH_P12}" -eq 1 ]; then
-  test -f "${DESTDIR}${KEYSTORE}/cacerts.p12" && rm -f "${DESTDIR}${KEYSTORE}/cacerts.p12"
+if [ "${WITH_P12}" -eq 1 ] && [ -f "${TEMPDIR}/ssl/java/cacerts.p12" ]; then
+  rm -f "${DESTDIR}${KEYSTORE}/cacerts.p12"
   install -m644 "${TEMPDIR}/ssl/java/cacerts.p12" "${DESTDIR}${KEYSTORE}/cacerts.p12"
+fi
+
+# Sanity checks: fail the build rather than ship a wrong trust store.
+# The extracted bundles must contain exactly the CAs that certdata.txt (plus
+# ./local) marks as trusted for that purpose. A mismatch means "trust extract"
+# read anchors from somewhere other than DESTDIR (e.g. the host's installed
+# package). Note: a local cert identical to a Mozilla one is deduplicated by
+# p11-kit and would trigger a false mismatch.
+SA_GOT=$(grep -c 'BEGIN CERTIFICATE' "${DESTDIR}${CABUNDLE}" || true)
+SM_GOT=$(grep -c 'BEGIN CERTIFICATE' "${DESTDIR}${SMBUNDLE}" || true)
+echo "server-auth bundle: ${SA_GOT} certificates (expected ${SA_COUNT})"
+echo "email bundle:       ${SM_GOT} certificates (expected ${SM_COUNT})"
+
+if [ "${SA_GOT}" -ne "${SA_COUNT}" ] || [ "${SM_GOT}" -ne "${SM_COUNT}" ]; then
+  echo "error: extracted bundles do not match certdata.txt; trust extract is" >&2
+  echo "       probably not reading the anchors in ${DESTDIR}${ANCHORDIR}." >&2
+  exit 1
 fi
 
 echo "Certificate generation complete."
