@@ -4,10 +4,10 @@ export RUSTUP_TOOLCHAIN=stable
 cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
 # lzip.so
-pushd "lua/libs/lzip"
-make LUA_IMPL=luajit
-make DESTDIR="${1}" install
-popd
+#pushd "lua/libs/lzip"
+#make LUA_IMPL=luajit
+#make DESTDIR="${1}" install
+#popd
 
 # build runtime binary
 export RUSTUP_TOOLCHAIN=stable
