@@ -8,16 +8,6 @@ export LDFLAGS="$LDFLAGS -fno-semantic-interposition"
 # Use CROSS_PREFIX if set (defaults to /usr in hokuto)
 PREFIX="${CROSS_PREFIX:-/usr}"
 
-# Python 3.11+ can use a host python for building, but only one of the same
-# major.minor version: configure refuses 3.14 for building 3.15. Across a
-# version bump the native build bootstraps with its own _bootstrap_python
-# instead.
-want_version="$(echo "$2" | cut -d. -f1,2)"
-if hokuto check python && command -v python3 >/dev/null 2>&1 &&
-    [ "$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')" = "$want_version" ]; then
-      OPTS="--with-build-python=python3"
-fi
-
 # Determine build strategy
 if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
     # HOKUTO_ARCH is already normalized to e.g. aarch64/x86_64
@@ -50,26 +40,25 @@ rm -r Modules/expat
     --with-system-expat
 
 make EXTRA_CFLAGS="$CFLAGS -DTHREAD_STACK_SIZE=0x100000"
-make DESTDIR=$1 install
 
-# make install runs ensurepip with --root, and pip skips itself when the same
-# version is installed on the build system (and a cross build never got it):
-# packages shipped without pip. Install the bundled wheel ignoring what is
-# installed, with the staged python, or in a cross build the host python,
-# which has the same version.
-site="$1$PREFIX/lib/python$want_version/site-packages"
-if [[ ! -d "$site/pip" ]]; then
-    if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
-        build_python=(python3 -I)
-    else
-        build_python=(env LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -I)
-    fi
-    pip_wheel=$(echo Lib/ensurepip/_bundled/pip-*.whl)
-    "${build_python[@]}" "$pip_wheel/pip" install --no-index --no-deps \
-        --ignore-installed --no-compile --no-warn-script-location \
-        --root "$1" --prefix "$PREFIX" "$pip_wheel"
-    "${build_python[@]}" -m compileall -q -f -s "$1" -p / "$site/pip"
+# ENSUREPIP=no: the built ./python resolves its prefix to the host's /usr, so
+# ensurepip sees the host's installed pip and tries to upgrade/uninstall it
+# (EACCES on /usr/bin/pip). pip is installed explicitly below instead.
+make DESTDIR="$1" ENSUREPIP=no install
+
+# Install the bundled pip wheel ignoring whatever is installed on the host,
+# using the staged python (native) or the host python of the same version (cross).
+site=$(echo "$1$PREFIX"/lib/python3.*/site-packages)
+if [[ "${HOKUTO_CROSS:-0}" == "1" ]]; then
+    build_python=(python3 -I)
+else
+    build_python=(env LD_LIBRARY_PATH="$1$PREFIX/lib" "$1$PREFIX/bin/python3" -I)
 fi
+pip_wheel=$(echo Lib/ensurepip/_bundled/pip-*.whl)
+"${build_python[@]}" "$pip_wheel/pip" install --no-index --no-deps \
+    --ignore-installed --no-compile --no-warn-script-location \
+    --root "$1" --prefix "$PREFIX" "$pip_wheel"
+"${build_python[@]}" -m compileall -q -f -s "$1" -p / "$site/pip"
 
 ln -sf python3 "$1$PREFIX/bin/python"
 if [[ -f "$1$PREFIX/bin/pip3" ]]; then
@@ -80,10 +69,9 @@ fi
 # We want them to point to the actual install location (e.g. /usr/bin/python3)
 for pip_bin in "$1$PREFIX/bin/pip"*; do
     if [[ -f "$pip_bin" ]]; then
-        # Replace the first line if it looks like a python shebang
         sed -i "1s|^#!.*python.*|#!$PREFIX/bin/python3|" "$pip_bin"
     fi
 done
 
 # remove tests
-rm -rf $1/usr/lib/python*/{test,idlelib/idle_test}
+rm -rf "$1$PREFIX"/lib/python*/{test,idlelib/idle_test}
