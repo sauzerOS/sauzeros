@@ -3,3 +3,5 @@ python make
 xorg-xkbcomp make
 aarch64-linux-api-headers cross
 aarch64-gcc cross make
+meson cross make
+python cross make
