@@ -1,13 +1,14 @@
-linux-firmware-amdgpu
-linux-firmware-atheros
-linux-firmware-broadcom
-linux-firmware-cirrus
-linux-firmware-intel
-linux-firmware-mediatek
-linux-firmware-nvidia
-linux-firmware-other
-linux-firmware-radeon
-linux-firmware-realtek
+linux-firmware-amdgpu runtime
+linux-firmware-atheros runtime
+linux-firmware-broadcom runtime
+linux-firmware-cirrus runtime
+linux-firmware-intel runtime
+linux-firmware-mediatek runtime
+linux-firmware-nvidia runtime
+linux-firmware-other runtime
+linux-firmware-radeon runtime
+linux-firmware-realtek runtime
 git make
 parallel make
+python make
 rdfind make
