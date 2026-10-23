@@ -1,8 +1,8 @@
-alsa-lib
-gtk+3
-libcups
-libxss
-libxtst
-nss
-xdg-utils
+alsa-lib runtime
+gtk+3 runtime
+libcups runtime
+libxss runtime
+libxtst runtime
+nss runtime
+xdg-utils runtime
 binutils make
