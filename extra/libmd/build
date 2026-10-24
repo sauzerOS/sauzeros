@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+./configure --prefix=/usr
+
+make
+make DESTDIR="${1}" install
+
+if [ "$MULTILIB" = "1" ]; then
+#32bit split package
+make distclean
+CC="gcc -m32" CXX="g++ -m32" ./configure \
+    --host=i686-pc-linux-gnu \
+    --prefix=/usr            \
+    --libdir=/usr/lib32      \
+    --disable-static         \
+    --with-gcc-arch=i686
+
+make
+make DESTDIR=$PWD/DESTDIR install
+dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
+install -d $dest_dir/usr/lib32
+cp -Rv DESTDIR/usr/lib32/* $dest_dir/usr/lib32
+fi

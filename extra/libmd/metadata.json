@@ -1,0 +1,8 @@
+{
+  "url": "https://www.hadrons.org/software/libmd/",
+  "category": "extra",
+  "description": "Message Digest functions from BSD systems",
+  "info": "",
+  "license": "BSD-3-Clause AND BSD-2-Clause AND ISC AND Beerware AND CC-PDM-1.0",
+  "tags": []
+}
