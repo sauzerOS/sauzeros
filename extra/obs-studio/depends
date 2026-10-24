@@ -2,12 +2,12 @@ curl
 ffmpeg
 gtk-update-icon-cache
 jansson
+libpipewire
 libxcomposite
 libxinerama
 libxkbcommon
 mbedtls<4
 pciutils
-pipewire
 python
 qrcodegencpp
 qt-svg

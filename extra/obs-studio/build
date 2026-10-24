@@ -16,7 +16,7 @@ cmake -B build  \
     -D ENABLE_QSV11=OFF \
     -D OBS_VERSION_OVERRIDE="$2" \
     -D ENABLE_WEBSOCKET=ON \
-    -Wno-dev
+    -W no-author
 
 cmake --build build
 DESTDIR="$1" cmake --install build
