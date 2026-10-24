@@ -1,0 +1,8 @@
+{
+  "url": "https://libbsd.freedesktop.org",
+  "category": "extra",
+  "description": "Provides useful functions commonly found on BSD systems like strlcpy()",
+  "info": "",
+  "license": "custom",
+  "tags": []
+}
