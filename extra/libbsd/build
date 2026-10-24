@@ -1,11 +1,29 @@
 #!/bin/bash -e
 
-autoreconf -vfi
+PREFIX="${CROSS_PREFIX:-/usr}"
+CROSS_OPTS=""
+if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
+    HOST_TRIPLET="${HOKUTO_ARCH}-linux-gnu"
+    [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
+    [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
+    CROSS_OPTS="--host=$HOST_TRIPLET"
+fi
+
+./autogen
 CFLAGS+=' -ffat-lto-objects' \
-./configure --prefix=/usr
+./configure \
+    --prefix="$PREFIX" \
+    $CROSS_OPTS
 
 make
 make DESTDIR="${1}" install
+
+# libbsd.so is a linker script with absolute paths. Inside a sysroot, ld
+# re-roots them, so strip the cross prefix and leave sysroot-relative paths.
+if [ "${HOKUTO_CROSS:-0}" = "1" ] && [ "$PREFIX" != "/usr" ]; then
+    find "${1}" -name 'libbsd.so' -type f \
+        -exec sed -i "s|${PREFIX}/lib/|/usr/lib/|g" {} +
+fi
 
 # included now in man-pages, FS#53351
 rm -f "${1}"/usr/share/man/man3/explicit_bzero.3
