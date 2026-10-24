@@ -1,5 +1,7 @@
 alsa-lib
+libbsd
 lib32-alsa-lib make
+lib32-libbsd make
 aarch64-gcc cross make
 aarch64-alsa-lib cross
 aarch64-glibc cross

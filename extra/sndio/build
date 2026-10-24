@@ -21,8 +21,8 @@ install -d $pkgdir
   --prefix='/usr' \
   --libdir='/usr/lib32' \
   --includedir='/usr/include/sndio32' \
-  --enable-alsa \
-  --without-libbsd
+  --enable-alsa
+
 make
 make DESTDIR="$pkgdir" install
 install -D -m644 "contrib/default.sndiod" "${pkgdir}/etc/default/sndiod32"
