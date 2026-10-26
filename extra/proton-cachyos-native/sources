@@ -1,4 +1,4 @@
-git+https://github.com/CachyOS/proton-cachyos.git#cachyos-11.0-20261005-native proton-cachyos
+git+https://github.com/CachyOS/proton-cachyos.git#cachyos-11.0-20261015-native proton-cachyos
 git+https://github.com/CachyOS/wine-cachyos.git#b7468670bf53ec1881784886183df41bb11d8afd&depth=1 proton-cachyos/wine
 git+https://github.com/mesonbuild/meson.git#53d4f7dc2dee749a973c9caa102473802644a386&depth=1 proton-cachyos/meson
 git+https://github.com/SveSop/nvcuda.git#8982084679efc390d217a7f67553f1e319eefe10&depth=1 -> nvcuda-8982084679ef proton-cachyos/nvidia-libs/nvcuda
