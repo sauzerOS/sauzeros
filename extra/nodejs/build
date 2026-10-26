@@ -1,5 +1,17 @@
 #!/bin/bash -e
 
+# TEMP WORKAROUND: system ICU 79 crashes gen-regexp-special-case
+# (Check failed: ch <= 0xffff). Using bundled small-icu until Node supports ICU 79.
+# When this fails: check whether the new Node release builds with system-icu,
+# then delete this block and restore --with-intl=system-icu.
+ICU_WORKAROUND_NODE_VERSION="26.12.1"   # the exact version you're building now
+
+if [ "$2" != "$ICU_WORKAROUND_NODE_VERSION" ]; then
+    echo "ERROR: Node is now $version (workaround was for $ICU_WORKAROUND_NODE_VERSION)." >&2
+    echo "Re-test --with-intl=system-icu, then remove the ICU workaround." >&2
+    exit 1
+fi
+
 # Node.js configure expects specific names for CPUs
 # mapping: aarch64 -> arm64, x86_64 -> x64
 DEST_CPU="$HOKUTO_CARCH"
@@ -22,7 +34,7 @@ CONF_ARGS="--prefix=$CROSS_PREFIX \
            --shared-cares   \
            --shared-zstd    \
            --shared-ffi     \
-           --with-intl=system-icu \
+           --with-intl=small-icu \
            --experimental-enable-pointer-compression"
 
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -36,9 +48,6 @@ else
 fi
 
 make
-# Debug built files location
-find out -name node -type f
-
 make install DESTDIR="$1"
 
 # npm split package
