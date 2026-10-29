@@ -1,5 +1,6 @@
 python
 python-build make
-python-installer make
+python-hatch-fancy-pypi-readme make
 python-hatchling make
 python-hatch-vcs make
+python-installer make
