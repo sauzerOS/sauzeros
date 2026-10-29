@@ -2,7 +2,7 @@ ac_add_options --enable-application=comm/mail
 
 ac_add_options --prefix=/usr
 ac_add_options --enable-release
-ac_add_options --enable-linker=lld
+ac_add_options --enable-linker=mold
 ac_add_options --enable-hardening
 ac_add_options --enable-optimize
 ac_add_options --enable-rust-simd
@@ -13,6 +13,7 @@ ac_add_options --with-wasi-sysroot=/usr/share/wasi-sysroot
 # debug pkg
 ac_add_options --disable-install-strip
 ac_add_options --disable-bootstrap
+ac_add_options --disable-debug-symbols
 
 # Branding
 ac_add_options --enable-official-branding

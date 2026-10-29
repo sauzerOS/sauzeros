@@ -41,9 +41,9 @@ diffutils make
 libice make
 libpulse make
 libsm make
-lld make
 llvm make
 mesa make
+mold make
 nasm make
 nodejs make
 perl make
