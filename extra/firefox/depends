@@ -37,9 +37,9 @@ cbindgen make
 clang make
 diffutils make
 libpipewire make
-lld make
 llvm make
 mesa make
+mold make
 nasm make
 nodejs make
 python make
@@ -62,8 +62,8 @@ wasi-libc++ crossnative make
 # Host-side build tools a cross build still needs on the build machine.
 cbindgen crossnative make
 clang crossnative make
-lld crossnative make
 llvm crossnative make
+mold crossnative make
 nasm crossnative make
 nodejs crossnative make
 python crossnative make
