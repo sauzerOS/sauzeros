@@ -14,4 +14,4 @@ pixman
 wayland
 zlib-ng
 blueprint-compiler make
-zig-bin<0.16 make 
+zig-bin make 
