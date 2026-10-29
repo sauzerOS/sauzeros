@@ -6,6 +6,11 @@
   },
   "modules": [
     "os",
+  {
+      "type": "command",
+      "key": "Install Age",
+      "text": "echo $(( ( $(date +%s) - $(stat -c %W /) ) / 86400 )) days"
+    },
     "kernel",
     "uptime",
     "packages",
