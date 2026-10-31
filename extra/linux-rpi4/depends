@@ -1,2 +1,4 @@
+raspberrypi-firmware runtime
 bc cross make
 aarch64-gcc cross make
+
