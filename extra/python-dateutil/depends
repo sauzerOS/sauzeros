@@ -1,5 +1,7 @@
 python
 python-six
 python-build make
+python-hatch-fancy-pypi-readme make
+python-hatch-vcs make
 python-installer make
 python-setuptools-scm make
