@@ -28,3 +28,4 @@ cmake make
 extra-cmake-modules make
 intltool make
 ladspa make
+libpipewire make
