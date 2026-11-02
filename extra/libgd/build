@@ -2,6 +2,7 @@
 
 ./bootstrap.sh
 ./configure --prefix=/usr \
+  --host=$HOKUTO_ARCH \
   --disable-rpath
 
 make

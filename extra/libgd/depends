@@ -2,3 +2,8 @@ fontconfig
 libheif
 libwebp
 libxpm
+aarch64-gcc cross make
+aarch64-libheif cross
+aarch64-libwebp cross
+aarch64-libxpm cross
+fontconfig cross make
