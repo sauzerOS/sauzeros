@@ -2,7 +2,7 @@
 
 set -e
 
-kernel_pkg=linux
+kernel_pkg=linux-rpi4
 version_file="/var/db/hokuto/installed/$kernel_pkg/version"
 if [ ! -f "$version_file" ]; then
     echo "Error: $version_file not found."
