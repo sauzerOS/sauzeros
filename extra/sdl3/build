@@ -33,5 +33,5 @@ cmake --build build
 DESTDIR=tmp32dir cmake --install build
 rm -rf tmp32dir/usr/{bin,include,share}
 dest_dir="$HOKUTO_SPLIT_DIR/lib32-$3"
-rsync -a tmp32dir/* $dest_dir/
+cp -a tmp32dir/* $dest_dir/
 fi
