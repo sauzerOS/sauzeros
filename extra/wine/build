@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 # Apply flags for cross-compilation
-export CROSSCFLAGS="-O2 -pipe -g"
-export CROSSCXXFLAGS="-O2 -pipe -g"
+export CROSSCFLAGS="-O2 -pipe"
+export CROSSCXXFLAGS="-O2 -pipe"
 export CROSSLDFLAGS="-Wl,-O1"
 
 mkdir wine-64-build
@@ -17,3 +17,16 @@ make
 make prefix="$1/usr" \
      libdir="$1/usr/lib" \
      dlldir="$1/usr/lib/wine" install
+
+# Strip PE binaries with the matching mingw tools
+find "$1/usr/lib/wine/x86_64-windows" -type f \
+    \( -name '*.dll' -o -name '*.exe' -o -name '*.sys' -o -name '*.drv' \
+       -o -name '*.ocx' -o -name '*.acm' -o -name '*.ax' -o -name '*.cpl' \
+       -o -name '*.tlb' -o -name '*.vxd' \) \
+    -exec x86_64-w64-mingw32-strip --strip-unneeded {} + 2>/dev/null || true
+
+find "$1/usr/lib/wine/i386-windows" -type f \
+    \( -name '*.dll' -o -name '*.exe' -o -name '*.sys' -o -name '*.drv' \
+       -o -name '*.ocx' -o -name '*.acm' -o -name '*.ax' -o -name '*.cpl' \
+       -o -name '*.tlb' -o -name '*.vxd' \) \
+    -exec i686-w64-mingw32-strip --strip-unneeded {} + 2>/dev/null || true
