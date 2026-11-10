@@ -2,14 +2,14 @@ python
 python cross
 python-editables
 python-editables cross
+python-hatch-fancy-pypi-readme
+python-hatch-fancy-pypi-readme cross
 python-packaging
 python-packaging cross
 python-pathspec
 python-pathspec cross
 python-pluggy
 python-pluggy cross
-fancy-pypi-readme
-fancy-pypi-readme cross
 python-tomlkit
 python-tomlkit cross
 python-trove-classifiers

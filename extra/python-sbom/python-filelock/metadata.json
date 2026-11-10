@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/tox-dev/filelock",
+  "category": "extra",
+  "description": "A platform-independent file lock",
+  "info": "",
+  "license": "MIT",
+  "tags": [
+    "python"
+  ]
+}

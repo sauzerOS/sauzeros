@@ -5,6 +5,9 @@ python-hatch-vcs make
 python-hatchling make
 python-installer make
 python-packaging make
+python-packageurl-python make
+python-sbom make
+python-zipremove make
 python cross make
 python-build cross make
 python-hatch-fancy-pypi-readme cross make
@@ -12,3 +15,6 @@ python-hatch-vcs cross make
 python-hatchling cross make
 python-installer cross make
 python-packaging cross make
+python-packageurl-python cross make
+python-sbom cross make
+python-zipremove cross make

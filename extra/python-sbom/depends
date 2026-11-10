@@ -1,0 +1,18 @@
+python
+python-build make
+python-hatchling make
+python-hatch-vcs make
+python-packaging make
+python-installer make
+python-setuptools make
+python-packageurl-python make
+python-zipremove make
+python cross
+python-build cross make
+python-hatchling cross make
+python-hatch-vcs cross make
+python-packaging cross make
+python-installer cross make
+python-setuptools cross make
+python-packageurl-python cross make
+python-zipremove cross make
