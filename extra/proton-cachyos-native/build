@@ -124,22 +124,21 @@ rsync --delete -arx "$dist_dir/" "${_tool_dir}/"
 install -Dm644 "$recipe_dir/ntsync.conf" \
     "${1}/usr/lib/modules-load.d/10-proton-cachyos-native.conf"
 
-cd "${_tool_dir}/files"
+# Strip debug info from all Windows (PE) binaries in the tool dir
+_strip_pe() {
+    local f
+    while IFS= read -r -d '' f; do
+        case "$(file -b "$f")" in
+            *"Mono/.Net assembly"*) continue ;;   # managed code, nothing for strip to do
+            PE32+*) x86_64-w64-mingw32-strip --strip-debug "$f" || echo "strip failed: $f" ;;
+            PE32*)  i686-w64-mingw32-strip   --strip-debug "$f" || echo "strip failed: $f" ;;
+        esac
+    done < <(find "$1" -type f \( \
+        -iname '*.dll' -o -iname '*.exe' -o -iname '*.sys' -o -iname '*.drv' -o \
+        -iname '*.ocx' -o -iname '*.acm' -o -iname '*.ax'  -o -iname '*.cpl' -o \
+        -iname '*.scr' -o -iname '*.ds'  -o -iname '*.vxd' \) -print0)
+}
 
-_geckodir="share/wine/gecko/wine-gecko-2.47.4"
-i686-w64-mingw32-strip --strip-debug \
-    $(find "${_geckodir}"-x86 -iname "*.dll" -or -iname "*.exe")
-x86_64-w64-mingw32-strip --strip-debug \
-    $(find "${_geckodir}"-x86_64 -iname "*.dll" -or -iname "*.exe")
-
-_monodir="share/wine/mono/wine-mono-11.3.0"
-i686-w64-mingw32-strip --strip-debug \
-    $(find "${_monodir}"/lib/mono -iname "*.dll" -or -iname "*.exe")
-i686-w64-mingw32-strip --strip-debug \
-    "${_monodir}"/lib/x86/*.dll \
-    $(find "${_monodir}" -iname "*x86.dll" -or -iname "*x86.exe")
-x86_64-w64-mingw32-strip --strip-debug \
-    "${_monodir}"/lib/x86_64/*.dll \
-    $(find "${_monodir}" -iname "*x86_64.dll" -or -iname "*x86_64.exe")
+_strip_pe "${_tool_dir}"
 
 sed -i '/^[[:space:]]*"unlisted"[[:space:]]/d' "${_tool_dir}/toolmanifest.vdf"
