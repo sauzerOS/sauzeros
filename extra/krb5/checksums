@@ -1,4 +1,2 @@
 c91555750bf733aec4ecb9d804c7fd302fb7f26eb9f83c188ba9b65f8157f80a  krb5-1.22.3.tar.gz
-79224651d62ae3132bf04ac3e6309ed45c16349a70b35e05b5a71d9dc4bd6dc9  mitkrb-1.22.2-openssl_4_fixes-1.patch
-b9cf345f3f53f5a9f8cc59881cd04d4daf8165bd89e9c551b40887ad05bf5cbc  mitkrb-1.22.2-security_fix-1.patch
-db627257fc6c756f9d7336526c04f73cee6737097c5466053c0f7ed8a188fada  mitkrb-1.22.2-upstream_fix-1.patch
+2122a5d9f30132c695b1cf9a244c2c8864414705b085285e0ad97b7beec686b3  mitkrb-1.22.3-openssl_4_fixes-1.patch

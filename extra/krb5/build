@@ -10,9 +10,8 @@ fi
 
 export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all -std=gnu17"
 
-patch -Np1 -i mitkrb-1.22.2-openssl_4_fixes-1.patch
-patch -Np1 -i mitkrb-1.22.2-security_fix-1.patch
-patch -Np1 -i mitkrb-1.22.2-upstream_fix-1.patch
+# openssl 4 fix
+patch -Np1 -i mitkrb-1.22.3-openssl_4_fixes-1.patch
 
 CONF_OPTS=()
 if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
@@ -40,7 +39,6 @@ cd src
             --with-system-et \
             --with-system-ss \
             --disable-rpath \
-            --without-tcl \
             "${CONF_OPTS[@]}"
 make
 make DESTDIR="${1}" install
