@@ -16,6 +16,7 @@ nettle
 pixman
 systemd-libs
 xf86-input-libinput runtime
+xorg-server-common runtime
 xorg-xkbcomp
 libx11 make
 libxaw make

@@ -33,3 +33,7 @@ xorg=$(cd "$1" && find . -path '*/bin/Xorg' -type f | head -n1)
 [ -n "$xorg" ]
 xorg=${xorg#./}
 ln -s ../bin/Xorg "$1/${xorg%/bin/Xorg}/lib/Xorg"
+
+# xorg-server-common
+_pick xorg-server-common $1/usr/lib/xorg/protocol.txt
+_pick xorg-server-common $1/usr/share/man/man1/Xserver.1
