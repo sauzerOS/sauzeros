@@ -13,7 +13,7 @@ mesa
 nettle
 pixman
 wayland
-xorg-server
+xorg-server-common runtime
 dbus make
 libxkbfile make
 meson make
