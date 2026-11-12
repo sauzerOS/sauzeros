@@ -4,7 +4,7 @@
 # (Check failed: ch <= 0xffff). Using bundled small-icu until Node supports ICU 79.
 # When this fails: check whether the new Node release builds with system-icu,
 # then delete this block and restore --with-intl=system-icu.
-ICU_WORKAROUND_NODE_VERSION="26.12.1"   # the exact version you're building now
+ICU_WORKAROUND_NODE_VERSION="26.13.0"   # the exact version you're building now
 
 if [ "$2" != "$ICU_WORKAROUND_NODE_VERSION" ]; then
     echo "ERROR: Node is now $version (workaround was for $ICU_WORKAROUND_NODE_VERSION)." >&2
