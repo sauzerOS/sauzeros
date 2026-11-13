@@ -8,3 +8,8 @@ hokuto-meson build \
 
 meson compile -C build
 meson install -C build --destdir=$1
+
+# xorg-server-common file /usr/lib/xorg/protocol.txt
+rm "${1}"/usr/lib/xorg/protocol.txt
+rmdir "${1}"/usr/lib/xorg
+rm "${1}"/usr/share/man/man1/Xserver.1
