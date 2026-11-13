@@ -1,7 +1,7 @@
 5bedb0c18db7b23cf23356cc2cf0fd08e218c221e3841d1dddaeb26fd69957e9  rustc-1.100.0-src.tar.xz
-7e512db4331e6d42358ef75fb917978a64425f7e4ec16ee0c7e270a9850391cd  rust-std-1.98.0-x86_64-unknown-linux-gnu.tar.xz
-cb0b09126ddee3ebe3f8e367bf19c1a4154bceaa9e9089c53b24adb6ef6bd560  rustc-1.98.0-x86_64-unknown-linux-gnu.tar.xz
-3e2b198fe82ab3c179944928f88adf4e697bd3a7a0b2bea7b7ec3debc725f67b  cargo-1.98.0-x86_64-unknown-linux-gnu.tar.xz
+2a0965388e9c980a62c5f357a719c30d705e9475d150fa6035a1333da51f6bc4  rust-std-1.99.0-x86_64-unknown-linux-gnu.tar.xz
+9af56702d62184334f3022044b30e0b329fd8f9b76af14d2f6914b2ad9ceeab6  rustc-1.99.0-x86_64-unknown-linux-gnu.tar.xz
+490b0d86d374824e3dd1f672e05b181a84f37fe7285562c853a852230c204c37  cargo-1.99.0-x86_64-unknown-linux-gnu.tar.xz
 5c204886b4baee565c56185de8f960f925eb2bb030250536eb58c1d6da53ee3d  159310.patch
 c28c454f8f9c44ef57a98ccd65fd9bced99680b0264194b2b8232cffb2ade548  amx-tf32-removal.patch
 14a30ae3a028a9952ccd97c077a7aeb37bc99c9809e24e9c4189469b05433e8e  bootstrap-amd64-multi.toml
