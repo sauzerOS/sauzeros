@@ -35,6 +35,7 @@ python-ply make
 python-pycparser make
 python-pyyaml make
 systemd-libs make
+venus-protocol make
 vulkan-icd-loader make
 wayland-protocols make
 xcb-util-keysyms make

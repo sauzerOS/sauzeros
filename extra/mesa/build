@@ -47,7 +47,7 @@ hokuto-meson build             \
     -D libunwind=disabled      \
     -D glvnd=enabled           \
     -D vulkan-drivers="amd,intel,intel_hasvk,swrast,virtio,broadcom" \
-    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
+    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,vram-report-limit \
     -D vulkan-manifest-per-architecture=false \
     -D gallium-drivers="crocus,i915,iris,llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
     -D gallium-extra-hud=true  \
@@ -125,7 +125,7 @@ hokuto-meson-32 build          \
     -D libunwind=disabled      \
     -D glvnd=enabled           \
     -D vulkan-drivers="amd,intel,intel_hasvk,swrast,virtio,broadcom" \
-    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,anti-lag,vram-report-limit \
+    -D vulkan-layers=device-select,intel-nullhw,overlay,screenshot,vram-report-limit \
     -D vulkan-manifest-per-architecture=false \
     -D gallium-drivers="crocus,i915,iris,llvmpipe,radeonsi,softpipe,svga,v3d,vc4,virgl,zink"  \
     -D gallium-extra-hud=true  \
