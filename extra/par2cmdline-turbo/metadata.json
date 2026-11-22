@@ -1,8 +1,12 @@
 {
-  "url": "https://github.com/BlackIkeEagle/par2cmdline",
+  "url": "https://github.com/animetosho/par2cmdline-turbo",
   "category": "extra",
   "description": "A PAR 2.0 compatible file verification and repair tool",
   "info": "",
   "license": "GPL-2.0-or-later",
-  "tags": []
+  "tags": [
+    "archive",
+    "cli",
+    "utility"
+  ]
 }
