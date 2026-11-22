@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# For lib32-mesa
+git apply 0001-install-pkg-config-file-into-datadir.patch
+
+# Build phase
+hokuto-meson build
+meson compile -C build
+meson install -C build --destdir "${1}"

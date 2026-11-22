@@ -1,0 +1,8 @@
+{
+  "url": "https://gitlab.freedesktop.org/virgl/venus-protocol",
+  "category": "extra",
+  "description": "Vulkan protocol for Virtio-GPU (Venus)",
+  "info": "",
+  "license": "MIT",
+  "tags": []
+}

@@ -1,0 +1,3 @@
+git make
+meson make
+python-mako make
