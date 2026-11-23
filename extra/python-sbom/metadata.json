@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/tox-dev/python-sbom",
+  "category": "extra",
+  "description": "SBOMs for Python distributions: write PEP 770 CycloneDX SBOMs into wheels",
+  "info": "",
+  "license": "",
+  "tags": [
+    "python"
+  ]
+}
