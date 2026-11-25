@@ -13,7 +13,6 @@ fi
     --prefix="$PREFIX" \
     --enable-shared \
     --enable-static \
-    --enable-mini-gmp \
     --disable-documentation \
     $CROSS_OPTS
 
@@ -28,7 +27,6 @@ PKG_CONFIG_PATH=/usr/lib32/pkgconfig \
 ./configure --prefix=/usr            \
             --libdir=/usr/lib32      \
             --host=i686-pc-linux-gnu \
-            --enable-mini-gmp        \
             --disable-static         \
             --disable-tests
 
