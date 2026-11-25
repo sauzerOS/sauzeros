@@ -8,6 +8,9 @@ if [ "${HOKUTO_CROSS:-0}" = "1" ]; then
     [ "$HOKUTO_ARCH" = "x86_64" ] && HOST_TRIPLET="x86_64-linux-gnu"
     [ "$HOKUTO_ARCH" = "aarch64" ] && HOST_TRIPLET="aarch64-linux-gnu"
     CROSS_OPTS="--host=$HOST_TRIPLET"
+
+# fix makefile
+sed -i 's|src/dracut-cpio/target/release/dracut-cpio|src/dracut-cpio/target/aarch64-unknown-linux-gnu/release/dracut-cpio|g' Makefile
 fi
 
 ./configure \
