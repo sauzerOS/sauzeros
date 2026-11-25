@@ -13,6 +13,7 @@ zstd
 lib32-brotli make
 lib32-libidn2 make
 lib32-libtasn1 make
+lib32-libunistring make
 lib32-nettle make
 lib32-p11-kit make
 lib32-zlib-ng make
