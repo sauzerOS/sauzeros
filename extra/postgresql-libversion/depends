@@ -1,3 +1,7 @@
 libversion
 postgresql make
 scdoc make
+aarch64-gcc cross make
+aarch64-libversion cross make
+aarch64-postgresql cross make
+scdoc cross make

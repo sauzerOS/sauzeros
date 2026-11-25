@@ -1,4 +1,15 @@
 #!/bin/bash -e
 
+if [ "$HOKUTO_CROSS" = "1" ]; then
+
+make PG_CONFIG=/usr/aarch64-linux-gnu/bin/pg_config \
+  DESTDIR="$1" \
+  pkglibdir=/usr/lib/postgresql \
+  datadir=/usr/share/postgresql install
+
+else
 make
 make DESTDIR=$1 install
+fi
+
+
