@@ -9,4 +9,5 @@ export LD_LIBRARY_PATH="$SYSROOT/lib:$SYSROOT/usr/lib:$LD_LIBRARY_PATH"
 
 # Run the real ARM64 llvm-config (using qemu-aarch64 behind the scenes)
 # and fix the paths in the output so Rust finds them in the sysroot
-$SYSROOT/usr/bin/llvm-config "$@" | sed "s|/usr|$SYSROOT/usr|g"
+$SYSROOT/usr/bin/llvm-config "$@" \
+  | sed -e "s|$SYSROOT/usr|/usr|g" -e "s|/usr|$SYSROOT/usr|g"
