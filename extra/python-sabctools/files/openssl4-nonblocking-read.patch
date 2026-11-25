@@ -10,11 +10,9 @@ SSLEOFError.
 
 Use CPython's OpenSSL 4 layout starting with Python 3.14.
 
-diff --git a/src/unlocked_ssl.cc b/src/unlocked_ssl.cc
-index 24c6c91..e39e9d2 100644
---- a/src/unlocked_ssl.cc
-+++ b/src/unlocked_ssl.cc
-@@ -50,7 +50,7 @@ typedef struct {
+--- src/unlocked_ssl.cc 2022-11-09 19:37:21.000000000 +0700
++++ src/unlocked_ssl.cc 2026-11-25 10:25:40.182011751 +0700
+@@ -61,7 +61,7 @@
      int socket_type;
      PyObject *owner; /* Python level "owner" passed to servername callback */
      PyObject *server_hostname;
@@ -23,19 +21,17 @@ index 24c6c91..e39e9d2 100644
      int got_eof_error;
  #else
      _PySSLError err; /* last seen error from various sources */
-@@ -255,7 +255,7 @@ static PyObject* unlocked_ssl_recv_into_impl(PySSLSocket *self, Py_ssize_t len,
-         } while (len > 0);
-         err = _PySSL_errno(retval == 0, self->ssl, retval);
-         Py_END_ALLOW_THREADS;
+@@ -359,7 +359,7 @@
+         err = _PySSL_errno(ssl_pending < 0, self->ssl, ssl_pending);
+     }
+     Py_END_ALLOW_THREADS;
 -#if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 15)
 +#if PY_VERSION_HEX < SABCTOOLS_PY_HEX(3, 14)
-         self->err = err;
+     self->err = err;
  #endif
- 
-diff --git a/tests/test_unlocked_ssl.py b/tests/test_unlocked_ssl.py
-index ad4c8c2..d69ae54 100644
---- a/tests/test_unlocked_ssl.py
-+++ b/tests/test_unlocked_ssl.py
+  
+--- tests/test_unlocked_ssl.py
++++ tests/test_unlocked_ssl.py
 @@ -285,6 +285,17 @@ def test_unlocked_ssl_recv_into_response(client, buffer):
      assert buffer[:bytes_received].tobytes() == b"TEST"
  
