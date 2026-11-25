@@ -4,10 +4,6 @@ set -e
 # Assuming $2 is version and $1 is DESTDIR
 cd "rustc-$2-src"
 
-# upstream dropped AMX-TF32
-#patch -Np1 -i ../159310.patch
-#git apply ../amx-tf32-removal.patch
-
 # Select the correct TOML
 if [ "$HOKUTO_CROSS" = "1" ] && [ "$HOKUTO_CARCH" = "arm64" ]; then
     echo "==> Preparing Cross-Compilation"
@@ -29,6 +25,7 @@ sed -i "/\[build\]/a jobs = $jobs_var" config.toml
 
 # Cross-Compilation Environment Setup
 if [ "$HOKUTO_CROSS" = "1" ]; then
+install -Dm755 ../rust-llvm-config /tmp/rust-llvm-config
 
 # Update config.toml with the determined prefix
 sed -i "s|^prefix =.*|prefix = \"$CROSS_PREFIX\"|" config.toml
@@ -90,7 +87,6 @@ export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 unset CFLAGS CXXFLAGS LDFLAGS
 
 # --- 4. Build and Install ---
-
 echo "==> Starting x.py build"
 
 # Pre-populate bootstrap cache to prevent redownload
@@ -128,9 +124,6 @@ for path in "${bootstrap_tarballs[@]}"; do
 done
 shopt -u nullglob
 
-# LLVM 22.1.0 fix7
-#sed -i 's|llvm/Passes/PassPlugin.h|llvm/Plugins/PassPlugin.h|g' ./compiler/rustc_llvm/llvm-wrapper/PassWrapper.cpp
-
 ./x.py build
 
 echo "==> Installing to $1"
@@ -160,6 +153,8 @@ fi
 rm -rf \
     "$1/usr/lib/rustlib/src/" \
     "$1/usr/lib/rustlib/uninstall.sh"
+
+rm -f /tmp/rust-llvm-config
 
 if [ "${HOKUTO_CROSS:-0}" != "1" ] && [ "$MULTILIB" = "1" ]; then
 #32 bit lib32-rust-libs split package

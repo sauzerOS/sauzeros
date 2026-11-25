@@ -38,8 +38,7 @@ cc = "/usr/bin/gcc"
 cxx = "/usr/bin/g++"
 ar = "/usr/bin/gcc-ar"
 ranlib = "/usr/bin/gcc-ranlib"
-# The host still needs its own llvm-config if available [cite: 15]
-llvm-config = "/usr/bin/llvm-config"
+llvm-config = "/tmp/rust-llvm-config"
 
 [target.aarch64-unknown-linux-gnu]
 # Use your x86_64 -> arm64 cross-compiler

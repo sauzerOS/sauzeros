@@ -1,0 +1,7 @@
+#!/bin/bash
+# Cargo sets TARGET for build scripts, so rustc_llvm for stage2 sees aarch64.
+if [ "$TARGET" = "aarch64-unknown-linux-gnu" ]; then
+    exec /usr/bin/aarch64-linux-gnu-llvm-config "$@"
+else
+    exec /usr/bin/llvm-config "$@"
+fi
