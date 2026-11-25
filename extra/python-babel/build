@@ -1,4 +1,7 @@
 #!/bin/bash -e
 
+# remove hatchling version check
+sed -i 's/"hatchling~=1\.27\.0"\]  *# Bump.*/"hatchling"]/' pyproject.toml
+
 python -m build --wheel --no-isolation
 python -m installer --destdir="$1" dist/*.whl
